@@ -8,21 +8,6 @@ const pageSchema = createWebPageSchema({
   description:
     'Les personnes qui vivent et portent LAOM au quotidien : santé holistique, création, agriculture régénératrice et accompagnement.',
 })
-
-const galleryImages = [
-  '/images/laom/qui-sommes-nous/_ild7331-2_print-6d1170ef.webp',
-  '/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp',
-  '/images/laom/qui-sommes-nous/amaw-a674939f.webp',
-  '/images/laom/qui-sommes-nous/charly-rond-f60f6ff8.webp',
-  '/images/laom/qui-sommes-nous/claire-rond-06558afe.webp',
-  '/images/laom/qui-sommes-nous/cnv-e2c8f22d.webp',
-  '/images/laom/qui-sommes-nous/eliott-rond-066be4aa.webp',
-  '/images/laom/qui-sommes-nous/frere-d-ame-dee12e1c.webp',
-  '/images/laom/qui-sommes-nous/greg-rond-64c0d28d.webp',
-  '/images/laom/qui-sommes-nous/logo-atomic-67930e5e.webp',
-  '/images/laom/qui-sommes-nous/logo-lfdv-ac9d73b5.webp',
-  '/images/laom/qui-sommes-nous/patricia-c62eba06.webp',
-]
 ---
 
 <Layout
@@ -40,19 +25,6 @@ const galleryImages = [
         Un projet collectif incarné par des personnes qui vivent sur place et mettent leurs compétences en commun pour
         faire rayonner LAOM.
       </p>
-    </div>
-  </section>
-
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="aspect-[16/9] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-        <img
-          src="/images/laom/qui-sommes-nous/_ild7331-2_print-6d1170ef.webp"
-          alt="Vie collective à LAOM"
-          class="h-full w-full object-cover rounded-sm"
-          loading="lazy"
-        />
-      </div>
     </div>
   </section>
 
@@ -117,7 +89,7 @@ const galleryImages = [
           <p class="text-xs tracking-[0.25em] uppercase text-black/40 mb-3">Président de la Ferme du Verseau</p>
           <h2 class="text-xl font-light text-black mb-4">Charly Aubert</h2>
           <p class="text-sm font-light text-black/60 leading-relaxed">
-            Fondateur de la Ferme du Verseau, dont l’activité est la production maraîchère et l’animation de stages
+            Fondateur de la Ferme du Verseau, dont l'activité est la production maraîchère et l'animation de stages
             autour des pratiques agricoles régénératives. Habitant sur place, il coordonne le développement global du
             projet LAOM.
           </p>
@@ -154,22 +126,6 @@ const galleryImages = [
             personnel ancré en Aveyron où il donne ses stages à LAOM.
           </p>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-24 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-10">Galerie</h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {galleryImages.map((src, index) => (
-          <img
-            src={src}
-            alt={`Galerie Qui sommes-nous ${index + 1}`}
-            class="h-48 w-full rounded-sm object-cover border border-black/10 bg-white"
-            loading="lazy"
-          />
-        ))}
       </div>
     </div>
   </section>
