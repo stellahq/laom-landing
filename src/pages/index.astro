@@ -257,6 +257,36 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
+  <!-- LaomFest – Citadel Garden style -->
+  <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-6">
+          {t.home.laomfest.title}
+        </h2>
+        <p class="text-xl md:text-2xl font-normal text-black/70 mb-2 max-w-3xl mx-auto leading-relaxed">
+          {t.home.laomfest.description}
+        </p>
+        <p class="text-sm font-normal text-black/60 italic">{t.home.laomfest.dateNote}</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" aria-label="Photos d’illustration LAOMFEST">
+        {['vanlifest-IMG_1021', 'vanlifest-IMG_1373', 'vanlifest-IMG_1399', 'vanlifest-IMG_2563', 'vanlifest-IMG_2846', 'vanlifest-IMG_9979'].map((name) => (
+          <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
+            <img
+              src={`/images/laom/laomfest/${name}.jpg`}
+              alt=""
+              class="w-full h-full object-cover rounded-sm"
+              loading="lazy"
+              width="400"
+              height="300"
+              aria-hidden="true"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Channels Section (Suivre le projet) – Citadel Garden style -->
   <section class="py-24 md:py-32 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">

@@ -566,6 +566,11 @@ export const translations = {
         '11 copropriétaires engagés',
         '2M€ investis collectivement',
       ],
+      laomfest: {
+        title: 'LaomFest',
+        description: 'Mini-festival : trois jours de rencontres, ateliers, concerts et conférences pour vivre une communauté éphémère.',
+        dateNote: 'Date en septembre à confirmer',
+      },
       channelsTitle: 'Suivre le projet',
       channels: [
         {
@@ -1219,6 +1224,11 @@ export const translations = {
         '11 committed co-owners',
         '€2M invested collectively',
       ],
+      laomfest: {
+        title: 'LaomFest',
+        description: 'Mini-festival: three days of gatherings, workshops, concerts and conferences to experience an ephemeral community.',
+        dateNote: 'Date in September to be confirmed',
+      },
       channelsTitle: 'Follow the project',
       channels: [
         {

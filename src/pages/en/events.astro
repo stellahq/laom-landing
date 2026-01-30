@@ -34,7 +34,7 @@ const events = t.events.items.map((item, index) => ({
   <section class="relative py-32 lg:py-40 flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
       <img
-        src="/images/laom/immersion-mouvement-hero.webp"
+        src="/images/laom/laomfest/vanlifest-IMG_2846.jpg"
         alt=""
         class="absolute inset-0 w-full h-full object-cover"
         loading="eager"
@@ -97,7 +97,22 @@ const events = t.events.items.map((item, index) => ({
         <p class="text-black/70 font-light leading-relaxed mb-2 max-w-2xl">
           {t.pages.eventsPage.laomfest.description}
         </p>
-        <p class="text-sm font-light text-black/60 italic">{t.pages.eventsPage.laomfest.dateNote}</p>
+        <p class="text-sm font-light text-black/60 italic mb-8">{t.pages.eventsPage.laomfest.dateNote}</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" aria-label="LAOMFEST illustration photos">
+          {['vanlifest-IMG_1021', 'vanlifest-IMG_1373', 'vanlifest-IMG_1399', 'vanlifest-IMG_2563', 'vanlifest-IMG_2846', 'vanlifest-IMG_9979'].map((name) => (
+            <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
+              <img
+                src={`/images/laom/laomfest/${name}.jpg`}
+                alt=""
+                class="w-full h-full object-cover rounded-sm"
+                loading="lazy"
+                width="400"
+                height="300"
+                aria-hidden="true"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
