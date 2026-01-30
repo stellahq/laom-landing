@@ -12,14 +12,14 @@ const pageSchema = createWebPageSchema({
 })
 
 const eventImages = [
-  '/images/event-danse-silence.png',
+  '/images/claire-danse-libre-retraite-2048x1368.webp',
   '/images/event-rencontre-perspective.jpg',
-  '/images/event-desirs-aventure.jpg',
-  '/images/event-fyneo.jpg',
+  '/images/colette.webp',
+  '/images/david-lin-fyneo.jpg',
 ]
 const events = t.events.items.map((item, index) => ({
   ...item,
-  image: eventImages[index] || '/images/event-fyneo.jpg',
+  image: eventImages[index] || '/images/david-lin-fyneo.jpg',
 }))
 ---
 
@@ -109,25 +109,53 @@ const events = t.events.items.map((item, index) => ({
         {t.pages.eventsPage.partnersSectionTitle}
       </h2>
       <div class="grid gap-6">
-        {events.map((event) => (
-          <div class="group border border-black/10 bg-white overflow-hidden flex flex-col md:flex-row">
-            <div class="md:w-64 lg:w-72 bg-neutral-100">
-              <img src={event.image} alt={event.title} class="w-full h-full object-cover rounded-sm" loading="lazy" />
-            </div>
-            <div class="flex-1 p-6 md:p-8 flex flex-col justify-between">
-              <div>
-                <p class="text-xs font-light tracking-widest uppercase text-black/50 mb-3">{event.date}</p>
-                <h3 class="text-2xl font-light mb-3 group-hover:translate-x-1 transition-transform duration-300">
-                  {event.title}
-                </h3>
-                <p class="text-sm font-light text-black/60">{event.description}</p>
+        {events.map((event) => {
+          const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
+          const isFyneo = event.title.includes('Fyneo')
+          const inner = (
+            <>
+              <div class="md:w-64 lg:w-72 flex-shrink-0 aspect-[4/3] bg-neutral-100 rounded-sm overflow-hidden">
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  class={`w-full h-full object-cover rounded-sm ${isFyneo ? 'object-[50%_25%]' : ''}`}
+                  loading="lazy"
+                />
               </div>
-              <div class="mt-6 text-xs tracking-widest uppercase text-black/40 group-hover:text-black transition-colors">
-                {t.events.cta}
+              <div class="flex-1 p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                  <p class="text-xs font-light tracking-widest uppercase text-black/50 mb-3">{event.date}</p>
+                  <h3 class="text-2xl font-light mb-3 group-hover:translate-x-1 transition-transform duration-300">
+                    {event.title}
+                  </h3>
+                  <p class="text-sm font-light text-black/60">{event.description}</p>
+                </div>
+                <div class="mt-6 text-xs tracking-widest uppercase text-black/40 group-hover:text-black transition-colors">
+                  {t.events.cta}
+                </div>
               </div>
+            </>
+          )
+          return (
+            <div class="group border border-black/10 bg-white overflow-hidden flex flex-col md:flex-row">
+              {eventHref ? (
+                <a
+                  href={eventHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex flex-col md:flex-row w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
+                  aria-label={`${event.title} (opens in new tab)`}
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div class="flex flex-col md:flex-row w-full">
+                  {inner}
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   </section>

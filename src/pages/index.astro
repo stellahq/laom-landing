@@ -13,14 +13,14 @@ const siteSchema = createWebSiteSchema({
 })
 
 const eventImages = [
-  '/images/event-danse-silence.png',
+  '/images/claire-danse-libre-retraite-2048x1368.webp',
   '/images/event-rencontre-perspective.jpg',
-  '/images/event-desirs-aventure.jpg',
-  '/images/event-fyneo.jpg',
+  '/images/colette.webp',
+  '/images/david-lin-fyneo.jpg',
 ]
 const events = t.events.items.map((item, index) => ({
   ...item,
-  image: eventImages[index] || '/images/event-fyneo.jpg',
+  image: eventImages[index] || '/images/david-lin-fyneo.jpg',
 }))
 
 const spaceImages = [
@@ -206,31 +206,53 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       </div>
 
       <div class="space-y-16 opacity-0" animate-fade-in-up>
-        {events.map((event) => (
-          <article class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-            <div class="w-full md:w-80 flex-shrink-0">
-              <div class="aspect-[4/3] bg-neutral-100 overflow-hidden rounded-sm">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  class="w-full h-full object-cover rounded-sm"
-                  loading="lazy"
-                />
+        {events.map((event) => {
+          const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
+          const inner = (
+            <>
+              <div class="w-full md:w-80 flex-shrink-0">
+                <div class="aspect-[4/3] bg-neutral-100 overflow-hidden rounded-sm">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    class="w-full h-full object-cover rounded-sm"
+                    loading="lazy"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="flex-1">
-              <p class="text-sm font-normal text-black/50 mb-2">
-                {event.date}
-              </p>
-              <h3 class="text-2xl md:text-3xl font-normal text-black mb-4 tracking-tight">
-                {event.title}
-              </h3>
-              <p class="text-base font-normal text-black/70 leading-relaxed">
-                {event.description}
-              </p>
-            </div>
-          </article>
-        ))}
+              <div class="flex-1">
+                <p class="text-sm font-normal text-black/50 mb-2">
+                  {event.date}
+                </p>
+                <h3 class="text-2xl md:text-3xl font-normal text-black mb-4 tracking-tight">
+                  {event.title}
+                </h3>
+                <p class="text-base font-normal text-black/70 leading-relaxed">
+                  {event.description}
+                </p>
+              </div>
+            </>
+          )
+          return (
+            <article class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+              {eventHref ? (
+                <a
+                  href={eventHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
+                  aria-label={`${event.title} (ouvre dans un nouvel onglet)`}
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full">
+                  {inner}
+                </div>
+              )}
+            </article>
+          )
+        })}
       </div>
     </div>
   </section>
