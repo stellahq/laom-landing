@@ -12,7 +12,8 @@
     "build": "wrangler types && astro check && astro build",
     "preview": "wrangler types && astro preview",
     "format": "prettier --write '**/*' --ignore-unknown",
-    "process-image": "node process-images.mjs"
+    "process-image": "node process-images.mjs",
+    "optimize-images": "node optimize-all-images.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

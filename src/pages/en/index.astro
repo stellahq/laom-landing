@@ -14,13 +14,13 @@ const siteSchema = createWebSiteSchema({
 
 const eventImages = [
   '/images/claire-danse-libre-retraite-2048x1368.webp',
-  '/images/event-rencontre-perspective.jpg',
+  '/images/event-rencontre-perspective.webp',
   '/images/colette.webp',
-  '/images/david-lin-fyneo.jpg',
+  '/images/david-lin-fyneo.webp',
 ]
 const events = t.events.items.map((item, index) => ({
   ...item,
-  image: eventImages[index] || '/images/david-lin-fyneo.jpg',
+  image: eventImages[index] || '/images/david-lin-fyneo.webp',
 }))
 
 const spaceImages = [
@@ -155,6 +155,9 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                   alt={(space as { imageAlt?: string }).imageAlt ?? space.title}
                   class={`w-full h-full object-cover ${i === 2 ? 'object-left' : i === 3 ? 'object-right' : ''}`}
                   loading="lazy"
+                  width="420"
+                  height="560"
+                  decoding="async"
                 />
               </div>
               <div class="mt-4 px-2 sm:px-3">
@@ -223,6 +226,9 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                   alt={event.title}
                   class="w-full h-full object-cover rounded-sm"
                   loading="lazy"
+                  width="400"
+                  height="300"
+                  decoding="async"
                 />
               </div>
               <div class="p-5 md:p-6 flex flex-col flex-1">
@@ -278,12 +284,13 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         {['vanlifest-IMG_1021', 'vanlifest-IMG_1373', 'vanlifest-IMG_1399', 'vanlifest-IMG_2563', 'vanlifest-IMG_2846', 'vanlifest-IMG_9979'].map((name) => (
           <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
             <img
-              src={`/images/laom/laomfest/${name}.jpg`}
+              src={`/images/laom/laomfest/${name}.webp`}
               alt=""
               class="w-full h-full object-cover rounded-sm"
               loading="lazy"
               width="400"
               height="300"
+              decoding="async"
               aria-hidden="true"
             />
           </div>
