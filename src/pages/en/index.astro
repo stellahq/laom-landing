@@ -6,7 +6,8 @@ import { createWebSiteSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
 import { getCollection } from 'astro:content'
 
-const allPosts = (await getCollection('blog', ({ data }) => data.locale === 'en' && !data.draft))
+const allPosts = (await getCollection('blog'))
+  .filter(post => post.data.locale === 'en' && !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
 
@@ -43,13 +44,16 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
 <Layout
   title={`${t.site.name} – ${t.site.tagline}`}
   description={t.site.description}
-  seo={{ ldJSON: siteSchema }}
+  seo={{
+    ldJSON: siteSchema,
+  }}
 >
+  <!-- 1. Hero -->
   <div class="-mt-24 md:-mt-28">
     <Hero />
   </div>
 
-  <!-- Intro -->
+  <!-- 2. Intro / Presentation LAOM -->
   <section id="intro" class="py-12 md:py-16 bg-[#F3EEDC]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
       <h2 class="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-black mb-10 leading-tight title-underline">
@@ -75,14 +79,15 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
+  <!-- 3. Newsletter -->
   <NewsletterBanner />
 
-  <!-- En Mouvement - Signature immersion -->
+  <!-- 4. En Mouvement, signature immersion -->
   <section id="experience" class="py-24 md:py-32 bg-[#F3EEDC] overflow-hidden">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
         <div class="w-full lg:w-96 flex-shrink-0 opacity-0 delay-200" animate-fade-in-up>
-          <a href="/stage-danse/" class="block group">
+          <a href="/en/stage-danse/" class="block group">
             <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
               <img
                 src="/images/laom/samuel-planas.webp"
@@ -107,7 +112,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
             3 sessions this summer: 5–9 August, 11–15 August, 16–20 August 2026.
           </p>
           <a
-            href="/stage-danse/"
+            href="/en/stage-danse/"
             class="inline-block mt-6 text-base text-black/60 hover:text-black transition-colors font-light underline underline-offset-4"
           >
             Discover the workshop
@@ -117,7 +122,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- Blog -->
+  <!-- 5. Journal de bord -->
   <section class="py-16 md:py-24 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-3xl md:text-4xl font-normal text-black tracking-tight mb-14 opacity-0 title-underline" animate-fade-in-up>
@@ -125,7 +130,8 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       </h2>
 
       <div class="opacity-0" animate-fade-in-up>
-        <a href="/en/grand-shambala/" class="group block mb-10">
+        <!-- Featured: Grand Shambala -->
+        <a href="/en/grand-shambala-v2/" class="group block mb-10">
           <article class="flex flex-col md:flex-row gap-8 items-start">
             <div class="w-full md:w-2/3 aspect-[16/9] overflow-hidden rounded-sm">
               <img
@@ -152,6 +158,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           </article>
         </a>
 
+        <!-- Other articles from blog -->
         {allPosts.length > 0 && (
           <div class="grid md:grid-cols-2 gap-8">
             {allPosts.slice(0, 2).map((post) => (
@@ -194,7 +201,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- Our Spaces -->
+  <!-- 6. Our Spaces -->
   <section id="spaces" class="py-24 md:py-32 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight text-center mb-16 opacity-0 title-underline mx-auto" animate-fade-in-up>
@@ -268,7 +275,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     })()
   </script>
 
-  <!-- Events -->
+  <!-- 7. Partner events -->
   <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-20 opacity-0" animate-fade-in-up>
@@ -330,7 +337,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- LaomFest -->
+  <!-- LaomFest – Citadel Garden style -->
   <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10">
@@ -361,7 +368,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- YouTube -->
+  <!-- 8. YouTube, video embed -->
   <section class="py-24 md:py-32 bg-[#F3EEDC]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
       <div class="text-center mb-12">

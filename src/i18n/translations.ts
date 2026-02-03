@@ -66,7 +66,7 @@ export const translations = {
           href: 'https://perspectives.ac/',
         },
         {
-          title: 'Désirs d\'Aventure',
+          title: 'Désirs d\'Aventure #2',
           date: '30 avr. 2026 – 3 mai 2026',
           description: 'Exploration du corps et de sa sensualité avec Colette Williams',
           href: 'https://www.coletteseconfesse.fr/',
@@ -771,7 +771,7 @@ export const translations = {
           href: 'https://perspectives.ac/',
         },
         {
-          title: 'Adventure Desires',
+          title: 'Adventure Desires #2',
           date: 'Apr 30, 2026 – May 3, 2026',
           description: 'Exploration of the body and sensuality with Colette Williams',
           href: 'https://www.coletteseconfesse.fr/',
