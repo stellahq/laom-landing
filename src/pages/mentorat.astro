@@ -1,0 +1,155 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import NewsletterBanner from '~/components/NewsletterBanner.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageSchema = createWebPageSchema({
+  name: 'Mentorat — Charly Aubert',
+  url: Astro.url.toString(),
+  description: 'Un accompagnement individuel pour ceux qui veulent changer de vie, creer un coliving ou construire un ecolieu.',
+})
+---
+
+<Layout
+  title="Mentorat — Charly Aubert | LAOM"
+  description="Un accompagnement individuel pour ceux qui veulent changer de vie, creer un coliving ou construire un ecolieu."
+  seo={{
+    ldJSON: pageSchema,
+  }}
+>
+  <!-- Hero -->
+  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-[#E8E3D8] flex items-center justify-center">
+        <p class="text-sm font-light text-[#2C2824]/40">Photo a prendre : Charly en exterieur, lumiere naturelle, posture ouverte</p>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50"></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center py-32 lg:py-40">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-white/80 mb-6">Accompagnement individuel</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight">
+        Mentorat
+      </h1>
+      <p class="text-xl md:text-2xl font-light text-white/90 max-w-3xl mx-auto leading-relaxed">
+        Un espace pour clarifier ta vision, structurer ton projet et passer a l'action. Avec quelqu'un qui l'a fait.
+      </p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Tu veux changer de vie. Creer un lieu. Lancer un coliving. Construire un ecolieu. Ou simplement trouver plus de sens dans ce que tu fais.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        Le mentorat, c'est un cadre simple : des echanges reguliers, en visio ou sur place, pour avancer concretement. Pas de methode toute faite. Pas de formation standardisee. Un accompagnement sur mesure, nourri par l'experience de terrain.
+      </p>
+    </div>
+  </section>
+
+  <!-- Pour qui -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Pour qui</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
+          Trois profils, un meme elan
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 opacity-0" animate-fade-in-up>
+        <div class="bg-white border border-black/5 rounded-sm p-8">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">01</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Changer de vie</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Tu sens que quelque chose ne colle plus. Tu veux quitter la ville, ralentir, trouver un cadre de vie plus aligne. Mais tu ne sais pas par ou commencer.
+          </p>
+        </div>
+        <div class="bg-white border border-black/5 rounded-sm p-8">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">02</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Creer un coliving rentable</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Tu as un projet de coliving ou de lieu d'accueil. Tu veux que ca marche economiquement, sans sacrifier la vision. Modele juridique, business plan, positionnement.
+          </p>
+        </div>
+        <div class="bg-white border border-black/5 rounded-sm p-8">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">03</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Construire un ecolieu</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Tu veux monter un ecolieu de A a Z. Trouver le terrain, former le groupe, structurer la gouvernance, obtenir les autorisations, construire. Tu cherches quelqu'un qui a traverse tout ca.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- L'approche -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">L'approche</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">
+        Du terrain, pas de la theorie
+      </h2>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Le mentorat est individuel. On part de ta situation, de ta vision, de tes contraintes. On avance a ton rythme. On clarifie. On structure. On passe a l'action.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Ce n'est pas du coaching generique. C'est un accompagnement nourri par 5 ans de construction d'un ecolieu de 21 hectares, un collectif de 15 menages, la construction du plus grand batiment en paille porteuse au monde, et toutes les erreurs qu'on a faites en chemin.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        On parle de gouvernance, de juridique, d'ecoconstruction, de financement, de dynamique de groupe, de positionnement. Mais aussi de doutes, de peurs, de solitude. Parce que creer un lieu, c'est aussi traverser tout ca.
+      </p>
+    </div>
+  </section>
+
+  <!-- Charly Aubert -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex flex-col md:flex-row gap-12 items-start opacity-0" animate-fade-in-up>
+        <div class="w-full md:w-80 flex-shrink-0">
+          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/40 px-6 text-center">Photo a prendre : portrait Charly, naturel, en exterieur</p>
+          </div>
+        </div>
+        <div class="flex-1">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Qui</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            Charly Aubert
+          </h2>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
+            33 ans. Autodidacte. Ex-Epitech. Co-fondateur de LAOM, ecolieu de 21 hectares dans le sud de l'Aveyron. A construit le plus grand batiment en paille porteuse au monde (Grand Shambala, 850 m2). Pere. Batisseur.
+          </p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
+            5 ans a naviguer les permis, la gouvernance collective, l'ecoconstruction, les departs, les arrivees, les remises en question. Et a construire quand meme.
+          </p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Aujourd'hui, il partage ce qu'il a appris. Pas pour donner des lecons — pour faire gagner du temps a ceux qui se lancent.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Reserver -->
+  <section class="py-20 md:py-24 bg-[#2C2824]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Premier echange</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
+        On en parle ?
+      </h2>
+      <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
+        30 minutes, en visio, sans engagement. On fait le point sur ta situation, on voit si le mentorat peut t'aider, et on decide ensemble.
+      </p>
+      <a
+        href="https://cal.atomik.world/charly/30min"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+      >
+        Reserver un appel
+      </a>
+    </div>
+  </section>
+
+</Layout>

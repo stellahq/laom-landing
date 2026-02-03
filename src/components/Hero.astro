@@ -4,97 +4,42 @@ import { getTranslations } from '~/i18n/utils'
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
 
-const heroVideoSrc = '/videos/aveyron_hero.webm'
-const heroImageFallback = '/images/vue-aeriene-laom2-hero.webp'
+const heroImage = '/images/vue-aeriene-laom2-hero.webp'
 ---
 
 <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background Video/Image with natural fallback -->
-  <div class="absolute inset-0 z-0">
-    <!-- Natural gradient background as fallback (forest/rural colors) -->
-    <div class="absolute inset-0 bg-gradient-to-br from-[#2d5016] via-[#3a6030] to-[#1a3320]"></div>
-    
-    <!-- Video Background (inspired by Our Habitas) -->
-    <video
-      id="hero-video"
-      class="absolute inset-0 w-full h-full object-cover"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      poster={heroImageFallback}
-    >
-      <source src={heroVideoSrc} type="video/webm" />
-    </video>
-    
-    <!-- Image fallback (shown if video doesn't load) -->
-    <div 
-      id="hero-image-fallback"
-      class="absolute inset-0 bg-cover bg-center hidden" 
-      style="background-image: url('{heroImageFallback}'); background-position: center; background-size: cover;"
-    ></div>
-    
-    <!-- Gradient overlay for text readability (inspired by Our Habitas) -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50"></div>
-    <!-- Additional natural overlay -->
-    <div class="absolute inset-0 bg-[#2d5016]/10"></div>
-  </div>
+  <!-- Background image : vue aérienne LAOM -->
+  <img
+    src={heroImage}
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    width="1920"
+    height="1080"
+    aria-hidden="true"
+  />
 
-  <!-- Content – Citadel Garden style -->
-  <div class="relative z-20 text-center px-10 sm:px-16 lg:px-24 max-w-6xl mx-auto opacity-0 translate-y-8 animate-fade-in-up" style="animation-delay: 0.2s;">
-    <!-- Main title -->
-    <h1 class="text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-white mb-6 leading-[0.95] drop-shadow-lg">
-      {t.hero.title}
+  <!-- Light overlay -->
+  <div class="absolute inset-0 bg-black/20"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-6">
+    <h1 class="text-7xl md:text-8xl lg:text-9xl font-normal tracking-tight text-white leading-none opacity-0 animate-fade-in-up">
+      LAOM
     </h1>
-    
-    <!-- Tagline -->
-    <p class="text-xl md:text-2xl lg:text-3xl font-normal text-white/95 drop-shadow-sm max-w-4xl mx-auto">
+    <p class="mt-6 text-lg md:text-xl font-light text-white/80 tracking-wide opacity-0 animate-fade-in-up" style="animation-delay: 0.3s;">
       {t.hero.tagline}
     </p>
   </div>
 
-  <!-- Scroll Indicator – arrow in circle (minimal) -->
-  <a
-    href="#experience"
-    aria-label="Scroll to content"
-    class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-white/90 hover:text-white transition-colors"
-  >
-    <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
-      <polygon points="9,10 15,10 12,15" fill="currentColor" />
-    </svg>
-  </a>
+  <!-- Scroll arrow -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in-up" style="animation-delay: 0.6s;">
+    <a href="#intro" class="block text-white/60 hover:text-white transition-colors" aria-label="Défiler vers le bas">
+      <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </a>
+  </div>
 </section>
-
-<script>
-  // Handle video loading errors - fallback to image
-  const heroVideo = document.getElementById('hero-video')
-  const heroImageFallback = document.getElementById('hero-image-fallback')
-  
-  if (heroVideo) {
-    heroVideo.addEventListener('error', () => {
-      // Video failed to load, show image fallback
-      if (heroImageFallback) {
-        heroVideo.style.display = 'none'
-        heroImageFallback.classList.remove('hidden')
-      }
-    })
-    
-    heroVideo.addEventListener('loadeddata', () => {
-      // Video loaded successfully
-      if (heroImageFallback) {
-        heroImageFallback.classList.add('hidden')
-      }
-    })
-    
-    // Try to play the video (required for autoplay in some browsers)
-    ;(heroVideo as HTMLVideoElement).play().catch(() => {
-      // Autoplay failed, show image fallback
-      if (heroImageFallback) {
-        heroVideo.style.display = 'none'
-        heroImageFallback.classList.remove('hidden')
-      }
-    })
-  }
-</script>

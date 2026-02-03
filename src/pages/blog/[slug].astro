@@ -3,6 +3,7 @@ import Layout from '~/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import { createWebPageSchema } from '~/utils/schema'
 import { getTranslations } from '~/i18n/utils'
+import { getLocalizedPath } from '~/i18n/utils'
 
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
@@ -19,20 +20,18 @@ if (!postEntry) {
 const { Content } = await postEntry.render()
 const post = postEntry
 
-// Format dates
+// Format date
 const formattedPubDate = new Date(post.data.pubDate).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 })
 
-const formattedUpdatedDate = post.data.updatedDate
-  ? new Date(post.data.updatedDate).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  : null
+// Related articles — same locale, exclude current, max 3
+const relatedPosts = allPosts
+  .filter(p => p.data.locale === lang && !p.data.draft && p.slug !== post.slug)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
 
 // Create article schema for JSON-LD
 const pageSchema = createWebPageSchema({
@@ -51,94 +50,225 @@ const pageSchema = createWebPageSchema({
     ogType: 'article',
     publishedTime: post.data.pubDate.toISOString(),
     modifiedTime: post.data.updatedDate?.toISOString(),
-    tags: post.data.tags,
     image: post.data.heroImage ? new URL(post.data.heroImage, Astro.site || Astro.url).toString() : undefined,
   }}
 >
-  <article class="bg-white">
-    <!-- Hero Section -->
+
+  <article>
+    <!-- Hero -->
     {post.data.heroImage && (
-      <section class="relative h-[60vh] min-h-[400px] overflow-hidden">
+      <section class="relative w-full -mt-24 md:-mt-28">
         <img
           src={post.data.heroImage}
           alt={post.data.title}
-          class="w-full h-full object-cover rounded-sm"
+          class="w-full h-[70vh] min-h-[500px] object-cover"
           loading="eager"
+          fetchpriority="high"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent flex flex-col items-center justify-end pb-16 md:pb-24">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-white/60 mb-4">
+            {formattedPubDate}
+          </p>
+          <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight text-center max-w-4xl px-8 drop-shadow-lg leading-tight">
+            {post.data.title}
+          </h1>
+        </div>
       </section>
     )}
 
-    <!-- Article Header -->
-    <section class="py-16 lg:py-24 bg-white">
-      <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-        <div class="mb-8">
-          <a
-            href="/blog/"
-            class="text-xs tracking-widest uppercase text-black/40 hover:text-black transition-colors inline-flex items-center gap-2 mb-6"
-          >
-            ← {t.blog.backToBlog}
-          </a>
-          <p class="text-xs font-light tracking-widest uppercase text-black/50 mb-4">
+    {!post.data.heroImage && (
+      <section class="pt-16 pb-8 bg-white">
+        <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
             {formattedPubDate}
-            {formattedUpdatedDate && ` • ${t.blog.updated} ${formattedUpdatedDate}`}
           </p>
-          {post.data.tags && post.data.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 mb-6">
-              {post.data.tags.map((tag) => (
-                <span class="text-xs px-3 py-1 bg-black/5 text-black/60 rounded-sm font-light">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+          <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-[#2C2824] tracking-tight leading-tight">
+            {post.data.title}
+          </h1>
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-black mb-6 tracking-tight">
-          {post.data.title}
-        </h1>
-        <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
+      </section>
+    )}
+
+    <!-- Intro -->
+    <section class="py-12 md:py-16 bg-[#FAF8F5]">
+      <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+        <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824]">
           {post.data.description}
         </p>
-        {post.data.author && (
-          <p class="mt-6 text-sm font-light text-black/50">
-            {t.blog.by} {post.data.author}
+        {post.data.author && post.data.author !== 'LAOM' && (
+          <p class="mt-6 text-sm font-light text-[#2C2824]/50">
+            Par {post.data.author}
           </p>
         )}
       </div>
     </section>
 
-    <!-- Article Content -->
-    <section class="py-8 bg-white">
-      <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-        {post.data.youtubeId && (
-          <div class="aspect-video w-full rounded-sm overflow-hidden border border-black/10 mb-10 bg-black/5">
+    <!-- YouTube embed if present -->
+    {post.data.youtubeId && (
+      <section class="py-8 bg-white">
+        <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+          <div class="aspect-video w-full rounded-sm overflow-hidden border border-black/5">
             <iframe
               src={`https://www.youtube.com/embed/${post.data.youtubeId}`}
               title={post.data.title}
               class="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
+              loading="lazy"
             />
           </div>
-        )}
-        <div class="prose prose-lg max-w-none prose-headings:font-light prose-headings:text-black prose-p:text-black/70 prose-p:font-light prose-p:leading-relaxed prose-a:text-black prose-a:border-b prose-a:border-black/20 prose-a:no-underline hover:prose-a:border-black prose-strong:text-black prose-strong:font-normal prose-ul:text-black/70 prose-ol:text-black/70 prose-li:font-light">
-          <Content />
         </div>
+      </section>
+    )}
+
+    <!-- Article Content -->
+    <section class="py-16 md:py-24 bg-white">
+      <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24 article-content">
+        <Content />
       </div>
     </section>
 
-    <!-- Navigation -->
-    <section class="py-16 bg-[#faf9f6]">
-      <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-        <div class="border-t border-black/10 pt-8">
-          <a
-            href="/blog/"
-            class="inline-block text-xs tracking-widest uppercase text-black/40 hover:text-black transition-colors border-b border-transparent hover:border-black/20"
-          >
-            ← {t.blog.backToBlog}
-          </a>
+    <!-- A lire aussi -->
+    {relatedPosts.length > 0 && (
+      <section class="py-16 md:py-24 bg-[#FAF8F5] border-t border-black/5">
+        <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+          <h2 class="font-playfair text-2xl md:text-3xl font-normal text-[#2C2824] tracking-tight mb-12">
+            A lire aussi
+          </h2>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            {relatedPosts.map((related) => (
+              <a href={getLocalizedPath(`/blog/${related.slug}/`, 'fr')} class="group block">
+                <article class="flex flex-col">
+                  {related.data.heroImage && (
+                    <div class="aspect-[16/10] overflow-hidden rounded-sm mb-5">
+                      <img
+                        src={related.data.heroImage}
+                        alt={related.data.title}
+                        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">
+                    {new Date(related.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
+                  </p>
+                  <h3 class="font-playfair text-lg font-normal text-[#2C2824] mb-2 tracking-tight leading-snug group-hover:text-[#2C2824]/70 transition-colors">
+                    {related.data.title}
+                  </h3>
+                  <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed line-clamp-2">
+                    {related.data.description}
+                  </p>
+                </article>
+              </a>
+            ))}
+          </div>
         </div>
+      </section>
+    )}
+
+    <!-- Back -->
+    <section class="py-12 bg-white">
+      <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+        <a
+          href="/blog/"
+          class="text-sm font-light text-[#2C2824]/40 hover:text-[#2C2824] transition-colors underline underline-offset-4"
+        >
+          &larr; Tous les articles
+        </a>
       </div>
     </section>
   </article>
+
+  <style is:inline>
+    /* Article content — editorial styling */
+    .article-content h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: #2C2824;
+      margin-top: 3rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+    .article-content h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: #2C2824;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .article-content p {
+      font-size: 1.125rem;
+      font-weight: 300;
+      color: rgba(44, 40, 36, 0.85);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .article-content > p:first-of-type::first-letter {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3.5rem;
+      font-weight: 400;
+      float: left;
+      line-height: 1;
+      margin-right: 0.5rem;
+      margin-top: 0.15rem;
+      color: #2C2824;
+    }
+    .article-content strong {
+      font-weight: 500;
+      color: #2C2824;
+    }
+    .article-content em {
+      font-style: italic;
+    }
+    .article-content blockquote {
+      border-left: 2px solid #C4A855;
+      padding-left: 2rem;
+      margin: 2.5rem 0;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .article-content blockquote p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: rgba(44, 40, 36, 0.85);
+      line-height: 1.6;
+    }
+    .article-content ul, .article-content ol {
+      font-size: 1.125rem;
+      font-weight: 300;
+      color: rgba(44, 40, 36, 0.85);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+    .article-content img {
+      width: 100%;
+      border-radius: 2px;
+      margin: 2rem 0;
+    }
+    .article-content a {
+      color: #2C2824;
+      border-bottom: 1px solid rgba(44, 40, 36, 0.2);
+      text-decoration: none;
+      transition: border-color 0.3s;
+    }
+    .article-content a:hover {
+      border-color: #2C2824;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid rgba(44, 40, 36, 0.1);
+      margin: 3rem 0;
+    }
+  </style>
+
 </Layout>

@@ -1,0 +1,345 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import NewsletterForm from '~/components/NewsletterForm.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'En Mouvement — Immersion par le corps | LAOM',
+  url: Astro.url.toString(),
+  description: '5 jours d\'immersion ou le mouvement devient le chemin. Danse, expression, silence, nature. LAOM, ecolieu en Aveyron.',
+})
+
+const sessions = [
+  { date: '5 — 9 aout 2026', label: 'Session 1' },
+  { date: '11 — 15 aout 2026', label: 'Session 2' },
+  { date: '16 — 20 aout 2026', label: 'Session 3' },
+]
+---
+
+<Layout
+  title="En Mouvement — Immersion par le corps | LAOM"
+  description="5 jours d'immersion ou le mouvement devient le chemin. Danse, expression, silence, nature. LAOM, ecolieu en Aveyron."
+  seo={{ ldJSON: pageSchema }}
+>
+
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/laom/samuel-planas.webp"
+        alt="Samuel Planas — danseur et choregraphe, guide des immersions En Mouvement"
+        class="absolute inset-0 w-full h-full object-cover object-top"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-32 pb-16">
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">LAOM presente</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
+        En Mouvement
+      </h1>
+      <p class="text-lg md:text-xl font-light text-white/85 max-w-2xl mx-auto leading-relaxed">
+        5 jours d'immersion ou le mouvement devient le chemin. Pas besoin de savoir danser. Juste l'envie d'etre la.
+      </p>
+    </div>
+
+    <!-- Scroll arrow -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <a href="#invitation" class="block text-white/50 hover:text-white transition-colors" aria-label="Defiler">
+        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- L'invitation -->
+  <section id="invitation" class="py-24 md:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">L'invitation</p>
+      <div class="space-y-6 text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        <p>
+          Tu sens que quelque chose en toi a envie de s'exprimer.
+        </p>
+        <p>
+          Une energie. Un elan. Une part de toi qui n'a pas encore trouve son espace.
+        </p>
+        <p>
+          Pendant 5 jours, dans un lieu hors du temps, tu vas explorer ce qui emerge quand tu te mets en mouvement avec un groupe qui te porte.
+        </p>
+        <p>
+          Pas besoin de savoir danser. Juste l'envie de bouger, de te laisser surprendre, de decouvrir ce qui se passe quand tu t'autorises a etre pleinement la.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ce que tu vas vivre — timeline elegante -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">La progression</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">5 jours, un arc</h2>
+
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-14">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Jour 0 — Arrivee</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Se poser</h3>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Tu decouvres le lieu, les autres, les animateurs. Premiere danse extatique pour briser la glace. Repas ensemble. On cree l'espace safe.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Jour 1</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Oser</h3>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Mise en corps guidee en flux continu. Ateliers ludiques, un peu absurdes. Tu explores le mouvement sans te prendre au serieux. La confiance se cree.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Jour 2</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Plonger</h3>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Pratiques plus profondes, introspectives. Basses profondes, etat de chaos controle. Le mental se dissout. Quelque chose emerge — tu laisses jaillir ce qui veut s'exprimer.
+          </p>
+        </div>
+
+        <!-- Placeholder image -->
+        <div class="!ml-[-2.5rem] my-8">
+          <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Photo a venir">
+            <div class="text-center px-8">
+              <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
+              <p class="text-sm font-light text-black/50 max-w-lg">Danseurs en mouvement dans le Shala — lumiere naturelle, silhouettes floues, atmosphere d'immersion totale. Photo prise pendant un stage.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Jour 3</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Creer ensemble</h3>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Ateliers en collaboration. Danse contact, exercices de toucher. Si une energie collective a emerge, travail sur un projet commun.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Jour 4</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Partager</h3>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Expression de ce qui veut etre donne au groupe. Impro, petits groupes, expression individuelle. Cercle de cloture. Tu repars avec une experience ancree dans le corps.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ce qui rend l'experience unique -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">L'approche</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">Ce qui rend cette experience unique</h2>
+
+      <div class="grid md:grid-cols-2 gap-x-16 gap-y-12">
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Le flux continu</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            La musique ne s'arrete pas. Pas de moment ou tu retombes dans ta tete pour analyser. Tu restes dans le mouvement, dans le corps, dans l'experience.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Le groupe qui porte</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Repas ensemble, progression douce, moments de partage. Quand tu bouges avec d'autres, quand vos rythmes se synchronisent, ton systeme nerveux se regule naturellement.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">L'accompagnement dans le mouvement</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Les animateurs guident en continu, a travers le mouvement lui-meme. Si quelque chose emerge, on le traverse ensemble — par le corps, pas par l'analyse.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Accessible a tous</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Tu n'as pas besoin de technique. Juste l'envie de bouger et de te laisser surprendre. Samuel a l'habitude d'accompagner des groupes de 200 amateurs de tous niveaux.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pourquoi ca marche -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">Pourquoi le mouvement transforme</h2>
+      <div class="space-y-6 text-lg font-light text-[#2C2824]/80 leading-relaxed">
+        <p>
+          La recherche en neurosciences nous montre que certaines transformations ne peuvent pas se faire par la reflexion seule — elles passent par le corps, par le mouvement, par l'experience vecue.
+        </p>
+        <p>
+          Quand on bouge ensemble, quand nos rythmes se synchronisent, notre systeme nerveux se regule naturellement. C'est pourquoi l'experience de groupe est si puissante.
+        </p>
+        <p>
+          Le sentiment de securite n'est pas un luxe — c'est la fondation qui permet a tout le reste d'emerger. C'est pourquoi nous prenons le temps de creer cet espace avant d'aller plus loin.
+        </p>
+      </div>
+      <div class="mt-10 pt-8 border-t border-black/10">
+        <p class="text-sm font-light text-[#2C2824]/40">
+          Approche inspiree par les travaux de Bessel van der Kolk, Peter Levine et Stephen Porges.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Les animateurs -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Les guides</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">Qui va te guider</h2>
+
+      <div class="grid md:grid-cols-2 gap-16">
+        <!-- Charly -->
+        <div>
+          <div class="aspect-[3/4] bg-[#E8E3D8] overflow-hidden rounded-sm mb-6 flex items-center justify-center border border-black/5" role="img" aria-label="Photo Charly a venir">
+            <div class="text-center px-8">
+              <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
+              <p class="text-sm font-light text-black/50">Portrait de Charly — en exterieur a LAOM, lumiere naturelle, regard direct, vetements simples. Pas de pose, juste une presence.</p>
+            </div>
+          </div>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-4">Co-fondateur de LAOM</p>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Batisseur, coach, polymathe. Charly apporte l'approche coaching et la vision globale du format. Son principe : la transformation passe par le corps, pas par la parole. Si quelque chose emerge pendant le mouvement, on le traverse ensemble.
+          </p>
+        </div>
+
+        <!-- Samuel -->
+        <div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm mb-6">
+            <img
+              src="/images/laom/samuel-planas.webp"
+              alt="Samuel Planas — danseur et choregraphe"
+              class="w-full h-full object-cover object-top rounded-sm"
+              loading="lazy"
+            />
+          </div>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Samuel Planas</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-4">Danseur professionnel et choregraphe</p>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            A 23 ans, Samuel navigue entre les plus grandes scenes de danse contemporaine et l'accompagnement de groupes d'amateurs. Forme au Conservatoire National Superieur de Paris, interprete pour Boris Charmatz, Noe Soulier et Wim Vandekeybus. Il a encadre 200 amateurs au Grand Palais dans le projet CERCLES.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le lieu -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+        <div class="w-full lg:w-96 flex-shrink-0">
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/salle-de-pratique.webp"
+              alt="Le Shala — salle de pratique LAOM, 212 m2 de lumiere et de materiaux naturels"
+              class="w-full h-full object-cover rounded-sm"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="flex-1">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Le lieu</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">Le Shala, 212 m2</h2>
+          <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              LAOM est un ecolieu de 21 hectares dans le sud de l'Aveyron, au coeur du Parc Naturel des Grands Causses.
+            </p>
+            <p>
+              Le stage se deroule dans Le Shala, notre salle de pratique : sol en materiaux naturels, grandes ouvertures sur les collines, air sain, lumiere naturelle. Un espace concu pour le mouvement.
+            </p>
+            <p>
+              Hebergement sur place : chambres, tipis, dortoir. Repas prepares avec les legumes du jardin.
+            </p>
+          </div>
+
+          <!-- Placeholder galerie lieu -->
+          <div class="mt-8 grid grid-cols-2 gap-3">
+            <div class="aspect-square bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img">
+              <p class="text-xs font-light text-black/40 text-center px-4">Vue du domaine au lever du soleil — prairies, forets, brume legere</p>
+            </div>
+            <div class="aspect-square bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img">
+              <p class="text-xs font-light text-black/40 text-center px-4">Tipi ou chambre — hebergement insolite, draps en lin, lumiere tamise</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infos pratiques -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Pratique</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Infos pratiques</h2>
+
+      <!-- Sessions -->
+      <div class="mb-12">
+        <p class="text-sm font-light text-[#2C2824]/50 mb-4 uppercase tracking-widest">3 sessions cet ete</p>
+        <div class="space-y-3">
+          {sessions.map((s) => (
+            <div class="flex justify-between items-center py-3 border-b border-black/5">
+              <span class="text-sm font-light text-[#2C2824]/50">{s.label}</span>
+              <span class="font-playfair text-lg text-[#2C2824]">{s.date}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Duree</span>
+          <span class="text-base font-light text-[#2C2824] text-right">5 jours / 4 nuits</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Lieu</span>
+          <span class="text-base font-light text-[#2C2824] text-right">LAOM, Aveyron</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Places</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Limitees</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Prix</span>
+          <span class="text-base font-light text-[#2C2824] text-right">A confirmer</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Hebergement</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Chambres, tipis, dortoir</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Niveau requis</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Aucun — ouvert a tous</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Ete 2026</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Interesse ?</h2>
+      <p class="text-base font-light text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
+        Les dates sont posees. Le prix et les details seront annonces en avant-premiere par email. Inscris-toi pour etre prevenu.
+      </p>
+      <div class="max-w-md mx-auto">
+        <NewsletterForm variant="light" />
+      </div>
+    </div>
+  </section>
+
+</Layout>

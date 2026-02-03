@@ -47,24 +47,6 @@ const t = getTranslations(lang as 'fr' | 'en')
       <NewsletterForm />
     </div>
 
-    <!-- Highlights -->
-    <div class="border-t border-white/10 pt-10 mb-10">
-      <h4 class="text-sm font-light tracking-widest uppercase mb-6">{t.footer.highlightsTitle}</h4>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {t.footer.highlights.map((item) => (
-          <a
-            href={item.href}
-            class="group rounded-lg border border-white/10 p-4 transition-colors hover:border-white/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          >
-            <p class="text-sm font-light tracking-wide text-white">{item.title}</p>
-            <p class="mt-2 text-xs font-light leading-relaxed text-white/70 group-hover:text-white/90 whitespace-pre-line">
-              {item.description}
-            </p>
-          </a>
-        ))}
-      </div>
-    </div>
-
     <!-- Copyright -->
     <div class="border-t border-white/10 pt-8">
       <p class="text-white/50 text-xs font-light text-center">

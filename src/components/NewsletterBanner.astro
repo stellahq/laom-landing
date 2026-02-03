@@ -5,13 +5,12 @@ const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
 const b = t.home.newsletterBanner
 
-// Kit form options – same structure as NewsletterForm (form behavior, success, powered by)
 const formKitOptions = {
   settings: {
     after_subscribe: {
       action: 'message',
       success_message: lang === 'fr'
-        ? 'Parfait ! Consultez votre boîte mail pour confirmer votre inscription.'
+        ? 'Parfait ! Consultez votre boite mail pour confirmer votre inscription.'
         : 'Success! Now check your email to confirm your subscription.',
       redirect_url: '',
     },
@@ -27,16 +26,20 @@ const formKitOptions = {
 }
 ---
 
-<section class="py-8 md:py-12 bg-[#F3EEDC]">
-  <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-    <div class="bg-[#285230] rounded-lg md:rounded-xl p-6 md:p-8 lg:p-10 text-center">
-      <h2 class="text-2xl md:text-3xl lg:text-4xl font-normal text-white mb-3 tracking-tight">
-        {b.headline}
-      </h2>
-      <p class="text-sm md:text-base font-normal text-white/90 leading-relaxed mb-6 max-w-2xl mx-auto">
-        {b.description}
-      </p>
-      <div class="newsletter-form-widget newsletter-form-widget--light">
+<section class="py-16 md:py-24 bg-[#2C2824]">
+  <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+
+    <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chaque dimanche</p>
+
+    <h2 class="font-playfair text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 leading-snug">
+      On partage l'aventure
+    </h2>
+
+    <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
+      Amandine et Charly vous racontent les coulisses du projet, les decisions, les chantiers en cours, les erreurs et les decouvertes. Une lettre sincere, sans spam.
+    </p>
+
+    <div class="newsletter-form-widget newsletter-form-widget--light">
       <form
         action="https://app.kit.com/forms/8987350/subscriptions"
         class="seva-form formkit-form"
@@ -50,40 +53,40 @@ const formKitOptions = {
       >
         <div data-style="clean">
           <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
-          <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields flex flex-col sm:flex-row gap-3 justify-center max-w-xl mx-auto">
+          <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
             <div class="formkit-field flex-1 min-w-[200px]">
               <input
-              class="formkit-input w-full rounded-lg px-4 py-3 font-normal text-sm focus:outline-none transition-colors bg-white border border-white/20 text-[#285230] placeholder-[#285230]/60 focus:border-white focus:ring-2 focus:ring-white/40"
-              name="email_address"
-              type="email"
-              required
-              aria-label={b.placeholder}
-              placeholder={b.placeholder}
-              autocomplete="email"
-            />
-          </div>
-          <button
-            type="submit"
-            data-element="submit"
-            class="formkit-submit px-6 py-3 rounded-lg font-bold text-sm tracking-wider uppercase focus:outline-none transition-colors relative bg-[#d4af37] border border-[#d4af37] text-[#285230] hover:bg-[#e5c04a] hover:border-[#e5c04a] focus-visible:ring-2 focus-visible:ring-[#d4af37]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#285230] whitespace-nowrap"
-          >
-            <div class="formkit-spinner" aria-hidden="true">
-              <div></div>
-              <div></div>
-              <div></div>
+                class="formkit-input w-full rounded-sm px-5 py-3.5 font-light text-sm focus:outline-none transition-colors bg-white/10 border border-white/15 text-white placeholder-white/40 focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30"
+                name="email_address"
+                type="email"
+                required
+                aria-label="Votre email"
+                placeholder="Votre email"
+                autocomplete="email"
+              />
             </div>
-            <span>{b.cta}</span>
-          </button>
-        </div>
-          <div class="formkit-powered-by-convertkit-container mt-3">
+            <button
+              type="submit"
+              data-element="submit"
+              class="formkit-submit px-6 py-3.5 rounded-sm text-xs tracking-[0.2em] uppercase focus:outline-none transition-colors relative bg-[#C4A855] text-white hover:bg-[#B09A4A] focus-visible:ring-2 focus-visible:ring-[#C4A855]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#2C2824] whitespace-nowrap"
+            >
+              <div class="formkit-spinner" aria-hidden="true">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <span>S'inscrire</span>
+            </button>
+          </div>
+          <div class="formkit-powered-by-convertkit-container mt-4">
             <a
               href="https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"
               data-element="powered-by"
-            class="formkit-powered-by-convertkit text-xs font-normal transition-colors text-white/50 hover:text-white/70"
-            data-variant="dark"
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            aria-label="Built with Kit (opens in new tab)"
+              class="formkit-powered-by-convertkit text-xs font-light transition-colors text-white/20 hover:text-white/40"
+              data-variant="dark"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              aria-label="Built with Kit (opens in new tab)"
             >
               Built with Kit
             </a>
@@ -91,6 +94,6 @@ const formKitOptions = {
         </div>
       </form>
     </div>
-    </div>
+
   </div>
 </section>

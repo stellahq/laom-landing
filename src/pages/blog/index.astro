@@ -7,15 +7,14 @@ import { getTranslations } from '~/i18n/utils'
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
 
-// Get all blog posts, filter by locale and draft status
 const allPosts = await getCollection('blog', ({ data }) => {
   return data.locale === lang && !data.draft
 })
-
-// Sort by date (newest first)
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 
-// Past Newsletters: filter by locale if set, sort by date desc
+const featured = posts[0]
+const rest = posts.slice(1)
+
 const allNewsletters = await getCollection('newsletters')
 const newsletters = allNewsletters
   .filter((e) => !e.data.locale || e.data.locale === lang)
@@ -33,158 +32,128 @@ const pageSchema = createWebPageSchema({
   description={t.blog.description}
   seo={{ ldJSON: pageSchema }}
 >
-  <section class="py-32 lg:py-40 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">Blog</span>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-black mb-6 tracking-tight">
+  <!-- Hero -->
+  <section class="py-32 lg:py-40 bg-[#F3EEDC]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Journal de bord</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#2C2824] mb-6 tracking-tight">
         {t.blog.title}
       </h1>
-      <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
-        {t.blog.description}
+      <p class="text-xl md:text-2xl font-light text-[#2C2824]/60 max-w-3xl mx-auto leading-relaxed">
+        Recits de construction, apprentissages et coulisses d'un ecolieu en devenir.
       </p>
     </div>
   </section>
 
   {posts.length === 0 ? (
-    <section class="py-24 bg-[#faf9f6]">
+    <section class="py-24 bg-white">
       <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-        <p class="text-lg font-light text-black/60">{t.blog.empty}</p>
+        <p class="text-lg font-light text-[#2C2824]/60">{t.blog.empty}</p>
       </div>
     </section>
   ) : (
-    <section class="py-24 bg-[#faf9f6]">
-      <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-        <div class="mb-10">
-          <label for="blog-search" class="sr-only">{t.blog.searchPlaceholder}</label>
-          <input
-            id="blog-search"
-            type="search"
-            placeholder={t.blog.searchPlaceholder}
-            autocomplete="off"
-            class="w-full px-0 py-3 bg-transparent border-0 border-b border-black/20 text-black font-light placeholder:text-black/40 focus:outline-none focus:border-black/40 focus:ring-0"
-            aria-label={t.blog.searchPlaceholder}
-          />
-        </div>
-        <div id="blog-list" class="space-y-6">
-        {posts.map((post) => {
-          const formattedDate = new Date(post.data.pubDate).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })
-          const searchable = [post.data.title, post.data.description, ...(post.data.tags || [])].join(' ')
-          return (
-            <article
-              class="blog-article border border-black/10 bg-white p-6 lg:p-8 shadow-sm hover:shadow-md transition-shadow duration-300"
-              data-searchable={searchable}
-            >
-              <div class="flex flex-col md:flex-row md:items-start gap-6">
-                {post.data.heroImage && (
-                  <div class="md:w-48 lg:w-64 flex-shrink-0">
-                    <img
-                      src={post.data.heroImage}
-                      alt={post.data.title}
-                      class="w-full h-48 md:h-full object-cover rounded-sm"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <div class="flex-1">
-                  <p class="text-xs font-light tracking-widest uppercase text-black/50 mb-3">
-                    {formattedDate}
-                  </p>
-                  <h2 class="text-2xl md:text-3xl font-light text-black mb-3 hover:text-black/70 transition-colors">
-                    <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-                  </h2>
-                  <p class="text-sm font-light text-black/60 leading-relaxed mb-4">
-                    {post.data.description}
-                  </p>
-                  {post.data.tags && post.data.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-2 mb-4">
-                      {post.data.tags.map((tag) => (
-                        <span class="text-xs px-3 py-1 bg-black/5 text-black/60 rounded-sm font-light">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  <a
-                    href={`/blog/${post.slug}/`}
-                    class="inline-block text-xs tracking-widest uppercase text-black/40 hover:text-black transition-colors border-b border-transparent hover:border-black/20"
-                  >
-                    {t.blog.readMore} →
-                  </a>
-                </div>
+    <>
+      <!-- Featured article — full width hero style -->
+      {featured && (
+        <section class="bg-white">
+          <a href={`/blog/${featured.slug}/`} class="group block">
+            <div class="relative aspect-[21/9] overflow-hidden">
+              {featured.data.heroImage ? (
+                <img
+                  src={featured.data.heroImage}
+                  alt={featured.data.title}
+                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                  loading="eager"
+                />
+              ) : (
+                <div class="w-full h-full bg-[#E8E3D8]"></div>
+              )}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 lg:p-16">
+                <p class="text-xs font-light tracking-[0.2em] uppercase text-white/60 mb-4">
+                  {new Date(featured.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
+                </p>
+                <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight mb-4 max-w-3xl">
+                  {featured.data.title}
+                </h2>
+                <p class="text-base md:text-lg font-light text-white/75 leading-relaxed max-w-2xl line-clamp-2">
+                  {featured.data.description}
+                </p>
               </div>
-            </article>
-          )
-        })}
-        </div>
-        <p id="blog-no-results" class="hidden text-center py-12 text-lg font-light text-black/60" aria-live="polite">
-          {t.blog.noResults}
-        </p>
-      </div>
-    </section>
+            </div>
+          </a>
+        </section>
+      )}
+
+      <!-- Articles grid -->
+      {rest.length > 0 && (
+        <section class="py-20 md:py-24 bg-[#F3EEDC]">
+          <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+            <div class="grid md:grid-cols-2 gap-x-10 gap-y-16">
+              {rest.map((post) => (
+                <a href={`/blog/${post.slug}/`} class="group block">
+                  <article>
+                    {post.data.heroImage && (
+                      <div class="aspect-[16/10] overflow-hidden rounded-sm mb-6">
+                        <img
+                          src={post.data.heroImage}
+                          alt={post.data.title}
+                          class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">
+                      {new Date(post.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
+                    </p>
+                    <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-3 tracking-tight leading-snug group-hover:text-[#2C2824]/70 transition-colors">
+                      {post.data.title}
+                    </h3>
+                    <p class="text-base font-light text-[#2C2824]/60 leading-relaxed line-clamp-3">
+                      {post.data.description}
+                    </p>
+                  </article>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   )}
 
   <!-- Past Newsletters -->
-  <section class="py-24 bg-white">
-    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-2xl md:text-3xl font-light text-black mb-10">{t.blog.newsletterSectionTitle}</h2>
-      {newsletters.length === 0 ? (
-        <p class="text-lg font-light text-black/60">{t.blog.newsletterEmpty}</p>
-      ) : (
-        <ul class="space-y-6">
+  {newsletters.length > 0 && (
+    <section class="py-20 md:py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Archives</p>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-10">{t.blog.newsletterSectionTitle}</h2>
+        <div class="space-y-0">
           {newsletters.map((nl) => {
-            const formattedDate = new Date(nl.data.date).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+            const formattedDate = new Date(nl.data.date).toLocaleDateString('fr-FR', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
             })
             return (
-              <li class="border-b border-black/10 pb-6 last:border-0 last:pb-0">
-                <p class="text-xs font-light tracking-widest uppercase text-black/50 mb-2">{formattedDate}</p>
-                <a
-                  href={nl.data.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-xl font-light text-black hover:text-black/70 transition-colors block"
-                  aria-label={`${nl.data.title} (opens in new tab)`}
-                >
+              <a
+                href={nl.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-baseline justify-between py-5 border-b border-black/10 hover:border-[#C4A855]/40 transition-colors"
+                aria-label={`${nl.data.title} (opens in new tab)`}
+              >
+                <span class="font-playfair text-lg font-medium text-[#2C2824] group-hover:text-[#2C2824]/70 transition-colors tracking-tight">
                   {nl.data.title}
-                </a>
-                {nl.data.description && (
-                  <p class="mt-2 text-sm font-light text-black/60 leading-relaxed">{nl.data.description}</p>
-                )}
-              </li>
+                </span>
+                <span class="text-xs font-light text-[#2C2824]/40 tracking-[0.1em] uppercase flex-shrink-0 ml-6">
+                  {formattedDate}
+                </span>
+              </a>
             )
           })}
-        </ul>
-      )}
-    </div>
-  </section>
-
-  <script>
-    (function () {
-      const input = document.getElementById('blog-search') as HTMLInputElement | null
-      if (!input) return
-      input.addEventListener('input', function () {
-        const q = (input.value || '').trim().toLowerCase()
-        const articles = document.querySelectorAll('.blog-article')
-        const noResults = document.getElementById('blog-no-results')
-        let visible = 0
-        articles.forEach(function (el) {
-          const text = String(el.getAttribute('data-searchable') || '').toLowerCase()
-          const show = !q || text.includes(q)
-          if (show) {
-            el.removeAttribute('hidden')
-            visible++
-          } else {
-            el.setAttribute('hidden', '')
-          }
-        })
-        if (noResults) noResults.hidden = !(q && visible === 0)
-      })
-    })()
-  </script>
+        </div>
+      </div>
+    </section>
+  )}
 </Layout>

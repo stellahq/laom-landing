@@ -4,6 +4,12 @@ import Hero from '~/components/Hero.astro'
 import NewsletterBanner from '~/components/NewsletterBanner.astro'
 import { createWebSiteSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
+import { getCollection } from 'astro:content'
+
+const allPosts = (await getCollection('blog'))
+  .filter(post => post.data.locale === 'fr' && !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
 
 const lang = 'fr'
 const t = getI18nTranslations(lang as 'fr' | 'en')
@@ -24,13 +30,13 @@ const events = t.events.items.map((item, index) => ({
 }))
 
 const spaceImages = [
-  'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=420&h=560&fit=crop&q=85', // Guinguette Restauration - healthy fresh vegetables
-  'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=420&h=560&fit=crop&q=85', // Les chambres (fallback ; remplacer par /images/laom/chambres.webp quand dispo)
-  '/images/laom/tipis.webp', // Tipis - portrait format, cropped on the right, optimized WebP
-  '/images/laom/salle-de-pratique.webp', // Salle de pratique - portrait format, cropped on the right, optimized WebP
-  '/images/laom/planification/agri-1-0246e509.webp', // Jardin
-  'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=420&h=560&fit=crop&q=85', // Espace de vie partagé - people socializing in a cafe
-  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=420&h=560&fit=crop&q=85', // Coworking – tables, laptops, people, natural light
+  'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=420&h=560&fit=crop&q=85',
+  'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=420&h=560&fit=crop&q=85',
+  '/images/laom/tipis.webp',
+  '/images/laom/salle-de-pratique.webp',
+  '/images/laom/planification/agri-1-0246e509.webp',
+  'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=420&h=560&fit=crop&q=85',
+  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=420&h=560&fit=crop&q=85',
 ]
 const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceImages[i] || spaceImages[0] }))
 
@@ -43,14 +49,15 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     ldJSON: siteSchema,
   }}
 >
+  <!-- 1. Hero -->
   <div class="-mt-24 md:-mt-28">
     <Hero />
   </div>
 
-  <!-- Intro Section – Citadel Garden style -->
-  <section class="py-12 md:py-16 bg-[#F3EEDC]">
+  <!-- 2. Intro / Presentation LAOM -->
+  <section id="intro" class="py-12 md:py-16 bg-[#F3EEDC]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <h2 class="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-black mb-8 leading-tight">
+      <h2 class="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-black mb-10 leading-tight title-underline">
         {t.home.intro.title}
       </h2>
       <p class="text-xl md:text-2xl font-normal text-black/70 mb-12 max-w-3xl mx-auto">
@@ -61,63 +68,144 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           <p>{p}</p>
         ))}
       </div>
+      <div class="mt-14 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm max-w-3xl mx-auto">
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : vue aerienne drone du domaine LAOM — 21 hectares, prairies, foret, batiments, riviere</p>
+      </div>
       <a
         href={getLocalizedPath('/project/', lang as 'fr' | 'en')}
-        class="inline-block mt-12 text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
+        class="inline-block mt-4 text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
       >
         {t.home.intro.cta}
       </a>
     </div>
   </section>
 
+  <!-- 3. Newsletter -->
   <NewsletterBanner />
 
-  <!-- Immersion Signature Section - EN MOUVEMENT – Citadel Garden style -->
+  <!-- 4. En Mouvement — Immersion signature -->
   <section id="experience" class="py-24 md:py-32 bg-[#F3EEDC] overflow-hidden">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-        <!-- Image -->
         <div class="w-full lg:w-96 flex-shrink-0 opacity-0 delay-200" animate-fade-in-up>
-          <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
-            <img
-              src="/images/laom/immersion-mouvement.webp"
-              alt={t.home.immersionSignature.imageAlt}
-              class="w-full h-full object-cover rounded-sm"
-              loading="lazy"
-              width="900"
-              height="1200"
-            />
-          </div>
+          <a href="/stage-danse/" class="block group">
+            <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
+              <img
+                src="/images/laom/samuel-planas.webp"
+                alt="Samuel Planas — En Mouvement, immersion par le corps a LAOM"
+                class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+                loading="lazy"
+                width="900"
+                height="1200"
+              />
+            </div>
+          </a>
         </div>
-        
-        <!-- Text Content -->
         <div class="flex-1 opacity-0" animate-fade-in-up>
-          <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-6 leading-tight tracking-tight">
-            {t.home.immersionSignature.title}
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-4">Immersion signature</p>
+          <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-6 leading-tight tracking-tight">
+            En Mouvement
           </h2>
-          <p class="text-xl md:text-2xl font-normal text-black/70 mb-8 leading-relaxed">
-            {t.home.immersionSignature.subtitle}
+          <p class="text-xl md:text-2xl font-light text-black/70 mb-8 leading-relaxed">
+            5 jours d'immersion ou le mouvement devient le chemin. Guide par Samuel Planas, danseur professionnel, et Charly Aubert. Ouvert a tous.
           </p>
-          <div class="space-y-5 text-lg font-normal text-black/80 leading-relaxed">
-            {t.home.immersionSignature.paragraphs.map((p) => (
-              <p>{p}</p>
-            ))}
-          </div>
+          <p class="text-lg font-light text-black/60 leading-relaxed mb-4">
+            3 sessions cet ete : 5-9 aout, 11-15 aout, 16-20 aout 2026.
+          </p>
           <a
-            href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
-            class="inline-block mt-10 text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
+            href="/stage-danse/"
+            class="inline-block mt-6 text-base text-black/60 hover:text-black transition-colors font-light underline underline-offset-4"
           >
-            {t.home.immersionSignature.cta}
+            Decouvrir le stage
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Nos Espaces – Citadel Garden style -->
+  <!-- 5. Journal de bord -->
+  <section class="py-16 md:py-24 bg-[#F3EEDC]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="text-3xl md:text-4xl font-normal text-black tracking-tight mb-14 opacity-0 title-underline" animate-fade-in-up>
+        Journal de bord
+      </h2>
+
+      <div class="opacity-0" animate-fade-in-up>
+        <!-- Featured: Grand Shambala -->
+        <a href="/grand-shambala-v2/" class="group block mb-10">
+          <article class="flex flex-col md:flex-row gap-8 items-start">
+            <div class="w-full md:w-2/3 aspect-[16/9] overflow-hidden rounded-sm">
+              <img
+                src="/images/laom/grand-shambala/p1.webp"
+                alt="Grand Shambala — 850 m2 de paille porteuse"
+                class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex-1 py-2">
+              <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-3">
+                A la une
+              </p>
+              <h3 class="font-playfair text-2xl md:text-3xl font-normal text-black mb-3 tracking-tight leading-snug">
+                Grand Shambala
+              </h3>
+              <p class="text-base font-light text-black/60 leading-relaxed line-clamp-3">
+                Le plus grand batiment en paille porteuse au monde. 850 m2 sur deux niveaux, construit en 3 mois. De l'intention au chantier — tout est la.
+              </p>
+              <span class="inline-block mt-4 text-sm text-black/50 group-hover:text-black transition-colors underline underline-offset-4">
+                Lire l'article
+              </span>
+            </div>
+          </article>
+        </a>
+
+        <!-- Other articles from blog -->
+        {allPosts.length > 0 && (
+          <div class="grid md:grid-cols-2 gap-8">
+            {allPosts.slice(0, 2).map((post) => (
+              <a href={getLocalizedPath(`/blog/${post.slug}/`, 'fr')} class="group block">
+                <article class="flex flex-col">
+                  {post.data.heroImage && (
+                    <div class="aspect-[16/10] overflow-hidden rounded-sm mb-5">
+                      <img
+                        src={post.data.heroImage}
+                        alt={post.data.title}
+                        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-2">
+                    {new Date(post.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
+                  </p>
+                  <h3 class="font-playfair text-xl font-normal text-black mb-2 tracking-tight leading-snug">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-sm font-light text-black/60 leading-relaxed line-clamp-2">
+                    {post.data.description}
+                  </p>
+                </article>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href={getLocalizedPath('/blog/', 'fr')}
+          class="text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
+        >
+          Tous les articles
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Nos Espaces -->
   <section id="spaces" class="py-24 md:py-32 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight text-center mb-16 opacity-0" animate-fade-in-up>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight text-center mb-16 opacity-0 title-underline mx-auto" animate-fade-in-up>
         {t.home.ourSpaces.sectionTitle}
       </h2>
     </div>
@@ -126,7 +214,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         type="button"
         id="spaces-prev"
         class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
-        aria-label="Espace précédent"
+        aria-label="Espace precedent"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
       </button>
@@ -193,11 +281,11 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     })()
   </script>
 
-  <!-- Les prochains événements – Citadel Garden style -->
+  <!-- 7. Events partenaires -->
   <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-20 opacity-0" animate-fade-in-up>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-8">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-8 title-underline">
           {t.events.allTitle}
         </h2>
         <a
@@ -294,54 +382,39 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- Channels Section (Suivre le projet) – Citadel Garden style -->
+  <!-- 8. YouTube — video embed -->
   <section class="py-24 md:py-32 bg-[#F3EEDC]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-16 text-center tracking-tight">{t.home.channelsTitle}</h2>
-      <div class="space-y-12">
-        {t.home.channels.map((item) => {
-          const url = 'href' in item ? item.href : undefined
-          const isExternal = url && String(url).startsWith('http')
-          return url ? (
-            <a
-              href={url}
-              class="block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
-              {...(isExternal && { target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${item.title} (opens in new tab)` })}
-            >
-              <div class="flex items-start gap-6 pb-6 border-b border-black/10 group-hover:border-black/30 transition-colors">
-                <div class="flex-1">
-                  <h3 class="text-xl md:text-2xl font-normal text-black mb-2 group-hover:text-black/80 transition-colors">{item.title}</h3>
-                  <p class="text-base font-normal text-black/70 leading-relaxed">{item.description}</p>
-                </div>
-                <svg class="w-5 h-5 text-black/40 group-hover:text-black/60 transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </a>
-          ) : (
-            <div class="flex items-start gap-6 pb-6 border-b border-black/10">
-              <div class="flex-1">
-                <h3 class="text-xl md:text-2xl font-normal text-black mb-2">{item.title}</h3>
-                <p class="text-base font-normal text-black/70 leading-relaxed">{item.description}</p>
-              </div>
-            </div>
-          )
-        })}
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+      <div class="text-center mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">YouTube</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-normal text-black tracking-tight mb-6 title-underline mx-auto">
+          Suivre l'aventure
+        </h2>
+        <p class="text-lg font-light text-black/60 leading-relaxed max-w-2xl mx-auto">
+          Charly documente la construction de LAOM en video. Chantier, decisions, erreurs, apprentissages — tout est la, sans filtre.
+        </p>
       </div>
-    </div>
-  </section>
-
-  <!-- CTA – Citadel Garden style -->
-  <section class="py-24 md:py-32 bg-[#285230] text-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal mb-6 tracking-tight">{t.home.ctaTitle}</h2>
-      <p class="text-xl md:text-2xl font-normal text-white/90 mb-10">{t.home.ctaDescription}</p>
-      <a
-        href={getLocalizedPath('/newsletter', lang as 'fr' | 'en')}
-        class="inline-block text-base text-white/80 hover:text-white transition-colors font-normal underline underline-offset-4"
-      >
-        {t.home.ctaButton}
-      </a>
+      <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
+        <iframe
+          src="https://www.youtube.com/embed/Bltd5fr5VVY"
+          title="Construction du Grand Shambala — LAOM — Conference et timelapse du chantier"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="text-center mt-8">
+        <a
+          href="https://www.youtube.com/@charlyaubert"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          S'abonner a la chaine
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

@@ -36,6 +36,29 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
+h1, h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Decorative gold underline for homepage section titles */
+.title-underline {
+  position: relative;
+  display: inline-block;
+}
+.title-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -0.35em;
+  left: 0;
+  width: 2em;
+  height: 2px;
+  background-color: #C4A855;
+}
+
 /* Smooth scroll reveal animations - Elegant entrance */
 @keyframes fadeInUp {
   from {

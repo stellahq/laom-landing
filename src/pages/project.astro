@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import NewsletterBanner from '~/components/NewsletterBanner.astro'
 import { createWebPageSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
 
@@ -21,8 +22,113 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
     ldJSON: pageSchema,
   }}
 >
+  <!-- Progress bar -->
+  <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="position: fixed; bottom: 0; left: 0; height: 4px; background-color: #C4A855; z-index: 9999; width: 0%; box-shadow: 0 0 8px rgba(196, 168, 85, 0.4); transition: none; pointer-events: none;"></div>
+
+  <!-- Sticky sidebar TOC -->
+  <nav id="sticky-toc" aria-label="Sommaire du projet" style="position: fixed; top: 140px; right: 32px; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; display: none;">
+    <div class="flex flex-col items-end gap-[2px]">
+      <a href="#habitat" data-toc="habitat" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Habitat collectif">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Habitat</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#ferme" data-toc="ferme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Ferme">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Ferme</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#batiments" data-toc="batiments" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Batiments">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Batiments</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#accueil" data-toc="accueil" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Accueil">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Accueil</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#experiences" data-toc="experiences" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Experiences">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Experiences</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#chronologie" data-toc="chronologie" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chronologie">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Chronologie</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#pourquoi" data-toc="pourquoi" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Pourquoi LAOM">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Pourquoi</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+    </div>
+  </nav>
+
+  <style is:inline>
+    @media (min-width: 1400px) { #sticky-toc { display: block !important; } }
+    section[id] { scroll-margin-top: 6rem; }
+  </style>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var bar = document.getElementById('progress-bar');
+      if (bar) {
+        var ticking = false;
+        function updateProgress() {
+          var scrollTop = window.scrollY || document.documentElement.scrollTop;
+          var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          var progress = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+          bar.style.width = progress + '%';
+          bar.setAttribute('aria-valuenow', Math.round(progress));
+          ticking = false;
+        }
+        window.addEventListener('scroll', function () {
+          if (!ticking) { requestAnimationFrame(updateProgress); ticking = true; }
+        }, { passive: true });
+        updateProgress();
+      }
+      var stickyToc = document.getElementById('sticky-toc');
+      var heroSection = document.querySelector('section.relative');
+      if (stickyToc && heroSection) {
+        var tocVisible = false;
+        var heroObserver = new IntersectionObserver(function (entries) {
+          tocVisible = !entries[0].isIntersecting;
+          stickyToc.style.opacity = tocVisible ? '1' : '0';
+          stickyToc.style.pointerEvents = tocVisible ? 'auto' : 'none';
+        }, { threshold: 0 });
+        heroObserver.observe(heroSection);
+      }
+      var sections = document.querySelectorAll('section[id]');
+      var tocLinks = document.querySelectorAll('#sticky-toc .toc-link');
+      var currentActive = null;
+      if (sections.length && tocLinks.length) {
+        var chapterObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var activeId = entry.target.id;
+              if (currentActive === activeId) return;
+              currentActive = activeId;
+              tocLinks.forEach(function (link) {
+                var id = link.getAttribute('data-toc');
+                var dot = link.querySelector('.toc-dot');
+                var isActive = id === activeId;
+                var label = link.querySelector('.toc-label');
+                link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                if (dot) {
+                  dot.style.backgroundColor = isActive ? '#C4A855' : '';
+                  dot.style.width = isActive ? '8px' : '';
+                  dot.style.height = isActive ? '8px' : '';
+                  dot.style.boxShadow = isActive ? '0 0 6px rgba(196,168,85,0.4)' : '';
+                }
+                if (label) {
+                  label.style.color = isActive ? 'rgba(44,40,36,0.7)' : '';
+                  label.style.fontWeight = isActive ? '500' : '';
+                }
+              });
+            }
+          });
+        }, { rootMargin: '-15% 0px -65% 0px' });
+        sections.forEach(function (s) { chapterObserver.observe(s); });
+      }
+    });
+  </script>
   <!-- Hero with LAOM photo background -->
-  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
     <div class="absolute inset-0 z-0">
       <img
         src={heroImage}
@@ -66,7 +172,7 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
   </section>
 
   <!-- Dimensions -->
-  <section class="py-16 bg-[#faf9f6]">
+  <section class="py-16 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg font-light text-black/80 leading-relaxed mb-6">
         LAOM rassemble, sur un même lieu, plusieurs dimensions complémentaires :
@@ -82,27 +188,31 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
   </section>
 
   <!-- Un lieu d'habitat collectif et intergénérationnel -->
-  <section class="py-24 bg-white">
+  <section id="habitat" class="py-24 bg-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-8">Un lieu d'habitat collectif et intergénérationnel</h2>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-8">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Habitat</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">Un lieu d'habitat collectif et intergénérationnel</h2>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-8">
         LAOM est avant tout un lieu de vie.<br />
         Il s'inscrit au sein de l'écolieu Oasis La Margue, ce lieu très préservé au cœur du parc naturel des Grands Causses, un domaine habité collectivement, où nous expérimentons le vivre ensemble dans le respect des rythmes, des besoins et de l'autonomie de chacun.
       </p>
+      <div class="mt-8 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">[Photo a prendre : vue d'ensemble des habitats LAOM — Petit Shambala, Grand Shambala, tiny houses dans le paysage]</p>
+      </div>
 
       <h3 class="text-xl md:text-2xl font-light text-black mb-4 mt-10">L'écolieu Oasis La Margue : le cadre global</h3>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-8">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-8">
         Oasis La Margue est l'écolieu dans son ensemble.<br />
         Le domaine a été acquis collectivement initialement et comprend des habitats historiques en pierre, déjà présents sur le site ainsi que 21 hectares de prairies et de forêt, sur une partie desquels le projet LAOM a été développé. Certains membres du collectif vivent aujourd'hui dans les maisons en pierre, et d'autres (nous !) dans les nouveaux bâtiments à l'Ouest.
       </p>
 
       <h3 class="text-xl md:text-2xl font-light text-black mb-4 mt-10">L'entité LAOM</h3>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         À l'ouest du domaine, certains membres du collectif ont conçu et développé LAOM, une entité nouvelle, pensée comme un écosystème de vie, d'accueil et de régénération.<br />
         LAOM regroupe l'ensemble des espaces spécifiquement imaginés et construits pour soutenir les habitats écologiques, les projets, le coliving et les activités du lieu ; complémentaire aux habitats historiques.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-4">LAOM comprend :</p>
-      <ul class="space-y-2 text-lg font-light text-black/75 mb-8">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">LAOM comprend :</p>
+      <ul class="space-y-2 text-lg font-light text-[#2C2824]/85 mb-8">
         <li>– Petit Shambala, notre maison « test » en auto-construction (ossature bois, isolation fibre de bois, sol en terre crue, enduits terre)</li>
         <li>– Grand Shambala, qui accueille : des habitats permanents, des habitats semi-permanents, des chambres de coliving, un foyer commun ouvert à l'ensemble des habitants de l'écolieu, un studio d'art & de création</li>
         <li>– Le Shala, la salle d'activités dédiée aux pratiques et stages</li>
@@ -112,14 +222,17 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
         <li>– Un jardin / ferme nourricière</li>
       </ul>
 
-      <div class="rounded-lg border border-black/10 bg-[#faf9f6] p-6 lg:p-8 mb-10">
+      <div class="rounded-lg border border-black/10 bg-[#FAF8F5] p-6 lg:p-8 mb-10">
         <h3 class="text-xl md:text-2xl font-light text-black mb-3">{t.pages.project.constructionBlogsTitle}</h3>
         <p class="text-base font-light text-black/70 mb-4">{t.pages.project.constructionBlogsIntro}</p>
         <ul class="space-y-2">
           {t.pages.project.constructionBlogs.map((item) => {
             const label = lang === 'fr' ? item.labelFr : item.labelEn
             const slug = lang === 'fr' ? item.slugFr : item.slugEn
-            const href = getLocalizedPath(`/blog/${slug}/`, lang as 'fr' | 'en')
+            const isGrandShambala = slug.includes('grand-shambala')
+            const href = isGrandShambala
+              ? getLocalizedPath('/grand-shambala-v2/', lang as 'fr' | 'en')
+              : getLocalizedPath(`/blog/${slug}/`, lang as 'fr' | 'en')
             return (
               <li>
                 <a href={href} class="text-lg font-light text-black/80 hover:text-[#2d5016] transition-colors underline underline-offset-4">
@@ -132,32 +245,36 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
       </div>
 
       <h3 class="text-xl md:text-2xl font-light text-black mb-4 mt-10">Une diversité de manières d'habiter</h3>
-      <p class="text-lg font-light text-black/75 leading-relaxed">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
         Au sein de l'écolieu, les formes d'habitat sont multiples : résidents permanents, habitants semi-permanents et personnes de passage (coliving, stages, festivals, ateliers).
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mt-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mt-6">
         Dans l'entité LAOM, ces manières d'habiter s'inscrivent dans des principes communs : <strong>des habitats écologiques</strong>, conçus avec des matériaux naturels, sains (notamment en termes de qualité de l'air intérieur) et volontairement sobres et minimalistes, afin de réduire l'empreinte matérielle et de privilégier l'essentiel.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mt-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mt-6">
         Des espaces communs, existants et en cours de construction, sont pensés comme des lieux de rencontre et de partage entre les habitants. Ils soutiennent une vie collective choisie, respectueuse des rythmes, des besoins et de l'autonomie de chacun.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mt-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mt-6">
         Le collectif est intergénérationnel, de 2 à 70 ans, et évolue au fil du temps, des saisons et des projets.
       </p>
     </div>
   </section>
 
   <!-- Une ferme pédagogique en agriculture régénératrice -->
-  <section class="py-24 bg-[#faf9f6]">
+  <section id="ferme" class="py-24 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-8">Une ferme pédagogique en agriculture régénératrice</h2>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Agriculture</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">Une ferme pédagogique en agriculture régénératrice</h2>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Nous expérimentons l'agriculture régénératrice, une approche qui vise à restaurer les écosystèmes en enrichissant les sols et en soutenant la biodiversité.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <div class="mt-8 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">[Photo a prendre : jardin maraicher en agriculture regeneratrice — planches de culture, serre, paysage]</p>
+      </div>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Face à la dégradation rapide des sols et aux enjeux écologiques actuels, notre démarche va bien au-delà de la simple production alimentaire. Elle s'inscrit comme un chemin d'apprentissage au service de la régénération des sols, avec la volonté que le jardin nourricier alimente à la fois les habitants du lieu et les personnes accueillies lors des stages et des évènements du lieu.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
         La ferme maraîchère pédagogique est un espace de transmission.<br />
         À travers des ateliers pratiques, des temps de sensibilisation et des expériences ouvertes aux enfants comme aux adultes, nous partageons ce que nous expérimentons, apprenons et ajustons.
       </p>
@@ -165,13 +282,17 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
   </section>
 
   <!-- Des bâtiments éco-construits -->
-  <section class="py-24 bg-white">
+  <section id="batiments" class="py-24 bg-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-8">Des bâtiments éco-construits</h2>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Ecoconstruction</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">Des bâtiments éco-construits</h2>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Les constructions de LAOM sont conçues selon les principes de l'éco-construction, à partir de matériaux locaux, renouvelables ou recyclés.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed">
+      <div class="mt-8 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">[Photo a prendre : detail mur paille porteuse — texture, lumiere, enduit terre]</p>
+      </div>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
         Paille porteuse, terre crue, enduits naturels : nous expérimentons des solutions durables, confortables et saines, en réduisant au maximum l'empreinte écologique.<br />
         Ces bâtiments ne sont pas seulement des lieux d'habitat ou d'accueil, mais aussi des supports pédagogiques et des démonstrateurs concrets de ce qu'il est possible de faire aujourd'hui.
       </p>
@@ -179,40 +300,48 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
   </section>
 
   <!-- Un espace d'accueil pour stages et retraites -->
-  <section class="py-24 bg-[#faf9f6]">
+  <section id="accueil" class="py-24 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-8">Un espace d'accueil pour stages et retraites</h2>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Accueil</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">Un espace d'accueil pour stages et retraites</h2>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Au cœur d'un environnement naturel préservé, l'espace d'accueil de LAOM propose des expériences immersives à celles et ceux qui souhaitent se ressourcer, apprendre et se reconnecter.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <div class="mt-8 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">[Photo a prendre : salle de pratique Le Shala — interieur vide, lumiere naturelle, sol bois]</p>
+      </div>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Au-delà de l'accueil de praticiens extérieurs, LAOM développe ses propres immersions et événements signature, ancrés dans l'esprit du lieu.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Se déconnecter du rythme effréné, se synchroniser avec les cycles du vivant, retrouver une présence plus fine à soi et au monde.<br />
         Se nourrir pour nourrir le monde.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
         Notre espace d'accueil offre une expérience immersive aux visiteurs désireux de découvrir non seulement la beauté naturelle du lieu, mais aussi d'interagir avec les autres dimensions du projet (agriculture régénératrice, vivre ensemble, éco-construction).
       </p>
     </div>
   </section>
 
   <!-- Expériences immersives, résidences, colivings et micro-festivals -->
-  <section class="py-24 bg-white">
+  <section id="experiences" class="py-24 bg-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-8">Expériences immersives, résidences, colivings et micro-festivals</h2>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Experiences</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">Expériences immersives, résidences, colivings et micro-festivals</h2>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         LAOM accueille des expériences immersives, des résidences et des temps de coliving pour créateurs, artistes, leaders et personnes en quête de calme, de ressourcement ou de mieux-être.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <div class="mt-8 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">[Photo a prendre : micro-festival LAOM — personnes autour du feu, lumiere doree, soiree]</p>
+      </div>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Le coliving à LAOM propose des temps de vie intentionnels, sur des durées variables (résidences, moyens séjours), pour créer, se régénérer ou traverser une phase de transition, dans un environnement naturel, sobre et soutenant.<br />
         Ces séjours s'inscrivent en lien avec les différentes dimensions du lieu, dans le respect de son rythme et de ses usages.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Les micro-festivals sont des temps forts éphémères de célébration et de transmission, mêlant pratiques, rencontres et créations, pour explorer le lieu et le vivre autrement.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
         Le lieu a déjà accueilli des centaines de personnes venues de tous horizons.<br />
         Les expériences immersives proposées à LAOM sont conçues comme des espaces de transformation profonde. Les personnes qui y participent repartent nourries, inspirées et transformées, et seront naturellement amenées à diffuser ce qu'elles ont vécu autour d'elles, contribuant ainsi à un impact global de bien-être, de paix et d'harmonie. C'est un effet d'essaimage, un effet papillon.
       </p>
@@ -220,9 +349,10 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
   </section>
 
   <!-- Timeline des avancées -->
-  <section class="py-24 bg-white">
+  <section id="chronologie" class="py-24 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-12">{t.pages.project.timelineTitle}</h2>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Chronologie</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12 title-underline">{t.pages.project.timelineTitle}</h2>
       <div class="space-y-12">
         {t.pages.project.timeline.map((yearData) => (
           <div class="relative">
@@ -264,38 +394,45 @@ const heroImage = '/images/laom/presentation/img_2767---grande-c7779ff6.webp'
     </div>
   </section>
 
+  <NewsletterBanner />
+
   <!-- Pourquoi "LAOM" -->
-  <section class="py-24 bg-[#eef4ea]">
+  <section id="pourquoi" class="py-24 bg-[#eef4ea]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-3xl md:text-4xl font-light text-black mb-8">Pourquoi « LAOM »</h2>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Le nom « LAOM » combine deux sons importants : « LAM » et « OM ».
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         <strong>LAM</strong> est le son associé au chakra racine. Il évoque l'ancrage, la stabilité, la sécurité et le lien à la terre. Il rappelle l'importance de bases solides, de fondations saines, et d'un environnement qui soutient la vie.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed mb-6">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-6">
         <strong>OM</strong> est un son sacré présent dans de nombreuses traditions. Il est considéré comme le son primordial de l'univers, celui de l'unité, englobant la totalité de l'existence. Il symbolise l'unité et la connexion avec tout ce qui nous entoure.
       </p>
-      <p class="text-lg font-light text-black/75 leading-relaxed">
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
         Ensemble, ils symbolisent l'équilibre entre la terre et l'univers, représentant un espace où ces dimensions se rencontrent : LAOM incarne un espace où l'ancrage et la stabilité de la terre (LAM) rencontrent l'unité de l'univers (OM). C'est un lieu qui favorise à la fois le bien-être matériel et la croissance personnelle, un espace où les résidents et les visiteurs peuvent se sentir en sécurité, connectés, en harmonie avec eux-mêmes, les autres, la Nature et en lien avec quelque chose de plus grand que soi.
       </p>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-20 bg-[#2d5016] text-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <h2 class="text-3xl md:text-4xl font-light mb-4">{t.pages.project.ctaTitle}</h2>
-      <p class="text-lg font-light text-white/80 mb-8">{t.pages.project.ctaDescription}</p>
+  <!-- Suivre l'aventure — YouTube -->
+  <section class="py-24 md:py-32 bg-[#F3EEDC]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">YouTube</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal text-[#2C2824] tracking-tight mb-6 title-underline mx-auto">
+        Suivre l'aventure
+      </h2>
+      <p class="text-lg font-light text-[#2C2824]/60 leading-relaxed mb-10 max-w-2xl mx-auto">
+        Charly documente la construction de LAOM en video. Chantier, decisions, erreurs, apprentissages — tout est la, sans filtre.
+      </p>
       <a
-        href="https://cal.atomik.world/charly/30min"
+        href="https://www.youtube.com/@charlyaubert"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center justify-center rounded-sm bg-white text-black px-8 py-3 text-xs tracking-[0.25em] uppercase hover:bg-white/90 transition-colors"
-        aria-label="Découvrir LAOM Mentorat (opens in new tab)"
+        class="inline-flex items-center gap-3 rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
       >
-        {t.pages.project.ctaButton}
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        S'abonner a la chaine
       </a>
     </div>
   </section>
