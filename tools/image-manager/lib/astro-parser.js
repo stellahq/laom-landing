@@ -107,6 +107,139 @@ export function setupAstroParserRoutes(app, config) {
   })
 
   /**
+   * POST /api/pages/replace-image-src
+   * Remplace le src d'une image existante par une nouvelle image
+   */
+  router.post('/replace-image-src', async (req, res) => {
+    try {
+      const { pagePath, oldSrc, newSrc, newAlt } = req.body
+
+      if (!pagePath || !oldSrc || !newSrc) {
+        return res.status(400).json({ error: 'Paramètres manquants: pagePath, oldSrc, newSrc requis' })
+      }
+
+      const fullPath = join(srcPagesDir, pagePath)
+      
+      // Vérifier sécurité
+      if (!fullPath.startsWith(srcPagesDir)) {
+        return res.status(403).json({ error: 'Chemin non autorisé' })
+      }
+
+      let content = await fs.readFile(fullPath, 'utf-8')
+      
+      // Chercher l'image avec l'ancien src
+      // Pattern: src="oldSrc" ou src='oldSrc' ou src={oldSrc}
+      const srcPatterns = [
+        new RegExp(`src="${escapeRegex(oldSrc)}"`, 'g'),
+        new RegExp(`src='${escapeRegex(oldSrc)}'`, 'g'),
+        new RegExp(`src=\{['"]${escapeRegex(oldSrc)}['"]\}`, 'g')
+      ]
+
+      let replaced = false
+      for (const pattern of srcPatterns) {
+        if (pattern.test(content)) {
+          content = content.replace(pattern, `src="${newSrc}"`)
+          replaced = true
+          break
+        }
+      }
+
+      if (!replaced) {
+        return res.status(404).json({ error: 'Image source non trouvée dans la page' })
+      }
+
+      // Optionnel: mettre à jour l'alt si fourni
+      if (newAlt) {
+        // Chercher l'alt de l'image (proche du src remplacé)
+        const imgTagRegex = new RegExp(`(<img[^>]*src="${escapeRegex(newSrc)}"[^>]*)alt="[^"]*"`, 'g')
+        content = content.replace(imgTagRegex, `$1alt="${escapeHtml(newAlt)}"`)
+      }
+
+      // Sauvegarder
+      await fs.writeFile(fullPath, content, 'utf-8')
+
+      res.json({ 
+        success: true, 
+        oldSrc,
+        newSrc,
+        pagePath
+      })
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        return res.status(404).json({ error: 'Page non trouvée' })
+      }
+      console.error('Erreur remplacement image src:', err)
+      res.status(500).json({ error: err.message })
+    }
+  })
+
+  /**
+   * POST /api/pages/replace-image-with-placeholder
+   * Supprime une image et la remplace par un placeholder HTML
+   */
+  router.post('/replace-image-with-placeholder', async (req, res) => {
+    try {
+      const { pagePath, imageSrc, placeholderHtml } = req.body
+
+      if (!pagePath || !imageSrc || !placeholderHtml) {
+        return res.status(400).json({ error: 'Paramètres manquants: pagePath, imageSrc, placeholderHtml requis' })
+      }
+
+      const fullPath = join(srcPagesDir, pagePath)
+      
+      // Vérifier sécurité
+      if (!fullPath.startsWith(srcPagesDir)) {
+        return res.status(403).json({ error: 'Chemin non autorisé' })
+      }
+
+      let content = await fs.readFile(fullPath, 'utf-8')
+      
+      // Chercher la balise <img> complète contenant ce src
+      // Patterns possibles:
+      // <img src="..." ... />
+      // <img ... src="..." />
+      // <img ... src="...">
+      const imgPatterns = [
+        // Self-closing avec src au début
+        new RegExp(`<img\\s+src=["']${escapeRegex(imageSrc)}["'][^>]*/?>`, 'gi'),
+        // Self-closing avec src ailleurs
+        new RegExp(`<img\\s+[^>]*src=["']${escapeRegex(imageSrc)}["'][^>]*/?>`, 'gi'),
+        // Import Astro style: <Image src={import(...)} />
+        new RegExp(`<Image\\s+[^>]*src=["']${escapeRegex(imageSrc)}["'][^>]*/?>`, 'gi')
+      ]
+
+      let replaced = false
+      for (const pattern of imgPatterns) {
+        if (pattern.test(content)) {
+          content = content.replace(pattern, placeholderHtml)
+          replaced = true
+          break
+        }
+      }
+
+      if (!replaced) {
+        return res.status(404).json({ error: 'Balise image non trouvée dans la page' })
+      }
+
+      // Sauvegarder
+      await fs.writeFile(fullPath, content, 'utf-8')
+
+      res.json({ 
+        success: true, 
+        imageSrc,
+        pagePath,
+        message: 'Image remplacée par placeholder'
+      })
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        return res.status(404).json({ error: 'Page non trouvée' })
+      }
+      console.error('Erreur remplacement image par placeholder:', err)
+      res.status(500).json({ error: err.message })
+    }
+  })
+
+  /**
    * POST /api/pages/replace-placeholder
    * Remplace un placeholder par une balise image
    */
@@ -352,6 +485,13 @@ function escapeHtml(text) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
+}
+
+/**
+ * Échappe les caractères spéciaux pour RegExp
+ */
+function escapeRegex(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 /**

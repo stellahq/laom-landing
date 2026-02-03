@@ -1,0 +1,37 @@
+---
+/**
+ * DevImageManagerBridge
+ * 
+ * Composant qui injecte le script bridge pour l'Image Manager.
+ * Ne s'active qu'en mode dev et uniquement si la page est chargee dans l'iframe de l'Image Manager.
+ */
+
+const isDev = import.meta.env.DEV
+const IMAGE_MANAGER_PORT = 3001
+---
+
+{isDev && (
+  <script is:inline define:vars={{ IMAGE_MANAGER_PORT }}>
+    (function() {
+      // Detecter si on est dans l'iframe de l'Image Manager
+      // On verifie si le parent est different de la fenetre actuelle
+      // et si le referrer contient le port de l'image manager
+      const isInIframe = window.parent !== window
+      
+      if (!isInIframe) {
+        return // Pas dans un iframe, ne rien faire
+      }
+      
+      // Charger le script bridge depuis le serveur Image Manager
+      const script = document.createElement('script')
+      script.src = `http://localhost:${IMAGE_MANAGER_PORT}/bridge.js`
+      script.onload = function() {
+        console.log('[LAOM Image Manager] Bridge loaded')
+      }
+      script.onerror = function() {
+        console.log('[LAOM Image Manager] Bridge not available (Image Manager not running?)')
+      }
+      document.body.appendChild(script)
+    })()
+  </script>
+)}

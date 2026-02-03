@@ -35,6 +35,7 @@ import '../styles/global.css'
 import SEO from '~/components/SEO.astro'
 import Header from '~/components/Header.astro'
 import Footer from '~/components/Footer.astro'
+import DevImageManagerBridge from '~/components/DevImageManagerBridge.astro'
 
 // Merge SEO props with defaults
 const seoProps = {
@@ -80,5 +81,6 @@ const seoProps = {
       )
       document.querySelectorAll('[animate-fade-in-up]').forEach((el) => observer.observe(el))
     </script>
+    <DevImageManagerBridge />
   </body>
 </html>

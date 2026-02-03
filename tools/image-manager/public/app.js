@@ -1,33 +1,42 @@
 /**
- * LAOM Image Manager - Application Frontend
+ * LAOM Image Manager v3 - Squarespace-style UX
+ * 
+ * Fullscreen site view + modal phototheque on image click
  */
 
 // State
 const state = {
-  pages: [],
-  currentPage: null,
-  placeholders: [],
+  currentPath: '/',
+  currentPageFile: null,
+  selectedImage: null,
+  selectedPhoto: null, // Photo chosen from phototheque
   folders: [],
   currentFolder: 'all',
-  photos: [],
-  draggedPhoto: null,
-  auditResults: null
+  photos: []
 }
 
 // DOM Elements
 const elements = {
-  pagesList: document.getElementById('pages-list'),
-  totalPlaceholders: document.getElementById('total-placeholders'),
-  previewTitle: document.getElementById('preview-title'),
-  previewContainer: document.getElementById('preview-container'),
-  placeholdersPanel: document.getElementById('placeholders-panel'),
-  placeholdersList: document.getElementById('placeholders-list'),
-  placeholdersCount: document.getElementById('placeholders-count'),
-  folderTabs: document.querySelector('.folder-tabs'),
+  iframe: document.getElementById('site-iframe'),
+  iframeLoading: document.getElementById('iframe-loading'),
+  currentPage: document.getElementById('current-page'),
+  gitStatus: document.getElementById('git-status'),
+  
+  // Modal
+  modal: document.getElementById('modal-phototheque'),
+  modalTitleText: document.getElementById('modal-title-text'),
+  modalSubtitle: document.getElementById('modal-subtitle'),
+  currentImageSection: document.getElementById('current-image-section'),
+  currentImagePreview: document.getElementById('current-image-preview'),
+  folderTabs: document.getElementById('folder-tabs'),
   photosGrid: document.getElementById('photos-grid'),
   uploadZone: document.getElementById('upload-zone'),
   fileInput: document.getElementById('file-input'),
-  gitStatus: document.getElementById('git-status'),
+  btnClose: document.getElementById('btn-close-modal'),
+  btnCancel: document.getElementById('btn-cancel'),
+  btnReplace: document.getElementById('btn-replace'),
+  
+  // Other
   toastContainer: document.getElementById('toast-container'),
   processingOverlay: document.getElementById('processing-overlay'),
   processingMessage: document.getElementById('processing-message')
@@ -37,16 +46,21 @@ const elements = {
 document.addEventListener('DOMContentLoaded', init)
 
 async function init() {
+  setupIframeListener()
+  setupEventListeners()
+  
   await Promise.all([
-    loadPages(),
     loadPhototheque(),
     loadGitStatus()
   ])
   
-  setupEventListeners()
+  // Hide loading once iframe loads
+  elements.iframe.addEventListener('load', () => {
+    elements.iframeLoading.classList.add('hidden')
+  })
 }
 
-// API helpers
+// API helper
 async function api(endpoint, options = {}) {
   const response = await fetch(`/api${endpoint}`, {
     headers: { 'Content-Type': 'application/json' },
@@ -56,77 +70,97 @@ async function api(endpoint, options = {}) {
   return response.json()
 }
 
-// Load pages
-async function loadPages() {
+// Setup iframe message listener
+function setupIframeListener() {
+  window.addEventListener('message', (event) => {
+    if (event.origin !== 'http://localhost:3000') return
+    
+    const { type, ...data } = event.data
+    
+    switch (type) {
+      case 'PAGE_CHANGE':
+        handlePageChange(data)
+        break
+      case 'IMAGE_SELECTED':
+        handleImageSelected(data)
+        break
+    }
+  })
+}
+
+// Handle page change from iframe
+async function handlePageChange(data) {
+  state.currentPath = data.path
+  elements.currentPage.textContent = data.path
+  state.currentPageFile = await findPageFile(data.path)
+}
+
+// Find .astro file for URL path
+async function findPageFile(urlPath) {
   try {
     const data = await api('/pages')
-    state.pages = data.pages || []
-    renderPages()
-    
-    const total = state.pages.reduce((sum, p) => sum + p.placeholderCount, 0)
-    elements.totalPlaceholders.textContent = total
+    const page = data.pages?.find(p => p.url === urlPath || p.url === urlPath.replace(/\/$/, ''))
+    return page?.path || null
   } catch (err) {
-    console.error('Erreur chargement pages:', err)
-    toast('Erreur chargement pages', 'error')
+    console.error('Error finding page file:', err)
+    return null
   }
 }
 
-// Render pages list
-function renderPages() {
-  elements.pagesList.innerHTML = state.pages
-    .filter(p => p.placeholderCount > 0 || state.currentPage?.path === p.path)
-    .map(page => `
-      <li data-path="${page.path}" class="${state.currentPage?.path === page.path ? 'active' : ''}">
-        <span class="page-name">${page.name}</span>
-        <span class="badge ${page.placeholderCount === 0 ? 'empty' : ''}">${page.placeholderCount}</span>
-      </li>
-    `).join('')
-}
-
-// Select a page
-async function selectPage(pagePath) {
-  try {
-    const data = await api(`/pages/${encodeURIComponent(pagePath)}`)
-    state.currentPage = data
-    state.placeholders = data.placeholders || []
-    
-    // Update UI
-    elements.previewTitle.textContent = pagePath.replace('.astro', '')
-    document.getElementById('btn-open-page').disabled = false
-    
-    // Load iframe with the page
-    const pageUrl = data.url || '/'
-    elements.previewContainer.innerHTML = `
-      <iframe src="http://localhost:3000${pageUrl}" id="preview-iframe"></iframe>
-    `
-    
-    // Show placeholders panel
-    if (state.placeholders.length > 0) {
-      elements.placeholdersPanel.classList.remove('hidden')
-      elements.placeholdersCount.textContent = state.placeholders.length
-      renderPlaceholders()
-    } else {
-      elements.placeholdersPanel.classList.add('hidden')
-    }
-    
-    renderPages()
-  } catch (err) {
-    console.error('Erreur chargement page:', err)
-    toast('Erreur chargement page', 'error')
-  }
-}
-
-// Render placeholders list
-function renderPlaceholders() {
-  elements.placeholdersList.innerHTML = state.placeholders.map((ph, index) => `
-    <li data-id="${ph.id}" data-index="${index}">
-      <div class="placeholder-desc">${ph.description || 'Placeholder'}</div>
-      <div class="placeholder-context">
-        ${ph.context?.nearestTitle ? `<strong>${ph.context.nearestTitle}</strong>` : ''}
-        ${ph.context?.sectionHint ? ` - ${ph.context.sectionHint}` : ''}
+// Handle image selection from iframe → open modal
+function handleImageSelected(data) {
+  state.selectedImage = data
+  state.selectedPhoto = null
+  
+  // Update modal content
+  if (data.isPlaceholder) {
+    elements.modalTitleText.textContent = 'Ajouter une image'
+    elements.modalSubtitle.textContent = data.description || 'Placeholder'
+    elements.currentImagePreview.innerHTML = `
+      <div class="placeholder-preview">➕</div>
+      <div class="current-image-info">
+        <div class="filename">Placeholder</div>
+        <div class="dimensions">${truncate(data.description, 50)}</div>
       </div>
-    </li>
-  `).join('')
+    `
+  } else {
+    const filename = getFilename(data.src)
+    elements.modalTitleText.textContent = 'Remplacer l\'image'
+    elements.modalSubtitle.textContent = filename
+    elements.currentImagePreview.innerHTML = `
+      <img src="${data.src}" alt="">
+      <div class="current-image-info">
+        <div class="filename">${filename}</div>
+        <div class="dimensions">${data.width || '?'} x ${data.height || '?'}</div>
+      </div>
+    `
+  }
+  
+  // Reset selection state
+  elements.btnReplace.disabled = true
+  document.querySelectorAll('.photo-item.selected').forEach(el => el.classList.remove('selected'))
+  
+  // Show modal
+  openModal()
+}
+
+// Open modal
+function openModal() {
+  elements.modal.classList.remove('hidden')
+  document.body.style.overflow = 'hidden'
+}
+
+// Close modal
+function closeModal() {
+  elements.modal.classList.add('hidden')
+  document.body.style.overflow = ''
+  
+  // Deselect in iframe
+  elements.iframe.contentWindow?.postMessage({ type: 'DESELECT' }, 'http://localhost:3000')
+  
+  // Reset state
+  state.selectedImage = null
+  state.selectedPhoto = null
 }
 
 // Load phototheque
@@ -169,25 +203,43 @@ function renderPhotos() {
     photosToShow = state.photos.filter(p => p.folder === state.currentFolder)
   }
   
+  if (photosToShow.length === 0) {
+    elements.photosGrid.innerHTML = '<p class="empty-state">Aucune photo dans ce dossier</p>'
+    return
+  }
+  
   elements.photosGrid.innerHTML = photosToShow.map(photo => `
     <div class="photo-item" 
-         draggable="true" 
          data-folder="${photo.folder}" 
          data-name="${photo.name}">
       <img src="/api/phototheque/photo/${encodeURIComponent(photo.folder)}/${encodeURIComponent(photo.name)}" 
            alt="${photo.name}"
            loading="lazy">
       <span class="photo-name">${photo.name}</span>
-      <div class="photo-actions">
-        <button class="photo-action-btn" data-action="delete" title="Supprimer">x</button>
-      </div>
     </div>
   `).join('')
   
-  // Add drag event listeners
+  // Add click handlers
+  setupPhotoClickListeners()
+}
+
+// Setup photo click listeners
+function setupPhotoClickListeners() {
   document.querySelectorAll('.photo-item').forEach(item => {
-    item.addEventListener('dragstart', handlePhotoDragStart)
-    item.addEventListener('dragend', handlePhotoDragEnd)
+    item.addEventListener('click', () => {
+      // Deselect previous
+      document.querySelectorAll('.photo-item.selected').forEach(el => el.classList.remove('selected'))
+      
+      // Select this one
+      item.classList.add('selected')
+      state.selectedPhoto = {
+        folder: item.dataset.folder,
+        name: item.dataset.name
+      }
+      
+      // Enable replace button
+      elements.btnReplace.disabled = false
+    })
   })
 }
 
@@ -195,23 +247,37 @@ function renderPhotos() {
 async function loadGitStatus() {
   try {
     const data = await api('/git/status')
-    elements.gitStatus.textContent = data.isClean ? 'clean' : `${data.modified.length} modifies`
-    elements.gitStatus.className = `git-status ${data.isClean ? 'clean' : 'dirty'}`
+    if (data.isClean) {
+      elements.gitStatus.textContent = 'Synced'
+      elements.gitStatus.className = 'git-status synced'
+    } else {
+      elements.gitStatus.textContent = `${data.modified?.length || 0} changes`
+      elements.gitStatus.className = 'git-status pending'
+    }
   } catch (err) {
-    elements.gitStatus.textContent = 'git error'
+    elements.gitStatus.textContent = ''
     elements.gitStatus.className = 'git-status'
   }
 }
 
 // Setup event listeners
 function setupEventListeners() {
-  // Pages list click
-  elements.pagesList.addEventListener('click', (e) => {
-    const li = e.target.closest('li')
-    if (li) {
-      selectPage(li.dataset.path)
+  // Modal close buttons
+  elements.btnClose.addEventListener('click', closeModal)
+  elements.btnCancel.addEventListener('click', closeModal)
+  
+  // Backdrop click to close
+  elements.modal.querySelector('.modal-backdrop').addEventListener('click', closeModal)
+  
+  // Escape key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !elements.modal.classList.contains('hidden')) {
+      closeModal()
     }
   })
+  
+  // Replace button
+  elements.btnReplace.addEventListener('click', executeReplacement)
   
   // Folder tabs click
   elements.folderTabs.addEventListener('click', (e) => {
@@ -240,88 +306,9 @@ function setupEventListeners() {
       uploadFiles(e.target.files)
     }
   })
-  
-  // Placeholders drop zone
-  elements.placeholdersList.addEventListener('dragover', (e) => {
-    e.preventDefault()
-    const li = e.target.closest('li')
-    if (li) {
-      document.querySelectorAll('.placeholders-list li').forEach(item => 
-        item.classList.remove('drop-target')
-      )
-      li.classList.add('drop-target')
-    }
-  })
-  
-  elements.placeholdersList.addEventListener('dragleave', (e) => {
-    const li = e.target.closest('li')
-    if (li) li.classList.remove('drop-target')
-  })
-  
-  elements.placeholdersList.addEventListener('drop', handlePlaceholderDrop)
-  
-  // New folder button
-  document.getElementById('btn-new-folder').addEventListener('click', showNewFolderModal)
-  
-  // New folder modal actions
-  document.getElementById('modal-new-folder').addEventListener('click', (e) => {
-    const action = e.target.dataset.action
-    if (action === 'cancel') {
-      hideModal('modal-new-folder')
-    } else if (action === 'create') {
-      createFolder()
-    }
-  })
-  
-  // Audit button
-  document.getElementById('btn-audit').addEventListener('click', showAuditModal)
-  
-  // Audit modal actions
-  document.getElementById('modal-audit').addEventListener('click', (e) => {
-    const action = e.target.dataset.action
-    if (action === 'close') {
-      hideModal('modal-audit')
-    }
-  })
-  
-  document.getElementById('btn-apply-all').addEventListener('click', applyAllRenames)
-  
-  // Place modal actions
-  document.getElementById('modal-place').addEventListener('click', (e) => {
-    const action = e.target.dataset.action
-    if (action === 'cancel') {
-      hideModal('modal-place')
-    } else if (action === 'place') {
-      executePlacement()
-    }
-  })
-  
-  // Refresh button
-  document.getElementById('btn-refresh').addEventListener('click', async () => {
-    await Promise.all([loadPages(), loadPhototheque(), loadGitStatus()])
-    toast('Actualise', 'success')
-  })
-  
-  // Open page button
-  document.getElementById('btn-open-page').addEventListener('click', () => {
-    if (state.currentPage) {
-      window.open(`http://localhost:3000${state.currentPage.url}`, '_blank')
-    }
-  })
-  
-  // Photos actions (delete)
-  elements.photosGrid.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.photo-action-btn')
-    if (btn && btn.dataset.action === 'delete') {
-      const item = btn.closest('.photo-item')
-      if (confirm(`Supprimer ${item.dataset.name} ?`)) {
-        await deletePhoto(item.dataset.folder, item.dataset.name)
-      }
-    }
-  })
 }
 
-// Handle file drop on upload zone
+// Handle file drop
 async function handleFileDrop(e) {
   e.preventDefault()
   elements.uploadZone.classList.remove('dragover')
@@ -355,6 +342,26 @@ async function uploadFiles(files) {
     if (data.success) {
       toast(`${data.uploaded.length} photo(s) ajoutee(s)`, 'success')
       await loadPhototheque()
+      
+      // Auto-select the first uploaded photo
+      if (data.uploaded.length > 0) {
+        const uploadedPhoto = data.uploaded[0]
+        state.selectedPhoto = {
+          folder: uploadedPhoto.folder || folder,
+          name: uploadedPhoto.name
+        }
+        elements.btnReplace.disabled = false
+        
+        // Highlight in grid
+        setTimeout(() => {
+          const item = document.querySelector(`.photo-item[data-name="${uploadedPhoto.name}"]`)
+          if (item) {
+            document.querySelectorAll('.photo-item.selected').forEach(el => el.classList.remove('selected'))
+            item.classList.add('selected')
+            item.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          }
+        }, 100)
+      }
     } else {
       toast('Erreur upload: ' + data.error, 'error')
     }
@@ -366,75 +373,13 @@ async function uploadFiles(files) {
   }
 }
 
-// Handle photo drag start
-function handlePhotoDragStart(e) {
-  state.draggedPhoto = {
-    folder: e.target.dataset.folder,
-    name: e.target.dataset.name
-  }
-  e.target.classList.add('dragging')
-}
-
-// Handle photo drag end
-function handlePhotoDragEnd(e) {
-  e.target.classList.remove('dragging')
-  document.querySelectorAll('.drop-target').forEach(el => el.classList.remove('drop-target'))
-}
-
-// Handle drop on placeholder
-async function handlePlaceholderDrop(e) {
-  e.preventDefault()
-  
-  const li = e.target.closest('li')
-  if (!li || !state.draggedPhoto) return
-  
-  li.classList.remove('drop-target')
-  
-  const placeholderIndex = parseInt(li.dataset.index)
-  const placeholder = state.placeholders[placeholderIndex]
-  
-  if (!placeholder) return
-  
-  // Show placement modal
-  showPlaceModal(state.draggedPhoto, placeholder)
-}
-
-// Show place modal
-async function showPlaceModal(photo, placeholder) {
-  document.getElementById('place-preview-img').src = 
-    `/api/phototheque/photo/${encodeURIComponent(photo.folder)}/${encodeURIComponent(photo.name)}`
-  
-  document.getElementById('place-photo-name').textContent = `${photo.folder}/${photo.name}`
-  document.getElementById('place-placeholder-desc').textContent = placeholder.description || 'Placeholder'
-  
-  // Get suggested SEO name
-  try {
-    const data = await api('/images/preview-name', {
-      method: 'POST',
-      body: {
-        sourceFile: photo.name,
-        sourceFolder: photo.folder,
-        context: placeholder.context,
-        pageName: state.currentPage?.path?.replace('.astro', '')
-      }
-    })
-    document.getElementById('place-seo-name').value = data.suggestedName
-  } catch (err) {
-    document.getElementById('place-seo-name').value = photo.name.replace(/\.[^.]+$/, '.webp')
+// Execute image replacement
+async function executeReplacement() {
+  if (!state.selectedImage || !state.selectedPhoto || !state.currentPageFile) {
+    toast('Selection incomplete', 'error')
+    return
   }
   
-  // Store placement data
-  state.pendingPlacement = { photo, placeholder }
-  
-  showModal('modal-place')
-}
-
-// Execute placement
-async function executePlacement() {
-  const { photo, placeholder } = state.pendingPlacement
-  const seoName = document.getElementById('place-seo-name').value
-  
-  hideModal('modal-place')
   showProcessing('Traitement de l\'image...')
   
   try {
@@ -442,11 +387,15 @@ async function executePlacement() {
     const processResult = await api('/images/process', {
       method: 'POST',
       body: {
-        sourceFolder: photo.folder,
-        sourceFile: photo.name,
-        context: placeholder.context,
-        pageName: state.currentPage?.path?.replace('.astro', ''),
-        targetSubfolder: inferTargetSubfolder(state.currentPage?.path)
+        sourceFolder: state.selectedPhoto.folder,
+        sourceFile: state.selectedPhoto.name,
+        context: state.selectedImage.isPlaceholder ? null : { 
+          nearestTitle: null,
+          paragraphs: [],
+          sectionHint: inferSection(state.selectedImage.src)
+        },
+        pageName: state.currentPageFile.replace('.astro', ''),
+        targetSubfolder: inferTargetSubfolder(state.currentPath)
       }
     })
     
@@ -456,19 +405,28 @@ async function executePlacement() {
     
     showProcessing('Mise a jour du code...')
     
-    // 2. Replace placeholder in code
-    const replaceResult = await api('/pages/replace-placeholder', {
-      method: 'POST',
-      body: {
-        pagePath: state.currentPage.path,
-        placeholderId: placeholder.id,
-        imagePath: processResult.publicPath,
-        imageAlt: placeholder.description
-      }
-    })
-    
-    if (!replaceResult.success) {
-      throw new Error(replaceResult.error || 'Erreur remplacement placeholder')
+    // 2. Replace in code
+    if (state.selectedImage.isPlaceholder) {
+      // Replace placeholder with image
+      await api('/pages/replace-placeholder', {
+        method: 'POST',
+        body: {
+          pagePath: state.currentPageFile,
+          placeholderId: state.selectedImage.xpath,
+          imagePath: processResult.publicPath,
+          imageAlt: state.selectedImage.description?.substring(0, 100) || 'Image'
+        }
+      })
+    } else {
+      // Replace existing image src
+      await api('/pages/replace-image-src', {
+        method: 'POST',
+        body: {
+          pagePath: state.currentPageFile,
+          oldSrc: state.selectedImage.src,
+          newSrc: processResult.publicPath
+        }
+      })
     }
     
     showProcessing('Publication en cours...')
@@ -477,195 +435,38 @@ async function executePlacement() {
     const publishResult = await api('/git/publish', {
       method: 'POST',
       body: {
-        imageName: seoName,
-        pageName: state.currentPage?.path?.replace('.astro', '')
+        imageName: processResult.processedFile,
+        pageName: state.currentPageFile.replace('.astro', '')
       }
     })
     
     if (publishResult.pushed) {
-      toast(`Image publiee ! ${seoName}`, 'success')
+      toast(`Image publiee !`, 'success')
     } else if (publishResult.committed) {
-      toast(`Image commitee (push en attente)`, 'warning')
-    } else {
-      toast('Image placee (pas de changements a publier)', 'success')
+      toast(`Image commitee`, 'success')
     }
     
-    // Refresh data
-    await loadPages()
+    // Close modal
+    closeModal()
+    
+    // Refresh
     await loadGitStatus()
     
-    // Refresh current page
-    if (state.currentPage) {
-      await selectPage(state.currentPage.path)
-    }
+    // Refresh iframe after a short delay
+    setTimeout(() => {
+      elements.iframe.contentWindow?.postMessage({ type: 'REFRESH' }, 'http://localhost:3000')
+    }, 500)
     
   } catch (err) {
-    console.error('Erreur placement:', err)
-    toast('Erreur: ' + err.message, 'error')
-  } finally {
-    hideProcessing()
-    state.pendingPlacement = null
-    state.draggedPhoto = null
-  }
-}
-
-// Infer target subfolder based on page
-function inferTargetSubfolder(pagePath) {
-  if (!pagePath) return null
-  
-  const lower = pagePath.toLowerCase()
-  if (lower.includes('grand-shambala')) return 'grand-shambala'
-  if (lower.includes('petit-shambala')) return 'petit-shambala'
-  if (lower.includes('salle') || lower.includes('pratique')) return 'salle-pratique'
-  
-  return null
-}
-
-// Delete photo
-async function deletePhoto(folder, name) {
-  try {
-    const data = await api('/phototheque/photo', {
-      method: 'DELETE',
-      body: { folder, photo: name }
-    })
-    
-    if (data.success) {
-      toast('Photo supprimee', 'success')
-      await loadPhototheque()
-    } else {
-      toast('Erreur: ' + data.error, 'error')
-    }
-  } catch (err) {
-    console.error('Erreur suppression:', err)
-    toast('Erreur suppression', 'error')
-  }
-}
-
-// Show new folder modal
-function showNewFolderModal() {
-  document.getElementById('new-folder-name').value = ''
-  showModal('modal-new-folder')
-  document.getElementById('new-folder-name').focus()
-}
-
-// Create folder
-async function createFolder() {
-  const name = document.getElementById('new-folder-name').value.trim()
-  if (!name) {
-    toast('Nom de dossier requis', 'warning')
-    return
-  }
-  
-  try {
-    const data = await api('/phototheque/folders', {
-      method: 'POST',
-      body: { name }
-    })
-    
-    if (data.success) {
-      toast(`Dossier "${data.name}" cree`, 'success')
-      hideModal('modal-new-folder')
-      await loadPhototheque()
-    } else {
-      toast('Erreur: ' + data.error, 'error')
-    }
-  } catch (err) {
-    console.error('Erreur creation dossier:', err)
-    toast('Erreur creation dossier', 'error')
-  }
-}
-
-// Show audit modal
-async function showAuditModal() {
-  showModal('modal-audit')
-  document.getElementById('audit-content').innerHTML = '<p>Analyse en cours...</p>'
-  document.getElementById('btn-apply-all').disabled = true
-  
-  try {
-    const data = await api('/seo/audit')
-    state.auditResults = data
-    
-    if (data.issues.length === 0) {
-      document.getElementById('audit-content').innerHTML = `
-        <div class="audit-summary">
-          <p>Toutes les images sont bien nommees ! (${data.stats.totalImages} images analysees)</p>
-        </div>
-      `
-    } else {
-      document.getElementById('btn-apply-all').disabled = false
-      
-      const issuesHtml = data.issues.map(issue => `
-        <div class="audit-issue">
-          <div class="audit-issue-header">
-            <span class="audit-issue-current">${issue.currentName}</span>
-          </div>
-          <div class="audit-issue-suggested">Suggere: ${issue.suggestedName}</div>
-          <div class="audit-issue-reason">${issue.reason}</div>
-        </div>
-      `).join('')
-      
-      document.getElementById('audit-content').innerHTML = `
-        <div class="audit-summary">
-          <p>${data.summary}</p>
-        </div>
-        ${issuesHtml}
-      `
-    }
-  } catch (err) {
-    console.error('Erreur audit:', err)
-    document.getElementById('audit-content').innerHTML = `<p>Erreur: ${err.message}</p>`
-  }
-}
-
-// Apply all renames
-async function applyAllRenames() {
-  if (!state.auditResults?.issues?.length) return
-  
-  const suggestions = state.auditResults.issues.map(i => ({
-    currentPath: i.currentPath,
-    suggestedName: i.suggestedName
-  }))
-  
-  hideModal('modal-audit')
-  showProcessing('Application des renommages...')
-  
-  try {
-    const data = await api('/seo/rename-all', {
-      method: 'POST',
-      body: { suggestions }
-    })
-    
-    if (data.success) {
-      toast(`${data.successCount} images renommees`, 'success')
-      
-      // Git commit
-      showProcessing('Publication des changements...')
-      await api('/git/publish', {
-        method: 'POST',
-        body: { message: `refactor(images): rename ${data.successCount} images for SEO` }
-      })
-      
-      await loadGitStatus()
-    }
-  } catch (err) {
-    console.error('Erreur renommages:', err)
+    console.error('Erreur replacement:', err)
     toast('Erreur: ' + err.message, 'error')
   } finally {
     hideProcessing()
   }
 }
 
-// Modal helpers
-function showModal(id) {
-  document.getElementById(id).classList.remove('hidden')
-}
-
-function hideModal(id) {
-  document.getElementById(id).classList.add('hidden')
-}
-
-// Processing overlay
-function showProcessing(message = 'Traitement en cours...') {
+// Utilities
+function showProcessing(message = 'Traitement...') {
   elements.processingMessage.textContent = message
   elements.processingOverlay.classList.remove('hidden')
 }
@@ -674,14 +475,40 @@ function hideProcessing() {
   elements.processingOverlay.classList.add('hidden')
 }
 
-// Toast notifications
 function toast(message, type = 'success') {
-  const toast = document.createElement('div')
-  toast.className = `toast ${type}`
-  toast.textContent = message
-  elements.toastContainer.appendChild(toast)
+  const toastEl = document.createElement('div')
+  toastEl.className = `toast ${type}`
+  toastEl.textContent = message
+  elements.toastContainer.appendChild(toastEl)
   
-  setTimeout(() => {
-    toast.remove()
-  }, 4000)
+  setTimeout(() => toastEl.remove(), 4000)
+}
+
+function truncate(str, len) {
+  if (!str) return ''
+  return str.length > len ? str.substring(0, len) + '...' : str
+}
+
+function getFilename(path) {
+  if (!path) return ''
+  return path.split('/').pop()
+}
+
+function inferSection(src) {
+  if (!src) return null
+  const lower = src.toLowerCase()
+  if (lower.includes('facade')) return 'facade'
+  if (lower.includes('interieur')) return 'interieur'
+  if (lower.includes('charpente')) return 'charpente'
+  if (lower.includes('paille')) return 'paille'
+  return null
+}
+
+function inferTargetSubfolder(path) {
+  if (!path) return null
+  const lower = path.toLowerCase()
+  if (lower.includes('grand-shambala')) return 'grand-shambala'
+  if (lower.includes('petit-shambala')) return 'petit-shambala'
+  if (lower.includes('salle') || lower.includes('pratique')) return 'salle-pratique'
+  return null
 }
