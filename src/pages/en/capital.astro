@@ -1,0 +1,317 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageSchema = createWebPageSchema({
+  name: 'LAOM Capital – Invest in regenerative coliving',
+  url: Astro.url.toString(),
+  description: 'Invest in high-impact regenerative coliving projects. 8% target return. Capital protection. Via Fyneo.',
+})
+
+const projets = [
+  {
+    name: 'LAOM',
+    location: 'Aveyron, France',
+    description: 'The reference regenerative coliving. 21 hectares, 15 households, Grand Shambala (850 m² load-bearing straw). Expansion phase: new housing, market garden, expanded welcome space.',
+    objectif: 500000,
+    leve: 180000,
+    rendement: '8%',
+    status: 'In funding',
+    placeholder: 'Photo to take: aerial view of LAOM estate, buildings, meadows, forest, river',
+  },
+  {
+    name: 'Naturopia',
+    location: 'Madeira, Portugal',
+    description: 'Regenerative coliving in a subtropical climate. Tropical agriculture, wellness retreats, international community. A LAOM model adapted to the Atlantic.',
+    objectif: 350000,
+    leve: 0,
+    rendement: '8%',
+    status: 'Coming soon',
+    placeholder: 'Photo to take: Madeira landscape, lush vegetation, ocean, levada terraces',
+  },
+]
+
+const etapes = [
+  {
+    num: '01',
+    title: 'Discover the projects',
+    description: 'Browse project sheets on LAOM Capital or directly on Fyneo. Each project details the economic model, target returns, risks and environmental and social impact.',
+  },
+  {
+    num: '02',
+    title: 'Invest via Fyneo',
+    description: 'Secure online subscription on fyneo.org. SCIA shares or bonds depending on the project. From 1,000 EUR for individuals.',
+  },
+  {
+    num: '03',
+    title: 'Track and receive',
+    description: 'Quarterly reporting on project progress. Returns paid according to the defined schedule. On-site visits possible for investors.',
+  },
+]
+
+const protections = [
+  {
+    title: 'Real asset',
+    description: 'Your investment is backed by land and property. No speculation, tangible assets. Buildings, land, infrastructure.',
+  },
+  {
+    title: 'Solid legal structure',
+    description: 'SCIA, bonds, French and European legal framework. Shareholders\' agreement, exit rights, transparent governance.',
+  },
+  {
+    title: 'Revenue diversification',
+    description: 'Each project combines several revenue streams: coliving, workshops, agriculture, events, training. A resilient model, not dependent on a single activity.',
+  },
+  {
+    title: 'Trained project holders',
+    description: 'Project holders are trained and supported by LAOM School. Valid business model, structured governance, secured funding. Reduced management risk.',
+  },
+]
+
+function formatMontant(n: number): string {
+  return n.toLocaleString('en-GB')
+}
+---
+
+<Layout
+  title="LAOM Capital – Invest in regenerative coliving | LAOM"
+  description="Invest in high-impact regenerative coliving projects. 8% target return. Capital protection. Via Fyneo."
+  seo={{
+    ldJSON: pageSchema,
+  }}
+>
+  <!-- Hero, dark -->
+  <section class="relative py-32 lg:py-40 bg-[#2C2824] overflow-hidden -mt-24 md:-mt-28">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(196,168,85,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(196,168,85,0.15) 0%, transparent 50%);"></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-24 md:pt-28 opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Impact investment</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-8 tracking-tight">
+        LAOM Capital
+      </h1>
+      <p class="text-xl md:text-2xl font-light text-white/70 max-w-3xl mx-auto leading-relaxed">
+        Invest in regenerative coliving. 8% target return. Capital protection. Local economy creation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Investment thesis -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Why</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">
+        Regenerative coliving, an asset for the future
+      </h2>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The coliving market is booming. Demand for alternative, rural, regenerative, meaningful living spaces keeps growing. Conventional real estate models no longer meet this aspiration.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Eco-places that work combine property, activities (workshops, coliving, agriculture, events) and community. It's a multi-revenue, resilient model, rooted in reality. Not a startup. A living place that generates economic, social and ecological value.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        LAOM Capital lets you invest in these projects via SCIA shares or bonds. A tangible investment, backed by land and property, with measurable impact on the ground.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        Available exclusively via <a href="https://fyneo.org" target="_blank" rel="noopener noreferrer" class="text-[#C4A855] underline underline-offset-4 hover:text-[#B09A4A] transition-colors">Fyneo</a>, green investment platform, or by direct investment in projects.
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projets" class="py-20 md:py-24 bg-[#FAF8F5] scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Portfolio</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
+          Projects currently raising
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 opacity-0" animate-fade-in-up>
+        {projets.map((projet) => {
+          const pct = projet.objectif > 0 ? Math.round((projet.leve / projet.objectif) * 100) : 0
+          return (
+            <div class="border border-black/5 rounded-sm overflow-hidden bg-white flex flex-col">
+              <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center">
+                <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">{projet.placeholder}</p>
+              </div>
+
+              <div class="p-6 md:p-8 flex flex-col flex-1">
+                <div class="mb-4">
+                  <span class={`inline-block text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-sm ${projet.status === 'In funding' ? 'bg-[#C4A855]/15 text-[#8B7A3A]' : 'bg-[#2C2824]/5 text-[#2C2824]/40'}`}>
+                    {projet.status}
+                  </span>
+                </div>
+
+                <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{projet.name}</h3>
+                <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-4">{projet.location}</p>
+                <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed mb-6 flex-1">{projet.description}</p>
+
+                <div class="mb-4">
+                  <div class="flex justify-between text-xs font-light text-[#2C2824]/50 mb-2">
+                    <span>{projet.leve > 0 ? `${formatMontant(projet.leve)} EUR raised` : 'Opening soon'}</span>
+                    <span>{formatMontant(projet.objectif)} EUR</span>
+                  </div>
+                  <div class="w-full h-2 bg-[#E8E3D8] rounded-full overflow-hidden">
+                    <div class="h-full bg-[#C4A855] rounded-full transition-all duration-500" style={`width: ${pct}%`}></div>
+                  </div>
+                  {pct > 0 && (
+                    <p class="text-xs font-light text-[#C4A855] mt-2">{pct}% funded</p>
+                  )}
+                </div>
+
+                <div class="flex items-center justify-between pt-4 border-t border-black/5 mb-6">
+                  <span class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Target return</span>
+                  <span class="font-playfair text-lg font-medium text-[#2C2824]">{projet.rendement}</span>
+                </div>
+
+                <a
+                  href="https://fyneo.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={`inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center ${projet.status === 'In funding' ? 'bg-[#C4A855] hover:bg-[#B09A4A]' : 'bg-[#2C2824]/20 cursor-default pointer-events-none'}`}
+                  aria-label={projet.status === 'In funding' ? 'View on Fyneo (opens in new tab)' : 'Coming soon'}
+                >
+                  {projet.status === 'In funding' ? 'View on Fyneo' : 'Coming soon'}
+                </a>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Key figures -->
+  <section class="py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 opacity-0" animate-fade-in-up>
+        <div class="text-center">
+          <p class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-2">8%</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Target annual return</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-2">100%</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Real investment</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-2">2</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Projects in portfolio</p>
+        </div>
+        <div class="text-center">
+          <div class="flex justify-center mb-2">
+            <svg class="w-10 h-10 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Via Fyneo, regulated platform</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="mb-14 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Process</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline">
+          Invest in 3 steps
+        </h2>
+      </div>
+
+      <div class="space-y-10 opacity-0" animate-fade-in-up>
+        {etapes.map((e) => (
+          <div class="flex items-start gap-6">
+            <span class="text-2xl font-light tracking-[0.1em] text-[#C4A855] flex-shrink-0 mt-1">{e.num}</span>
+            <div>
+              <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">{e.title}</h3>
+              <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">{e.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Capital protection -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Security</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
+          Your capital is protected
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 opacity-0" animate-fade-in-up>
+        {protections.map((p) => (
+          <div class="bg-white border border-black/5 rounded-sm p-8">
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-3">{p.title}</h3>
+            <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Who it's for -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Investors</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
+          Who is LAOM Capital for
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 opacity-0" animate-fade-in-up>
+        <div class="bg-white border border-black/5 rounded-sm p-8 md:p-10">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Individuals</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Impact savings</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            You want to give your savings meaning. You want to invest in something real, not abstract financial products. You believe regenerative housing and agriculture are assets for the future.
+          </p>
+          <ul class="space-y-2 text-sm font-light text-[#2C2824]/60">
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> From 1,000 EUR</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> SCIA shares or bonds</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> 100% online subscription via Fyneo</li>
+          </ul>
+        </div>
+        <div class="bg-white border border-black/5 rounded-sm p-8 md:p-10">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Business angels & family offices</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Impact investment</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            You invest in impact. You're looking for tangible projects, with solid project holders, a valid model and an attractive return. Co-investment possible.
+          </p>
+          <ul class="space-y-2 text-sm font-light text-[#2C2824]/60">
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> From 10,000 EUR</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Direct access to project holders</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Detailed quarterly reporting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 md:py-24 bg-[#2C2824]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Invest</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
+        Ready to invest?
+      </h2>
+      <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
+        Browse projects on Fyneo and invest in regenerative coliving. An investment that makes sense.
+      </p>
+      <a
+        href="https://fyneo.org"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        aria-label="Invest via Fyneo (opens in new tab)"
+      >
+        Invest via Fyneo
+      </a>
+    </div>
+  </section>
+</Layout>

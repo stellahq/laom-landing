@@ -1,0 +1,173 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageSchema = createWebPageSchema({
+  name: 'Mentorship – Charly Aubert',
+  url: Astro.url.toString(),
+  description: 'One-to-one support for those who want to change their life, create a coliving or build an eco-place.',
+})
+---
+
+<Layout
+  title="Mentorship – Charly Aubert | LAOM"
+  description="One-to-one support for those who want to change their life, create a coliving or build an eco-place."
+  seo={{
+    ldJSON: pageSchema,
+  }}
+>
+  <!-- Hero -->
+  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-[#E8E3D8] flex items-center justify-center">
+        <p class="text-sm font-light text-[#2C2824]/40">Photo to take: Charly outdoors, natural light, open posture</p>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50"></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center py-32 lg:py-40">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-white/80 mb-6">One-to-one support</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight">
+        Mentorship
+      </h1>
+      <p class="text-xl md:text-2xl font-light text-white/90 max-w-3xl mx-auto leading-relaxed">
+        A space to clarify your vision, structure your project and take action. With someone who's done it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-4">
+        This mentorship is for those who are ready to stop thinking their dream… and start living it.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        You want to change your life, create a collective place, an eco-place or a coliving, build an ecological house, rethink your path to finally create the life you dream of. Or simply find more meaning in what you do.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Charly supports you one-to-one, with a pragmatic approach rooted in the field. Mentorship is a simple frame: regular sessions, by video or on site, to move forward concretely. No off-the-shelf method. Tailored support, nourished by hands-on experience.
+      </p>
+    </div>
+  </section>
+
+  <!-- Who it's for -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Who it's for</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
+          Three profiles, one same impulse
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 opacity-0" animate-fade-in-up>
+        <div class="bg-white border border-black/5 rounded-sm p-8">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">01</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Give form to a life vision and live what's calling you</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            You want to find a living environment that's more aligned, or give concrete form to a life vision that's calling you. But you're stuck in your head, in doubt, when it comes to taking action.
+          </p>
+          <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed">
+            Mentorship helps you: clarify what you want to bring to life, notice what's going on inside you when facing action, release what's blocking execution, move forward with concrete actions while staying aligned with your vision.
+          </p>
+        </div>
+        <div class="bg-white border border-black/5 rounded-sm p-8">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">02</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Create a collective place</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            You have a coliving, eco-place or shared place project. You want to set up an eco-place from A to Z: land, group, governance, permits, construction. Rally people around a vision, make it work economically without sacrificing what matters, and avoid burnout or structural conflict.
+          </p>
+          <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed">
+            Mentorship helps you: clarify the vision of the place and the collective, spot blind spots (human, structural, time-related), lay solid foundations before everything gets heavy. Support to avoid the classic pitfalls of collective projects.
+          </p>
+        </div>
+        <div class="bg-white border border-black/5 rounded-sm p-8">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">03</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Build or renovate</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            You want to build or renovate an ecological house. Make coherent choices (materials, techniques, uses), avoid costly mistakes in time, money and energy. You're looking for someone who's been through it and can help you move forward with realistic, lasting choices.
+          </p>
+          <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed">
+            Mentorship helps you: think through your project before building, anticipate friction points, move forward with less stress and more clarity.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The approach -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">The approach</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">
+        From the field, not theory
+      </h2>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Mentorship is individual. We start from your situation, your vision, your constraints. We move at your pace. We clarify. We structure. We take action.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        This isn't generic coaching. It's support nourished by 5 years building a 21-hectare eco-place, a collective of 15 households, building the world's largest load-bearing straw building, and all the mistakes we've made along the way.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        We talk about governance, legal, eco-construction, funding, group dynamics, positioning. But also doubts, fears, solitude. Because creating a place means going through all of that too.
+      </p>
+      <div class="mt-12 pt-10 border-t border-[#2C2824]/10">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Format</p>
+        <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+          100% individual mentorship, over 3 months. Personalised sessions with Charly. Content and rhythm adapted to your situation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charly Aubert -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex flex-col md:flex-row gap-12 items-start opacity-0" animate-fade-in-up>
+        <div class="w-full md:w-80 flex-shrink-0">
+          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/40 px-6 text-center">Photo to take: portrait of Charly, natural, outdoors</p>
+          </div>
+        </div>
+        <div class="flex-1">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Who</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            Charly Aubert
+          </h2>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
+            33. Self-taught. Ex-Epitech. Co-founder of LAOM and Oasis La Margue, a 21-hectare eco-place in the south of Aveyron. Built the world's largest load-bearing straw building (Grand Shambala, 850 m²). Father. Builder.
+          </p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
+            5 years navigating permits, collective governance, eco-construction, departures, arrivals, questioning. And building anyway.
+          </p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Today he shares what he's learned, to save time for those who are just starting.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Book -->
+  <section class="py-20 md:py-24 bg-[#2C2824]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">First exchange</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
+        Let's talk?
+      </h2>
+      <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
+        30 minutes, by video, no commitment. We take stock of your situation, see if mentorship can help, and decide together.
+      </p>
+      <a
+        href="https://cal.atomik.world/charly/30min"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        aria-label="Book a call (opens in new tab)"
+      >
+        Book a call
+      </a>
+    </div>
+  </section>
+
+</Layout>
