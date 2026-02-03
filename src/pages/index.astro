@@ -69,7 +69,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         ))}
       </div>
       <div class="mt-14 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm max-w-3xl mx-auto">
-        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : vue aerienne drone du domaine LAOM,  21 hectares, prairies, foret, batiments, riviere</p>
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo à prendre : vue aérienne drone du domaine LAOM,  21 hectares, prairies, forêt, bâtiments, rivière</p>
       </div>
       <a
         href={getLocalizedPath('/project/', lang as 'fr' | 'en')}
@@ -92,7 +92,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
             <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
               <img
                 src="/images/laom/samuel-planas.webp"
-                alt="Samuel Planas,  En Mouvement, immersion par le corps a LAOM"
+                alt="Samuel Planas,  En Mouvement, immersion par le corps à LAOM"
                 class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
                 loading="lazy"
                 width="900"
@@ -106,17 +106,17 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-6 leading-tight tracking-tight">
             En Mouvement
           </h2>
-          <p class="text-xl md:text-2xl font-light text-black/70 mb-8 leading-relaxed">
-            5 jours d'immersion ou le mouvement devient le chemin. Guide par Samuel Planas, danseur professionnel, et Charly Aubert. Ouvert a tous.
+          <p class="text-base md:text-lg font-light text-black/70 mb-8 leading-relaxed">
+            5 jours d'immersion centrés sur la danse et le mouvement. Guidé par Samuel Planas, danseur professionnel formé au Conservatoire National Supérieur de Paris, et Charly Aubert, coach et co-fondateur LAOM. Ouvert à tous, aucune expérience de danse requise.
           </p>
           <p class="text-lg font-light text-black/60 leading-relaxed mb-4">
-            3 sessions cet ete : 5-9 aout, 11-15 aout, 16-20 aout 2026.
+            3 sessions cet été : 5-9 août, 11-15 août, 16-20 août 2026.
           </p>
           <a
             href="/stage-danse/"
             class="inline-block mt-6 text-base text-black/60 hover:text-black transition-colors font-light underline underline-offset-4"
           >
-            Decouvrir le stage
+            Découvrir le stage
           </a>
         </div>
       </div>
@@ -144,13 +144,13 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
             </div>
             <div class="flex-1 py-2">
               <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-3">
-                A la une
+                À la une
               </p>
               <h3 class="font-playfair text-2xl md:text-3xl font-normal text-black mb-3 tracking-tight leading-snug">
                 Grand Shambala
               </h3>
               <p class="text-base font-light text-black/60 leading-relaxed line-clamp-3">
-                Le plus grand batiment en paille porteuse au monde. 850 m2 sur deux niveaux, construit en 3 mois. De l'intention au chantier,  tout est la.
+                Le plus grand bâtiment en paille porteuse au monde. 850 m2 sur deux niveaux, construit en 3 mois. De l'intention au chantier,  tout est là.
               </p>
               <span class="inline-block mt-4 text-sm text-black/50 group-hover:text-black transition-colors underline underline-offset-4">
                 Lire l'article
@@ -214,7 +214,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         type="button"
         id="spaces-prev"
         class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
-        aria-label="Espace precedent"
+        aria-label="Espace précédent"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
       </button>
@@ -285,12 +285,12 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-20 opacity-0" animate-fade-in-up>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-8 title-underline">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-4 title-underline">
           {t.events.allTitle}
         </h2>
         <a
           href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
-          class="inline-block text-sm text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
+          class="block mt-4 text-sm text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
         >
           {t.events.viewAllLink}
         </a>
@@ -391,13 +391,13 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           Suivre l'aventure
         </h2>
         <p class="text-lg font-light text-black/60 leading-relaxed max-w-2xl mx-auto">
-          Charly documente la construction de LAOM en video. Chantier, decisions, erreurs, apprentissages,  tout est la, sans filtre.
+          Charly documente la construction de LAOM en vidéo. Chantier, décisions, erreurs, apprentissages,  tout est là, sans filtre.
         </p>
       </div>
       <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
         <iframe
           src="https://www.youtube.com/embed/Bltd5fr5VVY"
-          title="Construction du Grand Shambala,  LAOM,  Conference et timelapse du chantier"
+          title="Construction du Grand Shambala,  LAOM,  Conférence et timelapse du chantier"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           class="w-full h-full"
@@ -412,7 +412,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           class="inline-flex items-center gap-3 rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          S'abonner a la chaine
+          S'abonner à la chaîne
         </a>
       </div>
     </div>

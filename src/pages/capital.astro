@@ -3,78 +3,68 @@ import Layout from '~/layouts/Layout.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
-  name: 'LAOM Capital,  Investir dans le coliving regeneratif',
+  name: 'LAOM Capital, Investir dans le coliving régénératif',
   url: Astro.url.toString(),
-  description: 'Investissez dans des projets de coliving regeneratif a haut impact. 8% de rendement cible. Protection des capitaux. Via Fyneo.',
+  description: 'Investissez dans des projets de coliving régénératif à haut impact. 8% de rendement cible. Protection des capitaux. Via Fyneo.',
 })
 
 const projets = [
   {
     name: 'LAOM',
     location: 'Aveyron, France',
-    description: 'Le coliving regeneratif de reference. 21 hectares, 15 menages, Grand Shambala (850 m2 paille porteuse). Phase d\'expansion : nouveaux habitats, ferme maraichere, espace d\'accueil elargi.',
+    description: 'Le coliving régénératif de référence. 21 hectares, 15 ménages, Grand Shambala (850 m2 paille porteuse). Phase d\'expansion : nouveaux habitats, ferme maraîchère, espace d\'accueil élargi.',
     objectif: 500000,
     leve: 180000,
     rendement: '8%',
     status: 'En financement',
-    placeholder: 'Photo a prendre : vue aerienne du domaine LAOM,  batiments, prairies, foret, riviere',
+    placeholder: 'Photo à prendre : vue aérienne du domaine LAOM,  bâtiments, prairies, forêt, rivière',
   },
   {
     name: 'Naturopia',
-    location: 'Madere, Portugal',
-    description: 'Coliving regeneratif en climat subtropical. Agriculture tropicale, retraites bien-etre, communaute internationale. Un modele LAOM adapte a l\'Atlantique.',
+    location: 'Madère, Portugal',
+    description: 'Coliving régénératif en climat subtropical. Agriculture tropicale, retraites bien-être, communauté internationale. Un modèle LAOM adapté à l\'Atlantique.',
     objectif: 350000,
     leve: 0,
     rendement: '8%',
-    status: 'A venir',
-    placeholder: 'Photo a prendre : paysage de Madere,  vegetation luxuriante, ocean, terrasses en levadas',
-  },
-  {
-    name: 'Projet Asie',
-    location: 'Asie du Sud-Est',
-    description: 'Coliving regeneratif en zone tropicale. Permaculture, yoga, co-creation. Le premier ecolieu LAOM en Asie, concu pour les nomades digitaux et les createurs.',
-    objectif: 400000,
-    leve: 0,
-    rendement: '8%',
-    status: 'A venir',
-    placeholder: 'Photo a prendre : paysage tropical,  rizieres, jungle, architecture bois locale',
+    status: 'À venir',
+    placeholder: 'Photo à prendre : paysage de Madère,  végétation luxuriante, océan, terrasses en levadas',
   },
 ]
 
 const etapes = [
   {
     num: '01',
-    title: 'Decouvrir les projets',
-    description: 'Consultez les fiches projets sur LAOM Capital ou directement sur Fyneo. Chaque projet detaille le modele economique, les rendements cibles, les risques et l\'impact environnemental et social.',
+    title: 'Découvrir les projets',
+    description: 'Consultez les fiches projets sur LAOM Capital ou directement sur Fyneo. Chaque projet détaille le modèle économique, les rendements cibles, les risques et l\'impact environnemental et social.',
   },
   {
     num: '02',
     title: 'Investir via Fyneo',
-    description: 'Souscription en ligne securisee sur fyneo.org. Parts de SCIA ou obligations selon le projet. A partir de 1 000 EUR pour les particuliers.',
+    description: 'Souscription en ligne sécurisée sur fyneo.org. Parts de SCIA ou obligations selon le projet. À partir de 1 000 EUR pour les particuliers.',
   },
   {
     num: '03',
     title: 'Suivre et percevoir',
-    description: 'Reporting trimestriel sur l\'avancement du projet. Rendements verses selon le calendrier defini. Visite sur place possible pour les investisseurs.',
+    description: 'Reporting trimestriel sur l\'avancement du projet. Rendements versés selon le calendrier défini. Visite sur place possible pour les investisseurs.',
   },
 ]
 
 const protections = [
   {
-    title: 'Actif reel',
-    description: 'Votre investissement est adosse a du foncier et de l\'immobilier. Pas de speculation, du tangible. Des batiments, des terres, des infrastructures.',
+    title: 'Actif réel',
+    description: 'Votre investissement est adossé à du foncier et de l\'immobilier. Pas de spéculation, du tangible. Des bâtiments, des terres, des infrastructures.',
   },
   {
     title: 'Structure juridique solide',
-    description: 'SCIA, obligations, cadre legal francais et europeen. Pacte d\'associes, droit de sortie, gouvernance transparente.',
+    description: 'SCIA, obligations, cadre légal français et européen. Pacte d\'associés, droit de sortie, gouvernance transparente.',
   },
   {
     title: 'Diversification des revenus',
-    description: 'Chaque projet combine plusieurs sources de revenus : coliving, stages, agriculture, evenementiel, formation. Un modele resilient, pas dependant d\'une seule activite.',
+    description: 'Chaque projet combine plusieurs sources de revenus : coliving, stages, agriculture, événementiel, formation. Un modèle résilient, pas dépendant d\'une seule activité.',
   },
   {
-    title: 'Porteurs de projet formes',
-    description: 'Les porteurs de projet sont formes et accompagnes par LAOM School. Business model valide, gouvernance structuree, financement securise. Reduction du risque de gestion.',
+    title: 'Porteurs de projet formés',
+    description: 'Les porteurs de projet sont formés et accompagnés par LAOM School. Business model valide, gouvernance structurée, financement sécurisé. Réduction du risque de gestion.',
   },
 ]
 
@@ -84,8 +74,8 @@ function formatMontant(n: number): string {
 ---
 
 <Layout
-  title="LAOM Capital,  Investir dans le coliving regeneratif | LAOM"
-  description="Investissez dans des projets de coliving regeneratif a haut impact. 8% de rendement cible. Protection des capitaux. Via Fyneo."
+  title="LAOM Capital, Investir dans le coliving régénératif | LAOM"
+  description="Investissez dans des projets de coliving régénératif à haut impact. 8% de rendement cible. Protection des capitaux. Via Fyneo."
   seo={{
     ldJSON: pageSchema,
   }}
@@ -96,12 +86,12 @@ function formatMontant(n: number): string {
       <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(196,168,85,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(196,168,85,0.15) 0%, transparent 50%);"></div>
     </div>
     <div class="relative z-10 max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-24 md:pt-28 opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Investissement a impact</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Investissement à impact</p>
       <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-8 tracking-tight">
         LAOM Capital
       </h1>
       <p class="text-xl md:text-2xl font-light text-white/70 max-w-3xl mx-auto leading-relaxed">
-        Investissez dans les coliving regeneratifs. Rendement cible 8%. Protection des capitaux. Creation d'economie locale.
+        Investissez dans les coliving régénératifs. Rendement cible 8%. Protection des capitaux. Création d'économie locale.
       </p>
     </div>
   </section>
@@ -111,16 +101,16 @@ function formatMontant(n: number): string {
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Pourquoi</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">
-        Le coliving regeneratif, un actif d'avenir
+        Le coliving régénératif, un actif d'avenir
       </h2>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Le marche du coliving explose. La demande de lieux de vie alternatifs,  ruraux, regeneratifs, porteurs de sens,  ne fait que croitre. Les modeles classiques de l'immobilier ne repondent plus a cette aspiration.
+        Le marché du coliving explose. La demande de lieux de vie alternatifs,  ruraux, régénératifs, porteurs de sens,  ne fait que croître. Les modèles classiques de l'immobilier ne répondent plus à cette aspiration.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Les ecolieux qui marchent combinent immobilier, activites (stages, coliving, agriculture, evenementiel) et communaute. C'est un modele multi-revenus, resilient, ancre dans le reel. Pas une startup. Un lieu de vie qui genere de la valeur economique, sociale et ecologique.
+        Les écolieux qui marchent combinent immobilier, activités (stages, coliving, agriculture, événementiel) et communauté. C'est un modèle multi-revenus, résilient, ancré dans le réel. Pas une startup. Un lieu de vie qui génère de la valeur économique, sociale et écologique.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        LAOM Capital permet d'investir dans ces projets via des parts de SCIA ou des obligations. Un investissement tangible, adosse a du foncier et de l'immobilier, avec un impact mesurable sur les territoires.
+        LAOM Capital permet d'investir dans ces projets via des parts de SCIA ou des obligations. Un investissement tangible, adossé à du foncier et de l'immobilier, avec un impact mesurable sur les territoires.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
         Disponible exclusivement via <a href="https://fyneo.org" target="_blank" rel="noopener noreferrer" class="text-[#C4A855] underline underline-offset-4 hover:text-[#B09A4A] transition-colors">Fyneo</a>, plateforme d'investissement vert, ou en investissement direct dans les projets.
@@ -160,14 +150,14 @@ function formatMontant(n: number): string {
 
                 <div class="mb-4">
                   <div class="flex justify-between text-xs font-light text-[#2C2824]/50 mb-2">
-                    <span>{projet.leve > 0 ? `${formatMontant(projet.leve)} EUR leves` : 'Ouverture prochaine'}</span>
+                    <span>{projet.leve > 0 ? `${formatMontant(projet.leve)} EUR levés` : 'Ouverture prochaine'}</span>
                     <span>{formatMontant(projet.objectif)} EUR</span>
                   </div>
                   <div class="w-full h-2 bg-[#E8E3D8] rounded-full overflow-hidden">
                     <div class="h-full bg-[#C4A855] rounded-full transition-all duration-500" style={`width: ${pct}%`}></div>
                   </div>
                   {pct > 0 && (
-                    <p class="text-xs font-light text-[#C4A855] mt-2">{pct}% finance</p>
+                    <p class="text-xs font-light text-[#C4A855] mt-2">{pct}% financé</p>
                   )}
                 </div>
 
@@ -182,7 +172,7 @@ function formatMontant(n: number): string {
                   rel="noopener noreferrer"
                   class={`inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center ${projet.status === 'En financement' ? 'bg-[#C4A855] hover:bg-[#B09A4A]' : 'bg-[#2C2824]/20 cursor-default pointer-events-none'}`}
                 >
-                  {projet.status === 'En financement' ? 'Voir sur Fyneo' : 'Bientot disponible'}
+                  {projet.status === 'En financement' ? 'Voir sur Fyneo' : 'Bientôt disponible'}
                 </a>
               </div>
             </div>
@@ -192,7 +182,7 @@ function formatMontant(n: number): string {
     </div>
   </section>
 
-  <!-- Chiffres cles -->
+  <!-- Chiffres clés -->
   <section class="py-16 md:py-20 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 opacity-0" animate-fade-in-up>
@@ -202,29 +192,29 @@ function formatMontant(n: number): string {
         </div>
         <div class="text-center">
           <p class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-2">100%</p>
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Investissement reel</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Investissement réel</p>
         </div>
         <div class="text-center">
-          <p class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-2">3</p>
+          <p class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-2">2</p>
           <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Projets en portefeuille</p>
         </div>
         <div class="text-center">
           <div class="flex justify-center mb-2">
             <svg class="w-10 h-10 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           </div>
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Via Fyneo,  plateforme regulee</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Via Fyneo,  plateforme régulée</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Comment ca marche -->
+  <!-- Comment ca marché -->
   <section class="py-20 md:py-24 bg-white">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="mb-14 opacity-0" animate-fade-in-up>
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Processus</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline">
-          Investir en 3 etapes
+          Investir en 3 étapes
         </h2>
       </div>
 
@@ -246,9 +236,9 @@ function formatMontant(n: number): string {
   <section class="py-20 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="text-center mb-16 opacity-0" animate-fade-in-up>
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Securite</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Sécurité</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
-          Vos capitaux sont proteges
+          Vos capitaux sont protégés
         </h2>
       </div>
 
@@ -269,33 +259,33 @@ function formatMontant(n: number): string {
       <div class="text-center mb-16 opacity-0" animate-fade-in-up>
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Investisseurs</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
-          A qui s'adresse LAOM Capital
+          À qui s'adresse LAOM Capital
         </h2>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8 opacity-0" animate-fade-in-up>
         <div class="bg-white border border-black/5 rounded-sm p-8 md:p-10">
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Particuliers</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Epargne a impact</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Épargne à impact</h3>
           <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
-            Vous cherchez a donner du sens a votre epargne. Vous voulez investir dans du reel, pas dans des produits financiers abstraits. Vous croyez que l'habitat et l'agriculture regeneratifs sont des actifs d'avenir.
+            Vous cherchez à donner du sens à votre épargne. Vous voulez investir dans du réel, pas dans des produits financiers abstraits. Vous croyez que l'habitat et l'agriculture régénératifs sont des actifs d'avenir.
           </p>
           <ul class="space-y-2 text-sm font-light text-[#2C2824]/60">
-            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> A partir de 1 000 EUR</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> À partir de 1 000 EUR</li>
             <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Parts de SCIA ou obligations</li>
             <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Souscription 100% en ligne via Fyneo</li>
           </ul>
         </div>
         <div class="bg-white border border-black/5 rounded-sm p-8 md:p-10">
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Business angels & family offices</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Investissement a impact</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Investissement à impact</h3>
           <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
-            Vous investissez dans l'impact. Vous cherchez des projets tangibles, avec des porteurs de projet solides, un modele valide et un rendement attractif. Co-investissement possible.
+            Vous investissez dans l'impact. Vous cherchez des projets tangibles, avec des porteurs de projet solides, un modèle valide et un rendement attractif. Co-investissement possible.
           </p>
           <ul class="space-y-2 text-sm font-light text-[#2C2824]/60">
-            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> A partir de 10 000 EUR</li>
-            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Acces direct aux porteurs de projet</li>
-            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Reporting trimestriel detaille</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> À partir de 10 000 EUR</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Accès direct aux porteurs de projet</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855] mt-0.5">&#10003;</span> Reporting trimestriel détaillé</li>
           </ul>
         </div>
       </div>
@@ -307,10 +297,10 @@ function formatMontant(n: number): string {
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Investir</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
-        Pret a investir ?
+        Prêt à investir ?
       </h2>
       <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
-        Consultez les projets disponibles sur Fyneo et investissez dans le coliving regeneratif. Un investissement qui a du sens.
+        Consultez les projets disponibles sur Fyneo et investissez dans le coliving régénératif. Un investissement qui a du sens.
       </p>
       <a
         href="https://fyneo.org"

@@ -371,7 +371,7 @@ export const translations = {
         whyPoints: [
           '4 ans de bataille administrative transformés en expertise concrète',
           '2M€ levés collectivement',
-          'Plus grand bâtiment paille porteur au monde',
+          'Plus grand bâtiment en paille porteuse au monde',
           'Modèle SCIA validé et réplicable',
         ],
         formatTitle: 'Format & expérience',
@@ -422,7 +422,7 @@ export const translations = {
             description: 'Comprendre la structure qui a rendu LAOM possible.',
           },
           {
-            title: 'Le Projet d\'Ecolieu (bientôt disponible)',
+            title: 'Le Projet d\'Écolieu (bientôt disponible)',
             description: 'Le récit complet de 5 ans d\'aventure collective, avec les leçons clés.',
           },
           {
@@ -566,7 +566,7 @@ export const translations = {
       statsTitle: 'LAOM en chiffres',
       stats: [
         '21 hectares de nature préservée',
-        '800m² de bâtiment paille porteur',
+        '800m² de bâtiment en paille porteuse',
         '11 copropriétaires engagés',
         '2M€ investis collectivement',
       ],
