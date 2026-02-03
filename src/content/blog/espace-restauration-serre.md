@@ -2,7 +2,7 @@
 title: "De la cuisine d'ete a l'oeuvre vivante"
 description: "Comment un espace de restauration et une serre deviennent le coeur battant d'un ecolieu — et la vision d'un restaurant qui se reinvente chaque saison."
 pubDate: 2025-03-01
-heroImage: "/images/laom/Jardin laom.webp"
+heroImage: "/images/laom/jardin-laom.webp"
 author: "LAOM"
 locale: "fr"
 tags: ["restaurant", "serre", "permaculture", "agriculture-regeneratrice", "vision"]

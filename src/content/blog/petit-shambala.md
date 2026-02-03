@@ -2,7 +2,7 @@
 title: "Petit Shambala : le laboratoire de LAOM"
 description: "73 m2 d'experimentation. La premiere construction de LAOM, terrain d'essai pour tout ce qui a suivi."
 pubDate: 2025-01-15
-heroImage: "/images/laom/LAOM POTAGER et CHALET.webp"
+heroImage: "/images/laom/laom-potager-chalet.webp"
 author: "LAOM"
 locale: "fr"
 tags: ["construction", "eco-construction", "petit-shambala", "ossature-bois"]
