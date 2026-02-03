@@ -13,7 +13,9 @@
     "preview": "wrangler types && astro preview",
     "format": "prettier --write '**/*' --ignore-unknown",
     "process-image": "node process-images.mjs",
-    "optimize-images": "node optimize-all-images.mjs"
+    "optimize-images": "node optimize-all-images.mjs",
+    "image-manager": "cd tools/image-manager && npm install --silent && npm start",
+    "im": "npm run image-manager"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",

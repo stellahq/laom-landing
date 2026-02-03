@@ -48,6 +48,10 @@ Old/
 .opencode/
 _bmad/
 photos site/
+phototheque/
+
+# Image Manager local data
+tools/image-manager/node_modules/
 
 # Misc
 Retour pour Site objectif V1 LAOM.md

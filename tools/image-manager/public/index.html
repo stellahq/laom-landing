@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAOM Image Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1>LAOM Image Manager</h1>
+        <span id="git-status" class="git-status"></span>
+      </div>
+      <div class="header-right">
+        <button id="btn-audit" class="btn btn-secondary">Auditer SEO</button>
+        <button id="btn-refresh" class="btn btn-icon" title="Rafraichir">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+      <!-- Sidebar: Pages -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>Pages</h2>
+          <span id="total-placeholders" class="badge">0</span>
+        </div>
+        <ul id="pages-list" class="pages-list">
+          <!-- Populated by JS -->
+        </ul>
+      </aside>
+
+      <!-- Preview area -->
+      <section class="preview-area">
+        <div class="preview-header">
+          <h2 id="preview-title">Selectionnez une page</h2>
+          <div class="preview-actions">
+            <button id="btn-open-page" class="btn btn-small" disabled>Ouvrir dans navigateur</button>
+          </div>
+        </div>
+        <div id="preview-container" class="preview-container">
+          <div class="preview-placeholder">
+            <p>Selectionnez une page dans la liste pour voir son apercu</p>
+          </div>
+        </div>
+        
+        <!-- Placeholders list -->
+        <div id="placeholders-panel" class="placeholders-panel hidden">
+          <h3>Placeholders <span id="placeholders-count" class="badge">0</span></h3>
+          <ul id="placeholders-list" class="placeholders-list">
+            <!-- Populated by JS -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- Phototheque -->
+      <aside class="phototheque">
+        <div class="phototheque-header">
+          <h2>Phototheque</h2>
+          <button id="btn-new-folder" class="btn btn-small">+ Dossier</button>
+        </div>
+        
+        <!-- Folder tabs -->
+        <div class="folder-tabs">
+          <button class="folder-tab active" data-folder="all">Tous</button>
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Upload zone -->
+        <div id="upload-zone" class="upload-zone">
+          <input type="file" id="file-input" multiple accept="image/*" hidden>
+          <p>Glissez des photos ici ou <label for="file-input" class="upload-link">parcourir</label></p>
+        </div>
+
+        <!-- Photos grid -->
+        <div id="photos-grid" class="photos-grid">
+          <!-- Populated by JS -->
+        </div>
+      </aside>
+    </main>
+
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Modal: New folder -->
+    <div id="modal-new-folder" class="modal hidden">
+      <div class="modal-content">
+        <h3>Nouveau dossier</h3>
+        <input type="text" id="new-folder-name" placeholder="Nom du dossier">
+        <div class="modal-actions">
+          <button class="btn btn-secondary" data-action="cancel">Annuler</button>
+          <button class="btn btn-primary" data-action="create">Creer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: SEO Audit -->
+    <div id="modal-audit" class="modal hidden">
+      <div class="modal-content modal-large">
+        <h3>Audit SEO des images</h3>
+        <div id="audit-content" class="audit-content">
+          <p>Chargement...</p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" data-action="close">Fermer</button>
+          <button id="btn-apply-all" class="btn btn-primary" disabled>Appliquer tous</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Confirm placement -->
+    <div id="modal-place" class="modal hidden">
+      <div class="modal-content">
+        <h3>Placer l'image</h3>
+        <div class="place-preview">
+          <img id="place-preview-img" src="" alt="Preview">
+        </div>
+        <div class="place-info">
+          <p><strong>Photo:</strong> <span id="place-photo-name"></span></p>
+          <p><strong>Placeholder:</strong> <span id="place-placeholder-desc"></span></p>
+          <p><strong>Nom SEO suggere:</strong></p>
+          <input type="text" id="place-seo-name" class="input-full">
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" data-action="cancel">Annuler</button>
+          <button class="btn btn-primary" data-action="place">Placer et publier</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Processing overlay -->
+    <div id="processing-overlay" class="processing-overlay hidden">
+      <div class="processing-content">
+        <div class="spinner"></div>
+        <p id="processing-message">Traitement en cours...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
