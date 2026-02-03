@@ -443,8 +443,22 @@ export const translations = {
       eventsPage: {
         heroTitle: 'Événements',
         heroSubtitle: 'Des rencontres pour créer, se ressourcer, partager.',
+        agendaLabel: 'Agenda',
         signatureSectionTitle: 'Événements et Immersions signature',
         partnersSectionTitle: 'Tous les événements partenaires qui ont lieu à LAOM',
+        partnersLabel: 'Partenaires',
+        ctaLabel: 'Accueil',
+        enMouvementBlock: {
+          label: 'Immersion signature',
+          title: 'En Mouvement',
+          description: '5 jours d\'immersion centrés sur la danse et le mouvement. Guidé par Samuel Planas, danseur professionnel formé au Conservatoire National Supérieur de Paris, et Charly Aubert, coach et co-fondateur LAOM. Ouvert à tous, aucune expérience de danse requise.',
+          sessions: [
+            { label: 'Session 1', date: '5 à 9 août' },
+            { label: 'Session 2', date: '11 à 15 août' },
+            { label: 'Session 3', date: '16 à 20 août' },
+          ],
+          cta: 'Découvrir le stage',
+        },
         enMouvement: {
           sectionTitle: 'Stages « En Mouvement »',
           sessions: [
@@ -454,7 +468,8 @@ export const translations = {
           ],
         },
         laomfest: {
-          title: 'LAOMFEST',
+          label: 'Festival',
+          title: 'LaomFest',
           description: 'Mini-festival : trois jours de rencontres, ateliers, concerts et micro-conférences pour vivre une communauté éphémère.',
           dateNote: 'Date en septembre à confirmer',
           newsletterCtaBefore: 'Inscris-toi à notre liste de diffusion pour ',
@@ -473,6 +488,25 @@ export const translations = {
         ctaDescription: 'Écrivez-nous pour imaginer une résidence, un stage ou une retraite.',
         ctaButton: 'Contacter LAOM',
         ctaRatesButton: 'Voir les tarifs de location',
+        school: {
+          label: 'Formation',
+          title: 'LAOM School',
+          placeholderAlt: 'LAOM School, photo à venir',
+          placeholderDesc: 'Photo de groupe de porteurs de projet en cercle au Grand Shambala, lumière naturelle, ambiance de travail',
+          paragraphs: [
+            'Un parcours d\'accompagnement pour porteurs et porteuses de projets d\'écolieux / lieux collectifs / tiers-lieux / communautés.',
+            '4 week-ends immersifs avec des intervenants de référence.',
+            'Des temps d\'échange mensuels pour avancer concrètement.',
+            'Cohorte 1 : juin 2026 - mai 2027.',
+          ],
+          weekends: [
+            { label: 'Weekend 1', date: 'Juin 2026, Projet & Financement' },
+            { label: 'Weekend 2', date: 'Juillet 2026, Business Model' },
+            { label: 'Weekend 3', date: 'Octobre 2026, Culture Regenerative' },
+            { label: 'Weekend 4', date: 'Mai 2027, Culture Communautaire' },
+          ],
+          cta: 'Découvrir LAOM School',
+        },
       },
       contactPage: {
         heroTitle: 'Contact',
@@ -614,6 +648,15 @@ export const translations = {
         imageAlt: 'Immersion EN MOUVEMENT, danse et mouvement à LAOM.',
         cta: 'Voir les prochaines dates',
       },
+      journalTitle: 'Journal de bord',
+      featuredLabel: 'À la une',
+      grandShambalaTitle: 'Grand Shambala',
+      grandShambalaDescription: 'Le plus grand bâtiment en paille porteuse au monde. 850 m2 sur deux niveaux, construit en 3 mois. De l\'intention au chantier,  tout est là.',
+      readArticle: 'Lire l\'article',
+      allArticlesLink: 'Tous les articles',
+      youtubeTitle: 'Suivre l\'aventure',
+      youtubeDescription: 'Charly documente la construction de LAOM en vidéo. Chantier, décisions, erreurs, apprentissages,  tout est là, sans filtre.',
+      subscribeChannel: 'S\'abonner à la chaîne',
       ourSpaces: {
         sectionTitle: 'Nos Espaces',
         items: [
@@ -1105,8 +1148,22 @@ export const translations = {
       eventsPage: {
         heroTitle: 'Events',
         heroSubtitle: 'Gatherings to create, recharge, and connect.',
+        agendaLabel: 'Agenda',
         signatureSectionTitle: 'Signature Events & Immersions',
         partnersSectionTitle: 'All partner events at LAOM',
+        partnersLabel: 'Partners',
+        ctaLabel: 'Hospitality',
+        enMouvementBlock: {
+          label: 'Signature immersion',
+          title: 'En Mouvement',
+          description: 'A 5-day immersion centred on dance and movement. Led by Samuel Planas, professional dancer trained at the Paris Conservatoire, and Charly Aubert, coach and LAOM co-founder. Open to all, no dance experience required.',
+          sessions: [
+            { label: 'Session 1', date: '5–9 August' },
+            { label: 'Session 2', date: '11–15 August' },
+            { label: 'Session 3', date: '16–20 August' },
+          ],
+          cta: 'Discover the workshop',
+        },
         enMouvement: {
           sectionTitle: '« En Mouvement » Workshops',
           sessions: [
@@ -1116,7 +1173,8 @@ export const translations = {
           ],
         },
         laomfest: {
-          title: 'LAOMFEST',
+          label: 'Festival',
+          title: 'LaomFest',
           description: 'Mini-festival: three days of gatherings, workshops, concerts and micro-talks to experience an ephemeral community.',
           dateNote: 'Date in September to be confirmed',
           newsletterCtaBefore: 'Subscribe to our mailing list to ',
@@ -1135,6 +1193,25 @@ export const translations = {
         ctaDescription: 'Write to us to imagine a residency, workshop or retreat.',
         ctaButton: 'Contact LAOM',
         ctaRatesButton: 'View rental rates',
+        school: {
+          label: 'Programme',
+          title: 'LAOM School',
+          placeholderAlt: 'LAOM School, photo coming soon',
+          placeholderDesc: 'Group photo of project holders in a circle at Grand Shambala, natural light, workshop atmosphere',
+          paragraphs: [
+            'An accompaniment programme for people carrying eco-place / collective place / third-place / community projects.',
+            '4 immersive weekends with leading facilitators.',
+            'Monthly check-ins to make concrete progress.',
+            'Cohort 1: June 2026 – May 2027.',
+          ],
+          weekends: [
+            { label: 'Weekend 1', date: 'June 2026, Project & Funding' },
+            { label: 'Weekend 2', date: 'July 2026, Business Model' },
+            { label: 'Weekend 3', date: 'October 2026, Regenerative Culture' },
+            { label: 'Weekend 4', date: 'May 2027, Community Culture' },
+          ],
+          cta: 'Discover LAOM School',
+        },
       },
       contactPage: {
         heroTitle: 'Contact',
@@ -1276,6 +1353,15 @@ export const translations = {
         imageAlt: 'EN MOUVEMENT immersion, dance and movement at LAOM.',
         cta: 'View upcoming dates',
       },
+      journalTitle: 'Blog',
+      featuredLabel: 'Featured',
+      grandShambalaTitle: 'Grand Shambala',
+      grandShambalaDescription: 'The world’s largest load-bearing straw building. 850 m² on two levels, built in 3 months. From intention to site, it’s all there.',
+      readArticle: 'Read the article',
+      allArticlesLink: 'All articles',
+      youtubeTitle: 'Follow the adventure',
+      youtubeDescription: 'Charly documents the construction of LAOM on video. Site work, decisions, mistakes, learnings — all there, unfiltered.',
+      subscribeChannel: 'Subscribe to the channel',
       ourSpaces: {
         sectionTitle: 'Our Spaces',
         items: [

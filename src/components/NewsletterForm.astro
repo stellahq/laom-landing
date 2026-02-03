@@ -1,6 +1,8 @@
 ---
 import { getTranslations } from '~/i18n/utils'
 
+const SUBSTACK_EMBED_URL = 'https://laomcoliving.substack.com/embed'
+
 export interface Props {
   /** 'dark' for footer (default), 'light' for in-page on white/light background */
   variant?: 'dark' | 'light'
@@ -12,6 +14,7 @@ const { variant = 'dark', textOnDarkBackground = false } = Astro.props
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
 const isLight = variant === 'light'
+const useSubstack = lang === 'en'
 
 // Kit form options – keep structure for form behavior (success message, powered by, etc.)
 const formKitOptions = {
@@ -53,6 +56,19 @@ const formKitOptions = {
   <p class={`text-sm md:text-base font-normal mb-4 max-w-md leading-relaxed ${isLight ? (textOnDarkBackground ? 'text-white/80' : 'text-[#5a5a5a]') : 'text-white/80'}`}>
     {t.footer.newsletterDescription}
   </p>
+  {useSubstack ? (
+    <div class="substack-embed-wrapper" style="min-height: 200px;">
+      <iframe
+        src={SUBSTACK_EMBED_URL}
+        width="100%"
+        height="320"
+        style="border: 1px solid #EEE; background: white; border-radius: 0.5rem;"
+        frameborder="0"
+        scrolling="no"
+        title="Subscribe to LAOM on Substack"
+      />
+    </div>
+  ) : (
   <form
     action="https://app.kit.com/forms/8987350/subscriptions"
     class="seva-form formkit-form"
@@ -114,6 +130,7 @@ const formKitOptions = {
       </div>
     </div>
   </form>
+  )}
 </div>
 
 <style is:global>

@@ -23,12 +23,7 @@ const events = t.events.items.map((item, index) => ({
   image: eventImages[index] || '/images/david-lin-fyneo.webp',
 }))
 
-const sessions = [
-  { date: '5 à 9 août', label: 'Session 1' },
-  { date: '11 à 15 août', label: 'Session 2' },
-  { date: '16 à 20 août', label: 'Session 3' },
-]
-
+const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
 const laomfestImages = [
   'vanlifest-IMG_1021',
   'vanlifest-IMG_1373',
@@ -57,7 +52,7 @@ const laomfestImages = [
       <div class="absolute inset-0 bg-black/50"></div>
     </div>
     <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">Agenda</p>
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">{t.pages.eventsPage.agendaLabel}</p>
       <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight drop-shadow-lg">
         {t.pages.eventsPage.heroTitle}
       </h1>
@@ -88,16 +83,15 @@ const laomfestImages = [
 
         <!-- Contenu -->
         <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Immersion signature</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">En Mouvement</h2>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.enMouvementBlock.label}</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.enMouvementBlock.title}</h2>
           <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-8">
-            5 jours d'immersion centrés sur la danse et le mouvement.
-            Guidé par Samuel Planas, danseur professionnel formé au Conservatoire National Supérieur de Paris, et Charly Aubert, coach et co-fondateur LAOM. Ouvert à tous, aucune expérience de danse requise.
+            {t.pages.eventsPage.enMouvementBlock.description}
           </p>
 
           <!-- Sessions -->
           <div class="space-y-3 mb-10">
-            {sessions.map((s) => (
+            {emSessions.map((s) => (
               <div class="flex justify-between items-center py-3 border-b border-black/5">
                 <span class="text-sm font-light text-[#2C2824]/50">{s.label}</span>
                 <span class="font-playfair text-base text-[#2C2824]">{s.date} 2026</span>
@@ -109,7 +103,7 @@ const laomfestImages = [
             href="/stage-danse/"
             class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
           >
-            Découvrir le stage
+            {t.pages.eventsPage.enMouvementBlock.cta}
           </a>
         </div>
       </div>
@@ -120,7 +114,7 @@ const laomfestImages = [
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="mb-12">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Festival</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.laomfest.label}</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.laomfest.title}</h2>
         <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-2 max-w-2xl">
           {t.pages.eventsPage.laomfest.description}
@@ -162,56 +156,39 @@ const laomfestImages = [
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
         <!-- Placeholder image -->
         <div class="w-full lg:w-[400px] flex-shrink-0">
-          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="LAOM School,  photo à venir">
+          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label={t.pages.eventsPage.school.placeholderAlt}>
             <div class="text-center px-8">
               <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
-              <p class="text-sm font-light text-black/50 max-w-[250px]">Photo de groupe de porteurs de projet en cercle au Grand Shambala,  lumière naturelle, ambiance de travail</p>
+              <p class="text-sm font-light text-black/50 max-w-[250px]">{t.pages.eventsPage.school.placeholderDesc}</p>
             </div>
           </div>
         </div>
         <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Formation</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">LAOM School</h2>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.school.label}</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.school.title}</h2>
           <div class="space-y-4 mb-8">
-            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
-              Un parcours d'accompagnement pour porteurs et porteuses de projets d'écolieux / lieux collectifs / tiers-lieux / communautés.
-            </p>
-            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
-              4 week-ends immersifs avec des intervenants de référence.
-            </p>
-            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
-              Des temps d'échange mensuels pour avancer concrètement.
-            </p>
-            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
-              Cohorte 1 : juin 2026 - mai 2027.
-            </p>
+            {t.pages.eventsPage.school.paragraphs.map((p) => (
+              <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
+                {p}
+              </p>
+            ))}
           </div>
 
           <!-- Sessions -->
           <div class="space-y-3 mb-10">
-            <div class="flex justify-between items-center py-3 border-b border-black/5">
-              <span class="text-sm font-light text-[#2C2824]/50">Weekend 1</span>
-              <span class="font-playfair text-base text-[#2C2824]">Juin 2026,  Projet & Financement</span>
-            </div>
-            <div class="flex justify-between items-center py-3 border-b border-black/5">
-              <span class="text-sm font-light text-[#2C2824]/50">Weekend 2</span>
-              <span class="font-playfair text-base text-[#2C2824]">Juillet 2026,  Business Model</span>
-            </div>
-            <div class="flex justify-between items-center py-3 border-b border-black/5">
-              <span class="text-sm font-light text-[#2C2824]/50">Weekend 3</span>
-              <span class="font-playfair text-base text-[#2C2824]">Octobre 2026,  Culture Regenerative</span>
-            </div>
-            <div class="flex justify-between items-center py-3 border-b border-black/5">
-              <span class="text-sm font-light text-[#2C2824]/50">Weekend 4</span>
-              <span class="font-playfair text-base text-[#2C2824]">Mai 2027,  Culture Communautaire</span>
-            </div>
+            {t.pages.eventsPage.school.weekends.map((w) => (
+              <div class="flex justify-between items-center py-3 border-b border-black/5">
+                <span class="text-sm font-light text-[#2C2824]/50">{w.label}</span>
+                <span class="font-playfair text-base text-[#2C2824]">{w.date}</span>
+              </div>
+            ))}
           </div>
 
           <a
             href="/school/"
             class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
           >
-            Découvrir LAOM School
+            {t.pages.eventsPage.school.cta}
           </a>
         </div>
       </div>
@@ -221,7 +198,7 @@ const laomfestImages = [
   <!-- Tous les événements partenaires -->
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Partenaires</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">{t.pages.eventsPage.partnersLabel}</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">
         {t.pages.eventsPage.partnersSectionTitle}
       </h2>
@@ -259,7 +236,7 @@ const laomfestImages = [
   <!-- Organiser un événement -->
   <section class="py-24 md:py-32 bg-[#2C2824] text-white">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Accueil</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">{t.pages.eventsPage.ctaLabel}</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">{t.pages.eventsPage.ctaTitle}</h2>
       <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">{t.pages.eventsPage.ctaDescription}</p>
       <div class="flex flex-wrap justify-center gap-4">

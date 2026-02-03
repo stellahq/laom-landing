@@ -22,21 +22,29 @@ const events = t.events.items.map((item, index) => ({
   ...item,
   image: eventImages[index] || '/images/david-lin-fyneo.webp',
 }))
+
+const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
+const laomfestImages = [
+  'vanlifest-IMG_1021',
+  'vanlifest-IMG_1373',
+  'vanlifest-IMG_1399',
+  'vanlifest-IMG_2563',
+  'vanlifest-IMG_2846',
+  'vanlifest-IMG_9979',
+]
 ---
 
 <Layout
   title={`${t.pages.eventsPage.heroTitle} – LAOM`}
   description={t.pages.eventsPage.heroSubtitle}
-  seo={{
-    ldJSON: pageSchema,
-  }}
+  seo={{ ldJSON: pageSchema }}
 >
-  <!-- Hero with event photo background -->
-  <section class="relative py-32 lg:py-40 flex items-center justify-center overflow-hidden">
+  <!-- Hero -->
+  <section class="relative py-32 lg:py-40 flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
     <div class="absolute inset-0 z-0">
       <img
         src="/images/events-hero.webp"
-        alt="Outdoor gathering at LAOM,  LAOM building, meadow, event and community"
+        alt="Outdoor gathering at LAOM, LAOM building, meadow, event and community"
         class="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
         fetchpriority="high"
@@ -46,157 +54,201 @@ const events = t.events.items.map((item, index) => ({
       />
       <div class="absolute inset-0 bg-black/50"></div>
     </div>
-    <div class="relative z-10 max-w-6xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-white/80 mb-6">
-        Agenda
-      </span>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6 tracking-tight">
+    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">{t.pages.eventsPage.agendaLabel}</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight drop-shadow-lg">
         {t.pages.eventsPage.heroTitle}
       </h1>
-      <p class="text-xl md:text-2xl font-light text-white/90 max-w-3xl mx-auto leading-relaxed">
+      <p class="text-lg md:text-xl font-light text-white/85 max-w-2xl mx-auto leading-relaxed">
         {t.pages.eventsPage.heroSubtitle}
       </p>
     </div>
   </section>
 
-  <!-- Signature Events & Immersions -->
-  <section class="py-24 bg-[#faf9f6]">
+  <!-- En Mouvement, signature immersion -->
+  <section class="py-24 md:py-32 bg-white">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-12">
-        {t.pages.eventsPage.signatureSectionTitle}
-      </h2>
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
 
-      <!-- « En Mouvement » Workshops -->
-      <div class="mb-16">
-        <h3 class="text-2xl font-light text-black mb-8">{t.pages.eventsPage.enMouvement.sectionTitle}</h3>
-        <div class="grid gap-6">
-          {t.pages.eventsPage.enMouvement.sessions.map((session) => (
-            <div class="group border border-black/10 bg-white overflow-hidden flex flex-col md:flex-row">
-              <div class="md:w-64 lg:w-72 bg-neutral-100 rounded-sm overflow-hidden">
-                <img src="/images/laom/immersion-mouvement-card.webp" alt={session.title} class="w-full h-48 md:h-full object-cover rounded-sm" loading="lazy" width="800" height="1067" />
-              </div>
-              <div class="flex-1 p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <p class="text-xs font-light tracking-widest uppercase text-black/50 mb-3">{session.date}</p>
-                  <h4 class="text-2xl font-light mb-3 group-hover:translate-x-1 transition-transform duration-300">
-                    {session.title}
-                  </h4>
-                  <p class="text-sm font-light text-black/60">{session.description}</p>
-                </div>
-                <div class="mt-6 text-xs tracking-widest uppercase text-black/40 group-hover:text-black transition-colors">
-                  {t.events.cta}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- LAOMFEST -->
-      <div>
-        <h3 class="text-2xl font-light text-black mb-4">{t.pages.eventsPage.laomfest.title}</h3>
-        <p class="text-black/70 font-light leading-relaxed mb-2 max-w-2xl">
-          {t.pages.eventsPage.laomfest.description}
-        </p>
-        <p class="text-sm font-light text-black/60 italic mb-8">{t.pages.eventsPage.laomfest.dateNote}</p>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" aria-label="LAOMFEST illustration photos">
-          {['vanlifest-IMG_1021', 'vanlifest-IMG_1373', 'vanlifest-IMG_1399', 'vanlifest-IMG_2563', 'vanlifest-IMG_2846', 'vanlifest-IMG_9979'].map((name) => (
-            <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
+        <!-- Image Samuel -->
+        <div class="w-full lg:w-[400px] flex-shrink-0">
+          <a href="/stage-danse/" class="block group">
+            <div class="aspect-[3/4] overflow-hidden rounded-sm">
               <img
-                src={`/images/laom/laomfest/${name}.webp`}
-                alt=""
-                class="w-full h-full object-cover rounded-sm"
+                src="/images/laom/samuel-planas.webp"
+                alt="Samuel Planas, En Mouvement"
+                class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
                 loading="lazy"
-                width="400"
-                height="300"
-                decoding="async"
-                aria-hidden="true"
               />
             </div>
-          ))}
+          </a>
         </div>
-        <div class="mt-16 pt-12 border-t border-black/10">
-          <p class="text-base font-light text-black/70 leading-relaxed mb-6 max-w-2xl">
-            {t.pages.eventsPage.laomfest.newsletterCtaBefore}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight}</strong>{t.pages.eventsPage.laomfest.newsletterCtaMiddle}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight2}</strong>
+
+        <!-- Content -->
+        <div class="flex-1">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.enMouvementBlock.label}</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.enMouvementBlock.title}</h2>
+          <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-8">
+            {t.pages.eventsPage.enMouvementBlock.description}
           </p>
-          <div class="max-w-md">
-            <NewsletterForm variant="light" />
+
+          <!-- Sessions -->
+          <div class="space-y-3 mb-10">
+            {emSessions.map((s) => (
+              <div class="flex justify-between items-center py-3 border-b border-black/5">
+                <span class="text-sm font-light text-[#2C2824]/50">{s.label}</span>
+                <span class="font-playfair text-base text-[#2C2824]">{s.date} 2026</span>
+              </div>
+            ))}
           </div>
+
+          <a
+            href="/stage-danse/"
+            class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
+          >
+            {t.pages.eventsPage.enMouvementBlock.cta}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAOMFEST -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.laomfest.label}</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.laomfest.title}</h2>
+        <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-2 max-w-2xl">
+          {t.pages.eventsPage.laomfest.description}
+        </p>
+        <p class="text-sm font-light text-[#2C2824]/50 italic">{t.pages.eventsPage.laomfest.dateNote}</p>
+      </div>
+
+      <!-- LAOMFEST Gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        {laomfestImages.map((name) => (
+          <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
+            <img
+              src={`/images/laom/laomfest/${name}.webp`}
+              alt=""
+              class="w-full h-full object-cover rounded-sm"
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Newsletter CTA LAOMFEST -->
+      <div class="mt-16 pt-12 border-t border-[#2C2824]/10">
+        <p class="text-base font-light text-[#2C2824]/80 leading-relaxed mb-6 max-w-2xl">
+          {t.pages.eventsPage.laomfest.newsletterCtaBefore}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight}</strong>{t.pages.eventsPage.laomfest.newsletterCtaMiddle}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight2}</strong>
+        </p>
+        <div class="max-w-md">
+          <NewsletterForm variant="light" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAOM School, 4 weekends -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+        <!-- Placeholder image -->
+        <div class="w-full lg:w-[400px] flex-shrink-0">
+          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label={t.pages.eventsPage.school.placeholderAlt}>
+            <div class="text-center px-8">
+              <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
+              <p class="text-sm font-light text-black/50 max-w-[250px]">{t.pages.eventsPage.school.placeholderDesc}</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.school.label}</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.school.title}</h2>
+          <div class="space-y-4 mb-8">
+            {t.pages.eventsPage.school.paragraphs.map((p) => (
+              <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
+                {p}
+              </p>
+            ))}
+          </div>
+
+          <!-- Sessions -->
+          <div class="space-y-3 mb-10">
+            {t.pages.eventsPage.school.weekends.map((w) => (
+              <div class="flex justify-between items-center py-3 border-b border-black/5">
+                <span class="text-sm font-light text-[#2C2824]/50">{w.label}</span>
+                <span class="font-playfair text-base text-[#2C2824]">{w.date}</span>
+              </div>
+            ))}
+          </div>
+
+          <a
+            href="/en/school/"
+            class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
+          >
+            {t.pages.eventsPage.school.cta}
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- All partner events -->
-  <section class="py-24 bg-white">
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-12">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">{t.pages.eventsPage.partnersLabel}</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">
         {t.pages.eventsPage.partnersSectionTitle}
       </h2>
-      <div class="grid gap-6">
+
+      <div class="space-y-12">
         {events.map((event) => {
-          const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
           const isFyneo = event.title.includes('Fyneo')
-          const inner = (
-            <>
-              <div class="md:w-64 lg:w-72 flex-shrink-0 aspect-[4/3] bg-neutral-100 rounded-sm overflow-hidden">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  class={`w-full h-full object-cover rounded-sm ${isFyneo ? 'object-[50%_25%]' : ''}`}
-                  loading="lazy"
-                  width="400"
-                  height="300"
-                  decoding="async"
-                />
-              </div>
-              <div class="flex-1 p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <p class="text-xs font-light tracking-widest uppercase text-black/50 mb-3">{event.date}</p>
-                  <h3 class="text-2xl font-light mb-3 group-hover:translate-x-1 transition-transform duration-300">
-                    {event.title}
-                  </h3>
-                  <p class="text-sm font-light text-black/60">{event.description}</p>
-                </div>
-                <div class="mt-6 text-xs tracking-widest uppercase text-black/40 group-hover:text-black transition-colors">
-                  {t.events.cta}
-                </div>
-              </div>
-            </>
-          )
           return (
-            <div class="group border border-black/10 bg-white overflow-hidden flex flex-col md:flex-row">
-              {eventHref ? (
-                <a
-                  href={eventHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex flex-col md:flex-row w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
-                  aria-label={`${event.title} (opens in new tab)`}
-                >
-                  {inner}
-                </a>
-              ) : (
-                <div class="flex flex-col md:flex-row w-full">
-                  {inner}
+            <article class="flex flex-col md:flex-row gap-8 md:gap-12 items-start group">
+              <div class="w-full md:w-72 flex-shrink-0">
+                <div class="aspect-[4/3] bg-neutral-100 overflow-hidden rounded-sm">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    class={`w-full h-full object-cover rounded-sm group-hover:scale-[1.02] transition-transform duration-500 ${isFyneo ? 'object-[50%_25%]' : ''}`}
+                    loading="lazy"
+                  />
                 </div>
-              )}
-            </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">
+                  {event.date}
+                </p>
+                <h3 class="font-playfair text-2xl md:text-3xl font-normal text-[#2C2824] mb-3 tracking-tight">
+                  {event.title}
+                </h3>
+                <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
+                  {event.description}
+                </p>
+              </div>
+            </article>
           )
         })}
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-20 bg-[#2d5016] text-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <h2 class="text-3xl md:text-4xl font-light mb-4">{t.pages.eventsPage.ctaTitle}</h2>
-      <p class="text-lg font-light text-white/80 mb-8">{t.pages.eventsPage.ctaDescription}</p>
+  <!-- Host an event CTA -->
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">{t.pages.eventsPage.ctaLabel}</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">{t.pages.eventsPage.ctaTitle}</h2>
+      <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">{t.pages.eventsPage.ctaDescription}</p>
       <div class="flex flex-wrap justify-center gap-4">
         <a
           href="mailto:contact@laom.fr"
-          class="inline-flex items-center justify-center rounded-sm bg-white text-black px-8 py-3 text-xs tracking-[0.25em] uppercase hover:bg-white/90 transition-colors"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
           {t.pages.eventsPage.ctaButton}
         </a>
@@ -204,8 +256,8 @@ const events = t.events.items.map((item, index) => ({
           href="https://drive.google.com/file/d/1qfl7IQG1LKvjJLyDkv2KXct5iayeV80Q/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
+          class="inline-flex items-center justify-center rounded-sm border border-white/30 text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#2C2824] transition-colors"
           aria-label={`${t.pages.eventsPage.ctaRatesButton} (opens in new tab)`}
-          class="inline-flex items-center justify-center rounded-sm border border-white text-white px-8 py-3 text-xs tracking-[0.25em] uppercase hover:bg-white hover:text-black transition-colors"
         >
           {t.pages.eventsPage.ctaRatesButton}
         </a>
