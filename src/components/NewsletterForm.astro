@@ -4,9 +4,11 @@ import { getTranslations } from '~/i18n/utils'
 export interface Props {
   /** 'dark' for footer (default), 'light' for in-page on white/light background */
   variant?: 'dark' | 'light'
+  /** When true with variant="light", title and description are white (for dark section backgrounds, e.g. stage-danse CTA) */
+  textOnDarkBackground?: boolean
 }
 
-const { variant = 'dark' } = Astro.props
+const { variant = 'dark', textOnDarkBackground = false } = Astro.props
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
 const isLight = variant === 'light'
@@ -45,10 +47,10 @@ const formKitOptions = {
 ---
 
 <div class={`newsletter-form-widget ${isLight ? 'newsletter-form-widget--light' : ''}`}>
-  <h4 class={`text-sm font-bold tracking-widest uppercase mb-4 ${isLight ? 'text-white' : 'text-white/90'}`}>
+  <h4 class={`text-base font-semibold tracking-wide mb-3 ${isLight ? (textOnDarkBackground ? 'text-white/95' : 'text-[#525252]') : 'text-white/95'}`}>
     {t.footer.newsletterTitle}
   </h4>
-  <p class={`text-sm font-normal mb-4 max-w-md ${isLight ? 'text-white/90' : 'text-white/70'}`}>
+  <p class={`text-sm md:text-base font-normal mb-4 max-w-md leading-relaxed ${isLight ? (textOnDarkBackground ? 'text-white/80' : 'text-[#5a5a5a]') : 'text-white/80'}`}>
     {t.footer.newsletterDescription}
   </p>
   <form

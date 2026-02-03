@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import NewsletterForm from '~/components/NewsletterForm.astro'
 import { createWebPageSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations } from '~/i18n/utils'
 
@@ -23,9 +24,9 @@ const events = t.events.items.map((item, index) => ({
 }))
 
 const sessions = [
-  { date: '5 — 9 aout', label: 'Session 1' },
-  { date: '11 — 15 aout', label: 'Session 2' },
-  { date: '16 — 20 aout', label: 'Session 3' },
+  { date: '5 — 9 août', label: 'Session 1' },
+  { date: '11 — 15 août', label: 'Session 2' },
+  { date: '16 — 20 août', label: 'Session 3' },
 ]
 
 const laomfestImages = [
@@ -90,7 +91,7 @@ const laomfestImages = [
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Immersion signature</p>
           <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">En Mouvement</h2>
           <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-8">
-            5 jours d'immersion ou le mouvement devient le chemin. Guide par Samuel Planas, danseur professionnel forme au Conservatoire National Superieur de Paris, et Charly Aubert. Ouvert a tous — aucune experience de danse requise.
+            5 jours d'immersion où le mouvement devient le chemin. Guidé par Samuel Planas, danseur professionnel formé au Conservatoire National Supérieur de Paris, et Charly Aubert. Ouvert à tous — aucune expérience de danse requise.
           </p>
 
           <!-- Sessions -->
@@ -107,7 +108,7 @@ const laomfestImages = [
             href="/stage-danse/"
             class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
           >
-            Decouvrir le stage
+            Découvrir le stage
           </a>
         </div>
       </div>
@@ -141,6 +142,16 @@ const laomfestImages = [
           </div>
         ))}
       </div>
+
+      <!-- Inscription liste de diffusion LAOMFEST -->
+      <div class="mt-16 pt-12 border-t border-[#2C2824]/10">
+        <p class="text-base font-light text-[#2C2824]/80 leading-relaxed mb-6 max-w-2xl">
+          {t.pages.eventsPage.laomfest.newsletterCtaBefore}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight}</strong>{t.pages.eventsPage.laomfest.newsletterCtaMiddle}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight2}</strong>
+        </p>
+        <div class="max-w-md">
+          <NewsletterForm variant="light" />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -160,9 +171,20 @@ const laomfestImages = [
         <div class="flex-1">
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Formation</p>
           <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">LAOM School</h2>
-          <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-8">
-            4 weekends entre porteurs de projet d'ecolieu. Speakers d'autorite. Office hours mensuels. Cohort 1 : juin 2026 — mai 2027.
-          </p>
+          <div class="space-y-4 mb-8">
+            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
+              Un parcours d'accompagnement pour porteurs et porteuses de projets d'écolieux / lieux collectifs / tiers-lieux / communautés.
+            </p>
+            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
+              4 week-ends immersifs avec des intervenants de référence.
+            </p>
+            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
+              Des temps d'échange mensuels pour avancer concrètement.
+            </p>
+            <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
+              Cohorte 1 : juin 2026 - mai 2027.
+            </p>
+          </div>
 
           <!-- Sessions -->
           <div class="space-y-3 mb-10">

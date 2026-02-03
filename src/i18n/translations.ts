@@ -69,7 +69,7 @@ export const translations = {
           title: 'Désirs d\'Aventure',
           date: '30 avr. 2026 – 3 mai 2026',
           description: 'Exploration du corps et de sa sensualité avec Colette Williams',
-          href: 'https://www.coletteseconfesse.fr/evenements-sex-positif-paris-lyon-montpellier-france',
+          href: 'https://www.coletteseconfesse.fr/',
         },
         {
           title: 'Rencontre Fyneo #1',
@@ -457,6 +457,10 @@ export const translations = {
           title: 'LAOMFEST',
           description: 'Mini-festival : trois jours de rencontres, ateliers, concerts et micro-conférences pour vivre une communauté éphémère.',
           dateNote: 'Date en septembre à confirmer',
+          newsletterCtaBefore: 'Inscris-toi à notre liste de diffusion pour ',
+          newsletterCtaHighlight: 'être prévenu en avant-première du festival',
+          newsletterCtaMiddle: ' ',
+          newsletterCtaHighlight2: 'et des prochains événements.',
         },
         hostTitle: 'Organiser un événement à LAOM',
         hostPoints: [
@@ -727,7 +731,7 @@ export const translations = {
           title: 'Adventure Desires',
           date: 'Apr 30, 2026 – May 3, 2026',
           description: 'Exploration of the body and sensuality with Colette Williams',
-          href: 'https://www.coletteseconfesse.fr/evenements-sex-positif-paris-lyon-montpellier-france',
+          href: 'https://www.coletteseconfesse.fr/',
         },
         {
           title: 'Fyneo Gathering #1',
@@ -1115,6 +1119,10 @@ export const translations = {
           title: 'LAOMFEST',
           description: 'Mini-festival: three days of gatherings, workshops, concerts and micro-talks to experience an ephemeral community.',
           dateNote: 'Date in September to be confirmed',
+          newsletterCtaBefore: 'Subscribe to our mailing list to ',
+          newsletterCtaHighlight: 'be notified first about the festival',
+          newsletterCtaMiddle: ' and ',
+          newsletterCtaHighlight2: 'upcoming events.',
         },
         hostTitle: 'Host your event at LAOM',
         hostPoints: [

@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import NewsletterForm from '~/components/NewsletterForm.astro'
 import { createWebPageSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations } from '~/i18n/utils'
 
@@ -114,6 +115,14 @@ const events = t.events.items.map((item, index) => ({
               />
             </div>
           ))}
+        </div>
+        <div class="mt-16 pt-12 border-t border-black/10">
+          <p class="text-base font-light text-black/70 leading-relaxed mb-6 max-w-2xl">
+            {t.pages.eventsPage.laomfest.newsletterCtaBefore}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight}</strong>{t.pages.eventsPage.laomfest.newsletterCtaMiddle}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight2}</strong>
+          </p>
+          <div class="max-w-md">
+            <NewsletterForm variant="light" />
+          </div>
         </div>
       </div>
     </div>
