@@ -3,9 +3,9 @@ import Layout from '~/layouts/Layout.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
-  name: 'LAOM School — Ecosysteme pour porteurs de projet d\'ecolieu',
+  name: 'LAOM School,  Écosystème pour porteurs de projet d\'écolieu',
   url: Astro.url.toString(),
-  description: 'L\'ecosysteme pour les porteurs de projet d\'ecolieu. 4 weekends immersifs a LAOM, des office hours chaque mois, une communaute de batisseurs.',
+  description: 'L\'écosystème pour les porteurs de projet d\'écolieu. 4 week-ends immersifs à LAOM, des permanences chaque mois, une communauté de bâtisseurs.',
 })
 
 const weekends = [
@@ -13,40 +13,40 @@ const weekends = [
     num: '01',
     date: 'Juin 2026',
     title: 'Projet & Financement',
-    description: 'Clarifier ta vision. Structurer ton plan. Identifier les strategies de financement adaptees a ton projet : subventions, SCIA, levee de fonds, autofinancement. Repartir avec un plan d\'action finance.',
+    description: 'Clarifier ta vision. Structurer ton plan. Identifier les stratégies de financement adaptées à ton projet : subventions, SCIA, levée de fonds, autofinancement. Repartir avec un plan d\'action financé.',
     speaker: {
-      role: 'Expert financement a impact',
-      bio: 'Specialiste du financement de projets a impact social et environnemental. Subventions publiques, fonds d\'investissement a impact, montages juridiques innovants.',
+      role: 'Expert financement à impact',
+      bio: 'Spécialiste du financement de projets à impact social et environnemental. Subventions publiques, fonds d\'investissement à impact, montages juridiques innovants.',
     },
   },
   {
     num: '02',
     date: 'Juillet 2026',
-    title: 'Business Model',
-    description: 'Construire un modele economique viable sans trahir la vision. Positionnement, pricing, diversification des revenus : coliving, stages, agriculture, formation, evenementiel. Ce qui marche. Ce qui ne marche pas.',
+    title: 'Modèle économique',
+    description: 'Construire un modèle économique viable sans trahir la vision. Positionnement, tarification, diversification des revenus : coliving, stages, agriculture, formation, événementiel. Ce qui marche. Ce qui ne marche pas.',
     speaker: {
       role: 'Fondateur de coliving / tiers-lieu rentable',
-      bio: 'Entrepreneur qui a cree et stabilise un modele economique de lieu de vie. Retour d\'experience concret sur les premieres annees, les pivots, et l\'equilibre financier.',
+      bio: 'Entrepreneur qui a créé et stabilisé un modèle économique de lieu de vie. Retour d\'expérience concret sur les premières années, les pivots, et l\'équilibre financier.',
     },
   },
   {
     num: '03',
     date: 'Octobre 2026',
-    title: 'Culture Regenerative',
-    description: 'Ecoconstruction, agriculture regeneratrice, autonomie energetique, design de lieu, integration paysagere. Comment concevoir un lieu qui regenere plus qu\'il ne consomme. Les choix techniques, les erreurs a eviter, les couts reels.',
+    title: 'Culture régénérative',
+    description: 'Écoconstruction, agriculture régénératrice, autonomie énergétique, conception du lieu, intégration paysagère. Comment concevoir un lieu qui régénère plus qu\'il ne consomme. Les choix techniques, les erreurs à éviter, les coûts réels.',
     speaker: {
-      role: 'Architecte / concepteur regeneratif',
-      bio: 'Praticien reconnu en ecoconstruction ou en design regeneratif. Paille porteuse, terre crue, bioclimatique, permaculture appliquee a l\'echelle d\'un lieu de vie.',
+      role: 'Architecte / concepteur régénératif',
+      bio: 'Praticien reconnu en écoconstruction ou en conception régénérative. Paille porteuse, terre crue, bioclimatique, permaculture appliquée à l\'échelle d\'un lieu de vie.',
     },
   },
   {
     num: '04',
     date: 'Mai 2027',
     title: 'Culture Communautaire',
-    description: 'Gouvernance, intelligence collective, gestion de conflits, leadership, cadre juridique du collectif. Comment creer un groupe qui tient dans la duree. Les departs, les arrivees, les crises — et comment les traverser.',
+    description: 'Gouvernance, intelligence collective, gestion des conflits, animation du collectif, cadre juridique du collectif. Comment créer un groupe qui tient dans la durée. Les départs, les arrivées, les crises,  et comment les traverser.',
     speaker: {
-      role: 'Facilitateur / expert en gouvernance partagee',
-      bio: 'Specialiste de la gouvernance de collectifs. Sociocratie, holacratie, CNV, processus de decision. Intervient aupres de collectifs, cooperatives et ecolieux depuis plus de 10 ans.',
+      role: 'Facilitateur / expert en gouvernance partagée',
+      bio: 'Spécialiste de la gouvernance de collectifs. Sociocratie, holacratie, CNV, processus de décision. Intervient auprès de collectifs, coopératives et écolieux depuis plus de 10 ans.',
     },
   },
 ]
@@ -57,23 +57,23 @@ const formules = [
     price: '2 000',
     featured: false,
     items: [
-      'Office hours mensuels (calls de groupe)',
-      'Replays des sessions',
-      'Communaute LAOM',
-      'Acces aux ressources et outils',
+      'Permanences mensuelles (appels ou visio de groupe)',
+      'Rediffusions des sessions',
+      'Communauté LAOM',
+      'Accès aux ressources et outils',
     ],
   },
   {
-    name: 'Les 4 events',
+    name: 'Les 4 week-ends',
     price: '4 000',
     featured: true,
     items: [
-      '4 weekends immersifs a LAOM',
-      'Masterclasses speakers invites',
-      'Office hours mensuels',
-      'Replays des sessions',
-      'Communaute LAOM',
-      'Hebergement et repas inclus',
+      '4 week-ends immersifs à LAOM',
+      'Sessions avec intervenants invités',
+      'Permanences mensuelles',
+      'Rediffusions des sessions',
+      'Communauté LAOM',
+      'Hébergement et repas inclus',
     ],
   },
   {
@@ -81,19 +81,19 @@ const formules = [
     price: '9 000',
     featured: false,
     items: [
-      'Tout de la formule "Les 4 events"',
-      'Accompagnement financement personnalise',
-      'Accompagnement juridique personnalise',
-      'Acces LAOM Capital (fonds d\'amorcage)',
-      'Suivi individuel entre les weekends',
+      'Tout de la formule "Les 4 week-ends"',
+      'Accompagnement financement personnalisé',
+      'Accompagnement juridique personnalisé',
+      'Accès LAOM Capital (fonds d\'amorçage)',
+      'Suivi individuel entre les week-ends',
     ],
   },
 ]
 ---
 
 <Layout
-  title="LAOM School — Ecosysteme pour porteurs de projet d'ecolieu | LAOM"
-  description="L'ecosysteme pour les porteurs de projet d'ecolieu. 4 weekends immersifs a LAOM, des office hours chaque mois, une communaute de batisseurs."
+  title="LAOM School,  Écosystème pour porteurs de projet d'écolieu | LAOM"
+  description="L'écosystème pour les porteurs de projet d'écolieu. 4 week-ends immersifs à LAOM, des permanences chaque mois, une communauté de bâtisseurs."
   seo={{
     ldJSON: pageSchema,
   }}
@@ -101,12 +101,12 @@ const formules = [
   <!-- Hero -->
   <section class="py-32 lg:py-40 bg-[#F3EEDC]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Cohort 1 — Juin 2026 / Mai 2027</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Promotion 1,  Juin 2026 / Mai 2027</p>
       <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#2C2824] mb-8 tracking-tight">
         LAOM School
       </h1>
       <p class="text-xl md:text-2xl font-light text-[#2C2824]/60 max-w-3xl mx-auto leading-relaxed">
-        L'ecosysteme pour les porteurs de projet d'ecolieu. 4 weekends immersifs a LAOM. Des office hours chaque mois. Une communaute de batisseurs.
+        L'écosystème pour les porteurs de projet d'écolieu. 4 week-ends immersifs à LAOM. Des permanences chaque mois. Une communauté de bâtisseurs.
       </p>
     </div>
   </section>
@@ -115,13 +115,13 @@ const formules = [
   <section class="py-20 md:py-24 bg-white">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Tu ne viens pas suivre un cours. Tu viens travailler sur ton projet, entoure de gens qui font la meme chose, dans un lieu qui l'a deja fait.
+        Tu ne viens pas suivre un cours. Tu viens travailler sur ton projet, entouré de gens qui font la même chose, dans un lieu qui l'a déjà fait.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        LAOM, c'est 5 ans de terrain. 21 hectares. 15 menages. Le plus grand batiment en paille porteuse au monde. Tout ce qu'on a appris — les reussites, les erreurs, les raccourcis, les impasses — on le met a disposition.
+        LAOM, c'est 5 ans de terrain. 21 hectares. 15 foyers. Le plus grand bâtiment en paille porteuse au monde. Tout ce qu'on a appris,  les réussites, les erreurs, les raccourcis, les impasses,  on le met à disposition.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
-        Chaque weekend, tu viens avec ton projet. Tu travailles dessus. Tu confrontes tes idees a d'autres porteurs de projet et a des experts qui ont deja fait le chemin. Tu repars avec des decisions prises, pas des slides.
+        Chaque week-end, tu viens avec ton projet. Tu travailles dessus. Tu confrontes tes idées à d'autres porteurs de projet et à des experts qui ont déjà fait le chemin. Tu repars avec des décisions prises, pas des diapositives.
       </p>
     </div>
   </section>
@@ -132,7 +132,7 @@ const formules = [
       <div class="text-center mb-16 opacity-0" animate-fade-in-up>
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Programme</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
-          4 weekends, 4 themes
+          4 week-ends, 4 thèmes
         </h2>
       </div>
 
@@ -161,7 +161,7 @@ const formules = [
                   <div>
                     <p class="text-sm font-medium text-[#2C2824] mb-1">{w.speaker.role}</p>
                     <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed mb-2">{w.speaker.bio}</p>
-                    <p class="text-xs font-light text-[#C4A855]">Masterclass — samedi apres-midi &middot; <em class="text-[#2C2824]/40">A confirmer</em></p>
+                    <p class="text-xs font-light text-[#C4A855]">Session,  samedi après-midi &middot; <em class="text-[#2C2824]/40">À confirmer</em></p>
                   </div>
                 </div>
               </div>
@@ -172,7 +172,7 @@ const formules = [
 
       <!-- Placeholder image -->
       <div class="mt-12 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm opacity-0" animate-fade-in-up>
-        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : groupe de porteurs de projet en cercle au Grand Shambala, weekend LAOM School</p>
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo à prendre : groupe de porteurs de projet en cercle au Grand Shambala, week-end LAOM School</p>
       </div>
     </div>
   </section>
@@ -180,15 +180,15 @@ const formules = [
   <!-- Office hours -->
   <section class="py-20 md:py-24 bg-white">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Entre les weekends</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Entre les week-ends</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">
-        Office hours
+        Permanences
       </h2>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        1 call de groupe par mois. Tu avances sur ton projet, tu poses tes questions, tu beneficies du regard des autres porteurs de projet et de l'equipe LAOM.
+        1 appel (ou visio) de groupe par mois. Tu avances sur ton projet, tu poses tes questions, tu bénéficies du regard des autres porteurs de projet et de l'équipe LAOM.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
-        Environ 10 sessions sur la duree de la formation, de juin 2026 a mai 2027. Inclus dans toutes les formules.
+        Environ 10 sessions sur la durée de la formation, de juin 2026 à mai 2027. Inclus dans toutes les formules.
       </p>
     </div>
   </section>
@@ -197,7 +197,7 @@ const formules = [
   <section class="py-20 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="text-center mb-16 opacity-0" animate-fade-in-up>
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Ecosysteme</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Écosystème</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
           Ce que tu rejoins
         </h2>
@@ -208,21 +208,21 @@ const formules = [
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Formation</p>
           <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">LAOM School</h3>
           <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
-            4 weekends immersifs a LAOM. Des masterclasses avec des experts. Des office hours mensuels. Les replays de toutes les sessions.
+            4 week-ends immersifs à LAOM. Des sessions avec des experts. Des permanences mensuelles. Les rediffusions de toutes les sessions.
           </p>
         </div>
         <div class="bg-white border border-black/5 rounded-sm p-8">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Communaute</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">LAOM Community</h3>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Communauté</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Communauté LAOM</h3>
           <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
-            Le reseau des batisseurs. Un espace d'entraide, de partage de ressources et de retours d'experience entre ceux qui creent des lieux de vie. Entraide, co-developpement, visites croisees.
+            Le réseau des bâtisseurs. Un espace d'entraide, de partage de ressources et de retours d'expérience entre ceux qui créent des lieux de vie. Entraide, co-développement, visites croisées.
           </p>
         </div>
         <div class="bg-white border border-black/5 rounded-sm p-8">
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Financement</p>
           <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">LAOM Capital</h3>
           <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
-            Le fonds a impact pour soutenir les phases d'amorcage. Accompagnement financier et strategique pour les projets d'ecolieux qui sortent de LAOM School.
+            Le fonds à impact pour soutenir les phases d'amorçage. Accompagnement financier et stratégique pour les projets d'écolieux qui sortent de LAOM School.
           </p>
         </div>
       </div>
@@ -243,12 +243,12 @@ const formules = [
         {formules.map((f) => (
           <div class={`rounded-sm p-8 md:p-10 flex flex-col ${f.featured ? 'border-2 border-[#C4A855] bg-[#FAF8F5] relative' : 'border border-black/5 bg-[#FAF8F5]'}`}>
             {f.featured && (
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#C4A855] text-white text-[10px] tracking-[0.2em] uppercase px-4 py-1 rounded-sm">Recommande</span>
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#C4A855] text-white text-[10px] tracking-[0.2em] uppercase px-4 py-1 rounded-sm">Recommandé</span>
             )}
             <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-2">{f.name}</h3>
             <div class="mb-6">
               <span class="text-3xl font-light text-[#2C2824] tracking-tight">{f.price}</span>
-              <span class="text-base font-light text-[#2C2824]/40 ml-1">EUR</span>
+              <span class="text-base font-light text-[#2C2824]/40 ml-1">€</span>
             </div>
             <ul class="space-y-3 mb-8 flex-1">
               {f.items.map((item) => (
@@ -264,7 +264,7 @@ const formules = [
               rel="noopener noreferrer"
               class={`inline-flex items-center justify-center rounded-sm px-8 py-3.5 text-xs tracking-[0.2em] uppercase transition-colors text-center ${f.featured ? 'bg-[#C4A855] text-white hover:bg-[#B09A4A]' : 'bg-[#2C2824] text-white hover:bg-[#3D3832]'}`}
             >
-              Reserver un appel
+              Réserver un appel
             </a>
           </div>
         ))}
@@ -275,7 +275,7 @@ const formules = [
   <!-- CTA -->
   <section class="py-20 md:py-24 bg-[#2C2824]">
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Premier echange</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Premier échange</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
         On en parle ?
       </h2>
@@ -288,7 +288,7 @@ const formules = [
         rel="noopener noreferrer"
         class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
       >
-        Reserver un appel
+        Réserver un appel
       </a>
     </div>
   </section>

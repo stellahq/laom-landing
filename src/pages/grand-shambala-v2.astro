@@ -5,7 +5,7 @@ import { createWebPageSchema } from '~/utils/schema'
 export const prerender = true
 
 const pageSchema = createWebPageSchema({
-  name: 'Grand Shambala — Le plus grand bâtiment en paille porteuse au monde',
+  name: 'Grand Shambala,  Le plus grand bâtiment en paille porteuse au monde',
   url: Astro.url.toString(),
   description:
     'Comment un petit groupe a construit le plus grand bâtiment en paille porteuse au monde : 850 m², deux niveaux, 75 jours. De l\'intuition Earthship aux enduits à la chaux, récit complet d\'un chantier hors-norme dans un écohameau du sud de l\'Aveyron.',
@@ -13,7 +13,7 @@ const pageSchema = createWebPageSchema({
 ---
 
 <Layout
-  title="Grand Shambala — Le plus grand bâtiment en paille porteuse au monde | LAOM"
+  title="Grand Shambala,  Le plus grand bâtiment en paille porteuse au monde | LAOM"
   description="Comment un petit groupe a construit le plus grand bâtiment en paille porteuse au monde : 850 m², deux niveaux, 75 jours. Récit complet du chantier dans l'écohameau LAOM."
   seo={{ ldJSON: pageSchema }}
 >
@@ -32,42 +32,42 @@ const pageSchema = createWebPageSchema({
   <!-- Progress bar -->
   <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="position: fixed; bottom: 0; left: 0; height: 6px; background-color: #C4A855; z-index: 9999; width: 0%; box-shadow: 0 0 8px rgba(196, 168, 85, 0.4); transition: none; pointer-events: none;"></div>
 
-  <!-- Sticky sidebar TOC — minimal dots-only design -->
+  <!-- Sticky sidebar TOC,  minimal dots-only design -->
   <nav id="sticky-toc" aria-label="Sommaire de l'article" style="position: fixed; top: 140px; right: 32px; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; display: none;">
     <div class="flex flex-col items-end gap-[2px]">
-      <a href="#lhomme" data-toc="lhomme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 1 — L'homme qui regardait le champ">
+      <a href="#lhomme" data-toc="lhomme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 1,  L'homme qui regardait le champ">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">L'homme</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#la-graine" data-toc="la-graine" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 2 — La Graine">
+      <a href="#la-graine" data-toc="la-graine" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 2,  La Graine">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">La Graine</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#les-murs-qui-parlent" data-toc="les-murs-qui-parlent" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 3 — Les Murs qui parlent">
+      <a href="#les-murs-qui-parlent" data-toc="les-murs-qui-parlent" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 3,  Les Murs qui parlent">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Les Murs</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#le-mur" data-toc="le-mur" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 4 — Le Mur">
+      <a href="#le-mur" data-toc="le-mur" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 4,  Le Mur">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Le Mur</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#lautomne" data-toc="lautomne" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 5 — L'Automne vertical">
+      <a href="#lautomne" data-toc="lautomne" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 5,  L'Automne vertical">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">L'Automne</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#le-silence" data-toc="le-silence" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 6 — L'Année du silence">
+      <a href="#le-silence" data-toc="le-silence" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 6,  L'Année du silence">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Le Silence</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#la-peau" data-toc="la-peau" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 7 — La Peau">
+      <a href="#la-peau" data-toc="la-peau" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 7,  La Peau">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">La Peau</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#programme" data-toc="programme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 8 — Ce que le bâtiment contient">
+      <a href="#programme" data-toc="programme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 8,  Ce que le bâtiment contient">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Le Programme</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#lhorizon" data-toc="lhorizon" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 9 — L'Horizon">
+      <a href="#lhorizon" data-toc="lhorizon" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 9,  L'Horizon">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">L'Horizon</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
@@ -151,30 +151,30 @@ const pageSchema = createWebPageSchema({
 
   <!-- HERO -->
   <section class="relative w-full -mt-24 md:-mt-28">
-    <img src="/images/laom/grand-shambala/p1.webp" alt="Vue drone du Grand Shambala — 850 m² de paille porteuse dans le paysage aveyronnais" class="w-full object-cover" loading="eager" decoding="async" />
+    <img src="/images/laom/grand-shambala/p1.webp" alt="Vue drone du Grand Shambala,  850 m² de paille porteuse dans le paysage aveyronnais" class="w-full object-cover" loading="eager" decoding="async" />
     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent flex flex-col items-center justify-end pb-12 md:pb-20 gap-3 md:gap-4">
       <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight drop-shadow-lg">
         Grand Shambala
       </h1>
       <p class="text-sm md:text-base font-light tracking-[0.08em] text-white/75 max-w-lg text-center drop-shadow-md">
-        Le plus grand bâtiment en paille porteuse au monde — 850&nbsp;m² sur deux niveaux
+        Le plus grand bâtiment en paille porteuse au monde,  850&nbsp;m² sur deux niveaux
       </p>
     </div>
   </section>
 
 
-  <!-- INTRO CONTEXTE — Vision du projet avant l'historique -->
+  <!-- INTRO CONTEXTE,  Vision du projet avant l'historique -->
   <section class="py-16 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
 
       <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">Introduction</p>
 
       <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824] mb-6">
-        Le Grand Shambala est le cœur de LAOM, un écohameau de 21 hectares dans le sud de l'Aveyron. 850&nbsp;m² sur deux niveaux — coliving, logements, ateliers, foyer commun — entièrement construit en paille porteuse, bois, terre et chaux. Un bâtiment passif, proche de l'autonomie, où l'on ne respire que des matériaux naturels.
+        Le Grand Shambala est le cœur de LAOM, un écohameau de 21 hectares dans le sud de l'Aveyron. 850&nbsp;m² sur deux niveaux,  coliving, logements, ateliers, foyer commun,  entièrement construit en paille porteuse, bois, terre et chaux. Un bâtiment passif, proche de l'autonomie, où l'on ne respire que des matériaux naturels.
       </p>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
-        Cette page raconte comment il a été construit — les étapes, les choix, les difficultés, et comment on les a surmontées. Vous y lirez comment quatre personnes ont monté les murs en quinze jours, comment on a abandonné une structure acier parce qu'elle contredisait nos valeurs, et comment trois machines d'isolation ont échoué avant qu'on trouve la bonne.
+        Cette page raconte comment il a été construit,  les étapes, les choix, les difficultés, et comment on les a surmontées. Vous y lirez comment quatre personnes ont monté les murs en quinze jours, comment on a abandonné une structure acier parce qu'elle contredisait nos valeurs, et comment trois machines d'isolation ont échoué avant qu'on trouve la bonne.
       </p>
 
     </div>
@@ -190,20 +190,20 @@ const pageSchema = createWebPageSchema({
       </div>
       <nav aria-label="Sommaire" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
         <div>
-          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mb-3">Acte I — La Vision</p>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mb-3">Acte I,  La Vision</p>
           <a href="#lhomme" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">1. L'homme qui regardait le champ</a>
           <a href="#la-graine" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">2. La Graine</a>
           <a href="#les-murs-qui-parlent" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">3. Les Murs qui parlent</a>
-          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte II — Le Mur</p>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte II,  Le Mur</p>
           <a href="#le-mur" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">4. Le Mur</a>
-          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte III — Le Chantier</p>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte III,  Le Chantier</p>
           <a href="#lautomne" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">5. L'Automne vertical</a>
         </div>
         <div>
-          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mb-3">Acte IV — Le Silence</p>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mb-3">Acte IV,  Le Silence</p>
           <a href="#le-silence" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">6. L'Année du silence</a>
           <a href="#la-peau" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">7. La Peau</a>
-          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte V — L'Horizon</p>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte V,  L'Horizon</p>
           <a href="#programme" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">8. Ce que le bâtiment contient</a>
           <a href="#lhorizon" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">9. L'Horizon</a>
         </div>
@@ -212,7 +212,7 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 1 — L'HOMME QUI REGARDAIT LE CHAMP -->
+  <!-- CHAPITRE 1,  L'HOMME QUI REGARDAIT LE CHAMP -->
 
   <section id="lhomme" class="py-24 lg:py-32 bg-white">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -221,10 +221,10 @@ const pageSchema = createWebPageSchema({
         L'homme qui regardait le champ
       </h2>
 
-      <img src="/images/laom/grand-shambala/p2.webp" alt="Portrait de Charly — les débuts du projet Grand Shambala" class="w-full aspect-[4/3] object-cover rounded-sm mb-10" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p2.webp" alt="Portrait de Charly,  les débuts du projet Grand Shambala" class="w-full aspect-[4/3] object-cover rounded-sm mb-10" loading="lazy" decoding="async" />
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        <span class="text-5xl font-light text-[#2C2824] float-left mr-3 mt-1 leading-none font-playfair">L</span>e Grand Shambala a commencé dans un champ. Un terrain en légère pente dans le sud de l'Aveyron, au cœur du Parc Naturel des Grands Causses. On regardait cette prairie et on voyait un bâtiment. Pas un plan, pas un concept — un bâtiment. 850 m² de surface, deux niveaux, de la paille, du bois, de la terre.
+        <span class="text-5xl font-light text-[#2C2824] float-left mr-3 mt-1 leading-none font-playfair">L</span>e Grand Shambala a commencé dans un champ. Un terrain en légère pente dans le sud de l'Aveyron, au cœur du Parc Naturel des Grands Causses. On regardait cette prairie et on voyait un bâtiment. Pas un plan, pas un concept,  un bâtiment. 850 m² de surface, deux niveaux, de la paille, du bois, de la terre.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
         On n'avait pas d'argent. Pas d'expérience en construction. Pas encore le terrain. Mais on avait une clarté sur ce qu'il fallait faire. Et la première question n'a jamais été « est-ce que c'est possible ? ». La première question, c'était : qu'est-ce qu'il faut qu'on fasse ? C'est quoi la première étape ?
@@ -236,7 +236,7 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 2 — LA GRAINE -->
+  <!-- CHAPITRE 2,  LA GRAINE -->
 
   <section id="la-graine" class="py-24 lg:py-32 bg-[#FAF8F5]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -246,19 +246,19 @@ const pageSchema = createWebPageSchema({
       </h2>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        L'inspiration de départ, c'est les Earthships — ces bâtiments inventés par l'architecte américain Michael Reynolds dans le désert du Nouveau-Mexique. Un Earthship, c'est un bâtiment autonome : il se chauffe seul, collecte sa propre eau, recycle ses déchets, et nourrit ses habitants depuis une serre intégrée. Un organisme vivant.
+        L'inspiration de départ, c'est les Earthships,  ces bâtiments inventés par l'architecte américain Michael Reynolds dans le désert du Nouveau-Mexique. Un Earthship, c'est un bâtiment autonome : il se chauffe seul, collecte sa propre eau, recycle ses déchets, et nourrit ses habitants depuis une serre intégrée. Un organisme vivant.
       </p>
 
-      <img src="/images/laom/grand-shambala/p3.webp" alt="Diagramme des 6 principes Earthship — solaire passif, masse thermique, gestion de l'eau, recyclage, production alimentaire, autonomie énergétique" class="w-full rounded-sm my-12" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p3.webp" alt="Diagramme des 6 principes Earthship,  solaire passif, masse thermique, gestion de l'eau, recyclage, production alimentaire, autonomie énergétique" class="w-full rounded-sm my-12" loading="lazy" decoding="async" />
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Mais un Earthship, c'est pensé pour une famille isolée. Nous, on était onze, dans un écohameau de 21 hectares avec une rivière, des prairies, des forêts, et un projet collectif qui intègre de l'habitat, de l'activité économique ouverte vers l'extérieur, et de l'agriculture. Un seul bâtiment Earthship classique n'était pas possible. Il fallait raisonner de manière systémique.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Et puis il n'y avait pas que l'Earthship. Il y avait aussi la philosophie du mouvement régénératif : comment passer d'une logique extractive — où on prend plus qu'on ne donne — à une logique régénérative, où chaque action enrichit le système. Comment intégrer ces variables dans la conception d'un bâtiment ?
+        Et puis il n'y avait pas que l'Earthship. Il y avait aussi la philosophie du mouvement régénératif : comment passer d'une logique extractive,  où on prend plus qu'on ne donne,  à une logique régénérative, où chaque action enrichit le système. Comment intégrer ces variables dans la conception d'un bâtiment ?
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        La serre intégrée de l'Earthship ? On n'en avait pas besoin dans le bâtiment — on avait la possibilité d'installer une vraie ferme maraîchère à l'échelle du domaine, la Ferme du Verseau, en agriculture régénératrice. L'apport solaire passif ? On l'a conservé avec une grande façade sud vitrée. L'autonomie en eau ? Elle se pense avec la rivière et les sources. Chaque principe a trouvé sa place — non pas dans un seul bâtiment, mais dans un écosystème entier.
+        La serre intégrée de l'Earthship ? On n'en avait pas besoin dans le bâtiment,  on avait la possibilité d'installer une vraie ferme maraîchère à l'échelle du domaine, la Ferme du Verseau, en agriculture régénératrice. L'apport solaire passif ? On l'a conservé avec une grande façade sud vitrée. L'autonomie en eau ? Elle se pense avec la rivière et les sources. Chaque principe a trouvé sa place,  non pas dans un seul bâtiment, mais dans un écosystème entier.
       </p>
 
       <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
@@ -269,23 +269,23 @@ const pageSchema = createWebPageSchema({
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
-      <img src="/images/laom/grand-shambala/p4.webp" alt="Comparaison Earthship classique vs Grand Shambala — du module individuel à l'écosystème collectif" class="w-full rounded-sm" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p4.webp" alt="Comparaison Earthship classique vs Grand Shambala,  du module individuel à l'écosystème collectif" class="w-full rounded-sm" loading="lazy" decoding="async" />
       <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">Du module au monde</p>
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <img src="/images/laom/grand-shambala/p5.webp" alt="Croquis v1 — premières esquisses du Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
-        <img src="/images/laom/grand-shambala/p6.webp" alt="Croquis v2 — itération structure" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
-        <img src="/images/laom/grand-shambala/p7.webp" alt="Croquis v3 — plan rejeté" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
-        <img src="/images/laom/grand-shambala/p8.webp" alt="Croquis v4 — plan final paille porteuse" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p5.webp" alt="Croquis v1,  premières esquisses du Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p6.webp" alt="Croquis v2,  itération structure" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p7.webp" alt="Croquis v3,  plan rejeté" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p8.webp" alt="Croquis v4,  plan final paille porteuse" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
       </div>
-      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">L'évolution de la réflexion — esquisses, itérations, plans rejetés.</p>
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">L'évolution de la réflexion,  esquisses, itérations, plans rejetés.</p>
     </div>
   </section>
 
 
-  <!-- CHAPITRE 3 — LES MURS QUI PARLENT -->
+  <!-- CHAPITRE 3,  LES MURS QUI PARLENT -->
 
   <section id="les-murs-qui-parlent" class="py-24 lg:py-32 bg-white">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -298,7 +298,7 @@ const pageSchema = createWebPageSchema({
         La première version du Grand Shambala, c'était une structure en acier. Un squelette métallique habillé d'un manteau de paille. Sur le papier, ça fonctionnait. Structurellement, c'était solide. On avait même accès à l'acier.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Et puis on s'est arrêtés. Parce qu'un bâtiment écologique tenu par de l'acier, c'est une contradiction. L'acier est l'un des matériaux les plus carbonés qui existe. Et pour le porter, il fallait de gros plots en béton, des fondations lourdes — une quantité de béton qui contredisait tout ce qu'on défendait.
+        Et puis on s'est arrêtés. Parce qu'un bâtiment écologique tenu par de l'acier, c'est une contradiction. L'acier est l'un des matériaux les plus carbonés qui existe. Et pour le porter, il fallait de gros plots en béton, des fondations lourdes,  une quantité de béton qui contredisait tout ce qu'on défendait.
       </p>
 
       <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
@@ -314,7 +314,7 @@ const pageSchema = createWebPageSchema({
         Le principe : les bottes de paille ne sont pas du remplissage. Elles <em>sont</em> la structure. Elles portent les murs, le toit, l'étage. 850 m² sur deux niveaux, tenus par de la paille. Ça n'avait jamais été fait à cette échelle.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        L'avantage : très peu de béton. Uniquement des semelles de fondation. Pas de dalle béton — juste une mise hors-gel. Le reste : paille, bois local, terre, chaux. Des matériaux qui stockent du carbone au lieu d'en émettre.
+        L'avantage : très peu de béton. Uniquement des semelles de fondation. Pas de dalle béton,  juste une mise hors-gel. Le reste : paille, bois local, terre, chaux. Des matériaux qui stockent du carbone au lieu d'en émettre.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
         La face nord et la face ouest : paille porteuse. La face sud : ossature bois, pour accueillir la grande façade vitrée qui capte le soleil. Un bâtiment bioclimatique, structurellement honnête.
@@ -323,17 +323,17 @@ const pageSchema = createWebPageSchema({
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
       <div class="grid grid-cols-3 gap-3 rounded-sm overflow-hidden">
-        <img src="/images/laom/grand-shambala/p9-bis-bis.webp" alt="Coupe technique mur paille porteuse — vue détaillée" class="col-span-1 w-full h-full object-cover" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p9-bis-bis.webp" alt="Coupe technique mur paille porteuse,  vue détaillée" class="col-span-1 w-full h-full object-cover" loading="lazy" decoding="async" />
         <div class="col-span-2 flex flex-col gap-3">
-          <img src="/images/laom/grand-shambala/p9-bis.webp" alt="Coupe technique mur paille porteuse — vue d'ensemble" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
-          <img src="/images/laom/grand-shambala/p9.webp" alt="Coupe technique mur paille porteuse — détails des couches" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
+          <img src="/images/laom/grand-shambala/p9-bis.webp" alt="Coupe technique mur paille porteuse,  vue d'ensemble" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
+          <img src="/images/laom/grand-shambala/p9.webp" alt="Coupe technique mur paille porteuse,  détails des couches" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- CHAPITRE 4 — LE MUR -->
+  <!-- CHAPITRE 4,  LE MUR -->
 
   <section id="le-mur" class="py-24 lg:py-32 bg-[#E8E4DB]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -346,10 +346,10 @@ const pageSchema = createWebPageSchema({
         Il y a des murs qu'on ne construit pas en paille. Ceux de l'administration en font partie.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Dès le départ, on avait une vision claire : un projet agritouristique, avec de l'agricole, du tourisme et des résidents. On savait où on voulait aller. Mais le PLU de la commune ne le permettait pas. Il fallait un <strong>STECAL</strong> — un Secteur de Taille et de Capacité d'Accueil Limitées — pour autoriser ce changement d'usage.
+        Dès le départ, on avait une vision claire : un projet agritouristique, avec de l'agricole, du tourisme et des résidents. On savait où on voulait aller. Mais le PLU de la commune ne le permettait pas. Il fallait un <strong>STECAL</strong>,  un Secteur de Taille et de Capacité d'Accueil Limitées,  pour autoriser ce changement d'usage.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        En attendant, on a fait avec ce que les règles nous autorisaient. On a commencé par l'installation de la ferme et obtenu un permis agricole. On a construit ce qu'on pouvait construire. Et en parallèle, on a travaillé de manière itérative sur le STECAL — quatre versions du permis, chacune adaptée au cadre légal du moment.
+        En attendant, on a fait avec ce que les règles nous autorisaient. On a commencé par l'installation de la ferme et obtenu un permis agricole. On a construit ce qu'on pouvait construire. Et en parallèle, on a travaillé de manière itérative sur le STECAL,  quatre versions du permis, chacune adaptée au cadre légal du moment.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Quatre ans. Quatre ans de réunions, de dossiers, de courriers, de refus, de reformulations, d'attente.
@@ -358,7 +358,7 @@ const pageSchema = createWebPageSchema({
         Un soir d'hiver 2022. Charly ouvre une enveloppe dans la cuisine de la ferme. Nouveau refus. La troisième fois. Quelqu'un dit, à voix basse : « Peut-être qu'on devrait arrêter. » Silence. Le poêle craque. Personne ne répond. Personne n'arrête.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Le chantier du Grand Shambala a démarré à l'été 2023, en parallèle de la démarche STECAL qui aboutira à l'été 2025 avec le nouveau PLUi. Le bâtiment et le droit ont avancé ensemble — pas toujours au même rythme. Le STECAL permet aujourd'hui le changement d'usage vers la vision définitive du projet.
+        Le chantier du Grand Shambala a démarré à l'été 2023, en parallèle de la démarche STECAL qui aboutira à l'été 2025 avec le nouveau PLUi. Le bâtiment et le droit ont avancé ensemble,  pas toujours au même rythme. Le STECAL permet aujourd'hui le changement d'usage vers la vision définitive du projet.
       </p>
 
       <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
@@ -367,18 +367,18 @@ const pageSchema = createWebPageSchema({
         </p>
       </blockquote>
 
-      <img src="/images/laom/grand-shambala/p10.webp" alt="Documents administratifs et chronologie du permis — 4 ans de démarche pour le Grand Shambala" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p10.webp" alt="Documents administratifs et chronologie du permis,  4 ans de démarche pour le Grand Shambala" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
     </div>
   </section>
 
 
-  <!-- Encart Guide Administratif — design hors-article -->
+  <!-- Encart Guide Administratif,  design hors-article -->
   <section class="py-16 md:py-20 bg-[#2C2824]">
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="flex flex-col md:flex-row items-center gap-10 md:gap-14">
         <!-- Placeholder jaquette guide -->
         <div class="shrink-0 w-48 md:w-56">
-          <div class="aspect-[3/4] bg-[#3D3832] border border-white/10 rounded-sm flex items-center justify-center shadow-2xl" role="img" aria-label="Jaquette du guide administratif — à venir">
+          <div class="aspect-[3/4] bg-[#3D3832] border border-white/10 rounded-sm flex items-center justify-center shadow-2xl" role="img" aria-label="Jaquette du guide administratif,  à venir">
             <div class="text-center px-6">
               <div class="w-10 h-[2px] bg-[#C4A855] mx-auto mb-4"></div>
               <p class="font-playfair text-base text-white/80 leading-snug mb-2">Le Parcours Administratif</p>
@@ -394,7 +394,7 @@ const pageSchema = createWebPageSchema({
             4 ans de permis en 1 guide.
           </p>
           <p class="text-base font-light text-white/60 leading-relaxed mb-8 max-w-md">
-            STECAL, PLU, permis agricole, changement d'usage — tout le parcours administratif qu'on a traversé pour faire exister ce projet. Les étapes, les erreurs, les stratégies qui ont fini par marcher.
+            STECAL, PLU, permis agricole, changement d'usage,  tout le parcours administratif qu'on a traversé pour faire exister ce projet. Les étapes, les erreurs, les stratégies qui ont fini par marcher.
           </p>
           <a href="/newsletter/" class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors">
             Recevoir le guide gratuitement
@@ -405,7 +405,7 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 5 — L'AUTOMNE VERTICAL -->
+  <!-- CHAPITRE 5,  L'AUTOMNE VERTICAL -->
 
   <section id="lautomne" class="py-24 lg:py-32 bg-white">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -417,9 +417,9 @@ const pageSchema = createWebPageSchema({
 
       <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
         <div>
-          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Été 2023 — Le soubassement</p>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Été 2023,  Le soubassement</p>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-            Cinq rangées de quairons (agglo). C'est le soubassement du bâtiment — la base sur laquelle viendront se poser les bottes de paille. Un travail simple et physique pour poser les fondations visibles du Grand Shambala.
+            Cinq rangées de quairons (agglo). C'est le soubassement du bâtiment,  la base sur laquelle viendront se poser les bottes de paille. Un travail simple et physique pour poser les fondations visibles du Grand Shambala.
           </p>
         </div>
       </div>
@@ -432,9 +432,9 @@ const pageSchema = createWebPageSchema({
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
         <div>
-          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">1er Octobre 2023 — Jour 1</p>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">1er Octobre 2023,  Jour 1</p>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-            Les murs commencent. Charly, Khaldoun, Paul O., Rémy. Quatre personnes. Des centaines de bottes de paille — chacune fait 70 cm d'épaisseur, 2,50 m de long, 1,20 m de hauteur. Tout est gruté. Les murs nord et ouest montent en paille porteuse. La face sud en ossature bois. On ne sait pas encore si ça va tenir à cette échelle. On sait juste qu'il faut continuer.
+            Les murs commencent. Charly, Khaldoun, Paul O., Rémy. Quatre personnes. Des centaines de bottes de paille,  chacune fait 70 cm d'épaisseur, 2,50 m de long, 1,20 m de hauteur. Tout est gruté. Les murs nord et ouest montent en paille porteuse. La face sud en ossature bois. On ne sait pas encore si ça va tenir à cette échelle. On sait juste qu'il faut continuer.
           </p>
         </div>
       </div>
@@ -444,7 +444,7 @@ const pageSchema = createWebPageSchema({
       <div class="bg-black rounded-sm overflow-hidden p-6 md:p-8">
         <div class="aspect-[16/9] md:aspect-[32/9] bg-[#1a1a1a] flex items-center justify-center border border-white/10 rounded-sm" role="img" aria-label="Photo à venir : séquence time-lapse des murs J1 à J15">
           <div class="text-center px-8">
-            <p class="text-xs font-medium text-white/40 uppercase tracking-[0.2em] mb-2">Placeholder — Bandeau Cinématique</p>
+            <p class="text-xs font-medium text-white/40 uppercase tracking-[0.2em] mb-2">Placeholder,  Bandeau Cinématique</p>
             <p class="text-sm font-light text-white/50 max-w-lg">Séquence de 4-5 photos même angle montrant les murs qui montent jour après jour. J1 → J5 → J10 → J15.</p>
           </div>
         </div>
@@ -454,7 +454,7 @@ const pageSchema = createWebPageSchema({
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
         <div>
-          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">15 Octobre — Jour 15</p>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">15 Octobre,  Jour 15</p>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
             Les murs sont terminés. Tous. En quinze jours. Quatre personnes au départ, rejointes par d'autres au fil des jours. Les bottes de paille tiennent. Le bâtiment a une forme. Il a des murs. Il existe.
           </p>
@@ -469,38 +469,38 @@ const pageSchema = createWebPageSchema({
         <div>
           <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">16–31 Octobre 2023</p>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-            Façade sud. L'ossature bois est montée — sans les fenêtres, qui viendront plus tard. La structure prend forme. Le bâtiment commence à avoir un visage côté sud.
+            Façade sud. L'ossature bois est montée,  sans les fenêtres, qui viendront plus tard. La structure prend forme. Le bâtiment commence à avoir un visage côté sud.
           </p>
         </div>
       </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12 mb-12">
-      <img src="/images/laom/grand-shambala/p13.webp" alt="Façade sud en ossature bois du Grand Shambala — la structure nue avant les fenêtres" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p13.webp" alt="Façade sud en ossature bois du Grand Shambala,  la structure nue avant les fenêtres" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
     </div>
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
         <div>
-          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Novembre–Décembre 2023 — La charpente et les tuiles</p>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Novembre–Décembre 2023,  La charpente et les tuiles</p>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
             La charpente est le seul moment du chantier où on a fait intervenir une entreprise extérieure. Des fermettes, assemblées en modules sur place, grutées avec un camion et posées sur les murs. C'est allé vite.
           </p>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
-            Ensuite, les tuiles. On a tendu un frein vapeur, litonné, et posé les tuiles nous-mêmes. Quatre personnes — Baptiste, Rémy, Khaldoun, et un peu Elliot. Un travail colossal et physiquement épuisant. Charly s'est luxé le pouce juste avant, il n'a pas pu participer à cette phase. Mais cette contrainte lui a permis de préparer autre chose : une conférence qui deviendra un moment important.
+            Ensuite, les tuiles. On a tendu un frein vapeur, litonné, et posé les tuiles nous-mêmes. Quatre personnes,  Baptiste, Rémy, Khaldoun, et un peu Elliot. Un travail colossal et physiquement épuisant. Charly s'est luxé le pouce juste avant, il n'a pas pu participer à cette phase. Mais cette contrainte lui a permis de préparer autre chose : une conférence qui deviendra un moment important.
           </p>
         </div>
       </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12 mb-12">
-      <img src="/images/laom/grand-shambala/p14.webp" alt="Charpente en fermettes grutées sur les murs de paille et pose des tuiles — ciel d'hiver" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p14.webp" alt="Charpente en fermettes grutées sur les murs de paille et pose des tuiles,  ciel d'hiver" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
     </div>
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
         <div>
-          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">15 Décembre 2023 — Jour 75</p>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">15 Décembre 2023,  Jour 75</p>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
             Hors d'eau. Le bâtiment est clos. Le vent ne passe plus. La pluie ne rentre plus. Silence sur le chantier.
           </p>
@@ -509,7 +509,7 @@ const pageSchema = createWebPageSchema({
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
-      <img src="/images/laom/grand-shambala/p15.webp" alt="Le Grand Shambala hors d'eau — bâtiment clos sous ciel d'hiver, jour 75" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p15.webp" alt="Le Grand Shambala hors d'eau,  bâtiment clos sous ciel d'hiver, jour 75" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
     </div>
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -520,30 +520,30 @@ const pageSchema = createWebPageSchema({
     </div>
   </section>
 
-  <!-- Vidéo YouTube — conférence du 15 décembre 2023 -->
+  <!-- Vidéo YouTube,  conférence du 15 décembre 2023 -->
   <section class="py-16 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
         <iframe
           src="https://www.youtube.com/embed/Bltd5fr5VVY"
-          title="Construction du Grand Shambala — LAOM — Conférence et timelapse du chantier"
+          title="Construction du Grand Shambala,  LAOM,  Conférence et timelapse du chantier"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           class="w-full h-full"
           loading="lazy"
         ></iframe>
       </div>
-      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">La conférence du 15 décembre 2023 — Charly remercie son équipe et sa famille, notamment ses beaux-parents Paul et Joël Orioles, qui ont rendu le chantier possible.</p>
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">La conférence du 15 décembre 2023,  Charly remercie son équipe et sa famille, notamment ses beaux-parents Paul et Joël Orioles, qui ont rendu le chantier possible.</p>
     </div>
   </section>
 
-  <!-- Encart Livre — design hors-article -->
+  <!-- Encart Livre,  design hors-article -->
   <section class="py-16 md:py-20 bg-[#2C2824]">
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="flex flex-col md:flex-row items-center gap-10 md:gap-14">
         <!-- Placeholder jaquette livre -->
         <div class="shrink-0 w-48 md:w-56">
-          <div class="aspect-[3/4] bg-[#3D3832] border border-white/10 rounded-sm flex items-center justify-center shadow-2xl" role="img" aria-label="Jaquette du livre — à venir">
+          <div class="aspect-[3/4] bg-[#3D3832] border border-white/10 rounded-sm flex items-center justify-center shadow-2xl" role="img" aria-label="Jaquette du livre,  à venir">
             <div class="text-center px-6">
               <div class="w-10 h-[2px] bg-[#C4A855] mx-auto mb-4"></div>
               <p class="font-playfair text-base text-white/80 leading-snug mb-2">Grand Shambala</p>
@@ -570,7 +570,7 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 6 — L'ANNÉE DU SILENCE -->
+  <!-- CHAPITRE 6,  L'ANNÉE DU SILENCE -->
 
   <section id="le-silence" class="py-24 lg:py-32 bg-white">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -588,7 +588,7 @@ const pageSchema = createWebPageSchema({
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 my-12">
-      <img src="/images/laom/grand-shambala/p16.webp" alt="Le Grand Shambala brut en 2024 — paille apparente, ciel gris d'hiver, l'année du silence" class="w-full aspect-[21/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p16.webp" alt="Le Grand Shambala brut en 2024,  paille apparente, ciel gris d'hiver, l'année du silence" class="w-full aspect-[21/9] object-cover rounded-sm" loading="lazy" decoding="async" />
     </div>
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -615,7 +615,7 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 7 — LA PEAU -->
+  <!-- CHAPITRE 7,  LA PEAU -->
 
   <section id="la-peau" class="py-24 lg:py-32 bg-[#FAF8F5]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -628,7 +628,7 @@ const pageSchema = createWebPageSchema({
         2025 explose. Les nouveaux associés apportent la clarté. Le programme se cristallise. Les lots se définissent. Et le Grand Shambala, après une année entière de silence, se transforme à une vitesse qui étonne même ceux qui l'ont construit.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        La <strong>façade sud</strong> est intégralement retravaillée — chaque associé sait désormais où sera son espace. Des <strong>fenêtres sont percées dans les pignons est et ouest</strong> — là où il n'y avait que de la paille. Chaque ouverture est un acte délibéré.
+        La <strong>façade sud</strong> est intégralement retravaillée,  chaque associé sait désormais où sera son espace. Des <strong>fenêtres sont percées dans les pignons est et ouest</strong>,  là où il n'y avait que de la paille. Chaque ouverture est un acte délibéré.
       </p>
     </div>
 
@@ -641,15 +641,15 @@ const pageSchema = createWebPageSchema({
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Et puis vient l'<strong>enduit extérieur à la chaux</strong>. On a travaillé la couleur avec les pigments de la terre locale — on a fabriqué notre propre badigeon avec la terre du site. Le bâtiment reçoit son visage. La paille brute disparaît sous une peau minérale, douce, pigmentée. La métamorphose est saisissante.
+        Et puis vient l'<strong>enduit extérieur à la chaux</strong>. On a travaillé la couleur avec les pigments de la terre locale,  on a fabriqué notre propre badigeon avec la terre du site. Le bâtiment reçoit son visage. La paille brute disparaît sous une peau minérale, douce, pigmentée. La métamorphose est saisissante.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Mais ce qui n'apparaît pas dans les photos, c'est le temps que ça a pris. Deux mois et demi. Quatre personnes. Avec la machine à projeter, c'était du combat permanent : le tuyau se bouchait, la chaux séchée faisait des bouchons, il fallait tout déboucher. On avait un gobetis posé en 2023. En 2025, on fait le corps de couche avec un treillis anti-fissure, puis la couche finale à la main — spatule, éponge — et enfin le badigeon. Monter l'échafaudage, le déplacer, le démonter, porter le tuyau… C'était très, très long. Mais ça en valait le coup.
+        Mais ce qui n'apparaît pas dans les photos, c'est le temps que ça a pris. Deux mois et demi. Quatre personnes. Avec la machine à projeter, c'était du combat permanent : le tuyau se bouchait, la chaux séchée faisait des bouchons, il fallait tout déboucher. On avait un gobetis posé en 2023. En 2025, on fait le corps de couche avec un treillis anti-fissure, puis la couche finale à la main,  spatule, éponge,  et enfin le badigeon. Monter l'échafaudage, le déplacer, le démonter, porter le tuyau… C'était très, très long. Mais ça en valait le coup.
       </p>
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
-      <img src="/images/laom/grand-shambala/p18.webp" alt="Diptyque avant/après — façade paille brute vs façade enduite chaux avec pigments terre locale" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+      <img src="/images/laom/grand-shambala/p18.webp" alt="Diptyque avant/après,  façade paille brute vs façade enduite chaux avec pigments terre locale" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mb-12">
@@ -658,7 +658,7 @@ const pageSchema = createWebPageSchema({
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Les pignons de toiture est et ouest sont bardés de bois. L'<strong>enseigne LAOM en acier corten</strong> est fixée sur la façade — la teinte rouille qui brûle sous la lumière du soir. C'est le premier signe visible depuis la route. Le bâtiment a un nom.
+        Les pignons de toiture est et ouest sont bardés de bois. L'<strong>enseigne LAOM en acier corten</strong> est fixée sur la façade,  la teinte rouille qui brûle sous la lumière du soir. C'est le premier signe visible depuis la route. Le bâtiment a un nom.
       </p>
     </div>
 
@@ -668,27 +668,27 @@ const pageSchema = createWebPageSchema({
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Sous les tuiles, on isole à la <strong>paille hachée soufflée en vrac</strong> entre les fermettes. Ici aussi, ça a été une aventure. On a utilisé trois machines différentes. On a même essayé de créer la nôtre — un moteur d'aspiration de copeaux acheté pour un atelier de menuiserie, des tuyaux souples, 1 700 € investis pour rien. Le moteur n'était pas assez puissant, le tuyau faisait de la friction sur la paille. Échec. On a finalement trouvé une machine américaine qui a fait le travail.
+        Sous les tuiles, on isole à la <strong>paille hachée soufflée en vrac</strong> entre les fermettes. Ici aussi, ça a été une aventure. On a utilisé trois machines différentes. On a même essayé de créer la nôtre,  un moteur d'aspiration de copeaux acheté pour un atelier de menuiserie, des tuyaux souples, 1 700 € investis pour rien. Le moteur n'était pas assez puissant, le tuyau faisait de la friction sur la paille. Échec. On a finalement trouvé une machine américaine qui a fait le travail.
       </p>
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <img src="/images/laom/grand-shambala/p21.webp" alt="Isolation paille hachée soufflée entre les fermettes dans les combles du Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
-        <img src="/images/laom/grand-shambala/p22.webp" alt="Fenêtre posée dans le mur de paille — le paysage aveyronnais cadré par l'ouverture" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p22.webp" alt="Fenêtre posée dans le mur de paille,  le paysage aveyronnais cadré par l'ouverture" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
       </div>
     </div>
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        À l'intérieur, l'<strong>enduit terre est projeté à la machine</strong>. Le même mélange terre-paille qu'en 2024 — mais cette fois, pas à la main. Trois personnes, quatre jours, des centaines de mètres carrés couverts. Un an plus tôt, quinze personnes avaient couvert soixante mètres carrés en quinze jours. Le même geste, la même matière, une efficacité multipliée par vingt.
+        À l'intérieur, l'<strong>enduit terre est projeté à la machine</strong>. Le même mélange terre-paille qu'en 2024,  mais cette fois, pas à la main. Trois personnes, quatre jours, des centaines de mètres carrés couverts. Un an plus tôt, quinze personnes avaient couvert soixante mètres carrés en quinze jours. Le même geste, la même matière, une efficacité multipliée par vingt.
       </p>
     </div>
 
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <img src="/images/laom/grand-shambala/p23a.webp" alt="Projection enduit terre à la machine sur les murs intérieurs du Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
-        <img src="/images/laom/grand-shambala/p23b.webp" alt="Projection enduit terre à la machine — détail du geste et de la finition" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p23b.webp" alt="Projection enduit terre à la machine,  détail du geste et de la finition" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
       </div>
     </div>
 
@@ -703,7 +703,7 @@ const pageSchema = createWebPageSchema({
         Les <strong>cloisons de l'étage</strong> commencent à monter. Et ici, le choix des parois raconte à lui seul la philosophie du projet.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Trois types de cloisons cohabitent dans le Grand Shambala. Des <strong>parois en ossature bois remplies de terre-paille</strong> — lourdes, denses, qui apportent de l'inertie thermique et une isolation acoustique que le placo ne donnera jamais. Des <strong>cloisons en ossature bois classique</strong>, isolées en laine de bois, pour les séparations plus légères. Et des <strong>parois en bottes de paille de 37 cm</strong>, posées en cloison intérieure pour séparer les grands lots — ici, ce n'est plus de la structure mais de l'isolation pure, un mur intérieur qui respire et qui régule l'humidité sans qu'on lui demande rien.
+        Trois types de cloisons cohabitent dans le Grand Shambala. Des <strong>parois en ossature bois remplies de terre-paille</strong>,  lourdes, denses, qui apportent de l'inertie thermique et une isolation acoustique que le placo ne donnera jamais. Des <strong>cloisons en ossature bois classique</strong>, isolées en laine de bois, pour les séparations plus légères. Et des <strong>parois en bottes de paille de 37 cm</strong>, posées en cloison intérieure pour séparer les grands lots,  ici, ce n'est plus de la structure mais de l'isolation pure, un mur intérieur qui respire et qui régule l'humidité sans qu'on lui demande rien.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Un matériau que tout le monde sous-estime, poussé à un niveau que personne n'imaginait. C'est le genre de paradoxe qui résume tout le Grand Shambala.
@@ -716,8 +716,8 @@ const pageSchema = createWebPageSchema({
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-8">
       <div class="aspect-[4/3] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Photo à venir : cloisons de l'étage en construction">
         <div class="text-center px-8">
-          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — Cloisons Étage</p>
-          <p class="text-sm font-light text-black/50 max-w-lg">Ossature bois des cloisons avant fermeture — on voit l'espace se dessiner, les lots prendre forme.</p>
+          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder,  Cloisons Étage</p>
+          <p class="text-sm font-light text-black/50 max-w-lg">Ossature bois des cloisons avant fermeture,  on voit l'espace se dessiner, les lots prendre forme.</p>
         </div>
       </div>
     </div>
@@ -730,7 +730,7 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 8 — CE QUE LE BÂTIMENT CONTIENT -->
+  <!-- CHAPITRE 8,  CE QUE LE BÂTIMENT CONTIENT -->
 
   <section id="programme" class="py-24 lg:py-32 bg-white">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -747,7 +747,7 @@ const pageSchema = createWebPageSchema({
         <strong>Au rez-de-chaussée :</strong>
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Plein ouest, les <strong>sept chambres du coliving</strong> occupent 125 m² — chacune entre 13 et 14 m², avec salle de bain privée. Accolé aux chambres, le <strong>foyer commun</strong> : 88 m² de salon-cuisine où les repas se partagent et les idées se mélangent. À côté, un petit spa avec salle de massage. Un <strong>studio de modelage terre et poterie</strong> de 32 m². Et à l'extrême est, le lot de <strong>David Linn</strong> (62 m²), arrivé dans le projet en 2025, qui travaille sur la finance à impact positif.
+        Plein ouest, les <strong>sept chambres du coliving</strong> occupent 125 m²,  chacune entre 13 et 14 m², avec salle de bain privée. Accolé aux chambres, le <strong>foyer commun</strong> : 88 m² de salon-cuisine où les repas se partagent et les idées se mélangent. À côté, un petit spa avec salle de massage. Un <strong>studio de modelage terre et poterie</strong> de 32 m². Et à l'extrême est, le lot de <strong>David Linn</strong> (62 m²), arrivé dans le projet en 2025, qui travaille sur la finance à impact positif.
       </p>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-4">
@@ -765,15 +765,15 @@ const pageSchema = createWebPageSchema({
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
       <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Illustration à venir : axonométrie éclatée du Grand Shambala par fonction">
         <div class="text-center px-8">
-          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — Axonométrie</p>
-          <p class="text-sm font-light text-black/50 max-w-lg">Axonométrie éclatée par fonction — coliving, foyer commun, ateliers, logements. OU : intérieur lumineux avec charpente apparente, lumière par façade sud, présence humaine floue.</p>
+          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder,  Axonométrie</p>
+          <p class="text-sm font-light text-black/50 max-w-lg">Axonométrie éclatée par fonction,  coliving, foyer commun, ateliers, logements. OU : intérieur lumineux avec charpente apparente, lumière par façade sud, présence humaine floue.</p>
         </div>
       </div>
     </div>
   </section>
 
 
-  <!-- CHAPITRE 9 — L'HORIZON -->
+  <!-- CHAPITRE 9,  L'HORIZON -->
 
   <section id="lhorizon" class="py-24 lg:py-32 bg-[#FAF8F5]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
@@ -809,8 +809,8 @@ const pageSchema = createWebPageSchema({
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
       <div class="aspect-[16/9] bg-[#D4CFC4] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Photo à venir : le Grand Shambala terminé au crépuscule">
         <div class="text-center px-8">
-          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — La Promesse</p>
-          <p class="text-sm font-light text-black/50 max-w-lg">Le Grand Shambala terminé au crépuscule — lumières allumées à l'intérieur. L'image de la promesse tenue.</p>
+          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder,  La Promesse</p>
+          <p class="text-sm font-light text-black/50 max-w-lg">Le Grand Shambala terminé au crépuscule,  lumières allumées à l'intérieur. L'image de la promesse tenue.</p>
         </div>
       </div>
     </div>

@@ -448,9 +448,9 @@ export const translations = {
         enMouvement: {
           sectionTitle: 'Stages « En Mouvement »',
           sessions: [
-            { date: '5 — 9 août 2026', title: 'En Mouvement — Session 1', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
-            { date: '11 — 15 août 2026', title: 'En Mouvement — Session 2', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
-            { date: '16 — 20 août 2026', title: 'En Mouvement — Session 3', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
+            { date: '5 à 9 août 2026', title: 'En Mouvement, Session 1', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
+            { date: '11 à 15 août 2026', title: 'En Mouvement, Session 2', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
+            { date: '16 à 20 août 2026', title: 'En Mouvement, Session 3', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
           ],
         },
         laomfest: {
@@ -617,13 +617,13 @@ export const translations = {
       ourSpaces: {
         sectionTitle: 'Nos Espaces',
         items: [
-          { title: 'L\'Espace Guinguette Restauration', description: 'Cuisine conviviale, grandes tablées et moments partagés (version d\'été actuellement — ouverture d\'un espace 4 saisons en 2028).' },
-          { title: 'Les chambres', description: 'Des chambres douillettes dans un bâtiment écologique pour se ressourcer au calme.', note: '(Coliving — ouverture 2027)', imageAlt: 'Chambre douillette à LAOM avec literie naturelle et décoration épurée.' },
+          { title: 'L\'Espace Guinguette Restauration', description: 'Cuisine conviviale, grandes tablées et moments partagés (version d\'été actuellement,  ouverture d\'un espace 4 saisons en 2028).' },
+          { title: 'Les chambres', description: 'Des chambres douillettes dans un bâtiment écologique pour se ressourcer au calme.', note: '(Coliving,  ouverture 2027)', imageAlt: 'Chambre douillette à LAOM avec literie naturelle et décoration épurée.' },
           { title: 'Les tipis', description: 'Tipis et tentes berbères pour la saison estivale, avec de vrais lits pour un sommeil de qualité.' },
           { title: 'La salle de pratique', description: 'Une grande salle baignée de lumière pour le mouvement et les pratiques.' },
-          { title: 'Le jardin', description: 'Un espace nourricier en permaculture, destiné à nourrir les habitant·es et les personnes accueillies sur le lieu, de la terre à l\'assiette. En construction — pleinement opérationnel en 2027.' },
-          { title: 'L\'espace de vie partagé', description: 'Canapés confortables, cuisine ouverte partagée et lieu de vie commun.', note: '(Coliving — ouverture 2027)' },
-          { title: 'Le coworking', description: 'Un espace pour travailler, créer et faire mûrir des projets, entre nature, calme et dynamique collective.', note: '(Coliving — ouverture 2027)' },
+          { title: 'Le jardin', description: 'Un espace nourricier en permaculture, destiné à nourrir les habitant·es et les personnes accueillies sur le lieu, de la terre à l\'assiette. En construction,  pleinement opérationnel en 2027.' },
+          { title: 'L\'espace de vie partagé', description: 'Canapés confortables, cuisine ouverte partagée et lieu de vie commun.', note: '(Coliving,  ouverture 2027)' },
+          { title: 'Le coworking', description: 'Un espace pour travailler, créer et faire mûrir des projets, entre nature, calme et dynamique collective.', note: '(Coliving,  ouverture 2027)' },
         ],
       },
     },
@@ -1110,9 +1110,9 @@ export const translations = {
         enMouvement: {
           sectionTitle: '« En Mouvement » Workshops',
           sessions: [
-            { date: 'August 5–9, 2026', title: 'En Mouvement — Session 1', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
-            { date: 'August 11–15, 2026', title: 'En Mouvement — Session 2', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
-            { date: 'August 16–20, 2026', title: 'En Mouvement — Session 3', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
+            { date: 'August 5–9, 2026', title: 'En Mouvement,  Session 1', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
+            { date: 'August 11–15, 2026', title: 'En Mouvement,  Session 2', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
+            { date: 'August 16–20, 2026', title: 'En Mouvement,  Session 3', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
           ],
         },
         laomfest: {
@@ -1279,13 +1279,13 @@ export const translations = {
       ourSpaces: {
         sectionTitle: 'Our Spaces',
         items: [
-          { title: 'The Guinguette Restaurant Space', description: 'Convivial kitchen, large shared tables and shared moments (currently summer version — 4-season space opening in 2028).' },
-          { title: 'The rooms', description: 'Cozy rooms in an ecological building to rest and recharge in peace.', note: '(Coliving — opening 2027)', imageAlt: 'Cozy bedroom at LAOM with natural bedding and minimal decoration.' },
+          { title: 'The Guinguette Restaurant Space', description: 'Convivial kitchen, large shared tables and shared moments (currently summer version,  4-season space opening in 2028).' },
+          { title: 'The rooms', description: 'Cozy rooms in an ecological building to rest and recharge in peace.', note: '(Coliving,  opening 2027)', imageAlt: 'Cozy bedroom at LAOM with natural bedding and minimal decoration.' },
           { title: 'The tipis', description: 'Berber tipis and tents for the summer season, with real beds for quality sleep.' },
           { title: 'The practice hall', description: 'A large, light-filled room for movement and practices.' },
-          { title: 'The garden', description: 'A nourishing permaculture space, meant to feed the inhabitants and people welcomed at the place, from earth to plate. Under construction — fully operational in 2027.' },
-          { title: 'The shared living space', description: 'Comfortable sofas, shared open kitchen and common living area.', note: '(Coliving — opening 2027)' },
-          { title: 'The coworking', description: 'A space to work, create and develop projects, between nature, calm and collective dynamism.', note: '(Coliving — opening 2027)' },
+          { title: 'The garden', description: 'A nourishing permaculture space, meant to feed the inhabitants and people welcomed at the place, from earth to plate. Under construction,  fully operational in 2027.' },
+          { title: 'The shared living space', description: 'Comfortable sofas, shared open kitchen and common living area.', note: '(Coliving,  opening 2027)' },
+          { title: 'The coworking', description: 'A space to work, create and develop projects, between nature, calm and collective dynamism.', note: '(Coliving,  opening 2027)' },
         ],
       },
     },

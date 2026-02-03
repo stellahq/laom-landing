@@ -27,7 +27,7 @@ const formattedPubDate = new Date(post.data.pubDate).toLocaleDateString(lang ===
   day: 'numeric',
 })
 
-// Related articles — same locale, exclude current, max 3
+// Related articles,  same locale, exclude current, max 3
 const relatedPosts = allPosts
   .filter(p => p.data.locale === lang && !p.data.draft && p.slug !== post.slug)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -181,7 +181,7 @@ const pageSchema = createWebPageSchema({
   </article>
 
   <style is:inline>
-    /* Article content — editorial styling */
+    /* Article content,  editorial styling */
     .article-content h2 {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.75rem;

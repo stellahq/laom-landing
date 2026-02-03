@@ -6,20 +6,20 @@ import { createWebPageSchema } from '~/utils/schema'
 export const prerender = true
 
 const pageSchema = createWebPageSchema({
-  name: 'En Mouvement — Immersion par le corps | LAOM',
+  name: 'En Mouvement,  Immersion par le corps | LAOM',
   url: Astro.url.toString(),
   description: '5 jours pour laisser émerger ce qui cherche à s\'exprimer, grâce à une pratique intensive de la danse et du mouvement. LAOM, Aveyron.',
 })
 
 const sessions = [
-  { date: '5 — 9 août 2026', label: 'Session 1' },
-  { date: '11 — 15 août 2026', label: 'Session 2' },
-  { date: '16 — 20 août 2026', label: 'Session 3' },
+  { date: '5 à 9 août 2026', label: 'Session 1' },
+  { date: '11 à 15 août 2026', label: 'Session 2' },
+  { date: '16 à 20 août 2026', label: 'Session 3' },
 ]
 ---
 
 <Layout
-  title="En Mouvement — Immersion par le corps | LAOM"
+  title="En Mouvement,  Immersion par le corps | LAOM"
   description="5 jours pour laisser émerger ce qui cherche à s'exprimer, grâce à une pratique intensive de la danse et du mouvement. LAOM, Aveyron."
   seo={{ ldJSON: pageSchema }}
 >
@@ -29,7 +29,7 @@ const sessions = [
     <div class="absolute inset-0 z-0">
       <img
         src="/images/laom/samuel-planas.webp"
-        alt="Samuel Planas — danseur et chorégraphe, guide des immersions En Mouvement"
+        alt="Samuel Planas,  danseur et chorégraphe, guide des immersions En Mouvement"
         class="absolute inset-0 w-full h-full object-cover object-top"
         loading="eager"
         fetchpriority="high"
@@ -77,7 +77,7 @@ const sessions = [
     </div>
   </section>
 
-  <!-- Ce que tu vas vivre — timeline élégante -->
+  <!-- Ce que tu vas vivre,  timeline élégante -->
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">La progression</p>
@@ -85,7 +85,7 @@ const sessions = [
 
       <div class="border-l-2 border-[#C4A855] pl-8 space-y-14">
         <div>
-          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Jour 0 — Arrivée</p>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Jour 0,  Arrivée</p>
           <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Se poser</h3>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
             Tu découvres le lieu, les autres participants, les animateurs. Première danse libre pour briser la glace. Repas ensemble. On crée un cadre sécurisant et soutenant.
@@ -117,7 +117,7 @@ const sessions = [
           <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Photo à venir">
             <div class="text-center px-8">
               <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
-              <p class="text-sm font-light text-black/50 max-w-lg">Danseurs en mouvement dans le Shala — lumière naturelle, silhouettes floues, atmosphère d'immersion totale. Photo prise pendant un stage.</p>
+              <p class="text-sm font-light text-black/50 max-w-lg">Danseurs en mouvement dans le Shala,  lumière naturelle, silhouettes floues, atmosphère d'immersion totale. Photo prise pendant un stage.</p>
             </div>
           </div>
         </div>
@@ -186,7 +186,7 @@ const sessions = [
         <div>
           <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">L'accompagnement dans le mouvement</h3>
           <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
-            Les animateurs guident en continu, à travers le mouvement lui-même. Si quelque chose émerge, on le traverse ensemble — par le corps, pas par l'analyse.
+            Les animateurs guident en continu, à travers le mouvement lui-même. Si quelque chose émerge, on le traverse ensemble,  par le corps, pas par l'analyse.
           </p>
         </div>
         <div>
@@ -239,7 +239,7 @@ const sessions = [
           <div class="aspect-[3/4] bg-[#E8E3D8] overflow-hidden rounded-sm mb-6 flex items-center justify-center border border-black/5" role="img" aria-label="Photo Charly à venir">
             <div class="text-center px-8">
               <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
-              <p class="text-sm font-light text-black/50">Portrait de Charly — en extérieur à LAOM, lumière naturelle, regard direct, vêtements simples. Pas de pose, juste une présence.</p>
+              <p class="text-sm font-light text-black/50">Portrait de Charly,  en extérieur à LAOM, lumière naturelle, regard direct, vêtements simples. Pas de pose, juste une présence.</p>
             </div>
           </div>
           <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
@@ -255,7 +255,7 @@ const sessions = [
           <div class="aspect-[3/4] overflow-hidden rounded-sm mb-6">
             <img
               src="/images/laom/samuel-planas.webp"
-              alt="Samuel Planas — danseur et chorégraphe"
+              alt="Samuel Planas,  danseur et chorégraphe"
               class="w-full h-full object-cover object-top rounded-sm"
               loading="lazy"
             />
@@ -278,7 +278,7 @@ const sessions = [
           <div class="aspect-[3/4] overflow-hidden rounded-sm">
             <img
               src="/images/laom/salle-de-pratique.webp"
-              alt="Le Shala — salle de pratique LAOM, 120 m², sol de danse professionnel Harlequin, matériaux naturels, lumière naturelle"
+              alt="Le Shala,  salle de pratique LAOM, 120 m², sol de danse professionnel Harlequin, matériaux naturels, lumière naturelle"
               class="w-full h-full object-cover rounded-sm"
               loading="lazy"
             />
@@ -302,10 +302,10 @@ const sessions = [
           <!-- Placeholder galerie lieu -->
           <div class="mt-8 grid grid-cols-2 gap-3">
             <div class="aspect-square bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img">
-              <p class="text-xs font-light text-black/40 text-center px-4">Vue du domaine au lever du soleil — prairies, forêts, brume légère</p>
+              <p class="text-xs font-light text-black/40 text-center px-4">Vue du domaine au lever du soleil,  prairies, forêts, brume légère</p>
             </div>
             <div class="aspect-square bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img">
-              <p class="text-xs font-light text-black/40 text-center px-4">Tipi ou chambre — hébergement insolite, draps en lin, lumière tamisée</p>
+              <p class="text-xs font-light text-black/40 text-center px-4">Tipi ou chambre,  hébergement insolite, draps en lin, lumière tamisée</p>
             </div>
           </div>
         </div>
@@ -355,7 +355,7 @@ const sessions = [
         </div>
         <div class="flex justify-between items-start py-3 border-b border-black/5">
           <span class="text-base font-light text-[#2C2824]/50">Niveau requis</span>
-          <span class="text-base font-light text-[#2C2824] text-right">Aucun — ouvert à tous</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Aucun,  ouvert à tous</span>
         </div>
       </div>
     </div>
