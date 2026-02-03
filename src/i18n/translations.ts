@@ -512,8 +512,8 @@ export const translations = {
         heroTitle: 'Contact',
         heroSubtitle: 'Parlons de vos idées et de votre projet.',
         introTitle: 'Une question, un projet ?',
-        introDescription:
-          'Nous répondons aux demandes de stages, de partenariats et de presse. Écrivez-nous, on vous répond.',
+        introDescriptionBefore: 'Nous répondons aux demandes de stages, de partenariats et de presse. Écrivez-nous à ',
+        introDescriptionAfter: ', on vous répond.',
         beforeContactIntro: 'Les réponses à vos questions sont peut-être déjà dans nos ressources :',
         beforeContactItems: [
           {
@@ -1217,8 +1217,8 @@ export const translations = {
         heroTitle: 'Contact',
         heroSubtitle: 'Let\'s talk about your ideas and your project.',
         introTitle: 'A question, a project?',
-        introDescription:
-          'We answer requests about trainings, partnerships and press. Write to us and we will respond.',
+        introDescriptionBefore: 'We answer requests about trainings, partnerships and press. Write to us at ',
+        introDescriptionAfter: ' and we will respond.',
         beforeContactIntro: 'The answers to your questions may already be in our resources:',
         beforeContactItems: [
           {
