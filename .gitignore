@@ -37,3 +37,17 @@ seo-report.txt
 
 # Astro
 .astro/
+
+# Source images (keep only optimized webp)
+public/images/laom/grand-shambala/*.png
+public/images/laom/grand-shambala/*.jpg
+public/images/laom/grand-shambala/*.jpeg
+
+# Local folders
+Old/
+.opencode/
+_bmad/
+photos site/
+
+# Misc
+Retour pour Site objectif V1 LAOM.md

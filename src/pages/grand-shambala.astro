@@ -3,69 +3,1030 @@ import Layout from '~/layouts/Layout.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
-  name: 'Grand Shambala',
+  name: 'Le Grand Shambala — Histoire d\'un bâtiment impossible',
   url: Astro.url.toString(),
   description:
-    'Journal de chantier du bâtiment paille porteuse : fondations, terrassement, structure paille et façade sud.',
+    'Comment un petit groupe a construit le plus grand bâtiment en paille porteuse au monde : 850 m², deux niveaux, 90 jours. De l\'intuition Earthship aux enduits à la chaux, récit complet d\'un chantier hors-norme.',
 })
-
-const steps = [
-  {
-    title: 'Les fondations',
-    image: '/images/laom/grand-shambala/capture-d-cran-2023-10-18-23-19-42-dee55f5a.webp',
-    alt: 'Fondations du Grand Shambala',
-  },
-  {
-    title: 'Le terrassement',
-    image: '/images/laom/grand-shambala/capture-d-cran-2023-10-19-00-16-12-0775c6b7.webp',
-    alt: 'Terrassement du Grand Shambala',
-  },
-  {
-    title: 'Paille porteuse',
-    image: '/images/laom/grand-shambala/capture-d-cran-2023-10-19-00-20-46-d39bfbf4.webp',
-    alt: 'Structure paille porteuse',
-  },
-  {
-    title: 'Façade sud',
-    image: '/images/laom/grand-shambala/capture-d-cran-2023-10-19-00-23-08-c4b68ad3.webp',
-    alt: 'Façade sud du Grand Shambala',
-  },
-]
 ---
 
 <Layout
-  title="Grand Shambala – LAOM"
-  description="Journal de chantier du bâtiment paille porteuse : fondations, terrassement, structure paille et façade sud."
+  title="Le Grand Shambala – LAOM"
+  description="Comment un petit groupe a construit le plus grand bâtiment en paille porteuse au monde : 850 m², deux niveaux, 90 jours."
   seo={{ ldJSON: pageSchema }}
 >
-  <section class="py-32 lg:py-40 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">Bâtiment paille porteuse</span>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-black mb-6 tracking-tight">
+
+  <!-- Playfair Display for article headings -->
+  <style is:inline>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+
+  <!-- Progress bar — fixed bottom, thick, visible -->
+  <div id="progress-bar" class="fixed bottom-0 left-0 h-[8px] bg-[#C4A855] z-50 transition-none" style="width: 0%; box-shadow: 0 0 12px rgba(196, 168, 85, 0.6);"></div>
+
+  <!-- Sticky sidebar TOC — desktop only, hidden until past inline TOC -->
+  <nav id="sticky-toc" class="fixed left-8 top-1/2 -translate-y-1/2 z-40 flex-col gap-2 transition-opacity duration-500" style="max-width: 240px; display: none; opacity: 0; pointer-events: none;">
+    <a href="#lhomme" data-toc="lhomme" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>1. L'homme qui regardait le champ</span>
+    </a>
+    <a href="#la-graine" data-toc="la-graine" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>2. La Graine</span>
+    </a>
+    <a href="#lobsession" data-toc="lobsession" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>3. L'Obsession</span>
+    </a>
+    <a href="#les-murs-qui-parlent" data-toc="les-murs-qui-parlent" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>4. Les Murs qui parlent</span>
+    </a>
+    <a href="#le-mur" data-toc="le-mur" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>5. Le Mur</span>
+    </a>
+    <a href="#90-jours" data-toc="90-jours" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>6. 90 Jours</span>
+    </a>
+    <a href="#humilite" data-toc="humilite" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>7. L'Humilité</span>
+    </a>
+    <a href="#la-peau" data-toc="la-peau" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>8. La Peau</span>
+    </a>
+    <a href="#programme" data-toc="programme" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>9. Le Programme</span>
+    </a>
+    <a href="#lhorizon" data-toc="lhorizon" class="toc-link flex items-center gap-3 py-2 text-sm text-[#2C2824]/35 hover:text-[#2C2824]/80 transition-all duration-300">
+      <span class="toc-dot w-2 h-2 rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      <span>10. L'Horizon</span>
+    </a>
+  </nav>
+
+  <script is:inline>
+    (function () {
+      // Progress bar
+      var bar = document.getElementById('progress-bar');
+      if (!bar) return;
+      var ticking = false;
+      function updateProgress() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var progress = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+        bar.style.width = progress + '%';
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(updateProgress); ticking = true; }
+      }, { passive: true });
+      updateProgress();
+
+      // Sticky TOC — show/hide based on inline TOC position
+      var stickyToc = document.getElementById('sticky-toc');
+      var inlineToc = document.getElementById('inline-toc');
+      if (stickyToc && inlineToc && window.innerWidth >= 1024) {
+        stickyToc.style.display = 'flex';
+        // Use scroll listener for reliable show/hide
+        function checkTocVisibility() {
+          var rect = inlineToc.getBoundingClientRect();
+          if (rect.bottom < 0) {
+            stickyToc.style.opacity = '1';
+            stickyToc.style.pointerEvents = 'auto';
+          } else {
+            stickyToc.style.opacity = '0';
+            stickyToc.style.pointerEvents = 'none';
+          }
+        }
+        window.addEventListener('scroll', checkTocVisibility, { passive: true });
+        checkTocVisibility();
+      }
+
+      // Active chapter tracking
+      var sections = document.querySelectorAll('section[id]');
+      var tocLinks = document.querySelectorAll('.toc-link');
+      var currentActive = null;
+      if (sections.length && tocLinks.length) {
+        var chapterObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var activeId = entry.target.id;
+              if (currentActive === activeId) return;
+              currentActive = activeId;
+              tocLinks.forEach(function (link) {
+                var id = link.getAttribute('data-toc');
+                var dot = link.querySelector('.toc-dot');
+                var isActive = id === activeId;
+                link.style.color = isActive ? '#2C2824' : '';
+                link.style.fontWeight = isActive ? '600' : '';
+                link.style.transform = isActive ? 'translateX(4px)' : '';
+                if (dot) {
+                  dot.style.backgroundColor = isActive ? '#C4A855' : '';
+                  dot.style.width = isActive ? '10px' : '';
+                  dot.style.height = isActive ? '10px' : '';
+                  dot.style.boxShadow = isActive ? '0 0 6px rgba(196,168,85,0.5)' : '';
+                }
+              });
+            }
+          });
+        }, { rootMargin: '-15% 0px -65% 0px' });
+        sections.forEach(function (s) { chapterObserver.observe(s); });
+      }
+    })();
+  </script>
+
+  <!-- ============================================================
+       SECTION 0 — COLD OPEN
+       Écran blanc, une phrase, puis le bâtiment se révèle au scroll.
+       ============================================================ -->
+
+  <!-- 0a. Hero image full-bleed with title overlay -->
+  <section class="relative w-full -mt-24 md:-mt-28">
+    <img src="/images/laom/grand-shambala/p1.webp" alt="Vue drone du Grand Shambala à golden hour — 850 m² de paille porteuse dans le paysage aveyronnais" class="w-full object-cover" loading="eager" decoding="async" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex items-end justify-center pb-12 md:pb-20">
+      <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tight drop-shadow-lg">
         Grand Shambala
       </h1>
-      <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
-        Quatre étapes clés d’un chantier collectif. Tout commence par une idée.
+    </div>
+  </section>
+
+  <!-- 0c. Stats qui claquent -->
+  <section class="py-20 lg:py-28 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+        <div>
+          <p class="text-4xl md:text-5xl lg:text-6xl font-light text-[#2C2824] tracking-tight">850</p>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/50 mt-2">m² de surface</p>
+        </div>
+        <div>
+          <p class="text-4xl md:text-5xl lg:text-6xl font-light text-[#2C2824] tracking-tight">2</p>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/50 mt-2">niveaux — paille porteuse</p>
+        </div>
+        <div>
+          <p class="text-4xl md:text-5xl lg:text-6xl font-light text-[#2C2824] tracking-tight">90</p>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/50 mt-2">jours de chantier</p>
+        </div>
+        <div>
+          <p class="text-4xl md:text-5xl lg:text-6xl font-light text-[#2C2824] tracking-tight">0</p>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/50 mt-2">précédent juridique</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Temps de lecture + Table des matières discrète -->
+  <section id="inline-toc" class="py-10 bg-white border-t border-black/5">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-8">Lecture : 18 minutes</p>
+      <nav class="space-y-2">
+        <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/30 mb-3">Sommaire</p>
+        <a href="#lhomme" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">1. L'homme qui regardait le champ</a>
+        <a href="#la-graine" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">2. La Graine — L'intuition Earthship</a>
+        <a href="#lobsession" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">3. L'Obsession — Exploser les dimensions</a>
+        <a href="#les-murs-qui-parlent" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">4. Les Murs qui parlent — De l'acier à la paille</a>
+        <a href="#le-mur" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">5. Le Mur — 4 ans de bataille administrative</a>
+        <a href="#90-jours" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">6. 90 Jours — Le chantier</a>
+        <a href="#humilite" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">7. L'École de l'humilité — Les enduits</a>
+        <a href="#la-peau" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">8. La Peau — L'intérieur prend vie</a>
+        <a href="#programme" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">9. Ce que le bâtiment contient</a>
+        <a href="#lhorizon" class="block text-sm font-light text-[#2C2824]/60 hover:text-[#2C2824] transition-colors">10. L'Horizon</a>
+      </nav>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 1 — L'HOMME QUI REGARDAIT LE CHAMP
+       Ouverture littéraire. Une scène, pas un CV.
+       ============================================================ -->
+
+  <section id="lhomme" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 1</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        L'homme qui regardait le champ
+      </h2>
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────┐
+        │  📸 PLACEHOLDER — PORTRAIT                                  │
+        │                                                              │
+        │  Portrait de Charly — PAS corporate, PAS posé.              │
+        │  Mains sales, ou penché sur des plans, ou debout dans le    │
+        │  champ AVANT que rien ne soit construit.                     │
+        │  Si possible : photo du terrain vierge superposée avec un   │
+        │  wireframe fantôme du futur bâtiment. Contraste dévastateur.│
+        │  Format : portrait ou 4/3, content-width.                    │
+        └──────────────────────────────────────────────────────────────┘
+      -->
+      <img src="/images/laom/grand-shambala/p2.webp" alt="Portrait de Charly — les débuts du projet Grand Shambala" class="w-full aspect-[4/3] object-cover rounded-sm mb-10" loading="lazy" decoding="async" />
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        <span class="text-5xl font-light text-[#2C2824] float-left mr-3 mt-1 leading-none">I</span>l y a un moment précis où le Grand Shambala a commencé à exister. Pas sur un plan. Pas dans une réunion. Dans un regard. Un homme debout dans un champ du sud de l'Aveyron, au cœur du Parc Naturel des Grands Causses, qui regarde une prairie en pente et voit — avec une netteté absurde — un bâtiment de 850 m² qui n'existe nulle part ailleurs que dans sa tête.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Pas d'argent. Pas d'expérience en construction. Pas de terrain, pas encore. Juste une impulsion de joie. Le genre de certitude que les gens raisonnables appellent de la folie et que les bâtisseurs appellent le commencement.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Le domaine de la Margue a été acquis collectivement en février 2021 par un groupe de onze personnes qui ne savaient pas exactement ce qu'elles allaient construire — mais savaient pourquoi. Habiter autrement. Construire des murs qui respirent. Prouver qu'un lieu peut régénérer plutôt que consommer. LAOM n'était pas censé exister. Du moins, pas selon les critères habituels de faisabilité.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed">
+        Mais l'histoire du Grand Shambala, c'est justement l'histoire de ce qui se passe quand on refuse de commencer par la question « est-ce possible ? » et qu'on commence par la question « est-ce nécessaire ? ».
       </p>
     </div>
   </section>
 
-  <section class="py-24 bg-[#faf9f6]">
-    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="space-y-6">
-        {steps.map((step) => (
-          <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-            <img
-              src={step.image}
-              alt={step.alt}
-              class="h-56 w-full rounded-sm object-cover border border-black/10 mb-5"
-              loading="lazy"
-            />
-            <h2 class="text-2xl font-light text-black mb-3">{step.title}</h2>
-            <p class="text-sm font-light text-black/60 leading-relaxed">Tout commence par une idée.</p>
-          </article>
-        ))}
+
+  <!-- ============================================================
+       SECTION 2 — LA GRAINE — L'INTUITION EARTHSHIP
+       Compressée. Un moment de découverte, pas un cours.
+       ============================================================ -->
+
+  <section id="la-graine" class="py-24 lg:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 2</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        La Graine
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Tout est parti des Earthships. Ces bâtiments inventés par l'architecte américain Michael Reynolds dans le désert du Nouveau-Mexique : des structures autonomes, bioclimatiques, construites avec des matériaux recyclés, capables de produire leur propre énergie, de collecter leur eau, de recycler leurs déchets, de nourrir leurs habitants grâce à une serre intégrée. Un bâtiment qui fait tout. Un organisme vivant.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        La philosophie Earthship tient en six principes : le solaire passif, la masse thermique, la gestion de l'eau, le recyclage des matériaux, la production alimentaire, et l'autonomie énergétique. Six dimensions d'un même rêve : un habitat qui donne plus qu'il ne prend.
+      </p>
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────┐
+        │  📸 PLACEHOLDER — DIAGRAMME EARTHSHIP                      │
+        │                                                              │
+        │  Illustration organique dessinée à la main, style croquis   │
+        │  sur papier kraft. Les 6 principes Earthship disposés en    │
+        │  cercle ou en constellation autour d'un Earthship central.  │
+        │  Esthétique : carnet d'architecte, encre noire + touches    │
+        │  ocre/or. PAS un infographique corporate.                   │
+        │  Format : centré, flottant dans du whitespace.              │
+        │  Envisager un fond subtle papier kraft uniquement pour      │
+        │  cet élément, comme un scan de carnet.                      │
+        └──────────────────────────────────────────────────────────────┘
+      -->
+      <img src="/images/laom/grand-shambala/p3.webp" alt="Diagramme des 6 principes Earthship — l'intuition à l'origine du Grand Shambala" class="my-12 w-full rounded-sm" loading="lazy" decoding="async" />
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        On a étudié ces principes un par un. On les a décomposés, retournés, questionnés. Et c'est là qu'est survenue la question qui a tout changé :
+      </p>
+
+      <!-- Pull quote -->
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/90 leading-relaxed">
+          Et si, au lieu de réduire le rêve pour qu'il rentre dans la technique, on agrandissait la technique pour qu'elle accueille le rêve ?
+        </p>
+      </blockquote>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 3 — L'OBSESSION — EXPLOSER LES DIMENSIONS
+       Le tournant : de l'Earthship au hameau.
+       ============================================================ -->
+
+  <section id="lobsession" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 3</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        L'Obsession
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Le problème avec un Earthship, c'est qu'il est pensé pour une famille isolée dans le désert. Nous, on n'était pas isolés. On était onze. Et on n'était pas dans le désert — on était dans un écohameau de 21 hectares avec une rivière, des prairies, des forêts, et une ambition collective.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Alors on a fait quelque chose que personne n'avait fait : on a <strong>explosé</strong> les dimensions de l'Earthship et on les a redistribuées à l'échelle du hameau.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        La serre qui, dans un Earthship classique, se trouve devant le bâtiment et assure à la fois la production alimentaire et l'apport thermique ? Nous, on n'avait pas besoin d'une serre intégrée au bâtiment. On avait la possibilité d'installer une vraie ferme maraîchère à l'échelle du domaine — la Ferme du Verseau — avec une production bien plus généreuse qu'une simple serre d'appoint.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        En revanche, l'apport solaire passif et thermique que la serre apportait au bâtiment Earthship, ça, on l'a conservé. On l'a reproduit avec une grande façade sud vitrée, conçue pour capter le soleil en hiver et s'en protéger en été. Le principe bioclimatique, intact. L'application, radicalement différente.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        L'autonomie en eau ? Elle se pense à l'échelle du domaine, avec la rivière et les sources. Le recyclage des matériaux ? Il se pratique sur chaque chantier, avec la terre excavée réutilisée en enduits, le bois local pour la charpente. Chaque principe Earthship a trouvé sa place — non pas dans un seul bâtiment, mais dans un écosystème entier.
+      </p>
+    </div>
+
+    <!--
+      ┌──────────────────────────────────────────────────────────────┐
+      │  📸 PLACEHOLDER — COMPARAISON EARTHSHIP VS GRAND SHAMBALA   │
+      │                                                              │
+      │  Image split en deux :                                       │
+      │  À gauche : un Earthship classique (petit, semi-enterré,     │
+      │  module unique avec serre devant)                             │
+      │  À droite : le Grand Shambala à la même échelle               │
+      │  Une flèche ou un simple trait entre les deux.                │
+      │  Légende : « Du module au monde »                            │
+      │  Style : dessin architectural épuré ou photo/illustration.   │
+      │  Format : full-width dans le container 5xl.                  │
+      └──────────────────────────────────────────────────────────────┘
+    -->
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4">
+      <img src="/images/laom/grand-shambala/p4.webp" alt="Comparaison Earthship classique vs Grand Shambala — du module au monde" class="w-full rounded-sm" loading="lazy" decoding="async" />
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">Du module au monde</p>
+    </div>
+
+    <!--
+      ┌──────────────────────────────────────────────────────────────┐
+      │  📸 PLACEHOLDER — CROQUIS D'ÉVOLUTION                       │
+      │                                                              │
+      │  3 à 4 croquis / plans anciens montrant l'évolution de la   │
+      │  réflexion. Dessins de napkin, premiers CAD, plans rejetés.  │
+      │  Disposés en grille lâche ou en cascade diagonale.           │
+      │  Plus c'est imparfait, mieux c'est. Montrer le PROCESS.     │
+      │  Si possible inclure des annotations manuscrites.            │
+      │  Format : grille 2x2 ou cascade, content-width.             │
+      └──────────────────────────────────────────────────────────────┘
+    -->
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="grid grid-cols-2 gap-4">
+        <img src="/images/laom/grand-shambala/p5.webp" alt="Croquis v1 — premières esquisses" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p6.webp" alt="Croquis v2 — itération structure" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p7.webp" alt="Croquis v3 — plan rejeté" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p8.webp" alt="Croquis v4 — plan final paille porteuse" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+      </div>
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">L'évolution de la réflexion — dessins de napkin, itérations, plans rejetés. Montrer le processus, pas le résultat.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 4 — LES MURS QUI PARLENT — DE L'ACIER À LA PAILLE
+       Le pivot. Crise + résolution.
+       ============================================================ -->
+
+  <section id="les-murs-qui-parlent" class="py-24 lg:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 4</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        Les Murs qui parlent
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        La première version du Grand Shambala, c'était une structure en acier. On avait le concept : un squelette métallique habillé d'un manteau de paille. Sur le papier, c'était propre. Structurellement, c'était solide. On avait même accès à l'acier.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Et puis on s'est arrêtés.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Parce qu'un bâtiment écologique tenu par de l'acier, c'est un mensonge structurel. L'acier, c'est l'un des matériaux les plus carbonés qui existe. Et pour le porter, il fallait de gros plots en béton, des fondations lourdes, une quantité de béton qui contredisait tout ce qu'on défendait.
+      </p>
+
+      <!-- Pull quote -->
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/90 leading-relaxed">
+          L'acier fonctionnait. Mais un bâtiment écologique tenu par du carbone, c'est un mensonge structurel.
+        </p>
+      </blockquote>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Alors on a pivoté. Vers quelque chose de plus radical, de plus cohérent, et de beaucoup plus effrayant : la <strong>paille porteuse pure</strong>.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Le principe : les bottes de paille ne sont pas du remplissage. Elles <em>sont</em> la structure. Elles portent les murs, elles portent le toit, elles portent l'étage. 850 m² sur deux niveaux, tenus par de la paille. Personne n'avait fait ça à cette échelle.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        L'avantage immédiat : on a utilisé très peu de béton. Uniquement des semelles de fondation pour les murs. Pas de dalle béton — juste une mise hors-gel pour s'isoler du sol. Le reste, c'est de la paille, du bois local, de la terre, de la chaux. Des matériaux qui stockent du carbone au lieu d'en émettre.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed">
+        La face nord et la face ouest : paille porteuse. La face sud : ossature bois, pour accueillir la grande façade vitrée qui capte le soleil. Un bâtiment bioclimatique, structurellement honnête.
+      </p>
+    </div>
+
+    <!--
+      ┌──────────────────────────────────────────────────────────────┐
+      │  📸 PLACEHOLDER — COUPE TECHNIQUE MUR PAILLE                │
+      │                                                              │
+      │  Dessin de coupe transversale montrant la construction du    │
+      │  mur en paille porteuse. Annoté en français, trait fin.      │
+      │  Montrer : semelle béton → soubassement → bottes de paille   │
+      │  → lisse haute → charpente bois. Cotes indicatives.          │
+      │  Style : dessin d'architecte, lignes fines, fond crème.      │
+      │  Doit être assez beau pour être un poster.                   │
+      │  Format : large, content-width 5xl.                          │
+      └──────────────────────────────────────────────────────────────┘
+    -->
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="grid grid-cols-3 gap-3 rounded-sm overflow-hidden">
+        <img src="/images/laom/grand-shambala/p9-bis-bis.webp" alt="Coupe technique mur paille porteuse — vue détaillée" class="col-span-1 w-full h-full object-cover" loading="lazy" decoding="async" />
+        <div class="col-span-2 flex flex-col gap-3">
+          <img src="/images/laom/grand-shambala/p9-bis.webp" alt="Coupe technique mur paille porteuse — vue d'ensemble" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
+          <img src="/images/laom/grand-shambala/p9.webp" alt="Coupe technique mur paille porteuse — détails annotations" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
+        </div>
       </div>
     </div>
   </section>
+
+
+  <!-- ============================================================
+       SECTION 5 — LE MUR — 4 ANS DE BATAILLE ADMINISTRATIVE
+       Court. L'obstacle. Fond légèrement différent.
+       ============================================================ -->
+
+  <section id="le-mur" class="py-24 lg:py-32 bg-[#E8E4DB]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 5</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        Le Mur
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Il y a des murs qu'on ne construit pas en paille. Ceux de l'administration en font partie.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Pour construire un bâtiment de 850 m² en paille porteuse dans un parc naturel régional, il fallait un cadre juridique qui n'existait pas. Le zonage ne le permettait pas. La commune n'avait pas de PLU adapté. Il a fallu obtenir un <strong>STECAL</strong> — un Secteur de Taille et de Capacité d'Accueil Limitées — une procédure rare, longue, et qui dépend de la volonté politique locale.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Quatre ans. Quatre ans de réunions, de dossiers, de courriers, de refus, de reformulations, d'attente. Les permis de construire ont été déposés de manière itérative — chaque version adaptée à ce que le cadre légal permettait à chaque étape. On a traversé quatre versions du permis des Shambalas.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed">
+        Le STECAL a été obtenu à l'été 2025, inscrit dans le nouveau PLUi. Quatre ans pour un droit qui tient en quelques lignes sur un document d'urbanisme. Quatre ans pour pouvoir commencer à construire ce qu'on construisait déjà.
+      </p>
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────┐
+        │  📸 PLACEHOLDER — DOSSIERS ADMINISTRATIFS                   │
+        │                                                              │
+        │  Photo vue du dessus d'une pile de documents administratifs, │
+        │  permis de construire, tampons officiels. Légèrement en     │
+        │  désordre, réel. OU : frise chronologique horizontale       │
+        │  montrant les 4 ans (2021-2025) avec les moments clés,      │
+        │  rendant visible la durée absurde vs les 90 jours de build. │
+        │  Format : content-width.                                     │
+        └──────────────────────────────────────────────────────────────┘
+      -->
+      <div class="aspect-[16/7] bg-[#D4CFC4] flex items-center justify-center border border-black/5 rounded-sm mt-12">
+        <div class="text-center px-8">
+          <p class="text-sm font-light text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
+          <p class="text-base font-light text-black/50 max-w-lg">Pile de documents administratifs vue du dessus OU frise 4 ans (2021–2025) rendant visible la durée absurde vs 90 jours de construction</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 6 — 90 JOURS — LE CHANTIER
+       La pièce maîtresse. Format journal de bord.
+       ============================================================ -->
+
+  <section id="90-jours" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 6</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-6 tracking-tight leading-tight">
+        90 Jours
+      </h2>
+      <p class="text-lg font-light text-[#2C2824]/50 mb-16">Le chantier, raconté comme un journal de bord.</p>
+
+      <!-- Journal de bord — esthétique carnet de terrain -->
+      <div class="border-l border-[#C4A855]/30 pl-8 space-y-10">
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">Mars 2022</p>
+          <p class="text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            Terrassement. Le terrain respire pour la première fois. On déplace la terre, on dessine l'empreinte du bâtiment dans le sol. 850 m² au sol. On commence à comprendre l'échelle.
+          </p>
+        </div>
+
+        <!--
+          ┌──────────────────────────────────────────────────────────────┐
+          │  📸 PLACEHOLDER — TERRASSEMENT                              │
+          │                                                              │
+          │  Photo wide shot : terre nue, machines, site transformé.    │
+          │  Le sol ouvert, la topographie visible. Lumière de matin.   │
+          │  Format : full content-width, aspect 16/9.                  │
+          └──────────────────────────────────────────────────────────────┘
+        -->
+        <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm -ml-8">
+          <p class="text-sm font-light text-black/40 px-4 text-center">Photo : terrassement — terre nue, machines, le site transformé, lumière de matin</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">Été 2023</p>
+          <p class="text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            Soubassement. Les fondations montent. Sébastien, Julien, le père d'Amandine. Le béton — le seul du projet — coule dans les semelles. Le socle sur lequel tout va reposer. 850 m² de semelles. C'est le dernier moment où le sol est visible.
+          </p>
+        </div>
+
+        <!--
+          ┌──────────────────────────────────────────────────────────────┐
+          │  📸 PLACEHOLDER — FONDATIONS                                │
+          │                                                              │
+          │  Vue aérienne ou plongeante : la grille de semelles béton,  │
+          │  géométrique, depuis le dessus si possible. Le contraste    │
+          │  entre le béton minimal et l'immensité du plan.             │
+          │  Format : content-width, aspect 16/9.                       │
+          └──────────────────────────────────────────────────────────────┘
+        -->
+        <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm -ml-8">
+          <p class="text-sm font-light text-black/40 px-4 text-center">Photo : fondations / semelles — vue aérienne ou plongeante, contraste béton minimal vs immensité du plan</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">1er Octobre 2023 — Jour 1</p>
+          <p class="text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            Les murs commencent. Charly, Khaldoun, Paul O., Rémy. Quatre personnes. Des centaines de bottes de paille. Chaque botte fait 45 cm d'épaisseur. Elles sont empilées, compressées, liées. Les murs nord et ouest montent en paille porteuse. La face sud en bois.
+          </p>
+        </div>
+
+        <!--
+          ┌──────────────────────────────────────────────────────────────┐
+          │  📸 PLACEHOLDER — MURS PAILLE QUI MONTENT                   │
+          │                                                              │
+          │  LA photo la plus iconique du chantier. Les murs en bottes  │
+          │  de paille en train de monter. Travailleurs minuscules par  │
+          │  rapport à la hauteur. Lumière dorée. Le moment où on voit  │
+          │  que c'est réel.                                             │
+          │  FORMAT : FULL-BLEED (sort du container, bord à bord).      │
+          └──────────────────────────────────────────────────────────────┘
+        -->
+        <div class="aspect-[16/9] bg-[#D4CFC4] flex items-center justify-center border border-black/5 rounded-sm -ml-8">
+          <p class="text-sm font-light text-black/40 px-4 text-center">FULL-BLEED : Murs paille qui montent — travailleurs dwarfed par la hauteur, lumière dorée. La photo iconique.</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">Semaine 3</p>
+          <p class="text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            Les ballots montent plus vite que prévu. Le doute recule. Le corps apprend le geste. On développe des automatismes, on optimise la chaîne. Chaque jour, les murs gagnent une rangée.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">Semaine 6</p>
+          <p class="text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            La charpente se pose. Bois local. L'ossature du toit dessine la silhouette définitive du bâtiment. Pour la première fois, on voit la forme. On comprend ce qu'on est en train de faire.
+          </p>
+        </div>
+
+        <!--
+          ┌──────────────────────────────────────────────────────────────┐
+          │  📸 PLACEHOLDER — CHARPENTE                                 │
+          │                                                              │
+          │  La structure bois de la charpente contre le ciel.          │
+          │  Dramatique. Les lignes du toit, le bois brut, le ciel     │
+          │  bleu ou nuageux derrière. Format content-width.            │
+          └──────────────────────────────────────────────────────────────┘
+        -->
+        <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm -ml-8">
+          <p class="text-sm font-light text-black/40 px-4 text-center">Photo : charpente bois contre le ciel — dramatique, lignes du toit, bois brut</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">Semaine 9</p>
+          <p class="text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            La façade sud se ferme. Le bois encadre les ouvertures vitrées. La lumière entre dans le bâtiment pour la première fois. Le sud de l'Aveyron inonde 850 m² de lumière d'hiver.
+          </p>
+        </div>
+
+        <!--
+          ┌──────────────────────────────────────────────────────────────┐
+          │  📸 PLACEHOLDER — FAÇADE SUD                                │
+          │                                                              │
+          │  La façade sud vitrée — lumière qui traverse.               │
+          │  Prise depuis l'intérieur : on voit le paysage à travers   │
+          │  les ouvertures et la lumière qui inonde l'espace brut.     │
+          │  OU depuis l'extérieur : le jeu bois + vitrage + paille.   │
+          │  Format : content-width.                                    │
+          └──────────────────────────────────────────────────────────────┘
+        -->
+        <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm -ml-8">
+          <p class="text-sm font-light text-black/40 px-4 text-center">Photo : façade sud — lumière qui traverse les ouvertures vitrées, vue intérieure ou extérieure</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">15 Décembre 2023 — Jour 87</p>
+          <p class="text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            Hors d'eau, hors d'air. Le bâtiment est clos. Le vent ne passe plus. La pluie ne rentre plus. Silence sur le chantier. Quelqu'un pleure.
+          </p>
+        </div>
+
+        <!--
+          ┌──────────────────────────────────────────────────────────────┐
+          │  📸 PLACEHOLDER — HORS D'EAU                                │
+          │                                                              │
+          │  Photo d'équipe si disponible — le moment d'émotion.        │
+          │  Ou le bâtiment clos pour la première fois, vu de loin,     │
+          │  dans la lumière d'hiver. Le silence visible.               │
+          │  Format : content-width.                                    │
+          └──────────────────────────────────────────────────────────────┘
+        -->
+        <div class="aspect-[16/9] bg-[#D4CFC4] flex items-center justify-center border border-black/5 rounded-sm -ml-8">
+          <p class="text-sm font-light text-black/40 px-4 text-center">Photo : le bâtiment clos — photo d'équipe émue, ou le bâtiment dans la lumière d'hiver. Le silence visible.</p>
+        </div>
+      </div>
+
+      <!-- Stat callout -->
+      <div class="my-16 py-12 text-center">
+        <p class="text-4xl md:text-5xl font-light text-[#2C2824] tracking-tight mb-2">12 personnes. 90 jours. 850 m².</p>
+        <p class="text-sm font-light text-[#2C2824]/50 tracking-wide">Soit 1 m² de bâtiment toutes les 13 heures-personne.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Vidéo YouTube embed -->
+  <section class="py-16 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
+        <iframe
+          src="https://www.youtube.com/embed/Bltd5fr5VVY"
+          title="Construction du Grand Shambala — LAOM"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">La construction du Grand Shambala en vidéo</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 7 — L'ÉCOLE DE L'HUMILITÉ — LES ENDUITS
+       Les échecs racontés avec amour.
+       ============================================================ -->
+
+  <section id="humilite" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 7</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        L'École de l'humilité
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        On pensait savoir. On ne savait pas.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Les enduits, c'est la partie du chantier qui nous a le plus appris — parce que c'est celle où on s'est le plus trompés. Et c'est aussi celle qui montre le mieux la différence entre la théorie de l'éco-construction et sa réalité.
+      </p>
+
+      <h3 class="font-playfair text-xl md:text-2xl font-light text-[#2C2824] mt-12 mb-6">L'enduit terre intérieur — La voie manuelle</h3>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Premier essai : l'enduit terre à la main. De la terre, de la paille hachée, de l'eau. Quinze personnes. Deux semaines. Résultat : 60 m² couverts. C'est beau. C'est noble. C'est insoutenable à l'échelle de 850 m². À ce rythme, on en avait pour huit mois rien que pour l'intérieur.
+      </p>
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────┐
+        │  📸 PLACEHOLDER — ENDUIT MAIN                               │
+        │                                                              │
+        │  Gros plan sur des mains qui appliquent l'enduit terre sur  │
+        │  le mur de paille. Texture visible, effort physique, labeur.│
+        │  Lumière chaude latérale. Le geste artisanal.               │
+        │  Format : content-width, aspect 3/2.                        │
+        └──────────────────────────────────────────────────────────────┘
+      -->
+      <div class="aspect-[3/2] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm mb-8">
+        <p class="text-sm font-light text-black/40 px-4 text-center">Photo : mains appliquant enduit terre sur paille — gros plan, texture, effort, lumière chaude latérale</p>
+      </div>
+
+      <h3 class="font-playfair text-xl md:text-2xl font-light text-[#2C2824] mt-12 mb-6">L'enduit terre intérieur — Le déclic machine</h3>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Deuxième essai : la machine à projeter. Trois personnes. Quatre jours. 400 m² couverts. Le même mélange terre-paille, mais projeté mécaniquement sur les murs, puis lissé à la main. Le rapport s'inverse : ce qui prenait des mois se fait en jours.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        L'humilité, ce n'est pas de s'entêter dans une voie parce qu'elle est belle. C'est d'accepter qu'on s'est trompé de chemin, et de trouver celui qui fonctionne.
+      </p>
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────┐
+        │  📸 PLACEHOLDER — MACHINE À ENDUIT                          │
+        │                                                              │
+        │  La machine à projeter en action. Mouvement, spray,         │
+        │  échelle du chantier visible. On doit sentir la vitesse     │
+        │  et le contraste avec la méthode manuelle.                  │
+        │  Format : content-width, aspect 3/2.                        │
+        └──────────────────────────────────────────────────────────────┘
+      -->
+      <div class="aspect-[3/2] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm mb-8">
+        <p class="text-sm font-light text-black/40 px-4 text-center">Photo : machine à projeter en action — mouvement, spray, échelle. Contraste avec la méthode manuelle.</p>
+      </div>
+
+      <!-- Pull quote comparatif -->
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/90 leading-relaxed">
+          60 m² à la main : 15 personnes, 15 jours.<br />
+          400 m² à la machine : 3 personnes, 4 jours.<br />
+          L'humilité, c'est accepter qu'on s'est trompé de chemin.
+        </p>
+      </blockquote>
+
+      <h3 class="font-playfair text-xl md:text-2xl font-light text-[#2C2824] mt-12 mb-6">L'enduit extérieur à la chaux — La patience</h3>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        À l'extérieur, c'est un autre monde. L'enduit à la chaux protège la paille des intempéries. C'est la peau du bâtiment, son armure contre l'eau et le vent. Et la chaux, ça ne se projette pas comme la terre. Ça se travaille couche par couche. Ça sèche lentement. Ça ne pardonne pas.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Deux mois. Quatre personnes. Théo aux commandes. Couche de gobetis, corps d'enduit, finition. Chaque face du bâtiment, mètre par mètre, centimètre par centimètre. Le geste patient de la chaux après l'urgence des 90 jours de gros-œuvre. Un autre tempo. Une autre école.
+      </p>
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────┐
+        │  📸 PLACEHOLDER — BEFORE/AFTER ENDUIT                       │
+        │                                                              │
+        │  Même portion de mur : à gauche, la paille brute visible ;  │
+        │  à droite, l'enduit chaux fini, texturé, lumineux.          │
+        │  Split vertical avec une ligne fine au centre.               │
+        │  Idéalement un slider interactif (drag to reveal).          │
+        │  Si statique, split propre avec trait fin.                   │
+        │  Format : content-width, aspect 16/9.                       │
+        └──────────────────────────────────────────────────────────────┘
+      -->
+      <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm mt-8">
+        <div class="text-center px-8">
+          <p class="text-sm font-light text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — Before / After</p>
+          <p class="text-base font-light text-black/50 max-w-lg">Split vertical : paille brute (gauche) vs enduit chaux fini (droite). Idéal : slider interactif drag-to-reveal. Sinon split statique avec trait fin.</p>
+        </div>
+      </div>
+
+      <!--
+        ┌──────────────────────────────────────────────────────────────┐
+        │  📸 PLACEHOLDER — TEXTURE CHAUX MACRO                       │
+        │                                                              │
+        │  Gros plan macro sur la texture de l'enduit chaux fini.     │
+        │  On doit sentir la matière sous les doigts. Lumière rasante.│
+        │  Format : petit, centré, aspect carré ou 4/5.               │
+        └──────────────────────────────────────────────────────────────┘
+      -->
+      <div class="aspect-square max-w-xs mx-auto bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm mt-8">
+        <p class="text-xs font-light text-black/40 px-4 text-center">Macro : texture enduit chaux — lumière rasante, on sent la matière</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 8 — LA PEAU — L'INTÉRIEUR PREND VIE
+       2-3 détails surprenants, pas un catalogue.
+       ============================================================ -->
+
+  <section id="la-peau" class="py-24 lg:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 8</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        La Peau
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        2024 et 2025. Le gros-œuvre est derrière nous. Commence le travail invisible — celui qui fait la différence entre un chantier et un lieu de vie.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Le plancher bois de l'étage se pose sur les solives. Les menuiseries arrivent — ces ouvertures qu'on a dessinées et redessinées, et qui enfin encadrent le paysage pour de vrai. Le bardage des pignons ferme les dernières surfaces. L'électricité passe dans les gaines.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Mais le détail le plus fascinant, ce sont les <strong>cloisons acoustiques</strong>. Dans un bâtiment qui accueille à la fois des habitats permanents, des chambres de coliving et des espaces communs, le son est une question vitale. On a conçu trois types de parois :
+      </p>
+
+      <div class="my-8 space-y-4">
+        <div class="border border-black/10 bg-white p-6 rounded-sm">
+          <p class="text-sm font-light tracking-[0.15em] uppercase text-[#C4A855] mb-1">Paroi compacte — 14 cm</p>
+          <p class="text-base font-light text-[#2C2824]/70">Fermacell + laine de coton recyclé. 52-55 dB d'affaiblissement. Pour les cloisons intérieures simples.</p>
+        </div>
+        <div class="border border-black/10 bg-white p-6 rounded-sm">
+          <p class="text-sm font-light tracking-[0.15em] uppercase text-[#C4A855] mb-1">Paroi standard — 26 cm</p>
+          <p class="text-base font-light text-[#2C2824]/70">Double Fermacell + 200 mm de coton. 58-62 dB. Pour séparer les logements. Conforme à la réglementation acoustique.</p>
+        </div>
+        <div class="border border-black/10 bg-white p-6 rounded-sm">
+          <p class="text-sm font-light tracking-[0.15em] uppercase text-[#C4A855] mb-1">Paroi haute performance — 41 cm</p>
+          <p class="text-base font-light text-[#2C2824]/70">Double ossature découplée + coton + paille hachée. 65-68 dB. Niveau studio d'enregistrement. Pour les espaces qui demandent le silence absolu.</p>
+        </div>
+      </div>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Des murs en paille qui isolent comme un studio d'enregistrement. C'est le genre de paradoxe qui résume tout le Grand Shambala : un matériau que tout le monde sous-estime, poussé à un niveau que personne n'imaginait.
+      </p>
+    </div>
+
+    <!--
+      ┌──────────────────────────────────────────────────────────────┐
+      │  📸 PLACEHOLDER — MATÉRIAUX FLAT-LAY                        │
+      │                                                              │
+      │  Still life / flat-lay des matériaux intérieurs :            │
+      │  échantillons de bois, Fermacell, laine de coton, paille    │
+      │  hachée, enduit. Disposés élégamment comme un magazine      │
+      │  design. Fond neutre clair. Lumière douce.                   │
+      │  Format : content-width 5xl, aspect 16/9.                   │
+      └──────────────────────────────────────────────────────────────┘
+    -->
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-8">
+      <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <div class="text-center px-8">
+          <p class="text-sm font-light text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — Flat-lay matériaux</p>
+          <p class="text-base font-light text-black/50 max-w-lg">Still life des matériaux : bois, Fermacell, coton recyclé, paille hachée, enduit. Style magazine design, fond neutre, lumière douce</p>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      ┌──────────────────────────────────────────────────────────────┐
+      │  📸 PLACEHOLDER — INTÉRIEUR FINI                            │
+      │                                                              │
+      │  Une pièce terminée, lumière naturelle qui entre par la     │
+      │  façade sud. On sent la chaleur des murs, la qualité de     │
+      │  l'air, la douceur de l'espace. C'est la photo qui vend     │
+      │  le rêve d'y habiter.                                       │
+      │  FORMAT : FULL-BLEED si possible.                           │
+      └──────────────────────────────────────────────────────────────┘
+    -->
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-8">
+      <div class="aspect-[16/9] bg-[#D4CFC4] flex items-center justify-center border border-black/5 rounded-sm">
+        <div class="text-center px-8">
+          <p class="text-sm font-light text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — FULL-BLEED</p>
+          <p class="text-base font-light text-black/50 max-w-lg">Intérieur fini — lumière naturelle façade sud, chaleur des murs enduits, espace habitable. La photo qui donne envie d'y vivre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 9 — CE QUE LE BÂTIMENT CONTIENT — PROGRAMME
+       Visuel, pas textuel. Plan annoté.
+       ============================================================ -->
+
+  <section id="programme" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24 mb-12">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 9</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        Ce que le bâtiment contient
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Le Grand Shambala n'est pas un bâtiment mono-fonction. C'est un micro-village vertical. Depuis le début, la vision était de rassembler sous un même toit l'habitat permanent, l'accueil temporaire, la création et la vie commune.
+      </p>
+    </div>
+
+    <!--
+      ┌──────────────────────────────────────────────────────────────┐
+      │  📸 PLACEHOLDER — AXONOMÉTRIE ILLUSTRÉE                     │
+      │                                                              │
+      │  Vue axonométrique ou plan « éclaté » du bâtiment, coloré   │
+      │  par fonction :                                              │
+      │  - Bleu/gris : 3 appartements (125 + 90 + 125 m²)          │
+      │  - Vert doux : 7 chambres coliving (125 m² total)          │
+      │  - Or/jaune : Foyer commun salon-cuisine (88 m²)           │
+      │  - Terre : 2 ateliers (32,5 + 65 m²)                       │
+      │  - Rose poudré : Espace massage / annexe (32,5 m²)         │
+      │  Style : illustration architecturale, palette chaude,       │
+      │  dessin semi-réaliste ou ligne claire.                      │
+      │  DOIT être assez beau pour être partagé seul sur les       │
+      │  réseaux. Contenu shareable / pinnable.                     │
+      │  FORMAT : TRÈS LARGE, full-bleed ou max-w-6xl.             │
+      └──────────────────────────────────────────────────────────────┘
+    -->
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <div class="text-center px-8">
+          <p class="text-sm font-light text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — Axonométrie illustrée</p>
+          <p class="text-base font-light text-black/50 max-w-xl">Plan éclaté coloré par fonction : bleu (3 apparts), vert (7 chambres coliving), or (foyer commun), terre (ateliers), rose (massage). Style illustration archi, palette chaude. Shareable sur réseaux.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Légende / résumé programme -->
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <p class="text-3xl font-light text-[#2C2824]">3</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/50 mt-1">Appartements permanents</p>
+          <p class="text-sm font-light text-[#2C2824]/40 mt-1">125 + 90 + 125 m²</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-light text-[#2C2824]">7</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/50 mt-1">Chambres coliving</p>
+          <p class="text-sm font-light text-[#2C2824]/40 mt-1">13-14 m² + sdb privée</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-light text-[#2C2824]">1</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/50 mt-1">Foyer commun</p>
+          <p class="text-sm font-light text-[#2C2824]/40 mt-1">88 m² salon-cuisine</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-light text-[#2C2824]">2</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/50 mt-1">Ateliers de création</p>
+          <p class="text-sm font-light text-[#2C2824]/40 mt-1">32,5 + 65 m²</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-light text-[#2C2824]">1</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/50 mt-1">Espace soin</p>
+          <p class="text-sm font-light text-[#2C2824]/40 mt-1">32,5 m²</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-light text-[#2C2824]">850</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/50 mt-1">m² au total</p>
+          <p class="text-sm font-light text-[#2C2824]/40 mt-1">sur 2 niveaux</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 10 — L'HORIZON
+       Court. Émotionnel. La fermeture.
+       ============================================================ -->
+
+  <section id="lhorizon" class="py-24 lg:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Chapitre 10</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-light text-[#2C2824] mb-12 tracking-tight leading-tight">
+        L'Horizon
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Fin 2026, les premiers résidents du coliving entreront dans le Grand Shambala.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Ils ne sauront rien des quatre ans de permis. Rien de la structure acier qu'on a abandonnée. Rien des 60 m² d'enduit posés à la main avant qu'on comprenne. Rien des nuits d'hiver sur le chantier, du doute de la semaine trois, du silence du jour quatre-vingt-sept.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        Ils entreront. Ils poseront leur sac. Ils s'assiéront dans le foyer commun. Et ils sentiront juste que les murs sont chauds.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed">
+        C'est exactement ce qu'on voulait.
+      </p>
+    </div>
+
+    <!--
+      ┌──────────────────────────────────────────────────────────────┐
+      │  📸 PLACEHOLDER — LA PROMESSE                               │
+      │                                                              │
+      │  Pièce vide, lumière qui entre par la fenêtre. Une chaise.  │
+      │  Un livre posé. L'espace attend. La promesse de vie.        │
+      │  Ou : la vue depuis l'intérieur du Grand Shambala vers le   │
+      │  paysage — la vallée, les Causses, la lumière d'Aveyron.    │
+      │  Style : contemplatif, silencieux, lumineux.                │
+      │  Format : content-width, aspect 3/2.                        │
+      └──────────────────────────────────────────────────────────────┘
+    -->
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="aspect-[3/2] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+        <div class="text-center px-8">
+          <p class="text-sm font-light text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder — La promesse</p>
+          <p class="text-base font-light text-black/50 max-w-lg">Pièce vide, lumière qui entre. Une chaise, un livre. L'espace attend. Ou : vue depuis l'intérieur vers le paysage des Causses. Contemplatif, silencieux, lumineux.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 11 — L'INVITATION — CTA
+       Double CTA : guide technique + coliving.
+       ============================================================ -->
+
+  <section class="py-20 lg:py-28 bg-[#2d5016] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <h2 class="font-playfair text-3xl md:text-4xl font-light mb-6 tracking-tight">L'Invitation</h2>
+
+      <div class="space-y-10">
+        <div>
+          <p class="text-lg font-light text-white/80 leading-relaxed mb-4">
+            Vous construisez en paille ? On prépare un guide technique complet sur la construction du Grand Shambala. Laissez-nous votre email — on vous l'envoie dès qu'il sort.
+          </p>
+          <a
+            href="/newsletter/"
+            class="inline-flex items-center justify-center rounded-sm bg-white text-black px-8 py-3 text-xs tracking-[0.25em] uppercase hover:bg-white/90 transition-colors"
+          >
+            Recevoir le guide technique
+          </a>
+        </div>
+
+        <div class="border-t border-white/20 pt-10">
+          <p class="text-lg font-light text-white/80 leading-relaxed mb-4">
+            Le coliving du Grand Shambala ouvre fin 2026.
+          </p>
+          <a
+            href="/coliving/"
+            class="inline-flex items-center justify-center rounded-sm border border-white/40 text-white px-8 py-3 text-xs tracking-[0.25em] uppercase hover:border-white/70 hover:bg-white/10 transition-colors"
+          >
+            Découvrir le coliving
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </Layout>
