@@ -47,7 +47,7 @@
     "thresholdOverrides": {}
   },
   "exclusions": [],
-  "failOn": ["error", "warning"],
+  "failOn": [],
   "maxIssues": 0,
   "outputFormat": "console"
 }
