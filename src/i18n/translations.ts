@@ -149,7 +149,7 @@ export const translations = {
             description: 'Elle transforme l\'aventure LAOM en contenus, ressources et formations.',
           },
           {
-            name: 'Équipe chantier',
+            name: 'Le chantier & celles et ceux qui y œuvrent',
             role: 'Constructeurs & artisans',
             description: 'Une équipe engagée (Khaldoun, Théo, Lorenzo…) pour faire émerger le lieu.',
           },

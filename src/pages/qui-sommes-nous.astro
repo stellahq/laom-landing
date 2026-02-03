@@ -1,131 +1,287 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import NewsletterForm from '~/components/NewsletterForm.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
   name: 'Qui sommes-nous',
   url: Astro.url.toString(),
-  description:
-    'Les personnes qui vivent et portent LAOM au quotidien : santé holistique, création, agriculture régénératrice et accompagnement.',
+  description: 'LAOM est un espace d\'accueil, d\'habitat et de création, né d\'un projet collectif porté par des personnes qui vivent sur place ou y sont engagées à long terme.',
 })
 ---
 
 <Layout
   title="Qui sommes-nous – LAOM"
-  description="Les personnes qui vivent et portent LAOM au quotidien : santé holistique, création, agriculture régénératrice et accompagnement."
+  description="LAOM est un espace d'accueil, d'habitat et de création, né d'un projet collectif porté par des personnes qui vivent sur place ou y sont engagées à long terme."
   seo={{ ldJSON: pageSchema }}
 >
+  <!-- Hero -->
   <section class="py-32 lg:py-40 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">LAOM</span>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-black mb-6 tracking-tight">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#2C2824] mb-8 tracking-tight">
         Qui sommes-nous
       </h1>
-      <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
-        Un projet collectif incarné par des personnes qui vivent sur place et mettent leurs compétences en commun pour
-        faire rayonner LAOM.
+      <p class="text-xl md:text-2xl font-light text-[#2C2824]/80 leading-relaxed">
+        LAOM est un espace d'accueil, d'habitat et de création, né d'un projet collectif porté par des personnes qui vivent sur place ou y sont engagées à long terme.
       </p>
     </div>
   </section>
 
-  <section class="py-24 bg-[#faf9f6]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-          <img
-            src="/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp"
-            alt="Portrait d’Amandine Orriols"
-            class="h-20 w-20 rounded-full object-cover mb-6"
-            loading="lazy"
-          />
-          <p class="text-xs tracking-[0.25em] uppercase text-black/40 mb-3">Chef d’entreprise</p>
-          <h2 class="text-xl font-light text-black mb-4">Amandine Orriols</h2>
-          <p class="text-sm font-light text-black/60 leading-relaxed">
-            Sœur et co-fondatrice d’Amawé, une société qui regroupe une communauté de 50&nbsp;000 personnes autour de la
-            santé holistique. Elle anime cette communauté avec des accompagnements, des programmes en ligne et des
-            stages en présentiel. Habitante sur le lieu, elle mobilise sa communauté pour faire rayonner LAOM.
-          </p>
-        </article>
+  <!-- Intro vision -->
+  <section class="py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Le projet est né d'une vision partagée :<br />
+        créer un lieu vivant, ancré dans la terre, où l'on habite, travaille, construit et transmet autrement.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        LAOM s'inscrit dans un collectif d'habitants plus large (<a href="https://oasislamargue.com/" target="_blank" rel="noopener noreferrer" class="text-[#8B7A3A] underline underline-offset-2 hover:text-[#6B5A2A] transition-colors" aria-label="Oasis La Margue (ouvre dans un nouvel onglet)">Oasis La Margue</a>), sur le domaine de La Margue, en Aveyron.
+        Tous les associés de LAOM font partie de ce collectif, qui porte une vision commune de l'habitat, du vivre-ensemble et de l'ancrage territorial.
+      </p>
+    </div>
+  </section>
 
-        <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-          <img
-            src="/images/laom/qui-sommes-nous/claire-rond-06558afe.webp"
-            alt="Portrait de Claire Orriols"
-            class="h-20 w-20 rounded-full object-cover mb-6"
-            loading="lazy"
-          />
-          <p class="text-xs tracking-[0.25em] uppercase text-black/40 mb-3">Praticienne en naturopathie</p>
-          <h2 class="text-xl font-light text-black mb-4">Claire Orriols</h2>
-          <p class="text-sm font-light text-black/60 leading-relaxed">
-            Sœur et co-fondatrice d’Amawé. Elle porte des accompagnements et des stages autour de la santé holistique,
-            anime la communauté et contribue à l’accueil sur place, tout en participant activement au rayonnement du
-            lieu.
-          </p>
-        </article>
+  <!-- Séparateur -->
+  <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 py-8">
+    <hr class="border-t border-[#2C2824]/15" aria-hidden="true" />
+  </div>
 
-        <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-          <img
-            src="/images/laom/qui-sommes-nous/eliott-rond-066be4aa.webp"
-            alt="Portrait d’Eliott Meunier"
-            class="h-20 w-20 rounded-full object-cover mb-6"
-            loading="lazy"
-          />
-          <p class="text-xs tracking-[0.25em] uppercase text-black/40 mb-3">Formateur, influenceur, danseur</p>
-          <h2 class="text-xl font-light text-black mb-4">Eliott Meunier</h2>
-          <p class="text-sm font-light text-black/60 leading-relaxed">
-            Fondateur d’ATOMIC, une école de formation sur la gestion de la connaissance, la créativité et le business,
-            rassemblant une communauté de 100&nbsp;000 personnes. Habitant sur le lieu, il implante son entreprise et un
-            incubateur de projets en Aveyron. Ancien petit rat de l’Opéra de Paris, il anime aussi des stages de danse.
-          </p>
-        </article>
+  <!-- Co-fondateurs -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-12 text-center">
+        Les co-fondateurs du projet LAOM
+      </h2>
 
-        <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
+      <article class="flex flex-col sm:flex-row gap-8 items-start mb-16">
+        <div class="flex-shrink-0">
           <img
             src="/images/laom/qui-sommes-nous/charly-rond-f60f6ff8.webp"
             alt="Portrait de Charly Aubert"
-            class="h-20 w-20 rounded-full object-cover mb-6"
+            class="h-24 w-24 rounded-full object-cover"
             loading="lazy"
           />
-          <p class="text-xs tracking-[0.25em] uppercase text-black/40 mb-3">Président de la Ferme du Verseau</p>
-          <h2 class="text-xl font-light text-black mb-4">Charly Aubert</h2>
-          <p class="text-sm font-light text-black/60 leading-relaxed">
-            Fondateur de la Ferme du Verseau, dont l'activité est la production maraîchère et l'animation de stages
-            autour des pratiques agricoles régénératives. Habitant sur place, il coordonne le développement global du
-            projet LAOM.
+        </div>
+        <div class="flex-1">
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">Charly</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-4">Co-fondateur et porteur du projet</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Porteur de projet et bâtisseur engagé, Charly est à l'origine de LAOM.
+            Il coordonne le développement global du lieu, le chantier, les choix techniques et l'ancrage agricole à travers la Ferme du Verseau, dédiée aux pratiques agricoles régénératives.
+            Il porte la vision long terme du projet.
+          </p>
+        </div>
+      </article>
+
+      <hr class="border-t border-[#2C2824]/10 my-12" aria-hidden="true" />
+
+      <article class="flex flex-col sm:flex-row gap-8 items-start">
+        <div class="flex-shrink-0">
+          <img
+            src="/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp"
+            alt="Portrait d'Amandine Orriols"
+            class="h-24 w-24 rounded-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="flex-1">
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">Amandine</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-4">Co-fondatrice – Vision, création de contenu & mise en récit du projet</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Co-fondatrice de LAOM et à l'origine du projet, Amandine porte la vision, l'élan initial et la dimension de transmission du lieu (en France et à l'international).
+            Elle contribue au développement de LAOM à travers la création de contenu, la mise en récit du projet, la structuration des expériences accueillies sur le lieu et son rayonnement.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Séparateur -->
+  <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 py-8">
+    <hr class="border-t border-[#2C2824]/15" aria-hidden="true" />
+  </div>
+
+  <!-- Associés -->
+  <section class="py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-12 text-center">
+        Les associés du projet LAOM
+      </h2>
+
+      <div class="space-y-10">
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">Eliott</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Associé</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Fondateur de Perspective, une école de formation autour de la connaissance, de la créativité et de l'entrepreneuriat. Eliott est également danseur et auteur.
+            Il a financé une partie des infrastructures et contribue au projet par la création de contenu, l'animation de stages de danse et l'implantation de projets créatifs liés au lieu.
           </p>
         </article>
 
-        <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-          <img
-            src="/images/laom/qui-sommes-nous/patricia-c62eba06.webp"
-            alt="Portrait de Patricia Salgon"
-            class="h-20 w-20 rounded-full object-cover mb-6"
-            loading="lazy"
-          />
-          <p class="text-xs tracking-[0.25em] uppercase text-black/40 mb-3">CNV & psychothérapie</p>
-          <h2 class="text-xl font-light text-black mb-4">Patricia Salgon</h2>
-          <p class="text-sm font-light text-black/60 leading-relaxed">
-            Formatrice en Communication NonViolente et psychothérapeute. Elle anime des accompagnements thérapeutiques
-            en groupe et en individuel. Habitante sur le lieu, elle participe activement à la vision et au
-            financement de LAOM.
+        <hr class="border-t border-[#2C2824]/10" aria-hidden="true" />
+
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">Patricia</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Associée</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Patricia est associée au projet et contribue à son développement, avec un soutien financier majeur depuis les débuts.
+            Habitante sur place, dans le hameau historique, elle est un pilier de l'ancrage humain du lieu.
           </p>
         </article>
 
-        <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-          <img
-            src="/images/laom/qui-sommes-nous/greg-rond-64c0d28d.webp"
-            alt="Portrait de Grégoire Renevier"
-            class="h-20 w-20 rounded-full object-cover mb-6"
-            loading="lazy"
-          />
-          <p class="text-xs tracking-[0.25em] uppercase text-black/40 mb-3">Coach</p>
-          <h2 class="text-xl font-light text-black mb-4">Grégoire Renevier</h2>
-          <p class="text-sm font-light text-black/60 leading-relaxed">
-            Créateur d’un tiers-lieu à Montpellier (The Island) et ex-associé d’une agence de communication dédiée à la
-            RSE et à la transition écologique (Patte Blanche). Habitant sur place, il est coach en développement
-            personnel ancré en Aveyron où il donne ses stages à LAOM.
+        <hr class="border-t border-[#2C2824]/10" aria-hidden="true" />
+
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">Laetitia</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Associée – Résidente</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Résidente permanente et propriétaire d'un lot dans le Grand Shambala, Laetitia a créé son activité professionnelle sur place et s'engage activement dans la vie collective et le développement du lieu.
           </p>
         </article>
+
+        <hr class="border-t border-[#2C2824]/10" aria-hidden="true" />
+
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">Claire & Baptiste</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Associés – Résidents</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Propriétaires d'un lot dans le Grand Shambala et d'une Tiny house sur le domaine, Claire et Baptiste font partie de l'aventure LAOM depuis ses débuts.
+            Ils participent pleinement à la vie du lieu et à la construction du projet.
+          </p>
+        </article>
+
+        <hr class="border-t border-[#2C2824]/10" aria-hidden="true" />
+
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">David L.</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Associé – Résident</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Propriétaire d'un lot dans le Grand Shambala, David est impliqué dans le projet LAOM et dans le rayonnement du collectif.
+          </p>
+        </article>
+
+        <hr class="border-t border-[#2C2824]/10" aria-hidden="true" />
+
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">David C.</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Associé</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Associé au projet, David C. possède un lot au sein du Grand Shambala utilisé comme résidence secondaire / pied-à-terre. Il a également financé certaines infrastructures du coliving LAOM.
+          </p>
+        </article>
+
+        <hr class="border-t border-[#2C2824]/10" aria-hidden="true" />
+
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">Paul & Joëlle</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Soutiens financiers et humains du projet</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Ils ont soutenu financièrement le projet dès ses débuts.
+            Paul a également été très impliqué sur le chantier lors des premières années, contribuant concrètement à la construction du lieu.
+          </p>
+        </article>
+
+        <hr class="border-t border-[#2C2824]/10" aria-hidden="true" />
+
+        <article>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-1">Khaldoun</h3>
+          <p class="text-sm font-light text-[#2C2824]/50 mb-3">Associé – Équipe chantier</p>
+          <p class="text-base font-light text-[#2C2824]/80 leading-relaxed">
+            Associé au projet et membre clé de l'équipe chantier, Khaldoun vit sur le domaine de La Margue.
+            Présent depuis les débuts de l'aventure, il joue un rôle central dans la construction de LAOM et la vie collective.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Séparateur -->
+  <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 py-8">
+    <hr class="border-t border-[#2C2824]/15" aria-hidden="true" />
+  </div>
+
+  <!-- Le chantier & celles et ceux qui y œuvrent -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-10 text-center">
+        Le chantier & celles et ceux qui y œuvrent
+      </h2>
+
+      <div class="space-y-8 text-base font-light text-[#2C2824]/85 leading-relaxed">
+        <div>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Équipe actuelle</h3>
+          <ul class="list-disc list-inside space-y-1">
+            <li>Charly</li>
+            <li>Khaldoun</li>
+            <li>Serge (pour la partie technique / plans / architecture / aménagement des espaces)</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Les artisans qui ont travaillé sur le chantier</h3>
+          <ul class="list-disc list-inside space-y-1">
+            <li>Rémy – Ossature et toiture du Grand Shambala. Second œuvre et finitions du Petit Shambala.</li>
+            <li>Sébastien & Julien – Fondations du Grand Shambala et gros œuvre du Petit Shambala</li>
+            <li>Aurélien – Terrasses du Shala (salle de danse)</li>
+            <li>Gilles – Electricité du Shala (salle de danse)</li>
+            <li>Théo – Saisonnier 2025 : enduits, isolation en paille hachée</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">La guinguette & l'entretien du lieu</h3>
+          <ul class="list-disc list-inside space-y-1">
+            <li>Lili – cuisine d'été, repas pour les stages et le chantier, entretien des espaces, préparation des tipis et soin porté aux lieux partagés.</li>
+            <li>Lorenzo – Cuisine lors du festival</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Séparateur -->
+  <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 py-8">
+    <hr class="border-t border-[#2C2824]/15" aria-hidden="true" />
+  </div>
+
+  <!-- Entreprises partenaires -->
+  <section class="py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-8 text-center">
+        Entreprises partenaires
+      </h2>
+      <ul class="list-disc list-inside space-y-2 text-base font-light text-[#2C2824]/85">
+        <li>Austruy (Millau) – Pose de la charpente en fermettes</li>
+        <li>Milhau Béton (Saint Affrique) – Réalisation des fondations</li>
+        <li>VODA Énergie (plomberie)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Séparateur -->
+  <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 py-8">
+    <hr class="border-t border-[#2C2824]/15" aria-hidden="true" />
+  </div>
+
+  <!-- Remerciements -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-8 text-center">
+        Remerciements
+      </h2>
+      <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed text-center">
+        LAOM est un projet qui s'est construit dans le temps, à plusieurs mains.
+        Nous souhaitons honorer ici toutes les personnes — habitants, bénévoles, amis, artisans, saisonniers — qui ont contribué au chantier, à la réflexion et à la vie du lieu au fil des années.
+      </p>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-20 md:py-24 bg-[#2C2824] text-white">
+    <div class="max-w-2xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Restez informé</p>
+      <div class="max-w-md mx-auto">
+        <NewsletterForm variant="light" textOnDarkBackground />
       </div>
     </div>
   </section>
