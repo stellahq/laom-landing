@@ -114,11 +114,14 @@ export function setupAstroParserRoutes(app, config) {
     try {
       const { pagePath, oldSrc, newSrc, newAlt } = req.body
 
+      console.log('[replace-image-src] Request:', { pagePath, oldSrc, newSrc })
+
       if (!pagePath || !oldSrc || !newSrc) {
         return res.status(400).json({ error: 'Paramètres manquants: pagePath, oldSrc, newSrc requis' })
       }
 
       const fullPath = join(srcPagesDir, pagePath)
+      console.log('[replace-image-src] Full path:', fullPath)
       
       // Vérifier sécurité
       if (!fullPath.startsWith(srcPagesDir)) {
@@ -126,6 +129,7 @@ export function setupAstroParserRoutes(app, config) {
       }
 
       let content = await fs.readFile(fullPath, 'utf-8')
+      console.log('[replace-image-src] File loaded, length:', content.length)
       
       // Chercher l'image avec l'ancien src
       // Pattern: src="oldSrc" ou src='oldSrc' ou src={oldSrc}
@@ -135,16 +139,27 @@ export function setupAstroParserRoutes(app, config) {
         new RegExp(`src=\{['"]${escapeRegex(oldSrc)}['"]\}`, 'g')
       ]
 
+      // Debug: check if oldSrc exists anywhere in content
+      console.log('[replace-image-src] Looking for oldSrc:', oldSrc)
+      console.log('[replace-image-src] Content includes oldSrc?', content.includes(oldSrc))
+
       let replaced = false
       for (const pattern of srcPatterns) {
+        console.log('[replace-image-src] Testing pattern:', pattern.source)
         if (pattern.test(content)) {
+          // Reset lastIndex for global regex
+          pattern.lastIndex = 0
           content = content.replace(pattern, `src="${newSrc}"`)
           replaced = true
+          console.log('[replace-image-src] Pattern matched! Replaced.')
           break
         }
       }
 
       if (!replaced) {
+        console.log('[replace-image-src] NOT FOUND! Dumping first occurrences of "speaker" in content:')
+        const speakerMatches = content.match(/src="[^"]*speaker[^"]*"/g)
+        console.log('[replace-image-src] Speaker src matches:', speakerMatches)
         return res.status(404).json({ error: 'Image source non trouvée dans la page' })
       }
 
