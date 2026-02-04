@@ -11,9 +11,9 @@ const COUT_MATIERE_REPAS = 0.35 // 35%
 const FORFAIT_MENAGE_LAOM = 150
 
 const evenementsLAOM = [
-  { date: '25-27 avril', nom: 'Clarté', desc: 'Vision + PARA + Claude Code', animateur: 'Charly', prix: 1000, places: 12, taux: 100, nbRepas: 5, chargesSamuel: 0 },
+  { date: '17-19 avril', nom: 'Clarté #1', desc: 'Vision + PARA + Claude Code', animateur: 'Charly', prix: 1000, places: 12, taux: 100, nbRepas: 5, chargesSamuel: 0 },
+  { date: '25-27 avril', nom: 'Clarté #2', desc: 'Vision + PARA + Claude Code', animateur: 'Charly', prix: 1000, places: 12, taux: 100, nbRepas: 5, chargesSamuel: 0 },
   { date: '8-10 mai', nom: 'LAOM School #1', desc: 'Projet, financement, business model, gouvernance, culture', animateur: 'Charly', prix: 1000, places: 15, taux: 80, nbRepas: 5, chargesSamuel: 0 },
-  { date: '27-28 juin', nom: 'Weekend Famille', desc: 'Format accessible, familial', animateur: 'Amandine & Charly', prix: 450, places: 20, taux: 80, nbRepas: 3, chargesSamuel: 0 },
   { date: '5-9 août', nom: 'En Mouvement #1', desc: 'Immersion danse avec Samuel Planas', animateur: 'Samuel & Charly', prix: 1100, places: 15, taux: 100, nbRepas: 9, chargesSamuel: 1500 },
   { date: '11-15 août', nom: 'En Mouvement #2', desc: 'Immersion danse avec Samuel Planas', animateur: 'Samuel & Charly', prix: 1100, places: 15, taux: 100, nbRepas: 9, chargesSamuel: 1500 },
   { date: '16-20 août', nom: 'En Mouvement #3', desc: 'Immersion danse avec Samuel Planas', animateur: 'Samuel & Charly', prix: 1100, places: 15, taux: 100, nbRepas: 9, chargesSamuel: 1500 },
@@ -207,7 +207,10 @@ const timeline = [
     { nom: 'Rencontre Perspective #4', date: '5-8', type: 'partenaire', orga: 'Eliott/JC' },
     { nom: 'Énergie Illimitée #1', date: '11-15', type: 'partenaire', orga: 'Amawé' },
   ]},
-  { mois: 'Avril', events: [{ nom: 'Clarté', date: '25-27', type: 'laom', orga: 'Charly' }] },
+  { mois: 'Avril', events: [
+    { nom: 'Clarté #1', date: '17-19', type: 'laom', orga: 'Charly' },
+    { nom: 'Clarté #2', date: '25-27', type: 'laom', orga: 'Charly' },
+  ]},
   { mois: 'Mai', events: [
     { nom: 'Désir d\'Aventure #1', date: '30 avr - 3', type: 'partenaire', orga: 'Colette' },
     { nom: 'LAOM School #1', date: '8-10', type: 'laom', orga: 'Charly' },
@@ -219,7 +222,6 @@ const timeline = [
     { nom: 'Festival Perspective', date: '5-8', type: 'partenaire', orga: 'Eliott/JC' },
     { nom: 'Rencontre Fyneo #1', date: '11-13', type: 'partenaire', orga: 'David Lin' },
     { nom: 'Guinguette ouvre', date: 'Mi-juin', type: 'guinguette', orga: 'Lorenzo + Lily' },
-    { nom: 'Weekend Famille', date: '27-28', type: 'laom', orga: 'Amandine + Charly' },
   ]},
   { mois: 'Juillet', events: [
     { nom: 'Summer Camp', date: '11-14', type: 'partenaire', orga: 'Amawé' },
@@ -991,8 +993,9 @@ function formatNumber(n: number): string {
             <div>
               <p class="font-medium text-[#2C2824] mb-2">Dates confirmées</p>
               <ul class="space-y-1">
+                <li>Clarté #1 — 17-19 avril</li>
+                <li>Clarté #2 — 25-27 avril</li>
                 <li>LAOM School #1 — 8-10 mai</li>
-                <li>Weekend Famille — 27-28 juin</li>
                 <li>LAOM School #2 — 16-18 octobre</li>
               </ul>
             </div>
@@ -1002,15 +1005,14 @@ function formatNumber(n: number): string {
                 <li>En Mouvement : 1 100€</li>
                 <li>Clarté : 1 000€</li>
                 <li>LAOM School : 1 000€</li>
-                <li>Weekend Famille : 450€</li>
               </ul>
             </div>
           </div>
           <div class="mt-4 pt-4 border-t border-[#4A7C59]/20 text-sm text-[#2C2824]/70">
             <p class="font-medium text-[#2C2824] mb-2">Questions résolues</p>
             <ul class="space-y-1">
-              <li>Weekend Famille animé par <strong>Amandine & Charly</strong></li>
-              <li>Frère d'Âme & M-Être organisés par <strong>Grégoire Renovier</strong> (habitant Oasis Lamargue)</li>
+              <li>Clarté : <strong>2 sessions en avril</strong> (17-19 et 25-27)</li>
+              <li>Frère d'Âme & Aime-Être organisés par <strong>Grégoire Renevier</strong> (habitant Oasis Lamargue)</li>
               <li>En Mouvement : <strong>3 sessions confirmées</strong> (pas plus)</li>
               <li>Guinguette : <strong>Lorenzo + Lily</strong> recrutés</li>
             </ul>
@@ -1021,7 +1023,6 @@ function formatNumber(n: number): string {
         <div class="bg-[#C4A855]/10 border border-[#C4A855]/30 rounded-sm p-6">
           <h3 class="font-medium text-[#2C2824] mb-3">Idées à explorer</h3>
           <ul class="space-y-2 text-sm text-[#2C2824]/70">
-            <li>• Session Clarté #2 en automne (octobre/novembre) ?</li>
             <li>• Pass "multi-événements" avec réduction fidélité ?</li>
             <li>• Guinguette pour événements privés (mariages, séminaires) ?</li>
             <li>• Partenariat avec offices de tourisme locaux pour la guinguette ?</li>
@@ -1040,7 +1041,7 @@ function formatNumber(n: number): string {
               <p class="font-medium text-red-800">Opérationnel</p>
               <ul class="mt-2 space-y-1 list-disc list-inside">
                 <li><strong>Pic d'août critique</strong> — 3 En Mouvement consécutifs (5-20 août) + Guérison des Blessures (22-28) = 24 jours non-stop. Lorenzo et Lily tiendront-ils ?</li>
-                <li><strong>Juin surchargé</strong> — Festival Perspective (5-8) + Fyneo (11-13) + ouverture guinguette + Weekend Famille (27-28). Mois le plus dense.</li>
+                <li><strong>Avril dense</strong> — 2 sessions Clarté (17-19 et 25-27) + Désir d'Aventure #1 (30 avr - 3 mai). Bien caler la logistique.</li>
                 <li><strong>Recrutement</strong> — Lorenzo et Lily sont-ils vraiment confirmés ? Contrats signés ? Plan B si désistement ?</li>
               </ul>
             </div>
@@ -1049,7 +1050,6 @@ function formatNumber(n: number): string {
               <ul class="mt-2 space-y-1 list-disc list-inside">
                 <li><strong>Trésorerie</strong> — Samuel = 4 500€ à payer en août. Les partenaires versent-ils un acompte ? Sinon, avance de tréso nécessaire.</li>
                 <li><strong>LAOM School 80%</strong> — Taux optimiste pour un format nouveau. À 50%, la marge chute significativement.</li>
-                <li><strong>Weekend Famille</strong> — 450€ = prix le plus bas. Ratio effort/marge à surveiller.</li>
               </ul>
             </div>
             <div>

@@ -528,12 +528,12 @@ export const translations = {
           ],
         },
         laomfest: {
-          label: 'Festival',
-          title: 'LaomFest',
-          description: 'Mini-festival : trois jours de rencontres, ateliers, concerts et micro-conférences pour vivre une communauté éphémère.',
-          dateNote: 'Date en septembre à confirmer',
+          label: 'Festival d\'ouverture',
+          title: 'LAOM Fest',
+          description: 'Le festival d\'ouverture de LAOM. Trois jours pour inaugurer le coliving et célébrer 5 ans de construction : rencontres, ateliers, concerts et micro-conférences.',
+          dateNote: 'Automne 2026 — Inauguration officielle du coliving',
           newsletterCtaBefore: 'Inscris-toi à notre liste de diffusion pour ',
-          newsletterCtaHighlight: 'être prévenu en avant-première du festival',
+          newsletterCtaHighlight: 'être prévenu de l\'ouverture du coliving',
           newsletterCtaMiddle: ' ',
           newsletterCtaHighlight2: 'et des prochains événements.',
         },
@@ -665,9 +665,9 @@ export const translations = {
         '2M€ investis collectivement',
       ],
       laomfest: {
-        title: 'LaomFest',
-        description: 'Mini-festival : trois jours de rencontres, ateliers, concerts et conférences pour vivre une communauté éphémère.',
-        dateNote: 'Date en septembre à confirmer',
+        title: 'LAOM Fest',
+        description: 'Le festival d\'ouverture de LAOM. Trois jours pour inaugurer le coliving et célébrer 5 ans de construction : rencontres, ateliers, concerts et micro-conférences.',
+        dateNote: 'Automne 2026 — Inauguration officielle du coliving',
       },
       channelsTitle: 'Suivre le projet',
       channels: [
@@ -755,9 +755,9 @@ export const translations = {
           href: '/manifeste/',
         },
         {
-          title: 'LAOMFEST',
+          title: 'LAOM FEST',
           description:
-            'Trois jours de rencontres, ateliers, concerts et micro-conférences pour créer son mode de vie et vivre une communauté éphémère.',
+            'Festival d\'ouverture du coliving. Trois jours pour inaugurer LAOM et célébrer 5 ans de construction.',
           href: '/laomfest/',
         },
         {
@@ -1293,12 +1293,12 @@ export const translations = {
           ],
         },
         laomfest: {
-          label: 'Festival',
-          title: 'LaomFest',
-          description: 'Mini-festival: three days of gatherings, workshops, concerts and micro-talks to experience an ephemeral community.',
-          dateNote: 'Date in September to be confirmed',
+          label: 'Opening Festival',
+          title: 'LAOM Fest',
+          description: 'The LAOM opening festival. Three days to inaugurate the coliving and celebrate 5 years of construction: gatherings, workshops, concerts and micro-talks.',
+          dateNote: 'Autumn 2026 — Official coliving inauguration',
           newsletterCtaBefore: 'Subscribe to our mailing list to ',
-          newsletterCtaHighlight: 'be notified first about the festival',
+          newsletterCtaHighlight: 'be notified about the coliving opening',
           newsletterCtaMiddle: ' and ',
           newsletterCtaHighlight2: 'upcoming events.',
         },
@@ -1430,9 +1430,9 @@ export const translations = {
         '€2M invested collectively',
       ],
       laomfest: {
-        title: 'LaomFest',
-        description: 'Mini-festival: three days of gatherings, workshops, concerts and conferences to experience an ephemeral community.',
-        dateNote: 'Date in September to be confirmed',
+        title: 'LAOM Fest',
+        description: 'The LAOM opening festival. Three days to inaugurate the coliving and celebrate 5 years of construction: gatherings, workshops, concerts and micro-talks.',
+        dateNote: 'Autumn 2026 — Official coliving inauguration',
       },
       channelsTitle: 'Follow the project',
       channels: [
@@ -1520,9 +1520,9 @@ export const translations = {
           href: '/manifeste/',
         },
         {
-          title: 'LAOMFEST',
+          title: 'LAOM FEST',
           description:
-            'Three days of gatherings, workshops, concerts, and talks to explore chosen lifestyles and a temporary community.',
+            'Coliving opening festival. Three days to inaugurate LAOM and celebrate 5 years of construction.',
           href: '/laomfest/',
         },
         {
