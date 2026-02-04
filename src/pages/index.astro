@@ -1,7 +1,5 @@
 ---
 import Layout from '~/layouts/Layout.astro'
-import Hero from '~/components/Hero.astro'
-import NewsletterBanner from '~/components/NewsletterBanner.astro'
 import { createWebSiteSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
 import { getCollection } from 'astro:content'
@@ -17,6 +15,20 @@ const siteSchema = createWebSiteSchema({
   url: Astro.site?.toString() || 'https://laom.com',
   description: t.site.description,
 })
+
+// Kit form options
+const formKitOptions = {
+  settings: {
+    after_subscribe: {
+      action: 'message',
+      success_message: 'Bienvenue ! Consultez votre boîte mail pour confirmer.',
+      redirect_url: '',
+    },
+    powered_by: { show: false },
+    recaptcha: { enabled: false },
+  },
+  version: '5',
+}
 
 const eventImages = [
   '/images/claire-danse-libre-retraite-2048x1368.webp',
@@ -49,45 +61,154 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     ldJSON: siteSchema,
   }}
 >
-  <!-- 1. Hero -->
-  <div class="-mt-24 md:-mt-28">
-    <Hero />
-  </div>
+  <style is:global>
+    .formkit-alert:empty { display: none; }
+    .formkit-alert-error {
+      background: rgba(254, 226, 226, 0.9);
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      margin: 0 0 0.75rem 0;
+    }
+    .formkit-alert-success {
+      background: rgba(187, 247, 208, 0.9);
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      margin: 0 0 0.75rem 0;
+    }
+  </style>
 
-  <!-- 2. Intro / Presentation LAOM -->
-  <section id="intro" class="py-12 md:py-16 bg-[#F3EEDC]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <h2 class="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-black mb-10 leading-tight title-underline">
-        {t.home.intro.title}
-      </h2>
-      <p class="text-xl md:text-2xl font-normal text-black/70 mb-12 max-w-3xl mx-auto">
-        {t.home.intro.tagline}
-      </p>
-      <div class="space-y-6 text-lg md:text-xl font-normal text-black/80 leading-relaxed text-left max-w-3xl mx-auto">
-        {t.home.intro.paragraphs.map((p) => (
-          <p>{p}</p>
-        ))}
+  <!-- 1. Hero Split -->
+  <section class="min-h-screen -mt-24 md:-mt-28 pt-24 md:pt-28">
+    <div class="grid lg:grid-cols-2 min-h-[calc(100vh-6rem)]">
+      
+      <!-- Colonne gauche : Contenu + Form -->
+      <div class="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 py-16 lg:py-20 bg-[#FAF8F5] order-2 lg:order-1">
+        <div class="max-w-lg">
+          <p class="text-[11px] font-light tracking-[0.3em] uppercase text-[#2C2824]/40 mb-8">
+            Aveyron · 21 hectares · 15 familles
+          </p>
+          
+          <h1 class="font-playfair text-4xl md:text-5xl xl:text-6xl font-medium text-[#2C2824] mb-6 tracking-tight leading-[1.1]">
+            Vivre autrement,<br/>
+            <span class="text-[#C4A855]">ensemble</span>
+          </h1>
+          
+          <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed">
+            LAOM est un écolieu en Aveyron. Coliving, retraites, agriculture régénérative. On construit un modèle de vie sobre et joyeux — et on partage tout.
+          </p>
+          
+          <!-- Newsletter Form -->
+          <div class="mb-8">
+            <p class="text-sm font-medium text-[#2C2824]/80 mb-4">
+              Recevez les coulisses chaque dimanche
+            </p>
+            <form
+              action="https://app.kit.com/forms/8987350/subscriptions"
+              class="seva-form formkit-form"
+              method="post"
+              data-sv-form="8987350"
+              data-uid="af2e0fc1e5"
+              data-format="inline"
+              data-version="5"
+              data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+            >
+              <div data-style="clean">
+                <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+                <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3">
+                  <input
+                    class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+                    name="email_address"
+                    type="email"
+                    required
+                    aria-label="Votre adresse e-mail"
+                    placeholder="votre@email.com"
+                    autocomplete="email"
+                  />
+                  <button
+                    type="submit"
+                    data-element="submit"
+                    class="px-8 py-4 rounded-sm bg-[#2C2824] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3D3830] transition-colors whitespace-nowrap"
+                  >
+                    S'inscrire
+                  </button>
+                </div>
+              </div>
+            </form>
+            <p class="text-xs text-[#2C2824]/40 mt-3">Pas de spam. Désinscription en un clic.</p>
+          </div>
+          
+          <!-- Quick links -->
+          <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <a href="/project/" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">Découvrir le projet</a>
+            <a href="/stage-danse/" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">Prochaine retraite</a>
+          </div>
+        </div>
       </div>
-      <img 
-          src="/images/laom/capture-d-cran-2023-10-24-22-30-40-95f74a2c.webp" 
-          alt="vue aérienne drone du domaine LAOM,  21 hectares, prairies, forêt, bâtiments, rivière"
-          class="w-full h-full object-cover"
-          loading="lazy"
+      
+      <!-- Colonne droite : Image -->
+      <div class="relative h-[50vh] lg:h-auto order-1 lg:order-2 overflow-hidden">
+        <img 
+          src="/images/laom/vanlifest-img1373.webp" 
+          alt="Communauté LAOM lors d'une retraite"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          fetchpriority="high"
         />
-      <a
-        href={getLocalizedPath('/project/', lang as 'fr' | 'en')}
-        class="inline-block mt-4 text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
-      >
-        {t.home.intro.cta}
-      </a>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent lg:hidden"></div>
+        
+        <!-- Badge flottant -->
+        <div class="absolute bottom-6 right-6 lg:bottom-10 lg:right-10 bg-white/95 backdrop-blur-sm px-5 py-3 rounded-sm shadow-lg">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/50 mb-1">Grand Shambala</p>
+          <p class="text-sm font-medium text-[#2C2824]">850 m² paille porteuse</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 3. Newsletter -->
-  <NewsletterBanner />
+  <!-- 2. Chiffres clés -->
+  <section class="py-16 md:py-20 bg-[#FAF8F5] border-t border-[#2C2824]/5">
+    <div class="max-w-5xl mx-auto px-8 md:px-12 lg:px-24">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">21</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">hectares</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">15</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">familles</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">850</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">m² paille porteuse</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">2019</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">depuis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Image aérienne plein width -->
+  <section class="relative">
+    <div class="aspect-[21/9] md:aspect-[3/1] overflow-hidden">
+      <img 
+        src="/images/laom/capture-d-cran-2023-10-24-22-30-40-95f74a2c.webp" 
+        alt="Vue aérienne du domaine LAOM, 21 hectares, prairies, forêt, bâtiments, rivière"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+  </section>
 
   <!-- 4. En Mouvement,  Immersion signature -->
-  <section id="experience" class="py-24 md:py-32 bg-[#F3EEDC] overflow-hidden">
+  <section id="experience" class="py-24 md:py-32 bg-[#FAF8F5] overflow-hidden">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
         <div class="w-full lg:w-96 flex-shrink-0 opacity-0 delay-200" animate-fade-in-up>
@@ -127,7 +248,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- 5. Journal de bord -->
-  <section class="py-16 md:py-24 bg-[#F3EEDC]">
+  <section class="py-16 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-3xl md:text-4xl font-normal text-black tracking-tight mb-14 opacity-0 title-underline" animate-fade-in-up>
         Journal de bord
@@ -206,7 +327,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- 6. Nos Espaces -->
-  <section id="spaces" class="py-24 md:py-32 bg-[#F3EEDC]">
+  <section id="spaces" class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight text-center mb-16 opacity-0 title-underline mx-auto" animate-fade-in-up>
         {t.home.ourSpaces.sectionTitle}
@@ -216,7 +337,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <button
         type="button"
         id="spaces-prev"
-        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FAF8F5]/90 flex items-center justify-center text-black/60 hover:bg-[#FAF8F5] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
         aria-label="Espace précédent"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
@@ -224,7 +345,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <button
         type="button"
         id="spaces-next"
-        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FAF8F5]/90 flex items-center justify-center text-black/60 hover:bg-[#FAF8F5] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
         aria-label="Espace suivant"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
@@ -285,7 +406,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </script>
 
   <!-- 7. Events partenaires -->
-  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
+  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-20 opacity-0" animate-fade-in-up>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-4 title-underline">
@@ -355,7 +476,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- LaomFest – Citadel Garden style -->
-  <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
+  <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-6">
@@ -386,7 +507,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- 8. YouTube,  video embed -->
-  <section class="py-24 md:py-32 bg-[#F3EEDC]">
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
       <div class="text-center mb-12">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">YouTube</p>
