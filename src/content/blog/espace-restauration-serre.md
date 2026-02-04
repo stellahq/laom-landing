@@ -15,7 +15,9 @@ Aujourd'hui, l'espace restauration de LAOM est une cuisine d'été de 205 m2, co
 
 Mais derrière cette simplicité se cache une vision beaucoup plus ambitieuse.
 
-![La cuisine d'été en activité,  table dressée en plein air, légumes du jardin, lumière naturelle, convivialité du repas partagé](/images/laom/placeholder-cuisine-ete-table.webp)
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : La cuisine d'ete en activite — table dressee en plein air, legumes du jardin</p>
+</div>
 
 ## Le restaurant comme œuvre fractale
 
@@ -29,7 +31,9 @@ Si on regarde LAOM à travers le prisme intégral,  ce que Ken Wilber appelle AQ
 
 **L'extérieur collectif**,  le circuit fermé. La ferme nourrit le restaurant. Le restaurant composte pour la ferme. Le jardin tinctorial fournit des pigments pour la peinture. Les abeilles pollinisent et donnent le miel et la cire. Tout est connecté. La ferme, le restaurant, l'atelier,  une seule œuvre fractale.
 
-![Vue aérienne du jardin, de la serre et de la cuisine d'été,  on voit le système : les parcelles, les chemins, la serre, la table commune, le tout dans le paysage](/images/laom/placeholder-jardin-systeme-aerien.webp)
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Vue aerienne du jardin, de la serre et de la cuisine d'ete — le systeme complet</p>
+</div>
 
 ## La Fractale du Beau, dans l'assiette
 
@@ -39,7 +43,9 @@ Ce principe qui guide toute la construction de LAOM,  le beau à toutes les éch
 
 À l'échelle de la table : des céramiques faites main, des nappes en lin, une vue panoramique sur la vallée. 40 couverts maximum. La qualité avant la quantité.
 
-![Détail d'une assiette composée avec les légumes du jardin,  présentation soignée, céramique artisanale, herbes fraîches, lumière naturelle](/images/laom/placeholder-assiette-jardin.webp)
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Detail d'une assiette composee avec les legumes du jardin — ceramique artisanale</p>
+</div>
 
 À l'échelle du menu : pas de carte fixe. Le chef compose avec ce qui pousse ce jour-là. Chaque repas est une création éphémère, une œuvre qui n'existera qu'une fois.
 
@@ -57,7 +63,9 @@ Sous le restaurant, il y a la terre. Littéralement et métaphoriquement.
 
 L'agriculture régénératrice que nous pratiquons vise à restaurer les écosystèmes en enrichissant les sols et en soutenant la biodiversité. Nous ne nous contentons pas de produire,  nous régénérons. Chaque rotation est une chorégraphie, chaque récolte est une performance, chaque saison est un apprentissage.
 
-![Le jardin nourricier en pleine saison,  rangées de légumes, diversité des cultures, fleurs mélangées, terre vivante, ciel d'été](/images/laom/placeholder-jardin-pleine-saison.webp)
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Le jardin nourricier en pleine saison — rangees de legumes, diversite des cultures</p>
+</div>
 
 Le jardin nourricier alimente les habitants du lieu et les personnes accueillies lors des stages et des événements. La ferme maraîchère pédagogique est un espace de transmission,  des ateliers pratiques, des temps de sensibilisation, des expériences ouvertes aux enfants comme aux adultes.
 
@@ -81,4 +89,6 @@ La cuisine d'été fonctionne. La serre pousse. Le jardin grandit. Lorenzo, cuis
 
 En attendant le restaurant, chaque repas partagé à LAOM est déjà une expérience. La table commune, la nourriture du jardin, la conversation entre résidents et visiteurs,  le cœur de l'œuvre vivante bat déjà.
 
-![Repas partagé à la table commune,  résidents et visiteurs ensemble, lumière du soir, rires, nourriture du jardin, ambiance chaleureuse](/images/laom/placeholder-repas-partage-soir.webp)
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Repas partage a la table commune — residents et visiteurs, lumiere du soir</p>
+</div>

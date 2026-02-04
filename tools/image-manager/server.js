@@ -28,6 +28,7 @@ const PROJECT_ROOT = join(__dirname, '..', '..')
 const PHOTOTHEQUE_DIR = join(PROJECT_ROOT, 'phototheque')
 const PUBLIC_IMAGES_DIR = join(PROJECT_ROOT, 'public', 'images', 'laom')
 const SRC_PAGES_DIR = join(PROJECT_ROOT, 'src', 'pages')
+const SRC_CONTENT_DIR = join(PROJECT_ROOT, 'src', 'content')
 
 const PORT = 3001
 const ASTRO_PORT = 3000
@@ -54,6 +55,7 @@ const config = {
   photothequeDir: PHOTOTHEQUE_DIR,
   publicImagesDir: PUBLIC_IMAGES_DIR,
   srcPagesDir: SRC_PAGES_DIR,
+  srcContentDir: SRC_CONTENT_DIR,
   astroPort: ASTRO_PORT
 }
 

@@ -201,42 +201,65 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- 4. En Mouvement,  Immersion signature -->
-  <section id="experience" class="py-24 md:py-32 bg-[#FAF8F5] overflow-hidden">
+  <!-- 4. Immersions signature -->
+  <section id="immersions" class="py-24 md:py-32 bg-[#FAF8F5] overflow-hidden">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-        <div class="w-full lg:w-96 flex-shrink-0 opacity-0 delay-200" animate-fade-in-up>
-          <a href="/stage-danse/" class="block group">
-            <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
-              <img
-                src="/images/laom/samuel-planas.webp"
-                alt="Samuel Planas,  En Mouvement, immersion par le corps à LAOM"
-                class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
-                width="900"
-                height="1200"
-              />
-            </div>
-          </a>
-        </div>
-        <div class="flex-1 opacity-0" animate-fade-in-up>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-4">Immersion signature</p>
-          <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-6 leading-tight tracking-tight">
+      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-4">Immersions signature</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Nos programmes d'immersion
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <!-- En Mouvement -->
+        <a href="/stage-danse/" class="group block opacity-0" animate-fade-in-up>
+          <div class="aspect-[4/5] bg-neutral-100 overflow-hidden rounded-sm mb-6">
+            <img
+              src="/images/laom/samuel-planas.webp"
+              alt="Samuel Planas, En Mouvement, immersion par le corps à LAOM"
+              class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Corps & mouvement</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
             En Mouvement
-          </h2>
-          <p class="text-base md:text-lg font-light text-black/70 mb-8 leading-relaxed">
-            5 jours d'immersion centrés sur la danse et le mouvement. Guidé par Samuel Planas, danseur professionnel formé au Conservatoire National Supérieur de Paris, et Charly Aubert, coach et co-fondateur LAOM. Ouvert à tous, aucune expérience de danse requise.
+          </h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            5 jours d'immersion par la danse et le mouvement. Guidé par Samuel Planas et Charly Aubert. Ouvert à tous.
           </p>
-          <p class="text-lg font-light text-black/60 leading-relaxed mb-4">
-            3 sessions cet été : 5-9 août, 11-15 août, 16-20 août 2026.
+          <p class="text-sm font-light text-[#2C2824]/50">
+            Août 2026 · 3 sessions
           </p>
-          <a
-            href="/stage-danse/"
-            class="inline-block mt-6 text-base text-black/60 hover:text-black transition-colors font-light underline underline-offset-4"
-          >
-            Découvrir le stage
-          </a>
-        </div>
+        </a>
+
+        <!-- Clarté -->
+        <a href="/clarte/" class="group block opacity-0" animate-fade-in-up style="animation-delay: 100ms">
+          <div class="aspect-[4/5] bg-[#1a1a1a] overflow-hidden rounded-sm mb-6 flex items-center justify-center relative">
+            <!-- Gradient abstrait pour Clarté -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#2C2824] via-[#1a1a1a] to-[#0a0a0a]"></div>
+            <div class="absolute inset-0 opacity-40" style="background-image: radial-gradient(circle at 30% 40%, rgba(196,168,85,0.2) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(196,168,85,0.15) 0%, transparent 40%);"></div>
+            <div class="relative z-10 text-center px-8">
+              <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-4">
+                <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p class="font-playfair text-3xl font-medium text-white tracking-tight">Clarté</p>
+            </div>
+          </div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Vision & système</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+            Clarté
+          </h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            Un week-end pour créer ton système de vie : vision, PARA, et Claude Code comme agent IA personnel.
+          </p>
+          <p class="text-sm font-light text-[#2C2824]/50">
+            25-27 avril 2026 · 12 places
+          </p>
+        </a>
       </div>
     </div>
   </section>

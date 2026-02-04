@@ -57,7 +57,7 @@ const PLACEHOLDER_PATTERNS = [
  */
 export function setupAstroParserRoutes(app, config) {
   const router = Router()
-  const { srcPagesDir } = config
+  const { srcPagesDir, srcContentDir } = config
 
   /**
    * GET /api/pages
@@ -66,6 +66,11 @@ export function setupAstroParserRoutes(app, config) {
   router.get('/', async (req, res) => {
     try {
       const pages = await listPages(srcPagesDir)
+      // Also list content files (blog articles)
+      if (srcContentDir) {
+        const contentFiles = await listContentFiles(srcContentDir)
+        pages.push(...contentFiles)
+      }
       res.json({ pages })
     } catch (err) {
       console.error('Erreur listage pages:', err)
@@ -109,6 +114,7 @@ export function setupAstroParserRoutes(app, config) {
   /**
    * POST /api/pages/replace-image-src
    * Remplace le src d'une image existante par une nouvelle image
+   * Cherche dans src/pages/ puis src/content/ si non trouve
    */
   router.post('/replace-image-src', async (req, res) => {
     try {
@@ -120,16 +126,53 @@ export function setupAstroParserRoutes(app, config) {
         return res.status(400).json({ error: 'Paramètres manquants: pagePath, oldSrc, newSrc requis' })
       }
 
-      const fullPath = join(srcPagesDir, pagePath)
-      console.log('[replace-image-src] Full path:', fullPath)
-      
-      // Vérifier sécurité
-      if (!fullPath.startsWith(srcPagesDir)) {
-        return res.status(403).json({ error: 'Chemin non autorisé' })
+      // Try to find the file in multiple locations
+      let fullPath = null
+      let content = null
+
+      // 1. Try src/pages/ first (for .astro files)
+      const pagesPath = join(srcPagesDir, pagePath)
+      console.log('[replace-image-src] Trying pages path:', pagesPath)
+      try {
+        if (pagesPath.startsWith(srcPagesDir)) {
+          content = await fs.readFile(pagesPath, 'utf-8')
+          fullPath = pagesPath
+          console.log('[replace-image-src] Found in pages dir')
+        }
+      } catch (e) {
+        if (e.code !== 'ENOENT') throw e
       }
 
-      let content = await fs.readFile(fullPath, 'utf-8')
-      console.log('[replace-image-src] File loaded, length:', content.length)
+      // 2. If not found and we have srcContentDir, try there
+      if (!content && srcContentDir) {
+        // Map pagePath to content path
+        // e.g., "blog/petit-shambala.astro" -> "blog/petit-shambala.md"
+        // or handle direct .md paths
+        let contentPath = pagePath
+        if (contentPath.endsWith('.astro')) {
+          contentPath = contentPath.replace('.astro', '.md')
+        } else if (!contentPath.endsWith('.md')) {
+          contentPath = contentPath + '.md'
+        }
+        
+        const contentFullPath = join(srcContentDir, contentPath)
+        console.log('[replace-image-src] Trying content path:', contentFullPath)
+        try {
+          if (contentFullPath.startsWith(srcContentDir)) {
+            content = await fs.readFile(contentFullPath, 'utf-8')
+            fullPath = contentFullPath
+            console.log('[replace-image-src] Found in content dir')
+          }
+        } catch (e) {
+          if (e.code !== 'ENOENT') throw e
+        }
+      }
+
+      if (!content) {
+        return res.status(404).json({ error: 'Fichier non trouve dans pages/ ni content/' })
+      }
+
+      console.log('[replace-image-src] File loaded from:', fullPath, 'length:', content.length)
       
       // Chercher l'image avec l'ancien src
       // Pattern: src="oldSrc" ou src='oldSrc' ou src={oldSrc}
@@ -157,9 +200,7 @@ export function setupAstroParserRoutes(app, config) {
       }
 
       if (!replaced) {
-        console.log('[replace-image-src] NOT FOUND! Dumping first occurrences of "speaker" in content:')
-        const speakerMatches = content.match(/src="[^"]*speaker[^"]*"/g)
-        console.log('[replace-image-src] Speaker src matches:', speakerMatches)
+        console.log('[replace-image-src] NOT FOUND in file content')
         return res.status(404).json({ error: 'Image source non trouvée dans la page' })
       }
 
@@ -177,7 +218,8 @@ export function setupAstroParserRoutes(app, config) {
         success: true, 
         oldSrc,
         newSrc,
-        pagePath
+        pagePath,
+        actualPath: fullPath
       })
     } catch (err) {
       if (err.code === 'ENOENT') {
@@ -342,6 +384,52 @@ async function listPages(dir, basePath = '') {
   pages.sort((a, b) => b.placeholderCount - a.placeholderCount)
   
   return pages
+}
+
+/**
+ * Liste recursive des fichiers de contenu .md (blog articles)
+ */
+async function listContentFiles(dir, basePath = '') {
+  const files = []
+  
+  try {
+    const entries = await fs.readdir(dir, { withFileTypes: true })
+    
+    for (const entry of entries) {
+      const entryPath = join(basePath, entry.name)
+      const fullPath = join(dir, entry.name)
+      
+      if (entry.isDirectory()) {
+        // Recursion dans les sous-dossiers
+        const subFiles = await listContentFiles(fullPath, entryPath)
+        files.push(...subFiles)
+      } else if (entry.name.endsWith('.md') && !entry.name.endsWith('-en.md')) {
+        // Skip English versions (they're duplicates)
+        // Lire le fichier pour compter les placeholders
+        const content = await fs.readFile(fullPath, 'utf-8')
+        const placeholders = extractPlaceholders(content, entryPath)
+        
+        // Map content path to URL (e.g., blog/petit-shambala.md -> /blog/petit-shambala/)
+        const url = '/' + entryPath.replace('.md', '/').replace(/\\/g, '/')
+        
+        files.push({
+          path: entryPath,
+          name: entry.name.replace('.md', ''),
+          url: url,
+          placeholderCount: placeholders.length,
+          isContent: true // Flag to identify content files
+        })
+      }
+    }
+  } catch (err) {
+    // Directory doesn't exist, return empty
+    console.log('[listContentFiles] Directory not found:', dir)
+  }
+  
+  // Trier par nombre de placeholders (decroissant)
+  files.sort((a, b) => b.placeholderCount - a.placeholderCount)
+  
+  return files
 }
 
 /**

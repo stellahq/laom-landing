@@ -19,19 +19,8 @@ C'est ça, l'histoire du Petit Shambala. Pas un récit lisse d'éco-construction
 
 Mais je vais trop vite. Reprenons du début.
 
-<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
-  <img 
-    src="/images/placeholder/petit-shambala-exterieur-actuel.webp" 
-    alt="Vue extérieure du Petit Shambala"
-    data-placeholder="true"
-    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
-  />
-  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
-    <div style="text-align: center; padding: 1.5rem;">
-      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
-      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Vue extérieure actuelle du Petit Shambala — la maison dans son environnement, potager visible si possible</p>
-    </div>
-  </div>
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Vue exterieure actuelle du Petit Shambala — la maison dans son environnement, potager visible si possible</p>
 </div>
 
 ## Un studio de yoga démoli
@@ -52,19 +41,8 @@ Quelques semaines plus tard, rebelote. 49 m², c'est encore trop juste. On repas
 
 Le budget explose. Le planning aussi. Mais on a une vraie maison.
 
-<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
-  <img 
-    src="/images/placeholder/petit-shambala-chantier-evolution.webp" 
-    alt="Évolution du chantier Petit Shambala"
-    data-placeholder="true"
-    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
-  />
-  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
-    <div style="text-align: center; padding: 1.5rem;">
-      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
-      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Photo du chantier en cours d'agrandissement — structure bois visible, modifications en cours</p>
-    </div>
-  </div>
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Chantier en cours d'agrandissement — structure bois visible, modifications en cours</p>
 </div>
 
 ## L'appel à un ami
@@ -81,19 +59,8 @@ Serge, c'est celui que j'appelle quand je ne sais pas. Une question sur une stru
 
 C'est comme ça que j'ai appris la construction bois. Pas dans une école. Au téléphone, avec Serge, face à mes erreurs en temps réel.
 
-<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
-  <img 
-    src="/images/placeholder/serge-chantier.webp" 
-    alt="Serge"
-    data-placeholder="true"
-    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
-  />
-  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
-    <div style="text-align: center; padding: 1.5rem;">
-      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
-      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Portrait de Serge, ou Serge en train d'expliquer quelque chose, ou un de ses croquis</p>
-    </div>
-  </div>
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Portrait de Serge, ou Serge en train d'expliquer quelque chose, ou un de ses croquis</p>
 </div>
 
 ## L'équipe des premières heures
@@ -110,19 +77,8 @@ Le Petit Shambala, c'est deux ans de chantier intermittent. 2022-2024. Une équi
 
 **Lolo** — mon frère. Il m'a aidé à faire le sol en terre crue. Ce qui nous amène à la partie la plus technique de cette histoire.
 
-<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
-  <img 
-    src="/images/placeholder/equipe-petit-shambala.webp" 
-    alt="L'équipe du Petit Shambala"
-    data-placeholder="true"
-    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
-  />
-  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
-    <div style="text-align: center; padding: 1.5rem;">
-      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
-      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Photo de groupe sur le chantier — Paul, Khaldoun, Rémy, Sébastien, Lolo, ou une partie de l'équipe</p>
-    </div>
-  </div>
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Photo de groupe sur le chantier — Paul, Khaldoun, Remy, Sebastien, Lolo, ou une partie de l'equipe</p>
 </div>
 
 ## Le sol en terre : 13 mètres cubes à la main
@@ -149,19 +105,8 @@ Quand c'était sec, le résultat était magnifique. Une surface douce, dense, av
 
 Et on passe à l'étape du huilage.
 
-<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
-  <img 
-    src="/images/placeholder/sol-terre-lissage.webp" 
-    alt="Lissage du sol en terre crue"
-    data-placeholder="true"
-    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
-  />
-  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
-    <div style="text-align: center; padding: 1.5rem;">
-      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
-      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Le sol en terre pendant ou après le lissage — texture visible, lumière rasante</p>
-    </div>
-  </div>
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Le sol en terre pendant ou apres le lissage — texture visible, lumiere rasante</p>
 </div>
 
 ### L'huile de chanvre : intelligent, mais mal exécuté
@@ -218,19 +163,8 @@ La solution alternative : j'ai fait une double ossature croisée avec des pannea
 
 On ne l'a pas fait. On vit avec. Et on compense avec la ventilation.
 
-<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
-  <img 
-    src="/images/placeholder/petit-shambala-interieur-actuel.webp" 
-    alt="Intérieur actuel du Petit Shambala"
-    data-placeholder="true"
-    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
-  />
-  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
-    <div style="text-align: center; padding: 1.5rem;">
-      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
-      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Vue intérieure actuelle — salon ou pièce de vie, ambiance quotidienne</p>
-    </div>
-  </div>
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Vue interieure actuelle — salon ou piece de vie, ambiance quotidienne</p>
 </div>
 
 ## Ce qu'on a bien fait
@@ -259,19 +193,8 @@ Le **plafond acoustique** est super beau. Le **bureau**, le **mobilier sur mesur
 
 C'est beau. On aime cette maison.
 
-<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
-  <img 
-    src="/images/placeholder/famille-petit-shambala.webp" 
-    alt="La famille au Petit Shambala"
-    data-placeholder="true"
-    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
-  />
-  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
-    <div style="text-align: center; padding: 1.5rem;">
-      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
-      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Photo de famille — Charly, Amandine, Livio (et/ou Félix, Gribouille) dans ou devant la maison, ou intérieur avec les finitions visibles</p>
-    </div>
-  </div>
+<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
+  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Photo de famille — Charly, Amandine, Livio (et/ou Felix, Gribouille) dans ou devant la maison</p>
 </div>
 
 ## Qui habite là aujourd'hui

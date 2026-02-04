@@ -48,10 +48,13 @@ const t = getTranslations(lang as 'fr' | 'en')
     </div>
 
     <!-- Copyright -->
-    <div class="border-t border-white/10 pt-8">
-      <p class="text-white/50 text-xs font-light text-center">
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white/50 text-xs font-light">
         {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
       </p>
+      <a href="/brainstorming-2026/" class="text-white/70 hover:text-white text-sm font-light transition-colors">
+        Accès associés
+      </a>
     </div>
   </div>
 </footer>
