@@ -4,6 +4,12 @@ import Hero from '~/components/Hero.astro'
 import NewsletterBanner from '~/components/NewsletterBanner.astro'
 import { createWebSiteSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
+import { getCollection } from 'astro:content'
+
+const allPosts = (await getCollection('blog'))
+  .filter(post => post.data.locale === 'en' && !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
 
 const lang = 'en' as const
 const t = getI18nTranslations(lang)
@@ -24,107 +30,181 @@ const events = t.events.items.map((item, index) => ({
 }))
 
 const spaceImages = [
-  'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=420&h=560&fit=crop&q=85', // Guinguette Restaurant - healthy fresh vegetables
-  'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=420&h=560&fit=crop&q=85', // The rooms (fallback; use /images/laom/chambres.webp when available)
-  '/images/laom/tipis.webp', // Tipis - portrait format, cropped on the right, optimized WebP
-  '/images/laom/salle-de-pratique.webp', // Practice hall - portrait format, cropped on the right, optimized WebP
-  '/images/laom/planification/agri-1-0246e509.webp', // Garden
-  'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=420&h=560&fit=crop&q=85', // Shared living space - people socializing in a cafe
-  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=420&h=560&fit=crop&q=85', // Coworking – tables, laptops, people, natural light
+  'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=420&h=560&fit=crop&q=85',
+  'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=420&h=560&fit=crop&q=85',
+  '/images/laom/tipis.webp',
+  '/images/laom/salle-de-pratique.webp',
+  '/images/laom/planification/agri-1-0246e509.webp',
+  'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=420&h=560&fit=crop&q=85',
+  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=420&h=560&fit=crop&q=85',
 ]
 const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceImages[i] || spaceImages[0] }))
-
 ---
 
-<Layout 
+<Layout
   title={`${t.site.name} – ${t.site.tagline}`}
   description={t.site.description}
   seo={{
     ldJSON: siteSchema,
   }}
 >
+  <!-- 1. Hero -->
   <div class="-mt-24 md:-mt-28">
     <Hero />
   </div>
 
-  <!-- Intro Section – Our Habitas Tulum style, white background -->
-  <section class="py-24 md:py-32 lg:py-40 bg-white">
-    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <p class="text-[11px] md:text-xs font-light tracking-[0.3em] text-black/50 mb-4 uppercase">
-        {t.home.intro.location}
-      </p>
-      <h2 class="text-2xl md:text-3xl lg:text-4xl font-extralight tracking-tight text-black mb-3 leading-tight">
+  <!-- 2. Intro / Presentation LAOM -->
+  <section id="intro" class="py-12 md:py-16 bg-[#F3EEDC]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
+      <h2 class="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-black mb-10 leading-tight title-underline">
         {t.home.intro.title}
       </h2>
-      <p class="text-base md:text-lg font-light tracking-wide text-black/70 mb-12">
+      <p class="text-xl md:text-2xl font-normal text-black/70 mb-12 max-w-3xl mx-auto">
         {t.home.intro.tagline}
       </p>
-      <div class="space-y-6 text-lg md:text-xl font-light text-black/80 leading-relaxed text-justify">
+      <div class="space-y-6 text-lg md:text-xl font-normal text-black/80 leading-relaxed text-left max-w-3xl mx-auto">
         {t.home.intro.paragraphs.map((p) => (
           <p>{p}</p>
         ))}
       </div>
+      <div class="mt-14 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm max-w-3xl mx-auto">
+        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo to take: aerial view of LAOM estate, 21 hectares, meadows, forest, buildings, river</p>
+      </div>
       <a
         href={getLocalizedPath('/project/', lang)}
-        class="inline-block mt-14 px-12 py-4 border border-black text-black font-light tracking-[0.2em] hover:bg-black hover:text-white transition-all duration-300 uppercase text-xs"
+        class="inline-block mt-4 text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
       >
         {t.home.intro.cta}
       </a>
     </div>
   </section>
 
+  <!-- 3. Newsletter -->
   <NewsletterBanner />
 
-  <!-- Immersion Signature Section - EN MOUVEMENT -->
-  <section id="experience" class="py-32 lg:py-40 bg-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
-        <!-- Text Content -->
-        <div class="lg:w-1/2 opacity-0" animate-fade-in-up>
-          <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
-            {t.home.immersionSignature.overline}
-          </span>
-          <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-black mb-8 leading-tight">
-            {t.home.immersionSignature.title}
-          </h2>
-          <p class="text-xl font-light text-black/60 mb-8 leading-relaxed">
-            {t.home.immersionSignature.subtitle}
-          </p>
-          <div class="w-12 h-[1px] bg-black/20 mb-8"></div>
-          <div class="space-y-6 text-lg font-light text-black/80 leading-relaxed text-left">
-            {t.home.immersionSignature.paragraphs.map((p) => (
-              <p>{p}</p>
-            ))}
-          </div>
-          <a
-            href={getLocalizedPath('/events/', lang)}
-            class="inline-block mt-10 px-10 py-4 border border-black text-black font-light tracking-[0.2em] hover:bg-black hover:text-white transition-all duration-300 uppercase text-xs"
-          >
-            {t.home.immersionSignature.cta}
+  <!-- 4. En Mouvement, signature immersion -->
+  <section id="experience" class="py-24 md:py-32 bg-[#F3EEDC] overflow-hidden">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+        <div class="w-full lg:w-96 flex-shrink-0 opacity-0 delay-200" animate-fade-in-up>
+          <a href="/en/stage-danse/" class="block group">
+            <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
+              <img
+                src="/images/laom/samuel-planas.webp"
+                alt="Samuel Planas, En Mouvement, body immersion at LAOM"
+                class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+                loading="lazy"
+                width="900"
+                height="1200"
+              />
+            </div>
           </a>
         </div>
-        
-        <!-- Image -->
-        <div class="lg:w-1/2 relative opacity-0 delay-200" animate-fade-in-up>
-          <div class="aspect-[4/5] bg-neutral-100 rounded-sm overflow-hidden">
-            <img
-              src="/images/laom/immersion-mouvement.webp"
-              alt={t.home.immersionSignature.imageAlt}
-              class="w-full h-full object-cover rounded-sm"
-              loading="lazy"
-              width="900"
-              height="1200"
-            />
-          </div>
+        <div class="flex-1 opacity-0" animate-fade-in-up>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-4">Signature immersion</p>
+          <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-6 leading-tight tracking-tight">
+            En Mouvement
+          </h2>
+          <p class="text-base md:text-lg font-light text-black/70 mb-8 leading-relaxed">
+            5 days of immersion centred on dance and movement. Led by Samuel Planas, professional dancer trained at the Conservatoire National Supérieur de Paris, and Charly Aubert, coach and co-founder of LAOM. Open to all, no dance experience required.
+          </p>
+          <p class="text-lg font-light text-black/60 leading-relaxed mb-4">
+            3 sessions this summer: 5–9 August, 11–15 August, 16–20 August 2026.
+          </p>
+          <a
+            href="/en/stage-danse/"
+            class="inline-block mt-6 text-base text-black/60 hover:text-black transition-colors font-light underline underline-offset-4"
+          >
+            Discover the workshop
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Nos Espaces – Our Rooms style (horizontal scroll, portrait cards, arrows, no bar) -->
-  <section id="spaces" class="py-24 md:py-32 bg-[#fafafa]">
-    <div class="max-w-7xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-black/80 tracking-tight text-center mb-12 md:mb-14 opacity-0" animate-fade-in-up>
+  <!-- 5. Journal de bord -->
+  <section class="py-16 md:py-24 bg-[#F3EEDC]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="text-3xl md:text-4xl font-normal text-black tracking-tight mb-14 opacity-0 title-underline" animate-fade-in-up>
+        {t.home.journalTitle}
+      </h2>
+
+      <div class="opacity-0" animate-fade-in-up>
+        <!-- Featured: Grand Shambala -->
+        <a href="/en/grand-shambala-v2/" class="group block mb-10">
+          <article class="flex flex-col md:flex-row gap-8 items-start">
+            <div class="w-full md:w-2/3 aspect-[16/9] overflow-hidden rounded-sm">
+              <img
+                src="/images/laom/grand-shambala/p1.webp"
+                alt="Grand Shambala, 850 m² load-bearing straw"
+                class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                loading="lazy"
+              />
+            </div>
+            <div class="flex-1 py-2">
+              <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-3">
+                {t.home.featuredLabel}
+              </p>
+              <h3 class="font-playfair text-2xl md:text-3xl font-normal text-black mb-3 tracking-tight leading-snug">
+                {t.home.grandShambalaTitle}
+              </h3>
+              <p class="text-base font-light text-black/60 leading-relaxed line-clamp-3">
+                {t.home.grandShambalaDescription}
+              </p>
+              <span class="inline-block mt-4 text-sm text-black/50 group-hover:text-black transition-colors underline underline-offset-4">
+                {t.home.readArticle}
+              </span>
+            </div>
+          </article>
+        </a>
+
+        <!-- Other articles from blog -->
+        {allPosts.length > 0 && (
+          <div class="grid md:grid-cols-2 gap-8">
+            {allPosts.slice(0, 2).map((post) => (
+              <a href={getLocalizedPath(`/blog/${post.slug}/`, lang)} class="group block">
+                <article class="flex flex-col">
+                  {post.data.heroImage && (
+                    <div class="aspect-[16/10] overflow-hidden rounded-sm mb-5">
+                      <img
+                        src={post.data.heroImage}
+                        alt={post.data.title}
+                        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-2">
+                    {new Date(post.data.pubDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
+                  </p>
+                  <h3 class="font-playfair text-xl font-normal text-black mb-2 tracking-tight leading-snug">
+                    {post.data.title}
+                  </h3>
+                  <p class="text-sm font-light text-black/60 leading-relaxed line-clamp-2">
+                    {post.data.description}
+                  </p>
+                </article>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href={getLocalizedPath('/blog/', lang)}
+          class="text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
+        >
+          {t.home.allArticlesLink}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Our Spaces -->
+  <section id="spaces" class="py-24 md:py-32 bg-[#F3EEDC]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight text-center mb-16 opacity-0 title-underline mx-auto" animate-fade-in-up>
         {t.home.ourSpaces.sectionTitle}
       </h2>
     </div>
@@ -132,7 +212,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <button
         type="button"
         id="spaces-prev"
-        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-white/90 flex items-center justify-center text-black/60 hover:bg-white hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
         aria-label="Previous space"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
@@ -140,7 +220,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <button
         type="button"
         id="spaces-next"
-        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-white/90 flex items-center justify-center text-black/60 hover:bg-white hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
         aria-label="Next space"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
@@ -149,22 +229,22 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         <div class="flex gap-6 pl-10 sm:pl-16 lg:pl-24 pr-14 sm:pr-24 lg:pr-36 py-2 min-w-max">
           {spaces.map((space, i) => (
             <article class="spaces-card flex-shrink-0 w-[260px] sm:w-[280px] snap-start opacity-0" animate-fade-in-up style={`animation-delay: ${i * 80}ms`}>
-              <div class="aspect-[3/4] bg-neutral-100 overflow-hidden">
+              <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
                 <img
                   src={space.image}
                   alt={(space as { imageAlt?: string }).imageAlt ?? space.title}
-                  class={`w-full h-full object-cover ${i === 2 ? 'object-left' : i === 3 ? 'object-right' : ''}`}
+                  class={`w-full h-full object-cover rounded-sm ${i === 2 ? 'object-left' : i === 3 ? 'object-right' : ''}`}
                   loading="lazy"
                   width="420"
                   height="560"
                   decoding="async"
                 />
               </div>
-              <div class="mt-4 px-2 sm:px-3">
-                <h3 class="text-sm font-semibold tracking-wider uppercase text-black">
+              <div class="mt-5 px-2 sm:px-3">
+                <h3 class="text-base font-normal tracking-wide text-black mb-3 uppercase">
                   {space.title}
                 </h3>
-                <p class="mt-2 text-sm font-normal text-black/70 leading-relaxed">
+                <p class="text-sm font-normal text-black/70 leading-relaxed">
                   {space.description}
                   {(space as { note?: string }).note && (
                     <>
@@ -190,76 +270,65 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       const card = container.querySelector('.spaces-card')
       const gap = 24
       const scrollAmount = (card ? card.offsetWidth + gap : 304)
-
-      prevBtn.addEventListener('click', () => {
-        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
-      })
-      nextBtn.addEventListener('click', () => {
-        container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
-      })
+      prevBtn.addEventListener('click', () => { container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }) })
+      nextBtn.addEventListener('click', () => { container.scrollBy({ left: scrollAmount, behavior: 'smooth' }) })
     })()
   </script>
 
-  <!-- Les prochains événements – Our Rooms style (cards grid) -->
-  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#fafafa]">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-14 md:mb-16 opacity-0" animate-fade-in-up>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-black/90 tracking-tight">
+  <!-- 7. Partner events -->
+  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-20 opacity-0" animate-fade-in-up>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-4 title-underline">
           {t.events.allTitle}
         </h2>
         <a
           href={getLocalizedPath('/events/', lang)}
-          class="inline-block mt-6 text-sm border-b border-black/40 pb-1 hover:border-black transition-colors"
+          class="block mt-4 text-sm text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
         >
           {t.events.viewAllLink}
         </a>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 opacity-0" animate-fade-in-up>
+      <div class="space-y-16 opacity-0" animate-fade-in-up>
         {events.map((event) => {
           const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
           const inner = (
             <>
-              <div class="aspect-[4/3] bg-neutral-100 overflow-hidden">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  class="w-full h-full object-cover rounded-sm"
-                  loading="lazy"
-                  width="400"
-                  height="300"
-                  decoding="async"
-                />
+              <div class="w-full md:w-80 flex-shrink-0">
+                <div class="aspect-[4/3] bg-neutral-100 overflow-hidden rounded-sm">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    class="w-full h-full object-cover rounded-sm"
+                    loading="lazy"
+                    width="400"
+                    height="300"
+                    decoding="async"
+                  />
+                </div>
               </div>
-              <div class="p-5 md:p-6 flex flex-col flex-1">
-                <p class="text-[11px] font-light tracking-[0.2em] uppercase text-black/50 mb-2">
-                  {event.date}
-                </p>
-                <h3 class="text-sm md:text-base font-semibold tracking-wider uppercase text-black mb-3">
-                  {event.title}
-                </h3>
-                <p class="text-sm font-normal text-black/70 leading-relaxed flex-1">
-                  {event.description}
-                </p>
+              <div class="flex-1">
+                <p class="text-sm font-normal text-black/50 mb-2">{event.date}</p>
+                <h3 class="text-2xl md:text-3xl font-normal text-black mb-4 tracking-tight">{event.title}</h3>
+                <p class="text-base font-normal text-black/70 leading-relaxed">{event.description}</p>
               </div>
             </>
           )
           return (
-            <article class="bg-white flex flex-col overflow-hidden">
+            <article class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
               {eventHref ? (
                 <a
                   href={eventHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
+                  class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
                   aria-label={`${event.title} (opens in new tab)`}
                 >
                   {inner}
                 </a>
               ) : (
-                <div class="flex flex-col flex-1">
-                  {inner}
-                </div>
+                <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full">{inner}</div>
               )}
             </article>
           )
@@ -268,7 +337,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- LaomFest -->
+  <!-- LaomFest – Citadel Garden style -->
   <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10">
@@ -299,45 +368,39 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- Channels Section (Suivre le projet) -->
-  <section class="py-24 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-10 text-center">{t.home.channelsTitle}</h2>
-      <div class="grid gap-6 md:grid-cols-3">
-        {t.home.channels.map((item) => {
-          const url = 'href' in item ? item.href : undefined
-          const isExternal = url && String(url).startsWith('http')
-          return url ? (
-            <a
-              href={url}
-              class="block border border-black/10 bg-[#f3efe7] p-6 lg:p-8 hover:border-black/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
-              {...(isExternal && { target: '_blank', rel: 'noopener noreferrer', 'aria-label': `${item.title} (opens in new tab)` })}
-            >
-              <h3 class="text-lg font-light text-black mb-3">{item.title}</h3>
-              <p class="text-sm font-light text-black/60 leading-relaxed">{item.description}</p>
-            </a>
-          ) : (
-            <div class="border border-black/10 bg-[#f3efe7] p-6 lg:p-8">
-              <h3 class="text-lg font-light text-black mb-3">{item.title}</h3>
-              <p class="text-sm font-light text-black/60 leading-relaxed">{item.description}</p>
-            </div>
-          )
-        })}
+  <!-- 8. YouTube, video embed -->
+  <section class="py-24 md:py-32 bg-[#F3EEDC]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+      <div class="text-center mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">YouTube</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-normal text-black tracking-tight mb-6 title-underline mx-auto">
+          {t.home.youtubeTitle}
+        </h2>
+        <p class="text-lg font-light text-black/60 leading-relaxed max-w-2xl mx-auto">
+          {t.home.youtubeDescription}
+        </p>
       </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-20 bg-[#2d5016] text-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <h2 class="text-3xl md:text-4xl font-light mb-4">{t.home.ctaTitle}</h2>
-      <p class="text-lg font-light text-white/80 mb-8">{t.home.ctaDescription}</p>
-      <a
-        href={getLocalizedPath('/newsletter', lang)}
-        class="inline-flex items-center justify-center rounded-sm bg-white text-black px-8 py-3 text-xs tracking-[0.25em] uppercase hover:bg-white/90 transition-colors"
-      >
-        {t.home.ctaButton}
-      </a>
+      <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
+        <iframe
+          src="https://www.youtube.com/embed/Bltd5fr5VVY"
+          title="Grand Shambala construction, LAOM, conference and timelapse"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="text-center mt-8">
+        <a
+          href="https://www.youtube.com/@charlyaubert"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          {t.home.subscribeChannel}
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

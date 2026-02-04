@@ -1,0 +1,73 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Grand Shambala – The world\'s largest load-bearing straw building',
+  url: Astro.url.toString(),
+  description: 'How a small group built the world\'s largest load-bearing straw building: 850 m², two storeys, 75 days. From Earthship intuition to lime renders, the full story of an extraordinary build in an eco-hamlet in the south of Aveyron.',
+})
+---
+
+<Layout
+  title="Grand Shambala – The world's largest load-bearing straw building | LAOM"
+  description="How a small group built the world's largest load-bearing straw building: 850 m², two storeys, 75 days. Full story of the build at LAOM eco-hamlet."
+  seo={{ ldJSON: pageSchema }}
+>
+  <!-- Hero -->
+  <section class="relative w-full -mt-24 md:-mt-28">
+    <img src="/images/laom/grand-shambala/p1.webp" alt="Drone view of Grand Shambala, 850 m² of load-bearing straw in the Aveyron landscape" class="w-full object-cover" loading="eager" decoding="async" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent flex flex-col items-center justify-end pb-12 md:pb-20 gap-3 md:gap-4">
+      <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight drop-shadow-lg">
+        Grand Shambala
+      </h1>
+      <p class="text-sm md:text-base font-light tracking-[0.08em] text-white/75 max-w-lg text-center drop-shadow-md">
+        The world's largest load-bearing straw building, 850 m² on two storeys
+      </p>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="py-16 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">Introduction</p>
+      <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824] mb-6">
+        Grand Shambala is the heart of LAOM, an eco-hamlet of 21 hectares in the south of Aveyron. 850 m² on two storeys: coliving, housing, workshops, common space, entirely built in load-bearing straw, wood, earth and lime. A passive building, close to autonomy, where you only breathe natural materials.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
+        The full long-form article tells how it was built: the steps, the choices, the difficulties and how they were overcome. You'll read how four people raised the walls in fifteen days, how a steel structure was abandoned because it contradicted our values, and how three insulation machines failed before the right one was found.
+      </p>
+    </div>
+  </section>
+
+  <!-- Full article in French -->
+  <section class="py-16 md:py-24 bg-white border-t border-black/5">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="border border-[#C4A855]/30 bg-[#FAF8F5] rounded-sm p-8 md:p-10">
+        <p class="text-sm font-medium tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">Long-form article</p>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] tracking-tight mb-4">
+          Full story available in French
+        </h2>
+        <p class="text-base font-light text-[#2C2824]/80 leading-relaxed mb-6">
+          The complete 9-chapter narrative (~18 min read) is currently available in French. It covers the vision, the pivot from steel to pure load-bearing straw, the administrative wall, the build itself, and what the building contains today.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="/grand-shambala-v2/"
+            class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+          >
+            Read in French
+          </a>
+          <a
+            href="/en/grand-shambala/"
+            class="inline-flex items-center justify-center rounded-sm border border-[#2C2824]/20 text-[#2C2824] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#2C2824]/5 transition-colors"
+          >
+            English overview
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
