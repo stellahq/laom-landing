@@ -141,7 +141,7 @@ function formatMontant(n: number): string {
                   {projet.image ? (
                     <img src={projet.image} alt={projet.imageAlt || projet.name} class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                   ) : (
-                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">{projet.placeholder}</p>
+                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">Photo à venir</p>
                   )}
                 </a>
               ) : (
@@ -149,7 +149,7 @@ function formatMontant(n: number): string {
                   {projet.image ? (
                     <img src={projet.image} alt={projet.imageAlt || projet.name} class="w-full h-full object-cover" loading="lazy" />
                   ) : (
-                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">{projet.placeholder}</p>
+                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">Photo à venir</p>
                   )}
                 </div>
               )}
