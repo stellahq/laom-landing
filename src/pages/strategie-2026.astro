@@ -199,28 +199,28 @@ function formatNumber(n: number): string {
 
   <!-- Navbar interne -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
       <a href="/" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
         </svg>
-        Retour au site
+        <span class="hidden sm:inline">Retour</span>
       </a>
       <div class="flex items-center gap-1">
-        <span class="text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associés</span>
-        <a href="/previsionnel-2026" class="px-4 py-2 text-sm font-light text-white/50 hover:text-white hover:bg-white/5 rounded-sm transition-colors">
-          Prévisionnel
+        <span class="hidden md:inline text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associes</span>
+        <a href="/previsionnel-2026" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-light text-white/50 hover:text-white hover:bg-white/5 rounded-sm transition-colors">
+          Previ.
         </a>
-        <a href="/strategie-2026" class="px-4 py-2 text-sm font-light text-white bg-white/10 rounded-sm">
-          Stratégie
+        <a href="/strategie-2026" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-light text-white bg-white/10 rounded-sm">
+          Strat.
         </a>
       </div>
     </div>
   </nav>
 
   <!-- Header -->
-  <section class="bg-[#1a1a1a] pt-32 pb-16">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-32 pb-12 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-6">
         <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">Document de travail</span>
         <span class="text-white/20">·</span>
@@ -260,8 +260,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Section 1: Les offres -->
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="py-12 sm:py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">01</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Les offres à vendre</h2>
@@ -326,8 +326,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Section 2: Canaux d'acquisition -->
-  <section class="py-16 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="py-12 sm:py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">02</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Canaux d'acquisition organique</h2>
@@ -492,8 +492,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Section 3: Tunnels d'acquisition -->
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="py-12 sm:py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">03</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Tunnels d'acquisition payante</h2>
@@ -628,8 +628,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Section 4: Calendrier global -->
-  <section class="py-16 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="py-12 sm:py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">04</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Calendrier éditorial global</h2>
@@ -721,8 +721,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Section 5: Charge de travail -->
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="py-12 sm:py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">05</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Charge de travail</h2>
@@ -796,8 +796,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Section 6: 2027 -->
-  <section class="py-16 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="py-12 sm:py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">06</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">2027 — Réflexion anglophone</h2>
@@ -827,8 +827,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Section 7: Notes -->
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="py-12 sm:py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">07</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Notes & Points de vigilance</h2>
@@ -887,8 +887,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Footer -->
-  <section class="py-8 bg-[#1a1a1a]">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 text-center">
+  <section class="py-6 sm:py-8 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
       <p class="text-xs font-light text-white/30">
         Document de travail interne · Dernière mise à jour : Février 2026
       </p>

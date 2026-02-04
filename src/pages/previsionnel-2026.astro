@@ -75,24 +75,29 @@ const partenairesSpeciaux = [
 ]
 
 // ==========================================
-// CALCULS ÉVÉNEMENTS LAOM (billetterie pure, hors repas)
+// CALCULS ÉVÉNEMENTS LAOM (billetterie avec repas inclus)
+// Les repas sont inclus dans le prix du billet
+// Charges repas = transfert interne vers la guinguette (20€/repas)
 // ==========================================
 const calcLAOM = evenementsLAOM.map(e => {
   const persEstimees = Math.round(e.places * (e.taux / 100))
   const caBilletterie = e.prix * persEstimees
   const chargesMenage = FORFAIT_MENAGE_LAOM
-  const chargesTotal = e.chargesSamuel + chargesMenage
-  const marge = caBilletterie - chargesTotal
-  // Repas pour la guinguette prestations
+  // Repas inclus = charge pour le centre "Événements", CA pour le centre "Guinguette"
   const nbRepasTotal = persEstimees * e.nbRepas
-  const caRepas = nbRepasTotal * PRIX_REPAS_LAOM
-  return { ...e, persEstimees, caBilletterie, chargesMenage, chargesTotal, marge, nbRepasTotal, caRepas }
+  const chargesRepas = nbRepasTotal * PRIX_REPAS_LAOM // Transfert interne vers guinguette
+  const chargesTotal = e.chargesSamuel + chargesMenage + chargesRepas
+  const marge = caBilletterie - chargesTotal
+  // Pour la guinguette (transfert interne)
+  const caRepasGuinguette = nbRepasTotal * PRIX_REPAS_LAOM
+  return { ...e, persEstimees, caBilletterie, chargesMenage, chargesRepas, chargesTotal, marge, nbRepasTotal, caRepasGuinguette }
 })
 const totalCALAOM = calcLAOM.reduce((acc, e) => acc + e.caBilletterie, 0)
 const totalChargesLAOM = calcLAOM.reduce((acc, e) => acc + e.chargesTotal, 0)
 const totalMargeLAOM = calcLAOM.reduce((acc, e) => acc + e.marge, 0)
 const totalRepasLAOM = calcLAOM.reduce((acc, e) => acc + e.nbRepasTotal, 0)
-const totalCARepasLAOM = calcLAOM.reduce((acc, e) => acc + e.caRepas, 0)
+const totalChargesRepasLAOM = calcLAOM.reduce((acc, e) => acc + e.chargesRepas, 0)
+const totalCARepasLAOM = calcLAOM.reduce((acc, e) => acc + e.caRepasGuinguette, 0) // = totalChargesRepasLAOM (transfert interne)
 
 // ==========================================
 // CALCULS PARTENAIRES STANDARD (location pure, hors repas)
@@ -293,28 +298,28 @@ function formatNumber(n: number): string {
 
   <!-- Navbar interne -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
       <a href="/" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
         </svg>
-        Retour au site
+        <span class="hidden sm:inline">Retour</span>
       </a>
       <div class="flex items-center gap-1">
-        <span class="text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associes</span>
-        <a href="/previsionnel-2026" class="px-4 py-2 text-sm font-light text-white bg-white/10 rounded-sm">
-          Previsionnel
+        <span class="hidden md:inline text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associes</span>
+        <a href="/previsionnel-2026" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-light text-white bg-white/10 rounded-sm">
+          Previ.
         </a>
-        <a href="/strategie-2026" class="px-4 py-2 text-sm font-light text-white/50 hover:text-white hover:bg-white/5 rounded-sm transition-colors">
-          Strategie
+        <a href="/strategie-2026" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-light text-white/50 hover:text-white hover:bg-white/5 rounded-sm transition-colors">
+          Strat.
         </a>
       </div>
     </div>
   </nav>
 
   <!-- Header -->
-  <section class="bg-[#1a1a1a] pt-32 pb-16">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-32 pb-12 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-6">
         <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">Document de travail</span>
         <span class="text-white/20">·</span>
@@ -350,9 +355,9 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Navigation rapide -->
-  <nav class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-4">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
-      <div class="flex gap-6 overflow-x-auto text-sm">
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-3 sm:py-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex gap-4 sm:gap-6 overflow-x-auto text-xs sm:text-sm">
         <a href="#timeline" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Timeline</a>
         <a href="#laom" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Événements LAOM</a>
         <a href="#partenaires" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Partenaires</a>
@@ -363,8 +368,8 @@ function formatNumber(n: number): string {
   </nav>
 
   <!-- Timeline visuelle -->
-  <section id="timeline" class="py-16 md:py-20 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section id="timeline" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center justify-between mb-10">
         <div>
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-2">Vue d'ensemble</p>
@@ -397,21 +402,21 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Événements LAOM -->
-  <section id="laom" class="py-16 md:py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section id="laom" class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center justify-between mb-10">
         <div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Billetterie (hors repas)</p>
-          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Événements LAOM</h2>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Billetterie (repas inclus)</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Evenements LAOM</h2>
         </div>
         <div class="text-right">
           <p class="font-playfair text-2xl font-medium text-[#C4A855]">{formatNumber(totalMargeLAOM)}€</p>
-          <p class="text-xs text-[#2C2824]/40">Marge brute TTC</p>
+          <p class="text-xs text-[#2C2824]/40">Marge nette (apres repas)</p>
         </div>
       </div>
 
       <div class="mb-4 p-3 bg-[#FAF8F5] rounded-sm text-xs text-[#2C2824]/60">
-        <strong>Note :</strong> Les repas sont facturés séparément via la guinguette (20€/repas). Voir section "Guinguette Prestations".
+        <strong>Comptabilite analytique :</strong> Les repas sont <strong>inclus</strong> dans le prix du billet. Le centre "Evenements" paie le centre "Guinguette" a 20€/repas (transfert interne).
       </div>
 
       <div class="overflow-x-auto">
@@ -419,8 +424,8 @@ function formatNumber(n: number): string {
           <thead>
             <tr class="border-b border-black/10 bg-[#FAF8F5]">
               <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Date</th>
-              <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Événement</th>
-              <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Animé par</th>
+              <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Evenement</th>
+              <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Anime par</th>
               <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Prix</th>
               <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Pers.</th>
               <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">CA brut</th>
@@ -434,7 +439,7 @@ function formatNumber(n: number): string {
                 <td class="py-3 px-2 text-[#2C2824]/60 text-xs">{e.date}</td>
                 <td class="py-3 px-2">
                   <p class="font-medium text-[#2C2824]">{e.nom}</p>
-                  <p class="text-xs text-[#2C2824]/40 mt-0.5">{e.places} pl. × {e.taux}%</p>
+                  <p class="text-xs text-[#2C2824]/40 mt-0.5">{e.places} pl. x {e.taux}% · {e.nbRepas} repas/pers</p>
                 </td>
                 <td class="py-3 px-2 text-[#2C2824]/60 text-xs">{e.animateur}</td>
                 <td class="py-3 px-2 text-right text-[#2C2824]">{formatNumber(e.prix)}€</td>
@@ -442,7 +447,8 @@ function formatNumber(n: number): string {
                 <td class="py-3 px-2 text-right text-[#2C2824]">{formatNumber(e.caBilletterie)}€</td>
                 <td class="py-3 px-2 text-right text-red-600 text-xs">
                   {e.chargesSamuel > 0 && <span class="block">Samuel {formatNumber(e.chargesSamuel)}€</span>}
-                  <span class="block">Ménage {formatNumber(e.chargesMenage)}€</span>
+                  <span class="block">Menage {formatNumber(e.chargesMenage)}€</span>
+                  <span class="block text-[#4A7C59]">Repas {formatNumber(e.chargesRepas)}€</span>
                 </td>
                 <td class="py-3 px-2 text-right font-medium text-[#C4A855]">{formatNumber(e.marge)}€</td>
               </tr>
@@ -450,10 +456,16 @@ function formatNumber(n: number): string {
           </tbody>
           <tfoot>
             <tr class="border-t-2 border-[#C4A855]/30 bg-[#FAF8F5]">
-              <td colspan="5" class="py-4 px-2 text-right font-medium text-[#2C2824]">Total événements LAOM</td>
+              <td colspan="5" class="py-4 px-2 text-right font-medium text-[#2C2824]">Total evenements LAOM</td>
               <td class="py-4 px-2 text-right font-medium text-[#2C2824]">{formatNumber(totalCALAOM)}€</td>
               <td class="py-4 px-2 text-right font-medium text-red-600">{formatNumber(totalChargesLAOM)}€</td>
               <td class="py-4 px-2 text-right font-playfair text-xl font-medium text-[#C4A855]">{formatNumber(totalMargeLAOM)}€</td>
+            </tr>
+            <tr class="bg-[#FAF8F5]/50">
+              <td colspan="5" class="py-2 px-2 text-right text-xs text-[#2C2824]/40">dont charges repas (transfert interne guinguette)</td>
+              <td class="py-2 px-2"></td>
+              <td class="py-2 px-2 text-right text-xs text-[#4A7C59]">{formatNumber(totalChargesRepasLAOM)}€</td>
+              <td class="py-2 px-2"></td>
             </tr>
           </tfoot>
         </table>
@@ -462,8 +474,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Événements Partenaires -->
-  <section id="partenaires" class="py-16 md:py-20 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section id="partenaires" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center justify-between mb-10">
         <div>
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/50 mb-2">Location uniquement (hors repas)</p>
@@ -644,8 +656,8 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Guinguette -->
-  <section id="guinguette" class="py-16 md:py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section id="guinguette" class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center justify-between mb-10">
         <div>
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#4A7C59] mb-2">Restauration</p>
@@ -716,7 +728,7 @@ function formatNumber(n: number): string {
       <!-- Section 2: Guinguette Prestations -->
       <div class="mb-8">
         <div class="flex items-center gap-4 mb-6">
-          <h3 class="font-medium text-[#2C2824]">Prestations événements</h3>
+          <h3 class="font-medium text-[#2C2824]">Prestations evenements</h3>
           <span class="text-xs text-[#C4A855] bg-[#C4A855]/10 px-3 py-1 rounded">{formatNumber(guinguetteNbRepasPrestations)} repas</span>
         </div>
 
@@ -728,18 +740,18 @@ function formatNumber(n: number): string {
                   <th class="text-left py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Source</th>
                   <th class="text-right py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Repas</th>
                   <th class="text-right py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">€/repas</th>
-                  <th class="text-right py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">CA TTC</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">CA</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="border-b border-black/5">
+                <tr class="border-b border-black/5 bg-[#C4A855]/5">
                   <td class="py-3">
-                    <p class="font-medium text-[#C4A855]">Événements LAOM</p>
-                    <p class="text-xs text-[#2C2824]/40">Clarté, LAOM School, En Mouvement...</p>
+                    <p class="font-medium text-[#C4A855]">Evenements LAOM</p>
+                    <p class="text-xs text-[#C4A855]/70">Transfert interne (repas inclus dans billets)</p>
                   </td>
                   <td class="py-3 text-right text-[#2C2824]">{formatNumber(totalRepasLAOM)}</td>
                   <td class="py-3 text-right text-[#2C2824]">{PRIX_REPAS_LAOM}€</td>
-                  <td class="py-3 text-right font-medium text-[#2C2824]">{formatNumber(totalCARepasLAOM)}€</td>
+                  <td class="py-3 text-right font-medium text-[#C4A855]">{formatNumber(totalCARepasLAOM)}€</td>
                 </tr>
                 <tr class="border-b border-black/5">
                   <td class="py-3">
@@ -753,7 +765,7 @@ function formatNumber(n: number): string {
                 <tr class="border-b border-black/5">
                   <td class="py-3">
                     <p class="font-medium text-[#4A7C59]">Partenaires -20%</p>
-                    <p class="text-xs text-[#2C2824]/40">Amaoué, Grégoire R....</p>
+                    <p class="text-xs text-[#2C2824]/40">Amawe, Gregoire R....</p>
                   </td>
                   <td class="py-3 text-right text-[#2C2824]">{formatNumber(totalRepasReduits)}</td>
                   <td class="py-3 text-right text-[#2C2824]">18€</td>
@@ -761,7 +773,7 @@ function formatNumber(n: number): string {
                 </tr>
                 <tr class="border-b border-black/5">
                   <td class="py-3">
-                    <p class="font-medium text-[#2C2824]">Forfaits spéciaux</p>
+                    <p class="font-medium text-[#2C2824]">Forfaits speciaux</p>
                     <p class="text-xs text-[#2C2824]/40">Festival Perspective, Patricia Salgon</p>
                   </td>
                   <td class="py-3 text-right text-[#2C2824]">{formatNumber(totalRepasSpeciaux)}</td>
@@ -776,17 +788,21 @@ function formatNumber(n: number): string {
                   <td class="py-3"></td>
                   <td class="py-3 text-right font-medium text-[#4A7C59]">{formatNumber(guinguetteCAPrestations)}€</td>
                 </tr>
+                <tr class="bg-[#C4A855]/5">
+                  <td colspan="3" class="py-2 text-right text-xs text-[#C4A855]/70">dont transfert interne LAOM</td>
+                  <td class="py-2 text-right text-xs text-[#C4A855]">{formatNumber(totalCARepasLAOM)}€</td>
+                </tr>
               </tfoot>
             </table>
           </div>
 
           <div class="mt-6 pt-4 border-t border-black/10 grid grid-cols-3 gap-4 text-sm">
             <div>
-              <p class="text-[#2C2824]/50">Coût matière (35%)</p>
+              <p class="text-[#2C2824]/50">Cout matiere (35%)</p>
               <p class="font-medium text-red-600">-{formatNumber(guinguetteChargesMatierePrestations)}€</p>
             </div>
             <div>
-              <p class="text-[#2C2824]/50">Charges ménage (Festival)</p>
+              <p class="text-[#2C2824]/50">Charges menage (Festival)</p>
               <p class="font-medium text-red-600">-{formatNumber(totalChargesSpeciaux)}€</p>
             </div>
             <div class="text-right">
@@ -818,11 +834,17 @@ function formatNumber(n: number): string {
   </section>
 
   <!-- Récap financier global -->
-  <section id="recap" class="py-16 md:py-20 bg-[#1a1a1a]">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+  <section id="recap" class="py-12 sm:py-16 md:py-20 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="text-center mb-12">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Synthèse</p>
-        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-white tracking-tight">Récapitulatif financier 2026</h2>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Synthese</p>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-white tracking-tight">Recapitulatif financier 2026</h2>
+        <p class="text-white/40 text-sm mt-2">Vision par centre de profit (comptabilite analytique)</p>
+      </div>
+
+      <!-- Note transfert interne -->
+      <div class="mb-6 p-4 bg-[#C4A855]/10 border border-[#C4A855]/30 rounded-sm text-sm">
+        <p class="text-[#C4A855]"><strong>Transfert interne :</strong> Les evenements LAOM "paient" la guinguette a 20€/repas ({formatNumber(totalChargesRepasLAOM)}€). Ce montant apparait en charge cote Evenements et en CA cote Guinguette. Le CA consolide (hors transfert) = {formatNumber(totalCABrut - totalCARepasLAOM)}€</p>
       </div>
 
       <!-- Tableau récap par flux -->
@@ -830,10 +852,10 @@ function formatNumber(n: number): string {
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-white/10 bg-white/5">
-              <th class="text-left py-4 px-6 font-light text-white/50 uppercase tracking-wider text-xs">Source de revenus</th>
+              <th class="text-left py-4 px-6 font-light text-white/50 uppercase tracking-wider text-xs">Centre de profit</th>
               <th class="text-right py-4 px-4 font-light text-white/50 uppercase tracking-wider text-xs">CA brut TTC</th>
               <th class="text-right py-4 px-4 font-light text-white/50 uppercase tracking-wider text-xs">Charges</th>
-              <th class="text-right py-4 px-6 font-light text-white/50 uppercase tracking-wider text-xs">Marge brute</th>
+              <th class="text-right py-4 px-6 font-light text-white/50 uppercase tracking-wider text-xs">Marge</th>
             </tr>
           </thead>
           <tbody>
@@ -842,8 +864,8 @@ function formatNumber(n: number): string {
                 <div class="flex items-center gap-3">
                   <span class="w-3 h-3 rounded-sm bg-[#C4A855]"></span>
                   <div>
-                    <p class="text-white font-medium">Événements LAOM</p>
-                    <p class="text-white/40 text-xs">Billetterie (hors repas)</p>
+                    <p class="text-white font-medium">Evenements LAOM</p>
+                    <p class="text-white/40 text-xs">Billetterie (repas inclus)</p>
                   </div>
                 </div>
               </td>
@@ -856,8 +878,8 @@ function formatNumber(n: number): string {
                 <div class="flex items-center gap-3">
                   <span class="w-3 h-3 rounded-sm bg-white/60"></span>
                   <div>
-                    <p class="text-white font-medium">Partenaires (location)</p>
-                    <p class="text-white/40 text-xs">Salle + tipis + ménage</p>
+                    <p class="text-white font-medium">Location partenaires</p>
+                    <p class="text-white/40 text-xs">Salle + tipis + menage</p>
                   </div>
                 </div>
               </td>
@@ -871,7 +893,7 @@ function formatNumber(n: number): string {
                   <span class="w-3 h-3 rounded-sm bg-[#4A7C59]"></span>
                   <div>
                     <p class="text-white font-medium">Guinguette public</p>
-                    <p class="text-white/40 text-xs">Activité restauration</p>
+                    <p class="text-white/40 text-xs">Restauration externe</p>
                   </div>
                 </div>
               </td>
@@ -885,7 +907,7 @@ function formatNumber(n: number): string {
                   <span class="w-3 h-3 rounded-sm bg-[#4A7C59]/60"></span>
                   <div>
                     <p class="text-white font-medium">Guinguette prestations</p>
-                    <p class="text-white/40 text-xs">{formatNumber(guinguetteNbRepasPrestations)} repas événements</p>
+                    <p class="text-white/40 text-xs">{formatNumber(guinguetteNbRepasPrestations)} repas (dont {formatNumber(totalRepasLAOM)} internes)</p>
                   </div>
                 </div>
               </td>
@@ -895,10 +917,16 @@ function formatNumber(n: number): string {
             </tr>
           </tbody>
           <tfoot>
+            <tr class="border-b border-white/5 bg-white/5">
+              <td class="py-3 px-6 text-white/50 text-xs">Total par centres (avec transferts internes)</td>
+              <td class="py-3 px-4 text-right text-white/70">{formatNumber(totalCABrut)}€</td>
+              <td class="py-3 px-4 text-right text-red-400/70">-{formatNumber(totalCharges)}€</td>
+              <td class="py-3 px-6 text-right text-white/70">{formatNumber(totalMarge)}€</td>
+            </tr>
             <tr class="bg-[#C4A855]/10">
-              <td class="py-5 px-6 font-medium text-white">TOTAL</td>
-              <td class="py-5 px-4 text-right font-playfair text-xl text-white">{formatNumber(totalCABrut)}€</td>
-              <td class="py-5 px-4 text-right font-medium text-red-400">-{formatNumber(totalCharges)}€</td>
+              <td class="py-5 px-6 font-medium text-white">CA CONSOLIDE (hors transferts)</td>
+              <td class="py-5 px-4 text-right font-playfair text-xl text-white">{formatNumber(totalCABrut - totalCARepasLAOM)}€</td>
+              <td class="py-5 px-4 text-right font-medium text-red-400">-{formatNumber(totalCharges - totalChargesRepasLAOM)}€</td>
               <td class="py-5 px-6 text-right font-playfair text-2xl font-medium text-[#C4A855]">{formatNumber(totalMarge)}€</td>
             </tr>
           </tfoot>
@@ -1098,7 +1126,7 @@ function formatNumber(n: number): string {
 
   <!-- Footer léger -->
   <footer class="py-8 bg-white border-t border-black/5">
-    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 text-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
       <p class="text-xs text-[#2C2824]/40">
         Document de travail généré le {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} — Session brainstorming Charly & Amandine
       </p>
