@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import WeekendCard from '~/components/WeekendCard.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
@@ -7,49 +8,6 @@ const pageSchema = createWebPageSchema({
   url: Astro.url.toString(),
   description: 'L\'écosystème pour les porteurs de projet d\'écolieu. 4 week-ends immersifs à LAOM, des permanences chaque mois, une communauté de bâtisseurs.',
 })
-
-const weekends = [
-  {
-    num: '01',
-    date: 'Juin 2026',
-    title: 'Projet & Financement',
-    description: 'Clarifier ta vision. Structurer ton plan. Identifier les stratégies de financement adaptées à ton projet : subventions, SCIA, levée de fonds, autofinancement. Repartir avec un plan d\'action financé.',
-    speaker: {
-      role: 'Expert financement à impact',
-      bio: 'Spécialiste du financement de projets à impact social et environnemental. Subventions publiques, fonds d\'investissement à impact, montages juridiques innovants.',
-    },
-  },
-  {
-    num: '02',
-    date: 'Juillet 2026',
-    title: 'Modèle économique',
-    description: 'Construire un modèle économique viable sans trahir la vision. Positionnement, tarification, diversification des revenus : coliving, stages, agriculture, formation, événementiel. Ce qui marche. Ce qui ne marche pas.',
-    speaker: {
-      role: 'Fondateur de coliving / tiers-lieu rentable',
-      bio: 'Entrepreneur qui a créé et stabilisé un modèle économique de lieu de vie. Retour d\'expérience concret sur les premières années, les pivots, et l\'équilibre financier.',
-    },
-  },
-  {
-    num: '03',
-    date: 'Octobre 2026',
-    title: 'Culture régénérative',
-    description: 'Écoconstruction, agriculture régénératrice, autonomie énergétique, conception du lieu, intégration paysagère. Comment concevoir un lieu qui régénère plus qu\'il ne consomme. Les choix techniques, les erreurs à éviter, les coûts réels.',
-    speaker: {
-      role: 'Architecte / concepteur régénératif',
-      bio: 'Praticien reconnu en écoconstruction ou en conception régénérative. Paille porteuse, terre crue, bioclimatique, permaculture appliquée à l\'échelle d\'un lieu de vie.',
-    },
-  },
-  {
-    num: '04',
-    date: 'Mai 2027',
-    title: 'Culture Communautaire',
-    description: 'Gouvernance, intelligence collective, gestion des conflits, animation du collectif, cadre juridique du collectif. Comment créer un groupe qui tient dans la durée. Les départs, les arrivées, les crises,  et comment les traverser.',
-    speaker: {
-      role: 'Facilitateur / expert en gouvernance partagée',
-      bio: 'Spécialiste de la gouvernance de collectifs. Sociocratie, holacratie, CNV, processus de décision. Intervient auprès de collectifs, coopératives et écolieux depuis plus de 10 ans.',
-    },
-  },
-]
 
 const formules = [
   {
@@ -137,42 +95,91 @@ const formules = [
       </div>
 
       <div class="space-y-8 opacity-0" animate-fade-in-up>
-        {weekends.map((w) => (
-          <div class="bg-white border border-black/5 rounded-sm p-8 md:p-10">
-            <div class="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
-              <!-- Left: number + date -->
-              <div class="flex-shrink-0 md:w-32">
-                <span class="text-2xl font-light tracking-[0.1em] text-[#C4A855]">{w.num}</span>
-                <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mt-2">{w.date}</p>
-              </div>
-
-              <!-- Right: content -->
-              <div class="flex-1">
-                <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4 tracking-tight">{w.title}</h3>
-                <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-8">
-                  {w.description}
-                </p>
-
-                <!-- Speaker -->
-                <div class="flex items-start gap-4 pt-6 border-t border-black/5">
-                  <div class="w-12 h-12 rounded-full bg-[#E8E3D8] flex items-center justify-center flex-shrink-0">
-                    <svg class="w-5 h-5 text-[#2C2824]/25" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                  </div>
-                  <div>
-                    <p class="text-sm font-medium text-[#2C2824] mb-1">{w.speaker.role}</p>
-                    <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed mb-2">{w.speaker.bio}</p>
-                    <p class="text-xs font-light text-[#C4A855]">Session,  samedi après-midi &middot; <em class="text-[#2C2824]/40">À confirmer</em></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- Weekend 01 : Projet & Financement -->
+        <WeekendCard
+          num="01"
+          date="Juin 2026"
+          title="Projet & Financement"
+          description="Clarifier ta vision. Structurer ton plan. Identifier les stratégies de financement adaptées à ton projet : subventions, SCIA, levée de fonds, autofinancement. Repartir avec un plan d'action financé."
+          speakerRole="Expert financement à impact"
+          speakerBio="Spécialiste du financement de projets à impact social et environnemental. Subventions publiques, fonds d'investissement à impact, montages juridiques innovants."
+        >
+          <div slot="avatar" class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
+            <img 
+              src="/images/laom/speakers/speaker-financement.webp" 
+              alt="Expert financement à impact"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
-        ))}
+        </WeekendCard>
+
+        <!-- Weekend 02 : Modèle économique -->
+        <WeekendCard
+          num="02"
+          date="Juillet 2026"
+          title="Modèle économique"
+          description="Construire un modèle économique viable sans trahir la vision. Positionnement, tarification, diversification des revenus : coliving, stages, agriculture, formation, événementiel. Ce qui marche. Ce qui ne marche pas."
+          speakerRole="Fondateur de coliving / tiers-lieu rentable"
+          speakerBio="Entrepreneur qui a créé et stabilisé un modèle économique de lieu de vie. Retour d'expérience concret sur les premières années, les pivots, et l'équilibre financier."
+        >
+          <div slot="avatar" class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
+            <img 
+              src="/images/laom/speakers/speaker-economie.webp" 
+              alt="Fondateur de coliving"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </WeekendCard>
+
+        <!-- Weekend 03 : Culture régénérative -->
+        <WeekendCard
+          num="03"
+          date="Octobre 2026"
+          title="Culture régénérative"
+          description="Écoconstruction, agriculture régénératrice, autonomie énergétique, conception du lieu, intégration paysagère. Comment concevoir un lieu qui régénère plus qu'il ne consomme. Les choix techniques, les erreurs à éviter, les coûts réels."
+          speakerRole="Architecte / concepteur régénératif"
+          speakerBio="Praticien reconnu en écoconstruction ou en conception régénérative. Paille porteuse, terre crue, bioclimatique, permaculture appliquée à l'échelle d'un lieu de vie."
+        >
+          <div slot="avatar" class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
+            <img 
+              src="/images/laom/speakers/speaker-regeneratif.webp" 
+              alt="Architecte régénératif"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </WeekendCard>
+
+        <!-- Weekend 04 : Culture Communautaire -->
+        <WeekendCard
+          num="04"
+          date="Mai 2027"
+          title="Culture Communautaire"
+          description="Gouvernance, intelligence collective, gestion des conflits, animation du collectif, cadre juridique du collectif. Comment créer un groupe qui tient dans la durée. Les départs, les arrivées, les crises, et comment les traverser."
+          speakerRole="Facilitateur / expert en gouvernance partagée"
+          speakerBio="Spécialiste de la gouvernance de collectifs. Sociocratie, holacratie, CNV, processus de décision. Intervient auprès de collectifs, coopératives et écolieux depuis plus de 10 ans."
+        >
+          <div slot="avatar" class="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
+            <img 
+              src="/images/laom/speakers/speaker-gouvernance.webp" 
+              alt="Expert en gouvernance partagée"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </WeekendCard>
       </div>
 
-      <!-- Placeholder image -->
-      <div class="mt-12 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm opacity-0" animate-fade-in-up>
-        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo à prendre : groupe de porteurs de projet en cercle au Grand Shambala, week-end LAOM School</p>
+      <!-- Photo de groupe -->
+      <div class="mt-16 aspect-[3/2] overflow-hidden rounded-sm">
+        <img 
+          src="/images/laom/vanlifest-img1373.webp" 
+          alt="Groupe de porteurs de projet en cercle au Grand Shambala, week-end LAOM School"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
       </div>
     </div>
   </section>

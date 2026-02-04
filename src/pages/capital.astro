@@ -17,7 +17,9 @@ const projets = [
     leve: 180000,
     rendement: '8%',
     status: 'En financement',
-    placeholder: 'Photo à prendre : vue aérienne du domaine LAOM,  bâtiments, prairies, forêt, rivière',
+    image: '/images/laom/laom-batiment-paille.webp',
+    imageAlt: 'Vue aérienne du domaine LAOM, bâtiments, prairies, forêt, rivière',
+    href: '/capital/laom',
   },
   {
     name: 'Naturopia',
@@ -27,7 +29,8 @@ const projets = [
     leve: 0,
     rendement: '8%',
     status: 'À venir',
-    placeholder: 'Photo à prendre : paysage de Madère,  végétation luxuriante, océan, terrasses en levadas',
+    image: '/images/laom/capture-da-a-cran-2026-02-04-a-000451.webp',
+    imageAlt: 'Paysage de Madère, végétation luxuriante, océan, terrasses en levadas',
   },
 ]
 
@@ -132,10 +135,24 @@ function formatMontant(n: number): string {
         {projets.map((projet) => {
           const pct = projet.objectif > 0 ? Math.round((projet.leve / projet.objectif) * 100) : 0
           return (
-            <div class="border border-black/5 rounded-sm overflow-hidden bg-white flex flex-col">
-              <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center">
-                <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">{projet.placeholder}</p>
-              </div>
+            <div class="border border-black/5 rounded-sm overflow-hidden bg-white flex flex-col group">
+              {projet.href ? (
+                <a href={projet.href} class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center overflow-hidden block">
+                  {projet.image ? (
+                    <img src={projet.image} alt={projet.imageAlt || projet.name} class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                  ) : (
+                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">{projet.placeholder}</p>
+                  )}
+                </a>
+              ) : (
+                <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center overflow-hidden">
+                  {projet.image ? (
+                    <img src={projet.image} alt={projet.imageAlt || projet.name} class="w-full h-full object-cover" loading="lazy" />
+                  ) : (
+                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">{projet.placeholder}</p>
+                  )}
+                </div>
+              )}
 
               <div class="p-6 md:p-8 flex flex-col flex-1">
                 <div class="mb-4">
@@ -144,7 +161,13 @@ function formatMontant(n: number): string {
                   </span>
                 </div>
 
-                <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{projet.name}</h3>
+                {projet.href ? (
+                  <a href={projet.href} class="hover:text-[#C4A855] transition-colors">
+                    <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1 group-hover:text-[#C4A855] transition-colors">{projet.name}</h3>
+                  </a>
+                ) : (
+                  <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{projet.name}</h3>
+                )}
                 <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-4">{projet.location}</p>
                 <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed mb-6 flex-1">{projet.description}</p>
 
@@ -166,14 +189,33 @@ function formatMontant(n: number): string {
                   <span class="font-playfair text-lg font-medium text-[#2C2824]">{projet.rendement}</span>
                 </div>
 
-                <a
-                  href="https://fyneo.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class={`inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center ${projet.status === 'En financement' ? 'bg-[#C4A855] hover:bg-[#B09A4A]' : 'bg-[#2C2824]/20 cursor-default pointer-events-none'}`}
-                >
-                  {projet.status === 'En financement' ? 'Voir sur Fyneo' : 'Bientôt disponible'}
-                </a>
+                {projet.href ? (
+                  <div class="flex flex-col gap-3">
+                    <a
+                      href={projet.href}
+                      class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3830] transition-colors text-center"
+                    >
+                      Voir le projet
+                    </a>
+                    <a
+                      href="https://fyneo.org"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors text-center"
+                    >
+                      Investir sur Fyneo
+                    </a>
+                  </div>
+                ) : (
+                  <a
+                    href="https://fyneo.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={`inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center ${projet.status === 'En financement' ? 'bg-[#C4A855] hover:bg-[#B09A4A]' : 'bg-[#2C2824]/20 cursor-default pointer-events-none'}`}
+                  >
+                    {projet.status === 'En financement' ? 'Voir sur Fyneo' : 'Bientôt disponible'}
+                  </a>
+                )}
               </div>
             </div>
           )

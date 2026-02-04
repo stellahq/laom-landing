@@ -1,0 +1,783 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageSchema = createWebPageSchema({
+  name: 'Investir dans LAOM — LAOM Capital',
+  url: Astro.url.toString(),
+  description: 'Investissez dans le premier coliving régénératif de France. 8% de rendement cible. 21 hectares, 850m² en paille porteuse.',
+})
+
+// Données du projet (à remplacer par les vraies données)
+const projet = {
+  name: 'LAOM',
+  tagline: 'Le premier coliving régénératif de France',
+  location: 'Aveyron, France',
+  status: 'En financement',
+  objectif: 500000,
+  leve: 180000,
+  rendement: '8%',
+  duree: '36 mois',
+  minimum: '1 000 €',
+  type: 'Parts SCIA',
+  versements: 'Trimestriel',
+  dateLimite: '31 mai 2026',
+}
+
+const pct = Math.round((projet.leve / projet.objectif) * 100)
+
+// Galerie photos
+const photos = [
+  { src: '/images/laom/grand-shambala/p1.webp', alt: 'Grand Shambala - Vue extérieure' },
+  { src: '/images/laom/vue-aeriene-laom.webp', alt: 'Vue aérienne du domaine LAOM' },
+  { src: '/images/laom/salle-de-pratique.webp', alt: 'La salle de pratique' },
+  { src: '/images/laom/petit-shambala-exterieur.webp', alt: 'Petit Shambala' },
+  { src: '/images/laom/laom-potager.webp', alt: 'Le potager' },
+]
+
+// Chiffres clés
+const chiffres = [
+  { value: '500 000 €', label: 'Objectif de levée' },
+  { value: '8%', label: 'Rendement annuel cible' },
+  { value: '36 mois', label: 'Durée d\'investissement' },
+  { value: '1 000 €', label: 'Investissement minimum' },
+  { value: 'Parts SCIA', label: 'Type d\'investissement' },
+  { value: 'Trimestriel', label: 'Versement des intérêts' },
+]
+
+// Timeline
+const timeline = [
+  { date: 'Fév 2021', event: 'Acquisition du domaine (21 ha)', status: 'done' },
+  { date: 'Oct 2023', event: 'Construction Grand Shambala (850m²)', status: 'done' },
+  { date: 'Été 2025', event: 'Validation STECAL (4 ans de procédure)', status: 'done' },
+  { date: 'Fév 2026', event: 'Ouverture du financement', status: 'current' },
+  { date: 'Mai 2026', event: 'Clôture du financement', status: 'future' },
+  { date: 'Déc 2026', event: 'Ouverture du coliving (7 chambres)', status: 'future' },
+  { date: 'Mar 2027', event: '1er versement des intérêts', status: 'future' },
+  { date: 'Fév 2029', event: 'Remboursement du capital', status: 'future' },
+]
+
+// Sources de revenus
+const revenus = [
+  { name: 'Coliving (7 chambres)', pct: 40, color: '#C4A855' },
+  { name: 'Stages & retraites', pct: 30, color: '#8B7A3A' },
+  { name: 'Événementiel (LAOMFEST)', pct: 15, color: '#2C2824' },
+  { name: 'Location d\'espaces', pct: 10, color: '#5C5347' },
+  { name: 'Formation (LAOM School)', pct: 5, color: '#9C9080' },
+]
+
+// Utilisation des fonds
+const utilisationFonds = [
+  { name: 'Finition Grand Shambala', montant: 200000 },
+  { name: 'Équipements coliving', montant: 100000 },
+  { name: 'Infrastructure agricole', montant: 80000 },
+  { name: 'Trésorerie de lancement', montant: 120000 },
+]
+
+// Projections
+const projections = [
+  { annee: '2026', ca: 150000, resultat: 30000 },
+  { annee: '2027', ca: 280000, resultat: 80000 },
+  { annee: '2028', ca: 400000, resultat: 140000 },
+]
+
+// Risques
+const risques = [
+  { risque: 'Retard travaux', probabilite: 'Moyen', impact: 'Moyen', mitigation: 'Équipe expérimentée, planning conservateur' },
+  { risque: 'Remplissage coliving', probabilite: 'Faible', impact: 'Élevé', mitigation: 'Liste d\'attente existante, pré-réservations' },
+  { risque: 'Réglementation', probabilite: 'Faible', impact: 'Moyen', mitigation: 'STECAL validé, permis obtenus' },
+  { risque: 'Trésorerie', probabilite: 'Moyen', impact: 'Moyen', mitigation: 'Réserve de trésorerie prévue dans la levée' },
+]
+
+// Documents
+const documents = [
+  { name: 'Statuts SCIA LAOM', type: 'PDF', url: '#' },
+  { name: 'Pacte d\'associés', type: 'PDF', url: '#' },
+  { name: 'Business plan détaillé', type: 'PDF', url: '#' },
+  { name: 'Étude de marché coliving', type: 'PDF', url: '#' },
+]
+
+// FAQ
+const faq = [
+  { 
+    question: 'Comment fonctionne l\'investissement via Fyneo ?',
+    answer: 'Fyneo est une plateforme d\'investissement régulée. Vous créez un compte, validez votre identité, puis souscrivez en ligne. Les fonds sont sécurisés sur un compte séquestre jusqu\'à la clôture de la levée.'
+  },
+  { 
+    question: 'Quand vais-je recevoir mes intérêts ?',
+    answer: 'Les intérêts sont versés trimestriellement, à partir du premier trimestre suivant la clôture du financement. Le premier versement est prévu en mars 2027.'
+  },
+  { 
+    question: 'Puis-je visiter le lieu avant d\'investir ?',
+    answer: 'Oui. Nous organisons des journées portes ouvertes pour les investisseurs potentiels. Contactez-nous pour connaître les prochaines dates.'
+  },
+  { 
+    question: 'Que se passe-t-il si l\'objectif n\'est pas atteint ?',
+    answer: 'Si l\'objectif minimum n\'est pas atteint à la date de clôture, les fonds sont intégralement remboursés aux investisseurs.'
+  },
+  { 
+    question: 'Comment puis-je sortir de mon investissement ?',
+    answer: 'Le pacte d\'associés prévoit un droit de sortie après 24 mois, sous conditions. Un marché secondaire est également prévu sur Fyneo.'
+  },
+]
+
+// Équipe
+const equipe = [
+  { name: 'Amandine', role: 'Stratégie & narration', photo: '/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp' },
+  { name: 'Khaldoun', role: 'Construction & chantier', photo: null },
+  { name: 'Théo', role: 'Enduits & finitions', photo: null },
+  { name: 'Lorenzo', role: 'Cuisine & accueil', photo: null },
+]
+
+function formatMontant(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+---
+
+<Layout
+  title="Investir dans LAOM — LAOM Capital"
+  description="Investissez dans le premier coliving régénératif de France. 8% de rendement cible. 21 hectares, 850m² en paille porteuse."
+  seo={{ ldJSON: pageSchema }}
+>
+  <style is:global>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+  </style>
+
+  <!-- STICKY HEADER MOBILE -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-black/10 p-4 lg:hidden">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-2 text-sm">
+          <span class="font-medium text-[#2C2824]">{formatMontant(projet.leve)} €</span>
+          <span class="text-[#2C2824]/40">/ {formatMontant(projet.objectif)} €</span>
+        </div>
+        <div class="w-full h-1.5 bg-[#E8E3D8] rounded-full mt-1">
+          <div class="h-full bg-[#C4A855] rounded-full" style={`width: ${pct}%`}></div>
+        </div>
+      </div>
+      <a
+        href="https://fyneo.org"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="px-6 py-3 bg-[#C4A855] text-white text-xs tracking-wider uppercase rounded-sm hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
+      >
+        Investir
+      </a>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <section class="bg-[#FAF8F5] pt-28 md:pt-32 pb-4 -mt-24 md:-mt-28">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <nav class="text-sm text-[#2C2824]/50">
+        <a href="/capital" class="hover:text-[#2C2824] transition-colors">LAOM Capital</a>
+        <span class="mx-2">→</span>
+        <span class="text-[#2C2824]">{projet.name}</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- HERO PROJET -->
+  <section class="bg-[#FAF8F5] py-8 md:py-12">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <div class="grid lg:grid-cols-5 gap-8 lg:gap-12">
+        
+        <!-- Galerie photos (3 colonnes) -->
+        <div class="lg:col-span-3">
+          <div class="relative aspect-[16/10] rounded-sm overflow-hidden bg-[#E8E3D8]" id="main-photo">
+            <img 
+              src={photos[0].src} 
+              alt={photos[0].alt}
+              class="w-full h-full object-cover"
+              id="main-photo-img"
+            />
+          </div>
+          <div class="grid grid-cols-5 gap-2 mt-2">
+            {photos.map((photo, i) => (
+              <button 
+                class={`aspect-[4/3] rounded-sm overflow-hidden bg-[#E8E3D8] border-2 transition-colors photo-thumb ${i === 0 ? 'border-[#C4A855]' : 'border-transparent hover:border-[#C4A855]/50'}`}
+                data-src={photo.src}
+                data-alt={photo.alt}
+              >
+                <img src={photo.src} alt={photo.alt} class="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Infos projet (2 colonnes) -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-sm border border-black/5 p-6 md:p-8">
+            <!-- Status -->
+            <span class="inline-block text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-sm bg-[#C4A855]/15 text-[#8B7A3A] mb-4">
+              {projet.status}
+            </span>
+
+            <!-- Nom & Location -->
+            <h1 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] mb-1">{projet.name}</h1>
+            <p class="text-sm text-[#2C2824]/50 mb-2">{projet.location}</p>
+            <p class="text-base text-[#2C2824]/70 mb-6">{projet.tagline}</p>
+
+            <!-- Barre de progression -->
+            <div class="mb-6">
+              <div class="flex justify-between text-sm mb-2">
+                <span class="font-medium text-[#2C2824]">{formatMontant(projet.leve)} €</span>
+                <span class="text-[#2C2824]/50">{formatMontant(projet.objectif)} €</span>
+              </div>
+              <div class="w-full h-3 bg-[#E8E3D8] rounded-full overflow-hidden">
+                <div class="h-full bg-[#C4A855] rounded-full transition-all duration-500" style={`width: ${pct}%`}></div>
+              </div>
+              <div class="flex justify-between text-xs text-[#2C2824]/40 mt-2">
+                <span>{pct}% financé</span>
+                <span>Clôture : {projet.dateLimite}</span>
+              </div>
+            </div>
+
+            <!-- Chiffres clés -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="text-center p-3 bg-[#FAF8F5] rounded-sm">
+                <p class="font-playfair text-2xl font-medium text-[#2C2824]">{projet.rendement}</p>
+                <p class="text-xs text-[#2C2824]/50 mt-1">Rendement annuel</p>
+              </div>
+              <div class="text-center p-3 bg-[#FAF8F5] rounded-sm">
+                <p class="font-playfair text-2xl font-medium text-[#2C2824]">{projet.duree}</p>
+                <p class="text-xs text-[#2C2824]/50 mt-1">Durée</p>
+              </div>
+              <div class="text-center p-3 bg-[#FAF8F5] rounded-sm">
+                <p class="font-playfair text-2xl font-medium text-[#2C2824]">{projet.minimum}</p>
+                <p class="text-xs text-[#2C2824]/50 mt-1">Minimum</p>
+              </div>
+              <div class="text-center p-3 bg-[#FAF8F5] rounded-sm">
+                <p class="font-playfair text-lg font-medium text-[#2C2824]">{projet.type}</p>
+                <p class="text-xs text-[#2C2824]/50 mt-1">Type</p>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <a
+              href="https://fyneo.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-6 py-4 text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+            >
+              Investir via Fyneo
+            </a>
+            <p class="text-xs text-[#2C2824]/40 text-center mt-3">
+              Souscription 100% en ligne sécurisée
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="sticky top-0 z-40 bg-white border-b border-black/5 hidden md:block">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <div class="flex gap-8 overflow-x-auto">
+        <a href="#projet" class="py-4 text-sm text-[#2C2824]/60 hover:text-[#2C2824] border-b-2 border-transparent hover:border-[#C4A855] transition-colors whitespace-nowrap">Le projet</a>
+        <a href="#porteur" class="py-4 text-sm text-[#2C2824]/60 hover:text-[#2C2824] border-b-2 border-transparent hover:border-[#C4A855] transition-colors whitespace-nowrap">Porteur de projet</a>
+        <a href="#business" class="py-4 text-sm text-[#2C2824]/60 hover:text-[#2C2824] border-b-2 border-transparent hover:border-[#C4A855] transition-colors whitespace-nowrap">Modèle économique</a>
+        <a href="#calendrier" class="py-4 text-sm text-[#2C2824]/60 hover:text-[#2C2824] border-b-2 border-transparent hover:border-[#C4A855] transition-colors whitespace-nowrap">Calendrier</a>
+        <a href="#risques" class="py-4 text-sm text-[#2C2824]/60 hover:text-[#2C2824] border-b-2 border-transparent hover:border-[#C4A855] transition-colors whitespace-nowrap">Risques</a>
+        <a href="#documents" class="py-4 text-sm text-[#2C2824]/60 hover:text-[#2C2824] border-b-2 border-transparent hover:border-[#C4A855] transition-colors whitespace-nowrap">Documents</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- RÉSUMÉ EXÉCUTIF -->
+  <section class="py-12 md:py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-6 md:px-10">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        <strong class="font-medium">LAOM est le premier coliving régénératif de France.</strong> 21 hectares dans le sud de l'Aveyron, 15 ménages copropriétaires, le plus grand bâtiment en paille porteuse du monde (850m² construits en 75 jours). Cette levée de fonds finance la phase d'expansion : finition du coliving (7 chambres), infrastructure agricole, et trésorerie de lancement.
+      </p>
+    </div>
+  </section>
+
+  <!-- LE PROJET -->
+  <section id="projet" class="py-12 md:py-16 bg-[#FAF8F5] scroll-mt-16">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le projet</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        Un coliving régénératif
+      </h2>
+
+      <div class="space-y-10">
+        <!-- Le concept -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Le concept</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            LAOM combine quatre dimensions : <strong class="font-medium">habitat collectif</strong> (15 ménages copropriétaires + coliving de 7 chambres), <strong class="font-medium">agriculture régénératrice</strong> (ferme maraîchère pédagogique), <strong class="font-medium">éco-construction</strong> (paille porteuse, terre crue), et <strong class="font-medium">accueil</strong> (stages, retraites, événements).
+          </p>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            C'est un modèle multi-revenus, résilient, ancré dans le réel. Pas une startup. Un lieu de vie qui génère de la valeur économique, sociale et écologique.
+          </p>
+        </div>
+
+        <!-- La localisation -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">La localisation</h3>
+          <div class="aspect-[16/9] bg-[#E8E3D8] rounded-sm overflow-hidden mb-4">
+            <img 
+              src="/images/laom/capture-d-cran-2023-10-24-22-30-40-95f74a2c.webp" 
+              alt="Vue aérienne du domaine LAOM"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            <strong class="font-medium">Sud Aveyron</strong>, au cœur du Parc Naturel des Grands Causses. 21 hectares de forêt, prairies et rivière. À 1h30 de Montpellier, 2h30 de Toulouse. Un territoire rural en reconquête, avec une demande croissante de lieux de vie alternatifs.
+          </p>
+        </div>
+
+        <!-- L'historique -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">L'historique</h3>
+          <div class="space-y-3">
+            <div class="flex gap-4 items-start">
+              <span class="text-sm text-[#C4A855] font-medium w-20 flex-shrink-0">2021</span>
+              <p class="text-base font-light text-[#2C2824]/70">Acquisition du domaine de La Margue (21 hectares)</p>
+            </div>
+            <div class="flex gap-4 items-start">
+              <span class="text-sm text-[#C4A855] font-medium w-20 flex-shrink-0">2022-2023</span>
+              <p class="text-base font-light text-[#2C2824]/70">Construction du Petit Shambala (73m², maison familiale)</p>
+            </div>
+            <div class="flex gap-4 items-start">
+              <span class="text-sm text-[#C4A855] font-medium w-20 flex-shrink-0">Oct 2023</span>
+              <p class="text-base font-light text-[#2C2824]/70">Construction du Grand Shambala (850m² en paille porteuse, 75 jours)</p>
+            </div>
+            <div class="flex gap-4 items-start">
+              <span class="text-sm text-[#C4A855] font-medium w-20 flex-shrink-0">Été 2025</span>
+              <p class="text-base font-light text-[#2C2824]/70">Validation du STECAL (4 ans de procédure administrative)</p>
+            </div>
+            <div class="flex gap-4 items-start">
+              <span class="text-sm text-[#C4A855] font-medium w-20 flex-shrink-0">2026</span>
+              <p class="text-base font-light text-[#2C2824]/70">Ouverture du coliving et lancement des activités</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTEUR DE PROJET -->
+  <section id="porteur" class="py-12 md:py-16 bg-white scroll-mt-16">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Porteur de projet</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        Qui porte LAOM
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="md:col-span-1">
+          <div class="aspect-[3/4] bg-[#E8E3D8] rounded-sm overflow-hidden">
+            <img 
+              src="/images/charly-aubert.webp" 
+              alt="Charly Aubert"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
+          <p class="text-sm text-[#C4A855] mb-4">Fondateur & bâtisseur</p>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-6">
+            33 ans, autodidacte, ex-Epitech. Entrepreneur depuis 10 ans. A construit le plus grand bâtiment en paille porteuse du monde en 75 jours avec une équipe de 4 personnes. 4 ans de bataille administrative pour obtenir les autorisations. Coach et formateur, il accompagne d'autres porteurs de projets d'écolieux.
+          </p>
+          
+          <h4 class="text-sm font-medium text-[#2C2824] mb-3">Track record</h4>
+          <ul class="space-y-2 text-sm font-light text-[#2C2824]/60">
+            <li class="flex items-start gap-2"><span class="text-[#C4A855]">&#10003;</span> 2M€ levés collectivement (11 copropriétaires)</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855]">&#10003;</span> 850m² construits en paille porteuse</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855]">&#10003;</span> STECAL validé après 4 ans de procédure</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855]">&#10003;</span> 500+ personnes accueillies depuis 2021</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Équipe -->
+      <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">L'équipe</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {equipe.map((membre) => (
+          <div class="text-center">
+            <div class="aspect-square bg-[#E8E3D8] rounded-full overflow-hidden mb-3 mx-auto w-20 h-20">
+              {membre.photo ? (
+                <img src={membre.photo} alt={membre.name} class="w-full h-full object-cover" />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center text-[#2C2824]/20 text-2xl font-playfair">
+                  {membre.name[0]}
+                </div>
+              )}
+            </div>
+            <p class="text-sm font-medium text-[#2C2824]">{membre.name}</p>
+            <p class="text-xs text-[#2C2824]/50">{membre.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MODÈLE ÉCONOMIQUE -->
+  <section id="business" class="py-12 md:py-16 bg-[#FAF8F5] scroll-mt-16">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Business model</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        Modèle économique
+      </h2>
+
+      <div class="space-y-12">
+        <!-- Sources de revenus -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">Sources de revenus</h3>
+          <div class="space-y-3">
+            {revenus.map((r) => (
+              <div class="flex items-center gap-4">
+                <div class="w-32 text-sm font-light text-[#2C2824]/70">{r.name}</div>
+                <div class="flex-1 h-6 bg-white rounded-sm overflow-hidden">
+                  <div class="h-full rounded-sm" style={`width: ${r.pct}%; background-color: ${r.color}`}></div>
+                </div>
+                <div class="w-12 text-sm font-medium text-[#2C2824] text-right">{r.pct}%</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Utilisation des fonds -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">Utilisation des fonds</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            {utilisationFonds.map((item) => (
+              <div class="bg-white p-4 rounded-sm border border-black/5">
+                <p class="text-sm font-light text-[#2C2824]/60 mb-1">{item.name}</p>
+                <p class="font-playfair text-xl font-medium text-[#2C2824]">{formatMontant(item.montant)} €</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Projections -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">Projections financières</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-black/10">
+                  <th class="text-left py-3 font-medium text-[#2C2824]">Année</th>
+                  <th class="text-right py-3 font-medium text-[#2C2824]">CA prévisionnel</th>
+                  <th class="text-right py-3 font-medium text-[#2C2824]">Résultat net</th>
+                </tr>
+              </thead>
+              <tbody>
+                {projections.map((p) => (
+                  <tr class="border-b border-black/5">
+                    <td class="py-3 text-[#2C2824]/70">{p.annee}</td>
+                    <td class="py-3 text-right text-[#2C2824]/70">{formatMontant(p.ca)} €</td>
+                    <td class="py-3 text-right font-medium text-[#C4A855]">{formatMontant(p.resultat)} €</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-[#2C2824]/40 mt-4">
+            *Projections basées sur un taux de remplissage coliving de 70% la première année, 85% la deuxième.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDRIER -->
+  <section id="calendrier" class="py-12 md:py-16 bg-white scroll-mt-16">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Timeline</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        Calendrier du projet
+      </h2>
+
+      <div class="relative">
+        <div class="absolute left-4 top-0 bottom-0 w-px bg-[#E8E3D8]"></div>
+        <div class="space-y-6">
+          {timeline.map((item) => (
+            <div class="flex gap-6 items-start">
+              <div class={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                item.status === 'done' ? 'bg-[#C4A855]' : 
+                item.status === 'current' ? 'bg-[#C4A855] ring-4 ring-[#C4A855]/20' : 
+                'bg-[#E8E3D8]'
+              }`}>
+                {item.status === 'done' && (
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+                {item.status === 'current' && (
+                  <div class="w-2 h-2 bg-white rounded-full"></div>
+                )}
+              </div>
+              <div class="flex-1 pb-6">
+                <p class="text-xs text-[#C4A855] font-medium mb-1">{item.date}</p>
+                <p class={`text-base ${item.status === 'future' ? 'text-[#2C2824]/50' : 'text-[#2C2824]'}`}>
+                  {item.event}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="py-12 md:py-16 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Impact</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        Un investissement à impact
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-sm border border-black/5">
+          <div class="w-10 h-10 bg-[#C4A855]/10 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="font-medium text-[#2C2824] mb-2">Environnemental</h3>
+          <ul class="space-y-1 text-sm text-[#2C2824]/60">
+            <li>850m² en paille porteuse</li>
+            <li>Agriculture régénératrice</li>
+            <li>Zéro artificialisation</li>
+            <li>Autonomie énergétique visée</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-sm border border-black/5">
+          <div class="w-10 h-10 bg-[#C4A855]/10 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="font-medium text-[#2C2824] mb-2">Social</h3>
+          <ul class="space-y-1 text-sm text-[#2C2824]/60">
+            <li>15 ménages résidents</li>
+            <li>500+ visiteurs/an</li>
+            <li>Formation et transmission</li>
+            <li>Lien intergénérationnel</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-sm border border-black/5">
+          <div class="w-10 h-10 bg-[#C4A855]/10 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="font-medium text-[#2C2824] mb-2">Économique local</h3>
+          <ul class="space-y-1 text-sm text-[#2C2824]/60">
+            <li>5 emplois créés</li>
+            <li>400k€/an d'activité</li>
+            <li>Fournisseurs locaux</li>
+            <li>Dynamisation du territoire</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISQUES -->
+  <section id="risques" class="py-12 md:py-16 bg-white scroll-mt-16">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Transparence</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        Risques et garanties
+      </h2>
+
+      <div class="space-y-8">
+        <!-- Garanties -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Actifs en garantie</h3>
+          <div class="bg-[#FAF8F5] p-6 rounded-sm">
+            <ul class="space-y-3 text-base font-light text-[#2C2824]/70">
+              <li class="flex items-start gap-3">
+                <span class="text-[#C4A855] mt-1">&#10003;</span>
+                <span><strong class="font-medium">Foncier</strong> : 21 hectares (valeur estimée 800 000 €)</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#C4A855] mt-1">&#10003;</span>
+                <span><strong class="font-medium">Immobilier</strong> : Petit Shambala, Grand Shambala, Salle de pratique</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#C4A855] mt-1">&#10003;</span>
+                <span><strong class="font-medium">Structure juridique</strong> : SCIA avec pacte d'associés et droit de sortie</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tableau des risques -->
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Risques identifiés</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-black/10">
+                  <th class="text-left py-3 font-medium text-[#2C2824]">Risque</th>
+                  <th class="text-center py-3 font-medium text-[#2C2824]">Probabilité</th>
+                  <th class="text-center py-3 font-medium text-[#2C2824]">Impact</th>
+                  <th class="text-left py-3 font-medium text-[#2C2824]">Mitigation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {risques.map((r) => (
+                  <tr class="border-b border-black/5">
+                    <td class="py-3 text-[#2C2824]/70">{r.risque}</td>
+                    <td class="py-3 text-center">
+                      <span class={`text-xs px-2 py-1 rounded-sm ${
+                        r.probabilite === 'Faible' ? 'bg-green-100 text-green-700' :
+                        r.probabilite === 'Moyen' ? 'bg-yellow-100 text-yellow-700' :
+                        'bg-red-100 text-red-700'
+                      }`}>{r.probabilite}</span>
+                    </td>
+                    <td class="py-3 text-center">
+                      <span class={`text-xs px-2 py-1 rounded-sm ${
+                        r.impact === 'Faible' ? 'bg-green-100 text-green-700' :
+                        r.impact === 'Moyen' ? 'bg-yellow-100 text-yellow-700' :
+                        'bg-red-100 text-red-700'
+                      }`}>{r.impact}</span>
+                    </td>
+                    <td class="py-3 text-[#2C2824]/60">{r.mitigation}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section id="documents" class="py-12 md:py-16 bg-[#FAF8F5] scroll-mt-16">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Documentation</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        Documents à télécharger
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        {documents.map((doc) => (
+          <a 
+            href={doc.url}
+            class="flex items-center gap-4 bg-white p-4 rounded-sm border border-black/5 hover:border-[#C4A855]/30 transition-colors group"
+          >
+            <div class="w-10 h-10 bg-[#C4A855]/10 rounded-sm flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-[#2C2824] group-hover:text-[#C4A855] transition-colors">{doc.name}</p>
+              <p class="text-xs text-[#2C2824]/40">{doc.type}</p>
+            </div>
+            <svg class="w-5 h-5 text-[#2C2824]/20 group-hover:text-[#C4A855] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-12 md:py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Questions fréquentes</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+        FAQ
+      </h2>
+
+      <div class="space-y-4">
+        {faq.map((item, i) => (
+          <details class="group bg-[#FAF8F5] rounded-sm">
+            <summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+              <span class="text-base font-medium text-[#2C2824] pr-4">{item.question}</span>
+              <svg class="w-5 h-5 text-[#C4A855] transform group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-5 pb-5">
+              <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">{item.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-16 md:py-24 bg-[#2C2824] mb-16 lg:mb-0">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 text-center">
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
+        Investissez dans LAOM
+      </h2>
+      
+      <div class="flex flex-wrap justify-center gap-6 mb-8">
+        <div class="text-center">
+          <p class="font-playfair text-2xl font-medium text-white">{formatMontant(projet.objectif)} €</p>
+          <p class="text-xs text-white/50">Objectif</p>
+        </div>
+        <div class="w-px h-12 bg-white/20"></div>
+        <div class="text-center">
+          <p class="font-playfair text-2xl font-medium text-[#C4A855]">{projet.rendement}</p>
+          <p class="text-xs text-white/50">Rendement</p>
+        </div>
+        <div class="w-px h-12 bg-white/20"></div>
+        <div class="text-center">
+          <p class="font-playfair text-2xl font-medium text-white">{projet.duree}</p>
+          <p class="text-xs text-white/50">Durée</p>
+        </div>
+        <div class="w-px h-12 bg-white/20"></div>
+        <div class="text-center">
+          <p class="font-playfair text-2xl font-medium text-white">{projet.minimum}</p>
+          <p class="text-xs text-white/50">Minimum</p>
+        </div>
+      </div>
+
+      <a
+        href="https://fyneo.org"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+      >
+        Investir via Fyneo
+      </a>
+      
+      <p class="text-xs text-white/40 mt-4">
+        Souscription 100% en ligne sécurisée
+      </p>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  // Galerie photos
+  document.addEventListener('DOMContentLoaded', () => {
+    const mainImg = document.getElementById('main-photo-img') as HTMLImageElement
+    const thumbs = document.querySelectorAll('.photo-thumb')
+    
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const src = thumb.getAttribute('data-src')
+        const alt = thumb.getAttribute('data-alt')
+        if (mainImg && src) {
+          mainImg.src = src
+          mainImg.alt = alt || ''
+        }
+        thumbs.forEach(t => t.classList.remove('border-[#C4A855]'))
+        thumbs.forEach(t => t.classList.add('border-transparent'))
+        thumb.classList.remove('border-transparent')
+        thumb.classList.add('border-[#C4A855]')
+      })
+    })
+  })
+</script>

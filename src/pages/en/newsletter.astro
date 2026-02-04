@@ -1,233 +1,411 @@
 ---
 import Layout from '~/layouts/Layout.astro'
-import NewsletterForm from '~/components/NewsletterForm.astro'
 import { createWebPageSchema } from '~/utils/schema'
-import { getTranslations as getI18nTranslations } from '~/i18n/utils'
-
-const lang = 'en' as const
-const t = getI18nTranslations(lang)
 
 const pageSchema = createWebPageSchema({
-  name: t.pages.newsletterPage.heroTitle,
+  name: 'Join the LAOM adventure',
   url: Astro.url.toString(),
-  description: t.pages.newsletterPage.heroSubtitle,
+  description: 'Get the 2026 program and behind-the-scenes updates every Sunday.',
 })
+
+// Kit form options
+const formKitOptions = {
+  settings: {
+    after_subscribe: {
+      action: 'message',
+      success_message: 'Welcome! Check your email to confirm your subscription.',
+      redirect_url: '',
+    },
+    powered_by: { show: false },
+    recaptcha: { enabled: false },
+  },
+  version: '5',
+}
+
+// Micro-testimonials
+const microTestimonials = [
+  { quote: "A magical place", author: "Marie" },
+  { quote: "You leave transformed", author: "Thomas" },
+  { quote: "Authentic connections", author: "Julie" },
+  { quote: "No filter, no BS", author: "Marc" },
+]
+
+// Detailed testimonials
+const testimonials = [
+  {
+    quote: "LAOM's newsletter is the only email I open on Sunday morning. The behind-the-scenes, the struggles, the wins — it's all real.",
+    author: "Sophie",
+    context: "subscriber since 2024"
+  },
+  {
+    quote: "I discovered LAOM through the newsletter. Six months later, I came to a retreat. The Sunday email made me want to see this place with my own eyes.",
+    author: "Camille",
+    context: "En Mouvement participant"
+  },
+  {
+    quote: "Charly shares everything unfiltered. Construction mistakes, financial decisions, doubts. It's rare and precious.",
+    author: "Antoine",
+    context: "eco-village project leader"
+  },
+  {
+    quote: "A place that reconnects you with what matters. Nature, community, silence, movement.",
+    author: "Participant",
+    context: "Dance & Silence retreat"
+  },
+]
 ---
 
 <Layout
-  title={`${t.pages.newsletterPage.heroTitle} – LAOM`}
-  description={t.pages.newsletterPage.heroSubtitle}
+  title="Join the LAOM adventure"
+  description="Get the 2026 program and behind-the-scenes updates every Sunday."
   seo={{ ldJSON: pageSchema }}
 >
-  <section class="relative -mt-24 md:-mt-28 min-h-[60vh] flex items-center justify-center overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0 z-0">
-      <img
-        src="/images/laom/laom-batiment-paille.webp"
-        alt="Load-bearing straw building at LAOM"
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-      />
-      <!-- Gradient overlay for text readability -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/50"></div>
+  <style is:global>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+    .formkit-alert:empty { display: none; }
+    .formkit-alert-error {
+      background: rgba(254, 226, 226, 0.9);
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      list-style: none;
+      margin: 0 0 0.75rem 0;
+    }
+    .formkit-alert-success {
+      background: rgba(187, 247, 208, 0.9);
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      list-style: none;
+      margin: 0 0 0.75rem 0;
+    }
+  </style>
+
+  <!-- HERO SPLIT -->
+  <section class="min-h-screen -mt-24 md:-mt-28 pt-24 md:pt-28">
+    <div class="grid lg:grid-cols-2 min-h-[calc(100vh-6rem)]">
+      <!-- Left column: Text + Form -->
+      <div class="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-20 py-16 lg:py-20 bg-[#FAF8F5] order-2 lg:order-1">
+        <p class="text-xs font-light tracking-[0.25em] uppercase text-[#2C2824]/50 mb-6">LAOM · Aveyron, France</p>
+        
+        <h1 class="font-playfair text-4xl md:text-5xl xl:text-6xl font-medium text-[#2C2824] mb-6 tracking-tight leading-[1.1]">
+          Join the<br/>adventure
+        </h1>
+        
+        <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed max-w-md">
+          Get the 2026 program and behind-the-scenes updates every Sunday.
+        </p>
+        
+        <!-- Kit Form #1 -->
+        <form
+          action="https://app.kit.com/forms/8987350/subscriptions"
+          class="seva-form formkit-form"
+          method="post"
+          data-sv-form="8987350"
+          data-uid="af2e0fc1e5"
+          data-format="inline"
+          data-version="5"
+          data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+        >
+          <div data-style="clean">
+            <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+            <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3 max-w-md">
+              <input
+                class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+                name="email_address"
+                type="email"
+                required
+                aria-label="Your email address"
+                placeholder="your@email.com"
+                autocomplete="email"
+              />
+              <button
+                type="submit"
+                data-element="submit"
+                class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </form>
+        
+        <p class="text-sm text-[#2C2824]/40 mt-5">Every Sunday morning. No spam.</p>
+      </div>
+      
+      <!-- Right column: Image -->
+      <div class="relative h-[50vh] lg:h-auto order-1 lg:order-2">
+        <img 
+          src="/images/claire-danse-libre-retraite-2048x1368.webp" 
+          alt="Dance retreat at LAOM"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent lg:hidden"></div>
+      </div>
     </div>
-    
-    <!-- Content -->
-    <div class="relative z-10 max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-white/80 mb-4">
-        {t.footer.newsletterTitle}
-      </span>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 tracking-tight drop-shadow-lg">
-        {t.pages.newsletterPage.heroTitle}
-      </h1>
-      <p class="text-lg md:text-xl font-light text-white/90 leading-relaxed drop-shadow-sm">
-        {t.pages.newsletterPage.heroSubtitle}
+  </section>
+
+
+  <!-- MICRO-TESTIMONIALS BANNER -->
+  <section class="py-10 md:py-14 bg-white border-y border-[#2C2824]/5">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <div class="flex flex-wrap justify-center gap-8 md:gap-12 lg:gap-16">
+        {microTestimonials.map((t) => (
+          <div class="flex items-center gap-3">
+            <span class="w-1 h-8 bg-[#C4A855]/60 rounded-full"></span>
+            <div>
+              <p class="text-base font-medium text-[#2C2824]/80 italic">"{t.quote}"</p>
+              <p class="text-sm text-[#2C2824]/40 mt-1">— {t.author}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WHAT YOU GET -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] mb-14 text-center tracking-tight">
+        What you get
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-10 md:gap-8">
+        <!-- Bullet 1 -->
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
+            <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">2026 Program</h3>
+          <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
+            En Mouvement, LAOMFEST, partner workshops, coliving opening — all the dates.
+          </p>
+        </div>
+        
+        <!-- Bullet 2 -->
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
+            <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Behind the scenes</h3>
+          <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
+            Progress, decisions, mistakes and lessons. Unfiltered.
+          </p>
+        </div>
+        
+        <!-- Bullet 3 -->
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
+            <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Early access</h3>
+          <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
+            New dates, available spots — you hear about it first.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TESTIMONIAL #1 -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6 md:px-10">
+      <blockquote class="border-l-4 border-[#C4A855] pl-6 md:pl-8">
+        <p class="font-playfair text-xl md:text-2xl font-normal italic text-[#2C2824]/85 leading-relaxed">
+          "{testimonials[0].quote}"
+        </p>
+        <footer class="mt-4">
+          <p class="text-sm font-light text-[#2C2824]/50">
+            — {testimonials[0].author}, {testimonials[0].context}
+          </p>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+
+  <!-- FORM #2 -->
+  <section class="py-12 md:py-16 bg-[#F5F3EB]">
+    <div class="max-w-xl mx-auto px-6 text-center">
+      <form
+        action="https://app.kit.com/forms/8987350/subscriptions"
+        class="seva-form formkit-form"
+        method="post"
+        data-sv-form="8987350"
+        data-uid="af2e0fc1e5"
+        data-format="inline"
+        data-version="5"
+        data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+      >
+        <div data-style="clean">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+          <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input
+              class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+              name="email_address"
+              type="email"
+              required
+              aria-label="Your email address"
+              placeholder="your@email.com"
+              autocomplete="email"
+            />
+            <button
+              type="submit"
+              data-element="submit"
+              class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- TESTIMONIALS #2 + #3 (2 columns) -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <div class="grid md:grid-cols-2 gap-10 md:gap-12">
+        <blockquote class="border-l-4 border-[#C4A855]/60 pl-6">
+          <p class="font-playfair text-lg md:text-xl font-normal italic text-[#2C2824]/80 leading-relaxed">
+            "{testimonials[1].quote}"
+          </p>
+          <footer class="mt-4">
+            <p class="text-sm font-light text-[#2C2824]/50">
+              — {testimonials[1].author}, {testimonials[1].context}
+            </p>
+          </footer>
+        </blockquote>
+        
+        <blockquote class="border-l-4 border-[#C4A855]/60 pl-6">
+          <p class="font-playfair text-lg md:text-xl font-normal italic text-[#2C2824]/80 leading-relaxed">
+            "{testimonials[2].quote}"
+          </p>
+          <footer class="mt-4">
+            <p class="text-sm font-light text-[#2C2824]/50">
+              — {testimonials[2].author}, {testimonials[2].context}
+            </p>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- COMMUNITY PHOTOS -->
+  <section class="py-12 md:py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        <div class="aspect-[4/3] overflow-hidden rounded-sm">
+          <img
+            src="/images/laom/laomfest/vanlifest-IMG_2846.webp"
+            alt="Festival at LAOM"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-sm">
+          <img
+            src="/images/laom/laomfest/groupe-56569-329169ae.webp"
+            alt="Group at LAOM"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-sm col-span-2 md:col-span-1">
+          <img
+            src="/images/laom/financement-participatif/photo-groupe-laom-1502d4dc.webp"
+            alt="LAOM community"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <p class="text-center text-sm font-light text-[#2C2824]/40 mt-6">
+        21 hectares · South Aveyron · Grands Causses Natural Park
       </p>
     </div>
   </section>
 
-  <!-- Newsletter Form (Top) -->
-  <section class="py-8 md:py-12 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="bg-[#285230] rounded-lg md:rounded-xl p-6 md:p-8 lg:p-10">
-        <NewsletterForm variant="light" />
-      </div>
+
+  <!-- FINAL TESTIMONIAL -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 text-center">
+      <blockquote>
+        <p class="font-playfair text-2xl md:text-3xl font-normal italic text-[#2C2824]/90 leading-relaxed">
+          "{testimonials[3].quote}"
+        </p>
+        <footer class="mt-6">
+          <p class="text-sm font-light text-[#2C2824]/50">
+            — {testimonials[3].author}, {testimonials[3].context}
+          </p>
+        </footer>
+      </blockquote>
     </div>
   </section>
 
-  <!-- What is LAOM -->
-  <section class="py-12 md:py-16 bg-[#F3EEDC]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-normal text-black mb-6">{t.pages.newsletterPage.whatIsTitle}</h2>
-      <p class="text-lg md:text-xl font-normal text-black/80 leading-relaxed">
-        {t.pages.newsletterPage.whatIsDescription}
+
+  <!-- FINAL CTA -->
+  <section class="py-20 md:py-28 bg-[#2C2824]">
+    <div class="max-w-xl mx-auto px-6 text-center">
+      <p class="font-playfair text-3xl md:text-4xl font-medium text-white mb-4 tracking-tight">
+        We're waiting for you.
       </p>
+      <p class="text-base font-light text-white/60 mb-10">
+        Join those who follow the LAOM adventure.
+      </p>
+      
+      <!-- Kit Form #3 -->
+      <form
+        action="https://app.kit.com/forms/8987350/subscriptions"
+        class="seva-form formkit-form"
+        method="post"
+        data-sv-form="8987350"
+        data-uid="af2e0fc1e5"
+        data-format="inline"
+        data-version="5"
+        data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+      >
+        <div data-style="clean">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite" style="color: #fecaca; background: rgba(254,226,226,0.15); border-color: rgba(248,113,113,0.5);"></ul>
+          <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input
+              class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
+              name="email_address"
+              type="email"
+              required
+              aria-label="Your email address"
+              placeholder="your@email.com"
+              autocomplete="email"
+            />
+            <button
+              type="submit"
+              data-element="submit"
+              class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </form>
+      
+      <p class="text-xs text-white/40 mt-6">Unsubscribe in one click.</p>
     </div>
   </section>
 
-  <!-- Photos -->
-  <section class="py-12 md:py-16 bg-[#F3EEDC]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-2xl md:text-3xl font-normal text-black mb-6">A few photos from the place</h2>
-      <div class="grid gap-6 md:grid-cols-12">
-        <!-- First row -->
-        <div class="md:col-span-7">
-          <div class="aspect-[16/10] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/vue-aeriene-laom.webp"
-              alt="Aerial view of LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-5">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/laom-accueil.webp"
-              alt="Welcome space at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-4">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/laom-batiment-paille.webp"
-              alt="Load-bearing straw building at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-4">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/laom-potager.webp"
-              alt="The vegetable garden at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-4">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/oasis-la-margue-1.webp"
-              alt="The La Margue oasis at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <!-- Second row -->
-        <div class="md:col-span-6">
-          <div class="aspect-[4/3] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/jardin-laom.webp"
-              alt="The garden at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-6">
-          <div class="aspect-[4/3] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/whatsapp-2023-12-06-23-54-48.webp"
-              alt="Agricultural landscape at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-4">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/laom-salle.webp"
-              alt="The hall at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-4">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/laom-ferme-cbd.webp"
-              alt="The CBD farm at LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div class="md:col-span-4">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm border border-black/10 bg-neutral-100">
-            <img
-              src="/images/laom/vue-aeriene-laom2.webp"
-              alt="Aerial view of LAOM"
-              class="h-full w-full object-cover rounded-sm"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Dimensions -->
-  <section class="py-24 bg-[#F3EEDC]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-normal text-black mb-12">{t.pages.newsletterPage.dimensionsTitle}</h2>
-      <div class="grid gap-8 md:grid-cols-2">
-        {t.pages.newsletterPage.dimensions.map((dimension) => (
-          <div class="border-b border-black/10 pb-8 last:border-b-0 md:last:border-b md:border-b-0">
-            <h3 class="text-xl md:text-2xl font-normal text-black mb-3">{dimension.title}</h3>
-            <p class="text-base md:text-lg font-normal text-black/70 leading-relaxed">{dimension.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter Content -->
-  <section class="py-24 bg-[#F3EEDC]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-normal text-black mb-8">{t.pages.newsletterPage.newsletterContentTitle}</h2>
-      <ul class="space-y-4">
-        {t.pages.newsletterPage.newsletterContent.map((item) => (
-          <li class="text-lg font-normal text-black/80 leading-relaxed flex items-start gap-3">
-            <span class="text-black/40 mt-2 flex-shrink-0">•</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="py-24 bg-[#F3EEDC]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-normal text-black mb-12 text-center">{t.pages.newsletterPage.statsTitle}</h2>
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {t.pages.newsletterPage.stats.map((stat) => (
-          <div class="text-center">
-            <div class="text-4xl md:text-5xl font-normal text-black mb-2">{stat.value}</div>
-            <div class="text-sm font-normal text-black/60 uppercase tracking-wider mb-1">{stat.label}</div>
-            <div class="text-base font-normal text-black/70">{stat.description}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter Form -->
-  <section class="py-24 md:py-32 bg-[#F3EEDC]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="bg-[#285230] rounded-lg md:rounded-xl p-8 md:p-12 lg:p-16">
-        <NewsletterForm variant="light" />
-      </div>
-    </div>
-  </section>
 </Layout>

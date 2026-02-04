@@ -126,9 +126,14 @@ const pageSchema = createWebPageSchema({
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="flex flex-col md:flex-row gap-12 items-start opacity-0" animate-fade-in-up>
         <div class="w-full md:w-80 flex-shrink-0">
-          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
-            <p class="text-sm font-light text-[#2C2824]/40 px-6 text-center">Photo à prendre : portrait Charly, naturel, en extérieur</p>
-          </div>
+          <div class="aspect-[1/1] overflow-hidden rounded-sm">
+          <img 
+            src="/images/laom/ild7331-2print-6d1170ef.webp" 
+            alt="Photo à prendre : portrait Charly, naturel, en extérieur ➕"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
         </div>
         <div class="flex-1">
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Qui</p>

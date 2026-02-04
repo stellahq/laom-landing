@@ -68,9 +68,12 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           <p>{p}</p>
         ))}
       </div>
-      <div class="mt-14 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm max-w-3xl mx-auto">
-        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo à prendre : vue aérienne drone du domaine LAOM,  21 hectares, prairies, forêt, bâtiments, rivière</p>
-      </div>
+      <img 
+          src="/images/laom/capture-d-cran-2023-10-24-22-30-40-95f74a2c.webp" 
+          alt="vue aérienne drone du domaine LAOM,  21 hectares, prairies, forêt, bâtiments, rivière"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
       <a
         href={getLocalizedPath('/project/', lang as 'fr' | 'en')}
         class="inline-block mt-4 text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"

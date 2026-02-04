@@ -21,12 +21,20 @@ Et on reprend.
 
 C'est ça, l'histoire du Shala. Pas un récit lisse de construction écologique. Une aventure de dingues, portée par une communauté, avec des moments où on a failli tout casser — au sens propre.
 
-<img 
-  src="/images/placeholder/shala-equipe-benevoles.webp" 
-  alt="L'équipe de bénévoles devant la structure en bois du Shala, été 2023. Ambiance chantier participatif, sourires, outils à la main."
-  data-placeholder="true"
-  class="w-full rounded-sm my-8"
-/>
+<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+  <img 
+    src="/images/placeholder/shala-equipe-benevoles.webp" 
+    alt="L'équipe de bénévoles devant la structure en bois du Shala, été 2023"
+    data-placeholder="true"
+    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
+  />
+  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+    <div style="text-align: center; padding: 1.5rem;">
+      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
+      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">L'équipe de bénévoles devant la structure en bois du Shala, été 2023. Ambiance chantier participatif, sourires, outils à la main.</p>
+    </div>
+  </div>
+</div>
 
 ## La rencontre
 
@@ -68,25 +76,49 @@ On est en juillet 2023. Le chantier peut commencer.
 
 De la conversation sur la terrasse au premier coup de marteau : moins d'un mois. C'est comme ça qu'on fonctionne.
 
-<div class="not-prose my-8 grid grid-cols-3 gap-4">
-  <img 
-    src="/images/placeholder/shala-moodboard.webp" 
-    alt="Le moodboard de la salle créé avec Eliott"
-    data-placeholder="true"
-    class="w-full rounded-sm aspect-[4/3] object-cover"
-  />
-  <img 
-    src="/images/placeholder/shala-plan-serge.webp" 
-    alt="Le plan envoyé par Serge Lièvremont en 24h"
-    data-placeholder="true"
-    class="w-full rounded-sm aspect-[4/3] object-cover"
-  />
-  <img 
-    src="/images/placeholder/shala-bois-livre.webp" 
-    alt="Le bois livré sur le terrain de LAOM, juillet 2023"
-    data-placeholder="true"
-    class="w-full rounded-sm aspect-[4/3] object-cover"
-  />
+<div class="not-prose my-8" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+  <div style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+    <img 
+      src="/images/placeholder/shala-moodboard.webp" 
+      alt="Le moodboard de la salle créé avec Eliott"
+      data-placeholder="true"
+      style="width: 100%; aspect-ratio: 4/3; object-fit: cover; opacity: 0;"
+    />
+    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+      <div style="text-align: center; padding: 0.75rem;">
+        <p style="font-size: 0.65rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Photo 1</p>
+        <p style="font-size: 0.7rem; font-weight: 300; color: rgba(255,255,255,0.6);">Le moodboard de la salle</p>
+      </div>
+    </div>
+  </div>
+  <div style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+    <img 
+      src="/images/placeholder/shala-plan-serge.webp" 
+      alt="Le plan envoyé par Serge Lièvremont en 24h"
+      data-placeholder="true"
+      style="width: 100%; aspect-ratio: 4/3; object-fit: cover; opacity: 0;"
+    />
+    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+      <div style="text-align: center; padding: 0.75rem;">
+        <p style="font-size: 0.65rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Photo 2</p>
+        <p style="font-size: 0.7rem; font-weight: 300; color: rgba(255,255,255,0.6);">Le plan de Serge</p>
+      </div>
+    </div>
+  </div>
+  <div style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+    <img 
+      src="/images/placeholder/shala-bois-livre.webp" 
+      alt="Le bois livré sur le terrain de LAOM, juillet 2023"
+      data-placeholder="true"
+      style="width: 100%; aspect-ratio: 4/3; object-fit: cover; opacity: 0;"
+    />
+    <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+      <div style="text-align: center; padding: 0.75rem;">
+        <p style="font-size: 0.65rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Photo 3</p>
+        <p style="font-size: 0.7rem; font-weight: 300; color: rgba(255,255,255,0.6);">Le bois livré sur place</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 ## Le pari communautaire
@@ -103,12 +135,20 @@ Des dizaines de personnes veulent venir. Pas juste donner un coup de main un apr
 
 On met en place un système : des rotations de 20 personnes tous les 10 jours. Pendant 3 mois, c'est un flux continu de bénévoles qui arrivent, construisent, repartent, et passent le relais.
 
-<img 
-  src="/images/placeholder/shala-vue-aerienne-chantier.webp" 
-  alt="Vue aérienne du chantier du Shala en cours. Structure bois visible, bénévoles au travail, paysage aveyronnais en arrière-plan."
-  data-placeholder="true"
-  class="w-full rounded-sm my-8"
-/>
+<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+  <img 
+    src="/images/placeholder/shala-vue-aerienne-chantier.webp" 
+    alt="Vue aérienne du chantier du Shala en cours"
+    data-placeholder="true"
+    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
+  />
+  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+    <div style="text-align: center; padding: 1.5rem;">
+      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
+      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Vue aérienne du chantier du Shala en cours. Structure bois visible, bénévoles au travail, paysage aveyronnais en arrière-plan.</p>
+    </div>
+  </div>
+</div>
 
 ## Une mini-société autogérée
 
@@ -152,12 +192,20 @@ C'est facile de montrer les photos du chantier. C'est plus dur de montrer les mo
 
 On a continué. Et on est plus solides aujourd'hui grâce à cette dispute. (En vrai, je sais pas — peut-être que j'ai vraiment descendu dans son estime et qu'il fait semblant depuis. Eliott, si tu lis ça, dis-moi.)
 
-<img 
-  src="/images/placeholder/shala-charpente-hauteur.webp" 
-  alt="Travail sur la charpente du Shala. Bénévoles sur les échafaudages, structure bois en cours de montage. Le point le plus haut atteint 6m80."
-  data-placeholder="true"
-  class="w-full rounded-sm my-8"
-/>
+<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+  <img 
+    src="/images/placeholder/shala-charpente-hauteur.webp" 
+    alt="Travail sur la charpente du Shala, 6m80 de hauteur"
+    data-placeholder="true"
+    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
+  />
+  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+    <div style="text-align: center; padding: 1.5rem;">
+      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
+      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Travail sur la charpente du Shala. Bénévoles sur les échafaudages, structure bois en cours de montage. Le point le plus haut atteint 6m80.</p>
+    </div>
+  </div>
+</div>
 
 ## Au-delà du chantier
 
@@ -169,13 +217,21 @@ Les sessions de coaching improvisées, c'était ça. Pas du one-one dans un bure
 
 C'est là qu'on a compris : la vraie magie, c'est le collectif. 20 personnes qui arrivent, qui s'organisent, qui construisent ensemble — c'est quelque chose qu'aucun budget ne peut acheter.
 
-<img 
-  src="/images/placeholder/shala-video-eliott.webp" 
-  alt="Vidéo YouTube à intégrer : Vlog d'Eliott Meunier sur la construction du Shala et son installation à LAOM."
-  data-placeholder="true"
-  data-type="video"
-  class="w-full rounded-sm my-8 aspect-video"
-/>
+<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+  <img 
+    src="/images/placeholder/shala-video-eliott.webp" 
+    alt="Vidéo YouTube Eliott Meunier - construction du Shala"
+    data-placeholder="true"
+    data-type="video"
+    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
+  />
+  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+    <div style="text-align: center; padding: 1.5rem;">
+      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Vidéo YouTube à intégrer</p>
+      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Vlog d'Eliott Meunier sur la construction du Shala et son installation à LAOM. Lien à ajouter.</p>
+    </div>
+  </div>
+</div>
 
 ## Ce que le Shala a débloqué
 
@@ -201,12 +257,20 @@ C'est ici qu'on accueille les stages de mouvement. Les ateliers de danse. Les te
 
 Avant le Shala, LAOM était un chantier. Après le Shala, LAOM est devenu un lieu de vie. Cette salle a permis de commencer les animations, d'accueillir des groupes, de faire vivre l'écolieu.
 
-<img 
-  src="/images/placeholder/shala-interieur-final.webp" 
-  alt="Intérieur du Shala terminé. Volume généreux, lumière naturelle par les grandes ouvertures, sol en matériaux naturels, vue sur les collines."
-  data-placeholder="true"
-  class="w-full rounded-sm my-8"
-/>
+<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+  <img 
+    src="/images/placeholder/shala-interieur-final.webp" 
+    alt="Intérieur du Shala terminé"
+    data-placeholder="true"
+    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
+  />
+  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+    <div style="text-align: center; padding: 1.5rem;">
+      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
+      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Intérieur du Shala terminé. Volume généreux, lumière naturelle par les grandes ouvertures, sol en matériaux naturels, vue sur les collines.</p>
+    </div>
+  </div>
+</div>
 
 ## Ce qu'on a appris
 
@@ -226,9 +290,17 @@ Le Shala n'est pas qu'un bâtiment. C'est la preuve que quand une communauté d�
 
 Et parfois, il faut qu'une arche tombe pour qu'on comprenne vraiment ce qu'on est en train de construire.
 
-<img 
-  src="/images/placeholder/shala-seance-mouvement.webp" 
-  alt="Séance de mouvement dans le Shala. Silhouettes en mouvement dans la lumière du soir, atmosphère de pratique, corps en expression."
-  data-placeholder="true"
-  class="w-full rounded-sm my-8"
-/>
+<div class="not-prose my-8" style="position: relative; background-color: #1a1a1a; border-radius: 4px; overflow: hidden;">
+  <img 
+    src="/images/placeholder/shala-seance-mouvement.webp" 
+    alt="Séance de mouvement dans le Shala"
+    data-placeholder="true"
+    style="width: 100%; aspect-ratio: 16/9; object-fit: cover; opacity: 0;"
+  />
+  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #252525;">
+    <div style="text-align: center; padding: 1.5rem;">
+      <p style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Photo à ajouter</p>
+      <p style="font-size: 0.875rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 28rem;">Séance de mouvement dans le Shala. Silhouettes en mouvement dans la lumière du soir, atmosphère de pratique, corps en expression.</p>
+    </div>
+  </div>
+</div>
