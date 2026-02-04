@@ -424,55 +424,65 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
 
   <!-- 7. Prochains événements (aperçu) -->
   <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-14 opacity-0" animate-fade-in-up>
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-4">Agenda</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
-          Prochains événements
-        </h2>
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-end justify-between mb-12 opacity-0" animate-fade-in-up>
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-3">Agenda</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+            Prochains événements
+          </h2>
+        </div>
+        <a
+          href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
+          class="hidden sm:inline-flex items-center gap-2 text-sm text-[#2C2824]/50 hover:text-[#C4A855] transition-colors font-light"
+        >
+          Tout voir
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6 lg:gap-8 opacity-0" animate-fade-in-up>
-        {events.slice(0, 3).map((event) => {
+      <div class="divide-y divide-[#2C2824]/10 opacity-0" animate-fade-in-up>
+        {events.slice(0, 4).map((event) => {
           const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
           return (
             <a
               href={eventHref || getLocalizedPath('/events/', lang as 'fr' | 'en')}
               target={eventHref ? '_blank' : undefined}
               rel={eventHref ? 'noopener noreferrer' : undefined}
-              class="group block bg-white rounded-sm border border-[#2C2824]/5 overflow-hidden hover:border-[#C4A855]/30 transition-colors"
+              class="group flex items-start gap-6 py-6 first:pt-0 last:pb-0"
             >
-              <div class="aspect-[16/10] bg-neutral-100 overflow-hidden">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                  loading="lazy"
-                  width="400"
-                  height="250"
-                  decoding="async"
-                />
-              </div>
-              <div class="p-5">
-                <p class="text-xs font-light tracking-wider uppercase text-[#C4A855] mb-2">
-                  {event.date}
+              <div class="w-24 flex-shrink-0">
+                <p class="text-xs font-light tracking-wider uppercase text-[#C4A855]">
+                  {event.date.split(' ')[0]}
                 </p>
-                <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2 group-hover:text-[#C4A855] transition-colors leading-snug">
+                <p class="text-[11px] font-light text-[#2C2824]/40 mt-0.5">
+                  {event.date.split(' ').slice(1).join(' ')}
+                </p>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-playfair text-lg font-medium text-[#2C2824] group-hover:text-[#C4A855] transition-colors leading-snug">
                   {event.title}
                 </h3>
-                <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed line-clamp-2">
+                <p class="text-sm font-light text-[#2C2824]/50 mt-1 line-clamp-1">
                   {event.description}
                 </p>
+              </div>
+              <div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </div>
             </a>
           )
         })}
       </div>
 
-      <div class="text-center mt-12 opacity-0" animate-fade-in-up>
+      <div class="text-center mt-10 sm:hidden opacity-0" animate-fade-in-up>
         <a
           href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
-          class="inline-flex items-center gap-2 text-base text-[#2C2824]/70 hover:text-[#2C2824] transition-colors font-light"
+          class="inline-flex items-center gap-2 text-sm text-[#2C2824]/60 hover:text-[#C4A855] transition-colors font-light"
         >
           Voir tout le calendrier
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
