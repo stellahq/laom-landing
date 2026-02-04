@@ -4,9 +4,9 @@ import Layout from '~/layouts/Layout.astro'
 export const prerender = true
 
 // ==========================================
-// OFFRES 2026
+// OFFRES 2026 (stages + mentorat + conferences)
 // ==========================================
-const offres = [
+const offresStages = [
   { 
     nom: 'Clarte', 
     prix: 1000, 
@@ -15,7 +15,8 @@ const offres = [
     dates: ['17-19 avril', '25-27 avril'],
     tauxRemplissage: 100,
     description: 'Vision + PARA + Claude Code',
-    couleur: '#C4A855'
+    couleur: '#C4A855',
+    type: 'stage'
   },
   { 
     nom: 'LAOM School', 
@@ -25,7 +26,8 @@ const offres = [
     dates: ['8-10 mai', '16-18 octobre'],
     tauxRemplissage: 80,
     description: 'Creer son ecolieu',
-    couleur: '#2C2824'
+    couleur: '#2C2824',
+    type: 'stage'
   },
   { 
     nom: 'En Mouvement', 
@@ -35,11 +37,42 @@ const offres = [
     dates: ['5-9 aout', '11-15 aout', '16-20 aout'],
     tauxRemplissage: 100,
     description: 'Immersion danse',
-    couleur: '#4A7C59'
+    couleur: '#4A7C59',
+    type: 'stage'
   },
 ]
 
-const caTotal = offres.reduce((acc, o) => acc + (o.prix * o.places * o.tauxRemplissage / 100), 0)
+const offreMentorat = {
+  nom: 'Mentorat',
+  prixMin: 3000,
+  prixMax: 8000,
+  prixMoyen: 5000,
+  clients: 10,
+  tauxRemplissage: 80,
+  description: 'Accompagnement personnalise Charly + Amandine',
+  couleur: '#8B7A3A',
+  type: 'mentorat'
+}
+
+const offreConferences = {
+  nom: 'Conferences Live',
+  prix: 82, // moyenne 67-97€
+  participants: 35, // moyenne par conf
+  sessions: 12, // conferences par an
+  tauxRemplissage: 80,
+  description: 'Webinars experts (1h30-2h)',
+  couleur: '#C4A855',
+  type: 'digital'
+}
+
+// CA par type d'offre
+const caStages = offresStages.reduce((acc, o) => acc + (o.prix * o.places * o.tauxRemplissage / 100), 0)
+const caMentorat = offreMentorat.prixMoyen * offreMentorat.clients * offreMentorat.tauxRemplissage / 100
+const caConferences = offreConferences.prix * offreConferences.participants * offreConferences.sessions * offreConferences.tauxRemplissage / 100
+const caTotal = caStages + caMentorat + caConferences
+
+// Pour compatibilité avec le reste du code
+const offres = offresStages
 
 // ==========================================
 // TUNNELS D'ACQUISITION - NOUVELLE STRATEGIE
@@ -231,8 +264,10 @@ function formatNumber(n: number): string {
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Les offres a vendre</h2>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6">
-        {offres.map((offre) => (
+      <!-- Stages presentiel -->
+      <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-4">Stages en presentiel</p>
+      <div class="grid md:grid-cols-3 gap-6 mb-10">
+        {offresStages.map((offre) => (
           <div class="border border-[#2C2824]/10 rounded-sm overflow-hidden">
             <div class="p-6" style={`border-top: 3px solid ${offre.couleur}`}>
               <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">{offre.sessions} session{offre.sessions > 1 ? 's' : ''}</p>
@@ -267,6 +302,76 @@ function formatNumber(n: number): string {
             </div>
           </div>
         ))}
+      </div>
+
+      <!-- Offres complementaires -->
+      <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-4">Offres complementaires</p>
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Mentorat -->
+        <div class="border border-[#2C2824]/10 rounded-sm overflow-hidden">
+          <div class="p-6" style={`border-top: 3px solid ${offreMentorat.couleur}`}>
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">Accompagnement continu</p>
+            <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{offreMentorat.nom}</h3>
+            <p class="text-sm text-[#2C2824]/60 mb-4">{offreMentorat.description}</p>
+            
+            <div class="flex items-baseline gap-1 mb-4">
+              <span class="font-playfair text-2xl font-medium text-[#2C2824]">{formatNumber(offreMentorat.prixMin)}-{formatNumber(offreMentorat.prixMax)}€</span>
+              <span class="text-sm text-[#2C2824]/40">/client</span>
+            </div>
+
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">Clients cibles</span>
+                <span class="font-medium text-[#2C2824]">{offreMentorat.clients}/an</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">Taux cible</span>
+                <span class="font-medium text-[#2C2824]">{offreMentorat.tauxRemplissage}%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">CA potentiel</span>
+                <span class="font-medium" style={`color: ${offreMentorat.couleur}`}>{formatNumber(caMentorat)}€</span>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-[#2C2824]/10">
+              <p class="text-xs text-[#2C2824]/50">Upsell depuis LAOM School + Conferences</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conferences -->
+        <div class="border border-[#2C2824]/10 rounded-sm overflow-hidden">
+          <div class="p-6" style={`border-top: 3px solid ${offreConferences.couleur}`}>
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">{offreConferences.sessions} conferences/an</p>
+            <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{offreConferences.nom}</h3>
+            <p class="text-sm text-[#2C2824]/60 mb-4">{offreConferences.description}</p>
+            
+            <div class="flex items-baseline gap-1 mb-4">
+              <span class="font-playfair text-2xl font-medium text-[#2C2824]">67-97€</span>
+              <span class="text-sm text-[#2C2824]/40">/participant</span>
+            </div>
+
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">Participants/conf</span>
+                <span class="font-medium text-[#2C2824]">~{offreConferences.participants}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">Taux cible</span>
+                <span class="font-medium text-[#2C2824]">{offreConferences.tauxRemplissage}%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">CA potentiel</span>
+                <span class="font-medium" style={`color: ${offreConferences.couleur}`}>{formatNumber(caConferences)}€</span>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-[#2C2824]/10">
+              <p class="text-xs text-[#2C2824]/50">1 conf / 20 jours · Voir <a href="#conferences" class="text-[#C4A855] underline">section 06</a></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -531,34 +636,6 @@ function formatNumber(n: number): string {
             </div>
           </div>
         ))}
-      </div>
-
-      <!-- Graphique leads -->
-      <div class="bg-[#FAF8F5] p-6 rounded-sm mb-6">
-        <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-4">Projection leads/mois</p>
-        <div class="h-40 flex items-end gap-2">
-          {leadsParMois.map((m) => {
-            const total = m.clarte + m.school + m.mvt
-            const maxHeight = 450
-            const height = (total / maxHeight) * 100
-            return (
-              <div class="flex-1 flex flex-col items-center">
-                <div class="w-full flex flex-col justify-end" style={`height: ${height}%`}>
-                  {m.mvt > 0 && <div class="w-full bg-[#4A7C59]" style={`height: ${(m.mvt/total)*100}%`}></div>}
-                  {m.school > 0 && <div class="w-full bg-[#2C2824]" style={`height: ${(m.school/total)*100}%`}></div>}
-                  {m.clarte > 0 && <div class="w-full bg-[#C4A855]" style={`height: ${(m.clarte/total)*100}%`}></div>}
-                </div>
-                <p class="text-xs text-[#2C2824]/50 mt-2">{m.mois}</p>
-                <p class="text-xs font-medium text-[#2C2824]">{total}</p>
-              </div>
-            )
-          })}
-        </div>
-        <div class="flex justify-center gap-6 mt-4 text-xs">
-          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#C4A855]"></span> Clarte</span>
-          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#2C2824]"></span> School</span>
-          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#4A7C59]"></span> Mvt</span>
-        </div>
       </div>
 
       <a href="/strategie-2026/tunnels" class="flex items-center justify-center gap-2 w-full py-4 bg-[#2C2824] hover:bg-[#1a1a1a] text-white text-sm font-medium rounded-sm transition-colors">
@@ -929,39 +1006,88 @@ function formatNumber(n: number): string {
         </div>
       </div>
 
-      <!-- Tunnel d'acquisition conferences -->
-      <div class="bg-[#2C2824] p-6 rounded-sm text-white mb-8">
-        <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-4">Tunnel d'acquisition specifique</p>
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm mb-6">
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">1</span>
-            <span>Extrait video gratuit</span>
+      <!-- 3 canaux d'acquisition conferences -->
+      <div class="mb-8" id="conferences">
+        <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">3 canaux d'acquisition</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Canal 1: Tunnel dedie -->
+          <div class="bg-[#2C2824] p-6 rounded-sm text-white">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-8 h-8 rounded-full bg-[#C4A855]/20 flex items-center justify-center text-sm font-medium text-[#C4A855]">1</span>
+              <h4 class="font-medium text-white">Tunnel dedie</h4>
+            </div>
+            <p class="text-sm text-white/60 mb-4">Ads Meta/YouTube vers la conference</p>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center gap-2 text-white/80">
+                <span class="text-[#C4A855]">→</span> Lead magnet gratuit (extrait video)
+              </div>
+              <div class="flex items-center gap-2 text-white/80">
+                <span class="text-[#C4A855]">→</span> Inscription email
+              </div>
+              <div class="flex items-center gap-2 text-white/80">
+                <span class="text-[#C4A855]">→</span> Sequence 5 emails → conf
+              </div>
+              <div class="flex items-center gap-2 text-[#4A7C59]">
+                <span class="text-[#4A7C59]">→</span> Achat 67-97€
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-white/10 text-xs text-white/40">
+              Budget test : 300€/conf · CPL cible : 3€
+            </div>
           </div>
-          <svg class="w-4 h-4 text-white/30 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">2</span>
-            <span>Inscription email</span>
+
+          <!-- Canal 2: Upsell tunnels existants -->
+          <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-8 h-8 rounded-full bg-[#C4A855]/10 flex items-center justify-center text-sm font-medium text-[#C4A855]">2</span>
+              <h4 class="font-medium text-[#2C2824]">Upsell tunnels</h4>
+            </div>
+            <p class="text-sm text-[#2C2824]/60 mb-4">Ajout dans sequences Clarte/School/Mvt</p>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center gap-2 text-[#2C2824]/70">
+                <span class="text-[#C4A855]">→</span> Email J+15 : "Conf gratuite ce mois"
+              </div>
+              <div class="flex items-center gap-2 text-[#2C2824]/70">
+                <span class="text-[#C4A855]">→</span> Email J+20 : Rappel + early bird
+              </div>
+              <div class="flex items-center gap-2 text-[#2C2824]/70">
+                <span class="text-[#C4A855]">→</span> Leads deja qualifies
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-[#2C2824]/10 text-xs text-[#2C2824]/40">
+              Cout : 0€ · Conversion estimee : 2-5%
+            </div>
           </div>
-          <svg class="w-4 h-4 text-white/30 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded-full bg-[#C4A855] flex items-center justify-center text-xs text-[#2C2824]">3</span>
-            <span class="text-[#C4A855]">Sequence vers conf</span>
-          </div>
-          <svg class="w-4 h-4 text-white/30 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded-full bg-[#4A7C59] flex items-center justify-center text-xs">4</span>
-            <span class="text-[#4A7C59]">Achat 67-97€</span>
+
+          <!-- Canal 3: Promotion base existante -->
+          <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-8 h-8 rounded-full bg-[#C4A855]/10 flex items-center justify-center text-sm font-medium text-[#C4A855]">3</span>
+              <h4 class="font-medium text-[#2C2824]">Promo base email</h4>
+            </div>
+            <p class="text-sm text-[#2C2824]/60 mb-4">Newsletter + LinkedIn</p>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center gap-2 text-[#2C2824]/70">
+                <span class="text-[#C4A855]">→</span> Newsletter hebdo : annonce conf
+              </div>
+              <div class="flex items-center gap-2 text-[#2C2824]/70">
+                <span class="text-[#C4A855]">→</span> Posts LinkedIn : teasing
+              </div>
+              <div class="flex items-center gap-2 text-[#2C2824]/70">
+                <span class="text-[#C4A855]">→</span> Base chaude (24k leads fin aout)
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-[#2C2824]/10 text-xs text-[#2C2824]/40">
+              Cout : 0€ · Principal canal de conversion
+            </div>
           </div>
         </div>
-        <p class="text-sm text-white/60">
-          <strong class="text-white">Option replay :</strong> Vendre le replay separement (47€) ou pass annuel (297€ pour acces a toutes les conferences).
-        </p>
+        
+        <div class="mt-4 p-4 bg-[#C4A855]/10 border border-[#C4A855]/30 rounded-sm text-sm">
+          <p class="text-[#2C2824]/70">
+            <strong class="text-[#C4A855]">Option replay :</strong> Vendre le replay separement (47€) ou pass annuel (297€ pour acces a toutes les conferences).
+          </p>
+        </div>
       </div>
 
       <!-- Projection & Upsell -->

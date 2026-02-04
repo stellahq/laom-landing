@@ -125,16 +125,47 @@ const tunnels = [
   },
 ]
 
-// Projection leads cumulés
-const projectionLeads = [
-  { mois: 'Fev', clarte: 160, school: 0, mvt: 0, cumul: 160 },
-  { mois: 'Mars', clarte: 320, school: 130, mvt: 0, cumul: 450 },
-  { mois: 'Avr', clarte: 480, school: 260, mvt: 0, cumul: 740 },
-  { mois: 'Mai', clarte: 640, school: 390, mvt: 160, cumul: 1190 },
-  { mois: 'Juin', clarte: 800, school: 520, mvt: 320, cumul: 1640 },
-  { mois: 'Juil', clarte: 960, school: 650, mvt: 480, cumul: 2090 },
-  { mois: 'Aout', clarte: 1120, school: 780, mvt: 640, cumul: 2540 },
+// Projection leads cumulés AVEC SCALING
+// Phase iteration: 400€/mois/tunnel (mois 1-2)
+// Phase scale: 5000-10000€/mois/tunnel (mois 3+)
+const projectionLeadsScaling = [
+  { mois: 'Fev', phase: 'Iteration', budget: 400, leadsMois: 160, cumul: 160, revTripwire: 392, coutNet: 8 },
+  { mois: 'Mars', phase: 'Iteration', budget: 800, leadsMois: 290, cumul: 450, revTripwire: 777, coutNet: 23 },
+  { mois: 'Avr', phase: 'Scale Clarte', budget: 5400, leadsMois: 1960, cumul: 2410, revTripwire: 5145, coutNet: 255 },
+  { mois: 'Mai', phase: 'Scale x2', budget: 10800, leadsMois: 3920, cumul: 6330, revTripwire: 10290, coutNet: 510 },
+  { mois: 'Juin', phase: 'Scale x3', budget: 16200, leadsMois: 5880, cumul: 12210, revTripwire: 15435, coutNet: 765 },
+  { mois: 'Juil', phase: 'Scale x3', budget: 16200, leadsMois: 5880, cumul: 18090, revTripwire: 15435, coutNet: 765 },
+  { mois: 'Aout', phase: 'Scale x3', budget: 16200, leadsMois: 5880, cumul: 23970, revTripwire: 15435, coutNet: 765 },
 ]
+
+// Totaux avec scaling
+const totalBudgetScaling = projectionLeadsScaling.reduce((acc, m) => acc + m.budget, 0)
+const totalLeadsScaling = projectionLeadsScaling[projectionLeadsScaling.length - 1].cumul
+const totalRevTripwire = projectionLeadsScaling.reduce((acc, m) => acc + m.revTripwire, 0)
+const totalCoutNet = projectionLeadsScaling.reduce((acc, m) => acc + m.coutNet, 0)
+
+// Tunnel Conferences
+const tunnelConferences = {
+  nom: 'Conferences Live',
+  couleur: '#C4A855',
+  leadMagnet: 'Extrait video gratuit (10min)',
+  prixConf: '67-97€',
+  budgetParConf: 300,
+  cplCible: 3.00,
+  sequence: [
+    { jour: 0, objet: 'Acces a l\'extrait video', taux: '80%' },
+    { jour: 2, objet: 'Les coulisses de la conference', taux: '45%' },
+    { jour: 5, objet: 'Qui sera present ? (intervenants)', taux: '40%' },
+    { jour: 8, objet: 'Early bird -20% (48h)', taux: '35%' },
+    { jour: 10, objet: 'Derniere chance inscription', taux: '30%' },
+  ],
+  metriques: {
+    leadsParConf: 100,
+    tauxInscription: 30,
+    participantsMoyens: 30,
+    caParConf: 2250,
+  }
+}
 
 const totalBudgetMensuel = tunnels.reduce((acc, t) => acc + t.ads.budget, 0)
 const totalLeadsMensuel = tunnels.reduce((acc, t) => acc + t.metriques.leadsParMois, 0)
@@ -227,25 +258,22 @@ function formatNumber(n: number): string {
     </div>
   </section>
 
-  <!-- Graphique leads cumulés -->
+  <!-- Projection leads avec SCALING -->
   <section class="py-12 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
-      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Projection leads cumules</h2>
+      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Projection leads cumules (avec scaling)</h2>
+      <p class="text-sm text-[#2C2824]/50 mb-6">Si break-even atteint, budget scale de 400€ a 5-10k€/mois/tunnel</p>
       
-      <div class="bg-[#FAF8F5] p-6 rounded-sm">
-        <div class="h-64 flex items-end gap-2">
-          {projectionLeads.map((m) => {
-            const maxHeight = 2540
-            const heightClarte = (m.clarte / maxHeight) * 100
-            const heightSchool = (m.school / maxHeight) * 100
-            const heightMvt = (m.mvt / maxHeight) * 100
+      <!-- Graphique visuel -->
+      <div class="bg-[#FAF8F5] p-6 rounded-sm mb-6">
+        <div class="h-48 flex items-end gap-2">
+          {projectionLeadsScaling.map((m) => {
+            const maxHeight = 24000
+            const height = (m.cumul / maxHeight) * 100
+            const isScale = m.phase.includes('Scale')
             return (
               <div class="flex-1 flex flex-col items-center">
-                <div class="w-full flex flex-col justify-end h-48">
-                  <div class="w-full bg-[#4A7C59]" style={`height: ${heightMvt}%`}></div>
-                  <div class="w-full bg-[#2C2824]" style={`height: ${heightSchool}%`}></div>
-                  <div class="w-full bg-[#C4A855]" style={`height: ${heightClarte}%`}></div>
-                </div>
+                <div class="w-full rounded-t-sm transition-all" style={`height: ${height}%; background: ${isScale ? '#4A7C59' : '#C4A855'}`}></div>
                 <p class="text-xs text-[#2C2824]/50 mt-3">{m.mois}</p>
                 <p class="text-sm font-medium text-[#2C2824]">{formatNumber(m.cumul)}</p>
               </div>
@@ -253,12 +281,67 @@ function formatNumber(n: number): string {
           })}
         </div>
         <div class="flex justify-center gap-6 mt-6 text-xs">
-          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#C4A855]"></span> Clarte</span>
-          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#2C2824]"></span> School</span>
-          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#4A7C59]"></span> Mouvement</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#C4A855] rounded-sm"></span> Phase iteration</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#4A7C59] rounded-sm"></span> Phase scale</span>
         </div>
-        <p class="text-center text-sm text-[#2C2824]/50 mt-4">Objectif fin aout : <strong class="text-[#2C2824]">2 540 leads</strong> dans la base</p>
       </div>
+
+      <!-- Tableau recapitulatif -->
+      <div class="bg-[#2C2824] p-6 rounded-sm text-white overflow-x-auto">
+        <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-4">Tableau recapitulatif avec scaling</p>
+        <table class="w-full text-sm min-w-[600px]">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="text-left py-2 text-white/50 font-light">Mois</th>
+              <th class="text-left py-2 text-white/50 font-light">Phase</th>
+              <th class="text-right py-2 text-white/50 font-light">Budget</th>
+              <th class="text-right py-2 text-white/50 font-light">Leads/mois</th>
+              <th class="text-right py-2 text-white/50 font-light">Rev. tripwire</th>
+              <th class="text-right py-2 text-white/50 font-light">Cout net</th>
+              <th class="text-right py-2 text-white/50 font-light">Base cumulee</th>
+            </tr>
+          </thead>
+          <tbody>
+            {projectionLeadsScaling.map((m, i) => {
+              const isScale = m.phase.includes('Scale')
+              const isLast = i === projectionLeadsScaling.length - 1
+              return (
+                <tr class={`border-b ${isLast ? 'border-white/20 bg-white/5' : 'border-white/5'}`}>
+                  <td class="py-2">{m.mois}</td>
+                  <td class={`py-2 ${isScale ? 'text-[#4A7C59]' : 'text-[#C4A855]'}`}>{m.phase}</td>
+                  <td class="py-2 text-right">{formatNumber(m.budget)}€</td>
+                  <td class="py-2 text-right">{formatNumber(m.leadsMois)}</td>
+                  <td class="py-2 text-right text-[#4A7C59]">+{formatNumber(m.revTripwire)}€</td>
+                  <td class="py-2 text-right text-red-400">{formatNumber(m.coutNet)}€</td>
+                  <td class={`py-2 text-right font-medium ${isLast ? 'text-[#C4A855] font-playfair text-lg' : ''}`}>{formatNumber(m.cumul)}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        <div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <p class="text-xs text-white/40">Budget total</p>
+            <p class="font-playfair text-lg font-medium">{formatNumber(totalBudgetScaling)}€</p>
+          </div>
+          <div>
+            <p class="text-xs text-white/40">Revenus tripwire</p>
+            <p class="font-playfair text-lg font-medium text-[#4A7C59]">{formatNumber(totalRevTripwire)}€</p>
+          </div>
+          <div>
+            <p class="text-xs text-white/40">Cout net</p>
+            <p class="font-playfair text-lg font-medium text-red-400">{formatNumber(totalCoutNet)}€</p>
+          </div>
+          <div>
+            <p class="text-xs text-white/40">Base email</p>
+            <p class="font-playfair text-lg font-medium text-[#C4A855]">{formatNumber(totalLeadsScaling)}</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-[#2C2824]/50 mt-4">
+        <strong>Hypotheses :</strong> CPL moyen 2,75€ · Taux achat tripwire 35% · Prix tripwire moyen 7,5€ · Scale progressif des tunnels valides
+      </p>
     </div>
   </section>
 
@@ -394,6 +477,143 @@ function formatNumber(n: number): string {
         <p class="text-white/80 text-sm">
           <strong class="text-white">Conclusion :</strong> Avec un budget de {formatNumber(totalBudgetMensuel)}€/mois et ~{formatNumber(Math.round(totalRevenusTrip))}€ de revenus tripwire, le cout net d'acquisition de ~450 leads/mois est de <strong class="text-[#C4A855]">{formatNumber(totalBudgetMensuel - Math.round(totalRevenusTrip))}€</strong>, soit <strong class="text-[#C4A855]">{((totalBudgetMensuel - totalRevenusTrip) / totalLeadsMensuel).toFixed(2)}€/lead net</strong>.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tunnel Conferences Live -->
+  <section class="py-12 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="w-4 h-4 rounded" style={`background: ${tunnelConferences.couleur}`}></span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Tunnel Conferences Live</h2>
+        <span class="ml-auto text-sm text-[#2C2824]/50">12 conferences/an</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Lead Magnet -->
+        <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-medium text-[#2C2824]">Lead Magnet (gratuit)</h3>
+            <span class="text-xs bg-[#4A7C59]/10 text-[#4A7C59] px-2 py-1 rounded">Gratuit</span>
+          </div>
+          <p class="text-sm font-medium text-[#2C2824] mb-2">{tunnelConferences.leadMagnet}</p>
+          <p class="text-xs text-[#2C2824]/50 mb-4">Extrait de 10min d'une conference precedente</p>
+          <ul class="space-y-2">
+            <li class="text-sm text-[#2C2824]/70 flex items-start gap-2">
+              <span class="text-[#C4A855]">→</span>
+              Teaser du contenu premium
+            </li>
+            <li class="text-sm text-[#2C2824]/70 flex items-start gap-2">
+              <span class="text-[#C4A855]">→</span>
+              Inscription email pour recevoir l'extrait
+            </li>
+            <li class="text-sm text-[#2C2824]/70 flex items-start gap-2">
+              <span class="text-[#C4A855]">→</span>
+              Sequence vers la prochaine conference
+            </li>
+          </ul>
+        </div>
+
+        <!-- Ads -->
+        <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+          <h3 class="font-medium text-[#2C2824] mb-4">Configuration Ads</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between py-2 border-b border-[#2C2824]/5">
+              <span class="text-[#2C2824]/60">Budget par conference</span>
+              <span class="font-medium text-[#2C2824]">{tunnelConferences.budgetParConf}€</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-[#2C2824]/5">
+              <span class="text-[#2C2824]/60">CPL cible</span>
+              <span class="font-medium text-[#2C2824]">{tunnelConferences.cplCible.toFixed(2)}€</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-[#2C2824]/5">
+              <span class="text-[#2C2824]/60">Plateforme</span>
+              <span class="font-medium text-[#2C2824]">Meta + YouTube</span>
+            </div>
+            <div class="pt-2">
+              <span class="text-[#2C2824]/60">Ciblage</span>
+              <p class="font-medium text-[#2C2824] mt-1">Porteurs projets ecolieux, entrepreneurs ruraux, 28-55 ans</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sequence email -->
+      <div class="mt-8 bg-white p-6 rounded-sm border border-[#2C2824]/10">
+        <h3 class="font-medium text-[#2C2824] mb-4">Sequence email</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-[#2C2824]/10">
+                <th class="text-left py-2 font-light text-[#2C2824]/50">Jour</th>
+                <th class="text-left py-2 font-light text-[#2C2824]/50">Objet</th>
+                <th class="text-right py-2 font-light text-[#2C2824]/50">Taux ouv. cible</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tunnelConferences.sequence.map((email) => (
+                <tr class="border-b border-[#2C2824]/5">
+                  <td class="py-3 font-mono text-[#2C2824]">J+{email.jour}</td>
+                  <td class="py-3 text-[#2C2824]">{email.objet}</td>
+                  <td class="py-3 text-right font-medium text-[#C4A855]">{email.taux}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Funnel visuel -->
+      <div class="mt-8 bg-[#2C2824] p-6 rounded-sm text-white">
+        <h3 class="font-medium text-white mb-4">Modelisation funnel (par conference)</h3>
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
+          <div class="text-center p-3 bg-white/5 rounded-sm">
+            <p class="font-playfair text-xl font-medium text-white">300€</p>
+            <p class="text-white/50">Budget</p>
+          </div>
+          <span class="text-white/30">→</span>
+          <div class="text-center p-3 bg-white/5 rounded-sm">
+            <p class="font-playfair text-xl font-medium text-white">{tunnelConferences.metriques.leadsParConf}</p>
+            <p class="text-white/50">Leads</p>
+          </div>
+          <span class="text-white/30">→</span>
+          <div class="text-center p-3 bg-white/5 rounded-sm">
+            <p class="font-playfair text-xl font-medium text-[#C4A855]">{tunnelConferences.metriques.tauxInscription}%</p>
+            <p class="text-white/50">Inscription</p>
+          </div>
+          <span class="text-white/30">→</span>
+          <div class="text-center p-3 bg-white/5 rounded-sm">
+            <p class="font-playfair text-xl font-medium text-white">{tunnelConferences.metriques.participantsMoyens}</p>
+            <p class="text-white/50">Participants</p>
+          </div>
+          <span class="text-white/30">→</span>
+          <div class="text-center p-3 bg-[#4A7C59]/20 rounded-sm">
+            <p class="font-playfair text-xl font-medium text-[#4A7C59]">{formatNumber(tunnelConferences.metriques.caParConf)}€</p>
+            <p class="text-white/50">CA</p>
+          </div>
+        </div>
+        <p class="text-center text-xs text-white/40 mt-4">ROAS : {((tunnelConferences.metriques.caParConf / tunnelConferences.budgetParConf) * 100).toFixed(0)}% · Cout par participant : {(tunnelConferences.budgetParConf / tunnelConferences.metriques.participantsMoyens).toFixed(0)}€</p>
+      </div>
+
+      <!-- Projection annuelle -->
+      <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+          <p class="text-xs text-[#2C2824]/50 mb-1">Conferences/an</p>
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">12</p>
+        </div>
+        <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+          <p class="text-xs text-[#2C2824]/50 mb-1">Budget total ads</p>
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">{formatNumber(12 * tunnelConferences.budgetParConf)}€</p>
+        </div>
+        <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+          <p class="text-xs text-[#2C2824]/50 mb-1">Leads totaux</p>
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">{formatNumber(12 * tunnelConferences.metriques.leadsParConf)}</p>
+        </div>
+        <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+          <p class="text-xs text-[#2C2824]/50 mb-1">CA annuel</p>
+          <p class="font-playfair text-xl font-medium text-[#4A7C59]">{formatNumber(12 * tunnelConferences.metriques.caParConf)}€</p>
+        </div>
       </div>
     </div>
   </section>
