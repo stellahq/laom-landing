@@ -422,72 +422,63 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     })()
   </script>
 
-  <!-- 7. Events partenaires -->
+  <!-- 7. Prochains événements (aperçu) -->
   <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-20 opacity-0" animate-fade-in-up>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-4 title-underline">
-          {t.events.allTitle}
+      <div class="text-center mb-14 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-4">Agenda</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Prochains événements
         </h2>
-        <a
-          href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
-          class="block mt-4 text-sm text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
-        >
-          {t.events.viewAllLink}
-        </a>
       </div>
 
-      <div class="space-y-16 opacity-0" animate-fade-in-up>
-        {events.map((event) => {
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8 opacity-0" animate-fade-in-up>
+        {events.slice(0, 3).map((event) => {
           const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
-          const inner = (
-            <>
-              <div class="w-full md:w-80 flex-shrink-0">
-                <div class="aspect-[4/3] bg-neutral-100 overflow-hidden rounded-sm">
+          return (
+            <a
+              href={eventHref || getLocalizedPath('/events/', lang as 'fr' | 'en')}
+              target={eventHref ? '_blank' : undefined}
+              rel={eventHref ? 'noopener noreferrer' : undefined}
+              class="group block bg-white rounded-sm border border-[#2C2824]/5 overflow-hidden hover:border-[#C4A855]/30 transition-colors"
+            >
+              <div class="aspect-[16/10] bg-neutral-100 overflow-hidden">
                 <img
                   src={event.image}
                   alt={event.title}
-                  class="w-full h-full object-cover rounded-sm"
+                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                   loading="lazy"
                   width="400"
-                  height="300"
+                  height="250"
                   decoding="async"
-                  />
-                </div>
+                />
               </div>
-              <div class="flex-1">
-                <p class="text-sm font-normal text-black/50 mb-2">
+              <div class="p-5">
+                <p class="text-xs font-light tracking-wider uppercase text-[#C4A855] mb-2">
                   {event.date}
                 </p>
-                <h3 class="text-2xl md:text-3xl font-normal text-black mb-4 tracking-tight">
+                <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2 group-hover:text-[#C4A855] transition-colors leading-snug">
                   {event.title}
                 </h3>
-                <p class="text-base font-normal text-black/70 leading-relaxed">
+                <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed line-clamp-2">
                   {event.description}
                 </p>
               </div>
-            </>
-          )
-          return (
-            <article class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-              {eventHref ? (
-                <a
-                  href={eventHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
-                  aria-label={`${event.title} (ouvre dans un nouvel onglet)`}
-                >
-                  {inner}
-                </a>
-              ) : (
-                <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full">
-                  {inner}
-                </div>
-              )}
-            </article>
+            </a>
           )
         })}
+      </div>
+
+      <div class="text-center mt-12 opacity-0" animate-fade-in-up>
+        <a
+          href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
+          class="inline-flex items-center gap-2 text-base text-[#2C2824]/70 hover:text-[#2C2824] transition-colors font-light"
+        >
+          Voir tout le calendrier
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>
