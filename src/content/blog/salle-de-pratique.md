@@ -1,5 +1,5 @@
 ---
-title: "Comment 20 bénévoles ont construit le Shala en un été"
+title: "Comment 20 bénévoles ont construit le Shala - la salle de pratique - en un été"
 description: "L'histoire vraie d'un chantier participatif fou : 121 m², 6 mètres de haut, zéro professionnel, et une communauté qui a tout donné."
 pubDate: 2026-02-03
 heroImage: "/images/laom/salle-de-pratique.webp"
@@ -19,7 +19,7 @@ On regarde tous autour. Personne en dessous. Pas de blessé. Pas de casse majeur
 
 Et on reprend.
 
-C'est ça, l'histoire du Shala. Pas un récit lisse de construction écologique. Une aventure de dingues, portée par une communauté, avec des moments où on a failli tout casser — au sens propre.
+C'est ça, l'histoire du Shala. Une aventure de dingues, portée par une communauté, avec des moments où on a failli tout casser — au sens propre.
 
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : L'equipe de benevoles devant la structure en bois du Shala, ete 2023</p>
@@ -51,7 +51,7 @@ Je le regarde. Je n'hésite pas une seconde.
 
 ## De l'idée au bois en 15 jours
 
-J'appelle Serge Lièvremont dans la foulée. Serge est un ancien constructeur de maisons ossature bois — sa société s'appelait Exébois. Il sait dessiner, il sait construire, il connaît les matériaux.
+J'appelle Serge Lièvremont dans la foulée. Serge est un ancien constructeur de maisons ossature bois. Il sait dessiner, il sait construire, il connaît les matériaux.
 
 On travaille le moodboard ensemble avec Eliott. La vision se précise : une salle de 121 m², des arches en bois, un volume généreux, de la lumière naturelle. On valide. On envoie à Serge.
 
@@ -81,7 +81,7 @@ De la conversation sur la terrasse au premier coup de marteau : moins d'un mois.
 
 On a le bois. On a les plans. On n'a pas les bras.
 
-Eliott a construit une communauté de milliers de personnes. De mon côté, Amandine et Claire ont créé Amawé, avec leur propre communauté autour de la santé intégrative.
+Eliott a construit une communauté de milliers de personnes. De notre côté, Amandine et Claire ont créé Amawé, une communauté de milliers de personnes autour de la santé intégrative.
 
 L'idée est simple : et si on mobilisait ces communautés pour construire ensemble ?
 
@@ -99,7 +99,7 @@ On met en place un système : des rotations de 20 personnes tous les 10 jours. P
 
 Très vite, on réalise qu'on ne gère plus un chantier. On gère une micro-communauté.
 
-30 personnes à nourrir en permanence. La cuisine, c'était le bordel. Les courses, c'était 2-3 caddies à chaque fois — 1000€ par semaine. Ça veut dire : organisation des espaces de vie, plannings de rotation, vaisselle en continu. Chacun prend sa part. Personne ne dirige tout seul.
+30 personnes à nourrir en permanence. La cuisine, c'était le bazar. Les courses, c'était 2-3 caddies à chaque fois — 1000€ par semaine. Ça veut dire : organisation des espaces de vie, plannings de rotation, vaisselle en continu. Chacun prend sa part. Personne ne dirige tout seul.
 
 Mais les gens ne viennent pas que pour construire. Ils viennent pour connecter. Pour Eliott. Pour vivre quelque chose de différent.
 
@@ -135,7 +135,7 @@ Mais cette dispute a été importante. On a dû se parler vraiment. Faire de la 
 
 C'est facile de montrer les photos du chantier. C'est plus dur de montrer les moments où on se demande si on va continuer à bosser ensemble.
 
-On a continué. Et on est plus solides aujourd'hui grâce à cette dispute. (En vrai, je sais pas — peut-être que j'ai vraiment descendu dans son estime et qu'il fait semblant depuis. Eliott, si tu lis ça, dis-moi.)
+On a continué. Et on est plus solides aujourd'hui grâce à cette dispute. (En vrai, je sais pas — peut-être que j'ai vraiment descendu dans son estime et qu'il fait semblant depuis. Eliott, si tu lis ça, dis-moi!!)
 
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Travail sur la charpente du Shala — benevoles sur echafaudages, 6m80 de hauteur</p>
@@ -157,7 +157,7 @@ C'est là qu'on a compris : la vraie magie, c'est le collectif. 20 personnes qui
 
 ## Ce que le Shala a débloqué
 
-Aujourd'hui, le Shala existe. 121 m² de sol, de lumière, d'espace. Pas de miroirs. Pas de barres. Juste un volume généreux, des matériaux vivants, et la vue sur les collines des Grands Causses.
+Aujourd'hui, le Shala - la salle de pratique - existe. 121 m² de sol, de lumière, d'espace. Pas de miroirs. Pas de barres. Juste un volume généreux, des matériaux vivants, et la vue sur les collines des Grands Causses.
 
 ### Les finitions
 
@@ -175,7 +175,7 @@ Cette révélation m'a marqué profondément. La construction écologique et la 
 
 La salle respire. Les murs en enduit terre régulent l'humidité naturellement. L'air est sain. La lumière entre par de grandes ouvertures. L'espace invite à bouger, à oser, à se laisser surprendre.
 
-C'est ici qu'on accueille les stages de mouvement. Les ateliers de danse. Les temps de pratique collective. Le stage "En Mouvement" avec Samuel Planas — notre immersion signature — existe grâce à cette salle.
+C'est ici qu'on accueille les stages de mouvement. Les ateliers de danse. Les temps de pratique collective. [Le stage "En Mouvement" avec Samuel Planas](/stage-danse/) — notre immersion signature — existe grâce à cette salle.
 
 Avant le Shala, LAOM était un chantier. Après le Shala, LAOM est devenu un lieu de vie. Cette salle a permis de commencer les animations, d'accueillir des groupes, de faire vivre l'écolieu.
 
@@ -204,3 +204,5 @@ Et parfois, il faut qu'une arche tombe pour qu'on comprenne vraiment ce qu'on es
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Seance de mouvement dans le Shala — silhouettes, lumiere du soir, corps en expression</p>
 </div>
+
+*Article écrit par Charly — relecture et modifications par Amandine.*
