@@ -347,7 +347,7 @@ const sessions = [
         </div>
         <div class="flex justify-between items-start py-3 border-b border-black/5">
           <span class="text-base font-light text-[#2C2824]/50">Prix</span>
-          <span class="text-base font-light text-[#2C2824] text-right">Bientôt communiqué</span>
+          <span class="text-base font-medium text-[#2C2824] text-right">1 100 €</span>
         </div>
         <div class="flex justify-between items-start py-3 border-b border-black/5">
           <span class="text-base font-light text-[#2C2824]/50">Hébergement</span>
@@ -361,16 +361,137 @@ const sessions = [
     </div>
   </section>
 
+  <!-- Témoignages (placeholders) -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Retours d'experience</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Ce qu'ils ont vecu</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-lg font-light text-[#2C2824]/80 leading-relaxed italic mb-6">
+            "Temoignage a completer apres la premiere session d'aout. Focus sur la transformation vecue dans le corps : liberation, expression, ce qui a emerge pendant les 5 jours."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-[#E8E3D8]"></div>
+            <div>
+              <p class="font-medium text-[#2C2824]">Prenom N.</p>
+              <p class="text-sm text-[#2C2824]/50">Profession, Ville</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-lg font-light text-[#2C2824]/80 leading-relaxed italic mb-6">
+            "Temoignage a completer. Focus sur l'accessibilite : comment quelqu'un qui 'ne sait pas danser' a vecu l'experience, la bienveillance du groupe, le cadre securisant."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-[#E8E3D8]"></div>
+            <div>
+              <p class="font-medium text-[#2C2824]">Prenom N.</p>
+              <p class="text-sm text-[#2C2824]/50">Profession, Ville</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">FAQ</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Questions frequentes</h2>
+
+      <div class="space-y-6">
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Faut-il savoir danser pour participer ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Non, aucune experience de danse n'est requise. L'approche est somatique : on part du mouvement naturel du corps, pas de la technique. Samuel a l'habitude d'accompagner des groupes de 200 amateurs de tous niveaux. Si tu sais marcher, tu peux participer.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Faut-il une condition physique particuliere ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Pas besoin d'etre sportif. Les pratiques sont adaptables a chaque corps. On alterne mouvements dynamiques et temps de repos. Signale-nous toute limitation physique a l'inscription pour qu'on adapte l'accompagnement.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Quelle est la difference entre les 3 sessions ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Le contenu est identique. Les 3 sessions permettent de choisir les dates qui te conviennent et de limiter la taille du groupe (15 max par session). L'energie de chaque groupe est unique, mais la progression reste la meme.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Comment fonctionne l'hebergement ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Hebergement sur place inclus : tipis (experience insolite), chambres partagees ou dortoir. Attribution selon tes preferences et les disponibilites. Draps fournis. Tous les repas inclus (cuisine maison, produits du jardin). Arrivee la veille au soir, depart le dernier jour apres le dejeuner.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Puis-je participer a plusieurs sessions ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Oui, certains participants enchainent 2 sessions pour approfondir l'experience. L'energie et le groupe etant differents, l'experience n'est jamais la meme. Contacte-nous pour un tarif preferentiel si tu souhaites faire plusieurs sessions.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="py-24 md:py-32 bg-[#2C2824] text-white">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Été 2026</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Intéressé ?</h2>
-      <p class="text-base font-light text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
-        Les dates sont posées. Le prix et les détails seront annoncés en avant-première par email. Inscris-toi pour être prévenu.
+      <!-- Urgency -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#C4A855]/20 border border-[#C4A855]/40 rounded-sm mb-8">
+        <span class="w-2 h-2 rounded-full bg-[#C4A855] animate-pulse"></span>
+        <span class="text-sm font-light text-[#C4A855]">Session 1 (5-9 aout) : plus que 7 places</span>
+      </div>
+
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Ete 2026 · 3 sessions</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Pret a te mettre en mouvement ?</h2>
+      <p class="text-base font-light text-white/60 mb-6 max-w-xl mx-auto leading-relaxed">
+        5 jours d'immersion. 15 places par session. 1 100 € tout inclus (hebergement, repas, formation).
       </p>
-      <div class="max-w-md mx-auto">
-        <NewsletterForm variant="light" textOnDarkBackground />
+
+      <!-- Garantie -->
+      <div class="mb-10 text-sm font-light text-white/50">
+        <span class="text-[#4A7C59]">&#10003;</span> Annulation gratuite jusqu'a 14 jours avant le debut
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/stage-danse/reservation"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Reserver ma place
+        </a>
+        <a
+          href="https://cal.com/charly-aubert/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center rounded-sm border border-white/30 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#2C2824] transition-colors"
+        >
+          Poser une question
+        </a>
       </div>
     </div>
   </section>

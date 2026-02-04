@@ -115,8 +115,8 @@ const chargeAmandine = [
   { tache: 'E-books (ponctuel)', frequence: '3 total', temps: '10h/e-book', total: '~3h/mois' },
 ]
 
-const totalChargeAmandine = 56 // heures recurrentes
-const margeAmandine = 80 - totalChargeAmandine // 24h de marge
+const totalChargeAmandine = 59 // heures recurrentes (16+8+16+8+8+3)
+const margeAmandine = 80 - totalChargeAmandine // 21h de marge
 
 function formatNumber(n: number): string {
   return n.toLocaleString('fr-FR')
@@ -385,7 +385,7 @@ function formatNumber(n: number): string {
             </div>
             <div class="flex items-center justify-between py-2 border-b border-[#2C2824]/5">
               <span class="text-sm text-[#2C2824]/70">Total</span>
-              <span class="text-sm font-medium text-[#2C2824]">28 videos (7 mois)</span>
+              <span class="text-sm font-medium text-[#2C2824]">27 videos (7 mois)</span>
             </div>
           </div>
 

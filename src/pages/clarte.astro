@@ -387,20 +387,128 @@ const pillars = [
     </div>
   </section>
 
+  <!-- Témoignages (placeholders) -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Ce qu'ils en disent</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Retours des participants</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white p-8 rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-lg font-light text-[#2C2824]/80 leading-relaxed italic mb-6">
+            "Temoignage a completer apres la premiere session. Focus sur la transformation concrete : clarté mentale, systeme en place, utilisation de Claude Code au quotidien."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-[#E8E3D8]"></div>
+            <div>
+              <p class="font-medium text-[#2C2824]">Prenom N.</p>
+              <p class="text-sm text-[#2C2824]/50">Entrepreneur, Paris</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-lg font-light text-[#2C2824]/80 leading-relaxed italic mb-6">
+            "Temoignage a completer. Focus sur l'experience du week-end : cadre, groupe, rythme, qualite de l'accompagnement."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-[#E8E3D8]"></div>
+            <div>
+              <p class="font-medium text-[#2C2824]">Prenom N.</p>
+              <p class="text-sm text-[#2C2824]/50">Freelance, Lyon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">FAQ</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Questions frequentes</h2>
+
+      <div class="space-y-6" id="faq-clarte">
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Quel niveau technique faut-il pour utiliser Claude Code ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Aucun niveau technique prealable n'est requis. Claude Code fonctionne en langage naturel : tu lui parles comme a un assistant humain. On t'accompagne pas a pas dans l'installation et la configuration. Si tu sais utiliser un ordinateur et naviguer sur internet, tu as le niveau.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Quel materiel dois-je apporter ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Un ordinateur portable (Mac, Windows ou Linux). C'est tout. On te fournit l'acces a Claude Code (licence incluse dans le prix) et tous les templates necessaires. Wifi haut debit disponible sur place.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Comment fonctionne l'hebergement ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Hebergement sur place inclus : chambres partagees (2-3 personnes), tipis, ou dortoir. Attribution selon les disponibilites et tes preferences. Draps fournis. Si tu preferes un logement prive, des gites sont disponibles a proximite (non inclus).
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Quel est le format du week-end ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Arrivee vendredi soir (18h), depart dimanche apres-midi (17h). Alternance entre sessions de travail (vision, PARA, Claude Code), moments de pratique individuelle accompagnee, et temps de partage en groupe. Rythme soutenu mais respectueux de ton energie.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Y a-t-il un suivi apres le week-end ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Oui. Tu repars avec une documentation personnalisee et un acces au groupe Telegram des alumni Clarte. Session Q&A collective en visio 2 semaines apres le week-end pour ajuster ton systeme selon tes retours d'usage.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="py-24 md:py-32 bg-[#1a1a1a] text-white">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <!-- Urgency -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#C4A855]/20 border border-[#C4A855]/40 rounded-sm mb-8">
+        <span class="w-2 h-2 rounded-full bg-[#C4A855] animate-pulse"></span>
+        <span class="text-sm font-light text-[#C4A855]">Plus que 8 places disponibles sur les 2 sessions</span>
+      </div>
+
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">2 sessions en avril 2026</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Prêt à créer ton système ?</h2>
-      <p class="text-base font-light text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
-        12 places par session. 3 jours pour clarifier ta vision, construire ton système et configurer ton agent IA.
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Pret a creer ton systeme ?</h2>
+      <p class="text-base font-light text-white/60 mb-6 max-w-xl mx-auto leading-relaxed">
+        12 places par session. 3 jours pour clarifier ta vision, construire ton systeme et configurer ton agent IA.
       </p>
+      
+      <!-- Garantie -->
+      <div class="mb-10 text-sm font-light text-white/50">
+        <span class="text-[#4A7C59]">&#10003;</span> Annulation gratuite jusqu'a 14 jours avant le debut
+      </div>
+
       <div class="flex flex-wrap justify-center gap-4">
         <a
           href="/clarte/reservation"
           class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          Réserver sa place
+          Reserver sa place
         </a>
         <a
           href="https://cal.com/charly-aubert/30min"
