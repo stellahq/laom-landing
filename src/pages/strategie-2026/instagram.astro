@@ -1,0 +1,293 @@
+---
+import Layout from '~/layouts/Layout.astro'
+
+export const prerender = true
+
+// ==========================================
+// WEB-SÉRIE LAOM - SAISON 1
+// 30+ épisodes en 5 actes narratifs
+// ==========================================
+
+const actes = [
+  {
+    numero: 1,
+    titre: 'LES ORIGINES',
+    description: 'De l\'idee folle a l\'achat du terrain',
+    episodes: [
+      { ep: 1, titre: 'Opening & Vision', desc: 'LAOM Coliving aujourd\'hui puis retour aux origines', hook: 'Accrocher emotionnellement', statut: 'a_faire' },
+      { ep: 2, titre: 'Les revenus passifs', desc: 'Le modele economique initial, business en ligne 2018', hook: 'Montrer le parcours atypique', statut: 'a_faire' },
+      { ep: 3, titre: 'La decouverte du collectif', desc: 'Comment l\'idee du collectif emerge, zoom avec inconnus', hook: 'Moment pivot', statut: 'a_faire' },
+      { ep: 4, titre: 'L\'achat sans se connaitre', desc: 'Acheter en cooperative sans s\'etre rencontres', hook: 'Le pari fou', statut: 'a_faire' },
+      { ep: 5, titre: 'Les processus', desc: 'CNV, gouvernance partagee, comment on decide ensemble', hook: 'La methode', statut: 'a_faire' },
+      { ep: 6, titre: 'Arrivee dans les lieux', desc: 'Le premier contact avec le terrain, l\'installation', hook: 'L\'emotion du debut', statut: 'a_faire' },
+    ]
+  },
+  {
+    numero: 2,
+    titre: 'LES BATAILLES',
+    description: 'Les obstacles administratifs et humains',
+    episodes: [
+      { ep: 7, titre: 'LE STECAL', desc: 'Un long marathon administratif commence', hook: 'La bureaucratie', statut: 'a_faire' },
+      { ep: 8, titre: 'Lancement Ferme du Verseau', desc: 'Les premieres activites, l\'enthousiasme', hook: 'L\'espoir', statut: 'a_faire' },
+      { ep: 9, titre: 'Renversement juridique', desc: 'La cooperative s\'ecroule, on tombe en indivision', hook: 'Le choc', statut: 'a_faire' },
+      { ep: 10, titre: 'Un allie important : Patricia', desc: 'Comment les bons contacts changent tout', hook: 'L\'aide inattendue', statut: 'a_faire' },
+      { ep: 11, titre: 'Le depart du projet LAOM', desc: 'Redemarrage apres la crise', hook: 'Renaissance', statut: 'a_faire' },
+      { ep: 12, titre: 'Le depart de Julian', desc: 'Les premieres separations du groupe', hook: 'La realite du collectif', statut: 'a_faire' },
+      { ep: 13, titre: '2 batiments en meme temps', desc: 'La complexite s\'intensifie', hook: 'Le defi', statut: 'a_faire' },
+      { ep: 14, titre: 'Le petit Shambala', desc: 'Changements de plans incessants, s\'adapter', hook: 'Flexibilite', statut: 'a_faire' },
+      { ep: 15, titre: 'Le grand Shambala', desc: 'La vision court terme se precise, le projet phare', hook: 'L\'ambition', statut: 'a_faire' },
+    ]
+  },
+  {
+    numero: 3,
+    titre: 'L\'INTENSIFICATION',
+    description: 'L\'acceleration et les renforts',
+    episodes: [
+      { ep: 16, titre: 'L\'arrivee de Serge', desc: 'Un renfort pour le chantier', hook: 'L\'equipe grandit', statut: 'a_faire' },
+      { ep: 17, titre: '2 ans de guerre', desc: 'Guerre administrative ET LAOM en parallele', hook: 'La double bataille', statut: 'a_faire' },
+      { ep: 18, titre: 'La rencontre avec Elliott', desc: 'Nouveau tournant, chantiers participatifs', hook: 'La connexion', statut: 'a_faire' },
+      { ep: 19, titre: 'Serge et MA achetent le chalet', desc: 'Evolution des structures de propriete', hook: 'Les changements', statut: 'a_faire' },
+      { ep: 20, titre: 'Chantier participatif avec Elliott', desc: 'La force du collectif en action', hook: 'La magie du collectif', statut: 'a_faire' },
+    ]
+  },
+  {
+    numero: 4,
+    titre: 'LA CRISE',
+    description: 'Le moment le plus difficile',
+    episodes: [
+      { ep: 21, titre: 'Chantier du grand Shambala', desc: 'Le projet emblematique avance', hook: 'L\'oeuvre', statut: 'a_faire' },
+      { ep: 22, titre: 'Depart Isabelle et Caroline', desc: 'Nouvelles separations', hook: 'Les adieux', statut: 'a_faire' },
+      { ep: 23, titre: 'Les comptes a sec', desc: 'La realite financiere brutale, en negatif', hook: 'La verite', statut: 'a_faire' },
+      { ep: 24, titre: 'Le crac emotionnel', desc: 'Decompensation, le moment de verite le plus dur', hook: 'La vulnerabilite', statut: 'a_faire' },
+      { ep: 25, titre: 'Emergence nouvelle vision', desc: 'Atomic Incubateur apparait, il est temps de pivoter', hook: 'Le pivot', statut: 'a_faire' },
+      { ep: 26, titre: 'Il faut trouver de l\'argent', desc: 'Financement participatif un peu rate, les lecons', hook: 'L\'echec assume', statut: 'a_faire' },
+    ]
+  },
+  {
+    numero: 5,
+    titre: 'LE RENOUVEAU',
+    description: 'La renaissance et l\'avenir',
+    episodes: [
+      { ep: 27, titre: 'Serge et MA n\'achetent plus', desc: 'Nouveau changement de situation', hook: 'L\'adaptation', statut: 'a_faire' },
+      { ep: 28, titre: 'Laetitia et David', desc: 'L\'inclarte du projet, nouvelles relations', hook: 'Les questions', statut: 'a_faire' },
+      { ep: 29, titre: 'La grippe et le renouveau', desc: 'Le point de bascule personnel, LAOM Coliving Acte 2', hook: 'La revelation', statut: 'a_faire' },
+      { ep: 30, titre: 'Khaldoun', desc: 'De la Guyane a LAOM en passant par Ganges', hook: 'Le parcours inspirant', statut: 'a_faire' },
+      { ep: 31, titre: 'Le chantier 2024-2025', desc: '472m2 d\'enduits, Theo & Lorenzo', hook: 'L\'equipe actuelle', statut: 'a_faire' },
+      { ep: 32, titre: 'LAOM School', desc: 'Transmettre ce qu\'on a appris', hook: 'La transmission', statut: 'a_faire' },
+      { ep: 33, titre: 'L\'avenir', desc: 'Coliving 2027, la vision long terme', hook: 'L\'espoir', statut: 'a_faire' },
+    ]
+  },
+]
+
+const totalEpisodes = actes.reduce((acc, a) => acc + a.episodes.length, 0)
+
+// ==========================================
+// PLANNING DE PRODUCTION
+// 1 episode/semaine = 33 semaines
+// ==========================================
+const planning = [
+  { semaine: 'S06 (3-9 fev)', ecriture: 'Ep.1', tournage: '-', montage: '-', publication: '-' },
+  { semaine: 'S07 (10-16 fev)', ecriture: 'Ep.2', tournage: 'Ep.1', montage: '-', publication: '-' },
+  { semaine: 'S08 (17-23 fev)', ecriture: 'Ep.3', tournage: 'Ep.2', montage: 'Ep.1', publication: '-' },
+  { semaine: 'S09 (24 fev - 2 mars)', ecriture: 'Ep.4', tournage: 'Ep.3', montage: 'Ep.2', publication: 'Ep.1' },
+  { semaine: 'S10 (3-9 mars)', ecriture: 'Ep.5', tournage: 'Ep.4', montage: 'Ep.3', publication: 'Ep.2' },
+  { semaine: 'S11 (10-16 mars)', ecriture: 'Ep.6', tournage: 'Ep.5', montage: 'Ep.4', publication: 'Ep.3' },
+  { semaine: 'S12 (17-23 mars)', ecriture: 'Ep.7', tournage: 'Ep.6', montage: 'Ep.5', publication: 'Ep.4' },
+  { semaine: 'S13 (24-30 mars)', ecriture: 'Ep.8', tournage: 'Ep.7', montage: 'Ep.6', publication: 'Ep.5' },
+  { semaine: 'S14 (31 mars - 6 avr)', ecriture: 'Ep.9', tournage: 'Ep.8', montage: 'Ep.7', publication: 'Ep.6' },
+]
+
+// ==========================================
+// GUIDELINES
+// ==========================================
+const guidelines = [
+  { titre: 'Duree', valeur: '30-90 secondes' },
+  { titre: 'Format', valeur: 'Reels Instagram (9:16)' },
+  { titre: 'Ton', valeur: 'Authentique, vulnerable, pas de drama artificiel' },
+  { titre: 'CTA', valeur: 'Newsletter pour "la suite de l\'histoire"' },
+  { titre: 'Assets', valeur: 'Photos archives + videos chantier + interviews' },
+]
+---
+
+<Layout
+  title="Web-serie Instagram — LAOM"
+  description="Web-serie LAOM : 33 episodes en 5 actes"
+  seo={{ noindex: true, nofollow: true }}
+>
+
+  <!-- Password check -->
+  <script is:inline>
+    if (sessionStorage.getItem('laom_auth') !== 'true') {
+      window.location.href = '/strategie-2026';
+    }
+  </script>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+      <a href="/strategie-2026" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="hidden sm:inline">Retour strategie</span>
+      </a>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </div>
+        <span class="text-white font-medium">Instagram</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-28 pb-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h1 class="font-playfair text-3xl md:text-4xl font-medium text-white mb-4">
+        Web-serie LAOM — Saison 1
+      </h1>
+      <p class="text-white/60 mb-8">
+        L'histoire de LAOM de 2021 a 2026. {totalEpisodes} episodes en 5 actes narratifs.
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">{totalEpisodes}</p>
+          <p class="text-xs text-white/50">episodes</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-[#E1306C]">5</p>
+          <p class="text-xs text-white/50">actes</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">1/sem</p>
+          <p class="text-xs text-white/50">frequence</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">~8 mois</p>
+          <p class="text-xs text-white/50">duree totale</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guidelines -->
+  <section class="py-8 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex flex-wrap gap-4 justify-center">
+        {guidelines.map((g) => (
+          <div class="bg-white px-4 py-2 rounded-sm text-sm">
+            <span class="text-[#2C2824]/50">{g.titre}:</span>
+            <span class="font-medium text-[#2C2824] ml-1">{g.valeur}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Episodes par acte -->
+  {actes.map((acte) => (
+    <section class={`py-12 ${acte.numero % 2 === 0 ? 'bg-[#FAF8F5]' : 'bg-white'}`}>
+      <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="w-10 h-10 rounded-full bg-[#E1306C]/10 flex items-center justify-center font-playfair text-[#E1306C]">{acte.numero}</span>
+          <div>
+            <h2 class="font-playfair text-xl font-medium text-[#2C2824]">ACTE {acte.numero} — {acte.titre}</h2>
+            <p class="text-sm text-[#2C2824]/60">{acte.description}</p>
+          </div>
+          <span class="ml-auto text-sm font-medium text-[#2C2824]/40">{acte.episodes.length} episodes</span>
+        </div>
+
+        <div class="grid gap-3">
+          {acte.episodes.map((ep) => (
+            <div class="bg-white border border-[#2C2824]/5 rounded-sm p-4 flex items-start gap-4">
+              <span class="w-8 h-8 rounded bg-[#E1306C]/10 flex items-center justify-center text-sm font-mono text-[#E1306C] flex-shrink-0">
+                {ep.ep.toString().padStart(2, '0')}
+              </span>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-medium text-[#2C2824]">{ep.titre}</h3>
+                <p class="text-sm text-[#2C2824]/60 mt-1">{ep.desc}</p>
+                <p class="text-xs text-[#E1306C]/70 mt-2">Hook: {ep.hook}</p>
+              </div>
+              <span class={`text-xs px-2 py-1 rounded flex-shrink-0 ${ep.statut === 'fait' ? 'bg-[#4A7C59]/10 text-[#4A7C59]' : ep.statut === 'en_cours' ? 'bg-[#C4A855]/10 text-[#C4A855]' : 'bg-[#2C2824]/5 text-[#2C2824]/40'}`}>
+                {ep.statut === 'fait' ? 'Fait' : ep.statut === 'en_cours' ? 'En cours' : 'A faire'}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Planning de production -->
+  <section class="py-12 bg-[#2C2824]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-white mb-6">Planning de production</h2>
+      <p class="text-white/60 text-sm mb-8">Pipeline a 3 semaines : Ecriture → Tournage → Montage → Publication</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[600px]">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="text-left py-3 text-white/50 font-light">Semaine</th>
+              <th class="text-center py-3 text-[#C4A855]">Ecriture</th>
+              <th class="text-center py-3 text-[#E1306C]">Tournage</th>
+              <th class="text-center py-3 text-[#4A7C59]">Montage</th>
+              <th class="text-center py-3 text-white font-medium">Publication</th>
+            </tr>
+          </thead>
+          <tbody>
+            {planning.map((row) => (
+              <tr class="border-b border-white/5">
+                <td class="py-3 text-white/70">{row.semaine}</td>
+                <td class="py-3 text-center"><span class={`${row.ecriture !== '-' ? 'bg-[#C4A855]/20 text-[#C4A855]' : 'text-white/20'} px-2 py-1 rounded text-xs`}>{row.ecriture}</span></td>
+                <td class="py-3 text-center"><span class={`${row.tournage !== '-' ? 'bg-[#E1306C]/20 text-[#E1306C]' : 'text-white/20'} px-2 py-1 rounded text-xs`}>{row.tournage}</span></td>
+                <td class="py-3 text-center"><span class={`${row.montage !== '-' ? 'bg-[#4A7C59]/20 text-[#4A7C59]' : 'text-white/20'} px-2 py-1 rounded text-xs`}>{row.montage}</span></td>
+                <td class="py-3 text-center"><span class={`${row.publication !== '-' ? 'bg-white/20 text-white font-medium' : 'text-white/20'} px-2 py-1 rounded text-xs`}>{row.publication}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-white/40 text-xs mt-4 text-center">Premier episode publie : semaine du 24 fevrier 2026</p>
+    </div>
+  </section>
+
+  <!-- Personnages -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Personnages cles</h2>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {[
+          { nom: 'Charly', role: 'Fondateur, artisan-philosophe' },
+          { nom: 'Amandine', role: 'Co-pilote, dimension internationale' },
+          { nom: 'Khaldoun', role: 'Guyane → Ganges → LAOM' },
+          { nom: 'Theo & Lorenzo', role: 'Equipe chantier actuelle' },
+          { nom: 'Serge & MA', role: 'Allies puis evolutions' },
+          { nom: 'Elliott', role: 'Chantiers participatifs' },
+          { nom: 'Patricia', role: 'Alliee administrative' },
+          { nom: 'Livio', role: 'Le fils (dimension familiale)' },
+        ].map((p) => (
+          <div class="bg-[#FAF8F5] p-4 rounded-sm">
+            <p class="font-medium text-[#2C2824]">{p.nom}</p>
+            <p class="text-xs text-[#2C2824]/50 mt-1">{p.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+      <a href="/strategie-2026" class="text-white/50 hover:text-white text-sm transition-colors">
+        ← Retour a la strategie
+      </a>
+    </div>
+  </section>
+
+</Layout>

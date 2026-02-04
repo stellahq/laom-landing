@@ -1,0 +1,410 @@
+---
+import Layout from '~/layouts/Layout.astro'
+
+export const prerender = true
+
+// ==========================================
+// TUNNELS D'ACQUISITION 2026
+// Strategie : Tripwire payant pour break-even immediat
+// ==========================================
+
+const tunnels = [
+  {
+    nom: 'Clarte',
+    couleur: '#C4A855',
+    tripwire: {
+      titre: 'Le systeme PARA : organise ta vie en 4 dossiers',
+      prix: 7,
+      pages: '15-20 pages',
+      contenu: [
+        'Presentation complete du systeme PARA',
+        'Template Obsidian pret a l\'emploi',
+        'Checklist de mise en place en 1 week-end',
+        'Bonus : Mes 10 raccourcis Claude Code',
+      ],
+    },
+    ads: {
+      budget: 400,
+      cplCible: 2.50,
+      plateforme: 'Meta (LinkedIn en test)',
+      ciblage: 'Entrepreneurs, freelances, multipotentiels, 25-45 ans',
+    },
+    sequence: [
+      { jour: 0, objet: 'Bienvenue + Lien e-book', taux: '80%' },
+      { jour: 2, objet: 'Comment j\'utilise PARA au quotidien', taux: '45%' },
+      { jour: 5, objet: 'Le piege de la productivite (et comment l\'eviter)', taux: '40%' },
+      { jour: 8, objet: 'Invitation appel decouverte Clarte', taux: '35%' },
+      { jour: 12, objet: 'Dernieres places Clarte [mois]', taux: '30%' },
+    ],
+    metriques: {
+      leadsParMois: 160,
+      tauxTripwire: 35,
+      revenusTrip: 160 * 0.35 * 7, // = 392€
+      tauxCall: 10,
+      tauxClosing: 40,
+      ventesEstimees: 160 * 0.10 * 0.40, // = 6.4 ventes
+    },
+    debutTunnel: 'Fevrier 2026',
+    finTunnel: 'Continu',
+  },
+  {
+    nom: 'LAOM School',
+    couleur: '#2C2824',
+    tripwire: {
+      titre: 'Le business model qui peut sauver les ecolieux',
+      prix: 9,
+      pages: '20-25 pages',
+      contenu: [
+        'Analyse des modeles qui echouent (et pourquoi)',
+        'Le modele SCIA explique pas a pas',
+        'Checklist juridique complete',
+        'Bonus : Template previsionnel financier',
+      ],
+    },
+    ads: {
+      budget: 400,
+      cplCible: 3.00,
+      plateforme: 'Meta',
+      ciblage: 'Porteurs projets ecolieux, habitat participatif, 30-55 ans',
+    },
+    sequence: [
+      { jour: 0, objet: 'Bienvenue + Lien e-book', taux: '80%' },
+      { jour: 2, objet: 'Les 3 erreurs qu\'on a faites (et vous ?)', taux: '45%' },
+      { jour: 5, objet: 'Comment financer sans banque', taux: '40%' },
+      { jour: 8, objet: 'Invitation LAOM School [dates]', taux: '35%' },
+      { jour: 12, objet: 'FAQ + Dernieres places', taux: '30%' },
+    ],
+    metriques: {
+      leadsParMois: 130,
+      tauxTripwire: 33,
+      revenusTrip: 130 * 0.33 * 9, // = 386€
+      tauxCall: 10,
+      tauxClosing: 40,
+      ventesEstimees: 130 * 0.10 * 0.40, // = 5.2 ventes
+    },
+    debutTunnel: 'Mars 2026',
+    finTunnel: 'Continu',
+  },
+  {
+    nom: 'En Mouvement',
+    couleur: '#4A7C59',
+    tripwire: {
+      titre: 'Liberer ton corps : la science derriere le mouvement conscient',
+      prix: 7,
+      pages: '15-20 pages',
+      contenu: [
+        'Etudes scientifiques danse & trauma',
+        'Temoignages de participants',
+        '5 exercices a faire chez soi',
+        'Bonus : Playlist Spotify 2h',
+      ],
+    },
+    ads: {
+      budget: 400,
+      cplCible: 2.50,
+      plateforme: 'Meta + Instagram',
+      ciblage: 'Developpement personnel, danse, yoga, 25-50 ans',
+    },
+    sequence: [
+      { jour: 0, objet: 'Bienvenue + Lien e-book', taux: '80%' },
+      { jour: 2, objet: 'Pourquoi la danse libere les emotions', taux: '45%' },
+      { jour: 5, objet: 'Temoignage : "J\'ai pleure pendant 2h"', taux: '40%' },
+      { jour: 8, objet: 'Samuel Planas : qui est-il ?', taux: '35%' },
+      { jour: 12, objet: 'Inscription En Mouvement [dates]', taux: '30%' },
+    ],
+    metriques: {
+      leadsParMois: 160,
+      tauxTripwire: 35,
+      revenusTrip: 160 * 0.35 * 7, // = 392€
+      tauxCall: 8,
+      tauxClosing: 50,
+      ventesEstimees: 160 * 0.08 * 0.50, // = 6.4 ventes
+    },
+    debutTunnel: 'Mai 2026',
+    finTunnel: 'Continu',
+  },
+]
+
+// Projection leads cumulés
+const projectionLeads = [
+  { mois: 'Fev', clarte: 160, school: 0, mvt: 0, cumul: 160 },
+  { mois: 'Mars', clarte: 320, school: 130, mvt: 0, cumul: 450 },
+  { mois: 'Avr', clarte: 480, school: 260, mvt: 0, cumul: 740 },
+  { mois: 'Mai', clarte: 640, school: 390, mvt: 160, cumul: 1190 },
+  { mois: 'Juin', clarte: 800, school: 520, mvt: 320, cumul: 1640 },
+  { mois: 'Juil', clarte: 960, school: 650, mvt: 480, cumul: 2090 },
+  { mois: 'Aout', clarte: 1120, school: 780, mvt: 640, cumul: 2540 },
+]
+
+const totalBudgetMensuel = tunnels.reduce((acc, t) => acc + t.ads.budget, 0)
+const totalLeadsMensuel = tunnels.reduce((acc, t) => acc + t.metriques.leadsParMois, 0)
+const totalRevenusTrip = tunnels.reduce((acc, t) => acc + t.metriques.revenusTrip, 0)
+const totalVentes = tunnels.reduce((acc, t) => acc + t.metriques.ventesEstimees, 0)
+
+function formatNumber(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+---
+
+<Layout
+  title="Tunnels d'acquisition 2026 — LAOM"
+  description="Detail des tunnels d'acquisition payante 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+
+  <!-- Password check -->
+  <script is:inline>
+    if (sessionStorage.getItem('laom_auth') !== 'true') {
+      window.location.href = '/strategie-2026';
+    }
+  </script>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+      <a href="/strategie-2026" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="hidden sm:inline">Retour strategie</span>
+      </a>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-[#C4A855]/20 flex items-center justify-center">
+          <svg class="w-4 h-4 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <span class="text-white font-medium">Tunnels</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-28 pb-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h1 class="font-playfair text-3xl md:text-4xl font-medium text-white mb-4">
+        Tunnels d'acquisition 2026
+      </h1>
+      <p class="text-white/60 mb-8">
+        Strategie tripwire : e-book payant (7-9€) pour break-even immediat + sequence email vers vente
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">{formatNumber(totalBudgetMensuel)}€</p>
+          <p class="text-xs text-white/50">budget/mois</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-[#4A7C59]">~{totalLeadsMensuel}</p>
+          <p class="text-xs text-white/50">leads/mois</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-[#C4A855]">{formatNumber(Math.round(totalRevenusTrip))}€</p>
+          <p class="text-xs text-white/50">revenus tripwire/mois</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">~{Math.round(totalVentes)}</p>
+          <p class="text-xs text-white/50">ventes/mois (3 tunnels)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logique du tunnel -->
+  <section class="py-8 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-medium text-[#2C2824] mb-4">Double objectif</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-sm border-l-4 border-[#C4A855]">
+          <h3 class="font-medium text-[#2C2824] mb-2">1. Remplir la base email</h3>
+          <p class="text-sm text-[#2C2824]/60">Lead magnet payant (tripwire) qui rembourse les couts d'acquisition. La base email grandit a cout quasi-nul.</p>
+        </div>
+        <div class="bg-white p-6 rounded-sm border-l-4 border-[#4A7C59]">
+          <h3 class="font-medium text-[#2C2824] mb-2">2. Vendre les events</h3>
+          <p class="text-sm text-[#2C2824]/60">Sequence email nurturing qui convertit les leads en participants. Taux cible : 10% call → 40% closing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Graphique leads cumulés -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Projection leads cumules</h2>
+      
+      <div class="bg-[#FAF8F5] p-6 rounded-sm">
+        <div class="h-64 flex items-end gap-2">
+          {projectionLeads.map((m) => {
+            const maxHeight = 2540
+            const heightClarte = (m.clarte / maxHeight) * 100
+            const heightSchool = (m.school / maxHeight) * 100
+            const heightMvt = (m.mvt / maxHeight) * 100
+            return (
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-full flex flex-col justify-end h-48">
+                  <div class="w-full bg-[#4A7C59]" style={`height: ${heightMvt}%`}></div>
+                  <div class="w-full bg-[#2C2824]" style={`height: ${heightSchool}%`}></div>
+                  <div class="w-full bg-[#C4A855]" style={`height: ${heightClarte}%`}></div>
+                </div>
+                <p class="text-xs text-[#2C2824]/50 mt-3">{m.mois}</p>
+                <p class="text-sm font-medium text-[#2C2824]">{formatNumber(m.cumul)}</p>
+              </div>
+            )
+          })}
+        </div>
+        <div class="flex justify-center gap-6 mt-6 text-xs">
+          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#C4A855]"></span> Clarte</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#2C2824]"></span> School</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 bg-[#4A7C59]"></span> Mouvement</span>
+        </div>
+        <p class="text-center text-sm text-[#2C2824]/50 mt-4">Objectif fin aout : <strong class="text-[#2C2824]">2 540 leads</strong> dans la base</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detail par tunnel -->
+  {tunnels.map((tunnel, index) => (
+    <section class={`py-12 ${index % 2 === 0 ? 'bg-[#FAF8F5]' : 'bg-white'}`}>
+      <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+        <div class="flex items-center gap-4 mb-8">
+          <span class="w-4 h-4 rounded" style={`background: ${tunnel.couleur}`}></span>
+          <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Tunnel {tunnel.nom}</h2>
+          <span class="ml-auto text-sm text-[#2C2824]/50">Debut : {tunnel.debutTunnel}</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Tripwire -->
+          <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-medium text-[#2C2824]">Tripwire (E-book)</h3>
+              <span class="font-playfair text-2xl font-medium" style={`color: ${tunnel.couleur}`}>{tunnel.tripwire.prix}€</span>
+            </div>
+            <p class="text-sm font-medium text-[#2C2824] mb-2">{tunnel.tripwire.titre}</p>
+            <p class="text-xs text-[#2C2824]/50 mb-4">{tunnel.tripwire.pages}</p>
+            <ul class="space-y-2">
+              {tunnel.tripwire.contenu.map((item) => (
+                <li class="text-sm text-[#2C2824]/70 flex items-start gap-2">
+                  <span class="text-[#4A7C59]">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Ads -->
+          <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+            <h3 class="font-medium text-[#2C2824] mb-4">Configuration Ads</h3>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between py-2 border-b border-[#2C2824]/5">
+                <span class="text-[#2C2824]/60">Budget mensuel</span>
+                <span class="font-medium text-[#2C2824]">{formatNumber(tunnel.ads.budget)}€</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-[#2C2824]/5">
+                <span class="text-[#2C2824]/60">CPL cible</span>
+                <span class="font-medium text-[#2C2824]">{tunnel.ads.cplCible.toFixed(2)}€</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-[#2C2824]/5">
+                <span class="text-[#2C2824]/60">Plateforme</span>
+                <span class="font-medium text-[#2C2824]">{tunnel.ads.plateforme}</span>
+              </div>
+              <div class="pt-2">
+                <span class="text-[#2C2824]/60">Ciblage</span>
+                <p class="font-medium text-[#2C2824] mt-1">{tunnel.ads.ciblage}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sequence email -->
+        <div class="mt-8 bg-white p-6 rounded-sm border border-[#2C2824]/10">
+          <h3 class="font-medium text-[#2C2824] mb-4">Sequence email</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-[#2C2824]/10">
+                  <th class="text-left py-2 font-light text-[#2C2824]/50">Jour</th>
+                  <th class="text-left py-2 font-light text-[#2C2824]/50">Objet</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50">Taux ouv. cible</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tunnel.sequence.map((email) => (
+                  <tr class="border-b border-[#2C2824]/5">
+                    <td class="py-3 font-mono text-[#2C2824]">J+{email.jour}</td>
+                    <td class="py-3 text-[#2C2824]">{email.objet}</td>
+                    <td class="py-3 text-right font-medium" style={`color: ${tunnel.couleur}`}>{email.taux}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Métriques -->
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Leads/mois</p>
+            <p class="font-playfair text-xl font-medium text-[#2C2824]">{tunnel.metriques.leadsParMois}</p>
+          </div>
+          <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Taux tripwire</p>
+            <p class="font-playfair text-xl font-medium text-[#2C2824]">{tunnel.metriques.tauxTripwire}%</p>
+          </div>
+          <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Rev. tripwire/mois</p>
+            <p class="font-playfair text-xl font-medium" style={`color: ${tunnel.couleur}`}>{formatNumber(Math.round(tunnel.metriques.revenusTrip))}€</p>
+          </div>
+          <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Taux call</p>
+            <p class="font-playfair text-xl font-medium text-[#2C2824]">{tunnel.metriques.tauxCall}%</p>
+          </div>
+          <div class="bg-white p-4 rounded-sm text-center border border-[#2C2824]/10">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Ventes/mois</p>
+            <p class="font-playfair text-xl font-medium text-[#4A7C59]">~{Math.round(tunnel.metriques.ventesEstimees)}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Break-even analysis -->
+  <section class="py-12 bg-[#2C2824]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-white mb-6">Analyse break-even</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white/5 p-6 rounded-sm">
+          <h3 class="text-white/60 text-sm mb-4">Depenses mensuelles</h3>
+          <p class="font-playfair text-3xl font-medium text-white">{formatNumber(totalBudgetMensuel)}€</p>
+          <p class="text-white/40 text-sm mt-2">Budget ads total</p>
+        </div>
+        <div class="bg-white/5 p-6 rounded-sm">
+          <h3 class="text-white/60 text-sm mb-4">Revenus tripwire</h3>
+          <p class="font-playfair text-3xl font-medium text-[#C4A855]">{formatNumber(Math.round(totalRevenusTrip))}€</p>
+          <p class="text-white/40 text-sm mt-2">E-books vendus</p>
+        </div>
+        <div class="bg-white/5 p-6 rounded-sm">
+          <h3 class="text-white/60 text-sm mb-4">Cout net acquisition</h3>
+          <p class="font-playfair text-3xl font-medium text-[#4A7C59]">{formatNumber(totalBudgetMensuel - Math.round(totalRevenusTrip))}€</p>
+          <p class="text-white/40 text-sm mt-2">Budget - Revenus tripwire</p>
+        </div>
+      </div>
+
+      <div class="mt-8 p-4 bg-[#4A7C59]/20 rounded-sm">
+        <p class="text-white/80 text-sm">
+          <strong class="text-white">Conclusion :</strong> Avec un budget de {formatNumber(totalBudgetMensuel)}€/mois et ~{formatNumber(Math.round(totalRevenusTrip))}€ de revenus tripwire, le cout net d'acquisition de ~450 leads/mois est de <strong class="text-[#C4A855]">{formatNumber(totalBudgetMensuel - Math.round(totalRevenusTrip))}€</strong>, soit <strong class="text-[#C4A855]">{((totalBudgetMensuel - totalRevenusTrip) / totalLeadsMensuel).toFixed(2)}€/lead net</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+      <a href="/strategie-2026" class="text-white/50 hover:text-white text-sm transition-colors">
+        ← Retour a la strategie
+      </a>
+    </div>
+  </section>
+
+</Layout>

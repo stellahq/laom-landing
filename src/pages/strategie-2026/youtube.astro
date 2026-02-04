@@ -1,0 +1,298 @@
+---
+import Layout from '~/layouts/Layout.astro'
+
+export const prerender = true
+
+// ==========================================
+// VIDEOS YOUTUBE 2026
+// 4 videos/mois = 2 offres + 2 vlogs
+// ==========================================
+
+const videosOffres = [
+  { mois: 'Fevrier', titre: 'Mon systeme PARA explique', type: 'offre', offre: 'Clarte', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Fevrier', titre: 'Comment je gere 5 projets en parallele', type: 'offre', offre: 'Clarte', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mars', titre: 'Claude Code : mon copilote IA', type: 'offre', offre: 'Clarte', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mars', titre: 'Pourquoi j\'ai quitte Notion pour Obsidian', type: 'offre', offre: 'Clarte', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Avril', titre: 'Le business model qui sauve les ecolieux', type: 'offre', offre: 'School', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Avril', titre: 'SCIA : la structure juridique de LAOM', type: 'offre', offre: 'School', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mai', titre: 'Autoconstruire : par ou commencer', type: 'offre', offre: 'School', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mai', titre: 'Les 5 erreurs des projets collectifs', type: 'offre', offre: 'School', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juin', titre: '850m2 en paille porteuse : le bilan', type: 'offre', offre: 'School', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juin', titre: 'Creer un lieu de vie : le vrai cout', type: 'offre', offre: 'School', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juillet', titre: 'Liberer son corps : la science du mouvement', type: 'offre', offre: 'Mouvement', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juillet', titre: 'Pourquoi la danse change tout', type: 'offre', offre: 'Mouvement', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Aout', titre: 'En Mouvement : le bilan des 3 sessions', type: 'offre', offre: 'Mouvement', statut: 'a_faire', miniature: '', script: '' },
+]
+
+const videosVlogs = [
+  { mois: 'Fevrier', titre: 'Vlog #1 — L\'hiver a LAOM', type: 'vlog', theme: 'Vie quotidienne', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Fevrier', titre: 'Vlog #2 — Les enduits avancent', type: 'vlog', theme: 'Chantier', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mars', titre: 'Vlog #3 — Preparation Clarte', type: 'vlog', theme: 'Behind the scenes', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mars', titre: 'Vlog #4 — Le printemps arrive', type: 'vlog', theme: 'Vie quotidienne', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Avril', titre: 'Vlog #5 — Behind Clarte #1', type: 'vlog', theme: 'Behind the scenes', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Avril', titre: 'Vlog #6 — Tour du chantier', type: 'vlog', theme: 'Chantier', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mai', titre: 'Vlog #7 — Behind LAOM School', type: 'vlog', theme: 'Behind the scenes', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Mai', titre: 'Vlog #8 — La vie avec Livio', type: 'vlog', theme: 'Famille', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juin', titre: 'Vlog #9 — Ouverture guinguette', type: 'vlog', theme: 'LAOM', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juin', titre: 'Vlog #10 — L\'ete commence', type: 'vlog', theme: 'Vie quotidienne', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juillet', titre: 'Vlog #11 — Preparation En Mouvement', type: 'vlog', theme: 'Behind the scenes', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Juillet', titre: 'Vlog #12 — Les tipis sont prets', type: 'vlog', theme: 'LAOM', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Aout', titre: 'Vlog #13 — Behind En Mouvement', type: 'vlog', theme: 'Behind the scenes', statut: 'a_faire', miniature: '', script: '' },
+  { mois: 'Aout', titre: 'Vlog #14 — Bilan de l\'ete', type: 'vlog', theme: 'Retrospective', statut: 'a_faire', miniature: '', script: '' },
+]
+
+const allVideos = [...videosOffres, ...videosVlogs].sort((a, b) => {
+  const moisOrder = ['Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout']
+  return moisOrder.indexOf(a.mois) - moisOrder.indexOf(b.mois)
+})
+
+// Kanban
+const kanban = {
+  miniature: videosOffres.slice(0, 2),
+  script: videosOffres.slice(2, 4),
+  tournage: [],
+  montage: [],
+  publie: [],
+}
+---
+
+<Layout
+  title="Strategie YouTube 2026 — LAOM"
+  description="Planning YouTube : 4 videos par mois"
+  seo={{ noindex: true, nofollow: true }}
+>
+
+  <!-- Password check -->
+  <script is:inline>
+    if (sessionStorage.getItem('laom_auth') !== 'true') {
+      window.location.href = '/strategie-2026';
+    }
+  </script>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+      <a href="/strategie-2026" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="hidden sm:inline">Retour strategie</span>
+      </a>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-[#FF0000]/20 flex items-center justify-center">
+          <svg class="w-4 h-4 text-[#FF0000]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </div>
+        <span class="text-white font-medium">YouTube</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-28 pb-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h1 class="font-playfair text-3xl md:text-4xl font-medium text-white mb-4">
+        Strategie YouTube 2026
+      </h1>
+      <p class="text-white/60 mb-8">
+        4 videos/mois : 2 videos "offres" (valeur + lien event) + 2 vlogs (behind the scenes)
+      </p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">4</p>
+          <p class="text-xs text-white/50">videos/mois</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-[#FF0000]">28</p>
+          <p class="text-xs text-white/50">total (7 mois)</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">{videosOffres.length}</p>
+          <p class="text-xs text-white/50">offres</p>
+        </div>
+        <div class="bg-white/5 p-4 rounded-sm text-center">
+          <p class="text-2xl font-playfair font-medium text-white">{videosVlogs.length}</p>
+          <p class="text-xs text-white/50">vlogs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stratégie -->
+  <section class="py-8 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-sm border-t-4 border-[#FF0000]">
+          <h3 class="font-medium text-[#2C2824] mb-2">Videos Offres</h3>
+          <p class="text-sm text-[#2C2824]/60 mb-4">Valeur standalone qui cree un pont vers les events</p>
+          <ul class="text-sm text-[#2C2824]/70 space-y-1">
+            <li>- Duree : 10-20 minutes</li>
+            <li>- Contenu : Education, methodes, retours experience</li>
+            <li>- CTA : Newsletter puis offre</li>
+            <li>- Publication : 6-8 semaines avant event</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded-sm border-t-4 border-[#2C2824]">
+          <h3 class="font-medium text-[#2C2824] mb-2">Vlogs</h3>
+          <p class="text-sm text-[#2C2824]/60 mb-4">Behind the scenes, chantier, vie quotidienne</p>
+          <ul class="text-sm text-[#2C2824]/70 space-y-1">
+            <li>- Duree : 5-15 minutes</li>
+            <li>- Contenu : Authentique, sans script rigide</li>
+            <li>- CTA : Abonnement + Newsletter</li>
+            <li>- Objectif : Creer la connexion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kanban -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Kanban production</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <!-- Miniature -->
+        <div class="bg-[#FAF8F5] p-4 rounded-sm">
+          <h3 class="text-xs font-medium text-[#2C2824]/50 uppercase tracking-wider mb-3">Miniature</h3>
+          <div class="space-y-2">
+            {kanban.miniature.map((v) => (
+              <div class="bg-white p-3 rounded-sm border border-[#2C2824]/5 text-xs">
+                <p class="font-medium text-[#2C2824]">{v.titre}</p>
+                <p class="text-[#2C2824]/40 mt-1">{v.mois}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Script -->
+        <div class="bg-[#C4A855]/10 p-4 rounded-sm">
+          <h3 class="text-xs font-medium text-[#C4A855] uppercase tracking-wider mb-3">Script</h3>
+          <div class="space-y-2">
+            {kanban.script.map((v) => (
+              <div class="bg-white p-3 rounded-sm border border-[#C4A855]/20 text-xs">
+                <p class="font-medium text-[#2C2824]">{v.titre}</p>
+                <p class="text-[#2C2824]/40 mt-1">{v.mois}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Tournage -->
+        <div class="bg-[#E1306C]/10 p-4 rounded-sm">
+          <h3 class="text-xs font-medium text-[#E1306C] uppercase tracking-wider mb-3">Tournage</h3>
+          <div class="text-xs text-[#2C2824]/30 text-center py-8">
+            Vide
+          </div>
+        </div>
+
+        <!-- Montage -->
+        <div class="bg-[#4A7C59]/10 p-4 rounded-sm">
+          <h3 class="text-xs font-medium text-[#4A7C59] uppercase tracking-wider mb-3">Montage</h3>
+          <div class="text-xs text-[#2C2824]/30 text-center py-8">
+            Vide
+          </div>
+        </div>
+
+        <!-- Publié -->
+        <div class="bg-[#2C2824] p-4 rounded-sm">
+          <h3 class="text-xs font-medium text-white/50 uppercase tracking-wider mb-3">Publie</h3>
+          <div class="text-xs text-white/30 text-center py-8">
+            Vide
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planning complet -->
+  <section class="py-12 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Planning complet</h2>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[700px]">
+          <thead>
+            <tr class="border-b border-[#2C2824]/10 bg-white">
+              <th class="text-left py-3 px-4 font-medium text-[#2C2824]">Mois</th>
+              <th class="text-left py-3 px-4 font-medium text-[#2C2824]">Titre</th>
+              <th class="text-center py-3 px-4 font-medium text-[#2C2824]">Type</th>
+              <th class="text-center py-3 px-4 font-medium text-[#2C2824]">Lien offre</th>
+              <th class="text-center py-3 px-4 font-medium text-[#2C2824]">Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            {['Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout'].map((mois) => {
+              const videosForMois = allVideos.filter(v => v.mois === mois)
+              return videosForMois.map((v, i) => (
+                <tr class={`border-b border-[#2C2824]/5 ${i === 0 ? 'border-t border-[#2C2824]/10' : ''}`}>
+                  {i === 0 && <td class="py-3 px-4 font-medium text-[#2C2824]" rowspan={videosForMois.length}>{mois}</td>}
+                  <td class="py-3 px-4 text-[#2C2824]">{v.titre}</td>
+                  <td class="py-3 px-4 text-center">
+                    <span class={`text-xs px-2 py-1 rounded ${v.type === 'offre' ? 'bg-[#FF0000]/10 text-[#FF0000]' : 'bg-[#2C2824]/10 text-[#2C2824]'}`}>
+                      {v.type === 'offre' ? 'Offre' : 'Vlog'}
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 text-center">
+                    {'offre' in v && v.offre ? (
+                      <span class={`text-xs px-2 py-1 rounded ${v.offre === 'Clarte' ? 'bg-[#C4A855]/10 text-[#C4A855]' : v.offre === 'School' ? 'bg-[#2C2824]/10 text-[#2C2824]' : 'bg-[#4A7C59]/10 text-[#4A7C59]'}`}>
+                        {v.offre}
+                      </span>
+                    ) : (
+                      <span class="text-[#2C2824]/30">-</span>
+                    )}
+                  </td>
+                  <td class="py-3 px-4 text-center">
+                    <span class={`text-xs px-2 py-1 rounded ${v.statut === 'publie' ? 'bg-[#4A7C59]/10 text-[#4A7C59]' : v.statut === 'en_cours' ? 'bg-[#C4A855]/10 text-[#C4A855]' : 'bg-[#2C2824]/5 text-[#2C2824]/40'}`}>
+                      {v.statut === 'publie' ? 'Publie' : v.statut === 'en_cours' ? 'En cours' : 'A faire'}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Backlog Vlogs -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Idees vlogs supplementaires</h2>
+      
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {[
+          'Une journee a LAOM',
+          'Tour du Grand Shambala',
+          'Comment on chauffe 850m2',
+          'La guinguette ouvre',
+          'Interview Theo & Lorenzo',
+          'Preparation d\'un event',
+          'Le systeme d\'eau a LAOM',
+          'Visite des tipis',
+          'Une semaine En Mouvement',
+          'Retrospective 6 mois',
+          'Les animaux a LAOM',
+          'Comment on fait nos enduits',
+        ].map((idee) => (
+          <div class="bg-[#FAF8F5] p-4 rounded-sm">
+            <p class="text-sm text-[#2C2824]">{idee}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+      <a href="/strategie-2026" class="text-white/50 hover:text-white text-sm transition-colors">
+        ← Retour a la strategie
+      </a>
+    </div>
+  </section>
+
+</Layout>
