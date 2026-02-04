@@ -364,34 +364,46 @@ function formatNumber(n: number): string {
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 pt-8 border-t border-white/10">
         <div>
           <p class="font-playfair text-3xl font-medium text-[#C4A855]" id="stat-ca-brut">{formatNumber(totalCABrut)}€</p>
-          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">CA brut total</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">CA brut TTC</p>
         </div>
         <div>
           <p class="font-playfair text-3xl font-medium text-white" id="stat-marge-brute">{formatNumber(totalMarge)}€</p>
           <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Marge brute</p>
         </div>
         <div>
-          <p class="font-playfair text-3xl font-medium text-red-400" id="stat-charges-fixes">-52 400€</p>
-          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Charges fixes</p>
+          <p class="font-playfair text-3xl font-medium text-red-400" id="stat-charges-fixes">-45 772€</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Charges & acq.</p>
         </div>
         <div>
-          <p class="font-playfair text-3xl font-medium text-[#4A7C59]" id="stat-marge-nette">{formatNumber(totalMarge - 52400)}€</p>
+          <p class="font-playfair text-3xl font-medium text-[#4A7C59]" id="stat-marge-nette">{formatNumber(totalMarge - 45772)}€</p>
           <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Marge nette</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Navigation rapide -->
-  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-3 sm:py-4">
+  <!-- Navigation rapide + Sélecteur de scénarios (sticky) -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2 sm:py-3">
     <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
-      <div class="flex gap-4 sm:gap-6 overflow-x-auto text-xs sm:text-sm">
-        <a href="#timeline" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Timeline</a>
-        <a href="#laom" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Événements LAOM</a>
-        <a href="#partenaires" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Partenaires</a>
-        <a href="#guinguette" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Guinguette</a>
-        <a href="#recap" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Récap</a>
-        <a href="#charges-fixes" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Charges fixes</a>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+        <!-- Navigation -->
+        <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm">
+          <a href="#timeline" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Timeline</a>
+          <a href="#laom" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">LAOM</a>
+          <a href="#partenaires" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Partenaires</a>
+          <a href="#guinguette" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Guinguette</a>
+          <a href="#recap" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Recap</a>
+          <a href="#charges-fixes" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Charges</a>
+        </div>
+        <!-- Scenario selector (sticky) -->
+        <div class="flex items-center gap-2" id="sticky-scenario-selector">
+          <span class="text-xs text-[#2C2824]/40 hidden sm:inline">Scenario:</span>
+          <div class="flex gap-1">
+            <button data-scenario="pessimiste" class="scenario-btn px-2 py-1 text-[10px] tracking-wider uppercase rounded-sm border border-[#2C2824]/20 text-[#2C2824]/60 hover:border-[#C4A855]/50 hover:text-[#2C2824] transition-all">Pess.</button>
+            <button data-scenario="realiste" class="scenario-btn px-2 py-1 text-[10px] tracking-wider uppercase rounded-sm border border-[#2C2824]/20 text-[#2C2824]/60 hover:border-[#C4A855]/50 hover:text-[#2C2824] transition-all">Real.</button>
+            <button data-scenario="optimiste" class="scenario-btn px-2 py-1 text-[10px] tracking-wider uppercase rounded-sm border border-[#C4A855] bg-[#C4A855]/10 text-[#C4A855] font-medium">Opti.</button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -1058,24 +1070,24 @@ function formatNumber(n: number): string {
     </div>
   </section>
 
-  <!-- Charges fixes annuelles -->
+  <!-- Charges fixes & Acquisition -->
   <section id="charges-fixes" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center justify-between mb-10">
         <div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-red-600/70 mb-2">A deduire de la marge</p>
-          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Charges fixes annuelles</h2>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-red-600/70 mb-2">A deduire de la marge brute</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Charges fixes & Acquisition</h2>
         </div>
         <div class="text-right">
-          <p class="font-playfair text-2xl font-medium text-red-600">-52 400€</p>
-          <p class="text-xs text-[#2C2824]/40">Total charges fixes</p>
+          <p class="font-playfair text-2xl font-medium text-red-600" id="total-charges-fixes">-45 772€</p>
+          <p class="text-xs text-[#2C2824]/40">Cout net annuel</p>
         </div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Rémunérations -->
         <div class="bg-white rounded-sm border border-black/5 p-6">
-          <h3 class="text-sm font-medium text-[#2C2824]/60 uppercase tracking-wider mb-6">Remunerations</h3>
+          <h3 class="text-sm font-medium text-[#2C2824]/60 uppercase tracking-wider mb-6">Remunerations fixes</h3>
           <div class="space-y-4">
             <div class="flex justify-between items-center py-3 border-b border-black/5">
               <div>
@@ -1091,61 +1103,84 @@ function formatNumber(n: number): string {
               </div>
               <p class="font-medium text-red-600">22 000€</p>
             </div>
-            <div class="flex justify-between items-center pt-2">
-              <p class="text-[#2C2824]/60">Sous-total remunerations</p>
-              <p class="font-medium text-[#2C2824]">44 000€</p>
+            <div class="flex justify-between items-center pt-2 bg-red-50 -mx-6 px-6 py-3">
+              <p class="font-medium text-red-800">Total remunerations</p>
+              <p class="font-playfair text-lg font-medium text-red-600">44 000€</p>
             </div>
           </div>
         </div>
 
         <!-- Marketing & Acquisition -->
         <div class="bg-white rounded-sm border border-black/5 p-6">
-          <h3 class="text-sm font-medium text-[#2C2824]/60 uppercase tracking-wider mb-6">Marketing & Acquisition</h3>
-          <div class="space-y-4">
-            <div class="flex justify-between items-center py-3 border-b border-black/5">
+          <h3 class="text-sm font-medium text-[#2C2824]/60 uppercase tracking-wider mb-6">Acquisition (tunnels tripwire)</h3>
+          
+          <!-- Budget ads -->
+          <div class="space-y-3 mb-6">
+            <div class="flex justify-between items-center py-2 border-b border-black/5">
               <div>
-                <p class="font-medium text-[#2C2824]">Budget Ads</p>
-                <p class="text-xs text-[#2C2824]/40">Meta, Google · 1 200€/mois × 7 mois</p>
+                <p class="font-medium text-[#2C2824]">Budget Ads brut</p>
+                <p class="text-xs text-[#2C2824]/40">Phase iteration (400€/mois × 3 tunnels × 7 mois)</p>
               </div>
               <p class="font-medium text-red-600">8 400€</p>
             </div>
-            <div class="flex justify-between items-center pt-2">
-              <p class="text-[#2C2824]/60">Sous-total marketing</p>
-              <p class="font-medium text-[#2C2824]">8 400€</p>
-            </div>
           </div>
-          
-          <div class="mt-6 pt-6 border-t border-black/10">
-            <div class="p-4 bg-[#4A7C59]/10 rounded-sm">
-              <h4 class="text-sm font-medium text-[#4A7C59] mb-2">Revenus tripwire complementaires</h4>
-              <p class="text-xs text-[#2C2824]/60 mb-3">Masterclass 47€, Templates PARA 27€, Accès replay 97€...</p>
-              <div class="flex justify-between items-center">
-                <p class="text-xs text-[#2C2824]/40">~1 170€/mois × 7 mois</p>
-                <p class="font-medium text-[#4A7C59]">+8 200€</p>
+
+          <!-- Tripwire revenues -->
+          <div class="p-4 bg-[#4A7C59]/10 rounded-sm mb-4">
+            <h4 class="text-sm font-medium text-[#4A7C59] mb-3">Revenus tripwire (e-books 7-9€)</h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">Clarte (7€ × 160 leads × 35% × 7 mois)</span>
+                <span class="text-[#4A7C59]">+2 744€</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">School (9€ × 130 leads × 33% × 6 mois)</span>
+                <span class="text-[#4A7C59]">+2 316€</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#2C2824]/60">Mvt (7€ × 160 leads × 35% × 4 mois)</span>
+                <span class="text-[#4A7C59]">+1 568€</span>
+              </div>
+              <div class="flex justify-between pt-2 border-t border-[#4A7C59]/20 font-medium">
+                <span class="text-[#2C2824]">Total revenus tripwire</span>
+                <span class="text-[#4A7C59]">+6 628€</span>
               </div>
             </div>
+          </div>
+
+          <!-- Net -->
+          <div class="flex justify-between items-center pt-2 bg-[#2C2824]/5 -mx-6 px-6 py-3">
+            <div>
+              <p class="font-medium text-[#2C2824]">Cout net acquisition</p>
+              <p class="text-xs text-[#2C2824]/40">8 400€ - 6 628€</p>
+            </div>
+            <p class="font-playfair text-lg font-medium text-red-600">1 772€</p>
           </div>
         </div>
       </div>
 
+      <!-- Note scaling -->
+      <div class="mt-6 p-4 bg-[#C4A855]/10 border border-[#C4A855]/30 rounded-sm">
+        <p class="text-sm text-[#2C2824]/70">
+          <strong class="text-[#C4A855]">Potentiel scaling :</strong> Si les tunnels tripwire atteignent le break-even, le budget peut etre scale a 5-10k€/mois/tunnel pour accelerer l'acquisition de leads. Voir <a href="/strategie-2026/tunnels" class="underline text-[#C4A855] hover:text-[#8B7A3A]">page Strategie → Tunnels</a> pour la simulation complete.
+        </p>
+      </div>
+
       <!-- Récap marge nette -->
       <div class="mt-8 p-6 bg-[#2C2824] rounded-sm text-white">
-        <div class="grid md:grid-cols-4 gap-6 items-center">
+        <div class="grid md:grid-cols-3 gap-6 items-center">
           <div>
-            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Marge brute</p>
+            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Marge brute exploitation</p>
             <p class="font-playfair text-xl font-medium" id="final-marge-brute">{formatNumber(totalMarge)}€</p>
           </div>
           <div>
-            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Charges fixes</p>
-            <p class="font-playfair text-xl font-medium text-red-400">-52 400€</p>
-          </div>
-          <div>
-            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Tripwire</p>
-            <p class="font-playfair text-xl font-medium text-[#4A7C59]">+8 200€</p>
+            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Charges & acquisition</p>
+            <p class="font-playfair text-xl font-medium text-red-400">-45 772€</p>
+            <p class="text-xs text-white/30 mt-1">44 000€ remun. + 1 772€ acq.</p>
           </div>
           <div class="text-right md:border-l md:border-white/10 md:pl-6">
             <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Marge nette estimee</p>
-            <p class="font-playfair text-2xl font-medium text-[#C4A855]" id="final-marge-nette">{formatNumber(totalMarge - 52400 + 8200)}€</p>
+            <p class="font-playfair text-2xl font-medium text-[#C4A855]" id="final-marge-nette">{formatNumber(totalMarge - 45772)}€</p>
           </div>
         </div>
       </div>
@@ -1301,8 +1336,8 @@ function formatNumber(n: number): string {
     // SCENARIOS DYNAMIQUES
     // ==========================================
     (function() {
-      const CHARGES_FIXES = 52400;
-      const TRIPWIRE = 8200;
+      // Charges fixes = remunerations (44k) + cout net acquisition (1.772k)
+      const CHARGES_FIXES = 45772;
       
       // Taux de remplissage par scenario
       const scenarios = {
@@ -1338,7 +1373,7 @@ function formatNumber(n: number): string {
         }
       };
 
-      // Donnees de base (valeurs actuelles = optimiste)
+      // Donnees de base
       const baseData = {
         // Evenements LAOM
         clarte1: { places: 12, prix: 1000, nbRepas: 5 },
@@ -1348,17 +1383,17 @@ function formatNumber(n: number): string {
         mvt1: { places: 15, prix: 1100, nbRepas: 9, chargesSamuel: 1500 },
         mvt2: { places: 15, prix: 1100, nbRepas: 9, chargesSamuel: 1500 },
         mvt3: { places: 15, prix: 1100, nbRepas: 9, chargesSamuel: 1500 },
-        // Guinguette
+        // Guinguette public
         guinguetteJours: 90,
         guinguettePanier: 27,
-        guinguetteChargesPersonnel: 10800, // 2 × 1800 × 3
+        guinguetteChargesPersonnel: 10800, // 2 × 1800 × 3 mois
         coutMatiereRepas: 0.35,
-        // Partenaires (fixes)
-        locationPartenaires: 19902, // Total actuel
+        // Partenaires (FIXES - ne changent pas avec les scenarios)
+        // Location : 7230 (standard) + 6228 (reduits) + 1900 (speciaux) = 15358€
+        locationPartenaires: 15358,
         chargesPartenaires: 448, // Menage festival
-        // Guinguette prestations (simplifiee)
-        repasPrestationsPartenaires: 6286, // Repas partenaires
-        caRepasPrestationsPartenaires: 110670 // CA repas partenaires
+        // CA repas partenaires : 16869 + 12672 + 29412 = 58953€
+        caRepasPartenaires: 58953
       };
 
       function formatNumber(n) {
@@ -1378,23 +1413,23 @@ function formatNumber(n: number): string {
         const mvt2Pers = Math.round(baseData.mvt2.places * t.mouvement);
         const mvt3Pers = Math.round(baseData.mvt3.places * t.mouvement);
 
-        // CA LAOM
+        // CA LAOM (billetterie)
         const caClarte = (clarte1Pers + clarte2Pers) * baseData.clarte1.prix;
         const caSchool = (school1Pers + school2Pers) * baseData.school1.prix;
         const caMvt = (mvt1Pers + mvt2Pers + mvt3Pers) * baseData.mvt1.prix;
         const caLAOM = caClarte + caSchool + caMvt;
 
-        // Repas LAOM (pour guinguette interne)
+        // Repas LAOM (transfert interne vers guinguette)
         const repasClarte = (clarte1Pers * baseData.clarte1.nbRepas) + (clarte2Pers * baseData.clarte2.nbRepas);
         const repasSchool = (school1Pers * baseData.school1.nbRepas) + (school2Pers * baseData.school2.nbRepas);
         const repasMvt = (mvt1Pers * baseData.mvt1.nbRepas) + (mvt2Pers * baseData.mvt2.nbRepas) + (mvt3Pers * baseData.mvt3.nbRepas);
         const repasLAOM = repasClarte + repasSchool + repasMvt;
-        const chargesRepasLAOM = repasLAOM * 20; // 20€/repas transfert interne
+        const caRepasLAOM = repasLAOM * 20; // 20€/repas
 
         // Charges LAOM
-        const chargesMenageLAOM = 7 * 150; // 7 evenements × 150€
+        const chargesMenageLAOM = 7 * 150; // 7 events × 150€
         const chargesSamuel = baseData.mvt1.chargesSamuel * 3;
-        const chargesLAOM = chargesMenageLAOM + chargesSamuel + chargesRepasLAOM;
+        const chargesLAOM = chargesMenageLAOM + chargesSamuel + caRepasLAOM;
         const margeLAOM = caLAOM - chargesLAOM;
 
         // Guinguette public
@@ -1403,9 +1438,8 @@ function formatNumber(n: number): string {
         const guinguetteChargesPublic = baseData.guinguetteChargesPersonnel + guinguetteChargesMatierePublic;
         const guinguetteMargePublic = guinguetteCAPublic - guinguetteChargesPublic;
 
-        // Guinguette prestations (CA depuis repas LAOM + partenaires)
-        const caRepasLAOM = repasLAOM * 20;
-        const guinguetteCAPrestations = caRepasLAOM + baseData.caRepasPrestationsPartenaires;
+        // Guinguette prestations (repas LAOM + repas partenaires)
+        const guinguetteCAPrestations = caRepasLAOM + baseData.caRepasPartenaires;
         const guinguetteChargesMatierePrestations = Math.round(guinguetteCAPrestations * baseData.coutMatiereRepas);
         const guinguetteChargesPrestations = guinguetteChargesMatierePrestations + baseData.chargesPartenaires;
         const guinguetteMargePrestations = guinguetteCAPrestations - guinguetteChargesPrestations;
@@ -1413,11 +1447,13 @@ function formatNumber(n: number): string {
         // Totaux
         const totalCABrut = caLAOM + baseData.locationPartenaires + guinguetteCAPublic + guinguetteCAPrestations;
         const totalMargeBrute = margeLAOM + (baseData.locationPartenaires - baseData.chargesPartenaires) + guinguetteMargePublic + guinguetteMargePrestations;
-        const totalMargeNette = totalMargeBrute - CHARGES_FIXES + TRIPWIRE;
+        const totalMargeNette = totalMargeBrute - CHARGES_FIXES;
 
         return {
           caLAOM,
           margeLAOM,
+          guinguetteCAPublic,
+          guinguetteMargePublic,
           totalCABrut,
           totalMargeBrute,
           totalMargeNette,
@@ -1433,19 +1469,19 @@ function formatNumber(n: number): string {
         document.getElementById('stat-marge-brute').textContent = formatNumber(result.totalMargeBrute) + '€';
         document.getElementById('stat-marge-nette').textContent = formatNumber(result.totalMargeNette) + '€';
         
-        // Update recap
+        // Update recap section
         const recapCA = document.getElementById('recap-ca-brut');
         const recapMarge = document.getElementById('recap-marge-brute');
         if (recapCA) recapCA.textContent = formatNumber(result.totalCABrut) + '€';
         if (recapMarge) recapMarge.textContent = formatNumber(result.totalMargeBrute) + '€';
         
-        // Update final section
+        // Update final charges section
         const finalMargeBrute = document.getElementById('final-marge-brute');
         const finalMargeNette = document.getElementById('final-marge-nette');
         if (finalMargeBrute) finalMargeBrute.textContent = formatNumber(result.totalMargeBrute) + '€';
         if (finalMargeNette) finalMargeNette.textContent = formatNumber(result.totalMargeNette) + '€';
 
-        // Update description
+        // Update scenario description
         const desc = document.getElementById('scenario-description');
         if (desc) desc.textContent = result.description;
 
@@ -1467,8 +1503,8 @@ function formatNumber(n: number): string {
         });
       });
 
-      // Initialize with realiste
-      updateUI('realiste');
+      // Initialize with optimiste (matches server-side default)
+      updateUI('optimiste');
     })();
   </script>
 

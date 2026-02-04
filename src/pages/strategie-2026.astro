@@ -567,6 +567,125 @@ function formatNumber(n: number): string {
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </a>
+
+      <!-- Modèle de scaling -->
+      <div class="mt-12 pt-8 border-t border-[#2C2824]/10">
+        <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">Modele de scaling (si break-even atteint)</h3>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <!-- Phase 1 -->
+          <div class="bg-[#FAF8F5] p-6 rounded-sm border-l-4 border-[#C4A855]">
+            <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-2">Phase 1 : Iteration</p>
+            <h4 class="font-medium text-[#2C2824] mb-3">Mois 1-2 par tunnel</h4>
+            <ul class="space-y-2 text-sm text-[#2C2824]/70">
+              <li>• Budget test : 400€/mois/tunnel</li>
+              <li>• Objectif : trouver la crea + le lead magnet qui convertit</li>
+              <li>• Metriques : CPL &lt; 3€, taux achat tripwire &gt; 30%</li>
+            </ul>
+          </div>
+          <!-- Phase 2 -->
+          <div class="bg-[#4A7C59]/10 p-6 rounded-sm border-l-4 border-[#4A7C59]">
+            <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#4A7C59] mb-2">Phase 2 : Scale</p>
+            <h4 class="font-medium text-[#2C2824] mb-3">Mois 3+ (si validation)</h4>
+            <ul class="space-y-2 text-sm text-[#2C2824]/70">
+              <li>• Budget cible : <strong class="text-[#4A7C59]">5 000 - 10 000€/mois/tunnel</strong></li>
+              <li>• A 10k€ budget + CPL 3€ = ~3 300 leads/mois</li>
+              <li>• Objectif principal : croissance base email</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Simulation scaling -->
+        <div class="bg-[#2C2824] p-6 rounded-sm text-white">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-4">Simulation croissance base email avec scaling</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-white/10">
+                  <th class="text-left py-2 text-white/50 font-light">Mois</th>
+                  <th class="text-left py-2 text-white/50 font-light">Phase</th>
+                  <th class="text-right py-2 text-white/50 font-light">Budget</th>
+                  <th class="text-right py-2 text-white/50 font-light">Leads/mois</th>
+                  <th class="text-right py-2 text-white/50 font-light">Base cumulee</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-white/5">
+                  <td class="py-2">Fev</td>
+                  <td class="py-2 text-[#C4A855]">Iteration</td>
+                  <td class="py-2 text-right">400€</td>
+                  <td class="py-2 text-right">160</td>
+                  <td class="py-2 text-right font-medium">160</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-2">Mars</td>
+                  <td class="py-2 text-[#C4A855]">Iteration</td>
+                  <td class="py-2 text-right">800€</td>
+                  <td class="py-2 text-right">290</td>
+                  <td class="py-2 text-right font-medium">450</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-2">Avril</td>
+                  <td class="py-2 text-[#4A7C59]">Scale Clarte</td>
+                  <td class="py-2 text-right">5 400€</td>
+                  <td class="py-2 text-right">1 960</td>
+                  <td class="py-2 text-right font-medium">2 410</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-2">Mai</td>
+                  <td class="py-2 text-[#4A7C59]">Scale x2</td>
+                  <td class="py-2 text-right">10 800€</td>
+                  <td class="py-2 text-right">3 920</td>
+                  <td class="py-2 text-right font-medium">6 330</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-2">Juin</td>
+                  <td class="py-2 text-[#4A7C59]">Scale x3</td>
+                  <td class="py-2 text-right">16 200€</td>
+                  <td class="py-2 text-right">5 880</td>
+                  <td class="py-2 text-right font-medium">12 210</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-2">Juil</td>
+                  <td class="py-2 text-[#4A7C59]">Scale x3</td>
+                  <td class="py-2 text-right">16 200€</td>
+                  <td class="py-2 text-right">5 880</td>
+                  <td class="py-2 text-right font-medium">18 090</td>
+                </tr>
+                <tr class="bg-white/5">
+                  <td class="py-2 font-medium">Aout</td>
+                  <td class="py-2 text-[#4A7C59]">Scale x3</td>
+                  <td class="py-2 text-right font-medium">16 200€</td>
+                  <td class="py-2 text-right font-medium">5 880</td>
+                  <td class="py-2 text-right font-playfair text-lg text-[#C4A855]">23 970</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div>
+              <p class="text-xs text-white/40">Budget total</p>
+              <p class="font-playfair text-lg font-medium">~66 000€</p>
+            </div>
+            <div>
+              <p class="text-xs text-white/40">Revenus tripwire</p>
+              <p class="font-playfair text-lg font-medium text-[#4A7C59]">~60 000€</p>
+            </div>
+            <div>
+              <p class="text-xs text-white/40">Cout net</p>
+              <p class="font-playfair text-lg font-medium text-red-400">~6 000€</p>
+            </div>
+            <div>
+              <p class="text-xs text-white/40">Base email</p>
+              <p class="font-playfair text-lg font-medium text-[#C4A855]">~24 000</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-[#2C2824]/50 mt-4">
+          <strong>Hypotheses :</strong> CPL moyen 2,75€ · Taux achat tripwire 35% · Prix tripwire moyen 7,5€ · Scale progressif des tunnels valides
+        </p>
+      </div>
     </div>
   </section>
 
@@ -725,11 +844,197 @@ function formatNumber(n: number): string {
     </div>
   </section>
 
-  <!-- Section 6: 2027 -->
+  <!-- Section 6: Conferences Live payantes -->
   <section class="py-12 sm:py-16 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-8">
         <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">06</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Conferences Live payantes</h2>
+      </div>
+
+      <!-- Concept -->
+      <div class="bg-white p-6 sm:p-8 rounded-sm border border-[#2C2824]/10 mb-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="w-12 h-12 rounded-full bg-[#C4A855]/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-2">Le concept</h3>
+            <p class="text-[#2C2824]/70 leading-relaxed">
+              Webinar/conference payante tous les 20 jours (~18/an). Format 1h30-2h. 
+              Contenu premium exclusif, expertise approfondie, Q&A en direct.
+            </p>
+          </div>
+        </div>
+
+        <!-- Metriques cles -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-[#FAF8F5] p-4 rounded-sm text-center">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Frequence</p>
+            <p class="font-playfair text-xl font-medium text-[#2C2824]">1 / 20j</p>
+          </div>
+          <div class="bg-[#FAF8F5] p-4 rounded-sm text-center">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Prix</p>
+            <p class="font-playfair text-xl font-medium text-[#2C2824]">67-97€</p>
+          </div>
+          <div class="bg-[#FAF8F5] p-4 rounded-sm text-center">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Objectif/conf</p>
+            <p class="font-playfair text-xl font-medium text-[#C4A855]">2-3k€</p>
+          </div>
+          <div class="bg-[#FAF8F5] p-4 rounded-sm text-center">
+            <p class="text-xs text-[#2C2824]/50 mb-1">Participants</p>
+            <p class="font-playfair text-xl font-medium text-[#2C2824]">30-50</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thematiques -->
+      <div class="mb-8">
+        <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Thematiques en rotation</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#C4A855]/10 flex items-center justify-center text-xs font-medium text-[#C4A855]">1</span>
+            <span class="text-sm text-[#2C2824]">Le business model qui peut sauver les ecolieux en France</span>
+          </div>
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#C4A855]/10 flex items-center justify-center text-xs font-medium text-[#C4A855]">2</span>
+            <span class="text-sm text-[#2C2824]">Ecolieu vs Coliving : quelle difference juridique et economique ?</span>
+          </div>
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#C4A855]/10 flex items-center justify-center text-xs font-medium text-[#C4A855]">3</span>
+            <span class="text-sm text-[#2C2824]">Lancer un coliving en milieu rural</span>
+          </div>
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#C4A855]/10 flex items-center justify-center text-xs font-medium text-[#C4A855]">4</span>
+            <span class="text-sm text-[#2C2824]">SCIC, SCI, SAS : quel montage juridique choisir</span>
+          </div>
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#4A7C59]/10 flex items-center justify-center text-xs font-medium text-[#4A7C59]">5</span>
+            <span class="text-sm text-[#2C2824]">Construction ecologique : paille, terre, bois</span>
+          </div>
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#4A7C59]/10 flex items-center justify-center text-xs font-medium text-[#4A7C59]">6</span>
+            <span class="text-sm text-[#2C2824]">Gouvernance partagee : ce qui marche (et ce qui ne marche pas)</span>
+          </div>
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#4A7C59]/10 flex items-center justify-center text-xs font-medium text-[#4A7C59]">7</span>
+            <span class="text-sm text-[#2C2824]">Financer son ecolieu sans banque</span>
+          </div>
+          <div class="bg-white p-4 rounded-sm border border-[#2C2824]/10 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[#4A7C59]/10 flex items-center justify-center text-xs font-medium text-[#4A7C59]">8</span>
+            <span class="text-sm text-[#2C2824]">Comment on a construit 850m2 en paille pour 400k€</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tunnel d'acquisition conferences -->
+      <div class="bg-[#2C2824] p-6 rounded-sm text-white mb-8">
+        <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-4">Tunnel d'acquisition specifique</p>
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm mb-6">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">1</span>
+            <span>Extrait video gratuit</span>
+          </div>
+          <svg class="w-4 h-4 text-white/30 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">2</span>
+            <span>Inscription email</span>
+          </div>
+          <svg class="w-4 h-4 text-white/30 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#C4A855] flex items-center justify-center text-xs text-[#2C2824]">3</span>
+            <span class="text-[#C4A855]">Sequence vers conf</span>
+          </div>
+          <svg class="w-4 h-4 text-white/30 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#4A7C59] flex items-center justify-center text-xs">4</span>
+            <span class="text-[#4A7C59]">Achat 67-97€</span>
+          </div>
+        </div>
+        <p class="text-sm text-white/60">
+          <strong class="text-white">Option replay :</strong> Vendre le replay separement (47€) ou pass annuel (297€ pour acces a toutes les conferences).
+        </p>
+      </div>
+
+      <!-- Projection & Upsell -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Projection CA -->
+        <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+          <h4 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Projection annuelle</h4>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center py-2 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">Conferences</span>
+              <span class="text-sm font-medium text-[#2C2824]">18/an</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">CA moyen/conf</span>
+              <span class="text-sm font-medium text-[#2C2824]">2 500€</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">Temps Charly</span>
+              <span class="text-sm font-medium text-[#2C2824]">2h/conf = 36h/an</span>
+            </div>
+            <div class="flex justify-between items-center py-3 bg-[#4A7C59]/10 rounded-sm px-3 -mx-3">
+              <span class="text-sm font-medium text-[#2C2824]">CA annuel potentiel</span>
+              <span class="font-playfair text-xl font-medium text-[#4A7C59]">45 000€</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upsell -->
+        <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10">
+          <h4 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Upsells naturels</h4>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#C4A855] mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">LAOM School</p>
+                <p class="text-xs text-[#2C2824]/50">Conference → Formation 3 jours (1 000€)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#C4A855] mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Mentorat</p>
+                <p class="text-xs text-[#2C2824]/50">Conference → Accompagnement (3-8k€)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[#C4A855] mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Pass annuel replays</p>
+                <p class="text-xs text-[#2C2824]/50">297€ pour acces a toutes les conferences</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-[#2C2824]/50 mt-6">
+        <strong>Lancement envisage :</strong> Mars-Avril 2026, une fois les tunnels d'acquisition actifs et la base email en croissance.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 7: 2027 -->
+  <section class="py-12 sm:py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">07</span>
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">2027 — Reflexion anglophone</h2>
       </div>
 
