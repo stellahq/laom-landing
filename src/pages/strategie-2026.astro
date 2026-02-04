@@ -1,0 +1,921 @@
+---
+import Layout from '~/layouts/Layout.astro'
+
+export const prerender = true
+
+// ==========================================
+// OFFRES 2026
+// ==========================================
+const offres = [
+  { 
+    nom: 'Clarté', 
+    prix: 1000, 
+    places: 24, 
+    sessions: 2, 
+    dates: ['17-19 avril', '25-27 avril'],
+    tauxRemplissage: 100,
+    description: 'Vision + PARA + Claude Code',
+    couleur: '#C4A855'
+  },
+  { 
+    nom: 'LAOM School', 
+    prix: 1000, 
+    places: 30, 
+    sessions: 2, 
+    dates: ['8-10 mai', '16-18 octobre'],
+    tauxRemplissage: 80,
+    description: 'Créer son écolieu',
+    couleur: '#2C2824'
+  },
+  { 
+    nom: 'En Mouvement', 
+    prix: 1100, 
+    places: 45, 
+    sessions: 3, 
+    dates: ['5-9 août', '11-15 août', '16-20 août'],
+    tauxRemplissage: 100,
+    description: 'Immersion danse',
+    couleur: '#4A7C59'
+  },
+]
+
+const caTotal = offres.reduce((acc, o) => acc + (o.prix * o.places * o.tauxRemplissage / 100), 0)
+
+// ==========================================
+// CALENDRIER ÉDITORIAL
+// ==========================================
+const calendrierYouTube = [
+  { mois: 'Février', videos: ['Mon système PARA expliqué', 'Comment je gère 5 projets en parallèle'], lien: 'Clarté' },
+  { mois: 'Mars', videos: ['Claude Code : mon copilote IA', 'Pourquoi j\'ai quitté Notion pour Obsidian'], lien: 'Clarté' },
+  { mois: 'Avril', videos: ['Le business model qui sauve les écolieux', 'SCIA : la structure juridique de LAOM'], lien: 'LAOM School' },
+  { mois: 'Mai', videos: ['Autoconstruire : par où commencer', 'Les 5 erreurs des projets collectifs'], lien: 'LAOM School' },
+  { mois: 'Juin', videos: ['850m² en paille porteuse : le bilan', 'Créer un lieu de vie : le vrai coût'], lien: 'LAOM School' },
+  { mois: 'Juillet', videos: ['Libérer son corps : la science du mouvement', 'Pourquoi la danse change tout'], lien: 'En Mouvement' },
+]
+
+// ==========================================
+// TUNNELS D'ACQUISITION
+// ==========================================
+const tunnels = [
+  {
+    nom: 'Clarté',
+    ebook: 'Le système PARA : organise ta vie en 4 dossiers',
+    ebookPages: '15-20 pages',
+    ebookContenu: ['Présentation du système PARA', 'Template Obsidian offert', 'Checklist de mise en place'],
+    phases: [
+      { nom: 'Test A/B', duree: '1-15 mars', budget: 300, objectif: 'Trouver la meilleure créa' },
+      { nom: 'Optimisation', duree: '16-31 mars', budget: 400, objectif: 'Améliorer CPL < 5€' },
+      { nom: 'Scale', duree: '1-17 avril', budget: 600, objectif: 'Remplir avant Clarté' },
+    ],
+    budgetTotal: 1300,
+    objectifLeads: 260,
+    objectifVentes: 10,
+  },
+  {
+    nom: 'LAOM School',
+    ebook: 'Le business model qui peut sauver les écolieux',
+    ebookPages: '20-25 pages',
+    ebookContenu: ['Analyse des modèles qui échouent', 'Le modèle SCIA expliqué', 'Checklist juridique'],
+    phases: [
+      { nom: 'Test A/B', duree: '1-15 avril', budget: 300, objectif: 'Trouver la meilleure créa' },
+      { nom: 'Optimisation', duree: '16-30 avril', budget: 400, objectif: 'Améliorer CPL < 5€' },
+      { nom: 'Scale #1', duree: '1-7 mai', budget: 500, objectif: 'Remplir School #1' },
+      { nom: 'Relance', duree: 'Sept-Oct', budget: 500, objectif: 'Remplir School #2' },
+    ],
+    budgetTotal: 1700,
+    objectifLeads: 340,
+    objectifVentes: 15,
+  },
+  {
+    nom: 'En Mouvement',
+    ebook: 'Libérer ton corps : la science derrière le mouvement conscient',
+    ebookPages: '15-20 pages',
+    ebookContenu: ['Études scientifiques danse & trauma', 'Témoignages participants', 'Exercices à faire chez soi'],
+    phases: [
+      { nom: 'Test A/B', duree: '1-15 juin', budget: 300, objectif: 'Trouver la meilleure créa' },
+      { nom: 'Optimisation', duree: '16-30 juin', budget: 400, objectif: 'Améliorer CPL < 5€' },
+      { nom: 'Scale', duree: '1 juil - 5 août', budget: 800, objectif: 'Remplir les 3 sessions' },
+    ],
+    budgetTotal: 1500,
+    objectifLeads: 300,
+    objectifVentes: 20,
+  },
+]
+
+const budgetAdsTotal = tunnels.reduce((acc, t) => acc + t.budgetTotal, 0)
+const ventesAttendue = tunnels.reduce((acc, t) => acc + t.objectifVentes, 0)
+
+// ==========================================
+// WEB-SÉRIE INSTAGRAM
+// ==========================================
+const webSerie = [
+  { ep: 1, titre: 'L\'impulsion', desc: 'Pourquoi ce projet fou' },
+  { ep: 2, titre: 'La découverte', desc: 'Le terrain en Aveyron' },
+  { ep: 3, titre: 'Le saut', desc: 'L\'achat du domaine' },
+  { ep: 4, titre: 'Premier refus', desc: 'La bataille administrative commence' },
+  { ep: 5, titre: 'Le STECAL', desc: '4 ans de combat' },
+  { ep: 6, titre: 'Petit Shambala', desc: 'Notre première construction' },
+  { ep: 7, titre: 'L\'équipe', desc: 'Ceux qui ont tout donné' },
+  { ep: 8, titre: 'Le sol en terre', desc: '13m³ à la main' },
+  { ep: 9, titre: 'Nos erreurs', desc: 'Ce qu\'on assume' },
+  { ep: 10, titre: 'La vision', desc: 'Le Grand Shambala' },
+  { ep: 11, titre: 'Le chantier', desc: '30 personnes, 3 mois' },
+  { ep: 12, titre: '850m² en 75 jours', desc: 'Le timelapse' },
+  { ep: 13, titre: 'Les associés', desc: 'Ceux qui rejoignent' },
+  { ep: 14, titre: 'La guinguette', desc: 'Lorenzo & Lily' },
+  { ep: 15, titre: 'Le premier festival', desc: 'VanLiFest x LAOM' },
+  { ep: 16, titre: 'En Mouvement', desc: 'Les immersions danse' },
+  { ep: 17, titre: 'La communauté', desc: '15 familles' },
+  { ep: 18, titre: 'Les doutes', desc: 'Ce qu\'on ne montre pas' },
+  { ep: 19, titre: 'Le pivot', desc: 'Le business model' },
+  { ep: 20, titre: 'L\'ouverture', desc: 'Le coliving arrive' },
+  { ep: 21, titre: 'Ce qu\'on a appris', desc: '5 ans de leçons' },
+  { ep: 22, titre: '2027 et après', desc: 'La suite' },
+  { ep: 23, titre: 'Pourquoi', desc: 'Le sens de tout ça' },
+  { ep: 24, titre: 'L\'invitation', desc: 'Rejoins-nous' },
+]
+
+// ==========================================
+// CHARGE DE TRAVAIL
+// ==========================================
+const chargeCharly = [
+  { tache: 'Post LinkedIn', frequence: '1/semaine', temps: '2h', total: '8h/mois' },
+  { tache: 'Vidéo YouTube', frequence: '2/mois', temps: '6h', total: '12h/mois' },
+  { tache: 'Review e-books', frequence: 'Ponctuel', temps: '2h/e-book', total: '6h total' },
+  { tache: 'Calls prospects', frequence: 'Variable', temps: '30min/call', total: '~4h/mois' },
+]
+
+const chargeAmandine = [
+  { tache: 'Post LinkedIn', frequence: '1/semaine', temps: '2h', total: '8h/mois' },
+  { tache: 'Newsletter', frequence: '1/semaine', temps: '3h', total: '12h/mois' },
+  { tache: 'Web-série montage', frequence: '1/semaine', temps: '4h', total: '16h/mois' },
+  { tache: 'Rédaction e-books', frequence: 'Ponctuel', temps: '10h/e-book', total: '30h total' },
+  { tache: 'Gestion tunnels/ads', frequence: 'Continue', temps: '2h/sem', total: '8h/mois' },
+  { tache: 'Réflexion contenu EN', frequence: 'À partir sept', temps: '2h/sem', total: '8h/mois' },
+]
+
+function formatNumber(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+---
+
+<Layout
+  title="Stratégie Marketing & Acquisition 2026 — LAOM"
+  description="Document de travail interne — Stratégie marketing et acquisition 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-6">
+          <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace associés</h2>
+        <p class="text-white/50 text-sm">Document de travail réservé aux associés LAOM</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Accéder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar interne -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+      <a href="/" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        Retour au site
+      </a>
+      <div class="flex items-center gap-1">
+        <span class="text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associés</span>
+        <a href="/previsionnel-2026" class="px-4 py-2 text-sm font-light text-white/50 hover:text-white hover:bg-white/5 rounded-sm transition-colors">
+          Prévisionnel
+        </a>
+        <a href="/strategie-2026" class="px-4 py-2 text-sm font-light text-white bg-white/10 rounded-sm">
+          Stratégie
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-32 pb-16">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">Document de travail</span>
+        <span class="text-white/20">·</span>
+        <span class="text-xs font-light text-white/40">Non référencé</span>
+      </div>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
+        Stratégie Marketing & Acquisition
+      </h1>
+      <p class="text-lg font-light text-white/60 max-w-2xl">
+        Plan d'acquisition 2026 — Canaux organiques, tunnels payants, calendrier éditorial
+      </p>
+      
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mt-12 pt-8 border-t border-white/10">
+        <div>
+          <p class="font-playfair text-3xl font-medium text-[#C4A855]">3</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Offres</p>
+        </div>
+        <div>
+          <p class="font-playfair text-3xl font-medium text-white">4</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Canaux</p>
+        </div>
+        <div>
+          <p class="font-playfair text-3xl font-medium text-white">3</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Tunnels</p>
+        </div>
+        <div>
+          <p class="font-playfair text-3xl font-medium text-white">{formatNumber(budgetAdsTotal)}€</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Budget ads</p>
+        </div>
+        <div>
+          <p class="font-playfair text-3xl font-medium text-[#4A7C59]">{formatNumber(caTotal)}€</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">CA potentiel</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Les offres -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">01</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Les offres à vendre</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {offres.map((offre) => (
+          <div class="border border-[#2C2824]/10 rounded-sm overflow-hidden">
+            <div class="p-6" style={`border-top: 3px solid ${offre.couleur}`}>
+              <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">{offre.sessions} session{offre.sessions > 1 ? 's' : ''}</p>
+              <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{offre.nom}</h3>
+              <p class="text-sm font-light text-[#2C2824]/50 mb-4">{offre.description}</p>
+              
+              <div class="flex items-baseline gap-2 mb-4">
+                <span class="font-playfair text-3xl font-medium text-[#2C2824]">{formatNumber(offre.prix)}</span>
+                <span class="text-sm font-light text-[#2C2824]/40">€/pers</span>
+              </div>
+
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Places totales</span>
+                  <span class="font-medium text-[#2C2824]">{offre.places}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Objectif remplissage</span>
+                  <span class="font-medium text-[#2C2824]">{offre.tauxRemplissage}%</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">CA attendu</span>
+                  <span class="font-medium" style={`color: ${offre.couleur}`}>{formatNumber(offre.prix * offre.places * offre.tauxRemplissage / 100)}€</span>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-4 border-t border-[#2C2824]/5">
+                <p class="text-xs font-light text-[#2C2824]/40 uppercase tracking-wider mb-2">Dates</p>
+                <div class="flex flex-wrap gap-2">
+                  {offre.dates.map((d) => (
+                    <span class="text-xs font-light text-[#2C2824]/70 bg-[#FAF8F5] px-2 py-1 rounded-sm">{d}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 p-6 bg-[#FAF8F5] rounded-sm">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/50">CA potentiel total (avec taux de remplissage)</p>
+            <p class="font-playfair text-3xl font-medium text-[#2C2824]">{formatNumber(caTotal)} €</p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-light text-[#2C2824]/50">Répartition</p>
+            <p class="text-sm font-light text-[#2C2824]/70">
+              Clarté {Math.round(24000/caTotal*100)}% · School {Math.round(24000/caTotal*100)}% · Mouvement {Math.round(49500/caTotal*100)}%
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Canaux d'acquisition -->
+  <section class="py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">02</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Canaux d'acquisition organique</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- LinkedIn -->
+        <div class="bg-white p-8 rounded-sm border border-[#2C2824]/5">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full bg-[#0A66C2]/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-playfair text-lg font-medium text-[#2C2824]">LinkedIn</h3>
+              <p class="text-xs font-light text-[#2C2824]/50">Charly + Amandine</p>
+            </div>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-center justify-between py-3 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">Fréquence</span>
+              <span class="text-sm font-medium text-[#2C2824]">2 posts/semaine (1 chacun)</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">Total mensuel</span>
+              <span class="text-sm font-medium text-[#2C2824]">8 posts</span>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Stratégie TOFU/MOFU/BOFU</p>
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="bg-[#FAF8F5] p-3 rounded-sm">
+                <p class="text-xs font-medium text-[#2C2824]">TOFU</p>
+                <p class="text-[10px] text-[#2C2824]/50 mt-1">Découvrabilité</p>
+                <p class="text-lg font-medium text-[#C4A855] mt-2">2/mois</p>
+              </div>
+              <div class="bg-[#FAF8F5] p-3 rounded-sm">
+                <p class="text-xs font-medium text-[#2C2824]">MOFU</p>
+                <p class="text-[10px] text-[#2C2824]/50 mt-1">Expertise</p>
+                <p class="text-lg font-medium text-[#C4A855] mt-2">1/mois</p>
+              </div>
+              <div class="bg-[#FAF8F5] p-3 rounded-sm">
+                <p class="text-xs font-medium text-[#2C2824]">BOFU</p>
+                <p class="text-[10px] text-[#2C2824]/50 mt-1">Conversion</p>
+                <p class="text-lg font-medium text-[#C4A855] mt-2">1/mois</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-[#2C2824]/5">
+            <p class="text-xs font-light text-[#2C2824]/50 mb-3">Thèmes Charly</p>
+            <p class="text-sm text-[#2C2824]/70">PARA, IA, multi-projets, autoconstruction, entrepreneuriat</p>
+            <p class="text-xs font-light text-[#2C2824]/50 mt-4 mb-3">Thèmes Amandine</p>
+            <p class="text-sm text-[#2C2824]/70">Storytelling LAOM, behind the scenes, vie collective, parentalité</p>
+          </div>
+        </div>
+
+        <!-- Instagram -->
+        <div class="bg-white p-8 rounded-sm border border-[#2C2824]/5">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-playfair text-lg font-medium text-[#2C2824]">Instagram</h3>
+              <p class="text-xs font-light text-[#2C2824]/50">Web-série LAOM</p>
+            </div>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-center justify-between py-3 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">Format</span>
+              <span class="text-sm font-medium text-[#2C2824]">Reels 30s-1min</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">Fréquence</span>
+              <span class="text-sm font-medium text-[#2C2824]">1 épisode/semaine</span>
+            </div>
+            <div class="flex items-center justify-between py-3 border-b border-[#2C2824]/5">
+              <span class="text-sm text-[#2C2824]/70">Épisodes total</span>
+              <span class="text-sm font-medium text-[#2C2824]">24 épisodes (6 mois)</span>
+            </div>
+          </div>
+
+          <div class="bg-[#FAF8F5] p-4 rounded-sm">
+            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-3">Concept</p>
+            <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+              L'histoire de LAOM de 2021 à 2026. De l'idée folle à aujourd'hui. Chaque épisode se termine par un CTA vers la newsletter pour "la suite de l'histoire".
+            </p>
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-[#2C2824]/5">
+            <p class="text-xs font-light text-[#2C2824]/50 mb-3">Arc narratif (extraits)</p>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              {webSerie.slice(0, 6).map((ep) => (
+                <div class="flex items-center gap-2">
+                  <span class="text-[#C4A855] font-mono">{ep.ep.toString().padStart(2, '0')}</span>
+                  <span class="text-[#2C2824]/70">{ep.titre}</span>
+                </div>
+              ))}
+            </div>
+            <p class="text-xs text-[#2C2824]/40 mt-2">+ 18 épisodes...</p>
+          </div>
+        </div>
+
+        <!-- YouTube -->
+        <div class="bg-white p-8 rounded-sm border border-[#2C2824]/5 md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full bg-[#FF0000]/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#FF0000]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-playfair text-lg font-medium text-[#2C2824]">YouTube</h3>
+              <p class="text-xs font-light text-[#2C2824]/50">Charly Aubert</p>
+            </div>
+            <div class="ml-auto text-right">
+              <p class="text-sm font-medium text-[#2C2824]">2 vidéos/mois</p>
+              <p class="text-xs text-[#2C2824]/50">12 vidéos sur 6 mois</p>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-[#2C2824]/10">
+                  <th class="text-left py-3 font-light text-[#2C2824]/50 text-xs uppercase tracking-wider">Mois</th>
+                  <th class="text-left py-3 font-light text-[#2C2824]/50 text-xs uppercase tracking-wider">Vidéo 1</th>
+                  <th class="text-left py-3 font-light text-[#2C2824]/50 text-xs uppercase tracking-wider">Vidéo 2</th>
+                  <th class="text-right py-3 font-light text-[#2C2824]/50 text-xs uppercase tracking-wider">Offre liée</th>
+                </tr>
+              </thead>
+              <tbody>
+                {calendrierYouTube.map((row) => (
+                  <tr class="border-b border-[#2C2824]/5">
+                    <td class="py-3 font-medium text-[#2C2824]">{row.mois}</td>
+                    <td class="py-3 text-[#2C2824]/70">{row.videos[0]}</td>
+                    <td class="py-3 text-[#2C2824]/70">{row.videos[1]}</td>
+                    <td class="py-3 text-right">
+                      <span class="text-xs font-medium text-[#C4A855] bg-[#C4A855]/10 px-2 py-1 rounded-sm">{row.lien}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 p-4 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm text-[#2C2824]/70">
+              <strong class="text-[#2C2824]">Stratégie :</strong> Chaque vidéo apporte de la valeur standalone mais crée un pont naturel vers l'offre correspondante. Les vidéos sortent 4-6 semaines avant les événements pour maximiser le temps de nurturing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Tunnels d'acquisition -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">03</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Tunnels d'acquisition payante</h2>
+      </div>
+
+      <div class="mb-8 p-6 bg-[#2C2824] rounded-sm text-white">
+        <p class="text-sm font-light text-white/70 mb-4">Structure de chaque tunnel</p>
+        <div class="flex flex-wrap items-center gap-4 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">1</span>
+            <span>Ads Meta/Google</span>
+          </div>
+          <svg class="w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">2</span>
+            <span>Landing + E-book</span>
+          </div>
+          <svg class="w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">3</span>
+            <span>Séquence email</span>
+          </div>
+          <svg class="w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#C4A855] flex items-center justify-center text-xs text-[#2C2824]">4</span>
+            <span class="text-[#C4A855]">Vente</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        {tunnels.map((tunnel, index) => (
+          <div class="border border-[#2C2824]/10 rounded-sm overflow-hidden">
+            <div class="p-6 bg-[#FAF8F5] border-b border-[#2C2824]/10">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] mb-1">Tunnel {index + 1}</p>
+                  <h3 class="font-playfair text-xl font-medium text-[#2C2824]">{tunnel.nom}</h3>
+                </div>
+                <div class="flex gap-6 text-sm">
+                  <div>
+                    <p class="text-[#2C2824]/50">Budget total</p>
+                    <p class="font-medium text-[#2C2824]">{formatNumber(tunnel.budgetTotal)}€</p>
+                  </div>
+                  <div>
+                    <p class="text-[#2C2824]/50">Obj. leads</p>
+                    <p class="font-medium text-[#2C2824]">{tunnel.objectifLeads}</p>
+                  </div>
+                  <div>
+                    <p class="text-[#2C2824]/50">Obj. ventes</p>
+                    <p class="font-medium text-[#4A7C59]">{tunnel.objectifVentes}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <div class="grid md:grid-cols-2 gap-8">
+                <!-- E-book -->
+                <div>
+                  <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-3">Lead Magnet (E-book)</p>
+                  <p class="font-medium text-[#2C2824] mb-2">"{tunnel.ebook}"</p>
+                  <p class="text-sm text-[#2C2824]/50 mb-4">{tunnel.ebookPages}</p>
+                  <ul class="space-y-2">
+                    {tunnel.ebookContenu.map((c) => (
+                      <li class="flex items-start gap-2 text-sm text-[#2C2824]/70">
+                        <span class="text-[#C4A855] mt-0.5">•</span>
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <!-- Phases -->
+                <div>
+                  <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-3">Planning & Budget</p>
+                  <div class="space-y-3">
+                    {tunnel.phases.map((phase) => (
+                      <div class="flex items-center justify-between py-2 border-b border-[#2C2824]/5 last:border-0">
+                        <div>
+                          <p class="text-sm font-medium text-[#2C2824]">{phase.nom}</p>
+                          <p class="text-xs text-[#2C2824]/50">{phase.duree}</p>
+                        </div>
+                        <div class="text-right">
+                          <p class="text-sm font-medium text-[#2C2824]">{phase.budget}€</p>
+                          <p class="text-xs text-[#2C2824]/50">{phase.objectif}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 pt-6 border-t border-[#2C2824]/10">
+                <p class="text-xs font-light text-[#2C2824]/50">
+                  <strong>Métriques cibles :</strong> CPL &lt; 5€ · Taux conversion call 10% · Taux closing 50%
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Récap budget -->
+      <div class="mt-8 p-6 bg-[#4A7C59]/10 border border-[#4A7C59]/30 rounded-sm">
+        <div class="grid md:grid-cols-4 gap-6">
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/50">Budget ads total</p>
+            <p class="font-playfair text-2xl font-medium text-[#2C2824]">{formatNumber(budgetAdsTotal)}€</p>
+          </div>
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/50">Leads attendus</p>
+            <p class="font-playfair text-2xl font-medium text-[#2C2824]">{tunnels.reduce((a,t) => a + t.objectifLeads, 0)}</p>
+          </div>
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/50">Ventes attendues</p>
+            <p class="font-playfair text-2xl font-medium text-[#4A7C59]">{ventesAttendue}</p>
+          </div>
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/50">ROI estimé</p>
+            <p class="font-playfair text-2xl font-medium text-[#4A7C59]">×10</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Calendrier global -->
+  <section class="py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">04</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Calendrier éditorial global</h2>
+      </div>
+
+      <div class="bg-white p-6 rounded-sm border border-[#2C2824]/10 overflow-x-auto">
+        <table class="w-full text-sm min-w-[700px]">
+          <thead>
+            <tr class="border-b border-[#2C2824]/10">
+              <th class="text-left py-3 font-light text-[#2C2824]/50 text-xs uppercase tracking-wider w-32"></th>
+              <th class="text-center py-3 font-medium text-[#2C2824] text-xs uppercase tracking-wider">Fév</th>
+              <th class="text-center py-3 font-medium text-[#2C2824] text-xs uppercase tracking-wider">Mars</th>
+              <th class="text-center py-3 font-medium text-[#2C2824] text-xs uppercase tracking-wider">Avril</th>
+              <th class="text-center py-3 font-medium text-[#2C2824] text-xs uppercase tracking-wider">Mai</th>
+              <th class="text-center py-3 font-medium text-[#2C2824] text-xs uppercase tracking-wider">Juin</th>
+              <th class="text-center py-3 font-medium text-[#2C2824] text-xs uppercase tracking-wider">Juil</th>
+              <th class="text-center py-3 font-medium text-[#2C2824] text-xs uppercase tracking-wider">Août</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-[#2C2824]/5">
+              <td class="py-4 text-[#2C2824]/70">LinkedIn</td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#0A66C2]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#0A66C2]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#0A66C2]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#0A66C2]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#0A66C2]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#0A66C2]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#0A66C2]"></span>)}</span></td>
+            </tr>
+            <tr class="border-b border-[#2C2824]/5">
+              <td class="py-4 text-[#2C2824]/70">Instagram</td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-gradient-to-br from-[#833AB4] to-[#FCAF45]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-gradient-to-br from-[#833AB4] to-[#FCAF45]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-gradient-to-br from-[#833AB4] to-[#FCAF45]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-gradient-to-br from-[#833AB4] to-[#FCAF45]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-gradient-to-br from-[#833AB4] to-[#FCAF45]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-gradient-to-br from-[#833AB4] to-[#FCAF45]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-gradient-to-br from-[#833AB4] to-[#FCAF45]"></span>)}</span></td>
+            </tr>
+            <tr class="border-b border-[#2C2824]/5">
+              <td class="py-4 text-[#2C2824]/70">YouTube</td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2].map(() => <span class="w-2 h-2 rounded-full bg-[#FF0000]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2].map(() => <span class="w-2 h-2 rounded-full bg-[#FF0000]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2].map(() => <span class="w-2 h-2 rounded-full bg-[#FF0000]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2].map(() => <span class="w-2 h-2 rounded-full bg-[#FF0000]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2].map(() => <span class="w-2 h-2 rounded-full bg-[#FF0000]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2].map(() => <span class="w-2 h-2 rounded-full bg-[#FF0000]"></span>)}</span></td>
+              <td class="py-4 text-center text-[#2C2824]/30">—</td>
+            </tr>
+            <tr class="border-b border-[#2C2824]/5">
+              <td class="py-4 text-[#2C2824]/70">Newsletter</td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#C4A855]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#C4A855]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#C4A855]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#C4A855]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#C4A855]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#C4A855]"></span>)}</span></td>
+              <td class="py-4 text-center"><span class="inline-flex gap-1">{[1,2,3,4].map(() => <span class="w-2 h-2 rounded-full bg-[#C4A855]"></span>)}</span></td>
+            </tr>
+            <tr class="border-b border-[#2C2824]/10 bg-[#FAF8F5]">
+              <td class="py-4 text-[#2C2824]/70 font-medium">Tunnels Ads</td>
+              <td class="py-4 text-center text-[#2C2824]/30">—</td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-white bg-[#C4A855] px-2 py-1 rounded-sm">Clarté</span></td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-white bg-[#C4A855] px-2 py-1 rounded-sm">Clarté</span> <span class="text-xs font-medium text-white bg-[#2C2824] px-2 py-1 rounded-sm">School</span></td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-white bg-[#2C2824] px-2 py-1 rounded-sm">School</span></td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-white bg-[#4A7C59] px-2 py-1 rounded-sm">Mvt</span></td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-white bg-[#4A7C59] px-2 py-1 rounded-sm">Mvt</span></td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-white bg-[#4A7C59] px-2 py-1 rounded-sm">Mvt</span></td>
+            </tr>
+            <tr class="bg-[#2C2824]/5">
+              <td class="py-4 text-[#2C2824] font-medium">Events</td>
+              <td class="py-4 text-center text-[#2C2824]/30">—</td>
+              <td class="py-4 text-center text-[#2C2824]/30">—</td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-[#C4A855]">Clarté 17-27</span></td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-[#2C2824]">School 8-10</span></td>
+              <td class="py-4 text-center text-[#2C2824]/30">—</td>
+              <td class="py-4 text-center text-[#2C2824]/30">—</td>
+              <td class="py-4 text-center"><span class="text-xs font-medium text-[#4A7C59]">Mvt 5-20</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs font-light text-[#2C2824]/50 mt-4 text-center">
+        Chaque point = 1 contenu · Les tunnels ads démarrent 4-6 semaines avant chaque événement
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 5: Charge de travail -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">05</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Charge de travail</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Charly -->
+        <div class="border border-[#2C2824]/10 rounded-sm overflow-hidden">
+          <div class="p-6 bg-[#FAF8F5] border-b border-[#2C2824]/10">
+            <h3 class="font-playfair text-xl font-medium text-[#2C2824]">Charly</h3>
+            <p class="text-sm text-[#2C2824]/50">~24h/mois</p>
+          </div>
+          <div class="p-6">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-[#2C2824]/10">
+                  <th class="text-left py-2 font-light text-[#2C2824]/50 text-xs">Tâche</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 text-xs">Fréquence</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 text-xs">Temps</th>
+                </tr>
+              </thead>
+              <tbody>
+                {chargeCharly.map((t) => (
+                  <tr class="border-b border-[#2C2824]/5">
+                    <td class="py-3 text-[#2C2824]">{t.tache}</td>
+                    <td class="py-3 text-right text-[#2C2824]/70">{t.frequence}</td>
+                    <td class="py-3 text-right font-medium text-[#2C2824]">{t.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Amandine -->
+        <div class="border border-[#2C2824]/10 rounded-sm overflow-hidden">
+          <div class="p-6 bg-[#FAF8F5] border-b border-[#2C2824]/10">
+            <h3 class="font-playfair text-xl font-medium text-[#2C2824]">Amandine</h3>
+            <p class="text-sm text-[#2C2824]/50">~52h/mois (+ ponctuels)</p>
+          </div>
+          <div class="p-6">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-[#2C2824]/10">
+                  <th class="text-left py-2 font-light text-[#2C2824]/50 text-xs">Tâche</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 text-xs">Fréquence</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 text-xs">Temps</th>
+                </tr>
+              </thead>
+              <tbody>
+                {chargeAmandine.map((t) => (
+                  <tr class="border-b border-[#2C2824]/5">
+                    <td class="py-3 text-[#2C2824]">{t.tache}</td>
+                    <td class="py-3 text-right text-[#2C2824]/70">{t.frequence}</td>
+                    <td class="py-3 text-right font-medium text-[#2C2824]">{t.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 p-6 bg-red-50 border border-red-200 rounded-sm">
+        <h4 class="font-medium text-red-800 mb-2">Point de vigilance</h4>
+        <p class="text-sm text-red-700">
+          La charge Amandine est dense (52h/mois récurrent + e-books ponctuels). Surveiller le risque de surcharge, notamment sur avril (2 Clarté + tunnel School).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: 2027 -->
+  <section class="py-16 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">06</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">2027 — Réflexion anglophone</h2>
+      </div>
+
+      <div class="bg-white p-8 rounded-sm border border-[#2C2824]/10">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-full bg-[#C4A855]/10 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">Expansion internationale</h3>
+            <p class="text-[#2C2824]/70 leading-relaxed mb-4">
+              Amandine ouvre la réflexion sur la création de contenu en anglais dans le but d'attirer une clientèle internationale et anglophone pour remplir l'activité de coliving qu'on ouvrira en 2027.
+            </p>
+            <div class="space-y-2 text-sm">
+              <p class="text-[#2C2824]/50"><strong class="text-[#2C2824]">Timing :</strong> Réflexion à partir de septembre 2026</p>
+              <p class="text-[#2C2824]/50"><strong class="text-[#2C2824]">Actions :</strong> Audit contenus à traduire, étude concurrence EU, tests posts EN sur LinkedIn</p>
+              <p class="text-[#2C2824]/50"><strong class="text-[#2C2824]">Objectif :</strong> Préparer le lancement coliving 2027 avec une audience internationale</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Notes -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855]">07</span>
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824]">Notes & Points de vigilance</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-[#4A7C59]/10 border border-[#4A7C59]/30 rounded-sm p-6">
+          <h3 class="font-medium text-[#4A7C59] mb-4">Métriques à suivre</h3>
+          <ul class="space-y-2 text-sm text-[#2C2824]/70">
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#4A7C59]"></span>
+              Taux d'ouverture newsletter &gt; 40%
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#4A7C59]"></span>
+              CPL (coût par lead) des tunnels &lt; 5€
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#4A7C59]"></span>
+              Taux conversion lead → call &gt; 10%
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#4A7C59]"></span>
+              Taux closing call → vente &gt; 40%
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#4A7C59]"></span>
+              Engagement LinkedIn &gt; 3%
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-red-50 border border-red-200 rounded-sm p-6">
+          <h3 class="font-medium text-red-800 mb-4">Risques identifiés</h3>
+          <ul class="space-y-2 text-sm text-red-700">
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5"></span>
+              <span><strong>Surcharge Amandine</strong> — Web-série + newsletter + e-books + ads</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5"></span>
+              <span><strong>Dépendance Charly</strong> — Contenu expertise difficile à déléguer</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5"></span>
+              <span><strong>Budget ads serré</strong> — Peu de marge si CPL élevé</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5"></span>
+              <span><strong>Avril dense</strong> — 2 Clarté + lancement tunnel School</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-8 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 text-center">
+      <p class="text-xs font-light text-white/30">
+        Document de travail interne · Dernière mise à jour : Février 2026
+      </p>
+    </div>
+  </section>
+
+  <script is:inline>
+    const CORRECT_PASSWORD = 'laom2026';
+    
+    // Check if already authenticated
+    if (sessionStorage.getItem('laom_auth') === 'true') {
+      document.getElementById('password-overlay').style.display = 'none';
+    }
+
+    document.getElementById('password-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const input = document.getElementById('password-input');
+      const error = document.getElementById('password-error');
+      
+      if (input.value === CORRECT_PASSWORD) {
+        sessionStorage.setItem('laom_auth', 'true');
+        document.getElementById('password-overlay').style.display = 'none';
+      } else {
+        error.classList.remove('hidden');
+        input.value = '';
+        input.focus();
+      }
+    });
+  </script>
+</Layout>

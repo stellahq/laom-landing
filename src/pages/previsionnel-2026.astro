@@ -248,7 +248,7 @@ function formatNumber(n: number): string {
 ---
 
 <Layout
-  title="Brainstorming 2026 — Programmation & Prévisionnel | LAOM"
+  title="Prévisionnel 2026 — Programmation & Finances | LAOM"
   description="Document de travail interne — Programmation et prévisionnel financier 2026"
   seo={{ noindex: true, nofollow: true }}
 >
@@ -268,8 +268,8 @@ function formatNumber(n: number): string {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
         </div>
-        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Accès associés</h2>
-        <p class="text-white/50 text-sm">Document de travail réservé aux associés LAOM</p>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace associes</h2>
+        <p class="text-white/50 text-sm">Document de travail reserve aux associes LAOM</p>
       </div>
       
       <form id="password-form" class="space-y-4">
@@ -284,15 +284,36 @@ function formatNumber(n: number): string {
           type="submit"
           class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          Accéder
+          Acceder
         </button>
         <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
       </form>
     </div>
   </div>
 
+  <!-- Navbar interne -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+      <a href="/" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        Retour au site
+      </a>
+      <div class="flex items-center gap-1">
+        <span class="text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associes</span>
+        <a href="/previsionnel-2026" class="px-4 py-2 text-sm font-light text-white bg-white/10 rounded-sm">
+          Previsionnel
+        </a>
+        <a href="/strategie-2026" class="px-4 py-2 text-sm font-light text-white/50 hover:text-white hover:bg-white/5 rounded-sm transition-colors">
+          Strategie
+        </a>
+      </div>
+    </div>
+  </nav>
+
   <!-- Header -->
-  <section class="bg-[#1a1a1a] -mt-24 md:-mt-28 pt-32 pb-16">
+  <section class="bg-[#1a1a1a] pt-32 pb-16">
     <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
       <div class="flex items-center gap-3 mb-6">
         <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">Document de travail</span>
@@ -300,10 +321,10 @@ function formatNumber(n: number): string {
         <span class="text-xs font-light text-white/40">Non référencé</span>
       </div>
       <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
-        Brainstorming 2026
+        Previsionnel 2026
       </h1>
       <p class="text-lg font-light text-white/60 max-w-2xl">
-        Programmation des événements et prévisionnel financier — Session Charly & Amandine
+        Programmation des evenements et previsionnel financier
       </p>
       
       <!-- Quick stats -->
