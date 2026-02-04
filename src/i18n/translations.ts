@@ -531,7 +531,7 @@ export const translations = {
           label: 'Festival d\'ouverture',
           title: 'LAOM Fest',
           description: 'Le festival d\'ouverture de LAOM. Trois jours pour inaugurer le coliving et célébrer 5 ans de construction : rencontres, ateliers, concerts et micro-conférences.',
-          dateNote: 'Automne 2026 — Inauguration officielle du coliving',
+          dateNote: 'Printemps 2027 — Inauguration officielle du coliving',
           newsletterCtaBefore: 'Inscris-toi à notre liste de diffusion pour ',
           newsletterCtaHighlight: 'être prévenu de l\'ouverture du coliving',
           newsletterCtaMiddle: ' ',
@@ -667,7 +667,7 @@ export const translations = {
       laomfest: {
         title: 'LAOM Fest',
         description: 'Le festival d\'ouverture de LAOM. Trois jours pour inaugurer le coliving et célébrer 5 ans de construction : rencontres, ateliers, concerts et micro-conférences.',
-        dateNote: 'Automne 2026 — Inauguration officielle du coliving',
+        dateNote: 'Printemps 2027 — Inauguration officielle du coliving',
       },
       channelsTitle: 'Suivre le projet',
       channels: [
@@ -1296,7 +1296,7 @@ export const translations = {
           label: 'Opening Festival',
           title: 'LAOM Fest',
           description: 'The LAOM opening festival. Three days to inaugurate the coliving and celebrate 5 years of construction: gatherings, workshops, concerts and micro-talks.',
-          dateNote: 'Autumn 2026 — Official coliving inauguration',
+          dateNote: 'Spring 2027 — Official coliving inauguration',
           newsletterCtaBefore: 'Subscribe to our mailing list to ',
           newsletterCtaHighlight: 'be notified about the coliving opening',
           newsletterCtaMiddle: ' and ',
@@ -1432,7 +1432,7 @@ export const translations = {
       laomfest: {
         title: 'LAOM Fest',
         description: 'The LAOM opening festival. Three days to inaugurate the coliving and celebrate 5 years of construction: gatherings, workshops, concerts and micro-talks.',
-        dateNote: 'Autumn 2026 — Official coliving inauguration',
+        dateNote: 'Spring 2027 — Official coliving inauguration',
       },
       channelsTitle: 'Follow the project',
       channels: [
