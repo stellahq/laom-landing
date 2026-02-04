@@ -12,18 +12,71 @@ const pageSchema = createWebPageSchema({
   description: t.pages.eventsPage.heroSubtitle,
 })
 
+// Images pour les événements partenaires
 const eventImages = [
-  '/images/claire-danse-libre-retraite-2048x1368.webp',
-  '/images/event-rencontre-perspective.webp',
-  '/images/colette.webp',
-  '/images/david-lin-fyneo.webp',
+  '/images/claire-danse-libre-retraite-2048x1368.webp', // Danse & Silence #3
+  '/images/event-rencontre-perspective.webp',           // Perspective #4
+  '/images/claire-danse-libre-retraite-2048x1368.webp', // Énergie Illimitée #1
+  '/images/colette.webp',                               // Désir d'Aventure #1
+  '/images/colette.webp',                               // Au cœur de tes désirs
+  '/images/grand-shambala-hero.webp',                   // Frère d'Âme
+  '/images/colette.webp',                               // Désir d'Aventure #2
+  '/images/event-rencontre-perspective.webp',           // Festival Perspective
+  '/images/david-lin-fyneo.webp',                       // Fyneo
+  '/images/claire-danse-libre-retraite-2048x1368.webp', // Summer Camp
+  '/images/claire-danse-libre-retraite-2048x1368.webp', // Énergie Illimitée #2
+  '/images/grand-shambala-hero.webp',                   // Aime-Être
+  '/images/grand-shambala-hero.webp',                   // Guérison des Blessures
 ]
 const events = t.events.items.map((item, index) => ({
   ...item,
   image: eventImages[index] || '/images/david-lin-fyneo.webp',
 }))
 
+// Sessions En Mouvement
 const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
+
+// Weekends LAOM
+const weekendsLaom = [
+  {
+    title: 'Clarté',
+    date: '25-27 avril 2026',
+    description: 'Un week-end pour créer le système qui libère ta tête. Vision, PARA, Claude Code.',
+    price: '1 000 €',
+    animateur: 'Charly Aubert',
+    href: '/clarte',
+    image: '/images/grand-shambala-hero.webp',
+  },
+  {
+    title: 'LAOM School #1',
+    date: '8-10 mai 2026',
+    description: '3 jours pour structurer ton projet d\'écolieu et repartir avec un plan d\'action.',
+    price: '1 000 €',
+    animateur: 'Charly Aubert',
+    href: '/school',
+    image: '/images/laom/vanlifest-img1373.webp',
+  },
+  {
+    title: 'Weekend Famille',
+    date: '27-28 juin 2026',
+    description: 'Se retrouver en famille, loin des écrans, dans un lieu qui invite à la simplicité.',
+    price: '450 €',
+    animateur: 'Amandine & Charly',
+    href: '/weekend-famille',
+    image: '/images/laom/vanlifest-img2563.webp',
+  },
+  {
+    title: 'LAOM School #2',
+    date: '16-18 octobre 2026',
+    description: '3 jours pour structurer ton projet d\'écolieu et repartir avec un plan d\'action.',
+    price: '1 000 €',
+    animateur: 'Charly Aubert',
+    href: '/school',
+    image: '/images/laom/vanlifest-img1373.webp',
+  },
+]
+
+// Images LAOM Fest
 const laomfestImages = [
   'vanlifest-IMG_1021',
   'vanlifest-IMG_1373',
@@ -44,7 +97,7 @@ const laomfestImages = [
     <div class="absolute inset-0 z-0">
       <img
         src="/images/events-hero.webp"
-        alt="Rassemblement en plein air à LAOM,  bâtiment LAOM, prairie, événement et communauté"
+        alt="Rassemblement en plein air à LAOM, bâtiment LAOM, prairie, événement et communauté"
         class="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
         fetchpriority="high"
@@ -62,18 +115,17 @@ const laomfestImages = [
     </div>
   </section>
 
-  <!-- En Mouvement,  Immersion signature -->
+  <!-- En Mouvement — Immersions -->
   <section class="py-24 md:py-32 bg-white">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
-
         <!-- Image Samuel -->
         <div class="w-full lg:w-[400px] flex-shrink-0">
           <a href="/stage-danse/" class="block group">
             <div class="aspect-[3/4] overflow-hidden rounded-sm">
               <img
                 src="/images/laom/samuel-planas.webp"
-                alt="Samuel Planas,  En Mouvement"
+                alt="Samuel Planas, En Mouvement"
                 class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
                 loading="lazy"
               />
@@ -110,93 +162,55 @@ const laomfestImages = [
     </div>
   </section>
 
-  <!-- LAOMFEST -->
+  <!-- Weekends LAOM -->
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="mb-12">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.laomfest.label}</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.laomfest.title}</h2>
-        <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-2 max-w-2xl">
-          {t.pages.eventsPage.laomfest.description}
+      <div class="mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Weekends LAOM</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">
+          Nos événements 2026
+        </h2>
+        <p class="text-lg font-light text-[#2C2824]/70 max-w-2xl">
+          Weekends thématiques animés par l'équipe LAOM. Formations, immersions, moments en famille.
         </p>
-        <p class="text-sm font-light text-[#2C2824]/50 italic">{t.pages.eventsPage.laomfest.dateNote}</p>
       </div>
-      
-      <!-- LAOMFEST Gallery -->
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-        {laomfestImages.map((name) => (
-          <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
-            <img
-              src={`/images/laom/laomfest/${name}.webp`}
-              alt=""
-              class="w-full h-full object-cover rounded-sm"
-              loading="lazy"
-              decoding="async"
-              aria-hidden="true"
-            />
-          </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {weekendsLaom.map((w) => (
+          <a href={w.href} class="group block">
+            <article class="bg-white rounded-sm overflow-hidden border border-black/5 hover:border-[#C4A855]/30 transition-all hover:shadow-lg">
+              <div class="aspect-[16/9] overflow-hidden">
+                <img
+                  src={w.image}
+                  alt={w.title}
+                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-3">
+                  <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855]">{w.date}</p>
+                  <p class="text-sm font-medium text-[#2C2824]">{w.price}</p>
+                </div>
+                <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2 group-hover:text-[#C4A855] transition-colors">
+                  {w.title}
+                </h3>
+                <p class="text-base font-light text-[#2C2824]/60 leading-relaxed mb-4">
+                  {w.description}
+                </p>
+                <p class="text-xs font-light text-[#2C2824]/40">
+                  Animé par {w.animateur}
+                </p>
+              </div>
+            </article>
+          </a>
         ))}
       </div>
-
-      <!-- Inscription liste de diffusion LAOMFEST -->
-      <div class="mt-16 pt-12 border-t border-[#2C2824]/10">
-        <p class="text-base font-light text-[#2C2824]/80 leading-relaxed mb-6 max-w-2xl">
-          {t.pages.eventsPage.laomfest.newsletterCtaBefore}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight}</strong>{t.pages.eventsPage.laomfest.newsletterCtaMiddle}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight2}</strong>
-        </p>
-        <div class="max-w-md">
-          <NewsletterForm variant="light" />
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- LAOM School,  4 weekends -->
+  <!-- Événements partenaires -->
   <section class="py-24 md:py-32 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-        <!-- Placeholder image -->
-        <div class="w-full lg:w-[400px] flex-shrink-0">
-          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label={t.pages.eventsPage.school.placeholderAlt}>
-            <div class="text-center px-8">
-              <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
-              <p class="text-sm font-light text-black/50 max-w-[250px]">{t.pages.eventsPage.school.placeholderDesc}</p>
-            </div>
-          </div>
-        </div>
-        <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.school.label}</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.school.title}</h2>
-          <div class="space-y-4 mb-8">
-            {t.pages.eventsPage.school.paragraphs.map((p) => (
-              <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed">
-                {p}
-              </p>
-            ))}
-          </div>
-
-          <!-- Sessions -->
-          <div class="space-y-3 mb-10">
-            {t.pages.eventsPage.school.weekends.map((w) => (
-              <div class="flex justify-between items-center py-3 border-b border-black/5">
-                <span class="text-sm font-light text-[#2C2824]/50">{w.label}</span>
-                <span class="font-playfair text-base text-[#2C2824]">{w.date}</span>
-              </div>
-            ))}
-          </div>
-
-          <a
-            href="/school/"
-            class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
-          >
-            {t.pages.eventsPage.school.cta}
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tous les événements partenaires -->
-  <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">{t.pages.eventsPage.partnersLabel}</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">
@@ -229,6 +243,46 @@ const laomfestImages = [
             </div>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LAOM Fest (à venir) -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.laomfest.label}</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.laomfest.title}</h2>
+        <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-2 max-w-2xl">
+          {t.pages.eventsPage.laomfest.description}
+        </p>
+        <p class="text-sm font-light text-[#2C2824]/50 italic">{t.pages.eventsPage.laomfest.dateNote}</p>
+      </div>
+      
+      <!-- Gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        {laomfestImages.map((name) => (
+          <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
+            <img
+              src={`/images/laom/laomfest/${name}.webp`}
+              alt=""
+              class="w-full h-full object-cover rounded-sm"
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Newsletter -->
+      <div class="mt-16 pt-12 border-t border-[#2C2824]/10">
+        <p class="text-base font-light text-[#2C2824]/80 leading-relaxed mb-6 max-w-2xl">
+          {t.pages.eventsPage.laomfest.newsletterCtaBefore}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight}</strong>{t.pages.eventsPage.laomfest.newsletterCtaMiddle}<strong class="font-semibold underline decoration-[#8B7A3A] underline-offset-2">{t.pages.eventsPage.laomfest.newsletterCtaHighlight2}</strong>
+        </p>
+        <div class="max-w-md">
+          <NewsletterForm variant="light" />
+        </div>
       </div>
     </div>
   </section>

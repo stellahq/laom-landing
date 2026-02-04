@@ -1,0 +1,213 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Réserver Clarté — Vision, PARA, Claude Code | LAOM',
+  url: Astro.url.toString(),
+  description: 'Réserve ta place pour Clarté. 3 jours pour créer ton système de vie avec Vision, PARA et Claude Code. 1000€ tout inclus.',
+})
+
+const inclus = [
+  { text: 'Formation Vision + PARA + Claude Code' },
+  { text: 'Hébergement sur place (tipi ou chambre)' },
+  { text: 'Tous les repas (cuisine maison, produits locaux)' },
+  { text: 'Configuration personnalisée de ton agent IA' },
+  { text: 'Documentation et ressources' },
+]
+
+const reassurance = [
+  { icon: 'users', title: '12 places max', desc: 'Accompagnement personnalisé' },
+  { icon: 'code', title: 'Setup complet', desc: 'Tu repars prêt' },
+  { icon: 'lock', title: 'Paiement sécurisé', desc: 'Via Stripe' },
+  { icon: 'calendar', title: 'Annulation -14j', desc: 'Remboursement intégral' },
+]
+---
+
+<Layout
+  title="Réserver Clarté — Vision, PARA, Claude Code | LAOM"
+  description="Réserve ta place pour Clarté. 3 jours pour créer ton système de vie avec Vision, PARA et Claude Code. 1000€ tout inclus."
+  seo={{ ldJSON: pageSchema, noindex: true }}
+>
+  <!-- Hero minimaliste -->
+  <section class="bg-[#1a1a1a] -mt-24 md:-mt-28 pt-32 pb-16">
+    <div class="max-w-3xl mx-auto px-8 md:px-12 lg:px-16 text-center">
+      <a href="/clarte" class="inline-flex items-center gap-2 text-sm font-light text-white/50 hover:text-[#C4A855] transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        Retour à Clarté
+      </a>
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855] mb-4">Réservation</p>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
+        Clarté
+      </h1>
+      <p class="text-lg font-light text-white/70 max-w-xl mx-auto">
+        25-27 avril 2026 · Vision, PARA, Claude Code
+      </p>
+    </div>
+  </section>
+
+  <!-- Contenu principal -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-8 md:px-12 lg:px-16">
+      
+      <!-- Récap de l'événement -->
+      <div class="mb-12 p-8 bg-[#FAF8F5] rounded-sm">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
+          <div>
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-2">Weekend Clarté</p>
+            <p class="font-playfair text-2xl font-medium text-[#2C2824]">25 – 27 avril 2026</p>
+            <p class="text-sm font-light text-[#2C2824]/50 mt-1">LAOM, Aveyron · 3 jours / 2 nuits</p>
+          </div>
+          <div class="text-left md:text-right">
+            <p class="text-xs font-light text-[#4A7C59]">Places disponibles</p>
+            <p class="font-playfair text-lg font-medium text-[#2C2824]">8 places restantes</p>
+          </div>
+        </div>
+        
+        <h3 class="text-sm font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Ce qui est inclus</h3>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {inclus.map((item) => (
+            <div class="flex items-start gap-3">
+              <span class="text-[#C4A855] mt-0.5">&#10003;</span>
+              <span class="text-base font-light text-[#2C2824]/80">{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Les 3 piliers -->
+      <div class="mb-12">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Ce que tu vas construire</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="p-6 border border-black/5 rounded-sm">
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">01</p>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">Vision</h3>
+            <p class="text-sm font-light text-[#2C2824]/60">Clarifier ce que tu veux vivre. Tes valeurs, tes intentions.</p>
+          </div>
+          <div class="p-6 border border-black/5 rounded-sm">
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">02</p>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">PARA</h3>
+            <p class="text-sm font-light text-[#2C2824]/60">Ton système d'organisation. Simple, robuste, universel.</p>
+          </div>
+          <div class="p-6 border border-black/5 rounded-sm">
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">03</p>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">Claude Code</h3>
+            <p class="text-sm font-light text-[#2C2824]/60">Ton agent IA personnel configuré avec ta vision et ton système.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prix et paiement -->
+      <div class="mb-12 p-8 border-2 border-[#C4A855] rounded-sm bg-white">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+          <div>
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Tarif tout inclus</p>
+            <div class="flex items-baseline gap-2">
+              <span class="font-playfair text-5xl font-medium text-[#2C2824]">1 000</span>
+              <span class="text-xl font-light text-[#2C2824]/50">€</span>
+            </div>
+            <p class="text-sm font-light text-[#2C2824]/50 mt-2">Paiement unique, pas d'abonnement</p>
+          </div>
+          <div class="flex-shrink-0">
+            <a 
+              href="#STRIPE_LINK_CLARTE"
+              class="inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full md:w-auto"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+              Payer 1 000 €
+            </a>
+          </div>
+        </div>
+        
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-6 border-t border-black/5 text-xs font-light text-[#2C2824]/50">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            Paiement 100% sécurisé via Stripe
+          </span>
+          <span>|</span>
+          <span>Carte bancaire, Apple Pay, Google Pay</span>
+          <span>|</span>
+          <span>Facture envoyée par email</span>
+        </div>
+      </div>
+
+      <!-- Éléments de réassurance -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        {reassurance.map((r) => (
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-[#FAF8F5] flex items-center justify-center">
+              {r.icon === 'users' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              )}
+              {r.icon === 'code' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              )}
+              {r.icon === 'lock' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              )}
+              {r.icon === 'calendar' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              )}
+            </div>
+            <p class="text-sm font-medium text-[#2C2824]">{r.title}</p>
+            <p class="text-xs font-light text-[#2C2824]/50 mt-1">{r.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Citation -->
+      <div class="mb-12 p-8 bg-[#2C2824] rounded-sm text-center">
+        <blockquote class="font-playfair text-xl md:text-2xl font-normal text-white/90 italic leading-relaxed">
+          "Un système externe libère le cerveau. Quand tu sais que tout est capturé, organisé, accessible — tu arrêtes de ruminer."
+        </blockquote>
+        <p class="text-sm font-light text-white/50 mt-4">— Charly Aubert</p>
+      </div>
+
+      <!-- Contact -->
+      <div class="text-center p-8 bg-[#FAF8F5] rounded-sm">
+        <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Une question avant de réserver ?</h3>
+        <p class="text-base font-light text-[#2C2824]/60 mb-6">
+          Échange directement avec Charly pour voir si Clarté est fait pour toi.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="https://cal.com/charly-aubert/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#2C2824]/20 text-[#2C2824] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#2C2824] hover:text-white transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Réserver un appel
+          </a>
+          <a
+            href="mailto:hello@laom.fr"
+            class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#2C2824]/20 text-[#2C2824] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#2C2824] hover:text-white transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            hello@laom.fr
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

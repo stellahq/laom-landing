@@ -1,0 +1,1129 @@
+---
+import Layout from '~/layouts/Layout.astro'
+
+export const prerender = true
+
+// ==========================================
+// ÉVÉNEMENTS LAOM
+// ==========================================
+const PRIX_REPAS_LAOM = 20
+const COUT_MATIERE_REPAS = 0.35 // 35%
+const FORFAIT_MENAGE_LAOM = 150
+
+const evenementsLAOM = [
+  { date: '25-27 avril', nom: 'Clarté', desc: 'Vision + PARA + Claude Code', animateur: 'Charly', prix: 1000, places: 12, taux: 100, nbRepas: 5, chargesSamuel: 0 },
+  { date: '8-10 mai', nom: 'LAOM School #1', desc: 'Projet, financement, business model, gouvernance, culture', animateur: 'Charly', prix: 1000, places: 15, taux: 80, nbRepas: 5, chargesSamuel: 0 },
+  { date: '27-28 juin', nom: 'Weekend Famille', desc: 'Format accessible, familial', animateur: 'Amandine & Charly', prix: 450, places: 20, taux: 80, nbRepas: 3, chargesSamuel: 0 },
+  { date: '5-9 août', nom: 'En Mouvement #1', desc: 'Immersion danse avec Samuel Planas', animateur: 'Samuel & Charly', prix: 1100, places: 15, taux: 100, nbRepas: 9, chargesSamuel: 1500 },
+  { date: '11-15 août', nom: 'En Mouvement #2', desc: 'Immersion danse avec Samuel Planas', animateur: 'Samuel & Charly', prix: 1100, places: 15, taux: 100, nbRepas: 9, chargesSamuel: 1500 },
+  { date: '16-20 août', nom: 'En Mouvement #3', desc: 'Immersion danse avec Samuel Planas', animateur: 'Samuel & Charly', prix: 1100, places: 15, taux: 100, nbRepas: 9, chargesSamuel: 1500 },
+  { date: '16-18 octobre', nom: 'LAOM School #2', desc: 'Projet, financement, business model, gouvernance, culture', animateur: 'Charly', prix: 1000, places: 15, taux: 80, nbRepas: 5, chargesSamuel: 0 },
+]
+
+// ==========================================
+// ÉVÉNEMENTS PARTENAIRES - TARIF STANDARD
+// 180€/j salle + 360€ tipis + repas + 150€ ménage
+// ==========================================
+const partenairesStandard = [
+  { date: '5-8 mars', nom: 'Rencontre Perspective #4', orga: 'Eliott/JC', jours: 4, pers: 35, nbRepas: 7, prixRepas: 15 },
+  { date: '30 avr - 3 mai', nom: 'Désir d\'Aventure #1', orga: 'Colette', jours: 4, pers: 21, nbRepas: 7, prixRepas: 18 },
+  { date: '13-17 mai', nom: 'Au cœur de tes désirs', orga: 'Colette', jours: 5, pers: 21, nbRepas: 9, prixRepas: 18 },
+  { date: '28-31 mai', nom: 'Désir d\'Aventure #2', orga: 'Colette', jours: 4, pers: 21, nbRepas: 7, prixRepas: 18 },
+  { date: '11-13 juin', nom: 'Rencontre Fyneo #1', orga: 'David Lin', jours: 3, pers: 50, nbRepas: 5, prixRepas: 18, salleMulti: 3 }, // salle ×3
+]
+const FORFAIT_MENAGE = 150
+
+// ==========================================
+// ÉVÉNEMENTS PARTENAIRES - TARIF -20%
+// 144€/j salle + 288€ tipis + repas + 150€ ménage
+// ==========================================
+const partenairesReduits = [
+  { date: '25-28 fév', nom: 'Danse & Silence #3', orga: 'Amawé (Claire)', jours: 4, pers: 16, nbRepas: 7, prixRepas: 18 },
+  { date: '11-15 mars', nom: 'Énergie Illimitée #1', orga: 'Amawé', jours: 5, pers: 16, nbRepas: 9, prixRepas: 18 },
+  { date: '21-24 mai', nom: 'Frère d\'Âme', orga: 'Grégoire Renevier', jours: 4, pers: 16, nbRepas: 7, prixRepas: 18 },
+  { date: '11-14 juillet', nom: 'Summer Camp', orga: 'Amawé', jours: 4, pers: 16, nbRepas: 7, prixRepas: 18 },
+  { date: '17-20 juillet', nom: 'Énergie Illimitée #2', orga: 'Amawé', jours: 4, pers: 16, nbRepas: 7, prixRepas: 18 },
+  { date: '23-26 juillet', nom: 'Aime-Être', orga: 'Grégoire Renevier', jours: 4, pers: 16, nbRepas: 7, prixRepas: 18 },
+]
+
+// ==========================================
+// ÉVÉNEMENTS PARTENAIRES - FORFAITS SPÉCIAUX
+// ==========================================
+const partenairesSpeciaux = [
+  { 
+    date: '5-8 juin', 
+    nom: 'Festival Perspective', 
+    orga: 'Eliott/JC', 
+    location: 1200, 
+    pers: 200, 
+    nbRepas: 7, 
+    prixRepas: 18,
+    menage: 150,
+    chargeMenage: 448, // 7h × 16€ × 4j
+  },
+  { 
+    date: '22-28 août', 
+    nom: 'Guérison des Blessures', 
+    orga: 'Patricia Salgon', 
+    location: 400, 
+    pers: 18, 
+    nbRepas: 13, // 7 jours = 13 repas (arrivée soir, départ matin)
+    prixRepas: 18,
+    menage: 150,
+    chargeMenage: 0,
+  },
+]
+
+// ==========================================
+// CALCULS ÉVÉNEMENTS LAOM (billetterie pure, hors repas)
+// ==========================================
+const calcLAOM = evenementsLAOM.map(e => {
+  const persEstimees = Math.round(e.places * (e.taux / 100))
+  const caBilletterie = e.prix * persEstimees
+  const chargesMenage = FORFAIT_MENAGE_LAOM
+  const chargesTotal = e.chargesSamuel + chargesMenage
+  const marge = caBilletterie - chargesTotal
+  // Repas pour la guinguette prestations
+  const nbRepasTotal = persEstimees * e.nbRepas
+  const caRepas = nbRepasTotal * PRIX_REPAS_LAOM
+  return { ...e, persEstimees, caBilletterie, chargesMenage, chargesTotal, marge, nbRepasTotal, caRepas }
+})
+const totalCALAOM = calcLAOM.reduce((acc, e) => acc + e.caBilletterie, 0)
+const totalChargesLAOM = calcLAOM.reduce((acc, e) => acc + e.chargesTotal, 0)
+const totalMargeLAOM = calcLAOM.reduce((acc, e) => acc + e.marge, 0)
+const totalRepasLAOM = calcLAOM.reduce((acc, e) => acc + e.nbRepasTotal, 0)
+const totalCARepasLAOM = calcLAOM.reduce((acc, e) => acc + e.caRepas, 0)
+
+// ==========================================
+// CALCULS PARTENAIRES STANDARD (location pure, hors repas)
+// ==========================================
+const calcStandard = partenairesStandard.map(e => {
+  const salleBase = e.jours * 180
+  const salle = e.salleMulti ? salleBase * e.salleMulti : salleBase
+  const tipis = 360
+  const menage = FORFAIT_MENAGE
+  const totalLocation = salle + tipis + menage // HORS repas
+  // Repas pour la guinguette prestations
+  const nbRepasTotal = e.pers * e.nbRepas
+  const caRepas = nbRepasTotal * e.prixRepas
+  return { ...e, salle, tipis, menage, totalLocation, nbRepasTotal, caRepas }
+})
+const totalLocationStandard = calcStandard.reduce((acc, e) => acc + e.totalLocation, 0)
+const totalRepasStandard = calcStandard.reduce((acc, e) => acc + e.nbRepasTotal, 0)
+const totalCARepasStandard = calcStandard.reduce((acc, e) => acc + e.caRepas, 0)
+
+// ==========================================
+// CALCULS PARTENAIRES -20% (location pure, hors repas)
+// ==========================================
+const calcReduits = partenairesReduits.map(e => {
+  const salle = e.jours * 144 // -20%
+  const tipis = 288 // -20%
+  const menage = FORFAIT_MENAGE // Pas de -20% sur ménage
+  const totalLocation = salle + tipis + menage // HORS repas
+  // Repas pour la guinguette prestations
+  const nbRepasTotal = e.pers * e.nbRepas
+  const caRepas = nbRepasTotal * e.prixRepas
+  return { ...e, salle, tipis, menage, totalLocation, nbRepasTotal, caRepas }
+})
+const totalLocationReduits = calcReduits.reduce((acc, e) => acc + e.totalLocation, 0)
+const totalRepasReduits = calcReduits.reduce((acc, e) => acc + e.nbRepasTotal, 0)
+const totalCARepasReduits = calcReduits.reduce((acc, e) => acc + e.caRepas, 0)
+
+// ==========================================
+// CALCULS PARTENAIRES SPÉCIAUX (location pure, hors repas)
+// ==========================================
+const calcSpeciaux = partenairesSpeciaux.map(e => {
+  const totalLocation = e.location + e.menage // HORS repas
+  // Repas pour la guinguette prestations
+  const nbRepasTotal = e.pers * e.nbRepas
+  const caRepas = nbRepasTotal * e.prixRepas
+  return { ...e, totalLocation, nbRepasTotal, caRepas, chargeMenageTotal: e.chargeMenage }
+})
+const totalLocationSpeciaux = calcSpeciaux.reduce((acc, e) => acc + e.totalLocation, 0)
+const totalChargesSpeciaux = calcSpeciaux.reduce((acc, e) => acc + e.chargeMenageTotal, 0)
+const totalRepasSpeciaux = calcSpeciaux.reduce((acc, e) => acc + e.nbRepasTotal, 0)
+const totalCARepasSpeciaux = calcSpeciaux.reduce((acc, e) => acc + e.caRepas, 0)
+
+// TOTAUX PARTENAIRES (location uniquement)
+const totalLocationPartenaires = totalLocationStandard + totalLocationReduits + totalLocationSpeciaux
+const totalChargesPartenaires = totalChargesSpeciaux // Seuls les spéciaux ont des charges (ménage Festival)
+
+// ==========================================
+// GUINGUETTE PUBLIC - Mi-juin à mi-septembre (3 mois)
+// ==========================================
+const guinguetteJours = 90 // ~3 mois
+const guinguetteCouverts = 25
+const guinguettePanier = 27
+const guinguetteCAPublic = guinguetteJours * guinguetteCouverts * guinguettePanier
+const guinguetteChargesPersonnel = 2 * 1800 * 3 // Lorenzo + Lily, 3 mois
+const guinguetteChargesMatierePublic = Math.round(guinguetteCAPublic * COUT_MATIERE_REPAS)
+const guinguetteChargesPublic = guinguetteChargesPersonnel + guinguetteChargesMatierePublic
+const guinguetteMargePublic = guinguetteCAPublic - guinguetteChargesPublic
+
+// ==========================================
+// GUINGUETTE PRESTATIONS - Tous les repas événements
+// ==========================================
+const totalRepasPartenaires = totalRepasStandard + totalRepasReduits + totalRepasSpeciaux
+const totalCARepasPartenaires = totalCARepasStandard + totalCARepasReduits + totalCARepasSpeciaux
+
+const guinguetteCAPrestations = totalCARepasLAOM + totalCARepasPartenaires
+const guinguetteNbRepasPrestations = totalRepasLAOM + totalRepasPartenaires
+const guinguetteChargesMatierePrestations = Math.round(guinguetteCAPrestations * COUT_MATIERE_REPAS)
+// + charge ménage Festival (externalisée car volume)
+const guinguetteChargesPrestations = guinguetteChargesMatierePrestations + totalChargesSpeciaux
+const guinguetteMargePrestations = guinguetteCAPrestations - guinguetteChargesPrestations
+
+// ==========================================
+// TOTAUX GLOBAUX
+// ==========================================
+// CA brut par flux
+const totalCABrut = totalCALAOM + totalLocationPartenaires + guinguetteCAPublic + guinguetteCAPrestations
+// Charges par flux
+const totalCharges = totalChargesLAOM + totalChargesPartenaires + guinguetteChargesPublic + guinguetteChargesPrestations
+// Marge par flux
+const totalMarge = totalMargeLAOM + (totalLocationPartenaires - totalChargesPartenaires) + guinguetteMargePublic + guinguetteMargePrestations
+
+// ==========================================
+// ESTIMATION TVA
+// ==========================================
+// TVA 5.5% sur restauration (guinguette public + prestations)
+const baseRestauTTC = guinguetteCAPublic + guinguetteCAPrestations
+const baseRestauHT = Math.round(baseRestauTTC / 1.055)
+const tvaRestau = baseRestauTTC - baseRestauHT
+
+// TVA 20% sur services (événements LAOM + location partenaires)
+const baseServicesTTC = totalCALAOM + totalLocationPartenaires
+const baseServicesHT = Math.round(baseServicesTTC / 1.20)
+const tvaServices = baseServicesTTC - baseServicesHT
+
+const tvaTotale = tvaRestau + tvaServices
+
+// ==========================================
+// TIMELINE
+// ==========================================
+const timeline = [
+  { mois: 'Février', events: [{ nom: 'Danse & Silence #3', date: '25-28', type: 'partenaire', orga: 'Amawé' }] },
+  { mois: 'Mars', events: [
+    { nom: 'Rencontre Perspective #4', date: '5-8', type: 'partenaire', orga: 'Eliott/JC' },
+    { nom: 'Énergie Illimitée #1', date: '11-15', type: 'partenaire', orga: 'Amawé' },
+  ]},
+  { mois: 'Avril', events: [{ nom: 'Clarté', date: '25-27', type: 'laom', orga: 'Charly' }] },
+  { mois: 'Mai', events: [
+    { nom: 'Désir d\'Aventure #1', date: '30 avr - 3', type: 'partenaire', orga: 'Colette' },
+    { nom: 'LAOM School #1', date: '8-10', type: 'laom', orga: 'Charly' },
+    { nom: 'Au cœur de tes désirs', date: '13-17', type: 'partenaire', orga: 'Colette' },
+    { nom: 'Frère d\'Âme', date: '21-24', type: 'partenaire', orga: 'Grégoire R.' },
+    { nom: 'Désir d\'Aventure #2', date: '28-31', type: 'partenaire', orga: 'Colette' },
+  ]},
+  { mois: 'Juin', events: [
+    { nom: 'Festival Perspective', date: '5-8', type: 'partenaire', orga: 'Eliott/JC' },
+    { nom: 'Rencontre Fyneo #1', date: '11-13', type: 'partenaire', orga: 'David Lin' },
+    { nom: 'Guinguette ouvre', date: 'Mi-juin', type: 'guinguette', orga: 'Lorenzo + Lily' },
+    { nom: 'Weekend Famille', date: '27-28', type: 'laom', orga: 'Amandine + Charly' },
+  ]},
+  { mois: 'Juillet', events: [
+    { nom: 'Summer Camp', date: '11-14', type: 'partenaire', orga: 'Amawé' },
+    { nom: 'Énergie Illimitée #2', date: '17-20', type: 'partenaire', orga: 'Amawé' },
+    { nom: 'Aime-Être', date: '23-26', type: 'partenaire', orga: 'Grégoire R.' },
+  ]},
+  { mois: 'Août', events: [
+    { nom: 'En Mouvement #1', date: '5-9', type: 'laom', orga: 'Samuel + Charly' },
+    { nom: 'En Mouvement #2', date: '11-15', type: 'laom', orga: 'Samuel + Charly' },
+    { nom: 'En Mouvement #3', date: '16-20', type: 'laom', orga: 'Samuel + Charly' },
+    { nom: 'Guérison des Blessures', date: '22-28', type: 'partenaire', orga: 'Patricia Salgon' },
+  ]},
+  { mois: 'Septembre', events: [
+    { nom: 'Guinguette ferme', date: 'Mi-sept.', type: 'guinguette', orga: 'Lorenzo + Lily' },
+  ]},
+  { mois: 'Octobre', events: [
+    { nom: 'LAOM School #2', date: '16-18', type: 'laom', orga: 'Charly' },
+  ]},
+]
+
+function formatNumber(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+---
+
+<Layout
+  title="Brainstorming 2026 — Programmation & Prévisionnel | LAOM"
+  description="Document de travail interne — Programmation et prévisionnel financier 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .type-laom { background: linear-gradient(135deg, #C4A855 0%, #B09A4A 100%); color: white; }
+    .type-partenaire { background: #2C2824; color: white; }
+    .type-guinguette { background: linear-gradient(135deg, #4A7C59 0%, #3D6B4A 100%); color: white; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-6">
+          <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Accès associés</h2>
+        <p class="text-white/50 text-sm">Document de travail réservé aux associés LAOM</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Accéder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] -mt-24 md:-mt-28 pt-32 pb-16">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">Document de travail</span>
+        <span class="text-white/20">·</span>
+        <span class="text-xs font-light text-white/40">Non référencé</span>
+      </div>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
+        Brainstorming 2026
+      </h1>
+      <p class="text-lg font-light text-white/60 max-w-2xl">
+        Programmation des événements et prévisionnel financier — Session Charly & Amandine
+      </p>
+      
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-8 border-t border-white/10">
+        <div>
+          <p class="font-playfair text-3xl font-medium text-[#C4A855]">{formatNumber(totalCABrut)}€</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">CA brut total</p>
+        </div>
+        <div>
+          <p class="font-playfair text-3xl font-medium text-white">{formatNumber(totalMarge)}€</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Marge estimée</p>
+        </div>
+        <div>
+          <p class="font-playfair text-3xl font-medium text-white">{evenementsLAOM.length + partenairesStandard.length + partenairesReduits.length + partenairesSpeciaux.length}</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Événements</p>
+        </div>
+        <div>
+          <p class="font-playfair text-3xl font-medium text-white">{guinguetteJours}</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Jours guinguette</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation rapide -->
+  <nav class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-4">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex gap-6 overflow-x-auto text-sm">
+        <a href="#timeline" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Timeline</a>
+        <a href="#laom" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Événements LAOM</a>
+        <a href="#partenaires" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Partenaires</a>
+        <a href="#guinguette" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Guinguette</a>
+        <a href="#recap" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Récap financier</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Timeline visuelle -->
+  <section id="timeline" class="py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-2">Vue d'ensemble</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Timeline 2026</h2>
+        </div>
+        <div class="flex gap-4 text-xs">
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#C4A855]"></span> LAOM</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#2C2824]"></span> Partenaires</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#4A7C59]"></span> Guinguette</span>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        {timeline.map((mois) => (
+          <div class="flex gap-6">
+            <div class="w-24 flex-shrink-0 pt-1">
+              <p class="font-playfair text-lg font-medium text-[#2C2824]">{mois.mois}</p>
+            </div>
+            <div class="flex-1 flex flex-wrap gap-3">
+              {mois.events.map((e) => (
+                <div class={`badge type-${e.type}`}>
+                  <span class="opacity-70">{e.date}</span> · {e.nom}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Événements LAOM -->
+  <section id="laom" class="py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Billetterie (hors repas)</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Événements LAOM</h2>
+        </div>
+        <div class="text-right">
+          <p class="font-playfair text-2xl font-medium text-[#C4A855]">{formatNumber(totalMargeLAOM)}€</p>
+          <p class="text-xs text-[#2C2824]/40">Marge brute TTC</p>
+        </div>
+      </div>
+
+      <div class="mb-4 p-3 bg-[#FAF8F5] rounded-sm text-xs text-[#2C2824]/60">
+        <strong>Note :</strong> Les repas sont facturés séparément via la guinguette (20€/repas). Voir section "Guinguette Prestations".
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/10 bg-[#FAF8F5]">
+              <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Date</th>
+              <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Événement</th>
+              <th class="text-left py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Animé par</th>
+              <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Prix</th>
+              <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Pers.</th>
+              <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">CA brut</th>
+              <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Charges</th>
+              <th class="text-right py-3 px-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Marge</th>
+            </tr>
+          </thead>
+          <tbody>
+            {calcLAOM.map((e) => (
+              <tr class="border-b border-black/5 hover:bg-[#FAF8F5]/50">
+                <td class="py-3 px-2 text-[#2C2824]/60 text-xs">{e.date}</td>
+                <td class="py-3 px-2">
+                  <p class="font-medium text-[#2C2824]">{e.nom}</p>
+                  <p class="text-xs text-[#2C2824]/40 mt-0.5">{e.places} pl. × {e.taux}%</p>
+                </td>
+                <td class="py-3 px-2 text-[#2C2824]/60 text-xs">{e.animateur}</td>
+                <td class="py-3 px-2 text-right text-[#2C2824]">{formatNumber(e.prix)}€</td>
+                <td class="py-3 px-2 text-right text-[#2C2824]">{e.persEstimees}</td>
+                <td class="py-3 px-2 text-right text-[#2C2824]">{formatNumber(e.caBilletterie)}€</td>
+                <td class="py-3 px-2 text-right text-red-600 text-xs">
+                  {e.chargesSamuel > 0 && <span class="block">Samuel {formatNumber(e.chargesSamuel)}€</span>}
+                  <span class="block">Ménage {formatNumber(e.chargesMenage)}€</span>
+                </td>
+                <td class="py-3 px-2 text-right font-medium text-[#C4A855]">{formatNumber(e.marge)}€</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr class="border-t-2 border-[#C4A855]/30 bg-[#FAF8F5]">
+              <td colspan="5" class="py-4 px-2 text-right font-medium text-[#2C2824]">Total événements LAOM</td>
+              <td class="py-4 px-2 text-right font-medium text-[#2C2824]">{formatNumber(totalCALAOM)}€</td>
+              <td class="py-4 px-2 text-right font-medium text-red-600">{formatNumber(totalChargesLAOM)}€</td>
+              <td class="py-4 px-2 text-right font-playfair text-xl font-medium text-[#C4A855]">{formatNumber(totalMargeLAOM)}€</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Événements Partenaires -->
+  <section id="partenaires" class="py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/50 mb-2">Location uniquement (hors repas)</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Événements Partenaires</h2>
+        </div>
+        <div class="text-right">
+          <p class="font-playfair text-2xl font-medium text-[#2C2824]">{formatNumber(totalLocationPartenaires)}€</p>
+          <p class="text-xs text-[#2C2824]/40">CA location TTC</p>
+        </div>
+      </div>
+
+      <div class="mb-4 p-3 bg-white rounded-sm text-xs text-[#2C2824]/60">
+        <strong>Note :</strong> Les repas sont facturés séparément via la guinguette. Voir section "Guinguette Prestations".
+      </div>
+
+      <!-- Tarif standard -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h3 class="font-medium text-[#2C2824]">Tarif standard</h3>
+          <span class="text-xs text-[#2C2824]/40 bg-white px-3 py-1 rounded">180€/jour salle + 360€ tipis + 150€ ménage</span>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-black/10 bg-[#FAF8F5]">
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Date</th>
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Événement</th>
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Orga</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">J.</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Salle</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Tipis</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Mén.</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Location</th>
+                <th class="text-center py-3 px-3 font-light text-[#4A7C59]/70 uppercase tracking-wider text-xs border-l border-black/5">€/repas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {calcStandard.map((e) => (
+                <tr class="border-b border-black/5">
+                  <td class="py-3 px-3 text-[#2C2824]/60 text-xs">{e.date}</td>
+                  <td class="py-3 px-3">
+                    <p class="font-medium text-[#2C2824]">{e.nom}</p>
+                    <p class="text-xs text-[#2C2824]/40">{e.pers} pers. × {e.nbRepas} repas</p>
+                  </td>
+                  <td class="py-3 px-3 text-[#2C2824]/60 text-xs">{e.orga}</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]">{e.jours}</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.salle)}€</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.tipis)}€</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.menage)}€</td>
+                  <td class="py-3 px-3 text-right font-medium text-[#2C2824]">{formatNumber(e.totalLocation)}€</td>
+                  <td class="py-3 px-3 text-center text-[#4A7C59] font-medium border-l border-black/5">{e.prixRepas}€</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr class="bg-[#FAF8F5]">
+                <td colspan="7" class="py-3 px-3 text-right text-sm text-[#2C2824]/60">Sous-total location standard</td>
+                <td class="py-3 px-3 text-right font-medium text-[#2C2824]">{formatNumber(totalLocationStandard)}€</td>
+                <td class="border-l border-black/5"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tarif -20% -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h3 class="font-medium text-[#2C2824]">Tarif partenaires privilégiés</h3>
+          <span class="text-xs text-[#4A7C59] bg-[#4A7C59]/10 px-3 py-1 rounded">-20% · 144€/jour + 288€ tipis + 150€ ménage</span>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-black/10 bg-[#FAF8F5]">
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Date</th>
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Événement</th>
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Orga</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">J.</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Salle</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Tipis</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Mén.</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Location</th>
+                <th class="text-center py-3 px-3 font-light text-[#4A7C59]/70 uppercase tracking-wider text-xs border-l border-black/5">€/repas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {calcReduits.map((e) => (
+                <tr class="border-b border-black/5">
+                  <td class="py-3 px-3 text-[#2C2824]/60 text-xs">{e.date}</td>
+                  <td class="py-3 px-3">
+                    <p class="font-medium text-[#2C2824]">{e.nom}</p>
+                    <p class="text-xs text-[#2C2824]/40">{e.pers} pers. × {e.nbRepas} repas</p>
+                  </td>
+                  <td class="py-3 px-3 text-[#2C2824]/60 text-xs">{e.orga}</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]">{e.jours}</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.salle)}€</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.tipis)}€</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.menage)}€</td>
+                  <td class="py-3 px-3 text-right font-medium text-[#2C2824]">{formatNumber(e.totalLocation)}€</td>
+                  <td class="py-3 px-3 text-center text-[#4A7C59] font-medium border-l border-black/5">{e.prixRepas}€</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr class="bg-[#FAF8F5]">
+                <td colspan="7" class="py-3 px-3 text-right text-sm text-[#2C2824]/60">Sous-total location -20%</td>
+                <td class="py-3 px-3 text-right font-medium text-[#2C2824]">{formatNumber(totalLocationReduits)}€</td>
+                <td class="border-l border-black/5"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Forfaits spéciaux -->
+      <div>
+        <div class="flex items-center gap-4 mb-6">
+          <h3 class="font-medium text-[#2C2824]">Forfaits spéciaux</h3>
+          <span class="text-xs text-[#C4A855] bg-[#C4A855]/10 px-3 py-1 rounded">Négociés au cas par cas</span>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-black/10 bg-[#FAF8F5]">
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Date</th>
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Événement</th>
+                <th class="text-left py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Orga</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Location</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Mén.</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Charges</th>
+                <th class="text-right py-3 px-3 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Net location</th>
+                <th class="text-center py-3 px-3 font-light text-[#4A7C59]/70 uppercase tracking-wider text-xs border-l border-black/5">€/repas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {calcSpeciaux.map((e) => (
+                <tr class="border-b border-black/5">
+                  <td class="py-3 px-3 text-[#2C2824]/60 text-xs">{e.date}</td>
+                  <td class="py-3 px-3">
+                    <p class="font-medium text-[#2C2824]">{e.nom}</p>
+                    <p class="text-xs text-[#2C2824]/40">{e.pers} pers. × {e.nbRepas} repas</p>
+                  </td>
+                  <td class="py-3 px-3 text-[#2C2824]/60 text-xs">{e.orga}</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.location)}€</td>
+                  <td class="py-3 px-3 text-right text-[#2C2824]/60">{formatNumber(e.menage)}€</td>
+                  <td class="py-3 px-3 text-right text-red-500">{e.chargeMenageTotal > 0 ? `-${formatNumber(e.chargeMenageTotal)}€` : '—'}</td>
+                  <td class="py-3 px-3 text-right font-medium text-[#2C2824]">{formatNumber(e.totalLocation - e.chargeMenageTotal)}€</td>
+                  <td class="py-3 px-3 text-center text-[#4A7C59] font-medium border-l border-black/5">{e.prixRepas}€</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr class="bg-[#FAF8F5]">
+                <td colspan="6" class="py-3 px-3 text-right text-sm text-[#2C2824]/60">Sous-total forfaits spéciaux (net)</td>
+                <td class="py-3 px-3 text-right font-medium text-[#2C2824]">{formatNumber(totalLocationSpeciaux - totalChargesSpeciaux)}€</td>
+                <td class="border-l border-black/5"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Total partenaires -->
+      <div class="mt-8 p-6 bg-[#2C2824] rounded-sm text-white">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-white/70">Total location partenaires (hors repas)</p>
+            <p class="text-xs text-white/40 mt-1">Charges : {formatNumber(totalChargesPartenaires)}€ (ménage Festival)</p>
+          </div>
+          <div class="text-right">
+            <p class="font-playfair text-2xl font-medium">{formatNumber(totalLocationPartenaires - totalChargesPartenaires)}€</p>
+            <p class="text-xs text-white/40">marge nette</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guinguette -->
+  <section id="guinguette" class="py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#4A7C59] mb-2">Restauration</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">La Guinguette</h2>
+        </div>
+        <div class="text-right">
+          <p class="font-playfair text-2xl font-medium text-[#4A7C59]">{formatNumber(guinguetteMargePublic + guinguetteMargePrestations)}€</p>
+          <p class="text-xs text-[#2C2824]/40">Marge totale (public + prestations)</p>
+        </div>
+      </div>
+
+      <!-- Section 1: Guinguette Public -->
+      <div class="mb-12">
+        <div class="flex items-center gap-4 mb-6">
+          <h3 class="font-medium text-[#2C2824]">Activité publique</h3>
+          <span class="text-xs text-[#4A7C59] bg-[#4A7C59]/10 px-3 py-1 rounded">Mi-juin → mi-septembre</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Paramètres -->
+          <div class="bg-[#FAF8F5] rounded-sm p-6">
+            <h4 class="text-sm font-medium text-[#2C2824]/60 uppercase tracking-wider mb-4">Paramètres</h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between py-2 border-b border-black/5">
+                <span class="text-[#2C2824]/60">Jours d'ouverture</span>
+                <span class="font-medium text-[#2C2824]">{guinguetteJours} jours</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-black/5">
+                <span class="text-[#2C2824]/60">Couverts/jour</span>
+                <span class="font-medium text-[#2C2824]">{guinguetteCouverts}</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-black/5">
+                <span class="text-[#2C2824]/60">Panier moyen</span>
+                <span class="font-medium text-[#2C2824]">{guinguettePanier}€</span>
+              </div>
+              <div class="flex justify-between py-2">
+                <span class="text-[#2C2824]/60">Équipe</span>
+                <span class="font-medium text-[#2C2824]">Lorenzo + Lily</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prévisionnel public -->
+          <div class="bg-[#FAF8F5] rounded-sm p-6">
+            <h4 class="text-sm font-medium text-[#2C2824]/60 uppercase tracking-wider mb-4">Prévisionnel</h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between py-2 border-b border-black/5">
+                <span class="text-[#2C2824]/60">CA brut TTC</span>
+                <span class="font-medium text-[#4A7C59]">+{formatNumber(guinguetteCAPublic)}€</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-black/5">
+                <span class="text-[#2C2824]/60">Personnel (3 mois)</span>
+                <span class="font-medium text-red-600">-{formatNumber(guinguetteChargesPersonnel)}€</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-black/5">
+                <span class="text-[#2C2824]/60">Coût matière (35%)</span>
+                <span class="font-medium text-red-600">-{formatNumber(guinguetteChargesMatierePublic)}€</span>
+              </div>
+              <div class="flex justify-between py-3 bg-[#4A7C59]/10 -mx-6 px-6 mt-2 rounded-b-sm">
+                <span class="font-medium text-[#2C2824]">Marge public</span>
+                <span class="font-playfair text-lg font-medium text-[#4A7C59]">{formatNumber(guinguetteMargePublic)}€</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Guinguette Prestations -->
+      <div class="mb-8">
+        <div class="flex items-center gap-4 mb-6">
+          <h3 class="font-medium text-[#2C2824]">Prestations événements</h3>
+          <span class="text-xs text-[#C4A855] bg-[#C4A855]/10 px-3 py-1 rounded">{formatNumber(guinguetteNbRepasPrestations)} repas</span>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm p-6">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-black/10">
+                  <th class="text-left py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Source</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">Repas</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">€/repas</th>
+                  <th class="text-right py-2 font-light text-[#2C2824]/50 uppercase tracking-wider text-xs">CA TTC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-black/5">
+                  <td class="py-3">
+                    <p class="font-medium text-[#C4A855]">Événements LAOM</p>
+                    <p class="text-xs text-[#2C2824]/40">Clarté, LAOM School, En Mouvement...</p>
+                  </td>
+                  <td class="py-3 text-right text-[#2C2824]">{formatNumber(totalRepasLAOM)}</td>
+                  <td class="py-3 text-right text-[#2C2824]">{PRIX_REPAS_LAOM}€</td>
+                  <td class="py-3 text-right font-medium text-[#2C2824]">{formatNumber(totalCARepasLAOM)}€</td>
+                </tr>
+                <tr class="border-b border-black/5">
+                  <td class="py-3">
+                    <p class="font-medium text-[#2C2824]">Partenaires standard</p>
+                    <p class="text-xs text-[#2C2824]/40">Perspective, Colette, Fyneo...</p>
+                  </td>
+                  <td class="py-3 text-right text-[#2C2824]">{formatNumber(totalRepasStandard)}</td>
+                  <td class="py-3 text-right text-[#2C2824]">15-18€</td>
+                  <td class="py-3 text-right font-medium text-[#2C2824]">{formatNumber(totalCARepasStandard)}€</td>
+                </tr>
+                <tr class="border-b border-black/5">
+                  <td class="py-3">
+                    <p class="font-medium text-[#4A7C59]">Partenaires -20%</p>
+                    <p class="text-xs text-[#2C2824]/40">Amaoué, Grégoire R....</p>
+                  </td>
+                  <td class="py-3 text-right text-[#2C2824]">{formatNumber(totalRepasReduits)}</td>
+                  <td class="py-3 text-right text-[#2C2824]">18€</td>
+                  <td class="py-3 text-right font-medium text-[#2C2824]">{formatNumber(totalCARepasReduits)}€</td>
+                </tr>
+                <tr class="border-b border-black/5">
+                  <td class="py-3">
+                    <p class="font-medium text-[#2C2824]">Forfaits spéciaux</p>
+                    <p class="text-xs text-[#2C2824]/40">Festival Perspective, Patricia Salgon</p>
+                  </td>
+                  <td class="py-3 text-right text-[#2C2824]">{formatNumber(totalRepasSpeciaux)}</td>
+                  <td class="py-3 text-right text-[#2C2824]">18€</td>
+                  <td class="py-3 text-right font-medium text-[#2C2824]">{formatNumber(totalCARepasSpeciaux)}€</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="border-t-2 border-[#4A7C59]/30">
+                  <td class="py-3 font-medium text-[#2C2824]">Total prestations</td>
+                  <td class="py-3 text-right font-medium text-[#2C2824]">{formatNumber(guinguetteNbRepasPrestations)}</td>
+                  <td class="py-3"></td>
+                  <td class="py-3 text-right font-medium text-[#4A7C59]">{formatNumber(guinguetteCAPrestations)}€</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-black/10 grid grid-cols-3 gap-4 text-sm">
+            <div>
+              <p class="text-[#2C2824]/50">Coût matière (35%)</p>
+              <p class="font-medium text-red-600">-{formatNumber(guinguetteChargesMatierePrestations)}€</p>
+            </div>
+            <div>
+              <p class="text-[#2C2824]/50">Charges ménage (Festival)</p>
+              <p class="font-medium text-red-600">-{formatNumber(totalChargesSpeciaux)}€</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[#2C2824]/50">Marge prestations</p>
+              <p class="font-playfair text-lg font-medium text-[#4A7C59]">{formatNumber(guinguetteMargePrestations)}€</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Guinguette -->
+      <div class="p-6 bg-[#4A7C59] rounded-sm text-white">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div>
+            <p class="text-white/60 text-sm">CA total guinguette</p>
+            <p class="font-playfair text-2xl font-medium">{formatNumber(guinguetteCAPublic + guinguetteCAPrestations)}€</p>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Charges totales</p>
+            <p class="font-playfair text-2xl font-medium">-{formatNumber(guinguetteChargesPublic + guinguetteChargesPrestations)}€</p>
+          </div>
+          <div class="text-right">
+            <p class="text-white/60 text-sm">Marge totale guinguette</p>
+            <p class="font-playfair text-3xl font-medium">{formatNumber(guinguetteMargePublic + guinguetteMargePrestations)}€</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Récap financier global -->
+  <section id="recap" class="py-16 md:py-20 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+      <div class="text-center mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Synthèse</p>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-white tracking-tight">Récapitulatif financier 2026</h2>
+      </div>
+
+      <!-- Tableau récap par flux -->
+      <div class="bg-white/5 border border-white/10 rounded-sm overflow-hidden mb-8">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/10 bg-white/5">
+              <th class="text-left py-4 px-6 font-light text-white/50 uppercase tracking-wider text-xs">Source de revenus</th>
+              <th class="text-right py-4 px-4 font-light text-white/50 uppercase tracking-wider text-xs">CA brut TTC</th>
+              <th class="text-right py-4 px-4 font-light text-white/50 uppercase tracking-wider text-xs">Charges</th>
+              <th class="text-right py-4 px-6 font-light text-white/50 uppercase tracking-wider text-xs">Marge brute</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-white/5">
+              <td class="py-4 px-6">
+                <div class="flex items-center gap-3">
+                  <span class="w-3 h-3 rounded-sm bg-[#C4A855]"></span>
+                  <div>
+                    <p class="text-white font-medium">Événements LAOM</p>
+                    <p class="text-white/40 text-xs">Billetterie (hors repas)</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-right text-white">{formatNumber(totalCALAOM)}€</td>
+              <td class="py-4 px-4 text-right text-red-400">-{formatNumber(totalChargesLAOM)}€</td>
+              <td class="py-4 px-6 text-right font-medium text-[#C4A855]">{formatNumber(totalMargeLAOM)}€</td>
+            </tr>
+            <tr class="border-b border-white/5">
+              <td class="py-4 px-6">
+                <div class="flex items-center gap-3">
+                  <span class="w-3 h-3 rounded-sm bg-white/60"></span>
+                  <div>
+                    <p class="text-white font-medium">Partenaires (location)</p>
+                    <p class="text-white/40 text-xs">Salle + tipis + ménage</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-right text-white">{formatNumber(totalLocationPartenaires)}€</td>
+              <td class="py-4 px-4 text-right text-red-400">-{formatNumber(totalChargesPartenaires)}€</td>
+              <td class="py-4 px-6 text-right font-medium text-white">{formatNumber(totalLocationPartenaires - totalChargesPartenaires)}€</td>
+            </tr>
+            <tr class="border-b border-white/5">
+              <td class="py-4 px-6">
+                <div class="flex items-center gap-3">
+                  <span class="w-3 h-3 rounded-sm bg-[#4A7C59]"></span>
+                  <div>
+                    <p class="text-white font-medium">Guinguette public</p>
+                    <p class="text-white/40 text-xs">Activité restauration</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-right text-white">{formatNumber(guinguetteCAPublic)}€</td>
+              <td class="py-4 px-4 text-right text-red-400">-{formatNumber(guinguetteChargesPublic)}€</td>
+              <td class="py-4 px-6 text-right font-medium text-[#4A7C59]">{formatNumber(guinguetteMargePublic)}€</td>
+            </tr>
+            <tr class="border-b border-white/10">
+              <td class="py-4 px-6">
+                <div class="flex items-center gap-3">
+                  <span class="w-3 h-3 rounded-sm bg-[#4A7C59]/60"></span>
+                  <div>
+                    <p class="text-white font-medium">Guinguette prestations</p>
+                    <p class="text-white/40 text-xs">{formatNumber(guinguetteNbRepasPrestations)} repas événements</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4 text-right text-white">{formatNumber(guinguetteCAPrestations)}€</td>
+              <td class="py-4 px-4 text-right text-red-400">-{formatNumber(guinguetteChargesPrestations)}€</td>
+              <td class="py-4 px-6 text-right font-medium text-[#4A7C59]">{formatNumber(guinguetteMargePrestations)}€</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="bg-[#C4A855]/10">
+              <td class="py-5 px-6 font-medium text-white">TOTAL</td>
+              <td class="py-5 px-4 text-right font-playfair text-xl text-white">{formatNumber(totalCABrut)}€</td>
+              <td class="py-5 px-4 text-right font-medium text-red-400">-{formatNumber(totalCharges)}€</td>
+              <td class="py-5 px-6 text-right font-playfair text-2xl font-medium text-[#C4A855]">{formatNumber(totalMarge)}€</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Estimation TVA -->
+      <div class="grid md:grid-cols-2 gap-6 mb-12">
+        <div class="bg-white/5 border border-white/10 rounded-sm p-6">
+          <h3 class="text-white/60 text-sm mb-4 uppercase tracking-wider">Estimation TVA à collecter</h3>
+          <div class="space-y-4">
+            <div class="flex justify-between py-2 border-b border-white/5">
+              <div>
+                <p class="text-white">TVA 5.5% (restauration)</p>
+                <p class="text-white/40 text-xs">Guinguette public + prestations</p>
+              </div>
+              <div class="text-right">
+                <p class="text-white/60 text-xs">Base HT : {formatNumber(baseRestauHT)}€</p>
+                <p class="text-white font-medium">{formatNumber(tvaRestau)}€</p>
+              </div>
+            </div>
+            <div class="flex justify-between py-2 border-b border-white/5">
+              <div>
+                <p class="text-white">TVA 20% (services)</p>
+                <p class="text-white/40 text-xs">LAOM + location partenaires</p>
+              </div>
+              <div class="text-right">
+                <p class="text-white/60 text-xs">Base HT : {formatNumber(baseServicesHT)}€</p>
+                <p class="text-white font-medium">{formatNumber(tvaServices)}€</p>
+              </div>
+            </div>
+            <div class="flex justify-between pt-2">
+              <p class="text-white font-medium">TVA totale</p>
+              <p class="font-playfair text-xl text-[#C4A855]">{formatNumber(tvaTotale)}€</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Répartition visuelle -->
+        <div class="bg-white/5 border border-white/10 rounded-sm p-6">
+          <h3 class="text-white/60 text-sm mb-4 uppercase tracking-wider">Répartition du CA</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs text-white/60 mb-2">
+                <span>Événements LAOM</span>
+                <span>{Math.round(totalCALAOM / totalCABrut * 100)}%</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-[#C4A855]" style={`width: ${Math.round(totalCALAOM / totalCABrut * 100)}%`}></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs text-white/60 mb-2">
+                <span>Partenaires (location)</span>
+                <span>{Math.round(totalLocationPartenaires / totalCABrut * 100)}%</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-white/60" style={`width: ${Math.round(totalLocationPartenaires / totalCABrut * 100)}%`}></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs text-white/60 mb-2">
+                <span>Guinguette public</span>
+                <span>{Math.round(guinguetteCAPublic / totalCABrut * 100)}%</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-[#4A7C59]" style={`width: ${Math.round(guinguetteCAPublic / totalCABrut * 100)}%`}></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs text-white/60 mb-2">
+                <span>Guinguette prestations</span>
+                <span>{Math.round(guinguetteCAPrestations / totalCABrut * 100)}%</span>
+              </div>
+              <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-[#4A7C59]/60" style={`width: ${Math.round(guinguetteCAPrestations / totalCABrut * 100)}%`}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Totaux finaux -->
+      <div class="bg-gradient-to-r from-[#C4A855]/20 to-[#C4A855]/5 border border-[#C4A855]/30 rounded-sm p-8">
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <p class="text-white/50 text-sm mb-2">CA brut TTC</p>
+            <p class="font-playfair text-3xl font-medium text-white">{formatNumber(totalCABrut)}€</p>
+          </div>
+          <div>
+            <p class="text-white/50 text-sm mb-2">Marge brute TTC</p>
+            <p class="font-playfair text-3xl font-medium text-[#C4A855]">{formatNumber(totalMarge)}€</p>
+          </div>
+          <div>
+            <p class="text-white/50 text-sm mb-2">TVA à collecter</p>
+            <p class="font-playfair text-3xl font-medium text-white/70">{formatNumber(tvaTotale)}€</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone de notes -->
+  <section class="py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-8 md:px-12 lg:px-16">
+      <h2 class="font-playfair text-2xl font-medium text-[#2C2824] tracking-tight mb-8">Notes & Décisions</h2>
+      
+      <div class="space-y-6">
+        <!-- Validé -->
+        <div class="bg-[#4A7C59]/10 border border-[#4A7C59]/30 rounded-sm p-6">
+          <h3 class="font-medium text-[#4A7C59] mb-3">Validé</h3>
+          <div class="grid md:grid-cols-2 gap-4 text-sm text-[#2C2824]/70">
+            <div>
+              <p class="font-medium text-[#2C2824] mb-2">Dates confirmées</p>
+              <ul class="space-y-1">
+                <li>LAOM School #1 — 8-10 mai</li>
+                <li>Weekend Famille — 27-28 juin</li>
+                <li>LAOM School #2 — 16-18 octobre</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-medium text-[#2C2824] mb-2">Prix validés</p>
+              <ul class="space-y-1">
+                <li>En Mouvement : 1 100€</li>
+                <li>Clarté : 1 000€</li>
+                <li>LAOM School : 1 000€</li>
+                <li>Weekend Famille : 450€</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-[#4A7C59]/20 text-sm text-[#2C2824]/70">
+            <p class="font-medium text-[#2C2824] mb-2">Questions résolues</p>
+            <ul class="space-y-1">
+              <li>Weekend Famille animé par <strong>Amandine & Charly</strong></li>
+              <li>Frère d'Âme & M-Être organisés par <strong>Grégoire Renovier</strong> (habitant Oasis Lamargue)</li>
+              <li>En Mouvement : <strong>3 sessions confirmées</strong> (pas plus)</li>
+              <li>Guinguette : <strong>Lorenzo + Lily</strong> recrutés</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Idées à explorer -->
+        <div class="bg-[#C4A855]/10 border border-[#C4A855]/30 rounded-sm p-6">
+          <h3 class="font-medium text-[#2C2824] mb-3">Idées à explorer</h3>
+          <ul class="space-y-2 text-sm text-[#2C2824]/70">
+            <li>• Session Clarté #2 en automne (octobre/novembre) ?</li>
+            <li>• Pass "multi-événements" avec réduction fidélité ?</li>
+            <li>• Guinguette pour événements privés (mariages, séminaires) ?</li>
+            <li>• Partenariat avec offices de tourisme locaux pour la guinguette ?</li>
+            <li>• Formation certifiante LAOM School (plusieurs modules) ?</li>
+            <li>• Retraite "Clarté + En Mouvement" combinée (corps + mental) ?</li>
+            <li>• Abonnement annuel "Ami de LAOM" avec accès privilégié ?</li>
+            <li>• Documentaire sur la construction du Grand Shambala comme outil de comm ?</li>
+          </ul>
+        </div>
+
+        <!-- Points de vigilance -->
+        <div class="bg-red-50 border border-red-200 rounded-sm p-6">
+          <h3 class="font-medium text-red-800 mb-3">Points de vigilance & angles morts</h3>
+          <div class="space-y-4 text-sm text-red-700/80">
+            <div>
+              <p class="font-medium text-red-800">Opérationnel</p>
+              <ul class="mt-2 space-y-1 list-disc list-inside">
+                <li><strong>Pic d'août critique</strong> — 3 En Mouvement consécutifs (5-20 août) + Guérison des Blessures (22-28) = 24 jours non-stop. Lorenzo et Lily tiendront-ils ?</li>
+                <li><strong>Juin surchargé</strong> — Festival Perspective (5-8) + Fyneo (11-13) + ouverture guinguette + Weekend Famille (27-28). Mois le plus dense.</li>
+                <li><strong>Recrutement</strong> — Lorenzo et Lily sont-ils vraiment confirmés ? Contrats signés ? Plan B si désistement ?</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-medium text-red-800">Financier</p>
+              <ul class="mt-2 space-y-1 list-disc list-inside">
+                <li><strong>Trésorerie</strong> — Samuel = 4 500€ à payer en août. Les partenaires versent-ils un acompte ? Sinon, avance de tréso nécessaire.</li>
+                <li><strong>LAOM School 80%</strong> — Taux optimiste pour un format nouveau. À 50%, la marge chute significativement.</li>
+                <li><strong>Weekend Famille</strong> — 450€ = prix le plus bas. Ratio effort/marge à surveiller.</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-medium text-red-800">Stratégique</p>
+              <ul class="mt-2 space-y-1 list-disc list-inside">
+                <li><strong>Concentration Amaoué</strong> — 5 événements sur 6 partenaires -20%. Si elle annule, trou de ~12 000€.</li>
+                <li><strong>Dépendance Samuel</strong> — En Mouvement = 53% du CA LAOM. Si indisponible, catastrophe.</li>
+                <li><strong>Clarté = test</strong> — 1er événement de l'année, nouveau format. Plan de communication ?</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-medium text-red-800">Ce que je ne vois pas</p>
+              <ul class="mt-2 space-y-1 list-disc list-inside">
+                <li>Assurances RC Pro pour 200 personnes (Festival Perspective) ?</li>
+                <li>Capacité hébergement max des tipis ? Festival = 200 pers, dorment-ils tous sur place ?</li>
+                <li>Marge de sécurité / réserve de trésorerie en cas d'annulation ?</li>
+                <li>Quid de la maintenance du Grand Shambala pendant la haute saison ?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer léger -->
+  <footer class="py-8 bg-white border-t border-black/5">
+    <div class="max-w-6xl mx-auto px-8 md:px-12 lg:px-16 text-center">
+      <p class="text-xs text-[#2C2824]/40">
+        Document de travail généré le {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} — Session brainstorming Charly & Amandine
+      </p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    (function() {
+      const PASSWORD = 'laom2026';
+      const STORAGE_KEY = 'laom_associes_auth';
+      
+      const overlay = document.getElementById('password-overlay');
+      const form = document.getElementById('password-form');
+      const input = document.getElementById('password-input');
+      const errorMsg = document.getElementById('password-error');
+      
+      // Check if already authenticated this session
+      if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+        overlay.style.display = 'none';
+      } else {
+        // Focus input on load
+        setTimeout(function() { input.focus(); }, 100);
+      }
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (input.value === PASSWORD) {
+          // Success
+          sessionStorage.setItem(STORAGE_KEY, 'true');
+          overlay.style.display = 'none';
+        } else {
+          // Error
+          errorMsg.classList.remove('hidden');
+          input.classList.add('border-red-400');
+          input.value = '';
+          input.focus();
+          
+          // Reset error after 2s
+          setTimeout(function() {
+            errorMsg.classList.add('hidden');
+            input.classList.remove('border-red-400');
+          }, 2000);
+        }
+      });
+    })();
+  </script>
+
+</Layout>

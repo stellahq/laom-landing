@@ -53,29 +53,89 @@ export const translations = {
       comingSoon: 'Bientôt disponible',
       cta: 'Découvrir',
       items: [
+        // FÉVRIER
         {
           title: 'Danse & Silence #3',
-          date: '25 févr. 2026 – 28 févr. 2026',
-          description: 'Retraite immersive : mouvement, danse et silence avec Claire Orriols.',
-          href: 'https://amawe.com/retraite-danse-silence-2026/',
+          date: '25 févr. – 28 févr. 2026',
+          description: 'Retraite immersive mêlant mouvement libre, danse et silence. Un voyage intérieur guidé par Claire Orriols.',
+          href: 'https://amawe.com/',
         },
+        // MARS
         {
           title: 'Rencontre Perspective #4',
-          date: '5 mars 2026 – 8 mars 2026',
-          description: 'Rencontre clients Académie Perspectives avec Eliott Meunier et Jean-Charles Kurdali',
+          date: '5 mars – 8 mars 2026',
+          description: 'Rencontre clients Académie Perspectives avec Eliott Meunier et Jean-Charles Kurdali.',
           href: 'https://perspectives.ac/',
         },
         {
-          title: 'Désirs d\'Aventure #2',
-          date: '30 avr. 2026 – 3 mai 2026',
-          description: 'Exploration du corps et de sa sensualité avec Colette Williams',
+          title: 'Énergie Illimitée #1',
+          date: '11 mars – 15 mars 2026',
+          description: '5 jours pour réveiller ton énergie vitale à travers le mouvement, la respiration et la connexion au corps.',
+          href: 'https://amawe.com/',
+        },
+        // AVRIL - MAI
+        {
+          title: 'Désir d\'Aventure #1',
+          date: '30 avr. – 3 mai 2026',
+          description: 'Exploration du corps et de sa sensualité dans un cadre bienveillant avec Colette Williams.',
           href: 'https://www.coletteseconfesse.fr/',
         },
         {
+          title: 'Au cœur de tes désirs',
+          date: '13 mai – 17 mai 2026',
+          description: 'Exploration profonde de la sensualité et du désir. Un espace pour se reconnecter à soi.',
+          href: 'https://www.coletteseconfesse.fr/',
+        },
+        {
+          title: 'Frère d\'Âme',
+          date: '21 mai – 24 mai 2026',
+          description: 'Cercle d\'hommes et exploration du masculin conscient. Un espace de parole et de transformation avec Grégoire Renevier.',
+          href: 'mailto:hello@laom.fr',
+        },
+        {
+          title: 'Désir d\'Aventure #2',
+          date: '28 mai – 31 mai 2026',
+          description: 'Seconde session d\'exploration du corps et de la sensualité avec Colette Williams.',
+          href: 'https://www.coletteseconfesse.fr/',
+        },
+        // JUIN
+        {
+          title: 'Festival Perspective',
+          date: '5 juin – 8 juin 2026',
+          description: 'Le rassemblement annuel de la communauté Perspective. 200 entrepreneurs réunis pour 4 jours d\'échanges et de connexion.',
+          href: 'https://perspectives.ac/',
+        },
+        {
           title: 'Rencontre Fyneo #1',
-          date: '11 juin 2026 – 13 juin 2026',
-          description: 'Rencontre réseau CGP / CIF en finance responsable avec David Lin',
+          date: '11 juin – 13 juin 2026',
+          description: 'Rencontre du réseau CGP / CIF en finance responsable avec David Lin.',
           href: 'https://fyneo.org/',
+        },
+        // JUILLET
+        {
+          title: 'Summer Camp',
+          date: '11 juil. – 14 juil. 2026',
+          description: 'Version estivale des retraites Amawé. Mouvement, nature et connexion au cœur de l\'Aveyron.',
+          href: 'https://amawe.com/',
+        },
+        {
+          title: 'Énergie Illimitée #2',
+          date: '17 juil. – 20 juil. 2026',
+          description: 'Seconde session pour réveiller ton énergie vitale. Mouvement, respiration, connexion.',
+          href: 'https://amawe.com/',
+        },
+        {
+          title: 'Aime-Être',
+          date: '23 juil. – 26 juil. 2026',
+          description: 'Retraite de reconnexion à soi avec Grégoire Renevier. Méditation, mouvement et nature.',
+          href: 'mailto:hello@laom.fr',
+        },
+        // AOÛT
+        {
+          title: 'Guérison des Blessures',
+          date: '22 août – 28 août 2026',
+          description: 'Retraite thérapeutique de 7 jours avec Patricia Salgon. Traverser les blessures émotionnelles et retrouver sa puissance.',
+          href: 'mailto:hello@laom.fr',
         },
       ],
     },
@@ -758,29 +818,89 @@ export const translations = {
       comingSoon: 'Coming soon',
       cta: 'Discover',
       items: [
+        // FEBRUARY
         {
           title: 'Dance & Silence #3',
-          date: 'Feb 25, 2026 – Feb 28, 2026',
-          description: 'Immersive retreat: movement, dance and silence with Claire Orriols.',
-          href: 'https://amawe.com/retraite-danse-silence-2026/',
+          date: 'Feb 25 – Feb 28, 2026',
+          description: 'Immersive retreat combining free movement, dance and silence. An inner journey guided by Claire Orriols.',
+          href: 'https://amawe.com/',
         },
+        // MARCH
         {
           title: 'Perspective Meeting #4',
-          date: 'Mar 5, 2026 – Mar 8, 2026',
-          description: 'Académie Perspectives client meeting with Eliott Meunier and Jean-Charles Kurdali',
+          date: 'Mar 5 – Mar 8, 2026',
+          description: 'Académie Perspectives client meeting with Eliott Meunier and Jean-Charles Kurdali.',
           href: 'https://perspectives.ac/',
         },
         {
-          title: 'Adventure Desires #2',
-          date: 'Apr 30, 2026 – May 3, 2026',
-          description: 'Exploration of the body and sensuality with Colette Williams',
+          title: 'Unlimited Energy #1',
+          date: 'Mar 11 – Mar 15, 2026',
+          description: '5 days to awaken your vital energy through movement, breathwork and body connection.',
+          href: 'https://amawe.com/',
+        },
+        // APRIL - MAY
+        {
+          title: 'Adventure Desires #1',
+          date: 'Apr 30 – May 3, 2026',
+          description: 'Body and sensuality exploration in a caring environment with Colette Williams.',
           href: 'https://www.coletteseconfesse.fr/',
         },
         {
+          title: 'At the Heart of Your Desires',
+          date: 'May 13 – May 17, 2026',
+          description: 'Deep exploration of sensuality and desire. A space to reconnect with yourself.',
+          href: 'https://www.coletteseconfesse.fr/',
+        },
+        {
+          title: 'Soul Brother',
+          date: 'May 21 – May 24, 2026',
+          description: 'Men\'s circle and exploration of conscious masculinity. A space for dialogue and transformation with Grégoire Renevier.',
+          href: 'mailto:hello@laom.fr',
+        },
+        {
+          title: 'Adventure Desires #2',
+          date: 'May 28 – May 31, 2026',
+          description: 'Second session of body and sensuality exploration with Colette Williams.',
+          href: 'https://www.coletteseconfesse.fr/',
+        },
+        // JUNE
+        {
+          title: 'Perspective Festival',
+          date: 'Jun 5 – Jun 8, 2026',
+          description: 'The annual gathering of the Perspective community. 200 entrepreneurs united for 4 days of exchange and connection.',
+          href: 'https://perspectives.ac/',
+        },
+        {
           title: 'Fyneo Gathering #1',
-          date: 'Jun 11, 2026 – Jun 13, 2026',
-          description: 'CGP / CIF network meeting on responsible finance with David Lin',
+          date: 'Jun 11 – Jun 13, 2026',
+          description: 'CGP / CIF network meeting on responsible finance with David Lin.',
           href: 'https://fyneo.org/',
+        },
+        // JULY
+        {
+          title: 'Summer Camp',
+          date: 'Jul 11 – Jul 14, 2026',
+          description: 'Summer edition of Amawé retreats. Movement, nature and connection in the heart of Aveyron.',
+          href: 'https://amawe.com/',
+        },
+        {
+          title: 'Unlimited Energy #2',
+          date: 'Jul 17 – Jul 20, 2026',
+          description: 'Second session to awaken your vital energy. Movement, breathwork, connection.',
+          href: 'https://amawe.com/',
+        },
+        {
+          title: 'Love-Being',
+          date: 'Jul 23 – Jul 26, 2026',
+          description: 'Self-reconnection retreat with Grégoire Renevier. Meditation, movement and nature.',
+          href: 'mailto:hello@laom.fr',
+        },
+        // AUGUST
+        {
+          title: 'Healing Wounds',
+          date: 'Aug 22 – Aug 28, 2026',
+          description: '7-day therapeutic retreat with Patricia Salgon. Journey through emotional wounds and reclaim your power.',
+          href: 'mailto:hello@laom.fr',
         },
       ],
     },

@@ -3,295 +3,381 @@ import Layout from '~/layouts/Layout.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
-  name: 'LAOM School – Ecosystem for eco-place project holders',
+  name: 'LAOM School — 3 days to structure your ecovillage project',
   url: Astro.url.toString(),
-  description: 'The ecosystem for eco-place project holders. 4 immersive weekends at LAOM, monthly check-ins, a community of builders.',
+  description: '3 intensive days at LAOM to clarify your vision, structure your project and leave with an action plan. Project, financing, business model, governance, culture.',
 })
 
-const weekends = [
+const sessions = [
+  { num: '01', date: 'May 8-10, 2026', status: 'Next session' },
+  { num: '02', date: 'October 16-18, 2026', status: 'Fall session' },
+]
+
+const programme = [
   {
-    num: '01',
-    date: 'June 2026',
-    title: 'Project & Funding',
-    description: 'Clarify your vision. Structure your plan. Identify funding strategies that fit your project: grants, SCIA, fundraising, self-financing. Leave with a funded action plan.',
-    speaker: {
-      role: 'Impact funding expert',
-      bio: 'Specialist in funding social and environmental impact projects. Public grants, impact investment funds, innovative legal structures.',
-    },
+    jour: 'Day 1',
+    titre: 'Vision & Project',
+    points: [
+      'Clarify your vision and deep intention',
+      'Define scope and key milestones',
+      'Identify blockers and accelerators',
+      'Build your project narrative',
+    ],
   },
   {
-    num: '02',
-    date: 'July 2026',
-    title: 'Business model',
-    description: 'Build a viable economic model without betraying the vision. Positioning, pricing, revenue diversification: coliving, workshops, agriculture, training, events. What works. What doesn\'t.',
-    speaker: {
-      role: 'Coliving / third-place founder',
-      bio: 'Entrepreneur who has created and stabilised an economic model for a living place. Concrete feedback on the first years, pivots, and financial balance.',
-    },
+    jour: 'Day 2',
+    titre: 'Financing & Business Model',
+    points: [
+      'Funding strategies: grants, SCIC, fundraising, self-financing',
+      'Build a viable business model without betraying your vision',
+      'Revenue diversification: coliving, retreats, agriculture, events',
+      'What works. What doesn\'t.',
+    ],
   },
   {
-    num: '03',
-    date: 'October 2026',
-    title: 'Regenerative culture',
-    description: 'Eco-construction, regenerative agriculture, energy autonomy, site design, landscape integration. How to design a place that regenerates more than it consumes. Technical choices, mistakes to avoid, real costs.',
-    speaker: {
-      role: 'Architect / regenerative designer',
-      bio: 'Recognised practitioner in eco-construction or regenerative design. Load-bearing straw, raw earth, bioclimatic, permaculture applied to the scale of a living place.',
-    },
-  },
-  {
-    num: '04',
-    date: 'May 2027',
-    title: 'Community culture',
-    description: 'Governance, collective intelligence, conflict management, community facilitation, legal framework for the collective. How to create a group that lasts. Departures, arrivals, crises, and how to move through them.',
-    speaker: {
-      role: 'Facilitator / shared governance expert',
-      bio: 'Specialist in collective governance. Sociocracy, holacracy, NVC, decision-making processes. Works with collectives, cooperatives and eco-places for over 10 years.',
-    },
+    jour: 'Day 3',
+    titre: 'Governance & Culture',
+    points: [
+      'Shared governance and collective intelligence',
+      'Conflict management and relational framework',
+      'Legal structure for the collective',
+      'What makes a group last over time',
+    ],
   },
 ]
 
-const formules = [
-  {
-    name: 'Online',
-    price: '2,000',
-    featured: false,
-    items: [
-      'Monthly check-ins (group calls or video)',
-      'Session recordings',
-      'LAOM community',
-      'Access to resources and tools',
-    ],
-  },
-  {
-    name: 'The 4 weekends',
-    price: '4,000',
-    featured: true,
-    items: [
-      '4 immersive weekends at LAOM',
-      'Sessions with guest facilitators',
-      'Monthly check-ins',
-      'Session recordings',
-      'LAOM community',
-      'Accommodation and meals included',
-    ],
-  },
-  {
-    name: 'Full support',
-    price: '9,000',
-    featured: false,
-    items: [
-      'Everything in "The 4 weekends"',
-      'Personalised funding support',
-      'Personalised legal support',
-      'Access to LAOM Capital (seed fund)',
-      'Individual follow-up between weekends',
-    ],
-  },
+const inclus = [
+  'On-site accommodation (tipi or shared room)',
+  'All meals (homemade, local products)',
+  'Work materials and resources',
+  'Access to LAOM community after training',
 ]
 ---
 
 <Layout
-  title="LAOM School – Ecosystem for eco-place project holders | LAOM"
-  description="The ecosystem for eco-place project holders. 4 immersive weekends at LAOM, monthly check-ins, a community of builders."
-  seo={{
-    ldJSON: pageSchema,
-  }}
+  title="LAOM School — 3 days to structure your ecovillage project | LAOM"
+  description="3 intensive days at LAOM to clarify your vision, structure your project and leave with an action plan. Project, financing, business model, governance, culture."
+  seo={{ ldJSON: pageSchema }}
 >
   <!-- Hero -->
-  <section class="py-32 lg:py-40 bg-[#F3EEDC]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Cohort 1, June 2026 / May 2027</p>
-      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#2C2824] mb-8 tracking-tight">
+  <section class="relative py-32 lg:py-40 flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/laom/vanlifest-img1373.webp"
+        alt="Group of project leaders at Grand Shambala"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855] mb-6">Weekend training</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight drop-shadow-lg">
         LAOM School
       </h1>
-      <p class="text-xl md:text-2xl font-light text-[#2C2824]/60 max-w-3xl mx-auto leading-relaxed">
-        The ecosystem for eco-place project holders. 4 immersive weekends at LAOM. Monthly check-ins. A community of builders.
+      <p class="text-xl md:text-2xl font-light text-white/85 max-w-2xl mx-auto leading-relaxed mb-12">
+        3 days to structure your ecovillage project and leave with an action plan
       </p>
+      <a
+        href="#content"
+        class="inline-flex items-center justify-center text-white/70 hover:text-white transition-colors group"
+        aria-label="Discover"
+      >
+        <span class="text-xs tracking-[0.2em] uppercase mr-3">Discover</span>
+        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
     </div>
   </section>
 
-  <!-- Intro -->
-  <section class="py-20 md:py-24 bg-white">
-    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        You're not here to take a course. You're here to work on your project, surrounded by people doing the same, in a place that's already done it.
-      </p>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        LAOM is 5 years in the field. Within Oasis La Margue, a 21-hectare estate we acquired collectively. 15 households. The world's largest load-bearing straw building. Everything we've learned – the wins, the mistakes, the shortcuts, the dead ends – we're making it available.
-      </p>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
-        Each weekend, you come with your project. You work on it. You test your ideas with other project holders and with experts who've already walked the path. You leave with decisions made, not slide decks.
-      </p>
-    </div>
-  </section>
-
-  <!-- The 4 weekends -->
-  <section class="py-20 md:py-24 bg-[#FAF8F5]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Programme</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
-          4 weekends, 4 themes
-        </h2>
-      </div>
-
-      <div class="space-y-8 opacity-0" animate-fade-in-up>
-        {weekends.map((w) => (
-          <div class="bg-white border border-black/5 rounded-sm p-8 md:p-10">
-            <div class="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
-              <!-- Left: number + date -->
-              <div class="flex-shrink-0 md:w-32">
-                <span class="text-2xl font-light tracking-[0.1em] text-[#C4A855]">{w.num}</span>
-                <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mt-2">{w.date}</p>
-              </div>
-
-              <!-- Right: content -->
-              <div class="flex-1">
-                <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4 tracking-tight">{w.title}</h3>
-                <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-8">
-                  {w.description}
-                </p>
-
-                <!-- Speaker -->
-                <div class="flex items-start gap-4 pt-6 border-t border-black/5">
-                  <div class="w-12 h-12 rounded-full bg-[#E8E3D8] flex items-center justify-center flex-shrink-0">
-                    <svg class="w-5 h-5 text-[#2C2824]/25" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                  </div>
-                  <div>
-                    <p class="text-sm font-medium text-[#2C2824] mb-1">{w.speaker.role}</p>
-                    <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed mb-2">{w.speaker.bio}</p>
-                    <p class="text-xs font-light text-[#C4A855]">Session, Saturday afternoon &middot; <em class="text-[#2C2824]/40">To be confirmed</em></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Placeholder image -->
-      <div class="mt-12 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm opacity-0" animate-fade-in-up>
-        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo to take: group of project holders in a circle at Grand Shambala, LAOM School weekend</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Office hours -->
-  <section class="py-20 md:py-24 bg-white">
-    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Between weekends</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">
-        Check-ins
+  <!-- The problem -->
+  <section id="content" class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">The challenge</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">
+        You have a vision. But you don't know where to start.
       </h2>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        1 group call (or video) per month. You move forward on your project, ask your questions, benefit from the perspective of other project holders and the LAOM team.
-      </p>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
-        Around 10 sessions over the programme, from June 2026 to May 2027. Included in all formulas.
-      </p>
+      <div class="space-y-6 text-lg font-light text-[#2C2824]/80 leading-relaxed">
+        <p>
+          You dream of a different way of living. An ecovillage, shared housing, a third place, a coliving... You have ideas, energy, maybe even a piece of land in sight.
+        </p>
+        <p>
+          But you get lost in the paperwork. You doubt the economic viability. You don't know how to structure the collective. You're moving forward alone, and it's slow.
+        </p>
+        <p class="text-[#2C2824] font-normal">
+          LAOM School exists for this: to save you years.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- The ecosystem -->
+  <!-- The promise -->
   <section class="py-20 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Ecosystem</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
-          What you're joining
-        </h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8 opacity-0" animate-fade-in-up>
-        <div class="bg-white border border-black/5 rounded-sm p-8">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Training</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">LAOM School</h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
-            4 immersive weekends at LAOM. Sessions with experts. Monthly check-ins. Recordings of all sessions.
-          </p>
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">The promise</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            In 3 days, you leave with a clear action plan
+          </h2>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              You don't come to take a course. You come to work on <em>your</em> project, surrounded by people doing the same thing, in a place that has already done it.
+            </p>
+            <p>
+              Each session is a concentrate of 5 years of field experience: the successes, mistakes, shortcuts, dead ends. We make it all available.
+            </p>
+            <p>
+              You confront your ideas with other project leaders and someone who has already walked the path. You leave with decisions made, not slides.
+            </p>
+          </div>
         </div>
-        <div class="bg-white border border-black/5 rounded-sm p-8">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Community</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">LAOM community</h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
-            The builders' network. A space for mutual support, resource sharing and experience feedback among those creating living places. Peer support, co-development, cross visits.
-          </p>
-        </div>
-        <div class="bg-white border border-black/5 rounded-sm p-8">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Funding</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">LAOM Capital</h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
-            The impact fund to support seed stages. Financial and strategic support for eco-place projects emerging from LAOM School.
-          </p>
+        <div class="aspect-[4/3] rounded-sm overflow-hidden">
+          <img
+            src="/images/grand-shambala-hero.webp"
+            alt="Grand Shambala, the world's largest load-bearing straw building"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing -->
+  <!-- The group -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">The group</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">
+        15 people in the same dynamic as you
+      </h2>
+      <div class="space-y-6 text-lg font-light text-[#2C2824]/80 leading-relaxed">
+        <p>
+          You join a group of 15 people maximum, all driven by the same desire: to create a collective living place.
+        </p>
+        <p>
+          It's often in these spaces that partnerships are born. Co-founders, associates, collaborators, lasting friendships.
+        </p>
+        <p>
+          You leave with a network of people who share your challenges, with whom you can continue to exchange, support each other, and perhaps one day build together.
+        </p>
+        <p class="text-[#2C2824] font-normal">
+          The group is part of the learning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The place -->
+  <section class="py-20 md:py-24 bg-[#2C2824] text-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="order-2 md:order-1 aspect-[4/3] rounded-sm overflow-hidden">
+          <img
+            src="/images/laom-drone.webp"
+            alt="Aerial view of LAOM and Oasis la Margue"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="order-1 md:order-2">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">The place</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
+            5 years of fieldwork. Everything we learned.
+          </h2>
+          <div class="space-y-4 text-base font-light text-white/70 leading-relaxed">
+            <p>
+              LAOM is a 21-hectare ecovillage within Oasis la Margue. 15 households. The world's largest load-bearing straw building (850m²).
+            </p>
+            <p>
+              We went through administrative delays, doubts, departures and rebounds. We learned to build a business model, structure a collective, raise funds.
+            </p>
+            <p class="text-white font-normal">
+              This is the experience we share.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Program -->
   <section class="py-20 md:py-24 bg-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Pricing</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
-          3 formulas
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Program</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          3 days, 3 pillars
         </h2>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-6 opacity-0" animate-fade-in-up>
-        {formules.map((f) => (
-          <div class={`rounded-sm p-8 md:p-10 flex flex-col ${f.featured ? 'border-2 border-[#C4A855] bg-[#FAF8F5] relative' : 'border border-black/5 bg-[#FAF8F5]'}`}>
-            {f.featured && (
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#C4A855] text-white text-[10px] tracking-[0.2em] uppercase px-4 py-1 rounded-sm">Recommended</span>
-            )}
-            <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-2">{f.name}</h3>
-            <div class="mb-6">
-              <span class="text-3xl font-light text-[#2C2824] tracking-tight">{f.price}</span>
-              <span class="text-base font-light text-[#2C2824]/40 ml-1">€</span>
-            </div>
-            <ul class="space-y-3 mb-8 flex-1">
-              {f.items.map((item) => (
+      <div class="grid md:grid-cols-3 gap-8">
+        {programme.map((jour) => (
+          <div class="bg-[#FAF8F5] rounded-sm p-8">
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">{jour.jour}</p>
+            <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">{jour.titre}</h3>
+            <ul class="space-y-3">
+              {jour.points.map((point) => (
                 <li class="flex items-start gap-3 text-sm font-light text-[#2C2824]/70 leading-relaxed">
                   <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
-                  <span>{item}</span>
+                  <span>{point}</span>
                 </li>
               ))}
             </ul>
-            <a
-              href="https://cal.atomik.world/charly/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              class={`inline-flex items-center justify-center rounded-sm px-8 py-3.5 text-xs tracking-[0.2em] uppercase transition-colors text-center ${f.featured ? 'bg-[#C4A855] text-white hover:bg-[#B09A4A]' : 'bg-[#2C2824] text-white hover:bg-[#3D3832]'}`}
-              aria-label="Book a call (opens in new tab)"
-            >
-              Book a call
-            </a>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sessions -->
+  <section id="sessions" class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">2026 Sessions</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Two sessions, same intensity
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-12">
+        {sessions.map((s) => (
+          <div class="bg-white border border-black/5 rounded-sm p-8 text-center">
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Session {s.num}</p>
+            <p class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">{s.date}</p>
+            <p class="text-sm font-light text-[#2C2824]/50">{s.status}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Price -->
+      <div class="bg-white border-2 border-[#C4A855] rounded-sm p-10 text-center">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">All-inclusive price</p>
+        <div class="mb-6">
+          <span class="font-playfair text-5xl font-medium text-[#2C2824]">1,000</span>
+          <span class="text-xl font-light text-[#2C2824]/50 ml-1">€</span>
+        </div>
+        <ul class="space-y-2 mb-8 text-sm font-light text-[#2C2824]/70">
+          {inclus.map((item) => (
+            <li class="flex items-center justify-center gap-2">
+              <span class="text-[#C4A855]">&#10003;</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="text-sm font-light text-[#2C2824]/50 mb-6">15 places maximum per session</p>
+        <a
+          href="/en/school/reservation"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Book your spot
+        </a>
+      </div>
+
+      <!-- Contact -->
+      <div class="mt-8 text-center">
+        <p class="text-sm font-light text-[#2C2824]/50 mb-3">Have a question before booking?</p>
+        <a
+          href="https://cal.com/charly-aubert/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-light text-[#C4A855] hover:text-[#8B7A3A] transition-colors underline underline-offset-4"
+        >
+          Schedule a call with Charly
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilitator -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="aspect-[3/4] rounded-sm overflow-hidden">
+          <img
+            src="/images/charly.webp"
+            alt="Charly Aubert, founder of LAOM"
+            class="w-full h-full object-cover object-top"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Facilitated by</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            Charly Aubert
+          </h2>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              Founder of LAOM. 5 years building an ecovillage from A to Z: collective acquisition of 21 hectares, innovative legal structure, construction of the world's largest load-bearing straw building.
+            </p>
+            <p>
+              Self-taught, ex-Epitech, entrepreneur for 10 years. Has supported dozens of project leaders in structuring their vision.
+            </p>
+            <p class="text-[#2C2824] font-normal">
+              His approach: pragmatic, direct, no bullshit.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- For whom -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">For whom</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">
+        LAOM School is for you if...
+      </h2>
+      <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed text-left">
+        <p class="flex items-start gap-4">
+          <span class="text-[#C4A855] text-xl">&#10003;</span>
+          <span>You have an ecovillage, shared housing, third place or coliving project in mind</span>
+        </p>
+        <p class="flex items-start gap-4">
+          <span class="text-[#C4A855] text-xl">&#10003;</span>
+          <span>You want to go from idea to action but don't know where to start</span>
+        </p>
+        <p class="flex items-start gap-4">
+          <span class="text-[#C4A855] text-xl">&#10003;</span>
+          <span>You're looking for a structured framework and concrete feedback</span>
+        </p>
+        <p class="flex items-start gap-4">
+          <span class="text-[#C4A855] text-xl">&#10003;</span>
+          <span>You want to meet other project leaders and break out of isolation</span>
+        </p>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="py-20 md:py-24 bg-[#2C2824]">
-    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">First exchange</p>
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Ready to move forward?</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
-        Let's talk?
+        Join the next session
       </h2>
       <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
-        30 minutes to discuss your project and see if LAOM School is the right fit for you. By video, no commitment.
+        15 spots per session. 3 days to transform your project.
       </p>
-      <a
-        href="https://cal.atomik.world/charly/30min"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
-        aria-label="Book a call (opens in new tab)"
-      >
-        Book a call
-      </a>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/en/school/reservation"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Book your spot
+        </a>
+        <a
+          href="https://cal.com/charly-aubert/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center rounded-sm border border-white/30 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#2C2824] transition-colors"
+        >
+          Ask a question
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

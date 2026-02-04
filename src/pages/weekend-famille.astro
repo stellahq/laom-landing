@@ -1,0 +1,323 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Weekend Famille — Se retrouver en famille, loin des écrans | LAOM',
+  url: Astro.url.toString(),
+  description: 'Un week-end pour se retrouver en famille dans un écolieu en Aveyron. 2 jours pour ralentir ensemble, jouer, cuisiner, explorer la nature. 27-28 juin 2026.',
+})
+
+const programme = [
+  {
+    jour: 'Samedi',
+    moments: [
+      { heure: '10h', titre: 'Arrivée', desc: 'Installation, découverte du lieu, rencontre des autres familles' },
+      { heure: '12h30', titre: 'Déjeuner', desc: 'Premier repas tous ensemble à la guinguette' },
+      { heure: '14h-17h', titre: 'Temps libre & activités', desc: 'Balade en forêt, baignade à la rivière, atelier cuisine avec les enfants, jeux collectifs' },
+      { heure: '18h', titre: 'Cercle familial', desc: 'Chaque famille partage un moment, une intention' },
+      { heure: '19h30', titre: 'Dîner festif', desc: 'Repas convivial suivi d\'un feu de camp' },
+    ],
+  },
+  {
+    jour: 'Dimanche',
+    moments: [
+      { heure: '8h30', titre: 'Petit-déjeuner', desc: 'Réveil en douceur, café et croissants' },
+      { heure: '10h', titre: 'Atelier créatif', desc: 'Land art, construction de cabane, potager — parents et enfants ensemble' },
+      { heure: '12h30', titre: 'Déjeuner de clôture', desc: 'Dernier repas partagé' },
+      { heure: '14h', titre: 'Départ', desc: 'Retour avec des souvenirs plein la tête' },
+    ],
+  },
+]
+
+const inclus = [
+  'Hébergement (tipi ou chambre familiale)',
+  'Tous les repas (cuisine maison, produits locaux)',
+  'Activités et ateliers',
+  'Accès à tout le domaine (forêt, rivière, prairie)',
+]
+---
+
+<Layout
+  title="Weekend Famille — Se retrouver en famille, loin des écrans | LAOM"
+  description="Un week-end pour se retrouver en famille dans un écolieu en Aveyron. 2 jours pour ralentir ensemble, jouer, cuisiner, explorer la nature. 27-28 juin 2026."
+  seo={{ ldJSON: pageSchema }}
+>
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/laom/vanlifest-img2563.webp"
+        alt="Familles réunies dans la prairie de LAOM"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/20"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-32 pb-16">
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855] mb-6">Weekend en famille</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
+        Weekend Famille
+      </h1>
+      <p class="text-lg md:text-xl font-light text-white/85 max-w-2xl mx-auto leading-relaxed">
+        Se retrouver en famille, loin des écrans, dans un lieu qui invite à la simplicité.
+      </p>
+      <p class="mt-8 text-sm font-light text-[#C4A855]">27 – 28 juin 2026 · LAOM, Aveyron</p>
+    </div>
+
+    <!-- Scroll arrow -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <a href="#invitation" class="block text-white/50 hover:text-white transition-colors" aria-label="Découvrir">
+        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- L'invitation -->
+  <section id="invitation" class="py-24 md:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">L'invitation</p>
+      <div class="space-y-6 text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        <p>
+          Quand avez-vous passé du temps ensemble, vraiment ensemble, sans écrans, sans agenda, sans courses à faire ?
+        </p>
+        <p>
+          Le Weekend Famille, c'est une parenthèse. 2 jours pour ralentir, jouer, cuisiner, explorer — et créer des souvenirs.
+        </p>
+        <p>
+          Pas de programme chargé. Des invitations douces. Du temps libre. La nature comme terrain de jeu.
+        </p>
+        <p class="text-[#2C2824] font-normal">
+          Juste votre famille, d'autres familles, et un lieu qui vous accueille.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le lieu -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le lieu</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            Un terrain de jeu de 21 hectares
+          </h2>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              LAOM, c'est un écolieu au cœur de l'Aveyron. Forêt, rivière, prairie. Des bâtiments en paille et en bois. Une cuisine qui sent bon. Des tipis pour dormir sous les étoiles.
+            </p>
+            <p>
+              Les enfants peuvent courir, grimper, explorer. Les parents peuvent souffler, discuter, se reconnecter.
+            </p>
+            <p>
+              C'est un lieu où on ralentit naturellement. Où le temps s'étire. Où on se retrouve.
+            </p>
+          </div>
+        </div>
+        <div class="aspect-[4/3] rounded-sm overflow-hidden">
+          <img
+            src="/images/laom-drone.webp"
+            alt="Vue aérienne de LAOM"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programme -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Le programme</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">
+        2 jours pour se retrouver
+      </h2>
+      <p class="text-lg font-light text-[#2C2824]/60 mb-16">
+        Un cadre souple, pas une course. Chaque famille choisit son rythme.
+      </p>
+
+      <div class="space-y-16">
+        {programme.map((jour) => (
+          <div>
+            <h3 class="font-playfair text-2xl font-medium text-[#C4A855] mb-8">{jour.jour}</h3>
+            <div class="border-l-2 border-[#C4A855]/30 pl-8 space-y-8">
+              {jour.moments.map((m) => (
+                <div>
+                  <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">{m.heure}</p>
+                  <h4 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">{m.titre}</h4>
+                  <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">{m.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Ce qui rend l'expérience unique -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">L'esprit</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">
+        Ce qu'on fait ensemble
+      </h2>
+
+      <div class="grid md:grid-cols-2 gap-x-16 gap-y-12">
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Explorer la nature</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Balade en forêt guidée par Charly. Découverte des plantes, des arbres, des traces d'animaux. Baignade à la rivière quand il fait chaud.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Cuisiner ensemble</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Atelier pain ou pizza au feu avec les enfants. Les mains dans la farine, le nez dans les bonnes odeurs. Et la fierté de manger ce qu'on a préparé.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Jouer vraiment</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Jeux collectifs dans la prairie. Pas de règles compliquées. Juste courir, rire, se rouler dans l'herbe. Retrouver le plaisir simple de jouer.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Se retrouver le soir</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Dîner tous ensemble, puis feu de camp. Histoires, chansons, marshmallows grillés. Le genre de soirée dont on se souvient longtemps.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Animé par -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="aspect-[4/3] rounded-sm overflow-hidden bg-[#FAF8F5] flex items-center justify-center border border-black/5" role="img" aria-label="Photo Amandine et Charly">
+          <div class="text-center px-8">
+            <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Photo</p>
+            <p class="text-sm font-light text-black/50">Amandine, Charly et Livio dans le jardin de LAOM</p>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Animé par</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            Amandine & Charly
+          </h2>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              Parents de Livio, 2 ans. Fondateurs de LAOM. On vit ici, on construit ici, on élève notre fils ici.
+            </p>
+            <p>
+              On sait ce que c'est de jongler entre projets et vie de famille. De chercher des moments de qualité. De vouloir transmettre autre chose que des écrans.
+            </p>
+            <p class="text-[#2C2824] font-normal">
+              Ce weekend, on ouvre notre lieu pour partager ça avec d'autres familles.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infos pratiques -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Infos -->
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Pratique</p>
+          <h2 class="font-playfair text-3xl font-medium text-[#2C2824] tracking-tight mb-8">Infos pratiques</h2>
+          
+          <div class="space-y-4">
+            <div class="flex justify-between py-3 border-b border-black/5">
+              <span class="text-base font-light text-[#2C2824]/50">Date</span>
+              <span class="text-base font-medium text-[#2C2824]">27 – 28 juin 2026</span>
+            </div>
+            <div class="flex justify-between py-3 border-b border-black/5">
+              <span class="text-base font-light text-[#2C2824]/50">Durée</span>
+              <span class="text-base font-light text-[#2C2824]">2 jours / 1 nuit</span>
+            </div>
+            <div class="flex justify-between py-3 border-b border-black/5">
+              <span class="text-base font-light text-[#2C2824]/50">Lieu</span>
+              <span class="text-base font-light text-[#2C2824]">LAOM, Aveyron</span>
+            </div>
+            <div class="flex justify-between py-3 border-b border-black/5">
+              <span class="text-base font-light text-[#2C2824]/50">Capacité</span>
+              <span class="text-base font-light text-[#2C2824]">15-20 familles</span>
+            </div>
+            <div class="flex justify-between py-3 border-b border-black/5">
+              <span class="text-base font-light text-[#2C2824]/50">Âge enfants</span>
+              <span class="text-base font-light text-[#2C2824]">Tous âges bienvenus</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prix -->
+        <div>
+          <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8">
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Tarif par famille</p>
+            <div class="mb-6">
+              <span class="font-playfair text-5xl font-medium text-[#2C2824]">450</span>
+              <span class="text-xl font-light text-[#2C2824]/50 ml-1">€</span>
+            </div>
+            <p class="text-sm font-light text-[#2C2824]/50 mb-6">2 adultes + enfants</p>
+            <ul class="space-y-2 mb-8">
+              {inclus.map((item) => (
+                <li class="flex items-start gap-2 text-sm font-light text-[#2C2824]/70">
+                  <span class="text-[#C4A855] mt-0.5">&#10003;</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href="/weekend-famille/reservation"
+              class="block text-center rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+            >
+              Réserver sa place
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Juin 2026</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">
+        Créez des souvenirs en famille
+      </h2>
+      <p class="text-base font-light text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
+        15-20 familles. 2 jours hors du temps. Un lieu qui vous accueille.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/weekend-famille/reservation"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Réserver sa place
+        </a>
+        <a
+          href="https://cal.com/charly-aubert/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center rounded-sm border border-white/30 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#2C2824] transition-colors"
+        >
+          Poser une question
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

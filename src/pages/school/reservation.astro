@@ -1,0 +1,266 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Réserver LAOM School — Weekend formation',
+  url: Astro.url.toString(),
+  description: 'Réserve ta place pour LAOM School. 3 jours pour structurer ton projet d\'écolieu. 1000€ tout inclus.',
+})
+
+const sessions = [
+  { 
+    id: 'mai-2026',
+    num: '01', 
+    date: '8-10 mai 2026', 
+    status: 'Prochaine session',
+    spotsLeft: 12,
+    stripeLink: '#STRIPE_LINK_SESSION_1' // À remplacer par le vrai lien Stripe
+  },
+  { 
+    id: 'octobre-2026',
+    num: '02', 
+    date: '16-18 octobre 2026', 
+    status: 'Session automne',
+    spotsLeft: 15,
+    stripeLink: '#STRIPE_LINK_SESSION_2' // À remplacer par le vrai lien Stripe
+  },
+]
+
+const inclus = [
+  { icon: 'bed', text: 'Hébergement sur place (tipi ou chambre)' },
+  { icon: 'food', text: 'Tous les repas (cuisine maison, produits locaux)' },
+  { icon: 'book', text: 'Supports et ressources de travail' },
+  { icon: 'users', text: 'Accès à la communauté LAOM après la formation' },
+]
+
+const reassurance = [
+  { icon: 'users', title: '15 places max', desc: 'Accompagnement de qualité' },
+  { icon: 'shield', title: '5 ans de terrain', desc: 'Pas de théorie, du vécu' },
+  { icon: 'lock', title: 'Paiement sécurisé', desc: 'Via Stripe' },
+  { icon: 'calendar', title: 'Annulation -14j', desc: 'Remboursement intégral' },
+]
+---
+
+<Layout
+  title="Réserver LAOM School — Weekend formation | LAOM"
+  description="Réserve ta place pour LAOM School. 3 jours pour structurer ton projet d'écolieu. 1000€ tout inclus."
+  seo={{ ldJSON: pageSchema, noindex: true }}
+>
+  <!-- Hero minimaliste -->
+  <section class="bg-[#FAF8F5] -mt-24 md:-mt-28 pt-32 pb-16">
+    <div class="max-w-3xl mx-auto px-8 md:px-12 lg:px-16 text-center">
+      <a href="/school" class="inline-flex items-center gap-2 text-sm font-light text-[#2C2824]/50 hover:text-[#C4A855] transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        Retour à LAOM School
+      </a>
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855] mb-4">Réservation</p>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] mb-4 tracking-tight">
+        LAOM School
+      </h1>
+      <p class="text-lg font-light text-[#2C2824]/70 max-w-xl mx-auto">
+        3 jours pour structurer ton projet d'écolieu et repartir avec un plan d'action
+      </p>
+    </div>
+  </section>
+
+  <!-- Contenu principal -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-8 md:px-12 lg:px-16">
+      
+      <!-- Choix de session -->
+      <div class="mb-12">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Choisis ta session</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          {sessions.map((s) => (
+            <label class="session-card relative cursor-pointer group">
+              <input 
+                type="radio" 
+                name="session" 
+                value={s.id}
+                data-stripe={s.stripeLink}
+                class="sr-only peer" 
+                checked={s.num === '01'}
+              />
+              <div class="p-6 rounded-sm border-2 border-black/10 peer-checked:border-[#C4A855] peer-checked:bg-[#C4A855]/5 transition-all hover:border-[#C4A855]/50">
+                <div class="flex items-start justify-between mb-4">
+                  <div>
+                    <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855]">Session {s.num}</p>
+                    <p class="font-playfair text-xl font-medium text-[#2C2824] mt-1">{s.date}</p>
+                  </div>
+                  <div class="w-5 h-5 rounded-full border-2 border-black/20 peer-checked:border-[#C4A855] peer-checked:bg-[#C4A855] flex items-center justify-center transition-all">
+                    <svg class="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+                <p class="text-sm font-light text-[#2C2824]/50">{s.status}</p>
+                <p class="text-xs font-light text-[#4A7C59] mt-2">{s.spotsLeft} places disponibles</p>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- Ce qui est inclus -->
+      <div class="mb-12 p-8 bg-[#FAF8F5] rounded-sm">
+        <h3 class="text-sm font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Ce qui est inclus</h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {inclus.map((item) => (
+            <div class="flex items-start gap-3">
+              <span class="text-[#C4A855] mt-0.5">&#10003;</span>
+              <span class="text-base font-light text-[#2C2824]/80">{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Prix et paiement -->
+      <div class="mb-12 p-8 border-2 border-[#C4A855] rounded-sm bg-white">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+          <div>
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Tarif tout inclus</p>
+            <div class="flex items-baseline gap-2">
+              <span class="font-playfair text-5xl font-medium text-[#2C2824]">1 000</span>
+              <span class="text-xl font-light text-[#2C2824]/50">€</span>
+            </div>
+            <p class="text-sm font-light text-[#2C2824]/50 mt-2">Paiement unique, pas d'abonnement</p>
+          </div>
+          <div class="flex-shrink-0">
+            <a 
+              href="#STRIPE_LINK_SESSION_1"
+              id="stripe-button"
+              class="inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full md:w-auto"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+              Payer 1 000 €
+            </a>
+          </div>
+        </div>
+        
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-6 border-t border-black/5 text-xs font-light text-[#2C2824]/50">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            Paiement 100% sécurisé via Stripe
+          </span>
+          <span>|</span>
+          <span>Carte bancaire, Apple Pay, Google Pay</span>
+          <span>|</span>
+          <span>Facture envoyée par email</span>
+        </div>
+      </div>
+
+      <!-- Éléments de réassurance -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        {reassurance.map((r) => (
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-[#FAF8F5] flex items-center justify-center">
+              {r.icon === 'users' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              )}
+              {r.icon === 'shield' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              )}
+              {r.icon === 'lock' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              )}
+              {r.icon === 'calendar' && (
+                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              )}
+            </div>
+            <p class="text-sm font-medium text-[#2C2824]">{r.title}</p>
+            <p class="text-xs font-light text-[#2C2824]/50 mt-1">{r.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Citation -->
+      <div class="mb-12 p-8 bg-[#2C2824] rounded-sm text-center">
+        <blockquote class="font-playfair text-xl md:text-2xl font-normal text-white/90 italic leading-relaxed">
+          "Tu ne viens pas suivre un cours. Tu viens travailler sur TON projet, entouré de gens qui font la même chose."
+        </blockquote>
+        <p class="text-sm font-light text-white/50 mt-4">— Charly Aubert, fondateur LAOM</p>
+      </div>
+
+      <!-- Contact -->
+      <div class="text-center p-8 bg-[#FAF8F5] rounded-sm">
+        <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Une question avant de réserver ?</h3>
+        <p class="text-base font-light text-[#2C2824]/60 mb-6">
+          Échange directement avec Charly pour voir si LAOM School est fait pour toi.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="https://cal.com/charly-aubert/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#2C2824]/20 text-[#2C2824] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#2C2824] hover:text-white transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Réserver un appel
+          </a>
+          <a
+            href="mailto:hello@laom.fr"
+            class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#2C2824]/20 text-[#2C2824] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#2C2824] hover:text-white transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            hello@laom.fr
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Update Stripe button link based on selected session
+    document.addEventListener('DOMContentLoaded', () => {
+      const sessionInputs = document.querySelectorAll('input[name="session"]');
+      const stripeButton = document.getElementById('stripe-button');
+      
+      sessionInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+          const target = e.target as HTMLInputElement;
+          const stripeLink = target.dataset.stripe;
+          if (stripeButton && stripeLink) {
+            stripeButton.setAttribute('href', stripeLink);
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    .session-card input:checked + div {
+      border-color: #C4A855;
+      background-color: rgba(196, 168, 85, 0.05);
+    }
+    .session-card input:checked + div .peer-checked\:border-\[\#C4A855\] {
+      border-color: #C4A855;
+    }
+    .session-card input:checked + div .peer-checked\:bg-\[\#C4A855\] {
+      background-color: #C4A855;
+    }
+    .session-card input:checked + div svg {
+      opacity: 1;
+    }
+  </style>
+</Layout>
