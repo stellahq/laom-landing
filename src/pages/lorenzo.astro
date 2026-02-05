@@ -1,0 +1,314 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// DONNEES LORENZO
+// ==========================================
+
+const profil = {
+  nom: 'Lorenzo',
+  role: 'Chef Guinguette',
+  periode: 'Mi-juin a mi-septembre 2026',
+  contact: '06.73.68.35.73 (Charly)',
+}
+
+const tachesParPeriode = [
+  {
+    periode: 'MARS 2026',
+    label: 'Event Perspective (5-8 mars)',
+    couleur: '#C4A855',
+    taches: [
+      { tache: 'Creer menus pour 35 personnes x 7 repas', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Coordonner avec Charly sur logistique', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Preparer liste courses', priorite: 'moyenne', statut: 'a_faire' },
+    ]
+  },
+  {
+    periode: 'AVRIL 2026',
+    label: 'Formations obligatoires',
+    couleur: '#2C2824',
+    taches: [
+      { tache: 'Verifier si formation hygiene alimentaire deja faite', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Si non : inscription formation 14h (200-500 EUR)', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Formation permis exploitation 20h (optionnel)', priorite: 'moyenne', statut: 'a_faire' },
+    ]
+  },
+  {
+    periode: 'MAI 2026',
+    label: 'Preparation guinguette',
+    couleur: '#4A7C59',
+    taches: [
+      { tache: 'Creer menus definitifs avec Charly', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Sourcer fournisseurs viandes (Aubrac)', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Sourcer fournisseurs fromages (aveyronnais)', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Sourcer farines (moulin local)', priorite: 'moyenne', statut: 'a_faire' },
+      { tache: 'Commander epices', priorite: 'moyenne', statut: 'a_faire' },
+      { tache: 'Tester recettes (pizzas, tandour, plancha)', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Creer fiches techniques plats', priorite: 'moyenne', statut: 'a_faire' },
+    ]
+  },
+  {
+    periode: 'JUIN 2026',
+    label: 'Installation',
+    couleur: '#C4A855',
+    taches: [
+      { tache: 'Installer zone four a pizza', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Installer tandour', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Verifier equipements cuisine', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Organiser stockage ingredients', priorite: 'moyenne', statut: 'a_faire' },
+      { tache: 'Preparer affichages obligatoires (allergenes, prix)', priorite: 'haute', statut: 'a_faire' },
+    ]
+  },
+  {
+    periode: 'ETE 2026',
+    label: 'Mi-juin a mi-septembre (operation)',
+    couleur: '#4A7C59',
+    taches: [
+      { tache: 'Chef cuisine — coordination quotidienne', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Gestion equipe (Lily si presente, Khaldoun, extras)', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Approvisionnement depuis jardin LAOM', priorite: 'moyenne', statut: 'a_faire' },
+      { tache: 'Tenir fiches temperatures (frigos, cuissons)', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Tenir fiches reception produits', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Tenir fiches nettoyage/desinfection', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Coordination events LAOM (repas participants)', priorite: 'haute', statut: 'a_faire' },
+    ]
+  },
+  {
+    periode: 'SEPTEMBRE 2026',
+    label: 'Cloture saison',
+    couleur: '#2C2824',
+    taches: [
+      { tache: 'Bilan saison avec Charly', priorite: 'haute', statut: 'a_faire' },
+      { tache: 'Rangement materiel cuisine', priorite: 'moyenne', statut: 'a_faire' },
+      { tache: 'Inventaire fin de saison', priorite: 'moyenne', statut: 'a_faire' },
+      { tache: 'Cloture administrative (documents)', priorite: 'moyenne', statut: 'a_faire' },
+    ]
+  },
+]
+
+const equipe = [
+  { nom: 'Lily', role: 'Tagines, cuisine marocaine', statut: 'Si elle vient du Maroc' },
+  { nom: 'Khaldoun', role: 'Mezzes syriens, baklava, soutien', statut: 'Disponible' },
+  { nom: 'Extras', role: '1-2 personnes haute saison', statut: 'A recruter' },
+]
+
+const cuissonsSignatures = [
+  { nom: 'Four a pizza', desc: 'Heritage familial — pizzas farine kamut, fromage brebis' },
+  { nom: 'Tandour indien', desc: 'Naans maison, brochettes marines, aubergines' },
+  { nom: 'Tagine', desc: 'Cuissons lentes, epices (si Lily presente)' },
+  { nom: 'Plancha', desc: 'Legumes du jardin, viandes Aubrac' },
+]
+
+const documentsObligatoires = [
+  'Fiches temperatures (frigos, cuissons)',
+  'Fiches reception produits',
+  'Fiches nettoyage/desinfection',
+  'Fiches entretien hottes/extracteurs',
+  'Documents formation personnel',
+  'Coordonnees fournisseurs',
+  'Attestation formation hygiene',
+  'Recepisse licence restaurant',
+]
+
+function getPrioriteClass(priorite: string): string {
+  if (priorite === 'haute') return 'bg-red-500/10 text-red-600 border-red-200'
+  if (priorite === 'moyenne') return 'bg-[#C4A855]/10 text-[#C4A855] border-[#C4A855]/30'
+  return 'bg-gray-100 text-gray-600 border-gray-200'
+}
+---
+
+<Layout
+  title="Lorenzo — Chef Guinguette 2026 | LAOM"
+  description="Planning et taches Lorenzo pour la guinguette LAOM 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-6">
+          <span class="text-3xl">👨‍🍳</span>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace Lorenzo</h2>
+        <p class="text-white/50 text-sm">Planning guinguette 2026</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/lorenzo/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#C4A855]/20 flex items-center justify-center">
+          <span class="text-3xl sm:text-4xl">👨‍🍳</span>
+        </div>
+        <div>
+          <h1 class="font-playfair text-3xl sm:text-4xl font-medium text-white tracking-tight">
+            {profil.nom}
+          </h1>
+          <p class="text-[#C4A855] text-sm sm:text-base">{profil.role}</p>
+        </div>
+      </div>
+      
+      <div class="flex flex-wrap gap-4 text-sm">
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
+          <span class="text-white/50">Periode : </span>
+          <span class="text-white">{profil.periode}</span>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
+          <span class="text-white/50">Contact : </span>
+          <span class="text-white">{profil.contact}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline des taches -->
+  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">Planning 2026</h2>
+      
+      <div class="space-y-6">
+        {tachesParPeriode.map((periode) => (
+          <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+            <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-black/5" style={`background-color: ${periode.couleur}15`}>
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                <h3 class="font-medium text-[#2C2824]" style={`color: ${periode.couleur}`}>{periode.periode}</h3>
+                <span class="text-xs text-[#2C2824]/60">{periode.label}</span>
+              </div>
+            </div>
+            <div class="p-4 sm:p-6">
+              <ul class="space-y-3">
+                {periode.taches.map((t) => (
+                  <li class="flex items-start gap-3">
+                    <span class={`mt-0.5 w-5 h-5 rounded border flex-shrink-0 flex items-center justify-center ${t.statut === 'fait' ? 'bg-[#4A7C59] border-[#4A7C59]' : 'border-[#2C2824]/20'}`}>
+                      {t.statut === 'fait' && (
+                        <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </span>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm sm:text-base text-[#2C2824]">{t.tache}</p>
+                    </div>
+                    <span class={`text-[10px] sm:text-xs px-2 py-0.5 rounded border flex-shrink-0 ${getPrioriteClass(t.priorite)}`}>
+                      {t.priorite}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Cuissons signatures -->
+  <section class="py-8 sm:py-12 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">Les 4 cuissons signatures</h2>
+      
+      <div class="grid sm:grid-cols-2 gap-4">
+        {cuissonsSignatures.map((c) => (
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+            <h3 class="font-medium text-[#C4A855] mb-1">{c.nom}</h3>
+            <p class="text-sm text-[#2C2824]/70">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipe -->
+  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">Ton equipe</h2>
+      
+      <div class="grid sm:grid-cols-3 gap-4">
+        {equipe.map((e) => (
+          <div class="bg-white rounded-sm border border-black/5 p-4">
+            <p class="font-medium text-[#2C2824]">{e.nom}</p>
+            <p class="text-xs text-[#2C2824]/60 mb-2">{e.role}</p>
+            <span class="text-xs text-[#4A7C59]">{e.statut}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents obligatoires -->
+  <section class="py-8 sm:py-12 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Documents obligatoires</h2>
+      <p class="text-sm text-[#2C2824]/60 mb-6">A tenir a jour pour les controles sanitaires</p>
+      
+      <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+        <ul class="grid sm:grid-cols-2 gap-2">
+          {documentsObligatoires.map((doc) => (
+            <li class="flex items-center gap-2 text-sm text-[#2C2824]/80">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#C4A855] flex-shrink-0"></span>
+              {doc}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 sm:py-8 bg-[#1a1a1a]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 text-center">
+      <p class="text-sm text-white/50 mb-2">Questions ? Contacte Charly</p>
+      <p class="text-white">{profil.contact}</p>
+    </div>
+  </section>
+
+  <script>
+    const PASSWORD = 'laom2026'
+    const STORAGE_KEY = 'laom_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>

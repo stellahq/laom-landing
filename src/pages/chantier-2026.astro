@@ -1,0 +1,660 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// DONNEES LOTS (FICHES SYNTHETIQUES)
+// ==========================================
+
+const lots = [
+  {
+    nom: 'Espaces communs',
+    type: 'commun',
+    surface: 150,
+    proprio: 'LAOM (tous)',
+    horsAir: 95,
+    secondOeuvre: 60,
+    finitions: 10,
+    prochaines: ['Electricite (tableau)', 'Finitions cuisine', 'Mobilier salle'],
+    statut: 'en_cours',
+    notes: 'Salle + cuisine d\'ete + couloirs'
+  },
+  {
+    nom: 'Studio Charly',
+    type: 'prive',
+    surface: 60,
+    proprio: 'Charly & Amandine',
+    horsAir: 100,
+    secondOeuvre: 5,
+    finitions: 0,
+    prochaines: ['Cloisons', 'Chape', 'Plomberie', 'Electricite', 'Cuisine', 'SDB'],
+    statut: 'priorite',
+    notes: 'PRIORITE FIN MAI — Logement fille au pair, parents, invites',
+    deadline: 'Fin mai 2026'
+  },
+  {
+    nom: 'Coliving',
+    type: 'prive',
+    surface: 125,
+    proprio: 'LAOM',
+    horsAir: 95,
+    secondOeuvre: 0,
+    finitions: 0,
+    prochaines: ['Attente pret Oasis', 'Recruter artisan', 'Cloisons', 'Plomberie'],
+    statut: 'attente',
+    notes: '7 chambres — Ouverture printemps 2027',
+    budget: '125-150k€'
+  },
+  {
+    nom: 'David Lin',
+    type: 'prive',
+    surface: 60,
+    proprio: 'David Lin',
+    horsAir: 95,
+    secondOeuvre: 0,
+    finitions: 0,
+    prochaines: ['Financement proprio', 'Recruter artisan', 'Cloisons'],
+    statut: 'attente',
+    budget: '60-72k€'
+  },
+  {
+    nom: 'David Coste',
+    type: 'prive',
+    surface: 60,
+    proprio: 'David Coste',
+    horsAir: 95,
+    secondOeuvre: 0,
+    finitions: 0,
+    prochaines: ['Financement proprio', 'Recruter artisan', 'Cloisons'],
+    statut: 'attente',
+    notes: 'David arrive en mai pour aider sur les travaux',
+    budget: '60-72k€'
+  },
+  {
+    nom: 'Laetitia — Habitation',
+    type: 'prive',
+    surface: 60,
+    proprio: 'Laetitia',
+    horsAir: 95,
+    secondOeuvre: 0,
+    finitions: 0,
+    prochaines: ['Financement proprio', 'Recruter artisan', 'Cloisons'],
+    statut: 'attente',
+    budget: '60-70k€'
+  },
+  {
+    nom: 'Laetitia — Atelier',
+    type: 'prive',
+    surface: 62,
+    proprio: 'Laetitia',
+    horsAir: 95,
+    secondOeuvre: 0,
+    finitions: 0,
+    prochaines: ['Financement proprio', 'Amenagement basique'],
+    statut: 'attente',
+    notes: 'Atelier poterie',
+    budget: '50-60k€'
+  },
+]
+
+// ==========================================
+// DONNEES TRAVAUX MUTUALISES
+// ==========================================
+
+const travauxMutualises = [
+  { 
+    nom: 'Electricite', 
+    desc: 'Cable principal 300m + tableau distribution tous lots', 
+    jours: '4-5', 
+    budget: '2-4k€', 
+    equipe: 'Charly',
+    periode: 'Fev-Mars',
+    statut: 'a_faire',
+    impact: 'Bloque les finitions de tous les lots'
+  },
+  { 
+    nom: 'Assainissement', 
+    desc: 'Fosse septique + canalisations EU/EV 30-60m', 
+    jours: '7-10', 
+    budget: '8-15k€', 
+    equipe: 'Charly (pelle)',
+    periode: 'Printemps',
+    statut: 'bloque',
+    blocker: 'RDV SPANC a prendre',
+    impact: 'Bloque mise en service sanitaires'
+  },
+  { 
+    nom: 'Corten + Etancheite', 
+    desc: 'Habillage facade sud + etancheite 88 fenetres', 
+    jours: '15', 
+    budget: '5-8k€', 
+    equipe: 'Charly + Khaldoun',
+    periode: 'Mars',
+    statut: 'attente_devis',
+    blocker: 'Devis Arnal Gely attendu'
+  },
+  { 
+    nom: 'Cloisons etage', 
+    desc: 'Finitions cloisons mitoyennes (90% fait)', 
+    jours: '3-5', 
+    budget: '500€', 
+    equipe: 'Charly',
+    periode: 'Mars',
+    statut: 'a_faire'
+  },
+  { 
+    nom: 'Terrasses communes', 
+    desc: 'Sud 12x2.8m + Nord 12x4m + escalier acier ouest', 
+    jours: '25', 
+    budget: '15-25k€', 
+    equipe: 'Charly + Khaldoun + David C',
+    periode: 'Juillet',
+    statut: 'planifie'
+  },
+  { 
+    nom: 'Paysagement', 
+    desc: 'Terrassement + drainage + chemins + plantations', 
+    jours: '25-37', 
+    budget: '20-30k€', 
+    equipe: 'Equipe complete',
+    periode: 'Ete-Automne',
+    statut: 'planifie'
+  },
+]
+
+// ==========================================
+// JALONS & TIMELINE
+// ==========================================
+
+const jalons = [
+  { nom: 'EDD Ouest finalise', date: 'Mi-fevrier', statut: 'a_faire' },
+  { nom: 'Permis deposes', date: 'Fin fevrier', statut: 'a_faire' },
+  { nom: 'BP Oasis soumis', date: 'Fin fevrier', statut: 'a_faire' },
+  { nom: 'Electricite GS', date: 'Mi-mars', statut: 'a_faire' },
+  { nom: 'Tresorerie OK', date: 'Fin mars', statut: 'attente' },
+  { nom: 'Studio Charly', date: 'Fin mai', statut: 'priorite' },
+  { nom: 'Guinguette ouvre', date: 'Mi-juin', statut: 'planifie' },
+  { nom: 'Corten termine', date: 'Fin mars', statut: 'a_faire' },
+  { nom: 'Camp Nomade ouvre', date: '15 juillet', statut: 'planifie' },
+  { nom: 'Terrasses', date: 'Fin juillet', statut: 'planifie' },
+  { nom: 'Lots prives habitables', date: 'Rentree', statut: 'planifie' },
+  { nom: 'Coliving operationnel', date: 'Printemps 2027', statut: 'objectif' },
+]
+
+const timeline = [
+  { mois: 'Fevrier', travaux: ['Electricite (debut)', 'Admin (EDD, permis, BP)'], events: ['Danse & Silence'], vie: [] },
+  { mois: 'Mars', travaux: ['Electricite (fin)', 'Corten + Etancheite', 'Cloisons'], events: ['Perspective', 'Energie Illimitee'], vie: ['Broyer seigle jardin'] },
+  { mois: 'Avril', travaux: ['Studio (intensif)'], events: ['Clarte x2'], vie: ['Jardin : plantations'] },
+  { mois: 'Mai', travaux: ['Studio (finition)', 'David Coste arrive'], events: ['School #1', 'Colette x2'], vie: ['Jardin : repiquage'] },
+  { mois: 'Juin', travaux: ['Installation guinguette'], events: ['Festival Perspective'], vie: ['Ouverture guinguette'] },
+  { mois: 'Juillet', travaux: ['Terrasses communes', 'Assainissement'], events: ['Summer Camp', 'Energie #2'], vie: ['Camp Nomade ouvre (15 juil)'] },
+  { mois: 'Aout', travaux: ['Paysagement'], events: ['En Mouvement x3', 'Guerison'], vie: ['Camp Nomade', 'Guinguette'] },
+  { mois: 'Septembre', travaux: ['Paysagement (suite)'], events: [], vie: ['Fermeture guinguette', 'Fermeture camp (15 sept)'] },
+  { mois: 'Octobre', travaux: ['Finitions', 'Prep arbres'], events: ['School #2'], vie: [] },
+  { mois: 'Novembre', travaux: ['Plantations arbres'], events: [], vie: [] },
+]
+
+const equipe = [
+  { nom: 'Charly', role: 'Direction & travaux', dispo: 'Temps plein', cout: '22k/an' },
+  { nom: 'Khaldoun', role: 'Ouvrier polyvalent', dispo: '12 mois', cout: '24k/an' },
+  { nom: 'David Coste', role: 'Aide travaux', dispo: 'Mai-Sept', cout: 'Nourri-loge' },
+  { nom: 'Aide Studio', role: 'Renfort temporaire', dispo: 'Avril (2-3 sem)', cout: '2-3k€' },
+  { nom: '4 artisans', role: 'Lots prives', dispo: 'Variable', cout: 'Proprio' },
+  { nom: 'Lorenzo', role: 'Chef guinguette', dispo: 'Juin-Sept', cout: 'A definir' },
+  { nom: 'Jardinier/Woofer', role: 'Maraichage', dispo: 'Mars-Sept', cout: 'Nourri-loge' },
+]
+
+// Stats
+const totalJoursTravaux = 140
+const totalBudgetMin = 100
+const totalBudgetMax = 140
+const surfaceTotale = lots.reduce((acc, l) => acc + l.surface, 0)
+
+function getStatutClass(statut: string): string {
+  const classes: Record<string, string> = {
+    'priorite': 'bg-[#C4A855] text-white',
+    'en_cours': 'bg-[#4A7C59] text-white',
+    'a_faire': 'bg-[#2C2824] text-white',
+    'attente': 'bg-white/10 text-white/60 border border-white/20',
+    'planifie': 'bg-white/5 text-white/40',
+    'objectif': 'bg-[#4A7C59] text-white',
+    'attente_devis': 'bg-orange-500/80 text-white',
+    'bloque': 'bg-red-500/80 text-white',
+  }
+  return classes[statut] || 'bg-white/10 text-white/60'
+}
+
+function getStatutLabel(statut: string): string {
+  const labels: Record<string, string> = {
+    'priorite': 'Priorite',
+    'en_cours': 'En cours',
+    'a_faire': 'A faire',
+    'attente': 'En attente',
+    'planifie': 'Planifie',
+    'objectif': 'Objectif',
+    'attente_devis': 'Devis attendu',
+    'bloque': 'Bloque',
+  }
+  return labels[statut] || statut
+}
+
+function getProgressColor(percent: number): string {
+  if (percent >= 80) return 'bg-[#4A7C59]'
+  if (percent >= 40) return 'bg-[#C4A855]'
+  if (percent > 0) return 'bg-orange-500'
+  return 'bg-[#2C2824]/20'
+}
+---
+
+<Layout
+  title="Chantier 2026 — Planning & Travaux | LAOM"
+  description="Document de travail interne — Planning des travaux et chantiers 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .travaux-badge { background: #C4A855; color: white; }
+    .event-badge { background: #2C2824; color: white; }
+    .vie-badge { background: #4A7C59; color: white; }
+    .progress-bar { height: 8px; border-radius: 4px; background: rgba(0,0,0,0.1); overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-6">
+          <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace associes</h2>
+        <p class="text-white/50 text-sm">Planning chantier reserve aux associes LAOM</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/chantier-2026/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-32 pb-12 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">Grand Shambala</span>
+        <span class="text-white/20">·</span>
+        <span class="text-xs font-light text-white/40">Fevrier 2026</span>
+      </div>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
+        Chantier 2026
+      </h1>
+      <p class="text-lg font-light text-white/60 max-w-2xl">
+        Vue complete du batiment — Fiches par lot et travaux mutualises
+      </p>
+
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-10 pt-8 border-t border-white/10">
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#C4A855]">{surfaceTotale}m²</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Surface totale</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">{lots.length}</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Lots</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">{totalJoursTravaux}j</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Jours travaux</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">{totalBudgetMin}-{totalBudgetMax}k€</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Budget mutualise</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#4A7C59]">P. 2027</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Coliving</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation rapide -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2 sm:py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm">
+        <a href="#lots" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap font-medium">Fiches lots</a>
+        <a href="#mutualises" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Travaux mutualises</a>
+        <a href="#jalons" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Jalons</a>
+        <a href="#timeline" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Timeline</a>
+        <a href="#equipe" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Equipe</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FICHES PAR LOT -->
+  <section id="lots" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="mb-10">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Vue par lot</p>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Fiches synthetiques</h2>
+        <p class="text-sm text-[#2C2824]/60 mt-2">Etat d'avancement de chaque espace du Grand Shambala</p>
+      </div>
+
+      <!-- Legende -->
+      <div class="mb-8 p-4 bg-white rounded-sm border border-black/5">
+        <p class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-3">Legende avancement</p>
+        <div class="flex flex-wrap gap-6 text-xs">
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded-sm bg-[#4A7C59]"></div>
+            <span class="text-[#2C2824]/70">Hors d'air (structure fermee)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded-sm bg-[#C4A855]"></div>
+            <span class="text-[#2C2824]/70">Second oeuvre (cloisons, plomberie, elec)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-4 h-4 rounded-sm bg-orange-500"></div>
+            <span class="text-[#2C2824]/70">Finitions (peinture, sols, mobilier)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grille des lots -->
+      <div class="grid md:grid-cols-2 gap-6">
+        {lots.map((lot) => (
+          <div class={`bg-white rounded-sm border overflow-hidden ${lot.statut === 'priorite' ? 'border-[#C4A855] shadow-md' : 'border-black/5'}`}>
+            <!-- Header du lot -->
+            <div class={`px-5 py-4 flex items-center justify-between ${lot.statut === 'priorite' ? 'bg-[#C4A855]/10' : 'bg-[#FAF8F5]'}`}>
+              <div>
+                <h3 class={`font-medium text-lg ${lot.statut === 'priorite' ? 'text-[#C4A855]' : 'text-[#2C2824]'}`}>{lot.nom}</h3>
+                <p class="text-xs text-[#2C2824]/50">{lot.proprio} · {lot.surface}m²</p>
+              </div>
+              <span class={`badge ${getStatutClass(lot.statut)}`}>{getStatutLabel(lot.statut)}</span>
+            </div>
+
+            <!-- Corps du lot -->
+            <div class="p-5 space-y-4">
+              <!-- Barres de progression -->
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-[#2C2824]/60">Hors d'air</span>
+                    <span class="font-medium text-[#2C2824]">{lot.horsAir}%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class={`progress-fill ${getProgressColor(lot.horsAir)}`} style={`width: ${lot.horsAir}%`}></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-[#2C2824]/60">Second oeuvre</span>
+                    <span class="font-medium text-[#2C2824]">{lot.secondOeuvre}%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class={`progress-fill ${getProgressColor(lot.secondOeuvre)}`} style={`width: ${lot.secondOeuvre}%`}></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="text-[#2C2824]/60">Finitions</span>
+                    <span class="font-medium text-[#2C2824]">{lot.finitions}%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class={`progress-fill ${getProgressColor(lot.finitions)}`} style={`width: ${lot.finitions}%`}></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Prochaines etapes -->
+              <div>
+                <p class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-2">Prochaines etapes</p>
+                <div class="flex flex-wrap gap-1">
+                  {lot.prochaines.map((etape, i) => (
+                    <span class={`text-xs px-2 py-1 rounded-sm ${i === 0 ? 'bg-[#2C2824] text-white' : 'bg-[#FAF8F5] text-[#2C2824]/70'}`}>{etape}</span>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Notes -->
+              {lot.notes && (
+                <p class={`text-xs ${lot.statut === 'priorite' ? 'text-[#C4A855] font-medium' : 'text-[#2C2824]/50 italic'}`}>{lot.notes}</p>
+              )}
+
+              <!-- Budget si present -->
+              {lot.budget && (
+                <div class="pt-2 border-t border-black/5">
+                  <span class="text-xs text-[#2C2824]/40">Budget estime : </span>
+                  <span class="text-xs font-medium text-[#C4A855]">{lot.budget}</span>
+                </div>
+              )}
+
+              <!-- Deadline si presente -->
+              {lot.deadline && (
+                <div class="pt-2 border-t border-[#C4A855]/30 bg-[#C4A855]/5 -mx-5 -mb-5 px-5 py-3">
+                  <span class="text-xs font-medium text-[#C4A855]">Deadline : {lot.deadline}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAVAUX MUTUALISES -->
+  <section id="mutualises" class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/50 mb-2">Infrastructures communes</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Travaux mutualises</h2>
+        </div>
+        <div class="text-right">
+          <p class="font-playfair text-2xl font-medium text-[#C4A855]">{totalBudgetMin}-{totalBudgetMax}k€</p>
+          <p class="text-xs text-[#2C2824]/40">Budget total</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        {travauxMutualises.map((t) => (
+          <div class={`bg-[#FAF8F5] rounded-sm border ${t.statut === 'bloque' ? 'border-red-300' : 'border-black/5'} overflow-hidden`}>
+            <div class="p-4 sm:p-5">
+              <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+                <div class="flex-1">
+                  <div class="flex items-center gap-3 mb-2">
+                    <h3 class="font-medium text-lg text-[#2C2824]">{t.nom}</h3>
+                    <span class={`badge ${getStatutClass(t.statut)}`}>{getStatutLabel(t.statut)}</span>
+                  </div>
+                  <p class="text-sm text-[#2C2824]/60 mb-2">{t.desc}</p>
+                  {t.blocker && (
+                    <p class="text-xs text-red-500 font-medium">Blocker : {t.blocker}</p>
+                  )}
+                  {t.impact && (
+                    <p class="text-xs text-[#2C2824]/40 mt-1">Impact : {t.impact}</p>
+                  )}
+                </div>
+                <div class="grid grid-cols-4 gap-3 text-center min-w-[280px]">
+                  <div class="bg-white rounded-sm p-2">
+                    <p class="font-playfair text-lg font-medium text-[#2C2824]">{t.jours}</p>
+                    <p class="text-[10px] text-[#2C2824]/40 uppercase">Jours</p>
+                  </div>
+                  <div class="bg-white rounded-sm p-2">
+                    <p class="font-playfair text-lg font-medium text-[#C4A855]">{t.budget}</p>
+                    <p class="text-[10px] text-[#2C2824]/40 uppercase">Budget</p>
+                  </div>
+                  <div class="bg-white rounded-sm p-2">
+                    <p class="text-sm font-medium text-[#2C2824]">{t.equipe}</p>
+                    <p class="text-[10px] text-[#2C2824]/40 uppercase">Equipe</p>
+                  </div>
+                  <div class="bg-white rounded-sm p-2">
+                    <p class="text-sm font-medium text-[#2C2824]">{t.periode}</p>
+                    <p class="text-[10px] text-[#2C2824]/40 uppercase">Periode</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- JALONS -->
+  <section id="jalons" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="mb-10">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-2">Vue d'ensemble</p>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Jalons 2026</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {jalons.map((j, i) => (
+          <div class={`flex items-center gap-3 p-3 rounded-sm ${j.statut === 'priorite' ? 'bg-[#C4A855]/10 border border-[#C4A855]/30' : j.statut === 'objectif' ? 'bg-[#4A7C59]/10 border border-[#4A7C59]/30' : 'bg-white border border-black/5'}`}>
+            <div class="w-7 h-7 rounded-full bg-[#2C2824] text-white flex items-center justify-center text-xs font-medium flex-shrink-0">
+              {i + 1}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class={`font-medium text-sm truncate ${j.statut === 'priorite' ? 'text-[#C4A855]' : j.statut === 'objectif' ? 'text-[#4A7C59]' : 'text-[#2C2824]'}`}>{j.nom}</p>
+              <p class="text-xs text-[#2C2824]/50">{j.date}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline" class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Planning mensuel</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Timeline 2026</h2>
+        </div>
+        <div class="flex gap-4 text-xs">
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#C4A855]"></span> Travaux</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#2C2824]"></span> Events</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-[#4A7C59]"></span> Vie du lieu</span>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        {timeline.map((mois) => (
+          <div class="flex gap-4 sm:gap-6 pb-4 border-b border-black/5 last:border-0">
+            <div class="w-20 sm:w-24 flex-shrink-0">
+              <p class="font-playfair text-base sm:text-lg font-medium text-[#2C2824]">{mois.mois}</p>
+            </div>
+            <div class="flex-1 space-y-2">
+              {mois.travaux.length > 0 && (
+                <div class="flex flex-wrap gap-1">
+                  {mois.travaux.map((t) => (
+                    <span class="badge travaux-badge">{t}</span>
+                  ))}
+                </div>
+              )}
+              {mois.events.length > 0 && (
+                <div class="flex flex-wrap gap-1">
+                  {mois.events.map((e) => (
+                    <span class="badge event-badge">{e}</span>
+                  ))}
+                </div>
+              )}
+              {mois.vie.length > 0 && (
+                <div class="flex flex-wrap gap-1">
+                  {mois.vie.map((v) => (
+                    <span class="badge vie-badge">{v}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPE -->
+  <section id="equipe" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="mb-10">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#4A7C59] mb-2">Ressources humaines</p>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Equipe 2026</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        {equipe.map((e) => (
+          <div class="bg-white rounded-sm border border-black/5 p-4">
+            <h3 class="font-medium text-[#2C2824] mb-1">{e.nom}</h3>
+            <p class="text-xs text-[#2C2824]/60 mb-2">{e.role}</p>
+            <div class="flex justify-between text-xs">
+              <span class="text-[#2C2824]/40">{e.dispo}</span>
+              <span class="font-medium text-[#C4A855]">{e.cout}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 p-4 bg-[#4A7C59]/10 border border-[#4A7C59]/20 rounded-sm">
+        <p class="text-sm text-[#4A7C59]">
+          <strong>Note :</strong> David Coste veut travailler AVEC Charly, pas seul avec Khaldoun. Les 5 mois de David = Charly present sur le chantier.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-8 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+      <p class="text-xs text-white/30">
+        Document genere le 5 fevrier 2026 — Session planning Charly & NILA
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Password protection logic
+    const PASSWORD = 'laom2026'
+    const STORAGE_KEY = 'laom_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>

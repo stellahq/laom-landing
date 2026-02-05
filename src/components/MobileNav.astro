@@ -1,0 +1,178 @@
+---
+// Navigation responsive pour l'espace associés
+// Hamburger menu sur mobile, liens horizontaux sur desktop
+
+interface Props {
+  currentPage?: string
+}
+
+const { currentPage = '' } = Astro.props
+
+const mainLinks = [
+  { href: '/previsionnel-2026/', label: 'Prévisionnel', short: 'Previ.' },
+  { href: '/strategie-2026/', label: 'Stratégie', short: 'Strat.' },
+  { href: '/chantier-2026/', label: 'Chantier', short: 'Chantier' },
+  { href: '/ferme-jardin-guinguette/', label: 'Vie du lieu', short: 'Vie du lieu' },
+  { href: '/camp-nomade/', label: 'Camp Nomade', short: 'Camp' },
+]
+
+const teamLinks = [
+  { href: '/lorenzo/', label: 'Lorenzo', short: 'Lorenzo' },
+  { href: '/khaldoun/', label: 'Khaldoun', short: 'Khaldoun' },
+]
+
+const cockpitLink = { href: '/cockpit/', label: 'Cockpit Charly', short: 'Cockpit' }
+
+function isActive(href: string): boolean {
+  return currentPage === href || currentPage === href.replace(/\/$/, '')
+}
+---
+
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10" data-mobile-nav>
+  <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+    <!-- Logo / Retour -->
+    <a href="/" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span class="hidden sm:inline">LAOM</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-1">
+      <span class="text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associés</span>
+      {mainLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(link.href) ? 'text-white bg-white/10' : 'text-white/50 hover:text-white hover:bg-white/5'}`}
+        >
+          {link.short}
+        </a>
+      ))}
+      <span class="mx-2 text-white/20">|</span>
+      {teamLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(link.href) ? 'text-[#4A7C59] bg-[#4A7C59]/10' : 'text-[#4A7C59]/70 hover:text-[#4A7C59] hover:bg-[#4A7C59]/10'}`}
+        >
+          {link.short}
+        </a>
+      ))}
+      <a 
+        href={cockpitLink.href} 
+        class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(cockpitLink.href) ? 'text-[#C4A855] bg-[#C4A855]/10' : 'text-[#C4A855]/70 hover:text-[#C4A855] hover:bg-[#C4A855]/10'}`}
+      >
+        {cockpitLink.short}
+      </a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <button 
+      data-menu-toggle
+      class="md:hidden w-12 h-12 flex items-center justify-center text-white/70 hover:text-white transition-colors -mr-2"
+      aria-label="Menu"
+      type="button"
+    >
+      <svg data-hamburger-icon class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg data-close-icon class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div data-mobile-menu class="fixed inset-0 z-[60] bg-[#1a1a1a] hidden" style="padding-top: 56px;">
+  <div class="h-full overflow-y-auto px-6 py-8">
+    <!-- Label -->
+    <p class="text-xs font-light tracking-[0.2em] uppercase text-white/30 mb-6">Espace associés</p>
+    
+    <!-- Main Links -->
+    <div class="space-y-1 mb-8">
+      {mainLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(link.href) ? 'text-white bg-white/10' : 'text-white/70 hover:text-white hover:bg-white/5'}`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Separator -->
+    <div class="border-t border-white/10 my-6"></div>
+
+    <!-- Team Label -->
+    <p class="text-xs font-light tracking-[0.2em] uppercase text-[#4A7C59]/70 mb-4">Équipe</p>
+    
+    <!-- Team Links -->
+    <div class="space-y-1 mb-8">
+      {teamLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(link.href) ? 'text-[#4A7C59] bg-[#4A7C59]/10' : 'text-[#4A7C59]/70 hover:text-[#4A7C59] hover:bg-[#4A7C59]/5'}`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Separator -->
+    <div class="border-t border-white/10 my-6"></div>
+
+    <!-- Cockpit -->
+    <a 
+      href={cockpitLink.href} 
+      class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(cockpitLink.href) ? 'text-[#C4A855] bg-[#C4A855]/10' : 'text-[#C4A855]/70 hover:text-[#C4A855] hover:bg-[#C4A855]/5'}`}
+    >
+      {cockpitLink.label}
+    </a>
+  </div>
+</div>
+
+<script is:inline>
+  // Mobile menu toggle - using data attributes for robustness
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuButton = document.querySelector('[data-menu-toggle]')
+    const mobileMenu = document.querySelector('[data-mobile-menu]')
+    const hamburgerIcon = document.querySelector('[data-hamburger-icon]')
+    const closeIcon = document.querySelector('[data-close-icon]')
+
+    if (!menuButton || !mobileMenu) return
+
+    let isOpen = false
+
+    const toggleMenu = () => {
+      isOpen = !isOpen
+      
+      if (isOpen) {
+        mobileMenu.classList.remove('hidden')
+        hamburgerIcon?.classList.add('hidden')
+        closeIcon?.classList.remove('hidden')
+        document.body.style.overflow = 'hidden'
+      } else {
+        mobileMenu.classList.add('hidden')
+        hamburgerIcon?.classList.remove('hidden')
+        closeIcon?.classList.add('hidden')
+        document.body.style.overflow = ''
+      }
+    }
+
+    menuButton.addEventListener('click', toggleMenu)
+
+    // Close menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (isOpen) toggleMenu()
+      })
+    })
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) toggleMenu()
+    })
+  })
+</script>

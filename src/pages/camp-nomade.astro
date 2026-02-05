@@ -1,0 +1,566 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// DONNEES CAMP NOMADE
+// ==========================================
+
+const campData = {
+  emplacement: 'Terrain ferme (zone agricole)',
+  periode: '15 juillet - 15 septembre 2026',
+  capacite: '5-6 familles',
+  prix1mois: '350€',
+  prix2mois: '600€',
+}
+
+const inclus = [
+  {
+    cat: 'Emplacement',
+    icon: '⛺',
+    items: ['Espace pour tente, van, caravane', 'Zone ombragee ou ensoleilee', 'Acces eau potable']
+  },
+  {
+    cat: 'Sanitaires',
+    icon: '🚿',
+    items: ['Douches chaudes', 'WC', 'Point d\'eau vaisselle']
+  },
+  {
+    cat: 'Cuisine',
+    icon: '🍳',
+    items: ['Cuisine d\'ete partagee', 'Rechauds, evier', 'Refrigerateur commun']
+  },
+  {
+    cat: 'Vie du lieu',
+    icon: '🌿',
+    items: ['Acces guinguette', 'Events LAOM (si places)', 'Riviere, foret, prairie']
+  },
+]
+
+const journeeType = [
+  { heure: '7h-9h', activite: 'Reveil libre, petit-dejeuner au campement' },
+  { heure: '9h-12h', activite: 'Baignade riviere, balade foret, jeux enfants' },
+  { heure: '12h-14h', activite: 'Dejeuner (guinguette ou campement)' },
+  { heure: '14h-17h', activite: 'Sieste, lecture, ateliers enfants' },
+  { heure: '17h-19h', activite: 'Baignade, jeux collectifs' },
+  { heure: '19h-21h', activite: 'Diner (guinguette ou campement)' },
+  { heure: '21h+', activite: 'Veillee, feu de camp, etoiles' },
+]
+
+const activitesEnfants = [
+  'Cabanes et jeux libres dans la nature',
+  'Baignade riviere (surveillee par les parents)',
+  'Observation animaux, insectes, plantes',
+  'Ateliers creatifs (selon disponibilite)',
+  'Jardinage participatif',
+]
+
+const activitesProximite = [
+  'Randonnees Parc Naturel des Grands Causses',
+  'Escalade (sites naturels)',
+  'Villages medievaux',
+  'Marches locaux',
+]
+
+const regles = [
+  { cat: 'Respect du lieu', items: ['Pas de dechets nature', 'Tri selectif', 'Calme 22h-8h', 'Pas de musique amplifiee'] },
+  { cat: 'Communaute', items: ['Respect des autres', 'Surveillance enfants par parents', 'Participation taches (optionnel)', 'Bienveillance'] },
+  { cat: 'Securite', items: ['Feux zones prevues seulement', 'Baignade responsabilite parentale', 'Premiers secours dispo'] },
+]
+
+const aApporter = [
+  'Tente / van / caravane',
+  'Couchage (draps, couettes)',
+  'Vetements chaleur + fraicheur soir',
+  'Chaussures de marche',
+  'Maillots de bain',
+  'Lampe frontale',
+  'Produits hygiene biodegradables',
+]
+
+const onFournit = [
+  'Eau potable',
+  'Electricite (prises limitees)',
+  'Wifi (zone commune)',
+  'Outils de base',
+]
+
+const faq = [
+  { q: 'Peut-on venir avec un bebe ?', r: 'Oui, les bebes sont bienvenus. Prevoyez votre equipement (lit bebe, etc.).' },
+  { q: 'Y a-t-il de l\'ombre ?', r: 'Oui, le terrain ferme a des zones ombragees par les arbres.' },
+  { q: 'Peut-on venir juste une semaine ?', r: 'Non, le camp est prevu pour 1 mois minimum. Ca permet de vraiment s\'installer et creer des liens.' },
+  { q: 'Les chiens sont-ils acceptes ?', r: 'A discuter au cas par cas. Contactez-nous.' },
+  { q: 'Y a-t-il du reseau ?', r: 'Oui, couverture 4G correcte. Wifi en zone commune.' },
+]
+
+const calendrier = [
+  { periode: 'Fevrier-Mars', etape: 'Communication, inscriptions' },
+  { periode: 'Avril-Mai', etape: 'Confirmation places, acomptes' },
+  { periode: 'Juin', etape: 'Preparation terrain' },
+  { periode: '15 juillet', etape: 'Ouverture camp', highlight: true },
+  { periode: 'Juillet-Aout', etape: 'Vie du camp' },
+  { periode: '15 septembre', etape: 'Fermeture camp', highlight: true },
+]
+
+const budget = {
+  revenus5: '3 000€',
+  revenus6: '3 600€',
+  charges: '~450€',
+  marge5: '~2 550€',
+  marge6: '~3 150€',
+}
+---
+
+<Layout
+  title="Camp Nomade Familial — Ete 2026 | LAOM"
+  description="Un ete en famille au coeur de LAOM — 5-6 familles, 15 juillet - 15 septembre"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .camp-badge { background: #4A7C59; color: white; }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#4A7C59]/10 border border-[#4A7C59]/20 mb-6">
+          <svg class="w-8 h-8 text-[#4A7C59]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace associes</h2>
+        <p class="text-white/50 text-sm">Camp Nomade — reserve aux associes LAOM</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#4A7C59]/50 focus:ring-1 focus:ring-[#4A7C59]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#4A7C59] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3d6a4a] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/camp-nomade/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-32 pb-12 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">LAOM</span>
+        <span class="text-white/20">·</span>
+        <span class="text-xs font-light text-white/40">Ete 2026</span>
+      </div>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
+        Camp Nomade Familial
+      </h1>
+      <p class="text-lg font-light text-white/60 max-w-2xl">
+        Un ete en famille, les pieds dans l'herbe, au coeur de LAOM
+      </p>
+
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 pt-8 border-t border-white/10">
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#4A7C59]">5-6</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Familles</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">2 mois</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">15 juil - 15 sept</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#C4A855]">350€</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Par mois</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">Tout inclus</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Formule</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation rapide -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2 sm:py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm">
+        <a href="#concept" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap font-medium">Concept</a>
+        <a href="#inclus" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap">Ce qui est inclus</a>
+        <a href="#journee" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap">Journee type</a>
+        <a href="#pratique" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap">Pratique</a>
+        <a href="#tarifs" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Tarifs</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== CONCEPT ==================== -->
+  <section id="concept" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="max-w-3xl">
+        <span class="badge camp-badge mb-4">Vision</span>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-6">
+          L'opportunite de vivre deux mois d'ete en pleine nature, en communaute
+        </h2>
+        <p class="text-[#2C2824]/70 leading-relaxed mb-6">
+          Le Camp Nomade Familial, c'est l'opportunite pour 5-6 familles avec enfants de vivre au coeur de LAOM : 
+          la guinguette, les events, la riviere, les 21 hectares de foret et de prairie.
+        </p>
+        <p class="text-[#2C2824]/70 leading-relaxed">
+          C'est une experience de vie simple, belle, et connectee — pour les parents comme pour les enfants.
+        </p>
+      </div>
+
+      <div class="mt-10 grid sm:grid-cols-3 gap-6">
+        <div class="bg-white rounded-sm border border-black/5 p-6">
+          <div class="w-12 h-12 rounded-full bg-[#4A7C59]/10 flex items-center justify-center mb-4">
+            <span class="text-2xl">🌳</span>
+          </div>
+          <h3 class="font-medium text-[#2C2824] mb-2">Nature</h3>
+          <p class="text-sm text-[#2C2824]/60">21 hectares de foret, prairie, riviere. Les enfants jouent libres.</p>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 p-6">
+          <div class="w-12 h-12 rounded-full bg-[#4A7C59]/10 flex items-center justify-center mb-4">
+            <span class="text-2xl">👨‍👩‍👧‍👦</span>
+          </div>
+          <h3 class="font-medium text-[#2C2824] mb-2">Communaute</h3>
+          <p class="text-sm text-[#2C2824]/60">5-6 familles qui partagent l'ete, creent des liens, s'entraident.</p>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 p-6">
+          <div class="w-12 h-12 rounded-full bg-[#4A7C59]/10 flex items-center justify-center mb-4">
+            <span class="text-2xl">🍽️</span>
+          </div>
+          <h3 class="font-medium text-[#2C2824] mb-2">Guinguette</h3>
+          <p class="text-sm text-[#2C2824]/60">Repas disponibles sur place. Pas besoin de cuisiner tous les jours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CE QUI EST INCLUS ==================== -->
+  <section id="inclus" class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="mb-10">
+        <span class="badge camp-badge mb-4">Formule</span>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Ce qui est inclus</h2>
+        <p class="text-sm text-[#2C2824]/60 mt-2">Tout inclus — vous n'avez qu'a apporter votre habitat et votre bonne humeur</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {inclus.map((i) => (
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 overflow-hidden">
+            <div class="px-4 py-3 bg-[#4A7C59]/10 border-b border-black/5 flex items-center gap-2">
+              <span class="text-xl">{i.icon}</span>
+              <h3 class="font-medium text-[#2C2824]">{i.cat}</h3>
+            </div>
+            <div class="p-4">
+              <ul class="space-y-2">
+                {i.items.map((item) => (
+                  <li class="text-sm text-[#2C2824]/70 flex items-start gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#4A7C59] mt-1.5 flex-shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JOURNEE TYPE ==================== -->
+  <section id="journee" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="grid lg:grid-cols-2 gap-10">
+        <!-- Journee type -->
+        <div>
+          <span class="badge camp-badge mb-4">Rythme</span>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-6">Journee type</h2>
+          
+          <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+            <div class="divide-y divide-black/5">
+              {journeeType.map((j) => (
+                <div class="flex gap-4 px-4 py-3">
+                  <span class="text-sm font-medium text-[#4A7C59] w-16 flex-shrink-0">{j.heure}</span>
+                  <span class="text-sm text-[#2C2824]/70">{j.activite}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Activites -->
+        <div>
+          <span class="badge camp-badge mb-4">Enfants</span>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-6">Activites</h2>
+          
+          <div class="space-y-4">
+            <div class="bg-white rounded-sm border border-black/5 p-4">
+              <h3 class="font-medium text-[#2C2824] mb-3">Sur place</h3>
+              <ul class="space-y-2">
+                {activitesEnfants.map((a) => (
+                  <li class="text-sm text-[#2C2824]/70 flex items-start gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#4A7C59] mt-1.5 flex-shrink-0"></span>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="bg-white rounded-sm border border-black/5 p-4">
+              <h3 class="font-medium text-[#2C2824] mb-3">A proximite</h3>
+              <ul class="space-y-2">
+                {activitesProximite.map((a) => (
+                  <li class="text-sm text-[#2C2824]/70 flex items-start gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#C4A855] mt-1.5 flex-shrink-0"></span>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== REGLES ==================== -->
+  <section class="py-12 sm:py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="mb-8">
+        <h2 class="font-playfair text-xl font-medium text-[#2C2824] tracking-tight">Regles de vie</h2>
+        <p class="text-sm text-[#2C2824]/60 mt-1">Pour que l'experience soit belle pour tous</p>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-4">
+        {regles.map((r) => (
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+            <h3 class="font-medium text-[#2C2824] mb-3 text-sm">{r.cat}</h3>
+            <ul class="space-y-1">
+              {r.items.map((item) => (
+                <li class="text-xs text-[#2C2824]/60">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PRATIQUE ==================== -->
+  <section id="pratique" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="mb-10">
+        <span class="badge camp-badge mb-4">Pratique</span>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Venir au camp</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- A apporter -->
+        <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+          <div class="px-5 py-4 bg-[#4A7C59]/10 border-b border-black/5">
+            <h3 class="font-medium text-[#4A7C59]">Quoi apporter</h3>
+          </div>
+          <div class="p-5">
+            <ul class="space-y-2">
+              {aApporter.map((a) => (
+                <li class="text-sm text-[#2C2824]/70 flex items-center gap-2">
+                  <span class="w-4 h-4 rounded-sm border border-[#4A7C59]/30 flex-shrink-0"></span>
+                  {a}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- On fournit -->
+        <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+          <div class="px-5 py-4 bg-[#4A7C59]/10 border-b border-black/5">
+            <h3 class="font-medium text-[#4A7C59]">Ce qu'on fournit</h3>
+          </div>
+          <div class="p-5">
+            <ul class="space-y-2">
+              {onFournit.map((f) => (
+                <li class="text-sm text-[#2C2824]/70 flex items-center gap-2">
+                  <span class="w-4 h-4 rounded-full bg-[#4A7C59] flex items-center justify-center flex-shrink-0">
+                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Adresse -->
+          <div class="px-5 py-4 bg-[#FAF8F5] border-t border-black/5">
+            <p class="text-xs text-[#2C2824]/60 uppercase tracking-wider mb-1">Adresse</p>
+            <p class="text-sm text-[#2C2824] font-medium">LAOM, Coupiac, Aveyron</p>
+            <p class="text-xs text-[#2C2824]/50 mt-1">Voiture recommandee (routes de campagne)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="mt-10">
+        <h3 class="font-medium text-[#2C2824] mb-4">Questions frequentes</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          {faq.map((f) => (
+            <div class="bg-white rounded-sm border border-black/5 p-4">
+              <p class="font-medium text-[#2C2824] text-sm mb-1">{f.q}</p>
+              <p class="text-xs text-[#2C2824]/60">{f.r}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TARIFS ==================== -->
+  <section id="tarifs" class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="mb-10">
+        <span class="badge guinguette-badge mb-4">Tarifs</span>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Reservation</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Tarifs -->
+        <div class="space-y-4">
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-medium text-[#2C2824]">1 mois</h3>
+              <p class="font-playfair text-2xl font-medium text-[#C4A855]">{campData.prix1mois}</p>
+            </div>
+            <p class="text-xs text-[#2C2824]/50">15 juil - 15 aout OU 15 aout - 15 sept</p>
+          </div>
+
+          <div class="bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/30 p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-medium text-[#C4A855]">2 mois</h3>
+                <span class="text-xs text-[#C4A855]/70">Recommande</span>
+              </div>
+              <p class="font-playfair text-2xl font-medium text-[#C4A855]">{campData.prix2mois}</p>
+            </div>
+            <p class="text-xs text-[#2C2824]/50">15 juillet - 15 septembre (complet)</p>
+          </div>
+
+          <p class="text-xs text-[#2C2824]/40 italic">Prix par emplacement (1 famille). Enfants inclus.</p>
+
+          <!-- Modes paiement -->
+          <div class="pt-4">
+            <p class="text-xs text-[#2C2824]/60 mb-2">Modes de paiement</p>
+            <div class="flex gap-2">
+              <span class="text-xs px-2 py-1 bg-[#FAF8F5] text-[#2C2824]/60 rounded-sm">Virement</span>
+              <span class="text-xs px-2 py-1 bg-[#FAF8F5] text-[#2C2824]/60 rounded-sm">Especes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inscription -->
+        <div class="bg-[#2C2824] rounded-sm p-6 text-white">
+          <h3 class="font-playfair text-xl font-medium mb-4">Comment s'inscrire</h3>
+          <ol class="space-y-4 mb-6">
+            <li class="flex gap-3">
+              <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-medium flex-shrink-0">1</span>
+              <span class="text-sm text-white/70">Contacter LAOM (email ou telephone)</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-medium flex-shrink-0">2</span>
+              <span class="text-sm text-white/70">Echange telephonique pour faire connaissance</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-medium flex-shrink-0">3</span>
+              <span class="text-sm text-white/70">Confirmation et acompte (50%)</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-medium flex-shrink-0">4</span>
+              <span class="text-sm text-white/70">Solde a l'arrivee</span>
+            </li>
+          </ol>
+
+          <div class="pt-4 border-t border-white/10">
+            <p class="text-xs text-white/40 uppercase tracking-wider mb-2">Contact</p>
+            <p class="text-sm">orion.aubert@gmail.com</p>
+            <p class="text-sm">06.73.68.35.73</p>
+            <p class="text-xs text-white/50 mt-1">Charly & Amandine</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendrier -->
+      <div class="mt-10">
+        <h3 class="font-medium text-[#2C2824] mb-4">Calendrier 2026</h3>
+        <div class="flex flex-wrap gap-3">
+          {calendrier.map((c) => (
+            <div class={`px-4 py-2 rounded-sm ${c.highlight ? 'bg-[#4A7C59] text-white' : 'bg-[#FAF8F5] border border-black/5'}`}>
+              <p class={`text-xs font-medium ${c.highlight ? 'text-white' : 'text-[#2C2824]'}`}>{c.periode}</p>
+              <p class={`text-xs ${c.highlight ? 'text-white/70' : 'text-[#2C2824]/50'}`}>{c.etape}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Citation -->
+  <section class="py-12 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+      <p class="font-playfair text-lg text-[#2C2824]/80 italic max-w-2xl mx-auto">
+        "Le Camp Nomade Familial, c'est l'ete a LAOM pour les familles. Simple, beau, connecte."
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-8 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+      <p class="text-xs text-white/30">
+        Document genere le 5 fevrier 2026 — Session planning Charly & NILA
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Password protection logic
+    const PASSWORD = 'laom2026'
+    const STORAGE_KEY = 'laom_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>

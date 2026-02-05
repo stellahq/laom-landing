@@ -1,0 +1,453 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// DONNEES KHALDOUN (FR + AR)
+// ==========================================
+
+const profilFr = {
+  nom: 'Khaldoun',
+  roles: ['Ouvrier polyvalent', 'Soutien cuisine'],
+  contrat: '12 mois',
+  salaire: '2 000 EUR / mois',
+  contact: '06.73.68.35.73 (Charly)',
+}
+
+const profilAr = {
+  nom: 'خلدون',
+  roles: ['عامل متعدد المهام', 'دعم المطبخ'],
+  contrat: '12 شهر',
+  salaire: '2,000 يورو / شهر',
+  contact: '06.73.68.35.73 (شارلي)',
+}
+
+const travauxFr = [
+  {
+    periode: 'FEVRIER - MARS',
+    taches: [
+      'Electricite Grand Shambala (avec Charly)',
+      'Corten + etancheite facades (15 jours)',
+      'Cloisons etage',
+    ]
+  },
+  {
+    periode: 'AVRIL - MAI',
+    taches: [
+      'Studio Charly (avec Charly)',
+      'Preparation paysagement',
+    ]
+  },
+  {
+    periode: 'JUIN',
+    taches: [
+      'Installation guinguette (avec Charly)',
+      'Monter tente 300m²',
+      'Equipements cuisine',
+    ]
+  },
+  {
+    periode: 'JUILLET',
+    taches: [
+      'Terrasses communes (avec Charly + David Coste)',
+      'Assainissement si SPANC OK',
+    ]
+  },
+  {
+    periode: 'AOUT - SEPTEMBRE',
+    taches: [
+      'Paysagement (avec David Coste)',
+      'Terrassement + drainage',
+      'Chemins + plantations',
+    ]
+  },
+]
+
+const travauxAr = [
+  {
+    periode: 'فبراير - مارس',
+    taches: [
+      'كهرباء غراند شامبالا (مع شارلي)',
+      'كورتن + عزل الواجهات (15 يوم)',
+      'فواصل الطابق',
+    ]
+  },
+  {
+    periode: 'أبريل - مايو',
+    taches: [
+      'استوديو شارلي (مع شارلي)',
+      'تحضير تنسيق الحدائق',
+    ]
+  },
+  {
+    periode: 'يونيو',
+    taches: [
+      'تركيب مطعم الحديقة (مع شارلي)',
+      'نصب الخيمة 300 متر مربع',
+      'معدات المطبخ',
+    ]
+  },
+  {
+    periode: 'يوليو',
+    taches: [
+      'الشرفات المشتركة (مع شارلي + دافيد كوست)',
+      'الصرف الصحي إذا وافق SPANC',
+    ]
+  },
+  {
+    periode: 'أغسطس - سبتمبر',
+    taches: [
+      'تنسيق الحدائق (مع دافيد كوست)',
+      'تسوية الأرض + الصرف',
+      'الممرات + الزراعة',
+    ]
+  },
+]
+
+const cuisineFr = {
+  titre: 'Cuisine (ete)',
+  sousTitre: 'Soutien equipe Lorenzo',
+  taches: [
+    'Preparation mezzes syriens',
+    'Baklava maison (pistaches, miel, fleur d\'oranger)',
+    'Soutien general en cuisine',
+    'Aide service si besoin',
+  ]
+}
+
+const cuisineAr = {
+  titre: 'المطبخ (صيف)',
+  sousTitre: 'دعم فريق لورينزو',
+  taches: [
+    'تحضير المقبلات السورية',
+    'بقلاوة منزلية (فستق، عسل، ماء زهر)',
+    'دعم عام في المطبخ',
+    'مساعدة في الخدمة عند الحاجة',
+  ]
+}
+
+const quotidienFr = {
+  titre: 'Au quotidien',
+  items: [
+    { label: 'Point matin avec Charly', desc: 'Chaque jour, planning de la journee' },
+    { label: 'Autonomie sur les taches', desc: 'Tu sais ce qu\'il faut faire' },
+    { label: 'Renfort la ou c\'est necessaire', desc: 'Flexibilite selon les priorites' },
+  ]
+}
+
+const quotidienAr = {
+  titre: 'اليوم العادي',
+  items: [
+    { label: 'اجتماع صباحي مع شارلي', desc: 'كل يوم، تخطيط اليوم' },
+    { label: 'استقلالية في المهام', desc: 'أنت تعرف ما يجب القيام به' },
+    { label: 'دعم حيث يلزم', desc: 'مرونة حسب الأولويات' },
+  ]
+}
+
+const labelsFr = {
+  pageTitle: 'Planning 2026',
+  travaux: 'Travaux',
+  cuisine: 'Cuisine',
+  quotidien: 'Au quotidien',
+  contact: 'Contact',
+  questionContact: 'Questions ? Contacte Charly',
+  roles: 'Roles',
+  contrat: 'Contrat',
+  salaire: 'Salaire',
+  switchLang: 'عربي',
+}
+
+const labelsAr = {
+  pageTitle: 'خطة 2026',
+  travaux: 'الأعمال',
+  cuisine: 'المطبخ',
+  quotidien: 'اليوم العادي',
+  contact: 'اتصال',
+  questionContact: 'أسئلة؟ اتصل بشارلي',
+  roles: 'الأدوار',
+  contrat: 'العقد',
+  salaire: 'الراتب',
+  switchLang: 'FR',
+}
+---
+
+<Layout
+  title="Khaldoun — Equipe LAOM 2026"
+  description="Planning et taches Khaldoun pour LAOM 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#4A7C59]/10 border border-[#4A7C59]/20 mb-6">
+          <span class="text-3xl">🔧</span>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">
+          <span data-lang="fr">Espace Khaldoun</span>
+          <span data-lang="ar" class="hidden">مساحة خلدون</span>
+        </h2>
+        <p class="text-white/50 text-sm">
+          <span data-lang="fr">Planning equipe 2026</span>
+          <span data-lang="ar" class="hidden">خطة الفريق 2026</span>
+        </p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#4A7C59]/50 focus:ring-1 focus:ring-[#4A7C59]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#4A7C59] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3d6a4a] transition-colors"
+        >
+          <span data-lang="fr">Acceder</span>
+          <span data-lang="ar" class="hidden">دخول</span>
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/khaldoun/" />
+
+  <!-- Language Toggle -->
+  <div class="fixed top-16 right-4 z-40">
+    <button 
+      id="lang-toggle"
+      class="bg-[#1a1a1a] border border-white/20 rounded-sm px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
+    >
+      <span data-lang="fr">عربي</span>
+      <span data-lang="ar" class="hidden">FR</span>
+    </button>
+  </div>
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#4A7C59]/20 flex items-center justify-center">
+          <span class="text-3xl sm:text-4xl">🔧</span>
+        </div>
+        <div>
+          <h1 class="font-playfair text-3xl sm:text-4xl font-medium text-white tracking-tight">
+            <span data-lang="fr">{profilFr.nom}</span>
+            <span data-lang="ar" class="hidden">{profilAr.nom}</span>
+          </h1>
+          <p class="text-[#4A7C59] text-sm sm:text-base">
+            <span data-lang="fr">{profilFr.roles.join(' · ')}</span>
+            <span data-lang="ar" class="hidden">{profilAr.roles.join(' · ')}</span>
+          </p>
+        </div>
+      </div>
+      
+      <div class="flex flex-wrap gap-4 text-sm">
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
+          <span class="text-white/50" data-lang="fr">Contrat : </span>
+          <span class="text-white/50 hidden" data-lang="ar">العقد : </span>
+          <span class="text-white" data-lang="fr">{profilFr.contrat}</span>
+          <span class="text-white hidden" data-lang="ar">{profilAr.contrat}</span>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
+          <span class="text-white/50" data-lang="fr">Salaire : </span>
+          <span class="text-white/50 hidden" data-lang="ar">الراتب : </span>
+          <span class="text-white" data-lang="fr">{profilFr.salaire}</span>
+          <span class="text-white hidden" data-lang="ar">{profilAr.salaire}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Travaux -->
+  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">
+        <span data-lang="fr">{labelsFr.travaux}</span>
+        <span data-lang="ar" class="hidden">{labelsAr.travaux}</span>
+      </h2>
+      
+      <!-- French version -->
+      <div data-lang="fr" class="space-y-4">
+        {travauxFr.map((periode) => (
+          <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+            <div class="px-4 sm:px-6 py-3 bg-[#4A7C59]/10 border-b border-black/5">
+              <h3 class="font-medium text-[#4A7C59]">{periode.periode}</h3>
+            </div>
+            <div class="p-4 sm:p-6">
+              <ul class="space-y-2">
+                {periode.taches.map((t) => (
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1 w-4 h-4 rounded border border-[#4A7C59]/30 flex-shrink-0"></span>
+                    <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Arabic version -->
+      <div data-lang="ar" class="hidden space-y-4" dir="rtl">
+        {travauxAr.map((periode) => (
+          <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+            <div class="px-4 sm:px-6 py-3 bg-[#4A7C59]/10 border-b border-black/5">
+              <h3 class="font-medium text-[#4A7C59]">{periode.periode}</h3>
+            </div>
+            <div class="p-4 sm:p-6">
+              <ul class="space-y-2">
+                {periode.taches.map((t) => (
+                  <li class="flex items-start gap-3">
+                    <span class="mt-1 w-4 h-4 rounded border border-[#4A7C59]/30 flex-shrink-0"></span>
+                    <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuisine -->
+  <section class="py-8 sm:py-12 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">
+        <span data-lang="fr">{cuisineFr.titre}</span>
+        <span data-lang="ar" class="hidden">{cuisineAr.titre}</span>
+      </h2>
+      <p class="text-sm text-[#2C2824]/60 mb-6">
+        <span data-lang="fr">{cuisineFr.sousTitre}</span>
+        <span data-lang="ar" class="hidden">{cuisineAr.sousTitre}</span>
+      </p>
+      
+      <!-- French -->
+      <div data-lang="fr" class="bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6">
+        <ul class="space-y-3">
+          {cuisineFr.taches.map((t) => (
+            <li class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#C4A855] flex-shrink-0"></span>
+              <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Arabic -->
+      <div data-lang="ar" class="hidden bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6" dir="rtl">
+        <ul class="space-y-3">
+          {cuisineAr.taches.map((t) => (
+            <li class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#C4A855] flex-shrink-0"></span>
+              <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quotidien -->
+  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">
+        <span data-lang="fr">{quotidienFr.titre}</span>
+        <span data-lang="ar" class="hidden">{quotidienAr.titre}</span>
+      </h2>
+      
+      <!-- French -->
+      <div data-lang="fr" class="grid sm:grid-cols-3 gap-4">
+        {quotidienFr.items.map((item) => (
+          <div class="bg-white rounded-sm border border-black/5 p-4">
+            <p class="font-medium text-[#4A7C59] mb-1">{item.label}</p>
+            <p class="text-sm text-[#2C2824]/60">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Arabic -->
+      <div data-lang="ar" class="hidden grid sm:grid-cols-3 gap-4" dir="rtl">
+        {quotidienAr.items.map((item) => (
+          <div class="bg-white rounded-sm border border-black/5 p-4">
+            <p class="font-medium text-[#4A7C59] mb-1">{item.label}</p>
+            <p class="text-sm text-[#2C2824]/60">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 sm:py-8 bg-[#1a1a1a]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 text-center">
+      <p class="text-sm text-white/50 mb-2">
+        <span data-lang="fr">{labelsFr.questionContact}</span>
+        <span data-lang="ar" class="hidden">{labelsAr.questionContact}</span>
+      </p>
+      <p class="text-white">{profilFr.contact}</p>
+    </div>
+  </section>
+
+  <script>
+    // Password protection
+    const PASSWORD = 'laom2026'
+    const STORAGE_KEY = 'laom_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+
+    // Language toggle
+    const LANG_KEY = 'khaldoun_lang'
+    let currentLang = localStorage.getItem(LANG_KEY) || 'fr'
+
+    function setLanguage(lang: string) {
+      currentLang = lang
+      localStorage.setItem(LANG_KEY, lang)
+      
+      // Toggle visibility
+      document.querySelectorAll('[data-lang="fr"]').forEach(el => {
+        (el as HTMLElement).classList.toggle('hidden', lang !== 'fr')
+      })
+      document.querySelectorAll('[data-lang="ar"]').forEach(el => {
+        (el as HTMLElement).classList.toggle('hidden', lang !== 'ar')
+      })
+      
+      // Set document direction
+      document.body.dir = lang === 'ar' ? 'rtl' : 'ltr'
+    }
+
+    // Initialize
+    setLanguage(currentLang)
+
+    // Toggle button
+    const langToggle = document.getElementById('lang-toggle')
+    langToggle?.addEventListener('click', () => {
+      setLanguage(currentLang === 'fr' ? 'ar' : 'fr')
+    })
+  </script>
+</Layout>

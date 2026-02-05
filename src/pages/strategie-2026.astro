@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
 
 export const prerender = true
 
@@ -194,26 +195,8 @@ function formatNumber(n: number): string {
     </div>
   </div>
 
-  <!-- Navbar interne -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
-      <a href="/" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
-        </svg>
-        <span class="hidden sm:inline">Retour</span>
-      </a>
-      <div class="flex items-center gap-1">
-        <span class="hidden md:inline text-xs font-light tracking-[0.15em] uppercase text-white/30 mr-4">Espace associes</span>
-        <a href="/previsionnel-2026" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-light text-white/50 hover:text-white hover:bg-white/5 rounded-sm transition-colors">
-          Previ.
-        </a>
-        <a href="/strategie-2026" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-light text-white bg-white/10 rounded-sm">
-          Strat.
-        </a>
-      </div>
-    </div>
-  </nav>
+  <!-- Navbar -->
+  <MobileNav currentPage="/strategie-2026/" />
 
   <!-- Header -->
   <section class="bg-[#1a1a1a] pt-24 sm:pt-32 pb-12 sm:pb-16">

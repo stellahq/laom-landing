@@ -1,0 +1,517 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// DONNEES JARDIN
+// ==========================================
+
+const jardinData = {
+  surface: '2000-3000 m²',
+  objectif: 'Fournir la guinguette',
+  couvert: 'Seigle (implante hiver 2025)',
+  tracteur: 'A reparer (bloc CDI + batterie)'
+}
+
+const culturesLegumes = [
+  { nom: 'Tomates', surface: '200 m²', recolte: 'Juil-Sept', usage: 'Pizzas, salades, sauces' },
+  { nom: 'Aubergines', surface: '100 m²', recolte: 'Juil-Sept', usage: 'Tandour, baba ganoush' },
+  { nom: 'Poivrons', surface: '100 m²', recolte: 'Juil-Sept', usage: 'Pizzas, mezzes' },
+  { nom: 'Courgettes', surface: '100 m²', recolte: 'Juin-Sept', usage: 'Plancha, tagines' },
+  { nom: 'Oignons', surface: '150 m²', recolte: 'Juil-Oct', usage: 'Base cuisine' },
+  { nom: 'Courges', surface: '200 m²', recolte: 'Sept-Nov', usage: 'Tagines, soupes' },
+  { nom: 'Salades', surface: '100 m²', recolte: 'Avr-Oct', usage: 'Accompagnements' },
+]
+
+const herbes = [
+  { nom: 'Basilic', usage: 'Pizzas, pesto' },
+  { nom: 'Coriandre', usage: 'Tagines, mezzes' },
+  { nom: 'Menthe', usage: 'Raita, the, desserts' },
+  { nom: 'Persil', usage: 'Taboule, base' },
+  { nom: 'Thym/Romarin', usage: 'Marinades, grillades' },
+  { nom: 'Origan', usage: 'Pizzas' },
+]
+
+const calendrierJardin = [
+  { mois: 'Fevrier', taches: ['Reparer tracteur', 'Commander semences', 'Poster annonce woofer'] },
+  { mois: 'Mars', taches: ['Broyer seigle', 'Semis sous abri', 'Planter oignons', 'Accueillir jardinier'] },
+  { mois: 'Avril', taches: ['Preparer planches', 'Installer irrigation', 'Planter herbes'] },
+  { mois: 'Mai', taches: ['Repiquer apres saints de glace', 'Pailler', 'Tuteurer tomates'] },
+  { mois: 'Juin', taches: ['Premiere recolte', 'Approvisionnement guinguette'] },
+]
+
+// ==========================================
+// DONNEES GUINGUETTE
+// ==========================================
+
+const guinguetteData = {
+  style: 'Terroir aveyronnais + epices du monde',
+  capacite: '200-250 places',
+  hypothese: '30 couverts/jour',
+  periode: 'Mi-juin a mi-septembre',
+  prix: '15-25€ le plat'
+}
+
+const cuissons = [
+  { 
+    nom: 'Four a pizza', 
+    icon: '🍕',
+    desc: 'Heritage familial — Papa avait une pizzeria, Lorenzo aussi',
+    plats: ['Pizzas farine kamut', 'Fromage de brebis local', 'Cuisson haute temperature']
+  },
+  { 
+    nom: 'Tandour indien', 
+    icon: '🔥',
+    desc: 'Cuisson par rayonnement — sophistication et profondeur',
+    plats: ['Naans maison', 'Brochettes marines', 'Aubergines tandoori']
+  },
+  { 
+    nom: 'Tagine marocain', 
+    icon: '🥘',
+    desc: 'Si Lily vient du Maroc — savoir-faire traditionnel',
+    plats: ['Agneau-pruneaux', 'Poulet-citron confit', 'Legumes du jardin']
+  },
+  { 
+    nom: 'Plancha', 
+    icon: '🥩',
+    desc: 'Cuisson directe, simplicite',
+    plats: ['Legumes grilles', 'Viandes locales Aubrac', 'Mezzes']
+  },
+]
+
+const platsSignatures = [
+  { nom: 'Pizza Aveyron', desc: 'Brebis, miel lavande, noix, roquette', prix: '18€' },
+  { nom: 'Brochettes agneau sumac', desc: 'Agneau marine, raita menthe', prix: '22€' },
+  { nom: 'Tagine agneau-pruneaux', desc: 'Confit, amandes, cannelle', prix: '24€' },
+  { nom: 'Mezze syrien', desc: 'Houmous, baba ganoush, falafels', prix: '18€' },
+  { nom: 'Entrecote Aubrac', desc: '250g, beurre herbes, frites maison', prix: '28€' },
+  { nom: 'Baklava maison', desc: 'Khaldoun — pistaches, miel, fleur oranger', prix: '7€' },
+]
+
+const equipeGuinguette = [
+  { nom: 'Lorenzo', role: 'Chef, coordination cuisine', statut: 'A confirmer' },
+  { nom: 'Lily', role: 'Tagines, cuisine marocaine', statut: 'Si elle vient du Maroc' },
+  { nom: 'Khaldoun', role: 'Soutien cuisine, mezzes, baklava', statut: 'Disponible' },
+]
+
+const checklistOuverture = [
+  { cat: 'Admin', items: ['Formation hygiene (Lorenzo)', 'Permis exploitation', 'Declaration mairie', 'Declaration DDPP'] },
+  { cat: 'Cuisine', items: ['Menus definitifs avec Lorenzo', 'Sourcer fournisseurs', 'Tester recettes (avril-mai)'] },
+  { cat: 'Installation', items: ['Monter tente 300m²', 'Equipements obligatoires', 'Preparer zone fours'] },
+]
+
+// ==========================================
+// DONNEES FERME (vision globale)
+// ==========================================
+
+const fermeVision = {
+  surface: '21 hectares',
+  zones: [
+    { nom: 'Foret', desc: 'Bois, balades, champignons' },
+    { nom: 'Prairie', desc: 'Paturage, fauche, events' },
+    { nom: 'Jardin', desc: 'Maraichage guinguette' },
+    { nom: 'Verger', desc: 'Fruitiers a terme' },
+    { nom: 'Riviere', desc: 'Baignade, fraicheur' },
+  ]
+}
+---
+
+<Layout
+  title="Vie du lieu — Ferme, Jardin & Guinguette | LAOM"
+  description="Document de travail interne — Jardin, guinguette et vision ferme 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .jardin-badge { background: #4A7C59; color: white; }
+    .guinguette-badge { background: #C4A855; color: white; }
+    .ferme-badge { background: #2C2824; color: white; }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#4A7C59]/10 border border-[#4A7C59]/20 mb-6">
+          <svg class="w-8 h-8 text-[#4A7C59]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace associes</h2>
+        <p class="text-white/50 text-sm">Vie du lieu — reserve aux associes LAOM</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#4A7C59]/50 focus:ring-1 focus:ring-[#4A7C59]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#4A7C59] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3d6a4a] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/ferme-jardin-guinguette/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-32 pb-12 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/40">LAOM</span>
+        <span class="text-white/20">·</span>
+        <span class="text-xs font-light text-white/40">Ete 2026</span>
+      </div>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
+        Vie du lieu
+      </h1>
+      <p class="text-lg font-light text-white/60 max-w-2xl">
+        Jardin, guinguette et ferme — La Fractale du Beau de la terre a l'assiette
+      </p>
+
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 pt-8 border-t border-white/10">
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#4A7C59]">21 ha</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Ferme totale</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#4A7C59]">2-3k m²</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Jardin cultive</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#C4A855]">250</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Places guinguette</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">4</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Cuissons signatures</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation rapide -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2 sm:py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm">
+        <a href="#jardin" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap font-medium">Jardin</a>
+        <a href="#guinguette" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Guinguette</a>
+        <a href="#ferme" class="text-[#2C2824]/60 hover:text-[#2C2824] transition-colors whitespace-nowrap">Vision ferme</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== JARDIN ==================== -->
+  <section id="jardin" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="badge jardin-badge">Jardin</span>
+        <div>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Le jardin nourrit la guinguette</h2>
+          <p class="text-sm text-[#2C2824]/60 mt-1">Maraichage 2026 — tout pour l'approvisionnement interne</p>
+        </div>
+      </div>
+
+      <!-- Stats jardin -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="bg-white rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-[#4A7C59]">{jardinData.surface}</p>
+          <p class="text-xs text-[#2C2824]/50">Surface cultivee</p>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">{jardinData.couvert}</p>
+          <p class="text-xs text-[#2C2824]/50">Couvert actuel</p>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-orange-500">{jardinData.tracteur}</p>
+          <p class="text-xs text-[#2C2824]/50">Tracteur</p>
+        </div>
+        <div class="bg-white rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-[#4A7C59]">Woofer</p>
+          <p class="text-xs text-[#2C2824]/50">Recrutement 2026</p>
+        </div>
+      </div>
+
+      <!-- Cultures -->
+      <div class="grid lg:grid-cols-2 gap-8 mb-10">
+        <!-- Legumes -->
+        <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+          <div class="px-5 py-4 bg-[#4A7C59]/10 border-b border-black/5">
+            <h3 class="font-medium text-[#4A7C59]">Legumes prioritaires</h3>
+            <p class="text-xs text-[#2C2824]/50">~1150 m² — alignes avec les menus guinguette</p>
+          </div>
+          <div class="p-5">
+            <div class="space-y-3">
+              {culturesLegumes.map((c) => (
+                <div class="flex items-center justify-between py-2 border-b border-black/5 last:border-0">
+                  <div>
+                    <p class="font-medium text-[#2C2824]">{c.nom}</p>
+                    <p class="text-xs text-[#2C2824]/50">{c.usage}</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-sm font-medium text-[#4A7C59]">{c.surface}</p>
+                    <p class="text-xs text-[#2C2824]/40">{c.recolte}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Herbes -->
+        <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+          <div class="px-5 py-4 bg-[#4A7C59]/10 border-b border-black/5">
+            <h3 class="font-medium text-[#4A7C59]">Herbes aromatiques</h3>
+            <p class="text-xs text-[#2C2824]/50">~100 m² — zone dediee</p>
+          </div>
+          <div class="p-5">
+            <div class="grid grid-cols-2 gap-3">
+              {herbes.map((h) => (
+                <div class="bg-[#FAF8F5] rounded-sm p-3">
+                  <p class="font-medium text-[#2C2824] text-sm">{h.nom}</p>
+                  <p class="text-xs text-[#2C2824]/50">{h.usage}</p>
+                </div>
+              ))}
+            </div>
+            <div class="mt-4 pt-4 border-t border-black/5">
+              <p class="text-xs text-[#2C2824]/60">
+                <strong>Fruits rouges :</strong> Fraises, framboises, mures, groseilles (~130 m²)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendrier jardin -->
+      <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
+        <div class="px-5 py-4 bg-[#4A7C59]/10 border-b border-black/5">
+          <h3 class="font-medium text-[#4A7C59]">Calendrier jardin 2026</h3>
+        </div>
+        <div class="p-5">
+          <div class="space-y-4">
+            {calendrierJardin.map((m) => (
+              <div class="flex gap-4 pb-3 border-b border-black/5 last:border-0">
+                <div class="w-20 flex-shrink-0">
+                  <p class="font-playfair font-medium text-[#2C2824]">{m.mois}</p>
+                </div>
+                <div class="flex flex-wrap gap-1">
+                  {m.taches.map((t) => (
+                    <span class="text-xs px-2 py-1 bg-[#4A7C59]/10 text-[#4A7C59] rounded-sm">{t}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GUINGUETTE ==================== -->
+  <section id="guinguette" class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="badge guinguette-badge">Guinguette</span>
+        <div>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">La Fractale du Beau dans l'assiette</h2>
+          <p class="text-sm text-[#2C2824]/60 mt-1">Chaque plat contient tout le reste — terroir aveyronnais + epices du monde</p>
+        </div>
+      </div>
+
+      <!-- Stats guinguette -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
+        <div class="bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4">
+          <p class="font-playfair text-xl font-medium text-[#C4A855]">{guinguetteData.capacite}</p>
+          <p class="text-xs text-[#2C2824]/50">Capacite max</p>
+        </div>
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">{guinguetteData.hypothese}</p>
+          <p class="text-xs text-[#2C2824]/50">Hypothese</p>
+        </div>
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">{guinguetteData.periode}</p>
+          <p class="text-xs text-[#2C2824]/50">Periode</p>
+        </div>
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-[#C4A855]">{guinguetteData.prix}</p>
+          <p class="text-xs text-[#2C2824]/50">Prix plat</p>
+        </div>
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">7j/7</p>
+          <p class="text-xs text-[#2C2824]/50">Haute saison</p>
+        </div>
+      </div>
+
+      <!-- 4 Cuissons -->
+      <div class="mb-10">
+        <h3 class="text-lg font-medium text-[#2C2824] mb-4">Les 4 cuissons signatures</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {cuissons.map((c) => (
+            <div class="bg-[#FAF8F5] rounded-sm border border-black/5 overflow-hidden">
+              <div class="px-4 py-3 bg-[#C4A855]/10 border-b border-black/5 flex items-center gap-2">
+                <span class="text-2xl">{c.icon}</span>
+                <h4 class="font-medium text-[#2C2824]">{c.nom}</h4>
+              </div>
+              <div class="p-4">
+                <p class="text-xs text-[#2C2824]/60 mb-3">{c.desc}</p>
+                <ul class="space-y-1">
+                  {c.plats.map((p) => (
+                    <li class="text-xs text-[#2C2824]/80 flex items-center gap-1">
+                      <span class="w-1 h-1 rounded-full bg-[#C4A855]"></span>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Plats signatures -->
+      <div class="grid lg:grid-cols-2 gap-8 mb-10">
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 overflow-hidden">
+          <div class="px-5 py-4 bg-[#C4A855]/10 border-b border-black/5">
+            <h3 class="font-medium text-[#C4A855]">Plats signatures (apercu)</h3>
+            <p class="text-xs text-[#2C2824]/50">A affiner avec Lorenzo</p>
+          </div>
+          <div class="p-5">
+            <div class="space-y-3">
+              {platsSignatures.map((p) => (
+                <div class="flex items-center justify-between py-2 border-b border-black/5 last:border-0">
+                  <div>
+                    <p class="font-medium text-[#2C2824]">{p.nom}</p>
+                    <p class="text-xs text-[#2C2824]/50">{p.desc}</p>
+                  </div>
+                  <p class="text-sm font-medium text-[#C4A855]">{p.prix}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Equipe guinguette -->
+        <div class="space-y-4">
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 overflow-hidden">
+            <div class="px-5 py-4 bg-[#C4A855]/10 border-b border-black/5">
+              <h3 class="font-medium text-[#C4A855]">Equipe guinguette</h3>
+            </div>
+            <div class="p-5">
+              <div class="space-y-3">
+                {equipeGuinguette.map((e) => (
+                  <div class="flex items-center justify-between py-2 border-b border-black/5 last:border-0">
+                    <div>
+                      <p class="font-medium text-[#2C2824]">{e.nom}</p>
+                      <p class="text-xs text-[#2C2824]/50">{e.role}</p>
+                    </div>
+                    <span class="text-xs px-2 py-1 bg-[#2C2824]/5 text-[#2C2824]/60 rounded-sm">{e.statut}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Checklist ouverture -->
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 overflow-hidden">
+            <div class="px-5 py-4 bg-[#C4A855]/10 border-b border-black/5">
+              <h3 class="font-medium text-[#C4A855]">Checklist ouverture</h3>
+            </div>
+            <div class="p-5">
+              <div class="space-y-4">
+                {checklistOuverture.map((c) => (
+                  <div>
+                    <p class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-2">{c.cat}</p>
+                    <ul class="space-y-1">
+                      {c.items.map((item) => (
+                        <li class="text-xs text-[#2C2824]/80 flex items-center gap-2">
+                          <span class="w-3 h-3 rounded-sm border border-[#C4A855]/30"></span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FERME (vision) ==================== -->
+  <section id="ferme" class="py-12 sm:py-16 md:py-20 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="badge ferme-badge">Ferme</span>
+        <div>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Vision globale — 21 hectares</h2>
+          <p class="text-sm text-[#2C2824]/60 mt-1">Le cercle est boucle : ce qu'on cultive finit dans l'assiette, a 50 metres de la</p>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
+        {fermeVision.zones.map((z) => (
+          <div class="bg-white rounded-sm border border-black/5 p-4">
+            <h4 class="font-medium text-[#2C2824] mb-1">{z.nom}</h4>
+            <p class="text-xs text-[#2C2824]/50">{z.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-[#2C2824] rounded-sm p-6 text-center">
+        <p class="font-playfair text-lg text-white/90 italic max-w-2xl mx-auto">
+          "Le jardin nourrit la guinguette. La guinguette nourrit les habitants. Tout est connecte."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-8 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 text-center">
+      <p class="text-xs text-white/30">
+        Document genere le 5 fevrier 2026 — Session planning Charly & NILA
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Password protection logic
+    const PASSWORD = 'laom2026'
+    const STORAGE_KEY = 'laom_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>

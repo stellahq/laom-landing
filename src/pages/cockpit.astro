@@ -1,0 +1,387 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// DONNEES COCKPIT CHARLY
+// ==========================================
+
+const phaseDeVie = {
+  nom: 'Expansion — Fondation 2026',
+  vision: 'Finir le Grand Shambala, ouvrir le coliving printemps 2027, lancer LAOM economiquement.',
+  mot: 'A definir'
+}
+
+const projetsActifs = [
+  { projet: 'EDD SCIA Ouest', statut: 'urgent', action: 'Completer avec plans + descriptions', deadline: '15 fevrier', blocker: 'RDV Christelle 3 fev' },
+  { projet: 'Permis salle ERP5', statut: 'a_faire', action: 'Se renseigner exigences + deposer', deadline: '28 fevrier', blocker: 'Avant SCIA' },
+  { projet: 'Permis modif GS', statut: 'a_faire', action: 'Dessiner terrasses + facade', deadline: '28 fevrier', blocker: 'Avant SCIA' },
+  { projet: 'BP Oasis 200K', statut: 'a_faire', action: 'Actualiser deck previsionnel 2026', deadline: '28 fevrier', blocker: null },
+  { projet: 'Studio Charly', statut: 'priorite', action: 'Attendre tresorerie (10K)', deadline: 'FIN MAI', blocker: 'Tresorerie' },
+  { projet: 'Electricite GS', statut: 'a_faire', action: 'Tirer cable 300m + tableau', deadline: 'Mi-mars', blocker: null },
+  { projet: 'Event Perspective Mars', statut: 'urgent', action: 'Creer menus Lorenzo + prep logistique', deadline: '5 mars', blocker: 'Lorenzo a confirmer' },
+  { projet: 'Guinguette', statut: 'planifie', action: 'Verifier formation Lorenzo', deadline: 'Mi-juin', blocker: 'Normes sanitaires' },
+  { projet: 'Jardin', statut: 'a_faire', action: 'Reparer tracteur + poster annonce woofer', deadline: 'Mars', blocker: 'Broyer seigle' },
+  { projet: 'Camp Nomade', statut: 'planifie', action: 'Creer page web + communiquer', deadline: '15 juillet', blocker: 'Terrain a preparer' },
+  { projet: 'YouTube', statut: 'planifie', action: 'Batch tournage #1 (2 jours)', deadline: 'Fevrier', blocker: 'Format a trancher' },
+]
+
+const jalons = [
+  { nom: 'EDD Ouest', date: 'Mi-fev', fait: false },
+  { nom: 'Permis deposes', date: 'Fin fev', fait: false },
+  { nom: 'BP Oasis', date: 'Fin fev', fait: false },
+  { nom: 'Electricite GS', date: 'Mi-mars', fait: false },
+  { nom: 'Event Perspective', date: '5-8 mars', fait: false },
+  { nom: 'Tresorerie OK', date: 'Fin mars', fait: false },
+  { nom: 'STUDIO TERMINE', date: 'FIN MAI', fait: false, priorite: true },
+  { nom: 'Guinguette ouvre', date: 'Mi-juin', fait: false },
+  { nom: 'Camp Nomade ouvre', date: '15 juil', fait: false },
+  { nom: 'Coliving', date: 'P. 2027', fait: false, objectif: true },
+]
+
+const finances = {
+  tresorerie: { statut: 'Deficitaire', couleur: 'red' },
+  facturesImpayees: 17400,
+  dettesPerso: 6600,
+  duLily: 2540,
+  duBaptiste: 3286,
+  cortenAVenir: '5-8k',
+  pretOasis: 200000,
+  quotePartsProprios: 209000,
+}
+
+const chargeMentale = [
+  { categorie: 'Event Perspective', items: ['Creer menus Lorenzo (35 pers x 7 repas)', 'Demander maison Claire & Baptiste', 'Menage salle + stockage', 'Nettoyage exterieurs'] },
+  { categorie: 'Guinguette', items: ['Verifier formation Lorenzo', 'Formation permis exploitation', 'Declaration mairie', 'Declaration DDPP'] },
+  { categorie: 'Jardin', items: ['Reparer tracteur (bloc CDI + batterie)', 'Commander semences', 'Poster annonce woofer'] },
+  { categorie: 'Camp Nomade', items: ['Creer page web', 'Communiquer sur reseaux', 'Preparer contrat/charte'] },
+  { categorie: 'Admin', items: ['Retour a Greg — partage main a main', 'Factures 2024 + releves comptes', 'Payer Lily 2540€', 'Rembourser Baptiste 3286€'] },
+  { categorie: 'Maison', items: ['Fuite eau toit agleco', 'Lambris SDB Eliott', 'Gouttiere nord GS', 'Reparer porte serre'] },
+  { categorie: 'Recrutement', items: ['Aide menage/Livio (25h/sem)', 'Aide Studio (avril 2-3 sem)', 'Jardinier/woofer (mars)'] },
+]
+
+const equipe = [
+  { nom: 'Khaldoun', role: 'Ouvrier polyvalent', dispo: '12 mois', cout: '2k/mois' },
+  { nom: 'David Coste', role: 'Aide travaux', dispo: 'Mai-Sept', cout: 'Nourri-loge' },
+  { nom: 'Lorenzo', role: 'Chef guinguette', dispo: 'Ete', cout: 'A definir' },
+  { nom: 'Lily', role: 'Cuisine marocaine', dispo: 'Ete (si vient)', cout: 'Nourrie-logee' },
+  { nom: 'Jardinier/woofer', role: 'Maraichage', dispo: 'Mars-Sept', cout: 'Nourri-loge' },
+  { nom: 'Aide Studio', role: 'Renfort', dispo: 'Avril 2-3 sem', cout: '2-3k' },
+  { nom: 'Aide Livio', role: 'Menage + enfant', dispo: '25h/sem', cout: '500€/mois' },
+]
+
+const decisions = [
+  { date: '5 fev', decision: 'Petit Shambala reporte a 2027', detail: 'Focus Grand Shambala' },
+  { date: '5 fev', decision: 'Studio fin mai = non negociable', detail: 'Logement fille au pair, parents' },
+  { date: '5 fev', decision: 'YouTube = batch 2j / 3 semaines', detail: '10 batchs en 2026' },
+  { date: '5 fev', decision: 'Corten en mars', detail: 'Apres livraison fin fevrier, avant Studio' },
+  { date: '5 fev', decision: 'Amandine prend plus sur Livio', detail: 'Periode Fev-Mai' },
+]
+
+function getStatutClass(statut: string): string {
+  const classes: Record<string, string> = {
+    'priorite': 'bg-[#C4A855] text-white',
+    'urgent': 'bg-red-500 text-white',
+    'a_faire': 'bg-[#2C2824] text-white',
+    'planifie': 'bg-[#4A7C59]/80 text-white',
+    'attente': 'bg-white/10 text-white/60 border border-white/20',
+  }
+  return classes[statut] || 'bg-white/10 text-white/60'
+}
+
+function getStatutLabel(statut: string): string {
+  const labels: Record<string, string> = {
+    'priorite': 'Priorite',
+    'urgent': 'Urgent',
+    'a_faire': 'A faire',
+    'planifie': 'Planifie',
+    'attente': 'Attente',
+  }
+  return labels[statut] || statut
+}
+---
+
+<Layout
+  title="Cockpit Charly | LAOM"
+  description="Tableau de bord personnel — Projets, finances, charge mentale"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-6">
+          <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace personnel</h2>
+        <p class="text-white/50 text-sm">Cockpit reserve a Charly</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/cockpit/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-24 sm:pt-28 pb-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">{phaseDeVie.nom}</p>
+          <h1 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight">
+            Cockpit
+          </h1>
+        </div>
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-white/40">Derniere mise a jour</p>
+          <p class="text-sm text-white/70">5 fevrier 2026</p>
+        </div>
+      </div>
+      <p class="text-sm text-white/50 max-w-2xl">{phaseDeVie.vision}</p>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex gap-4 overflow-x-auto text-xs sm:text-sm">
+        <a href="#projets" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap font-medium">Projets</a>
+        <a href="#jalons" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Jalons</a>
+        <a href="#finances" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Finances</a>
+        <a href="#charge" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Charge mentale</a>
+        <a href="#equipe" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Equipe</a>
+        <a href="#decisions" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Decisions</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PROJETS ACTIFS -->
+  <section id="projets" class="py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Projets actifs</h2>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/10 bg-white">
+              <th class="text-left py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Projet</th>
+              <th class="text-center py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Statut</th>
+              <th class="text-left py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Prochaine action</th>
+              <th class="text-right py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Deadline</th>
+              <th class="text-left py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Blocker</th>
+            </tr>
+          </thead>
+          <tbody>
+            {projetsActifs.map((p) => (
+              <tr class={`border-b border-black/5 ${p.statut === 'priorite' ? 'bg-[#C4A855]/5' : p.statut === 'urgent' ? 'bg-red-50' : 'hover:bg-white/50'}`}>
+                <td class="py-3 px-3 font-medium text-[#2C2824]">{p.projet}</td>
+                <td class="py-3 px-3 text-center">
+                  <span class={`badge ${getStatutClass(p.statut)}`}>{getStatutLabel(p.statut)}</span>
+                </td>
+                <td class="py-3 px-3 text-[#2C2824]/70 text-xs">{p.action}</td>
+                <td class="py-3 px-3 text-right font-medium text-[#2C2824]">{p.deadline}</td>
+                <td class="py-3 px-3 text-xs text-red-500">{p.blocker || '-'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- JALONS -->
+  <section id="jalons" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Jalons 2026</h2>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        {jalons.map((j) => (
+          <div class={`flex items-center gap-2 px-3 py-2 rounded-sm border ${j.priorite ? 'bg-[#C4A855]/10 border-[#C4A855]' : j.objectif ? 'bg-[#4A7C59]/10 border-[#4A7C59]' : j.fait ? 'bg-[#4A7C59]/10 border-[#4A7C59]/30' : 'bg-[#FAF8F5] border-black/5'}`}>
+            <span class={`w-3 h-3 rounded-full flex-shrink-0 ${j.fait ? 'bg-[#4A7C59]' : j.priorite ? 'bg-[#C4A855]' : j.objectif ? 'bg-[#4A7C59]' : 'bg-[#2C2824]/20'}`}></span>
+            <span class={`text-sm ${j.priorite ? 'text-[#C4A855] font-medium' : j.objectif ? 'text-[#4A7C59] font-medium' : 'text-[#2C2824]'}`}>{j.nom}</span>
+            <span class="text-xs text-[#2C2824]/40">{j.date}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCES -->
+  <section id="finances" class="py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Finances</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Tresorerie -->
+        <div class="bg-white rounded-sm border border-red-200 p-4">
+          <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Tresorerie FDV</p>
+          <p class="text-xl font-medium text-red-500">{finances.tresorerie.statut}</p>
+          <p class="text-xs text-[#2C2824]/40 mt-2">Factures impayees : {finances.facturesImpayees.toLocaleString()}€</p>
+        </div>
+
+        <!-- Dettes -->
+        <div class="bg-white rounded-sm border border-black/5 p-4">
+          <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Dettes perso</p>
+          <p class="text-xl font-medium text-[#2C2824]">{finances.dettesPerso.toLocaleString()}€</p>
+          <div class="text-xs text-[#2C2824]/40 mt-2 space-y-1">
+            <p>Lily : {finances.duLily.toLocaleString()}€</p>
+            <p>Baptiste : {finances.duBaptiste.toLocaleString()}€</p>
+          </div>
+        </div>
+
+        <!-- Attendu -->
+        <div class="bg-white rounded-sm border border-[#4A7C59]/30 p-4">
+          <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Attendu</p>
+          <p class="text-xl font-medium text-[#4A7C59]">~409k€</p>
+          <div class="text-xs text-[#2C2824]/40 mt-2 space-y-1">
+            <p>Quote-parts : {(finances.quotePartsProprios/1000).toFixed(0)}k€</p>
+            <p>Pret Oasis : {(finances.pretOasis/1000).toFixed(0)}k€</p>
+          </div>
+        </div>
+
+        <!-- A venir -->
+        <div class="bg-white rounded-sm border border-[#C4A855]/30 p-4">
+          <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Depenses a venir</p>
+          <p class="text-xl font-medium text-[#C4A855]">{finances.cortenAVenir}€</p>
+          <p class="text-xs text-[#2C2824]/40 mt-2">Corten (devis attendu)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARGE MENTALE -->
+  <section id="charge" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Charge mentale</h2>
+        <p class="text-xs text-[#2C2824]/50 mt-1">Parking lot — trucs a pas oublier</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {chargeMentale.map((cat) => (
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+            <p class="text-xs font-medium text-[#C4A855] uppercase tracking-wider mb-3">{cat.categorie}</p>
+            <ul class="space-y-2">
+              {cat.items.map((item) => (
+                <li class="flex items-start gap-2 text-sm text-[#2C2824]/70">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#2C2824]/30 mt-2 flex-shrink-0"></span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPE -->
+  <section id="equipe" class="py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Equipe 2026</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {equipe.map((e) => (
+          <div class="bg-white rounded-sm border border-black/5 p-3">
+            <p class="font-medium text-[#2C2824]">{e.nom}</p>
+            <p class="text-xs text-[#2C2824]/50">{e.role}</p>
+            <div class="flex justify-between text-xs mt-2">
+              <span class="text-[#2C2824]/40">{e.dispo}</span>
+              <span class="text-[#C4A855]">{e.cout}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section id="decisions" class="py-10 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-white">Decisions recentes</h2>
+      </div>
+
+      <div class="space-y-3">
+        {decisions.map((d) => (
+          <div class="flex items-start gap-4 p-4 bg-white/5 border border-white/10 rounded-sm">
+            <span class="text-xs text-white/40 whitespace-nowrap">{d.date}</span>
+            <div>
+              <p class="text-white font-medium">{d.decision}</p>
+              <p class="text-sm text-white/50">{d.detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 bg-[#1a1a1a] border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 text-center">
+      <p class="text-xs text-white/30">
+        Cockpit Charly — NILA · Fevrier 2026
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Password protection logic - DIFFERENT PASSWORD
+    const PASSWORD = 'charly2026'
+    const STORAGE_KEY = 'charly_cockpit_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>
