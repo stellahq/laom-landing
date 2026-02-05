@@ -156,6 +156,8 @@ export const translations = {
     blog: {
       title: 'Blog',
       description: 'Découvrez nos articles sur la vie à LAOM, nos projets et notre communauté.',
+      heroLabel: 'Journal de bord',
+      heroSubtitle: "Récits de construction, apprentissages et coulisses d'un écolieu en devenir.",
       empty: 'Aucun article pour le moment.',
       backToBlog: 'Retour au blog',
       readMore: 'Lire la suite',
@@ -165,6 +167,8 @@ export const translations = {
       noResults: 'Aucun article trouvé.',
       newsletterSectionTitle: 'Newsletters passées',
       newsletterEmpty: 'Aucune newsletter pour le moment.',
+      relatedTitle: 'À lire aussi',
+      backToBlogLabel: 'Tous les articles',
     },
     pages: {
       project: {
@@ -949,6 +953,8 @@ export const translations = {
     blog: {
       title: 'Blog',
       description: 'Discover our articles about life at LAOM, our projects and our community.',
+      heroLabel: 'Blog',
+      heroSubtitle: 'Construction stories, learnings and behind-the-scenes of an eco-place in the making.',
       empty: 'No articles yet.',
       backToBlog: 'Back to blog',
       readMore: 'Read more',
@@ -958,6 +964,8 @@ export const translations = {
       noResults: 'No posts found.',
       newsletterSectionTitle: 'Past Newsletters',
       newsletterEmpty: 'No newsletters yet.',
+      relatedTitle: 'You might also like',
+      backToBlogLabel: 'All posts',
     },
     pages: {
       project: {

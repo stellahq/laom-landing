@@ -27,9 +27,9 @@ const formattedPubDate = new Date(post.data.pubDate).toLocaleDateString(lang ===
   day: 'numeric',
 })
 
-// Related articles,  same locale, exclude current, max 3
+// Related articles: same locale, exclude current and newsletters (LaomLetters), max 3
 const relatedPosts = allPosts
-  .filter(p => p.data.locale === lang && !p.data.draft && p.slug !== post.slug)
+  .filter(p => p.data.locale === lang && !p.data.draft && !p.data.tags?.includes('newsletter') && p.slug !== post.slug)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
 
@@ -98,7 +98,7 @@ const pageSchema = createWebPageSchema({
         </p>
         {post.data.author && post.data.author !== 'LAOM' && (
           <p class="mt-6 text-sm font-light text-[#2C2824]/50">
-            Par {post.data.author}
+            {t.blog.by} {post.data.author}
           </p>
         )}
       </div>
@@ -134,12 +134,12 @@ const pageSchema = createWebPageSchema({
       <section class="py-16 md:py-24 bg-[#FAF8F5] border-t border-black/5">
         <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
           <h2 class="font-playfair text-2xl md:text-3xl font-normal text-[#2C2824] tracking-tight mb-12">
-            A lire aussi
+            {t.blog.relatedTitle}
           </h2>
 
           <div class="grid md:grid-cols-3 gap-8">
             {relatedPosts.map((related) => (
-              <a href={getLocalizedPath(`/blog/${related.slug}/`, 'fr')} class="group block">
+              <a href={getLocalizedPath(`/blog/${related.slug}/`, lang as 'fr' | 'en')} class="group block">
                 <article class="flex flex-col">
                   {related.data.heroImage && (
                     <div class="aspect-[16/10] overflow-hidden rounded-sm mb-5">
@@ -152,7 +152,7 @@ const pageSchema = createWebPageSchema({
                     </div>
                   )}
                   <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">
-                    {new Date(related.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
+                    {new Date(related.data.pubDate).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { year: 'numeric', month: 'long' })}
                   </p>
                   <h3 class="font-playfair text-lg font-normal text-[#2C2824] mb-2 tracking-tight leading-snug group-hover:text-[#2C2824]/70 transition-colors">
                     {related.data.title}
@@ -172,10 +172,10 @@ const pageSchema = createWebPageSchema({
     <section class="py-12 bg-white">
       <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
         <a
-          href="/blog/"
+          href={getLocalizedPath('/blog/', lang as 'fr' | 'en')}
           class="text-sm font-light text-[#2C2824]/40 hover:text-[#2C2824] transition-colors underline underline-offset-4"
         >
-          &larr; Tous les articles
+          &larr; {t.blog.backToBlogLabel}
         </a>
       </div>
     </section>
@@ -246,10 +246,18 @@ const pageSchema = createWebPageSchema({
       color: rgba(44, 40, 36, 0.85);
       line-height: 1.8;
       margin-bottom: 1.5rem;
-      padding-left: 1.5rem;
+      padding-left: 2rem;
+      list-style-position: outside;
+    }
+    .article-content ul {
+      list-style-type: disc;
+    }
+    .article-content ol {
+      list-style-type: decimal;
     }
     .article-content li {
       margin-bottom: 0.5rem;
+      padding-left: 0.35rem;
     }
     .article-content img {
       width: 100%;
@@ -257,13 +265,16 @@ const pageSchema = createWebPageSchema({
       margin: 2rem 0;
     }
     .article-content a {
-      color: #2C2824;
-      border-bottom: 1px solid rgba(44, 40, 36, 0.2);
+      color: #8B7A3A;
+      font-weight: 500;
+      border-bottom: 2px solid #8B7A3A;
       text-decoration: none;
-      transition: border-color 0.3s;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
     .article-content a:hover {
-      border-color: #2C2824;
+      color: #6B5A2A;
+      border-color: #6B5A2A;
+      background: rgba(139, 122, 58, 0.08);
     }
     .article-content hr {
       border: none;

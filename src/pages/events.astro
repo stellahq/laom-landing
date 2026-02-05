@@ -36,7 +36,7 @@ const events = t.events.items.map((item, index) => ({
 // Sessions En Mouvement
 const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
 
-// Weekends LAOM
+// Immersions LAOM
 const weekendsLaom = [
   {
     title: 'Clarté #1',
@@ -45,7 +45,7 @@ const weekendsLaom = [
     price: '1 000 €',
     animateur: 'Charly Aubert',
     href: '/clarte',
-    image: '/images/grand-shambala-hero.webp',
+    image: '/images/laom/vanlifest2025-074-copie.webp',
   },
   {
     title: 'Clarté #2',
@@ -54,7 +54,7 @@ const weekendsLaom = [
     price: '1 000 €',
     animateur: 'Charly Aubert',
     href: '/clarte',
-    image: '/images/grand-shambala-hero.webp',
+    image: '/images/laom/vanlifest2025-074-copie.webp',
   },
   {
     title: 'LAOM School #1',
@@ -162,28 +162,28 @@ const laomfestImages = [
     </div>
   </section>
 
-  <!-- Weekends LAOM -->
+  <!-- Immersions LAOM -->
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="mb-16">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Weekends LAOM</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Immersions LAOM</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">
           Nos événements 2026
         </h2>
         <p class="text-lg font-light text-[#2C2824]/70 max-w-2xl">
-          Weekends thématiques animés par l'équipe LAOM. Formations, immersions, moments en famille.
+          Weekends thématiques animés par l'équipe LAOM. Formations, immersions, retraites.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         {weekendsLaom.map((w) => (
           <a href={w.href} class="group block">
-            <article class="bg-white rounded-sm overflow-hidden border border-black/5 hover:border-[#C4A855]/30 transition-all hover:shadow-lg">
+            <article class="bg-white rounded-sm overflow-hidden hover:shadow-lg transition-all">
               <div class="aspect-[16/9] overflow-hidden">
                 <img
                   src={w.image}
                   alt={w.title}
-                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  class="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 {(w.title.startsWith('Clarté') ? 'scale-105' : '')}"
                   loading="lazy"
                 />
               </div>

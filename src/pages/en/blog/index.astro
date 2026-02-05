@@ -10,14 +10,16 @@ const t = getTranslations(lang)
 const allPosts = await getCollection('blog', ({ data }) => {
   return data.locale === lang && !data.draft
 })
-// All blog articles, newest to oldest (Grand Shambala stays static at top)
-const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+// Exclude LaomLetters (newsletters): they only appear under "Past Newsletters"
+const posts = allPosts
+  .filter((p) => !p.data.tags?.includes('newsletter'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 
 const grandShambalaHref = '/en/grand-shambala-v2/'
 
 const allNewsletters = await getCollection('newsletters')
 const newsletters = allNewsletters
-  .filter((e) => !e.data.locale || e.data.locale === lang)
+  .filter((e) => (!e.data.locale || e.data.locale === lang) && /LaomLetter/i.test(e.data.title))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 
 const pageSchema = createWebPageSchema({
@@ -35,12 +37,12 @@ const pageSchema = createWebPageSchema({
   <!-- Hero -->
   <section class="py-32 lg:py-40 bg-[#F3EEDC]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Blog</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">{t.blog.heroLabel}</p>
       <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#2C2824] mb-6 tracking-tight">
         {t.blog.title}
       </h1>
       <p class="text-xl md:text-2xl font-light text-[#2C2824]/60 max-w-3xl mx-auto leading-relaxed">
-        Construction stories, learnings and behind-the-scenes of an eco-place in the making.
+        {t.blog.heroSubtitle}
       </p>
     </div>
   </section>
@@ -125,13 +127,15 @@ const pageSchema = createWebPageSchema({
               month: 'long',
               day: 'numeric',
             })
+            const isInternal = nl.data.url.includes('laom.com') || nl.data.url.startsWith('/')
+            const href = isInternal ? new URL(nl.data.url).pathname : nl.data.url
             return (
               <a
-                href={nl.data.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={href}
+                target={isInternal ? undefined : '_blank'}
+                rel={isInternal ? undefined : 'noopener noreferrer'}
                 class="group flex items-baseline justify-between py-5 border-b border-black/10 hover:border-[#C4A855]/40 transition-colors"
-                aria-label={`${nl.data.title} (opens in new tab)`}
+                aria-label={isInternal ? nl.data.title : `${nl.data.title} (opens in new tab)`}
               >
                 <span class="font-playfair text-lg font-medium text-[#2C2824] group-hover:text-[#2C2824]/70 transition-colors tracking-tight">
                   {nl.data.title}
