@@ -1,7 +1,5 @@
 ---
 import Layout from '~/layouts/Layout.astro'
-import Hero from '~/components/Hero.astro'
-import NewsletterBanner from '~/components/NewsletterBanner.astro'
 import { createWebSiteSchema } from '~/utils/schema'
 import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
 import { getCollection } from 'astro:content'
@@ -17,6 +15,19 @@ const siteSchema = createWebSiteSchema({
   url: Astro.site?.toString() || 'https://laom.com',
   description: t.site.description,
 })
+
+const formKitOptions = {
+  settings: {
+    after_subscribe: {
+      action: 'message',
+      success_message: 'Welcome! Check your inbox to confirm.',
+      redirect_url: '',
+    },
+    powered_by: { show: false },
+    recaptcha: { enabled: false },
+  },
+  version: '5',
+}
 
 const eventImages = [
   '/images/claire-danse-libre-retraite-2048x1368.webp',
@@ -48,90 +59,202 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     ldJSON: siteSchema,
   }}
 >
-  <!-- 1. Hero -->
-  <div class="-mt-24 md:-mt-28">
-    <Hero />
-  </div>
+  <style is:global>
+    .formkit-alert:empty { display: none; }
+    .formkit-alert-error {
+      background: rgba(254, 226, 226, 0.9);
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      margin: 0 0 0.75rem 0;
+    }
+    .formkit-alert-success {
+      background: rgba(187, 247, 208, 0.9);
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      margin: 0 0 0.75rem 0;
+    }
+  </style>
 
-  <!-- 2. Intro / Presentation LAOM -->
-  <section id="intro" class="py-12 md:py-16 bg-[#F3EEDC]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <h2 class="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-black mb-10 leading-tight title-underline">
-        {t.home.intro.title}
-      </h2>
-      <p class="text-xl md:text-2xl font-normal text-black/70 mb-12 max-w-3xl mx-auto">
-        {t.home.intro.tagline}
-      </p>
-      <div class="space-y-6 text-lg md:text-xl font-normal text-black/80 leading-relaxed text-left max-w-3xl mx-auto">
-        {t.home.intro.paragraphs.map((p) => (
-          <p>{p}</p>
-        ))}
+  <!-- 1. Hero Split -->
+  <section class="min-h-screen -mt-24 md:-mt-28 pt-24 md:pt-28">
+    <div class="grid lg:grid-cols-2 min-h-[calc(100vh-6rem)]">
+      <div class="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 py-16 lg:py-20 bg-[#FAF8F5] order-2 lg:order-1">
+        <div class="max-w-lg">
+          <p class="text-[11px] font-light tracking-[0.3em] uppercase text-[#2C2824]/40 mb-8">
+            {t.home.heroOverline}
+          </p>
+          <h1 class="font-playfair text-4xl md:text-5xl xl:text-6xl font-medium text-[#2C2824] mb-6 tracking-tight leading-[1.1]">
+            {t.home.heroTitleLine1}<br/>
+            <span class="text-[#C4A855]">{t.home.heroTitleHighlight}</span>
+          </h1>
+          <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed">
+            {t.home.heroDescription}
+          </p>
+          <div class="mb-8">
+            <p class="text-sm font-medium text-[#2C2824]/80 mb-4">
+              {t.home.heroNewsletterTitle}
+            </p>
+            <form
+              action="https://app.kit.com/forms/8987350/subscriptions"
+              class="seva-form formkit-form"
+              method="post"
+              data-sv-form="8987350"
+              data-uid="af2e0fc1e5"
+              data-format="inline"
+              data-version="5"
+              data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+            >
+              <div data-style="clean">
+                <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+                <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3">
+                  <input
+                    class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+                    name="email_address"
+                    type="email"
+                    required
+                    aria-label="Your email address"
+                    placeholder={t.home.heroNewsletterPlaceholder}
+                    autocomplete="email"
+                  />
+                  <button
+                    type="submit"
+                    data-element="submit"
+                    class="px-8 py-4 rounded-sm bg-[#2C2824] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3D3830] transition-colors whitespace-nowrap"
+                  >
+                    {t.home.heroNewsletterSubmit}
+                  </button>
+                </div>
+              </div>
+            </form>
+            <p class="text-xs text-[#2C2824]/40 mt-3">{t.home.heroNewsletterDisclaimer}</p>
+          </div>
+          <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <a href={getLocalizedPath('/project/', lang)} class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">{t.home.heroLinkProject}</a>
+            <a href={getLocalizedPath('/stage-danse/', lang)} class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">{t.home.heroLinkRetreat}</a>
+          </div>
+        </div>
       </div>
-      <div class="mt-14 mb-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm max-w-3xl mx-auto">
-        <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo to take: aerial view of LAOM estate, 21 hectares, meadows, forest, buildings, river</p>
+      <div class="relative h-[50vh] lg:h-auto order-1 lg:order-2 overflow-hidden">
+        <img
+          src="/images/laom/vanlifest-img1373.webp"
+          alt="LAOM community at a retreat"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent lg:hidden"></div>
       </div>
-      <a
-        href={getLocalizedPath('/project/', lang)}
-        class="inline-block mt-4 text-base text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
-      >
-        {t.home.intro.cta}
-      </a>
     </div>
   </section>
 
-  <!-- 3. Newsletter -->
-  <NewsletterBanner />
+  <!-- 2. Key figures -->
+  <section class="py-16 md:py-20 bg-[#FAF8F5] border-t border-[#2C2824]/5">
+    <div class="max-w-5xl mx-auto px-8 md:px-12 lg:px-24">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">21</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">{t.home.statsLabels.hectares}</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">15</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">{t.home.statsLabels.families}</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">850</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">{t.home.statsLabels.straw}</p>
+        </div>
+        <div class="text-center">
+          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">2021</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">{t.home.statsLabels.since}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- 4. En Mouvement, signature immersion -->
-  <section id="experience" class="py-24 md:py-32 bg-[#F3EEDC] overflow-hidden">
+  <!-- 3. Aerial image full width -->
+  <section class="relative">
+    <div class="aspect-[21/9] md:aspect-[3/1] overflow-hidden">
+      <img
+        src="/images/laom/newsletter/vue%20aeriene%20laom2.webp"
+        alt="Aerial view of LAOM estate, 21 hectares, meadows, forest, buildings, river"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <!-- 4. Signature immersions -->
+  <section id="immersions" class="py-24 md:py-32 bg-[#FAF8F5] overflow-hidden">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-        <div class="w-full lg:w-96 flex-shrink-0 opacity-0 delay-200" animate-fade-in-up>
-          <a href="/en/stage-danse/" class="block group">
-            <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
-              <img
-                src="/images/laom/samuel-planas.webp"
-                alt="Samuel Planas, En Mouvement, body immersion at LAOM"
-                class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
-                width="900"
-                height="1200"
-              />
+      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-4">{t.home.immersionsOverline}</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          {t.home.immersionsTitle}
+        </h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <a href={getLocalizedPath('/stage-danse/', lang)} class="group block opacity-0" animate-fade-in-up>
+          <div class="aspect-[4/5] bg-neutral-100 overflow-hidden rounded-sm mb-6">
+            <img
+              src="/images/laom/samuel-planas.webp"
+              alt="Samuel Planas, En Mouvement, body immersion at LAOM"
+              class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">{t.home.enMouvementTag}</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+            {t.home.enMouvementCard.title}
+          </h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            {t.home.enMouvementCard.description}
+          </p>
+          <p class="text-sm font-light text-[#2C2824]/50">
+            {t.home.enMouvementCard.date}
+          </p>
+        </a>
+        <a href={getLocalizedPath('/clarte/', lang)} class="group block opacity-0" animate-fade-in-up style="animation-delay: 100ms">
+          <div class="aspect-[4/5] bg-[#1a1a1a] overflow-hidden rounded-sm mb-6 flex items-center justify-center relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#2C2824] via-[#1a1a1a] to-[#0a0a0a]"></div>
+            <div class="absolute inset-0 opacity-40" style="background-image: radial-gradient(circle at 30% 40%, rgba(196,168,85,0.2) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(196,168,85,0.15) 0%, transparent 40%);"></div>
+            <div class="relative z-10 text-center px-8">
+              <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-4">
+                <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p class="font-playfair text-3xl font-medium text-white tracking-tight">{t.home.clarteCard.title}</p>
             </div>
-          </a>
-        </div>
-        <div class="flex-1 opacity-0" animate-fade-in-up>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-4">Signature immersion</p>
-          <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-normal text-black mb-6 leading-tight tracking-tight">
-            En Mouvement
-          </h2>
-          <p class="text-base md:text-lg font-light text-black/70 mb-8 leading-relaxed">
-            5 days of immersion centred on dance and movement. Led by Samuel Planas, professional dancer trained at the Conservatoire National Supérieur de Paris, and Charly Aubert, coach and co-founder of LAOM. Open to all, no dance experience required.
+          </div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">{t.home.clarteTag}</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+            {t.home.clarteCard.title}
+          </h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+            {t.home.clarteCard.description}
           </p>
-          <p class="text-lg font-light text-black/60 leading-relaxed mb-4">
-            3 sessions this summer: 5–9 August, 11–15 August, 16–20 August 2026.
+          <p class="text-sm font-light text-[#2C2824]/50">
+            {t.home.clarteCard.date}
           </p>
-          <a
-            href="/en/stage-danse/"
-            class="inline-block mt-6 text-base text-black/60 hover:text-black transition-colors font-light underline underline-offset-4"
-          >
-            Discover the workshop
-          </a>
-        </div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 5. Journal de bord -->
-  <section class="py-16 md:py-24 bg-[#F3EEDC]">
+  <!-- 5. Blog -->
+  <section class="py-16 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-3xl md:text-4xl font-normal text-black tracking-tight mb-14 opacity-0 title-underline" animate-fade-in-up>
         {t.home.journalTitle}
       </h2>
-
       <div class="opacity-0" animate-fade-in-up>
-        <!-- Featured: Grand Shambala -->
-        <a href="/en/grand-shambala-v2/" class="group block mb-10">
+        <a href={getLocalizedPath('/grand-shambala-v2/', lang)} class="group block mb-10">
           <article class="flex flex-col md:flex-row gap-8 items-start">
             <div class="w-full md:w-2/3 aspect-[16/9] overflow-hidden rounded-sm">
               <img
@@ -157,8 +280,6 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
             </div>
           </article>
         </a>
-
-        <!-- Other articles from blog -->
         {allPosts.length > 0 && (
           <div class="grid md:grid-cols-2 gap-8">
             {allPosts.slice(0, 2).map((post) => (
@@ -189,7 +310,6 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           </div>
         )}
       </div>
-
       <div class="text-center mt-12">
         <a
           href={getLocalizedPath('/blog/', lang)}
@@ -202,7 +322,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- 6. Our Spaces -->
-  <section id="spaces" class="py-24 md:py-32 bg-[#F3EEDC]">
+  <section id="spaces" class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight text-center mb-16 opacity-0 title-underline mx-auto" animate-fade-in-up>
         {t.home.ourSpaces.sectionTitle}
@@ -212,16 +332,16 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <button
         type="button"
         id="spaces-prev"
-        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
-        aria-label="Previous space"
+        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FAF8F5]/90 flex items-center justify-center text-black/60 hover:bg-[#FAF8F5] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        aria-label={t.home.spacesPrevLabel}
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
       </button>
       <button
         type="button"
         id="spaces-next"
-        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#F3EEDC]/90 flex items-center justify-center text-black/60 hover:bg-[#F3EEDC] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
-        aria-label="Next space"
+        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FAF8F5]/90 flex items-center justify-center text-black/60 hover:bg-[#FAF8F5] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        aria-label={t.home.spacesNextLabel}
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
       </button>
@@ -270,75 +390,81 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       const card = container.querySelector('.spaces-card')
       const gap = 24
       const scrollAmount = (card ? card.offsetWidth + gap : 304)
-      prevBtn.addEventListener('click', () => { container.scrollBy({ left: -scrollAmount, behavior: 'smooth' }) })
-      nextBtn.addEventListener('click', () => { container.scrollBy({ left: scrollAmount, behavior: 'smooth' }) })
+      prevBtn.addEventListener('click', () => {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+      })
+      nextBtn.addEventListener('click', () => {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+      })
     })()
   </script>
 
-  <!-- 7. Partner events -->
-  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-20 opacity-0" animate-fade-in-up>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-4 title-underline">
-          {t.events.allTitle}
-        </h2>
+  <!-- 7. Upcoming events (preview) - same design as FR -->
+  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-end justify-between mb-12 opacity-0" animate-fade-in-up>
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-3">{t.pages.eventsPage.agendaLabel}</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+            {t.events.allTitle}
+          </h2>
+        </div>
         <a
           href={getLocalizedPath('/events/', lang)}
-          class="block mt-4 text-sm text-black/60 hover:text-black transition-colors font-normal underline underline-offset-4"
+          class="hidden sm:inline-flex items-center gap-2 text-sm text-[#2C2824]/50 hover:text-[#C4A855] transition-colors font-light"
         >
-          {t.events.viewAllLink}
+          {t.events.seeAll}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
         </a>
       </div>
-
-      <div class="space-y-16 opacity-0" animate-fade-in-up>
-        {events.map((event) => {
-          const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
-          const inner = (
-            <>
-              <div class="w-full md:w-80 flex-shrink-0">
-                <div class="aspect-[4/3] bg-neutral-100 overflow-hidden rounded-sm">
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    class="w-full h-full object-cover rounded-sm"
-                    loading="lazy"
-                    width="400"
-                    height="300"
-                    decoding="async"
-                  />
-                </div>
-              </div>
-              <div class="flex-1">
-                <p class="text-sm font-normal text-black/50 mb-2">{event.date}</p>
-                <h3 class="text-2xl md:text-3xl font-normal text-black mb-4 tracking-tight">{event.title}</h3>
-                <p class="text-base font-normal text-black/70 leading-relaxed">{event.description}</p>
-              </div>
-            </>
-          )
-          return (
-            <article class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-              {eventHref ? (
-                <a
-                  href={eventHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2"
-                  aria-label={`${event.title} (opens in new tab)`}
-                >
-                  {inner}
-                </a>
-              ) : (
-                <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start w-full">{inner}</div>
-              )}
-            </article>
-          )
-        })}
+      <div class="divide-y divide-[#2C2824]/10 opacity-0" animate-fade-in-up>
+        {events.slice(0, 4).map((event) => (
+          <a
+            href={getLocalizedPath('/events/', lang)}
+            class="group flex items-start gap-6 py-6 first:pt-0 last:pb-0"
+          >
+            <div class="w-24 flex-shrink-0">
+              <p class="text-xs font-light tracking-wider uppercase text-[#C4A855]">
+                {event.date.split(' ')[0]}
+              </p>
+              <p class="text-[11px] font-light text-[#2C2824]/40 mt-0.5">
+                {event.date.split(' ').slice(1).join(' ')}
+              </p>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-playfair text-lg font-medium text-[#2C2824] group-hover:text-[#C4A855] transition-colors leading-snug">
+                {event.title}
+              </h3>
+              <p class="text-sm font-light text-[#2C2824]/50 mt-1 line-clamp-1">
+                {event.description}
+              </p>
+            </div>
+            <div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+              <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-10 sm:hidden opacity-0" animate-fade-in-up>
+        <a
+          href={getLocalizedPath('/events/', lang)}
+          class="inline-flex items-center gap-2 text-sm text-[#2C2824]/60 hover:text-[#C4A855] transition-colors font-light"
+        >
+          {t.events.viewAllLink}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- LaomFest – Citadel Garden style -->
-  <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F3EEDC]">
+  <!-- LaomFest -->
+  <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-6">
@@ -349,7 +475,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         </p>
         <p class="text-sm font-normal text-black/60 italic">{t.home.laomfest.dateNote}</p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" aria-label="LAOMFEST illustration photos">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" aria-label="LAOM Fest illustration photos">
         {['vanlifest-IMG_1021', 'vanlifest-IMG_1373', 'vanlifest-IMG_1399', 'vanlifest-IMG_2563', 'vanlifest-IMG_2846', 'vanlifest-IMG_9979'].map((name) => (
           <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
             <img
@@ -368,8 +494,8 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- 8. YouTube, video embed -->
-  <section class="py-24 md:py-32 bg-[#F3EEDC]">
+  <!-- 8. YouTube -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
       <div class="text-center mb-12">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">YouTube</p>
@@ -383,7 +509,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
         <iframe
           src="https://www.youtube.com/embed/Bltd5fr5VVY"
-          title="Grand Shambala construction, LAOM, conference and timelapse"
+          title="Grand Shambala construction, LAOM, conference and site timelapse"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
           class="w-full h-full"

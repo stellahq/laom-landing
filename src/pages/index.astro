@@ -444,13 +444,9 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       </div>
 
       <div class="divide-y divide-[#2C2824]/10 opacity-0" animate-fade-in-up>
-        {events.slice(0, 4).map((event) => {
-          const eventHref = 'href' in event ? (event as { href?: string }).href : undefined
-          return (
+        {events.slice(0, 4).map((event) => (
             <a
-              href={eventHref || getLocalizedPath('/events/', lang as 'fr' | 'en')}
-              target={eventHref ? '_blank' : undefined}
-              rel={eventHref ? 'noopener noreferrer' : undefined}
+              href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
               class="group flex items-start gap-6 py-6 first:pt-0 last:pb-0"
             >
               <div class="w-24 flex-shrink-0">
@@ -475,8 +471,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                 </svg>
               </div>
             </a>
-          )
-        })}
+        ))}
       </div>
 
       <div class="text-center mt-10 sm:hidden opacity-0" animate-fade-in-up>

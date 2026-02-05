@@ -12,11 +12,21 @@ const pageSchema = createWebPageSchema({
   description: t.pages.eventsPage.heroSubtitle,
 })
 
+// Partner event images (same order as FR — Photos partenaires - LAOM)
 const eventImages = [
-  '/images/claire-danse-libre-retraite-2048x1368.webp',
-  '/images/event-rencontre-perspective.webp',
-  '/images/colette.webp',
-  '/images/david-lin-fyneo.webp',
+  '/images/laom/partenaires/retraite-silence-amawe-partenaire-LAOM.webp',     // Dance & Silence #3
+  '/images/event-rencontre-perspective.webp',                                 // Perspective Meeting #4
+  '/images/laom/partenaires/Energie-illimitee-amawe-stage-partenaire-LAOM.webp', // Unlimited Energy #1
+  '/images/colette.webp',                                                      // Adventure Desires #1
+  '/images/laom/partenaires/au-coeur-de-tes-desirs-colette-partenaire-laom.webp', // At the Heart of Your Desires
+  '/images/laom/partenaires/freres-d-ame-retraite-partenaire-LAOM.webp',      // Soul Brothers
+  '/images/colette.webp',                                                      // Adventure Desires #2
+  '/images/event-rencontre-perspective.webp',                                  // Perspective Festival
+  '/images/laom/partenaires/fyneo-logo-F-vert-texte-vert-copie.webp',          // Fyneo Gathering #1
+  '/images/laom/partenaires/summer-camp-amawe-partenaire-LAOM.webp',           // Summer Camp Amawé
+  '/images/laom/partenaires/Energie-illimitee-amawe-stage-partenaire-LAOM.webp', // Unlimited Energy #2
+  '/images/laom/partenaires/Aime-Etre-retraite-partenaire-LAOM.webp',         // Love-Being
+  '/images/laom/partenaires/Stage-guerison-blessures-partenaire-LAOM.webp',    // Healing Wounds
 ]
 const events = t.events.items.map((item, index) => ({
   ...item,
@@ -212,11 +222,11 @@ const laomfestImages = [
           return (
             <article class="flex flex-col md:flex-row gap-8 md:gap-12 items-start group">
               <div class="w-full md:w-72 flex-shrink-0">
-                <div class="aspect-[4/3] bg-neutral-100 overflow-hidden rounded-sm">
+                <div class={`aspect-[4/3] overflow-hidden rounded-sm ${isFyneo ? 'bg-white flex items-center justify-center p-4 border border-[#2C2824]/15' : 'bg-neutral-100'}`}>
                   <img
                     src={event.image}
                     alt={event.title}
-                    class={`w-full h-full object-cover rounded-sm group-hover:scale-[1.02] transition-transform duration-500 ${isFyneo ? 'object-[50%_25%]' : ''}`}
+                    class={`w-full h-full rounded-sm transition-transform duration-500 ${isFyneo ? 'object-contain group-hover:scale-[1.02]' : 'object-cover group-hover:scale-[1.02]'}`}
                     loading="lazy"
                   />
                 </div>

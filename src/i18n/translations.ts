@@ -49,6 +49,7 @@ export const translations = {
     events: {
       title: 'Nos prochains événements',
       allTitle: 'Les prochains événements à LAOM',
+      seeAll: 'Tout voir',
       viewAllLink: 'Voir tout le calendrier',
       comingSoon: 'Bientôt disponible',
       cta: 'Découvrir',
@@ -70,7 +71,7 @@ export const translations = {
         {
           title: 'Énergie Illimitée #1',
           date: '11 mars – 15 mars 2026',
-          description: '5 jours pour réveiller ton énergie vitale à travers le mouvement, la respiration et la connexion au corps.',
+          description: 'Rencontre clients Accompagnement Énergie Illimitée (Amawé) avec Claire Orriols.',
           href: 'https://amawe.com/',
         },
         // AVRIL - MAI
@@ -83,13 +84,13 @@ export const translations = {
         {
           title: 'Au cœur de tes désirs',
           date: '13 mai – 17 mai 2026',
-          description: 'Exploration profonde de la sensualité et du désir. Un espace pour se reconnecter à soi.',
+          description: 'Une retraite pour ceux qui veulent explorer en profondeur leur sensualité avec Colette Williams.',
           href: 'https://www.coletteseconfesse.fr/',
         },
         {
-          title: 'Frère d\'Âme',
+          title: 'Frères d\'Âme',
           date: '21 mai – 24 mai 2026',
-          description: 'Cercle d\'hommes et exploration du masculin conscient. Un espace de parole et de transformation avec Grégoire Renevier.',
+          description: 'Le masculin du monde qui vient : retraite de quatre jours entre hommes avec Grégoire Renevier. Oser, se révéler et vibrer au cœur d\'une nature préservée.',
           href: 'mailto:hello@laom.fr',
         },
         {
@@ -113,28 +114,28 @@ export const translations = {
         },
         // JUILLET
         {
-          title: 'Summer Camp',
+          title: 'Summer Camp Amawé',
           date: '11 juil. – 14 juil. 2026',
-          description: 'Version estivale des retraites Amawé. Mouvement, nature et connexion au cœur de l\'Aveyron.',
+          description: 'Le rassemblement annuel de la communauté Amawé. Un mini-festival intimiste avec 4 jours d\'échanges, de pratiques et de célébration.',
           href: 'https://amawe.com/',
         },
         {
           title: 'Énergie Illimitée #2',
           date: '17 juil. – 20 juil. 2026',
-          description: 'Seconde session pour réveiller ton énergie vitale. Mouvement, respiration, connexion.',
+          description: 'Rencontre clients Accompagnement Énergie Illimitée (Amawé) avec Claire Orriols.',
           href: 'https://amawe.com/',
         },
         {
           title: 'Aime-Être',
           date: '23 juil. – 26 juil. 2026',
-          description: 'Retraite de reconnexion à soi avec Grégoire Renevier. Méditation, mouvement et nature.',
+          description: 'Retraite transformative : ateliers thérapeutiques, exercices somatiques et reconnexion à soi et à l\'autre avec Adeline Agathe et Grégoire Renevier.',
           href: 'mailto:hello@laom.fr',
         },
         // AOÛT
         {
           title: 'Guérison des Blessures',
           date: '22 août – 28 août 2026',
-          description: 'Retraite thérapeutique de 7 jours avec Patricia Salgon. Traverser les blessures émotionnelles et retrouver sa puissance.',
+          description: 'Retraite thérapeutique de 7 jours avec Patricia Salgon.',
           href: 'mailto:hello@laom.fr',
         },
       ],
@@ -657,6 +658,7 @@ export const translations = {
         subtitle: 'Nature, confort, communauté.',
         labels: ['Nature', 'Repos', 'Partage', 'Création'],
       },
+      statsLabels: { hectares: 'hectares', families: 'familles', straw: 'm² paille porteuse', since: 'depuis' },
       statsTitle: 'LAOM en chiffres',
       stats: [
         '21 hectares de nature préservée',
@@ -664,6 +666,16 @@ export const translations = {
         '11 copropriétaires engagés',
         '2M€ investis collectivement',
       ],
+      heroOverline: 'Habitat · Coliving · Événements · Création',
+      heroTitleLine1: 'Vivre et créer,',
+      heroTitleHighlight: 'ensemble',
+      heroDescription: 'Un écolieu dans le sud de l\'Aveyron. À la fois habitat, espace d\'accueil et terrain d\'expérimentation, on y vient ralentir, se relier, créer et s\'inspirer.',
+      heroNewsletterTitle: 'Recevez les coulisses chaque dimanche',
+      heroNewsletterPlaceholder: 'votre@email.com',
+      heroNewsletterSubmit: 'S\'inscrire',
+      heroNewsletterDisclaimer: 'Pas de spam. Désinscription en un clic.',
+      heroLinkProject: 'Découvrir le projet',
+      heroLinkRetreat: 'Prochaine retraite',
       laomfest: {
         title: 'LAOM Fest',
         description: 'Le festival d\'ouverture de LAOM. Trois jours pour inaugurer le coliving et célébrer 5 ans de construction : rencontres, ateliers, concerts et micro-conférences.',
@@ -708,6 +720,20 @@ export const translations = {
         imageAlt: 'Immersion EN MOUVEMENT, danse et mouvement à LAOM.',
         cta: 'Voir les prochaines dates',
       },
+      immersionsOverline: 'Immersions signature',
+      immersionsTitle: 'Nos programmes d\'immersion',
+      enMouvementTag: 'Corps & mouvement',
+      clarteTag: 'Vision & système',
+      enMouvementCard: {
+        title: 'En Mouvement',
+        description: '5 jours d\'immersion par la danse et le mouvement. Guidé par Samuel Planas et Charly Aubert. Ouvert à tous.',
+        date: 'Août 2026 · 3 sessions',
+      },
+      clarteCard: {
+        title: 'Clarté',
+        description: 'Un week-end pour créer ton système de vie : vision, PARA, et Claude Code comme agent IA personnel.',
+        date: '25-27 avril 2026 · 12 places',
+      },
       journalTitle: 'Journal de bord',
       featuredLabel: 'À la une',
       grandShambalaTitle: 'Grand Shambala',
@@ -717,6 +743,8 @@ export const translations = {
       youtubeTitle: 'Suivre l\'aventure',
       youtubeDescription: 'Charly documente la construction de LAOM en vidéo. Chantier, décisions, erreurs, apprentissages,  tout est là, sans filtre.',
       subscribeChannel: 'S\'abonner à la chaîne',
+      spacesPrevLabel: 'Espace précédent',
+      spacesNextLabel: 'Espace suivant',
       ourSpaces: {
         sectionTitle: 'Nos Espaces',
         items: [
@@ -814,6 +842,7 @@ export const translations = {
     events: {
       title: 'Our upcoming events',
       allTitle: 'Upcoming events at LAOM',
+      seeAll: 'See all',
       viewAllLink: 'View all events',
       comingSoon: 'Coming soon',
       cta: 'Discover',
@@ -835,7 +864,7 @@ export const translations = {
         {
           title: 'Unlimited Energy #1',
           date: 'Mar 11 – Mar 15, 2026',
-          description: '5 days to awaken your vital energy through movement, breathwork and body connection.',
+          description: 'Client gathering for Unlimited Energy (Amawé) coaching with Claire Orriols.',
           href: 'https://amawe.com/',
         },
         // APRIL - MAY
@@ -848,13 +877,13 @@ export const translations = {
         {
           title: 'At the Heart of Your Desires',
           date: 'May 13 – May 17, 2026',
-          description: 'Deep exploration of sensuality and desire. A space to reconnect with yourself.',
+          description: 'A retreat for those who want to explore their sensuality in depth with Colette Williams.',
           href: 'https://www.coletteseconfesse.fr/',
         },
         {
-          title: 'Soul Brother',
+          title: 'Soul Brothers',
           date: 'May 21 – May 24, 2026',
-          description: 'Men\'s circle and exploration of conscious masculinity. A space for dialogue and transformation with Grégoire Renevier.',
+          description: 'The masculinity of the world to come: four-day retreat for men with Grégoire Renevier. Dare, reveal yourself and connect, in the heart of preserved nature.',
           href: 'mailto:hello@laom.fr',
         },
         {
@@ -878,28 +907,28 @@ export const translations = {
         },
         // JULY
         {
-          title: 'Summer Camp',
+          title: 'Summer Camp Amawé',
           date: 'Jul 11 – Jul 14, 2026',
-          description: 'Summer edition of Amawé retreats. Movement, nature and connection in the heart of Aveyron.',
+          description: 'The annual gathering of the Amawé community. An intimate mini-festival with 4 days of exchange, practice and celebration.',
           href: 'https://amawe.com/',
         },
         {
           title: 'Unlimited Energy #2',
           date: 'Jul 17 – Jul 20, 2026',
-          description: 'Second session to awaken your vital energy. Movement, breathwork, connection.',
+          description: 'Client gathering for Unlimited Energy (Amawé) coaching with Claire Orriols.',
           href: 'https://amawe.com/',
         },
         {
           title: 'Love-Being',
           date: 'Jul 23 – Jul 26, 2026',
-          description: 'Self-reconnection retreat with Grégoire Renevier. Meditation, movement and nature.',
+          description: 'Transformative retreat: therapeutic workshops, somatic practices and reconnection with yourself and others with Adeline Agathe and Grégoire Renevier.',
           href: 'mailto:hello@laom.fr',
         },
         // AUGUST
         {
           title: 'Healing Wounds',
           date: 'Aug 22 – Aug 28, 2026',
-          description: '7-day therapeutic retreat with Patricia Salgon. Journey through emotional wounds and reclaim your power.',
+          description: '7-day therapeutic retreat with Patricia Salgon.',
           href: 'mailto:hello@laom.fr',
         },
       ],
@@ -1422,6 +1451,7 @@ export const translations = {
         subtitle: 'Nature, comfort, community.',
         labels: ['Nature', 'Rest', 'Sharing', 'Creation'],
       },
+      statsLabels: { hectares: 'hectares', families: 'families', straw: 'm² load-bearing straw', since: 'since' },
       statsTitle: 'LAOM in numbers',
       stats: [
         '21 hectares of preserved nature',
@@ -1429,6 +1459,16 @@ export const translations = {
         '11 committed co-owners',
         '€2M invested collectively',
       ],
+      heroOverline: 'Habitat · Coliving · Events · Creation',
+      heroTitleLine1: 'Live and create,',
+      heroTitleHighlight: 'together',
+      heroDescription: 'An ecolieu in the south of Aveyron. Both a dwelling, a place of welcome and a space for experimentation, people come here to slow down, connect, create and find inspiration.',
+      heroNewsletterTitle: 'Get the behind-the-scenes every Sunday',
+      heroNewsletterPlaceholder: 'your@email.com',
+      heroNewsletterSubmit: 'Subscribe',
+      heroNewsletterDisclaimer: 'No spam. Unsubscribe in one click.',
+      heroLinkProject: 'Discover the project',
+      heroLinkRetreat: 'Next retreat',
       laomfest: {
         title: 'LAOM Fest',
         description: 'The LAOM opening festival. Three days to inaugurate the coliving and celebrate 5 years of construction: gatherings, workshops, concerts and micro-talks.',
@@ -1473,6 +1513,20 @@ export const translations = {
         imageAlt: 'EN MOUVEMENT immersion, dance and movement at LAOM.',
         cta: 'View upcoming dates',
       },
+      immersionsOverline: 'Signature immersions',
+      immersionsTitle: 'Our immersion programs',
+      enMouvementTag: 'Body & movement',
+      clarteTag: 'Vision & system',
+      enMouvementCard: {
+        title: 'En Mouvement',
+        description: '5-day immersion through dance and movement. Led by Samuel Planas and Charly Aubert. Open to all.',
+        date: 'August 2026 · 3 sessions',
+      },
+      clarteCard: {
+        title: 'Clarté',
+        description: 'A weekend to create your life system: vision, PARA, and Claude Code as your personal AI agent.',
+        date: '25-27 April 2026 · 12 places',
+      },
       journalTitle: 'Blog',
       featuredLabel: 'Featured',
       grandShambalaTitle: 'Grand Shambala',
@@ -1482,6 +1536,8 @@ export const translations = {
       youtubeTitle: 'Follow the adventure',
       youtubeDescription: 'Charly documents the construction of LAOM on video. Site work, decisions, mistakes, learnings — all there, unfiltered.',
       subscribeChannel: 'Subscribe to the channel',
+      spacesPrevLabel: 'Previous space',
+      spacesNextLabel: 'Next space',
       ourSpaces: {
         sectionTitle: 'Our Spaces',
         items: [
