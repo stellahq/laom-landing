@@ -10,10 +10,10 @@ const t = getTranslations(lang)
 const allPosts = await getCollection('blog', ({ data }) => {
   return data.locale === lang && !data.draft
 })
+// All blog articles, newest to oldest (Grand Shambala stays static at top)
 const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 
-const featured = posts[0]
-const rest = posts.slice(1)
+const grandShambalaHref = '/en/grand-shambala-v2/'
 
 const allNewsletters = await getCollection('newsletters')
 const newsletters = allNewsletters
@@ -45,81 +45,71 @@ const pageSchema = createWebPageSchema({
     </div>
   </section>
 
+  <!-- Grand Shambala: always at top, static (link to dedicated page) -->
+  <section class="bg-white">
+    <a href={grandShambalaHref} class="group block">
+      <div class="relative aspect-[21/9] overflow-hidden">
+        <img
+          src="/images/laom/grand-shambala/p1.webp"
+          alt="Grand Shambala, 850 m² load-bearing straw"
+          class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 lg:p-16">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-white/60 mb-4">
+            Grand Shambala
+          </p>
+          <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight mb-4 max-w-3xl">
+            {t.home.grandShambalaTitle}
+          </h2>
+          <p class="text-base md:text-lg font-light text-white/75 leading-relaxed max-w-2xl line-clamp-2">
+            {t.home.grandShambalaDescription}
+          </p>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- Blog articles, newest to oldest -->
   {posts.length === 0 ? (
-    <section class="py-24 bg-white">
+    <section class="py-24 bg-[#F3EEDC]">
       <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
         <p class="text-lg font-light text-[#2C2824]/60">{t.blog.empty}</p>
       </div>
     </section>
   ) : (
-    <>
-      <!-- Featured article, full width hero style -->
-      {featured && (
-        <section class="bg-white">
-          <a href={`/en/blog/${featured.slug}/`} class="group block">
-            <div class="relative aspect-[21/9] overflow-hidden">
-              {featured.data.heroImage ? (
-                <img
-                  src={featured.data.heroImage}
-                  alt={featured.data.title}
-                  class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                  loading="eager"
-                />
-              ) : (
-                <div class="w-full h-full bg-[#E8E3D8]"></div>
-              )}
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 lg:p-16">
-                <p class="text-xs font-light tracking-[0.2em] uppercase text-white/60 mb-4">
-                  {new Date(featured.data.pubDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
+    <section class="py-20 md:py-24 bg-[#F3EEDC]">
+      <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+        <div class="grid md:grid-cols-2 gap-x-10 gap-y-16">
+          {posts.map((post) => (
+            <a href={`/en/blog/${post.slug}/`} class="group block">
+              <article>
+                {post.data.heroImage && (
+                  <div class="aspect-[16/10] overflow-hidden rounded-sm mb-6">
+                    <img
+                      src={post.data.heroImage}
+                      alt={post.data.title}
+                      class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">
+                  {new Date(post.data.pubDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
                 </p>
-                <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight mb-4 max-w-3xl">
-                  {featured.data.title}
-                </h2>
-                <p class="text-base md:text-lg font-light text-white/75 leading-relaxed max-w-2xl line-clamp-2">
-                  {featured.data.description}
+                <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-3 tracking-tight leading-snug group-hover:text-[#2C2824]/70 transition-colors">
+                  {post.data.title}
+                </h3>
+                <p class="text-base font-light text-[#2C2824]/60 leading-relaxed line-clamp-3">
+                  {post.data.description}
                 </p>
-              </div>
-            </div>
-          </a>
-        </section>
-      )}
-
-      <!-- Articles grid -->
-      {rest.length > 0 && (
-        <section class="py-20 md:py-24 bg-[#F3EEDC]">
-          <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-            <div class="grid md:grid-cols-2 gap-x-10 gap-y-16">
-              {rest.map((post) => (
-                <a href={`/en/blog/${post.slug}/`} class="group block">
-                  <article>
-                    {post.data.heroImage && (
-                      <div class="aspect-[16/10] overflow-hidden rounded-sm mb-6">
-                        <img
-                          src={post.data.heroImage}
-                          alt={post.data.title}
-                          class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                          loading="lazy"
-                        />
-                      </div>
-                    )}
-                    <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">
-                      {new Date(post.data.pubDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' })}
-                    </p>
-                    <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-3 tracking-tight leading-snug group-hover:text-[#2C2824]/70 transition-colors">
-                      {post.data.title}
-                    </h3>
-                    <p class="text-base font-light text-[#2C2824]/60 leading-relaxed line-clamp-3">
-                      {post.data.description}
-                    </p>
-                  </article>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-    </>
+              </article>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   )}
 
   <!-- Past Newsletters -->

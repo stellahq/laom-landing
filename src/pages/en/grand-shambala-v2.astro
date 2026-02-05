@@ -7,67 +7,830 @@ export const prerender = true
 const pageSchema = createWebPageSchema({
   name: 'Grand Shambala – The world\'s largest load-bearing straw building',
   url: Astro.url.toString(),
-  description: 'How a small group built the world\'s largest load-bearing straw building: 850 m², two storeys, 75 days. From Earthship intuition to lime renders, the full story of an extraordinary build in an eco-hamlet in the south of Aveyron.',
+  description:
+    'How a small group built the world\'s largest load-bearing straw building: 850 m², two storeys, 75 days. From Earthship intuition to lime renders, the full story of an extraordinary build in an eco-place in the south of Aveyron.',
 })
 ---
 
 <Layout
   title="Grand Shambala – The world's largest load-bearing straw building | LAOM"
-  description="How a small group built the world's largest load-bearing straw building: 850 m², two storeys, 75 days. Full story of the build at LAOM eco-hamlet."
+  description="How a small group built the world's largest load-bearing straw building: 850 m², two storeys, 75 days. Full story of the build at LAOM."
   seo={{ ldJSON: pageSchema }}
 >
-  <!-- Hero -->
+
+  <!-- Playfair Display for article headings -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" />
+
+  <style is:inline>
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+    @media (min-width: 1400px) { #sticky-toc { display: block !important; } }
+    section[id] { scroll-margin-top: 6rem; }
+  </style>
+
+  <!-- Progress bar -->
+  <div id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="position: fixed; bottom: 0; left: 0; height: 6px; background-color: #C4A855; z-index: 9999; width: 0%; box-shadow: 0 0 8px rgba(196, 168, 85, 0.4); transition: none; pointer-events: none;"></div>
+
+  <!-- Sticky sidebar TOC,  minimal dots-only design -->
+  <nav id="sticky-toc" aria-label="Article table of contents" style="position: fixed; top: 140px; right: 32px; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; display: none;">
+    <div class="flex flex-col items-end gap-[2px]">
+      <a href="#lhomme" data-toc="lhomme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 1,  Where it all began">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Where it all began</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#la-graine" data-toc="la-graine" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 2,  The Seed">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">The Seed</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#les-murs-qui-parlent" data-toc="les-murs-qui-parlent" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 3,  The Straw Walls">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">The Straw Walls</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#le-mur" data-toc="le-mur" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 4,  The Wall">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">The Wall</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#lautomne" data-toc="lautomne" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 5,  Vertical Autumn">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Vertical Autumn</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#le-silence" data-toc="le-silence" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 6,  The Year of Silence">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">The Silence</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#la-peau" data-toc="la-peau" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 7,  The Skin">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">The Skin</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#programme" data-toc="programme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 8,  What the building contains">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">The Programme</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+      <a href="#lhorizon" data-toc="lhorizon" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapter 9,  The Horizon">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">The Horizon</span>
+        <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
+      </a>
+    </div>
+  </nav>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var bar = document.getElementById('progress-bar');
+      if (bar) {
+        var ticking = false;
+        function updateProgress() {
+          var scrollTop = window.scrollY || document.documentElement.scrollTop;
+          var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          var progress = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+          bar.style.width = progress + '%';
+          bar.setAttribute('aria-valuenow', Math.round(progress));
+          ticking = false;
+        }
+        window.addEventListener('scroll', function () {
+          if (!ticking) { requestAnimationFrame(updateProgress); ticking = true; }
+        }, { passive: true });
+        updateProgress();
+      }
+      var stickyToc = document.getElementById('sticky-toc');
+      var inlineToc = document.getElementById('inline-toc');
+      var ctaSection = document.getElementById('cta-section');
+      if (stickyToc && inlineToc) {
+        var tocVisible = false;
+        var ctaReached = false;
+        var inlineTocObserver = new IntersectionObserver(function (entries) {
+          tocVisible = !entries[0].isIntersecting && entries[0].boundingClientRect.bottom < 0;
+          stickyToc.style.opacity = (tocVisible && !ctaReached) ? '1' : '0';
+          stickyToc.style.pointerEvents = (tocVisible && !ctaReached) ? 'auto' : 'none';
+        }, { threshold: 0 });
+        inlineTocObserver.observe(inlineToc);
+        if (ctaSection) {
+          var ctaObserver = new IntersectionObserver(function (entries) {
+            ctaReached = entries[0].isIntersecting;
+            stickyToc.style.opacity = (tocVisible && !ctaReached) ? '1' : '0';
+            stickyToc.style.pointerEvents = (tocVisible && !ctaReached) ? 'auto' : 'none';
+          }, { threshold: 0 });
+          ctaObserver.observe(ctaSection);
+        }
+      }
+      var sections = document.querySelectorAll('section[id]');
+      var tocLinks = document.querySelectorAll('#sticky-toc .toc-link');
+      var currentActive = null;
+      if (sections.length && tocLinks.length) {
+        var chapterObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var activeId = entry.target.id;
+              if (currentActive === activeId) return;
+              currentActive = activeId;
+              tocLinks.forEach(function (link) {
+                var id = link.getAttribute('data-toc');
+                var dot = link.querySelector('.toc-dot');
+                var isActive = id === activeId;
+                var label = link.querySelector('.toc-label');
+                link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                if (dot) {
+                  dot.style.backgroundColor = isActive ? '#C4A855' : '';
+                  dot.style.width = isActive ? '8px' : '';
+                  dot.style.height = isActive ? '8px' : '';
+                  dot.style.boxShadow = isActive ? '0 0 6px rgba(196,168,85,0.4)' : '';
+                }
+                if (label) {
+                  label.style.color = isActive ? 'rgba(44,40,36,0.7)' : '';
+                  label.style.fontWeight = isActive ? '500' : '';
+                }
+              });
+            }
+          });
+        }, { rootMargin: '-15% 0px -65% 0px' });
+        sections.forEach(function (s) { chapterObserver.observe(s); });
+      }
+    });
+  </script>
+
+
+  <!-- HERO -->
   <section class="relative w-full -mt-24 md:-mt-28">
-    <img src="/images/laom/grand-shambala/p1.webp" alt="Drone view of Grand Shambala, 850 m² of load-bearing straw in the Aveyron landscape" class="w-full object-cover" loading="eager" decoding="async" />
-    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent flex flex-col items-center justify-end pb-12 md:pb-20 gap-3 md:gap-4">
-      <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight drop-shadow-lg">
+    <img src="/images/laom/grand-shambala/p1.webp" alt="Drone view of Grand Shambala, 850 m² of load-bearing straw in the Aveyron landscape" class="w-full min-h-[60vh] md:min-h-0 object-cover object-center" loading="eager" decoding="async" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col items-center justify-end pb-12 md:pb-20 gap-3 md:gap-4">
+      <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-medium text-white tracking-tight drop-shadow-lg text-center px-6">
         Grand Shambala
       </h1>
-      <p class="text-sm md:text-base font-light tracking-[0.08em] text-white/75 max-w-lg text-center drop-shadow-md">
-        The world's largest load-bearing straw building, 850 m² on two storeys
+      <p class="text-sm md:text-base font-light tracking-[0.08em] text-white/80 max-w-lg text-center px-6 drop-shadow-md">
+        The world's largest load-bearing straw building, 850&nbsp;m² on two storeys
       </p>
     </div>
   </section>
 
-  <!-- Intro -->
+
+  <!-- INTRO -->
   <section class="py-16 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+
       <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">Introduction</p>
+
       <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824] mb-6">
-        Grand Shambala is the heart of LAOM, an eco-hamlet of 21 hectares in the south of Aveyron. 850 m² on two storeys: coliving, housing, workshops, common space, entirely built in load-bearing straw, wood, earth and lime. A passive building, close to autonomy, where you only breathe natural materials.
+        Grand Shambala is the heart of LAOM, an eco-place nestled in 21 hectares of wild nature in the south of Aveyron.
       </p>
+      <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824] mb-6">
+        850&nbsp;m² on two storeys: coliving, housing, workshops, common space, entirely built in load-bearing straw, wood, earth and lime. A passive building, close to autonomy, where you only breathe natural materials.
+      </p>
+
       <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
-        The full long-form article tells how it was built: the steps, the choices, the difficulties and how they were overcome. You'll read how four people raised the walls in fifteen days, how a steel structure was abandoned because it contradicted our values, and how three insulation machines failed before the right one was found.
+        This page tells how it was built: the steps, the choices, the difficulties, and how they were overcome. You'll read how four people raised the walls in fifteen days, how a steel structure was abandoned because it contradicted our values, and how three insulation blowing machines failed before the right one was found.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- TABLE OF CONTENTS -->
+  <section id="inline-toc" class="py-14 lg:py-16 bg-white border-t border-black/5">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">Table of contents</h2>
+        <p class="text-sm font-light text-[#2C2824]/50">~18 min read</p>
+      </div>
+      <nav aria-label="Table of contents" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
+        <div>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mb-3">Act I,  The Vision</p>
+          <a href="#lhomme" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">1. Where it all began</a>
+          <a href="#la-graine" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">2. The Seed</a>
+          <a href="#les-murs-qui-parlent" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">3. The Straw Walls</a>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Act II,  The Wall</p>
+          <a href="#le-mur" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">4. The Wall</a>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Act III,  The Build</p>
+          <a href="#lautomne" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">5. Vertical Autumn</a>
+        </div>
+        <div>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mb-3">Act IV,  The Silence</p>
+          <a href="#le-silence" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">6. The Year of Silence</a>
+          <a href="#la-peau" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">7. The Skin</a>
+          <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Act V,  The Horizon</p>
+          <a href="#programme" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">8. What the building contains</a>
+          <a href="#lhorizon" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">9. The Horizon</a>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+
+  <!-- CHAPTER 1,  WHERE IT ALL BEGAN -->
+
+  <section id="lhomme" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 1</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        Where it all began
+      </h2>
+
+      <img src="/images/laom/grand-shambala/p2.webp" alt="Portrait of Charly, early days of the Grand Shambala project" class="w-full aspect-[4/3] object-cover rounded-sm mb-10" loading="lazy" decoding="async" />
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        <span class="text-5xl font-light text-[#2C2824] float-left mr-3 mt-1 leading-none font-playfair">G</span>rand Shambala began in a field. A gently sloping plot in the south of Aveyron, in the heart of the Grands Causses Natural Park. We looked at that meadow and saw a building. Not a plan, not a concept—a building. 850 m² of floor space, two storeys, straw, wood, earth.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        We had no money. No construction experience. Not even the land yet. But we had clarity about what needed to be done. And the first question was never « is it possible? ». The first question was: what do we need to do? What's the first step?
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        This is the story of that building.
       </p>
     </div>
   </section>
 
-  <!-- Full article in French -->
-  <section class="py-16 md:py-24 bg-white border-t border-black/5">
+
+  <!-- CHAPTER 2,  THE SEED -->
+
+  <section id="la-graine" class="py-24 lg:py-32 bg-[#FAF8F5]">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="border border-[#C4A855]/30 bg-[#FAF8F5] rounded-sm p-8 md:p-10">
-        <p class="text-sm font-medium tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">Long-form article</p>
-        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] tracking-tight mb-4">
-          Full story available in French
-        </h2>
-        <p class="text-base font-light text-[#2C2824]/80 leading-relaxed mb-6">
-          The complete 9-chapter narrative (~18 min read) is currently available in French. It covers the vision, the pivot from steel to pure load-bearing straw, the administrative wall, the build itself, and what the building contains today.
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 2</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        The Seed
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The starting inspiration was Earthships—those buildings invented by American architect Michael Reynolds in the New Mexico desert. An Earthship is a self-sufficient building: it heats itself, collects its own water, recycles its waste, and feeds its inhabitants from an integrated greenhouse. A living organism.
+      </p>
+
+      <img src="/images/laom/grand-shambala/p3.webp" alt="Diagram of the 6 Earthship principles: passive solar, thermal mass, water management, recycling, food production, energy autonomy" class="w-full rounded-sm my-12" loading="lazy" decoding="async" />
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        But an Earthship is designed for an isolated family. We were eleven, in a 21-hectare eco-place with a river, meadows, forests, and a collective project combining housing, outward-facing economic activity, and farming. A single classic Earthship building wasn't possible. We had to think systemically.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        And it wasn't just the Earthship. There was also the philosophy of the regenerative movement: how to shift from an extractive logic—taking more than we give—to a regenerative one, where every action enriches the system. How to integrate these variables into the design of a building?
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The Earthship's integrated greenhouse? We didn't need it in the building—we had the option of a real market garden at the scale of the estate, Ferme du Verseau, in regenerative agriculture. Passive solar gain? We kept it with a large south-facing glazed façade. Water autonomy? It's designed around the river and springs. Each principle found its place not in a single building, but in an entire ecosystem.
+      </p>
+
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/85 leading-relaxed">
+          What if, instead of shrinking the dream to fit the technique, we expanded the technique to welcome the dream?
         </p>
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="/grand-shambala-v2/"
-            class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
-          >
-            Read in French
-          </a>
-          <a
-            href="/en/grand-shambala/"
-            class="inline-flex items-center justify-center rounded-sm border border-[#2C2824]/20 text-[#2C2824] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#2C2824]/5 transition-colors"
-          >
-            English overview
+      </blockquote>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <img src="/images/laom/grand-shambala/p4.webp" alt="Classic Earthship vs Grand Shambala, from individual module to collective ecosystem" class="w-full rounded-sm" loading="lazy" decoding="async" />
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">From module to world</p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src="/images/laom/grand-shambala/p5.webp" alt="Sketch v1, first drafts of Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p6.webp" alt="Sketch v2, structure iteration" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p7.webp" alt="Sketch v3, rejected plan" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p8.webp" alt="Sketch v4, final load-bearing straw plan" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+      </div>
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">The evolution of the thinking: sketches, iterations, rejected plans.</p>
+    </div>
+  </section>
+
+
+  <!-- CHAPTER 3,  THE STRAW WALLS -->
+
+  <section id="les-murs-qui-parlent" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 3</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        The Straw Walls
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The first version of Grand Shambala was a steel structure. A metal skeleton clad in a coat of straw. On paper it worked. Structurally it was solid. We even had access to steel.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        And then we stopped. Because an ecological building held up by steel is a contradiction. Steel is one of the most carbon-intensive materials there is. And to support it we needed large concrete pads, heavy foundations, an amount of concrete that contradicted everything we stood for.
+      </p>
+
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/85 leading-relaxed">
+          The steel worked. But an ecological building held up by carbon is a structural lie.
+        </p>
+      </blockquote>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        We pivoted to something more radical and more coherent: <strong>pure load-bearing straw</strong>.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The principle: straw bales are not infill. They <em>are</em> the structure. They carry the walls, the roof, the floor. 850 m² on two storeys, held up by straw. It had never been done at this scale.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The advantage: very little concrete. Only foundation footings. No concrete slab, just frost protection. The rest: straw, local wood, earth, lime. Materials that store carbon instead of emitting it.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        North and west faces: load-bearing straw. South face: timber frame, to accommodate the large glazed façade that captures the sun. A bioclimatic building, structurally honest.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="grid grid-cols-3 gap-3 rounded-sm overflow-hidden">
+        <img src="/images/laom/grand-shambala/p9-bis-bis.webp" alt="Technical section of load-bearing straw wall, detail view" class="col-span-1 w-full h-full object-cover" loading="lazy" decoding="async" />
+        <div class="col-span-2 flex flex-col gap-3">
+          <img src="/images/laom/grand-shambala/p9-bis.webp" alt="Technical section of load-bearing straw wall, overview" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
+          <img src="/images/laom/grand-shambala/p9.webp" alt="Technical section of load-bearing straw wall, layer details" class="w-full flex-1 object-cover" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CHAPTER 4,  THE WALL -->
+
+  <section id="le-mur" class="py-24 lg:py-32 bg-[#E8E4DB]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 4</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        The Wall
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Some walls aren't built from straw. The ones in the administration are among them.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        From the start we had a clear vision: an agritourism project with farming, tourism and residents. We knew where we wanted to go. But the local development plan didn't allow it. We needed a <strong>STECAL</strong>—a Secteur de Taille et de Capacité d'Accueil Limitées (limited size and capacity sector)—to authorize this change of use.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Meanwhile we worked with what the rules allowed. We started with the farm and obtained an agricultural permit. We built what we could build. And in parallel we worked iteratively on the STECAL—four permit versions, each adapted to the legal framework of the moment.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Four years. Four years of meetings, applications, letters, refusals, rewrites, waiting.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        One winter evening in 2022. Charly opens an envelope in the farm kitchen. Another refusal. The third time. Someone says, quietly: « Maybe we should stop. » Silence. The stove crackles. No one answers. No one stops.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The Grand Shambala build started in summer 2023, in parallel with the STECAL process that would conclude in summer 2025 with the new local plan. The building and the law moved forward together—not always at the same pace. The STECAL now allows the change of use toward the project's final vision.
+      </p>
+
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/85 leading-relaxed">
+          We always worked with what the rules allowed. And we always worked so the rules would catch up with the vision.
+        </p>
+      </blockquote>
+
+      <img src="/images/laom/grand-shambala/p10.webp" alt="Administrative documents and permit timeline, 4 years of process for Grand Shambala" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+
+  <!-- Administrative guide box -->
+  <section class="py-16 md:py-20 bg-[#2C2824]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-14">
+        <div class="shrink-0 w-48 md:w-56">
+          <div class="aspect-[3/4] bg-[#3D3832] border border-white/10 rounded-sm flex items-center justify-center shadow-2xl" role="img" aria-label="Administrative guide cover, coming soon">
+            <div class="text-center px-6">
+              <div class="w-10 h-[2px] bg-[#C4A855] mx-auto mb-4"></div>
+              <p class="font-playfair text-base text-white/80 leading-snug mb-2">The Administrative Journey</p>
+              <p class="text-[10px] font-light text-white/40 uppercase tracking-[0.2em]">Practical guide</p>
+              <div class="w-10 h-[2px] bg-[#C4A855] mx-auto mt-4"></div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center md:text-left">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Free guide</p>
+          <p class="font-playfair text-2xl md:text-3xl font-medium text-white mb-4 tracking-tight leading-snug">
+            4 years of permits in 1 guide.
+          </p>
+          <p class="text-base font-light text-white/60 leading-relaxed mb-8 max-w-md">
+            STECAL, local plan, agricultural permit, change of use—the full administrative path we went through to make this project exist. The steps, the mistakes, the strategies that finally worked.
+          </p>
+          <a href="/en/newsletter/" class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors">
+            Get the guide for free
           </a>
         </div>
       </div>
     </div>
   </section>
+
+
+  <!-- CHAPTER 5,  VERTICAL AUTUMN -->
+
+  <section id="lautomne" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 5</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-6 tracking-tight leading-tight">
+        Vertical Autumn
+      </h2>
+      <p class="text-lg font-light text-[#2C2824]/50 mb-16">The build, told like a site diary.</p>
+
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Summer 2023,  The base</p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Five rows of blockwork (agglo). That's the building's base, the foundation on which the straw bales will sit. Simple, physical work to lay the visible foundations of Grand Shambala.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12 mb-12">
+      <img src="/images/laom/grand-shambala/p11.webp" alt="Junction between blockwork base and first straw bales of Grand Shambala" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">1 October 2023,  Day 1</p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            The walls begin. Charly, Khaldoun, Paul O., Rémy. Four people. Hundreds of straw bales—each 70 cm thick, 2.50 m long, 1.20 m high. Everything is crane-lifted. North and west walls go up in load-bearing straw. South face in timber frame. We don't yet know if it will hold at this scale. We just know we have to keep going.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12 mb-12">
+      <div class="bg-black rounded-sm overflow-hidden p-6 md:p-8">
+        <div class="aspect-[16/9] md:aspect-[32/9] bg-[#1a1a1a] flex items-center justify-center border border-white/10 rounded-sm" role="img" aria-label="Placeholder: time-lapse sequence of walls Day 1 to Day 15">
+          <div class="text-center px-8">
+            <p class="text-xs font-medium text-white/40 uppercase tracking-[0.2em] mb-2">Placeholder,  Cinematic strip</p>
+            <p class="text-sm font-light text-white/50 max-w-lg">Sequence of 4–5 photos same angle showing walls rising day by day. D1 → D5 → D10 → D15.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">15 October,  Day 15</p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            The walls are finished. All of them. In fifteen days. Four people at the start, joined by others as the days went on. The straw bales hold. The building has a shape. It has walls. It exists.
+          </p>
+        </div>
+
+        <blockquote class="py-6 -ml-8 pl-8 border-l-0">
+          <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/85 leading-relaxed">
+            Fifteen days. The walls of an 850 m² load-bearing straw building. Fifteen days.
+          </p>
+        </blockquote>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">16–31 October 2023</p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            South façade. The timber frame is up, without the windows, which will come later. The structure takes shape. The building begins to have a face on the south side.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12 mb-12">
+      <img src="/images/laom/grand-shambala/p13.webp" alt="South timber-frame façade of Grand Shambala, bare structure before windows" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">November–December 2023,  Roof frame and tiles</p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
+            The roof frame was the only phase where we brought in an outside company. Trusses assembled in modules on site, crane-lifted by truck and set on the walls. It went fast.
+          </p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
+            Then the tiles. We laid the vapour barrier, battens, and tiles ourselves. Four people—Baptiste, Rémy, Khaldoun, and a bit of Elliot. Colossal, physically exhausting work. Charly had dislocated his thumb just before; he couldn't take part in this phase. But that constraint let him prepare something else: a talk that would become an important moment.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12 mb-12">
+      <img src="/images/laom/grand-shambala/p14.webp" alt="Roof trusses crane-lifted onto straw walls and tile laying, winter sky" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">15 December 2023,  Day 75</p>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Weathertight. The building is enclosed. The wind no longer passes through. The rain no longer gets in. Silence on the site.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <img src="/images/laom/grand-shambala/p15.webp" alt="Grand Shambala weathertight, enclosed building under winter sky, day 75" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="my-16 py-12 text-center">
+        <p class="text-3xl md:text-4xl font-light text-[#2C2824] tracking-tight mb-2">4 people. 75 days. 850 m².</p>
+        <p class="text-sm font-light text-[#2C2824]/50 tracking-wide">From base to weathertight. One summer and one autumn.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube video, 15 December 2023 conference -->
+  <section class="py-16 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
+        <iframe
+          src="https://www.youtube.com/embed/Bltd5fr5VVY"
+          title="Grand Shambala construction, LAOM, conference and site timelapse"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p class="text-center text-sm font-light italic text-[#2C2824]/40 mt-4">The 15 December 2023 conference—Charly thanks his team and family, especially his in-laws Paul and Joël Orioles, who made the build possible.</p>
+    </div>
+  </section>
+
+  <!-- Book box -->
+  <section class="py-16 md:py-20 bg-[#2C2824]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-14">
+        <div class="shrink-0 w-48 md:w-56">
+          <div class="aspect-[3/4] bg-[#3D3832] border border-white/10 rounded-sm flex items-center justify-center shadow-2xl" role="img" aria-label="Book cover, coming soon">
+            <div class="text-center px-6">
+              <div class="w-10 h-[2px] bg-[#C4A855] mx-auto mb-4"></div>
+              <p class="font-playfair text-base text-white/80 leading-snug mb-2">Grand Shambala</p>
+              <p class="text-[10px] font-light text-white/40 uppercase tracking-[0.2em]">The book</p>
+              <div class="w-10 h-[2px] bg-[#C4A855] mx-auto mt-4"></div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center md:text-left">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Release March 2026</p>
+          <p class="font-playfair text-2xl md:text-3xl font-medium text-white mb-4 tracking-tight leading-snug">
+            We're making it a book.
+          </p>
+          <p class="text-base font-light text-white/60 leading-relaxed mb-8 max-w-md">
+            Construction, materials, real costs, mistakes, lessons. Everything we would have wanted to read before we started. Subscribers get it free as an advance copy.
+          </p>
+          <a href="/en/newsletter/" class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors">
+            Get the book for free
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CHAPTER 6,  THE YEAR OF SILENCE -->
+
+  <section id="le-silence" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 6</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        The Year of Silence
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        January 2024. Grand Shambala has been weathertight for three weeks. We go in. It's vast. It's cold. The straw bales are visible, raw. Two 350 m² floors, one above the other, empty. The wind whistles through the gaps the render hasn't yet closed. The building waits.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        2024 is the year when almost nothing gets built at Grand Shambala. It's the year we look for partners, refine the vision, work on the business model. How does Grand Shambala fit into LAOM? What are the uses? How do we want to live inside?
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 my-12">
+      <img src="/images/laom/grand-shambala/p16.webp" alt="Grand Shambala raw in 2024, exposed straw, grey winter sky, the year of silence" class="w-full aspect-[21/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The original plan called for three partners. But there weren't enough people. The project needs new partners to come alive. And partners aren't invented—you wait for them. You find them. It takes time.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        It's also the year Charly understands something essential: he won't live in Grand Shambala. His home will be Petit Shambala, on the other side of the path. He'll keep a small studio in Grand Shambala, but the building won't be his. The founder stepping back so the project can move forward.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Then, at the end of 2024, a ritual gesture. Fifteen people. Fifteen days. Sixty square metres of earth render applied by hand to the inner walls. It's tiny next to the 850 m² total. But it's not a build. It's a ceremony. We touch the building. We tell it: we didn't forget you.
+      </p>
+
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/85 leading-relaxed">
+          Grand Shambala was dreamed by a man who ended up understanding it would not belong to him.
+        </p>
+      </blockquote>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        The new partners arrive at the end of 2024 and start of 2025. The building will finally know who it's for.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- CHAPTER 7,  THE SKIN -->
+
+  <section id="la-peau" class="py-24 lg:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 7</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        The Skin
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        2025 explodes. The new partners bring clarity. The programme crystallises. The lots take shape. And Grand Shambala, after a full year of silence, transforms at a pace that surprises even those who built it.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The <strong>south façade</strong> is fully reworked; each partner now knows where their space will be. <strong>Windows are cut into the east and west gables</strong>, where there was only straw. Each opening is a deliberate act.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src="/images/laom/grand-shambala/p17a.webp" alt="South façade of Grand Shambala reworked in 2025 with final openings" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p17b.webp" alt="New windows cut into the east and west gables of Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+      </div>
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Then comes the <strong>external lime render</strong>. We worked the colour with pigments from local earth, we made our own wash with soil from the site. The building receives its face. Raw straw disappears under a mineral, soft, pigmented skin. The metamorphosis is striking.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        What doesn't show in the photos is how long it took. Two and a half months. Four people. With the spray machine it was a constant battle: the hose blocked, dried lime caused blockages, everything had to be cleared. We had a scratch coat from 2023. In 2025 we did the base coat with anti-crack mesh, then the final coat by hand—trowel, sponge—and finally the wash. Erecting the scaffold, moving it, dismantling it, carrying the hose… It was very, very long. But worth it.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
+      <img src="/images/laom/grand-shambala/p18.webp" alt="Before/after diptych, raw straw façade vs lime-rendered façade with local earth pigments" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mb-12">
+      <img src="/images/laom/grand-shambala/p19.webp" alt="Applying lime render to the straw walls of Grand Shambala" class="w-full aspect-[16/9] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The east and west roof gables are clad in wood. The <strong>LAOM sign in corten steel</strong> is fixed to the façade, the rust tone burning in the evening light. It's the first visible sign from the road. The building has a name.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
+      <img src="/images/laom/grand-shambala/p20.webp" alt="LAOM corten steel sign on the façade of Grand Shambala" class="w-full aspect-[4/3] object-cover rounded-sm" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Under the tiles we insulate with <strong>blown loose chopped straw</strong> between the trusses. Here too it was an adventure. We used three different machines. We even tried to build our own—a chip-extraction motor bought for a joinery workshop, flexible hoses, €1,700 invested for nothing. The motor wasn't powerful enough, the hose created friction on the straw. Failure. We finally found an American machine that did the job.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src="/images/laom/grand-shambala/p21.webp" alt="Blown chopped straw insulation between trusses in the loft of Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p22.webp" alt="Window set into the straw wall, Aveyron landscape framed by the opening" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+      </div>
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Inside, <strong>earth render is sprayed by machine</strong>. The same earth-straw mix as in 2024, but this time not by hand. Three people, four days, hundreds of square metres covered. A year earlier, fifteen people had covered sixty square metres in fifteen days. The same gesture, the same material, efficiency multiplied twentyfold.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <img src="/images/laom/grand-shambala/p23a.webp" alt="Machine-sprayed earth render on the interior walls of Grand Shambala" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+        <img src="/images/laom/grand-shambala/p23b.webp" alt="Machine-sprayed earth render, detail of the gesture and finish" class="aspect-[4/3] w-full object-cover rounded-sm" loading="lazy" decoding="async" />
+      </div>
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/85 leading-relaxed">
+          The hand, in 2024, was love while waiting. The machine, in 2025, is the efficiency of a project that finally knows where it's going.
+        </p>
+      </blockquote>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The <strong>first-floor partitions</strong> start to go up. And here, the choice of walls alone tells the philosophy of the project.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Three types of partition coexist in Grand Shambala. <strong>Timber-frame walls filled with earth-straw</strong>, heavy, dense, bringing thermal mass and acoustic insulation that plasterboard could never provide. <strong>Classic timber-frame partitions</strong>, insulated with wood fibre, for lighter separations. And <strong>37 cm straw-bale walls</strong>, used as internal partitions to separate the main lots—here it's no longer structure but pure insulation, an internal wall that breathes and regulates humidity without being asked.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        A material everyone underestimates, taken to a level no one imagined. That's the kind of paradox that sums up the whole of Grand Shambala.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        For the first time in two years you can walk through Grand Shambala and say: "Here will be the common room. There, the coliving bedrooms. And up there, the apartments."
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-4 mb-8">
+      <div class="aspect-[4/3] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Photo to come: first-floor partitions under construction">
+        <div class="text-center px-8">
+          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder, First-floor partitions</p>
+          <p class="text-sm font-light text-black/50 max-w-lg">Timber framing of partitions before closing; the space takes shape, the lots become clear.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        The building knows who it's for. After the explosion of 2023, the silence of 2024 and the metamorphosis of 2025, Grand Shambala is no longer a project. It's a place.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- CHAPTER 8,  WHAT THE BUILDING CONTAINS -->
+
+  <section id="programme" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 8</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        What the building contains
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Grand Shambala is not a building. It's a vertical village. Two 350 m² floors, one above the other under the same tiled roof, filled with light from the south.
+      </p>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-4">
+        <strong>Ground floor:</strong>
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Far west, the <strong>seven coliving bedrooms</strong> take up 125 m², each between 13 and 14 m² with private bathroom. Next to them, the <strong>common room</strong>: 88 m² of living-kitchen where meals are shared and ideas mix. Beside that, a small spa with massage room. A <strong>clay and pottery studio</strong> of 32 m². And at the far east, <strong>David L.'s</strong> unit (62 m²), who joined the project in 2025 and works in positive-impact finance.
+      </p>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-4">
+        <strong>First floor:</strong>
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        Far west, <strong>Charly & Amandine's studio</strong> (60 m²). To its right, <strong>David C.'s</strong> pied-à-terre (62 m²), who joined the project in 2025 and invested in LAOM. In the centre, <strong>Laetitia B.'s 90 m²</strong>, partner since late 2024. And to the right, <strong>Claire and Baptiste's</strong> unit (125 m²).
+      </p>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        All of them live inside 70 cm of straw that keeps them warm in winter and cool in summer—no air conditioning, no central heating. Just straw, earth, lime and the southern sun.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Illustration to come: exploded axonometric of Grand Shambala by function">
+        <div class="text-center px-8">
+          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder, Axonometric</p>
+          <p class="text-sm font-light text-black/50 max-w-lg">Exploded axonometric by function: coliving, common room, workshops, apartments. Or: bright interior with exposed frame, light from south façade, soft human presence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CHAPTER 9,  THE HORIZON -->
+
+  <section id="lhorizon" class="py-24 lg:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapter 9</span>
+      <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
+        The Horizon
+      </h2>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        In late 2026 the first full-year residents will move into Grand Shambala. Laetitia, David L., David C., Claire and Baptiste. The apartments will be finished. The studio too.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        In spring 2027 the coliving will open its doors.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        The first colivers will know nothing of the four years of permits. Nothing of the steel structure we abandoned. Nothing of the sixty square metres of hand-applied render before we understood. Nothing of the three blown-insulation machines that failed. Nothing of the dislocated thumb, the tiles carried by four under the December sky. Nothing of where it all began, or of the one who finally understood that the building he saw would not be his.
+      </p>
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        They will walk in. They will set down their bags. They will sit in the common room. The southern light will cross the large glazed façade and warm the earth wall behind them.
+      </p>
+
+      <blockquote class="my-12 py-8 border-l-2 border-[#C4A855] pl-8">
+        <p class="text-xl md:text-2xl font-light italic text-[#2C2824]/85 leading-relaxed">
+          They will simply feel that the walls are warm.
+        </p>
+      </blockquote>
+
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        And that's exactly what we wanted.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 mt-12">
+      <div class="aspect-[16/9] bg-[#D4CFC4] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Photo to come: Grand Shambala completed at dusk">
+        <div class="text-center px-8">
+          <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder, The Promise</p>
+          <p class="text-sm font-light text-black/50 max-w-lg">Grand Shambala completed at dusk, lights on inside. The image of the promise kept.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA -->
+
+  <section id="cta-section" class="py-20 lg:py-28 bg-[#285230] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium mb-6 tracking-tight">Living at Grand Shambala</h2>
+      <p class="text-lg font-light text-white/70 leading-relaxed mb-8">
+        The coliving experience opens in spring 2027. Seven bedrooms, a common room, a 21-hectare eco-place in the south of Aveyron.
+      </p>
+      <a
+        href="/en/coliving/"
+        class="inline-flex items-center justify-center rounded-sm bg-white text-[#285230] px-8 py-3 text-sm tracking-[0.15em] uppercase font-medium hover:bg-white/90 transition-colors"
+      >
+        Discover coliving
+      </a>
+    </div>
+  </section>
+
 </Layout>

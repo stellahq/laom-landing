@@ -35,16 +35,16 @@ const pageSchema = createWebPageSchema({
   <!-- Sticky sidebar TOC,  minimal dots-only design -->
   <nav id="sticky-toc" aria-label="Sommaire de l'article" style="position: fixed; top: 140px; right: 32px; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; display: none;">
     <div class="flex flex-col items-end gap-[2px]">
-      <a href="#lhomme" data-toc="lhomme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 1,  L'homme qui regardait le champ">
-        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">L'homme</span>
+      <a href="#lhomme" data-toc="lhomme" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 1,  Là où tout a commencé">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Là où tout a commencé</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
       <a href="#la-graine" data-toc="la-graine" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 2,  La Graine">
         <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">La Graine</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
-      <a href="#les-murs-qui-parlent" data-toc="les-murs-qui-parlent" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 3,  Les Murs qui parlent">
-        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Les Murs</span>
+      <a href="#les-murs-qui-parlent" data-toc="les-murs-qui-parlent" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 3,  Les Murs de paille">
+        <span class="toc-label text-xs font-light text-[#2C2824]/0 group-hover:text-[#2C2824]/50 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">Les Murs de paille</span>
         <span class="toc-dot w-[6px] h-[6px] rounded-full bg-[#2C2824]/15 transition-all duration-300 shrink-0"></span>
       </a>
       <a href="#le-mur" data-toc="le-mur" class="toc-link group flex items-center gap-3 py-[6px] transition-all duration-300" aria-label="Chapitre 4,  Le Mur">
@@ -170,11 +170,14 @@ const pageSchema = createWebPageSchema({
       <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">Introduction</p>
 
       <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824] mb-6">
-        Le Grand Shambala est le cœur de LAOM, un écohameau de 21 hectares dans le sud de l'Aveyron. 850&nbsp;m² sur deux niveaux,  coliving, logements, ateliers, foyer commun,  entièrement construit en paille porteuse, bois, terre et chaux. Un bâtiment passif, proche de l'autonomie, où l'on ne respire que des matériaux naturels.
+        Le Grand Shambala est le cœur de LAOM, un écolieu niché au sein de 21 hectares de nature sauvage dans le sud de l'Aveyron.
+      </p>
+      <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824] mb-6">
+        850&nbsp;m² sur deux niveaux,  coliving, logements, ateliers, foyer commun,  entièrement construit en paille porteuse, bois, terre et chaux. Un bâtiment passif, proche de l'autonomie, où l'on ne respire que des matériaux naturels.
       </p>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/80 leading-relaxed mb-6">
-        Cette page raconte comment il a été construit,  les étapes, les choix, les difficultés, et comment on les a surmontées. Vous y lirez comment quatre personnes ont monté les murs en quinze jours, comment on a abandonné une structure acier parce qu'elle contredisait nos valeurs, et comment trois machines d'isolation ont échoué avant qu'on trouve la bonne.
+        Cette page raconte comment il a été construit,  les étapes, les choix, les difficultés, et comment on les a surmontées. Vous y lirez comment quatre personnes ont monté les murs en quinze jours, comment on a abandonné une structure acier parce qu'elle contredisait nos valeurs, et comment trois machines de soufflage d'isolation ont échoué avant qu'on trouve la bonne.
       </p>
 
     </div>
@@ -191,9 +194,9 @@ const pageSchema = createWebPageSchema({
       <nav aria-label="Sommaire" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
         <div>
           <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mb-3">Acte I,  La Vision</p>
-          <a href="#lhomme" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">1. L'homme qui regardait le champ</a>
+          <a href="#lhomme" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">1. Là où tout a commencé</a>
           <a href="#la-graine" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">2. La Graine</a>
-          <a href="#les-murs-qui-parlent" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">3. Les Murs qui parlent</a>
+          <a href="#les-murs-qui-parlent" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">3. Les Murs de paille</a>
           <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte II,  Le Mur</p>
           <a href="#le-mur" class="block text-lg font-light text-[#2C2824]/75 hover:text-[#2C2824] transition-colors py-1.5">4. Le Mur</a>
           <p class="text-sm font-medium tracking-[0.1em] uppercase text-[#8B7A3A] mt-6 mb-3">Acte III,  Le Chantier</p>
@@ -212,13 +215,13 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 1,  L'HOMME QUI REGARDAIT LE CHAMP -->
+  <!-- CHAPITRE 1,  LÀ OÙ TOUT A COMMENCÉ -->
 
   <section id="lhomme" class="py-24 lg:py-32 bg-white">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapitre 1</span>
       <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
-        L'homme qui regardait le champ
+        Là où tout a commencé
       </h2>
 
       <img src="/images/laom/grand-shambala/p2.webp" alt="Portrait de Charly,  les débuts du projet Grand Shambala" class="w-full aspect-[4/3] object-cover rounded-sm mb-10" loading="lazy" decoding="async" />
@@ -285,13 +288,13 @@ const pageSchema = createWebPageSchema({
   </section>
 
 
-  <!-- CHAPITRE 3,  LES MURS QUI PARLENT -->
+  <!-- CHAPITRE 3,  LES MURS DE PAILLE -->
 
   <section id="les-murs-qui-parlent" class="py-24 lg:py-32 bg-white">
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <span class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Chapitre 3</span>
       <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-[#2C2824] mb-12 tracking-tight leading-tight">
-        Les Murs qui parlent
+        Les Murs de paille
       </h2>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
@@ -593,10 +596,10 @@ const pageSchema = createWebPageSchema({
 
     <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Le plan original prévoyait trois associés : Claire-Orioles et Baptiste, la sœur d'Amandine Reuss, et Charly. Mais il n'y a pas assez de monde. Le projet a besoin de nouveaux associés pour prendre vie. Et les associés, on ne les invente pas. On les attend. On les trouve. Ça prend du temps.
+        Le plan original prévoyait trois associés. Mais il n'y a pas assez de monde. Le projet a besoin de nouveaux associés pour prendre vie. Et les associés, on ne les invente pas. On les attend. On les trouve. Ça prend du temps.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        C'est aussi l'année où Charly comprend quelque chose d'essentiel : il ne vivra pas dans le Grand Shambala. Pas vraiment. Son chez-lui sera le Petit Shambala, de l'autre côté du chemin. Il gardera un petit studio dans le Grand Shambala, mais le bâtiment ne sera pas le sien. Le fondateur qui recule pour que le projet avance.
+        C'est aussi l'année où Charly comprend quelque chose d'essentiel : il ne vivra pas dans le Grand Shambala. Son chez-lui sera le Petit Shambala, de l'autre côté du chemin. Il gardera un petit studio dans le Grand Shambala, mais le bâtiment ne sera pas le sien. Le fondateur qui recule pour que le projet avance.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Et puis, à la fin de 2024, un geste rituel. Quinze personnes. Quinze jours. Soixante mètres carrés d'enduit terre appliqué à la main sur les murs intérieurs. C'est dérisoire face aux 850 m² totaux. Mais ce n'est pas un chantier. C'est une cérémonie. On touche le bâtiment. On lui dit : on ne t'a pas oublié.
@@ -747,14 +750,14 @@ const pageSchema = createWebPageSchema({
         <strong>Au rez-de-chaussée :</strong>
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Plein ouest, les <strong>sept chambres du coliving</strong> occupent 125 m²,  chacune entre 13 et 14 m², avec salle de bain privée. Accolé aux chambres, le <strong>foyer commun</strong> : 88 m² de salon-cuisine où les repas se partagent et les idées se mélangent. À côté, un petit spa avec salle de massage. Un <strong>studio de modelage terre et poterie</strong> de 32 m². Et à l'extrême est, le lot de <strong>David Linn</strong> (62 m²), arrivé dans le projet en 2025, qui travaille sur la finance à impact positif.
+        Plein ouest, les <strong>sept chambres du coliving</strong> occupent 125 m²,  chacune entre 13 et 14 m², avec salle de bain privée. Accolé aux chambres, le <strong>foyer commun</strong> : 88 m² de salon-cuisine où les repas se partagent et les idées se mélangent. À côté, un petit spa avec salle de massage. Un <strong>studio de modelage terre et poterie</strong> de 32 m². Et à l'extrême est, le lot de <strong>David L.</strong> (62 m²), arrivé dans le projet en 2025, qui travaille dans la finance à impact positif.
       </p>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-4">
         <strong>À l'étage :</strong>
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        À l'extrême ouest, le <strong>studio de Charly</strong> (60 m²). À sa droite, le pied-à-terre de <strong>David Coste</strong> (62 m²), qui a rejoint le projet en 2025 et a investi dans la société LAOM. Au centre, les <strong>90 m² de Laetitia Bren</strong>, associée au projet depuis fin 2024. Et à droite, le lot de <strong>Claire et Baptiste</strong> (125 m²).
+        À l'extrême ouest, le <strong>studio de Charly & Amandine</strong> (60 m²). À sa droite, le pied-à-terre de <strong>David C.</strong> (62 m²), qui a rejoint le projet en 2025 et a investi dans la société LAOM. Au centre, les <strong>90 m² de Laetitia B.</strong>, associée au projet depuis fin 2024. Et à droite, le lot de <strong>Claire et Baptiste</strong> (125 m²).
       </p>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
@@ -783,13 +786,13 @@ const pageSchema = createWebPageSchema({
       </h2>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Fin 2026, les premiers résidents à l'année entreront dans le Grand Shambala. Laetitia, David Linn, David Coste, Claire et Baptiste. Les logements seront finis. Le studio aussi.
+        Fin 2026, les premiers résidents à l'année entreront dans le Grand Shambala. Laetitia, David L., David C., Claire et Baptiste. Les logements seront finis. Le studio aussi.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Au printemps 2027, le coliving ouvrira ses portes.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Les premiers colivers ne sauront rien des quatre ans de permis. Rien de la structure acier qu'on a abandonnée. Rien des soixante mètres carrés d'enduit posés à la main avant qu'on comprenne. Rien des trois machines d'isolation qui ont échoué. Rien du pouce luxé, des tuiles portées à quatre sous le ciel de décembre. Rien de l'homme qui regardait le champ et qui a fini par comprendre que le bâtiment qu'il voyait ne serait pas le sien.
+        Les premiers colivers ne sauront rien des quatre ans de permis. Rien de la structure acier que l'on a abandonnée. Rien des soixante mètres carrés d'enduit posés à la main avant qu'on comprenne. Rien des trois machines de soufflage d'isolation qui ont échoué. Rien du pouce luxé, des tuiles portées à quatre sous le ciel de décembre. Rien de là où tout a commencé, de celui qui a fini par comprendre que le bâtiment qu'il voyait ne serait pas le sien.
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
         Ils entreront. Ils poseront leur sac. Ils s'assiéront dans le foyer commun. La lumière du sud traversera la grande façade vitrée et viendra réchauffer le mur de terre derrière eux.
@@ -802,7 +805,7 @@ const pageSchema = createWebPageSchema({
       </blockquote>
 
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
-        C'est exactement ce qu'on voulait.
+        Et c'est exactement ce qu'on voulait.
       </p>
     </div>
 
