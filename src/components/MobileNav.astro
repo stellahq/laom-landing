@@ -22,6 +22,7 @@ const teamLinks = [
 ]
 
 const cockpitLink = { href: '/cockpit/', label: 'Cockpit Charly', short: 'Cockpit' }
+const valorisationLink = { href: '/valorisation-fdv/', label: 'Valorisation FDV', short: 'Valo.' }
 
 function isActive(href: string): boolean {
   return currentPage === href || currentPage === href.replace(/\/$/, '')
@@ -65,6 +66,12 @@ function isActive(href: string): boolean {
       >
         {cockpitLink.short}
       </a>
+      <a 
+        href={valorisationLink.href} 
+        class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(valorisationLink.href) ? 'text-[#8B5A3C] bg-[#8B5A3C]/10' : 'text-[#8B5A3C]/70 hover:text-[#8B5A3C] hover:bg-[#8B5A3C]/10'}`}
+      >
+        {valorisationLink.short}
+      </a>
     </div>
 
     <!-- Mobile Hamburger -->
@@ -85,8 +92,8 @@ function isActive(href: string): boolean {
 </nav>
 
 <!-- Mobile Menu Overlay -->
-<div data-mobile-menu class="fixed inset-0 z-[60] bg-[#1a1a1a] hidden" style="padding-top: 56px;">
-  <div class="h-full overflow-y-auto px-6 py-8">
+<div data-mobile-menu class="fixed inset-0 z-[60] bg-[#1a1a1a] hidden pt-14">
+  <div class="h-full overflow-y-auto px-6 py-6">
     <!-- Label -->
     <p class="text-xs font-light tracking-[0.2em] uppercase text-white/30 mb-6">Espace associés</p>
     
@@ -129,6 +136,18 @@ function isActive(href: string): boolean {
       class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(cockpitLink.href) ? 'text-[#C4A855] bg-[#C4A855]/10' : 'text-[#C4A855]/70 hover:text-[#C4A855] hover:bg-[#C4A855]/5'}`}
     >
       {cockpitLink.label}
+    </a>
+
+    <!-- Separator -->
+    <div class="border-t border-white/10 my-6"></div>
+
+    <!-- Valorisation -->
+    <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B5A3C]/70 mb-4">Finance</p>
+    <a 
+      href={valorisationLink.href} 
+      class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(valorisationLink.href) ? 'text-[#8B5A3C] bg-[#8B5A3C]/10' : 'text-[#8B5A3C]/70 hover:text-[#8B5A3C] hover:bg-[#8B5A3C]/5'}`}
+    >
+      {valorisationLink.label}
     </a>
   </div>
 </div>

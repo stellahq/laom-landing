@@ -1,0 +1,834 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// VALORISATION FERME DU VERSEAU
+// Document de travail — Février 2026
+// ==========================================
+
+// Actionnariat actuel
+const actionnairiat = {
+  avant: [
+    { nom: 'Charly Aubert', parts: 75, statut: 'fondateur' },
+    { nom: 'Grégoire Renovier', parts: 5, statut: 'sortant' },
+    { nom: 'Claire Orriols', parts: 5, statut: 'sortant' },
+    { nom: 'Paul Orriols', parts: 5, statut: 'sortant' },
+    { nom: 'Patricia Salgon', parts: 5, statut: 'reste' },
+    { nom: 'Khaldoun', parts: 5, statut: 'reste' },
+  ],
+  apres: [
+    { nom: 'Charly Aubert', parts: 90, statut: 'fondateur' },
+    { nom: 'Patricia Salgon', parts: 5, statut: 'associe' },
+    { nom: 'Khaldoun', parts: 5, statut: 'associe' },
+  ]
+}
+
+// Valorisation foncière
+const foncier = [
+  { actif: 'Salle de danse (Shala)', surface: '121 m²', valeur: 120000, note: 'Construit par Elliot' },
+  { actif: 'Tiny Elliot', surface: '~20 m²', valeur: 40000, note: 'Construit par Elliot' },
+  { actif: 'Coliving 7 chambres', surface: '125 m²', valeur: 100000, note: 'Hors d\'eau, à finir (prêt Oasis)' },
+  { actif: '2/3 Foyer commun', surface: '60 m²', valeur: 50000, note: 'Hors d\'eau' },
+  { actif: 'Cuisine d\'été', surface: '-', valeur: 15000, note: 'Existante, à rénover' },
+  { actif: 'STECAL', surface: '-', valeur: 80000, note: 'Droit à construire, rare et stratégique' },
+  { actif: 'Finition coliving', surface: '-', valeur: 200000, note: 'Prêt Oasis 200k€' },
+]
+
+const totalFoncier = foncier.reduce((sum, f) => sum + f.valeur, 0)
+
+// Valorisation business
+const business = {
+  caProjecte: 450000,
+  margeNette: 0.35,
+  multiple: 3,
+}
+const resultatNet = business.caProjecte * business.margeNette
+const valoBusiness = resultatNet * business.multiple
+
+// Totaux
+const preMoneyBrut = totalFoncier + valoBusiness
+const preMoneyArrondi = 1000000 // Arrondi à 1M€
+
+// CCA (hors négociation)
+const cca = [
+  { nom: 'Patricia Salgon', montant: 200000, note: '300k - 100k remboursement Laetitia' },
+  { nom: 'Charly Aubert', montant: 160000, note: 'Apports personnels' },
+]
+const totalCCA = cca.reduce((sum, c) => sum + c.montant, 0)
+
+// Apports prévus
+const apports = [
+  { nom: 'Elliot Meunier', montant: 220000, type: 'Apport en nature (créances)', note: 'Via Atomic Holding' },
+  { nom: 'Laetitia', montant: 100000, type: 'Cash', note: '' },
+  { nom: 'David Coste', montant: 50000, type: 'Cash', note: '12k déjà versés' },
+]
+const totalApports = apports.reduce((sum, a) => sum + a.montant, 0)
+
+// Simulations split fondateurs
+const splits = [
+  { split: '80/20', charlyPre: 80, elliotPre: 20, charlyFinal: 57.0, elliotFinal: 14.2 },
+  { split: '75/25', charlyPre: 75, elliotPre: 25, charlyFinal: 53.4, elliotFinal: 17.8 },
+  { split: '70/30', charlyPre: 70, elliotPre: 30, charlyFinal: 53.2, elliotFinal: 22.8, recommande: true },
+  { split: '65/35', charlyPre: 65, elliotPre: 35, charlyFinal: 46.3, elliotFinal: 24.9 },
+]
+
+// Répartition finale (avec split 70/30)
+const repartitionFinale = [
+  { nom: 'Charly Aubert', pourcentage: 53.2, valeur: 513000, couleur: 'charly' },
+  { nom: 'Elliot Meunier', pourcentage: 22.8, valeur: 220000, couleur: 'elliot' },
+  { nom: 'Laetitia', pourcentage: 10.4, valeur: 100000, couleur: 'investisseur' },
+  { nom: 'David Coste', pourcentage: 5.2, valeur: 50000, couleur: 'investisseur' },
+  { nom: 'Patricia Salgon', pourcentage: 4.2, valeur: 41000, couleur: 'associe' },
+  { nom: 'Khaldoun', pourcentage: 4.2, valeur: 41000, couleur: 'associe' },
+]
+
+// Simulation Amandine (option B)
+const repartitionAmandine = [
+  { nom: 'Charly Aubert', pourcentage: 26.6, valeur: 256500 },
+  { nom: 'Amandine Orriols', pourcentage: 26.6, valeur: 256500 },
+  { nom: 'Bloc familial', pourcentage: 53.2, valeur: 513000, total: true },
+]
+
+function formatNumber(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+
+function formatK(n: number): string {
+  return (n / 1000).toFixed(0) + 'k'
+}
+---
+
+<Layout
+  title="Valorisation FDV | LAOM"
+  description="Valorisation Ferme du Verseau — Document de travail confidentiel"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-container table { min-width: 100%; }
+    @media (max-width: 640px) {
+      .table-container table { font-size: 0.8rem; }
+      .table-container th, .table-container td { padding: 0.5rem 0.375rem; }
+    }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#8B5A3C]/10 border border-[#8B5A3C]/20 mb-6">
+          <svg class="w-8 h-8 text-[#8B5A3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Document confidentiel</h2>
+        <p class="text-white/50 text-sm">Valorisation Ferme du Verseau</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#8B5A3C]/50 focus:ring-1 focus:ring-[#8B5A3C]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#8B5A3C] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#7A4F35] transition-colors"
+        >
+          Accéder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/valorisation-fdv/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B5A3C] mb-2">Document de travail</p>
+          <h1 class="font-playfair text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight">
+            Valorisation FDV
+          </h1>
+        </div>
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-white/40">Février 2026</p>
+          <p class="text-sm text-white/70">Confidentiel associés</p>
+        </div>
+      </div>
+      <p class="text-sm text-white/50 max-w-2xl">
+        Augmentation de capital de la Ferme du Verseau (SAS) — Méthodologie de valorisation et répartition proposée.
+      </p>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm pb-1">
+        <a href="#contexte" class="text-[#2C2824]/60 hover:text-[#8B5A3C] transition-colors whitespace-nowrap font-medium">Contexte</a>
+        <a href="#valorisation" class="text-[#2C2824]/60 hover:text-[#8B5A3C] transition-colors whitespace-nowrap">Valorisation</a>
+        <a href="#cofondateur" class="text-[#2C2824]/60 hover:text-[#8B5A3C] transition-colors whitespace-nowrap">Co-fondateur</a>
+        <a href="#simulations" class="text-[#2C2824]/60 hover:text-[#8B5A3C] transition-colors whitespace-nowrap">Simulations</a>
+        <a href="#amandine" class="text-[#2C2824]/60 hover:text-[#8B5A3C] transition-colors whitespace-nowrap">Amandine</a>
+        <a href="#decisions" class="text-[#2C2824]/60 hover:text-[#8B5A3C] transition-colors whitespace-nowrap">Décisions</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTEXTE JURIDIQUE -->
+  <section id="contexte" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Contexte juridique</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">SAS de droit français — Capital social actuel : 1 000 €</p>
+      </div>
+
+      <!-- Situation actuelle -->
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- Avant rachat -->
+        <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#2C2824]/30"></span>
+            Actionnariat actuel
+          </h3>
+          <div class="space-y-2">
+            {actionnairiat.avant.map((a) => (
+              <div class={`flex items-center justify-between py-2 px-3 rounded-sm ${a.statut === 'sortant' ? 'bg-red-50 border border-red-100' : a.statut === 'fondateur' ? 'bg-[#8B5A3C]/5 border border-[#8B5A3C]/10' : 'bg-[#FAF8F5]'}`}>
+                <span class={`text-sm ${a.statut === 'sortant' ? 'text-red-600 line-through' : 'text-[#2C2824]'}`}>{a.nom}</span>
+                <span class={`text-sm font-medium ${a.statut === 'sortant' ? 'text-red-500' : 'text-[#2C2824]'}`}>{a.parts}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Après rachat -->
+        <div class="bg-white rounded-sm border border-[#4A7C59]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#4A7C59] mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#4A7C59]"></span>
+            Après rachat des sortants
+          </h3>
+          <div class="space-y-2">
+            {actionnairiat.apres.map((a) => (
+              <div class={`flex items-center justify-between py-2 px-3 rounded-sm ${a.statut === 'fondateur' ? 'bg-[#8B5A3C]/5 border border-[#8B5A3C]/10' : 'bg-[#FAF8F5]'}`}>
+                <span class="text-sm text-[#2C2824]">{a.nom}</span>
+                <span class="text-sm font-medium text-[#2C2824]">{a.parts}%</span>
+              </div>
+            ))}
+          </div>
+          <div class="mt-4 pt-4 border-t border-black/5">
+            <p class="text-xs text-[#2C2824]/50">
+              <strong>Rachat au nominal :</strong> 50 € par sortant (Greg, Claire, Paul)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encart CCA -->
+      <div class="bg-[#2C2824] rounded-sm p-4 sm:p-6 text-white">
+        <h3 class="text-sm font-medium mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Comptes Courants d'Associés (CCA)
+        </h3>
+        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+          {cca.map((c) => (
+            <div class="bg-white/5 rounded-sm p-3">
+              <p class="text-white/70 text-sm">{c.nom}</p>
+              <p class="text-xl font-medium text-[#C4A855]">{formatK(c.montant)} €</p>
+              <p class="text-xs text-white/40 mt-1">{c.note}</p>
+            </div>
+          ))}
+        </div>
+        <div class="flex items-center justify-between pt-4 border-t border-white/10">
+          <span class="text-white/50 text-sm">Total CCA</span>
+          <span class="text-xl font-medium">{formatK(totalCCA)} €</span>
+        </div>
+        <p class="text-xs text-white/40 mt-4">
+          <strong>Traitement :</strong> Les CCA restent au bilan et seront remboursés progressivement sur les bénéfices futurs. Ils sont <strong>hors négociation</strong> — la valorisation porte sur l'actif brut.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORISATION -->
+  <section id="valorisation" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Valorisation pre-money</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Approche Somme des Parties : Foncier + Business</p>
+      </div>
+
+      <!-- Valorisation foncière -->
+      <div class="mb-8">
+        <h3 class="text-sm font-medium text-[#8B5A3C] uppercase tracking-wider mb-4">A. Valorisation foncière</h3>
+        <div class="table-container bg-[#FAF8F5] rounded-sm border border-black/5">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-black/10">
+                <th class="text-left py-3 px-3 sm:px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Actif</th>
+                <th class="text-right py-3 px-3 sm:px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider hidden sm:table-cell">Surface</th>
+                <th class="text-right py-3 px-3 sm:px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Valeur</th>
+              </tr>
+            </thead>
+            <tbody>
+              {foncier.map((f, i) => (
+                <tr class={`border-b border-black/5 ${i === foncier.length - 1 ? 'bg-[#4A7C59]/5' : ''}`}>
+                  <td class="py-3 px-3 sm:px-4">
+                    <span class="text-[#2C2824] font-medium">{f.actif}</span>
+                    <span class="block text-xs text-[#2C2824]/40 mt-0.5">{f.note}</span>
+                  </td>
+                  <td class="py-3 px-3 sm:px-4 text-right text-[#2C2824]/60 hidden sm:table-cell">{f.surface}</td>
+                  <td class="py-3 px-3 sm:px-4 text-right font-medium text-[#2C2824]">{formatK(f.valeur)} €</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr class="bg-[#8B5A3C]/10">
+                <td class="py-3 px-3 sm:px-4 font-medium text-[#8B5A3C]" colspan="2">Total foncier</td>
+                <td class="py-3 px-3 sm:px-4 text-right font-bold text-[#8B5A3C] text-lg">{formatK(totalFoncier)} €</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Valorisation business -->
+      <div class="mb-8">
+        <h3 class="text-sm font-medium text-[#8B5A3C] uppercase tracking-wider mb-4">B. Valorisation business</h3>
+        <div class="grid sm:grid-cols-4 gap-4">
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">CA projeté</p>
+            <p class="text-xl font-medium text-[#2C2824]">{formatK(business.caProjecte)} €/an</p>
+          </div>
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Marge nette</p>
+            <p class="text-xl font-medium text-[#2C2824]">{(business.margeNette * 100).toFixed(0)}%</p>
+          </div>
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Résultat net</p>
+            <p class="text-xl font-medium text-[#2C2824]">{formatK(resultatNet)} €/an</p>
+          </div>
+          <div class="bg-[#8B5A3C]/10 rounded-sm border border-[#8B5A3C]/20 p-4">
+            <p class="text-xs text-[#8B5A3C]/70 uppercase tracking-wider mb-1">Multiple ×{business.multiple}</p>
+            <p class="text-xl font-bold text-[#8B5A3C]">{formatK(valoBusiness)} €</p>
+          </div>
+        </div>
+        <p class="text-xs text-[#2C2824]/40 mt-4">
+          Inclut : marque LAOM, communauté, site internet, offres hybrides (physique + digital), potentiel de développement.
+        </p>
+      </div>
+
+      <!-- Total -->
+      <div class="bg-[#1a1a1a] rounded-sm p-4 sm:p-6">
+        <div class="grid sm:grid-cols-3 gap-4 text-center">
+          <div>
+            <p class="text-xs text-white/40 uppercase tracking-wider mb-1">Foncier</p>
+            <p class="text-2xl font-medium text-white">{formatK(totalFoncier)} €</p>
+          </div>
+          <div>
+            <p class="text-xs text-white/40 uppercase tracking-wider mb-1">Business</p>
+            <p class="text-2xl font-medium text-white">{formatK(valoBusiness)} €</p>
+          </div>
+          <div class="sm:border-l sm:border-white/10 sm:pl-4">
+            <p class="text-xs text-[#C4A855] uppercase tracking-wider mb-1">Pre-money total</p>
+            <p class="text-3xl font-bold text-[#C4A855]">~1M €</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CO-FONDATEUR ELLIOT -->
+  <section id="cofondateur" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Logique co-fondateur</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Pourquoi Elliot n'est pas un simple investisseur</p>
+      </div>
+
+      <!-- Justification -->
+      <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6 mb-6">
+        <h3 class="text-sm font-medium text-[#2C2824] mb-4">Elliot Meunier — Contribution fondatrice</h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">220k € investis en 2023</p>
+                <p class="text-xs text-[#2C2824]/50">Sur terrain non constructible, avant STECAL</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Risque juridique réel</p>
+                <p class="text-xs text-[#2C2824]/50">Construction "illégale", confiance totale</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">3 ans d'attente</p>
+                <p class="text-xs text-[#2C2824]/50">Argent exposé sans garantie juridique</p>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Réseau & notoriété</p>
+                <p class="text-xs text-[#2C2824]/50">Connu sur internet, fait venir des gens</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Animation du lieu</p>
+                <p class="text-xs text-[#2C2824]/50">Organise des événements, fait vivre LAOM</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Vision initiale : propriétaire</p>
+                <p class="text-xs text-[#2C2824]/50">Devait être propriétaire de son lot (la salle)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mécanisme comptable -->
+      <div class="bg-white rounded-sm border border-[#8B5A3C]/20 p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-[#8B5A3C] mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+          Mécanisme comptable (SAS — droit français)
+        </h3>
+        <ol class="space-y-4">
+          <li class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-[#8B5A3C] text-white text-xs flex items-center justify-center flex-shrink-0">1</span>
+            <div>
+              <p class="text-sm font-medium text-[#2C2824]">Définir le split fondateurs Charly / Elliot</p>
+              <p class="text-xs text-[#2C2824]/50">Répartition du "bloc fondateurs" avant dilution</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-[#8B5A3C] text-white text-xs flex items-center justify-center flex-shrink-0">2</span>
+            <div>
+              <p class="text-sm font-medium text-[#2C2824]">Apport en nature d'Elliot</p>
+              <p class="text-xs text-[#2C2824]/50">Conversion des créances (220k €) en capital social</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-[#8B5A3C] text-white text-xs flex items-center justify-center flex-shrink-0">3</span>
+            <div>
+              <p class="text-sm font-medium text-[#2C2824]">Commissaire aux apports</p>
+              <p class="text-xs text-[#2C2824]/50">Obligatoire pour apport en nature > 30k € (coût : ~2 000 €)</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-6 h-6 rounded-full bg-[#8B5A3C] text-white text-xs flex items-center justify-center flex-shrink-0">4</span>
+            <div>
+              <p class="text-sm font-medium text-[#2C2824]">Entrée des investisseurs</p>
+              <p class="text-xs text-[#2C2824]/50">Laetitia (100k €) et David (50k €) — dilution proportionnelle de tous</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULATIONS -->
+  <section id="simulations" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Simulations</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Impact du split fondateurs sur la répartition finale</p>
+      </div>
+
+      <!-- Tableau des splits -->
+      <div class="table-container bg-[#FAF8F5] rounded-sm border border-black/5 mb-8">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/10">
+              <th class="text-left py-3 px-3 sm:px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Split</th>
+              <th class="text-center py-3 px-3 sm:px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Charly pre</th>
+              <th class="text-center py-3 px-3 sm:px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Elliot pre</th>
+              <th class="text-center py-3 px-3 sm:px-4 font-medium text-[#8B5A3C]/70 text-xs uppercase tracking-wider">Charly final</th>
+              <th class="text-center py-3 px-3 sm:px-4 font-medium text-[#8B5A3C]/70 text-xs uppercase tracking-wider">Elliot final</th>
+            </tr>
+          </thead>
+          <tbody>
+            {splits.map((s) => (
+              <tr class={`border-b border-black/5 ${s.recommande ? 'bg-[#4A7C59]/10' : ''}`}>
+                <td class="py-3 px-3 sm:px-4 font-medium text-[#2C2824]">
+                  {s.split}
+                  {s.recommande && <span class="badge bg-[#4A7C59] text-white ml-2">Recommandé</span>}
+                </td>
+                <td class="py-3 px-3 sm:px-4 text-center text-[#2C2824]/60">{s.charlyPre}%</td>
+                <td class="py-3 px-3 sm:px-4 text-center text-[#2C2824]/60">{s.elliotPre}%</td>
+                <td class="py-3 px-3 sm:px-4 text-center font-medium text-[#8B5A3C]">{s.charlyFinal}%</td>
+                <td class="py-3 px-3 sm:px-4 text-center font-medium text-[#8B5A3C]">{s.elliotFinal}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Répartition finale détaillée (70/30) -->
+      <div class="bg-[#1a1a1a] rounded-sm p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-white mb-4">Répartition finale (split 70/30 recommandé)</h3>
+        <div class="space-y-3">
+          {repartitionFinale.map((r) => (
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class={`w-3 h-3 rounded-full ${r.couleur === 'charly' ? 'bg-[#C4A855]' : r.couleur === 'elliot' ? 'bg-[#4A7C59]' : r.couleur === 'investisseur' ? 'bg-white/40' : 'bg-white/20'}`}></span>
+                <span class="text-white text-sm">{r.nom}</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="text-white/50 text-sm">{formatK(r.valeur)} €</span>
+                <span class={`text-sm font-medium min-w-[50px] text-right ${r.couleur === 'charly' ? 'text-[#C4A855]' : r.couleur === 'elliot' ? 'text-[#4A7C59]' : 'text-white/70'}`}>{r.pourcentage}%</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+          <span class="text-white/50 text-sm">Post-money total</span>
+          <span class="text-xl font-bold text-white">965k €</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAS AMANDINE -->
+  <section id="amandine" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Cas Amandine</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Intégration de l'épouse — Régime matrimonial et options</p>
+      </div>
+
+      <!-- Contexte -->
+      <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6 mb-6">
+        <h3 class="text-sm font-medium text-[#2C2824] mb-4">Contexte</h3>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <p class="text-sm text-[#2C2824]/70"><strong>Situation :</strong> Intègre LAOM en 2026</p>
+            <p class="text-sm text-[#2C2824]/70"><strong>Rôle :</strong> Communication, marketing, design</p>
+            <p class="text-sm text-[#2C2824]/70"><strong>Apport financier :</strong> Pas de cash à injecter</p>
+          </div>
+          <div class="space-y-2">
+            <p class="text-sm text-[#2C2824]/70"><strong>Lien :</strong> Épouse de Charly</p>
+            <p class="text-sm text-[#2C2824]/70"><strong>Régime :</strong> Communauté réduite aux acquêts</p>
+            <p class="text-sm text-[#2C2824]/70"><strong>Contrat :</strong> Régime légal par défaut</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ce que dit le droit -->
+      <div class="bg-[#8B5A3C]/5 rounded-sm border border-[#8B5A3C]/20 p-4 sm:p-6 mb-6">
+        <h3 class="text-sm font-medium text-[#8B5A3C] mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+          </svg>
+          Ce que dit le droit français
+        </h3>
+        <div class="space-y-4">
+          <div>
+            <p class="text-sm font-medium text-[#2C2824]">Communauté réduite aux acquêts</p>
+            <ul class="mt-2 space-y-1 text-sm text-[#2C2824]/70">
+              <li>• Biens acquis <strong>avant</strong> le mariage = biens propres</li>
+              <li>• Biens acquis <strong>pendant</strong> le mariage = biens communs</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-sm font-medium text-[#2C2824]">Pour les parts sociales</p>
+            <ul class="mt-2 space-y-1 text-sm text-[#2C2824]/70">
+              <li>• Si parts acquises pendant le mariage → <strong>déjà communes</strong></li>
+              <li>• Amandine est <strong>co-propriétaire de fait</strong> de 50% des parts de Charly</li>
+              <li>• <strong>Mais</strong> : seul Charly a la qualité d'associé (droits de vote)</li>
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-[#8B5A3C]/10">
+            <p class="text-sm text-[#2C2824]">
+              <strong>Article L.227-9 du Code de commerce :</strong> Le conjoint commun en biens peut <strong>revendiquer la qualité d'associé</strong> pour la moitié des parts souscrites par l'autre époux.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option recommandée -->
+      <div class="bg-[#4A7C59] rounded-sm p-4 sm:p-6 text-white mb-6">
+        <h3 class="text-sm font-medium mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Option B recommandée : Revendication de la qualité d'associé
+        </h3>
+        <div class="grid sm:grid-cols-3 gap-4 mb-4">
+          <div>
+            <p class="text-white/60 text-xs uppercase tracking-wider mb-1">Mécanisme</p>
+            <p class="text-sm">Droit légal prévu par le Code de commerce</p>
+          </div>
+          <div>
+            <p class="text-white/60 text-xs uppercase tracking-wider mb-1">Fiscalité</p>
+            <p class="text-sm font-medium">Aucune (ce n'est pas une donation)</p>
+          </div>
+          <div>
+            <p class="text-white/60 text-xs uppercase tracking-wider mb-1">Effet</p>
+            <p class="text-sm">Amandine devient associée à part entière</p>
+          </div>
+        </div>
+        <p class="text-sm text-white/80">
+          C'est l'exercice d'un droit existant, pas un transfert de propriété. Amandine obtient la reconnaissance formelle de sa co-propriété et des droits de vote en AG.
+        </p>
+      </div>
+
+      <!-- Simulation avec Amandine -->
+      <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-[#2C2824] mb-4">Répartition avec revendication 50%</h3>
+        <div class="space-y-3">
+          {repartitionAmandine.map((r) => (
+            <div class={`flex items-center justify-between py-2 px-3 rounded-sm ${r.total ? 'bg-[#C4A855]/10 border border-[#C4A855]/20' : 'bg-[#FAF8F5]'}`}>
+              <span class={`text-sm ${r.total ? 'font-medium text-[#C4A855]' : 'text-[#2C2824]'}`}>{r.nom}</span>
+              <div class="flex items-center gap-4">
+                <span class="text-[#2C2824]/50 text-sm">{formatK(r.valeur)} €</span>
+                <span class={`text-sm font-medium ${r.total ? 'text-[#C4A855]' : 'text-[#2C2824]'}`}>{r.pourcentage}%</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="text-xs text-[#2C2824]/50 mt-4">
+          Le bloc familial (Charly + Amandine) reste <strong>majoritaire à 53,2%</strong>. La seule différence : Amandine a sa propre voix en AG.
+        </p>
+      </div>
+
+      <!-- Formalités -->
+      <div class="mt-6 bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-[#2C2824] mb-4">Formalités juridiques</h3>
+        <ol class="space-y-2 text-sm text-[#2C2824]/70">
+          <li class="flex items-start gap-2">
+            <span class="text-[#8B5A3C] font-medium">1.</span>
+            <span>Notification écrite à la société (lettre d'Amandine revendiquant la qualité d'associé)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#8B5A3C] font-medium">2.</span>
+            <span>Modification des statuts (ajout d'Amandine comme associée)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#8B5A3C] font-medium">3.</span>
+            <span>Dépôt au greffe du tribunal de commerce</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-[#8B5A3C] font-medium">4.</span>
+            <span>Mise à jour du registre des mouvements de titres</span>
+          </li>
+        </ol>
+        <p class="text-xs text-[#2C2824]/50 mt-4">
+          <strong>Coût estimé :</strong> 500-1 000 € (frais de greffe + éventuellement avocat)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section id="decisions" class="py-8 sm:py-10 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-white">Questions à décider</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Avec Elliot -->
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <h3 class="text-sm font-medium text-[#4A7C59] mb-4 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#4A7C59]/20 flex items-center justify-center">
+              <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+              </svg>
+            </span>
+            Avec Elliot
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Quel split fondateurs ? (70/30 recommandé)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Accord sur la méthode de valorisation ?</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Commissaire aux apports — qui mandate ?</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Avec tous les associés -->
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <h3 class="text-sm font-medium text-[#C4A855] mb-4 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#C4A855]/20 flex items-center justify-center">
+              <svg class="w-3 h-3 text-[#C4A855]" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+              </svg>
+            </span>
+            Avec tous les associés
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Validation de la valorisation pre-money</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Modalités remboursement CCA</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Pacte d'associés (vote, sortie, etc.)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Expert-comptable -->
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <h3 class="text-sm font-medium text-white/70 mb-4 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
+              <svg class="w-3 h-3 text-white/50" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4 2a1 1 0 10-2 0v3a1 1 0 102 0v-3z" clip-rule="evenodd" />
+              </svg>
+            </span>
+            Expert-comptable
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Validation du montage juridique</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Désignation commissaire aux apports</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded border border-white/20 flex-shrink-0 mt-0.5"></span>
+              <span class="text-sm text-white/70">Formalités AG + statuts + greffe</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Prochaines étapes -->
+      <div class="mt-8 bg-white/5 border border-white/10 rounded-sm p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-white mb-4">Prochaines étapes</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div class="text-center">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#8B5A3C] text-white text-sm font-medium mb-2">1</span>
+            <p class="text-xs text-white/70">Discussion Charly ↔ Elliot</p>
+            <p class="text-xs text-white/40">Split fondateurs</p>
+          </div>
+          <div class="text-center">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#8B5A3C]/60 text-white text-sm font-medium mb-2">2</span>
+            <p class="text-xs text-white/70">Discussion Charly ↔ Amandine</p>
+            <p class="text-xs text-white/40">Revendication parts</p>
+          </div>
+          <div class="text-center">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#8B5A3C]/40 text-white text-sm font-medium mb-2">3</span>
+            <p class="text-xs text-white/70">Réunion associés</p>
+            <p class="text-xs text-white/40">Présenter proposition</p>
+          </div>
+          <div class="text-center">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#8B5A3C]/20 text-white/70 text-sm font-medium mb-2">4</span>
+            <p class="text-xs text-white/70">Validation EC</p>
+            <p class="text-xs text-white/40">Montage juridique</p>
+          </div>
+          <div class="text-center">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/50 text-sm font-medium mb-2">5</span>
+            <p class="text-xs text-white/70">Formalités</p>
+            <p class="text-xs text-white/40">AG + statuts + greffe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 bg-[#1a1a1a] border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <p class="text-xs text-white/30">
+          Valorisation FDV — Document de travail confidentiel
+        </p>
+        <p class="text-xs text-white/30">
+          NILA · Février 2026
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Password protection
+    const PASSWORD = 'valorisation'
+    const STORAGE_KEY = 'fdv_valorisation_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>
