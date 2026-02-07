@@ -103,7 +103,7 @@ Un plan rigide casse. Un système vivant respire avec le réel :
 
 La vision longue n'est pas un plan. C'est un cap. Tu ne marches pas en ligne droite — tu navigues, tu contournes les obstacles, tu t'adaptes au terrain. Mais tu ne perds jamais le nord.
 
-**Exemple concret** : en une soirée avec NILA, on a fait le bilan de la semaine, mis à jour les élans (deux marqués comme comblés), corrigé une erreur de date qui se propageait dans trois endroits du système, planifié les cinq jours suivants, et versionné l'ensemble du vault sur GitHub. En vocal, sur le canapé, après que tout le monde soit couché. Le système absorbe, s'adapte, et on avance.
+**Exemple concret** : dimanche soir, revue de la semaine 6 avec NILA. On lit les notes des 7 derniers jours. NILA me montre que le site web a été livré en 5 jours avec Amandine (avance), que Lorenzo est confirmé pour la cuisine (avance), mais que l'administratif n'a pas bougé d'un millimètre (stagne). On passe au plan de la semaine 7 : lundi-mardi stage de récupération de points à Latte, mercredi rendez-vous avec les associés, jeudi le plombier passe et on sprinte sur l'admin, vendredi le business plan. NILA distribue les tâches de l'équipe sur leurs pages — Lorenzo sait ce qu'il fait, Khaldoun sait ce qu'il fait, Amandine sait ce qu'elle fait. Personne ne me demande "on fait quoi cette semaine ?" lundi matin. En 40 minutes, la semaine est cadrée. En vocal, sur le canapé.
 
 ## Ce que j'ai appris
 
