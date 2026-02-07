@@ -109,9 +109,31 @@ function getCurrentWeek(): string {
 const currentWeek = getCurrentWeek()
 const today = new Date().toISOString().split('T')[0]
 
+function getNextWeek(week: string): string {
+  const [yearStr, wStr] = week.split('-W')
+  const year = parseInt(yearStr)
+  const wNum = parseInt(wStr)
+  const jan4 = new Date(Date.UTC(year, 0, 4))
+  const jan4Day = jan4.getUTCDay() || 7
+  const week1Monday = new Date(jan4)
+  week1Monday.setUTCDate(jan4.getUTCDate() - jan4Day + 1)
+  const targetMonday = new Date(week1Monday)
+  targetMonday.setUTCDate(week1Monday.getUTCDate() + (wNum - 1) * 7 + 7)
+  const d = new Date(targetMonday)
+  const dayNum = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+  const ys = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  const nextWNum = Math.ceil((((d.getTime() - ys.getTime()) / 86400000) + 1) / 7)
+  return `${d.getUTCFullYear()}-W${String(nextWNum).padStart(2, '0')}`
+}
+
+const nextWeek = getNextWeek(currentWeek)
+
 let tasks: any[] = []
 let objectives: any[] = []
 let observations: any[] = []
+let tasksNext: any[] = []
+let objectivesNext: any[] = []
 
 if (db) {
   try {
@@ -121,12 +143,18 @@ if (db) {
     objectives = objRes.results || []
     const obsRes = await db.prepare('SELECT * FROM observations WHERE person = ? AND date = ? ORDER BY created_at DESC').bind('khaldoun', today).all()
     observations = obsRes.results || []
+    const tasksNextRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC, id ASC').bind('khaldoun', nextWeek).all()
+    tasksNext = tasksNextRes.results || []
+    const objNextRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind('khaldoun', nextWeek).all()
+    objectivesNext = objNextRes.results || []
   } catch (e) {}
 }
 
 const dailyTasks = tasks.filter((t: any) => t.is_daily_highlight)
 const allTasks = tasks
 const completedCount = tasks.filter((t: any) => t.completed).length
+const dailyTasksNext = tasksNext.filter((t: any) => t.is_daily_highlight)
+const completedCountNext = tasksNext.filter((t: any) => t.completed).length
 ---
 
 <Layout
@@ -190,91 +218,167 @@ const completedCount = tasks.filter((t: any) => t.completed).length
         </div>
       </div>
       <div class="flex flex-wrap gap-4 text-sm">
-        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
-          <span class="text-white/50" data-lang="fr">{labelsFr.semaine} : </span>
-          <span class="text-white/50 hidden" data-lang="ar">{labelsAr.semaine} : </span>
-          <span class="text-white font-medium">{currentWeek}</span>
+        <div class="flex items-center bg-white/5 border border-white/10 rounded-sm overflow-hidden">
+          <button id="btn-current" class="week-toggle px-4 py-2 text-white font-medium bg-[#4A7C59]/30 transition-colors" data-target="current">{currentWeek}</button>
+          <button id="btn-next" class="week-toggle px-4 py-2 text-white/40 hover:text-white/60 transition-colors" data-target="next">{nextWeek}</button>
         </div>
-        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2" data-week="current">
           <span class="text-white/50" data-lang="fr">{labelsFr.progression} : </span>
           <span class="text-white/50 hidden" data-lang="ar">{labelsAr.progression} : </span>
           <span class="text-[#4A7C59] font-medium">{completedCount}/{tasks.length} <span data-lang="fr">{labelsFr.taches}</span><span data-lang="ar" class="hidden">{labelsAr.taches}</span></span>
         </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2 hidden" data-week="next">
+          <span class="text-white/50" data-lang="fr">{labelsFr.progression} : </span>
+          <span class="text-white/50 hidden" data-lang="ar">{labelsAr.progression} : </span>
+          <span class="text-[#4A7C59] font-medium">{completedCountNext}/{tasksNext.length} <span data-lang="fr">{labelsFr.taches}</span><span data-lang="ar" class="hidden">{labelsAr.taches}</span></span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Objectifs de la semaine -->
-  {objectives.length > 0 && (
-    <section class="py-6 sm:py-8 bg-[#4A7C59]/10 border-b border-[#4A7C59]/20">
+  <!-- ===== SEMAINE EN COURS ===== -->
+  <div data-week="current">
+    {objectives.length > 0 && (
+      <section class="py-6 sm:py-8 bg-[#4A7C59]/10 border-b border-[#4A7C59]/20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-8">
+          <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#4A7C59] mb-3">
+            <span data-lang="fr">{labelsFr.objectifs}</span>
+            <span data-lang="ar" class="hidden">{labelsAr.objectifs}</span>
+          </h2>
+          <ul class="space-y-2">
+            {objectives.map((obj: any) => (
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 rounded-full bg-[#4A7C59] mt-2 flex-shrink-0"></span>
+                <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    {dailyTasks.length > 0 && (
+      <section class="py-6 sm:py-8 bg-white border-b border-black/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-8">
+          <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-red-500 mb-4">
+            <span data-lang="fr">{labelsFr.tachesJour}</span>
+            <span data-lang="ar" class="hidden">{labelsAr.tachesJour}</span>
+          </h2>
+          <div class="space-y-3">
+            {dailyTasks.map((t: any) => (
+              <div class="flex items-start gap-3 p-3 bg-red-50 rounded-sm border border-red-100" data-task-id={t.id}>
+                <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #dc2626;'}>
+                  {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
+                </button>
+                <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="py-8 sm:py-10 bg-[#FAF8F5]">
       <div class="max-w-4xl mx-auto px-4 sm:px-8">
-        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#4A7C59] mb-3">
-          <span data-lang="fr">{labelsFr.objectifs}</span>
-          <span data-lang="ar" class="hidden">{labelsAr.objectifs}</span>
+        <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">
+          <span data-lang="fr">{labelsFr.tachesSemaine}</span>
+          <span data-lang="ar" class="hidden">{labelsAr.tachesSemaine}</span>
         </h2>
-        <ul class="space-y-2">
-          {objectives.map((obj: any) => (
-            <li class="flex items-start gap-3">
-              <span class="w-2 h-2 rounded-full bg-[#4A7C59] mt-2 flex-shrink-0"></span>
-              <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
-            </li>
-          ))}
-        </ul>
+        {allTasks.length > 0 ? (
+          <div class="space-y-3">
+            {allTasks.map((t: any) => (
+              <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-white border-black/5'}`} data-task-id={t.id}>
+                <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #2C282440;'}>
+                  {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
+                </button>
+                <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+                {t.priority === 'high' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">prioritaire</span>}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-12 text-[#2C2824]/40">
+            <p class="text-lg mb-1" data-lang="fr">{labelsFr.pasDeTaches}</p>
+            <p class="text-lg mb-1 hidden" data-lang="ar">{labelsAr.pasDeTaches}</p>
+            <p class="text-sm" data-lang="fr">{labelsFr.pasDeTachesSub}</p>
+            <p class="text-sm hidden" data-lang="ar">{labelsAr.pasDeTachesSub}</p>
+          </div>
+        )}
       </div>
     </section>
-  )}
+  </div>
 
-  <!-- Taches du jour -->
-  {dailyTasks.length > 0 && (
-    <section class="py-6 sm:py-8 bg-white border-b border-black/5">
-      <div class="max-w-4xl mx-auto px-4 sm:px-8">
-        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-red-500 mb-4">
-          <span data-lang="fr">{labelsFr.tachesJour}</span>
-          <span data-lang="ar" class="hidden">{labelsAr.tachesJour}</span>
-        </h2>
-        <div class="space-y-3">
-          {dailyTasks.map((t: any) => (
-            <div class="flex items-start gap-3 p-3 bg-red-50 rounded-sm border border-red-100" data-task-id={t.id}>
-              <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #dc2626;'}>
-                {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
-              </button>
-              <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
-            </div>
-          ))}
+  <!-- ===== SEMAINE SUIVANTE ===== -->
+  <div data-week="next" class="hidden">
+    {objectivesNext.length > 0 && (
+      <section class="py-6 sm:py-8 bg-[#4A7C59]/10 border-b border-[#4A7C59]/20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-8">
+          <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#4A7C59] mb-3">
+            <span data-lang="fr">{labelsFr.objectifs}</span>
+            <span data-lang="ar" class="hidden">{labelsAr.objectifs}</span>
+          </h2>
+          <ul class="space-y-2">
+            {objectivesNext.map((obj: any) => (
+              <li class="flex items-start gap-3">
+                <span class="w-2 h-2 rounded-full bg-[#4A7C59] mt-2 flex-shrink-0"></span>
+                <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
+              </li>
+            ))}
+          </ul>
         </div>
+      </section>
+    )}
+
+    {dailyTasksNext.length > 0 && (
+      <section class="py-6 sm:py-8 bg-white border-b border-black/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-8">
+          <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-red-500 mb-4">
+            <span data-lang="fr">{labelsFr.tachesJour}</span>
+            <span data-lang="ar" class="hidden">{labelsAr.tachesJour}</span>
+          </h2>
+          <div class="space-y-3">
+            {dailyTasksNext.map((t: any) => (
+              <div class="flex items-start gap-3 p-3 bg-red-50 rounded-sm border border-red-100" data-task-id={t.id}>
+                <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #dc2626;'}>
+                  {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
+                </button>
+                <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="py-8 sm:py-10 bg-[#FAF8F5]">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">
+          <span data-lang="fr">{labelsFr.tachesSemaine}</span>
+          <span data-lang="ar" class="hidden">{labelsAr.tachesSemaine}</span>
+        </h2>
+        {tasksNext.length > 0 ? (
+          <div class="space-y-3">
+            {tasksNext.map((t: any) => (
+              <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-white border-black/5'}`} data-task-id={t.id}>
+                <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #2C282440;'}>
+                  {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
+                </button>
+                <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+                {t.priority === 'high' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">prioritaire</span>}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-12 text-[#2C2824]/40">
+            <p class="text-lg mb-1" data-lang="fr">Pas encore de taches pour cette semaine</p>
+            <p class="text-lg mb-1 hidden" data-lang="ar">لا توجد مهام لهذا الأسبوع بعد</p>
+            <p class="text-sm" data-lang="fr">Charly posera les taches bientot</p>
+            <p class="text-sm hidden" data-lang="ar">شارلي سيضيف المهام قريباً</p>
+          </div>
+        )}
       </div>
     </section>
-  )}
-
-  <!-- Toutes les taches de la semaine -->
-  <section class="py-8 sm:py-10 bg-[#FAF8F5]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-8">
-      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">
-        <span data-lang="fr">{labelsFr.tachesSemaine}</span>
-        <span data-lang="ar" class="hidden">{labelsAr.tachesSemaine}</span>
-      </h2>
-      {allTasks.length > 0 ? (
-        <div class="space-y-3">
-          {allTasks.map((t: any) => (
-            <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-white border-black/5'}`} data-task-id={t.id}>
-              <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #2C282440;'}>
-                {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
-              </button>
-              <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
-              {t.priority === 'high' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">prioritaire</span>}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-12 text-[#2C2824]/40">
-          <p class="text-lg mb-1" data-lang="fr">{labelsFr.pasDeTaches}</p>
-          <p class="text-lg mb-1 hidden" data-lang="ar">{labelsAr.pasDeTaches}</p>
-          <p class="text-sm" data-lang="fr">{labelsFr.pasDeTachesSub}</p>
-          <p class="text-sm hidden" data-lang="ar">{labelsAr.pasDeTachesSub}</p>
-        </div>
-      )}
-    </div>
-  </section>
+  </div>
 
   <!-- Zone Observation -->
   <section class="py-8 sm:py-10 bg-white border-t border-black/5">
@@ -376,6 +480,27 @@ const completedCount = tasks.filter((t: any) => t.completed).length
       e.preventDefault()
       if (input.value === PASSWORD) { localStorage.setItem(STORAGE_KEY, 'true'); overlay.style.display = 'none' }
       else { error.classList.remove('hidden'); input.classList.add('border-red-500') }
+    })
+
+    // WEEK TOGGLE
+    document.querySelectorAll('.week-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target')
+        document.querySelectorAll('[data-week]').forEach(el => {
+          el.classList.toggle('hidden', el.getAttribute('data-week') !== target)
+        })
+        document.querySelectorAll('.week-toggle').forEach(b => {
+          if (b.getAttribute('data-target') === target) {
+            b.classList.add('bg-[#4A7C59]/30')
+            b.classList.remove('text-white/40')
+            b.classList.add('text-white')
+          } else {
+            b.classList.remove('bg-[#4A7C59]/30')
+            b.classList.add('text-white/40')
+            b.classList.remove('text-white')
+          }
+        })
+      })
     })
 
     // LANGUAGE TOGGLE
