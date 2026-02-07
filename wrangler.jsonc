@@ -1,29 +1,31 @@
 {
-  "name": "laom-landing",
-  "main": "dist/_worker.js/index.js",
-  "compatibility_date": "2025-06-17",
-  "compatibility_flags": ["nodejs_compat"],
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
-  },
-  // D1 database for team management (tasks, observations, recaps)
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "laom-team",
-      "database_id": "206ade19-ba72-4fa0-89f5-f541b6750e9b"
-    }
-  ],
-  // Production deploy uses custom domain; no workers.dev fallback
-  "workers_dev": false,
-  "routes": [
-    {
-      "pattern": "laom.fr",
-      "custom_domain": true
-    }
-  ]
+	"name": "laom-landing",
+	"main": "dist/_worker.js/index.js",
+	"compatibility_date": "2025-06-17",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": true
+	},
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS"
+	},
+	// D1 database for team management (tasks, observations, recaps)
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "laom-team",
+			"database_id": "fe9eddef-c23a-4aee-b954-8b53014f8fc6"
+		}
+	],
+	// Production deploy uses custom domain; no workers.dev fallback
+	"workers_dev": false,
+	"routes": [
+		{
+			"pattern": "laom.fr",
+			"custom_domain": true
+		}
+	]
 }
