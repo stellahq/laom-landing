@@ -26,6 +26,10 @@ let objectives: any[] = []
 let tasks: any[] = []
 let weeklyContext: any = null
 let recap: any = null
+let lorenzoTasks: any[] = []
+let khaldounTasks: any[] = []
+let lorenzoObjectives: any[] = []
+let khaldounObjectives: any[] = []
 
 if (db) {
   try {
@@ -35,10 +39,24 @@ if (db) {
     tasks = tasksRes.results || []
     weeklyContext = await db.prepare('SELECT * FROM weekly_context WHERE week = ? ORDER BY created_at DESC LIMIT 1').bind(currentWeek).first()
     recap = await db.prepare('SELECT * FROM weekly_recaps WHERE person = ? AND week = ? ORDER BY created_at DESC LIMIT 1').bind('amandine', currentWeek).first()
+
+    // Charger aussi les taches de Lorenzo et Khaldoun pour visibilite COO
+    const ltRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC').bind('lorenzo', currentWeek).all()
+    lorenzoTasks = ltRes.results || []
+    const ktRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC').bind('khaldoun', currentWeek).all()
+    khaldounTasks = ktRes.results || []
+    const loRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind('lorenzo', currentWeek).all()
+    lorenzoObjectives = loRes.results || []
+    const koRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind('khaldoun', currentWeek).all()
+    khaldounObjectives = koRes.results || []
   } catch (e) {}
 }
 
 const completedCount = tasks.filter((t: any) => t.completed).length
+const priorityTasks = tasks.filter((t: any) => t.priority === 'high' || t.is_daily_highlight)
+const normalTasks = tasks.filter((t: any) => t.priority !== 'high' && !t.is_daily_highlight)
+const lorenzoCompleted = lorenzoTasks.filter((t: any) => t.completed).length
+const khaldounCompleted = khaldounTasks.filter((t: any) => t.completed).length
 ---
 
 <Layout
@@ -92,69 +110,101 @@ const completedCount = tasks.filter((t: any) => t.completed).length
           <span class="text-white/50">Semaine : </span>
           <span class="text-white font-medium">{currentWeek}</span>
         </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
+          <span class="text-white/50">Mes taches : </span>
+          <span class="text-[#4A7C59] font-medium">{completedCount}/{tasks.length}</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Enjeux de la semaine -->
-  {objectives.length > 0 && (
-    <section class="py-6 sm:py-8 bg-[#8B5A3C]/10 border-b border-[#8B5A3C]/20">
-      <div class="max-w-4xl mx-auto px-4 sm:px-8">
-        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#8B5A3C] mb-3">Enjeux de la semaine</h2>
-        <ul class="space-y-2">
-          {objectives.map((obj: any) => (
-            <li class="flex items-start gap-3">
-              <span class="w-2 h-2 rounded-full bg-[#8B5A3C] mt-2 flex-shrink-0"></span>
-              <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )}
+  <!-- Briefing de la semaine (contexte + enjeux Charly + enjeux Amandine) -->
+  <section class="py-6 sm:py-8 bg-[#8B5A3C]/5 border-b border-[#8B5A3C]/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-4">Briefing de la semaine</h2>
 
-  <!-- Ce que Charly fait cette semaine -->
-  {weeklyContext && (
-    <section class="py-6 sm:py-8 bg-white border-b border-black/5">
-      <div class="max-w-4xl mx-auto px-4 sm:px-8">
-        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#C4A855] mb-3">Ce que Charly fait cette semaine</h2>
-        <div class="bg-[#C4A855]/5 border border-[#C4A855]/20 rounded-sm p-4">
-          <p class="text-sm text-[#2C2824] whitespace-pre-line">{weeklyContext.charly_focus}</p>
+      <!-- Ce que Charly fait -->
+      {weeklyContext && (
+        <div class="mb-4">
+          <h3 class="text-xs font-medium tracking-[0.15em] uppercase text-[#C4A855] mb-2">Ce que Charly fait cette semaine</h3>
+          <div class="bg-[#C4A855]/5 border border-[#C4A855]/20 rounded-sm p-4">
+            <p class="text-sm text-[#2C2824] whitespace-pre-line">{weeklyContext.charly_focus}</p>
+          </div>
         </div>
-        {weeklyContext.enjeux && (
-          <div class="mt-4">
-            <h3 class="text-xs font-medium text-[#2C2824]/40 uppercase tracking-wider mb-2">Contexte & enjeux</h3>
+      )}
+
+      <!-- Contexte & enjeux globaux -->
+      {weeklyContext?.enjeux && (
+        <div class="mb-4">
+          <h3 class="text-xs font-medium tracking-[0.15em] uppercase text-[#2C2824]/40 mb-2">Contexte & enjeux de la semaine</h3>
+          <div class="bg-white border border-black/5 rounded-sm p-4">
             <p class="text-sm text-[#2C2824]/70 whitespace-pre-line">{weeklyContext.enjeux}</p>
           </div>
-        )}
+        </div>
+      )}
+
+      <!-- Enjeux Amandine -->
+      {objectives.length > 0 && (
+        <div>
+          <h3 class="text-xs font-medium tracking-[0.15em] uppercase text-[#8B5A3C] mb-2">Tes enjeux a toi</h3>
+          <div class="bg-[#8B5A3C]/5 border border-[#8B5A3C]/15 rounded-sm p-4">
+            <ul class="space-y-2">
+              {objectives.map((obj: any) => (
+                <li class="flex items-start gap-3">
+                  <span class="w-2 h-2 rounded-full bg-[#8B5A3C] mt-2 flex-shrink-0"></span>
+                  <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Taches prioritaires -->
+  {priorityTasks.length > 0 && (
+    <section class="py-6 sm:py-8 bg-white border-b border-black/5">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-red-500 mb-4">Prioritaire cette semaine</h2>
+        <div class="space-y-3">
+          {priorityTasks.map((t: any) => (
+            <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-red-50 border-red-100'}`}>
+              <span class={`mt-1.5 w-2.5 h-2.5 rounded-full flex-shrink-0 ${t.completed ? 'bg-[#4A7C59]' : 'bg-red-500'}`}></span>
+              <div class="flex-1">
+                <span class={`text-sm sm:text-base font-medium ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">prioritaire</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )}
 
-  <!-- Propositions de taches -->
+  <!-- Toutes les taches proposees -->
   <section class="py-8 sm:py-10 bg-[#FAF8F5]">
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
-      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Propositions de taches</h2>
-      <p class="text-sm text-[#2C2824]/50 mb-6">Suggestions pour la semaine — a toi de prioriser</p>
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Taches proposees</h2>
+      <p class="text-sm text-[#2C2824]/50 mb-6">Suggestions pour la semaine — a toi de prioriser et organiser</p>
 
-      {tasks.length > 0 ? (
+      {normalTasks.length > 0 ? (
         <div class="space-y-3">
-          {tasks.map((t: any) => (
+          {normalTasks.map((t: any) => (
             <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-white border-black/5'}`}>
               <span class={`mt-1.5 w-2 h-2 rounded-full flex-shrink-0 ${t.completed ? 'bg-[#4A7C59]' : 'bg-[#8B5A3C]'}`}></span>
               <div class="flex-1">
                 <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
               </div>
-              {t.priority === 'haute' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">prioritaire</span>}
             </div>
           ))}
         </div>
-      ) : (
+      ) : tasks.length === 0 ? (
         <div class="text-center py-12 text-[#2C2824]/40">
           <p class="text-lg mb-1">Pas de taches pour cette semaine</p>
           <p class="text-sm">Charly va poser les enjeux bientot</p>
         </div>
-      )}
+      ) : null}
 
       {tasks.length > 0 && (
         <p class="text-xs text-[#2C2824]/30 mt-4">{completedCount}/{tasks.length} taches traitees</p>
@@ -162,8 +212,68 @@ const completedCount = tasks.filter((t: any) => t.completed).length
     </div>
   </section>
 
-  <!-- Recap de la semaine -->
+  <!-- Visibilite equipe (Lorenzo + Khaldoun) -->
   <section class="py-8 sm:py-10 bg-white border-t border-black/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Equipe cette semaine</h2>
+      <p class="text-sm text-[#2C2824]/50 mb-6">Visibilite sur ce que font Lorenzo et Khaldoun</p>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <!-- Lorenzo -->
+        <div class="bg-[#C4A855]/5 border border-[#C4A855]/20 rounded-sm p-4 sm:p-5">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-medium text-[#2C2824]">Lorenzo</h3>
+            <span class="text-xs text-[#4A7C59] font-medium">{lorenzoCompleted}/{lorenzoTasks.length}</span>
+          </div>
+          {lorenzoObjectives.length > 0 && (
+            <div class="mb-3">
+              <p class="text-[10px] uppercase tracking-wider text-[#C4A855] mb-1">Objectifs</p>
+              {lorenzoObjectives.map((o: any) => (
+                <p class="text-xs text-[#2C2824]/60 mb-0.5">- {o.content}</p>
+              ))}
+            </div>
+          )}
+          <div class="space-y-1.5">
+            {lorenzoTasks.map((t: any) => (
+              <div class="flex items-start gap-2">
+                <span class={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${t.completed ? 'bg-[#4A7C59]' : 'bg-[#C4A855]'}`}></span>
+                <span class={`text-xs ${t.completed ? 'line-through text-[#2C2824]/30' : 'text-[#2C2824]/70'}`}>{t.content}</span>
+              </div>
+            ))}
+            {lorenzoTasks.length === 0 && <p class="text-xs text-[#2C2824]/30">Pas de taches cette semaine</p>}
+          </div>
+        </div>
+
+        <!-- Khaldoun -->
+        <div class="bg-[#4A7C59]/5 border border-[#4A7C59]/20 rounded-sm p-4 sm:p-5">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-medium text-[#2C2824]">Khaldoun</h3>
+            <span class="text-xs text-[#4A7C59] font-medium">{khaldounCompleted}/{khaldounTasks.length}</span>
+          </div>
+          {khaldounObjectives.length > 0 && (
+            <div class="mb-3">
+              <p class="text-[10px] uppercase tracking-wider text-[#4A7C59] mb-1">Objectifs</p>
+              {khaldounObjectives.map((o: any) => (
+                <p class="text-xs text-[#2C2824]/60 mb-0.5">- {o.content}</p>
+              ))}
+            </div>
+          )}
+          <div class="space-y-1.5">
+            {khaldounTasks.map((t: any) => (
+              <div class="flex items-start gap-2">
+                <span class={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${t.completed ? 'bg-[#4A7C59]' : 'bg-[#4A7C59]/50'}`}></span>
+                <span class={`text-xs ${t.completed ? 'line-through text-[#2C2824]/30' : 'text-[#2C2824]/70'}`}>{t.content}</span>
+              </div>
+            ))}
+            {khaldounTasks.length === 0 && <p class="text-xs text-[#2C2824]/30">Pas de taches cette semaine</p>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recap de la semaine -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5] border-t border-black/5">
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
       <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Recap de la semaine</h2>
       <p class="text-sm text-[#2C2824]/50 mb-6">Ton bilan + tes suggestions pour la semaine prochaine</p>
@@ -171,12 +281,12 @@ const completedCount = tasks.filter((t: any) => t.completed).length
       <div class="space-y-4">
         <div>
           <label class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-2 block">Ce que j'ai fait cette semaine</label>
-          <textarea id="recap-done" rows="4" placeholder="Liste ce que tu as accompli..." class="w-full bg-[#FAF8F5] border border-black/5 rounded-sm p-4 text-sm text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none focus:border-[#8B5A3C]/30 resize-none">{recap?.what_done || ''}</textarea>
+          <textarea id="recap-done" rows="4" placeholder="Liste ce que tu as accompli..." class="w-full bg-white border border-black/5 rounded-sm p-4 text-sm text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none focus:border-[#8B5A3C]/30 resize-none">{recap?.what_done || ''}</textarea>
         </div>
 
         <div>
           <label class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-2 block">Suggestions pour la semaine prochaine</label>
-          <textarea id="recap-suggestions" rows="3" placeholder="Ce qui te semble important pour W+1..." class="w-full bg-[#FAF8F5] border border-black/5 rounded-sm p-4 text-sm text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none focus:border-[#8B5A3C]/30 resize-none">{recap?.suggestions || ''}</textarea>
+          <textarea id="recap-suggestions" rows="3" placeholder="Ce qui te semble important pour W+1..." class="w-full bg-white border border-black/5 rounded-sm p-4 text-sm text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none focus:border-[#8B5A3C]/30 resize-none">{recap?.suggestions || ''}</textarea>
         </div>
 
         <button id="save-recap" class="px-6 py-3 rounded-sm bg-[#8B5A3C] text-white text-sm font-medium hover:bg-[#7A4E33] transition-colors">

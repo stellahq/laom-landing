@@ -261,7 +261,7 @@ const completedCount = tasks.filter((t: any) => t.completed).length
                 {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
               </button>
               <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
-              {t.priority === 'haute' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">haute</span>}
+              {t.priority === 'high' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">prioritaire</span>}
             </div>
           ))}
         </div>
