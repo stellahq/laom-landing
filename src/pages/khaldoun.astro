@@ -2,10 +2,11 @@
 import Layout from '~/layouts/Layout.astro'
 import MobileNav from '~/components/MobileNav.astro'
 
-export const prerender = true
+// SSR — pas de prerender, on lit D1
+export const prerender = false
 
 // ==========================================
-// DONNEES KHALDOUN (FR + AR)
+// DONNEES STATIQUES KHALDOUN (FR + AR)
 // ==========================================
 
 const profilFr = {
@@ -23,88 +24,6 @@ const profilAr = {
   salaire: '2,000 يورو / شهر',
   contact: '06.73.68.35.73 (شارلي)',
 }
-
-const travauxFr = [
-  {
-    periode: 'FEVRIER - MARS',
-    taches: [
-      'Electricite Grand Shambala (avec Charly)',
-      'Corten + etancheite facades (15 jours)',
-      'Cloisons etage',
-    ]
-  },
-  {
-    periode: 'AVRIL - MAI',
-    taches: [
-      'Studio Charly (avec Charly)',
-      'Preparation paysagement',
-    ]
-  },
-  {
-    periode: 'JUIN',
-    taches: [
-      'Installation guinguette (avec Charly)',
-      'Monter tente 300m²',
-      'Equipements cuisine',
-    ]
-  },
-  {
-    periode: 'JUILLET',
-    taches: [
-      'Terrasses communes (avec Charly + David Coste)',
-      'Assainissement si SPANC OK',
-    ]
-  },
-  {
-    periode: 'AOUT - SEPTEMBRE',
-    taches: [
-      'Paysagement (avec David Coste)',
-      'Terrassement + drainage',
-      'Chemins + plantations',
-    ]
-  },
-]
-
-const travauxAr = [
-  {
-    periode: 'فبراير - مارس',
-    taches: [
-      'كهرباء غراند شامبالا (مع شارلي)',
-      'كورتن + عزل الواجهات (15 يوم)',
-      'فواصل الطابق',
-    ]
-  },
-  {
-    periode: 'أبريل - مايو',
-    taches: [
-      'استوديو شارلي (مع شارلي)',
-      'تحضير تنسيق الحدائق',
-    ]
-  },
-  {
-    periode: 'يونيو',
-    taches: [
-      'تركيب مطعم الحديقة (مع شارلي)',
-      'نصب الخيمة 300 متر مربع',
-      'معدات المطبخ',
-    ]
-  },
-  {
-    periode: 'يوليو',
-    taches: [
-      'الشرفات المشتركة (مع شارلي + دافيد كوست)',
-      'الصرف الصحي إذا وافق SPANC',
-    ]
-  },
-  {
-    periode: 'أغسطس - سبتمبر',
-    taches: [
-      'تنسيق الحدائق (مع دافيد كوست)',
-      'تسوية الأرض + الصرف',
-      'الممرات + الزراعة',
-    ]
-  },
-]
 
 const cuisineFr = {
   titre: 'Cuisine (ete)',
@@ -128,54 +47,91 @@ const cuisineAr = {
   ]
 }
 
-const quotidienFr = {
-  titre: 'Au quotidien',
-  items: [
-    { label: 'Point matin avec Charly', desc: 'Chaque jour, planning de la journee' },
-    { label: 'Autonomie sur les taches', desc: 'Tu sais ce qu\'il faut faire' },
-    { label: 'Renfort la ou c\'est necessaire', desc: 'Flexibilite selon les priorites' },
-  ]
-}
-
-const quotidienAr = {
-  titre: 'اليوم العادي',
-  items: [
-    { label: 'اجتماع صباحي مع شارلي', desc: 'كل يوم، تخطيط اليوم' },
-    { label: 'استقلالية في المهام', desc: 'أنت تعرف ما يجب القيام به' },
-    { label: 'دعم حيث يلزم', desc: 'مرونة حسب الأولويات' },
-  ]
-}
-
 const labelsFr = {
-  pageTitle: 'Planning 2026',
-  travaux: 'Travaux',
-  cuisine: 'Cuisine',
-  quotidien: 'Au quotidien',
+  objectifs: 'Objectifs de la semaine',
+  tachesJour: 'Taches du jour',
+  tachesSemaine: 'Taches de la semaine',
+  observation: 'Observation du jour',
+  observationSub: 'Dicte ou ecris ce que tu veux remonter a Charly',
+  dicter: 'Dicter',
+  envoyer: 'Envoyer',
+  envoi: 'Envoi...',
+  envoye: 'Envoye aujourd\'hui',
+  pasDeTaches: 'Pas de taches pour cette semaine',
+  pasDeTachesSub: 'Charly va bientot poser les taches',
+  planning: 'Planning long terme 2026',
+  cuisine: 'Cuisine (ete)',
   contact: 'Contact',
   questionContact: 'Questions ? Contacte Charly',
-  roles: 'Roles',
-  contrat: 'Contrat',
-  salaire: 'Salaire',
+  semaine: 'Semaine',
+  progression: 'Progression',
+  taches: 'taches',
   switchLang: 'عربي',
 }
 
 const labelsAr = {
-  pageTitle: 'خطة 2026',
-  travaux: 'الأعمال',
-  cuisine: 'المطبخ',
-  quotidien: 'اليوم العادي',
+  objectifs: 'أهداف الأسبوع',
+  tachesJour: 'مهام اليوم',
+  tachesSemaine: 'مهام الأسبوع',
+  observation: 'ملاحظة اليوم',
+  observationSub: 'تكلم أو اكتب ما تريد إبلاغ شارلي به',
+  dicter: 'تكلم',
+  envoyer: 'إرسال',
+  envoi: 'جارٍ الإرسال...',
+  envoye: 'أُرسل اليوم',
+  pasDeTaches: 'لا توجد مهام لهذا الأسبوع',
+  pasDeTachesSub: 'شارلي سيضيف المهام قريباً',
+  planning: 'الخطة طويلة المدى 2026',
+  cuisine: 'المطبخ (صيف)',
   contact: 'اتصال',
   questionContact: 'أسئلة؟ اتصل بشارلي',
-  roles: 'الأدوار',
-  contrat: 'العقد',
-  salaire: 'الراتب',
+  semaine: 'الأسبوع',
+  progression: 'التقدم',
+  taches: 'مهام',
   switchLang: 'FR',
 }
+
+// ==========================================
+// DONNEES DYNAMIQUES (D1)
+// ==========================================
+const db = (Astro.locals as any).runtime?.env?.DB
+
+function getCurrentWeek(): string {
+  const now = new Date()
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
+  const dayNum = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`
+}
+
+const currentWeek = getCurrentWeek()
+const today = new Date().toISOString().split('T')[0]
+
+let tasks: any[] = []
+let objectives: any[] = []
+let observations: any[] = []
+
+if (db) {
+  try {
+    const tasksRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC, id ASC').bind('khaldoun', currentWeek).all()
+    tasks = tasksRes.results || []
+    const objRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind('khaldoun', currentWeek).all()
+    objectives = objRes.results || []
+    const obsRes = await db.prepare('SELECT * FROM observations WHERE person = ? AND date = ? ORDER BY created_at DESC').bind('khaldoun', today).all()
+    observations = obsRes.results || []
+  } catch (e) {}
+}
+
+const dailyTasks = tasks.filter((t: any) => t.is_daily_highlight)
+const allTasks = tasks
+const completedCount = tasks.filter((t: any) => t.completed).length
 ---
 
 <Layout
-  title="Khaldoun — Equipe LAOM 2026"
-  description="Planning et taches Khaldoun pour LAOM 2026"
+  title="Khaldoun — Espace Equipe | LAOM"
+  description="Taches et planning Khaldoun - LAOM 2026"
   seo={{ noindex: true, nofollow: true }}
 >
   <!-- Password Protection Overlay -->
@@ -183,30 +139,20 @@ const labelsAr = {
     <div class="max-w-md w-full mx-4 text-center">
       <div class="mb-8">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#4A7C59]/10 border border-[#4A7C59]/20 mb-6">
-          <span class="text-3xl">🔧</span>
+          <span class="text-3xl">&#x1F527;</span>
         </div>
         <h2 class="font-playfair text-2xl font-medium text-white mb-2">
           <span data-lang="fr">Espace Khaldoun</span>
           <span data-lang="ar" class="hidden">مساحة خلدون</span>
         </h2>
         <p class="text-white/50 text-sm">
-          <span data-lang="fr">Planning equipe 2026</span>
-          <span data-lang="ar" class="hidden">خطة الفريق 2026</span>
+          <span data-lang="fr">Equipe LAOM 2026</span>
+          <span data-lang="ar" class="hidden">فريق LAOM 2026</span>
         </p>
       </div>
-      
       <form id="password-form" class="space-y-4">
-        <input 
-          type="password" 
-          id="password-input"
-          placeholder="Mot de passe"
-          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#4A7C59]/50 focus:ring-1 focus:ring-[#4A7C59]/30 transition-all"
-          autocomplete="off"
-        />
-        <button 
-          type="submit"
-          class="w-full px-6 py-4 rounded-sm bg-[#4A7C59] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3d6a4a] transition-colors"
-        >
+        <input type="password" id="password-input" placeholder="Mot de passe" class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#4A7C59]/50 focus:ring-1 focus:ring-[#4A7C59]/30 transition-all" autocomplete="off" />
+        <button type="submit" class="w-full px-6 py-4 rounded-sm bg-[#4A7C59] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3d6a4a] transition-colors">
           <span data-lang="fr">Acceder</span>
           <span data-lang="ar" class="hidden">دخول</span>
         </button>
@@ -215,17 +161,13 @@ const labelsAr = {
     </div>
   </div>
 
-  <!-- Navbar -->
   <MobileNav currentPage="/khaldoun/" />
 
   <!-- Language Toggle -->
   <div class="fixed top-16 right-4 z-40">
-    <button 
-      id="lang-toggle"
-      class="bg-[#1a1a1a] border border-white/20 rounded-sm px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors"
-    >
-      <span data-lang="fr">عربي</span>
-      <span data-lang="ar" class="hidden">FR</span>
+    <button id="lang-toggle" class="bg-[#1a1a1a] border border-white/20 rounded-sm px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition-colors">
+      <span data-lang="fr">{labelsFr.switchLang}</span>
+      <span data-lang="ar" class="hidden">{labelsAr.switchLang}</span>
     </button>
   </div>
 
@@ -234,7 +176,7 @@ const labelsAr = {
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
       <div class="flex items-center gap-4 mb-6">
         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#4A7C59]/20 flex items-center justify-center">
-          <span class="text-3xl sm:text-4xl">🔧</span>
+          <span class="text-3xl sm:text-4xl">&#x1F527;</span>
         </div>
         <div>
           <h1 class="font-playfair text-3xl sm:text-4xl font-medium text-white tracking-tight">
@@ -247,141 +189,166 @@ const labelsAr = {
           </p>
         </div>
       </div>
-      
       <div class="flex flex-wrap gap-4 text-sm">
         <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
-          <span class="text-white/50" data-lang="fr">Contrat : </span>
-          <span class="text-white/50 hidden" data-lang="ar">العقد : </span>
-          <span class="text-white" data-lang="fr">{profilFr.contrat}</span>
-          <span class="text-white hidden" data-lang="ar">{profilAr.contrat}</span>
+          <span class="text-white/50" data-lang="fr">{labelsFr.semaine} : </span>
+          <span class="text-white/50 hidden" data-lang="ar">{labelsAr.semaine} : </span>
+          <span class="text-white font-medium">{currentWeek}</span>
         </div>
         <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
-          <span class="text-white/50" data-lang="fr">Salaire : </span>
-          <span class="text-white/50 hidden" data-lang="ar">الراتب : </span>
-          <span class="text-white" data-lang="fr">{profilFr.salaire}</span>
-          <span class="text-white hidden" data-lang="ar">{profilAr.salaire}</span>
+          <span class="text-white/50" data-lang="fr">{labelsFr.progression} : </span>
+          <span class="text-white/50 hidden" data-lang="ar">{labelsAr.progression} : </span>
+          <span class="text-[#4A7C59] font-medium">{completedCount}/{tasks.length} <span data-lang="fr">{labelsFr.taches}</span><span data-lang="ar" class="hidden">{labelsAr.taches}</span></span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Travaux -->
-  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
+  <!-- Objectifs de la semaine -->
+  {objectives.length > 0 && (
+    <section class="py-6 sm:py-8 bg-[#4A7C59]/10 border-b border-[#4A7C59]/20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#4A7C59] mb-3">
+          <span data-lang="fr">{labelsFr.objectifs}</span>
+          <span data-lang="ar" class="hidden">{labelsAr.objectifs}</span>
+        </h2>
+        <ul class="space-y-2">
+          {objectives.map((obj: any) => (
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#4A7C59] mt-2 flex-shrink-0"></span>
+              <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- Taches du jour -->
+  {dailyTasks.length > 0 && (
+    <section class="py-6 sm:py-8 bg-white border-b border-black/5">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-red-500 mb-4">
+          <span data-lang="fr">{labelsFr.tachesJour}</span>
+          <span data-lang="ar" class="hidden">{labelsAr.tachesJour}</span>
+        </h2>
+        <div class="space-y-3">
+          {dailyTasks.map((t: any) => (
+            <div class="flex items-start gap-3 p-3 bg-red-50 rounded-sm border border-red-100" data-task-id={t.id}>
+              <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #dc2626;'}>
+                {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
+              </button>
+              <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Toutes les taches de la semaine -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5]">
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
       <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">
-        <span data-lang="fr">{labelsFr.travaux}</span>
-        <span data-lang="ar" class="hidden">{labelsAr.travaux}</span>
+        <span data-lang="fr">{labelsFr.tachesSemaine}</span>
+        <span data-lang="ar" class="hidden">{labelsAr.tachesSemaine}</span>
       </h2>
-      
-      <!-- French version -->
-      <div data-lang="fr" class="space-y-4">
-        {travauxFr.map((periode) => (
-          <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
-            <div class="px-4 sm:px-6 py-3 bg-[#4A7C59]/10 border-b border-black/5">
-              <h3 class="font-medium text-[#4A7C59]">{periode.periode}</h3>
+      {allTasks.length > 0 ? (
+        <div class="space-y-3">
+          {allTasks.map((t: any) => (
+            <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-white border-black/5'}`} data-task-id={t.id}>
+              <button class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer" data-completed={t.completed ? 'true' : 'false'} style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #2C282440;'}>
+                {t.completed && <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>}
+              </button>
+              <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+              {t.priority === 'haute' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">haute</span>}
             </div>
-            <div class="p-4 sm:p-6">
-              <ul class="space-y-2">
-                {periode.taches.map((t) => (
-                  <li class="flex items-start gap-3">
-                    <span class="mt-1 w-4 h-4 rounded border border-[#4A7C59]/30 flex-shrink-0"></span>
-                    <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Arabic version -->
-      <div data-lang="ar" class="hidden space-y-4" dir="rtl">
-        {travauxAr.map((periode) => (
-          <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
-            <div class="px-4 sm:px-6 py-3 bg-[#4A7C59]/10 border-b border-black/5">
-              <h3 class="font-medium text-[#4A7C59]">{periode.periode}</h3>
-            </div>
-            <div class="p-4 sm:p-6">
-              <ul class="space-y-2">
-                {periode.taches.map((t) => (
-                  <li class="flex items-start gap-3">
-                    <span class="mt-1 w-4 h-4 rounded border border-[#4A7C59]/30 flex-shrink-0"></span>
-                    <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 text-[#2C2824]/40">
+          <p class="text-lg mb-1" data-lang="fr">{labelsFr.pasDeTaches}</p>
+          <p class="text-lg mb-1 hidden" data-lang="ar">{labelsAr.pasDeTaches}</p>
+          <p class="text-sm" data-lang="fr">{labelsFr.pasDeTachesSub}</p>
+          <p class="text-sm hidden" data-lang="ar">{labelsAr.pasDeTachesSub}</p>
+        </div>
+      )}
     </div>
   </section>
 
-  <!-- Cuisine -->
-  <section class="py-8 sm:py-12 bg-white">
+  <!-- Zone Observation -->
+  <section class="py-8 sm:py-10 bg-white border-t border-black/5">
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
       <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">
-        <span data-lang="fr">{cuisineFr.titre}</span>
-        <span data-lang="ar" class="hidden">{cuisineAr.titre}</span>
+        <span data-lang="fr">{labelsFr.observation}</span>
+        <span data-lang="ar" class="hidden">{labelsAr.observation}</span>
       </h2>
-      <p class="text-sm text-[#2C2824]/60 mb-6">
-        <span data-lang="fr">{cuisineFr.sousTitre}</span>
-        <span data-lang="ar" class="hidden">{cuisineAr.sousTitre}</span>
+      <p class="text-sm text-[#2C2824]/50 mb-6">
+        <span data-lang="fr">{labelsFr.observationSub}</span>
+        <span data-lang="ar" class="hidden">{labelsAr.observationSub}</span>
       </p>
-      
-      <!-- French -->
-      <div data-lang="fr" class="bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6">
-        <ul class="space-y-3">
-          {cuisineFr.taches.map((t) => (
-            <li class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-[#C4A855] flex-shrink-0"></span>
-              <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
-            </li>
-          ))}
-        </ul>
+      <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+        <textarea id="observation-text" rows="4" placeholder="..." class="w-full bg-transparent border-none resize-none text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none text-sm sm:text-base"></textarea>
+        <div class="flex items-center justify-between mt-4 pt-4 border-t border-black/5">
+          <button id="mic-button" class="flex items-center gap-2 px-4 py-3 rounded-sm bg-[#4A7C59] text-white text-sm font-medium hover:bg-[#3d6a4a] transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0m7 7v4m-4 0h8M12 1a3 3 0 00-3 3v7a3 3 0 006 0V4a3 3 0 00-3-3z" /></svg>
+            <span id="mic-label" data-lang="fr">{labelsFr.dicter}</span>
+            <span id="mic-label-ar" data-lang="ar" class="hidden">{labelsAr.dicter}</span>
+          </button>
+          <button id="send-observation" class="px-6 py-3 rounded-sm bg-[#C4A855] text-white text-sm font-medium hover:bg-[#B09A4A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+            <span data-lang="fr">{labelsFr.envoyer}</span>
+            <span data-lang="ar" class="hidden">{labelsAr.envoyer}</span>
+          </button>
+        </div>
       </div>
-
-      <!-- Arabic -->
-      <div data-lang="ar" class="hidden bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6" dir="rtl">
-        <ul class="space-y-3">
-          {cuisineAr.taches.map((t) => (
-            <li class="flex items-center gap-3">
-              <span class="w-2 h-2 rounded-full bg-[#C4A855] flex-shrink-0"></span>
-              <span class="text-sm sm:text-base text-[#2C2824]">{t}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {observations.length > 0 && (
+        <div class="mt-6">
+          <h3 class="text-xs font-medium tracking-[0.15em] uppercase text-[#2C2824]/40 mb-3">
+            <span data-lang="fr">{labelsFr.envoye}</span>
+            <span data-lang="ar" class="hidden">{labelsAr.envoye}</span>
+          </h3>
+          <div class="space-y-2">
+            {observations.map((obs: any) => (
+              <div class="bg-[#4A7C59]/5 border border-[#4A7C59]/20 rounded-sm p-3">
+                <p class="text-sm text-[#2C2824]">{obs.content}</p>
+                <p class="text-[10px] text-[#2C2824]/30 mt-1">{new Date(obs.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   </section>
 
-  <!-- Quotidien -->
-  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
+  <!-- Planning long terme (repliable) -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5] border-t border-black/5">
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
-      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">
-        <span data-lang="fr">{quotidienFr.titre}</span>
-        <span data-lang="ar" class="hidden">{quotidienAr.titre}</span>
-      </h2>
-      
-      <!-- French -->
-      <div data-lang="fr" class="grid sm:grid-cols-3 gap-4">
-        {quotidienFr.items.map((item) => (
-          <div class="bg-white rounded-sm border border-black/5 p-4">
-            <p class="font-medium text-[#4A7C59] mb-1">{item.label}</p>
-            <p class="text-sm text-[#2C2824]/60">{item.desc}</p>
+      <details>
+        <summary class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] cursor-pointer hover:text-[#4A7C59] transition-colors">
+          <span data-lang="fr">{labelsFr.planning}</span>
+          <span data-lang="ar" class="hidden">{labelsAr.planning}</span>
+        </summary>
+        <div class="mt-6">
+          <h3 class="text-sm font-medium text-[#4A7C59] uppercase tracking-wider mb-3" data-lang="fr">{cuisineFr.titre}</h3>
+          <h3 class="text-sm font-medium text-[#4A7C59] uppercase tracking-wider mb-3 hidden" data-lang="ar">{cuisineAr.titre}</h3>
+          <div class="bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6" data-lang="fr">
+            <p class="text-xs text-[#2C2824]/60 mb-3">{cuisineFr.sousTitre}</p>
+            <ul class="space-y-2">
+              {cuisineFr.taches.map((t) => (
+                <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-[#C4A855] flex-shrink-0"></span><span class="text-sm text-[#2C2824]">{t}</span></li>
+              ))}
+            </ul>
           </div>
-        ))}
-      </div>
-
-      <!-- Arabic -->
-      <div data-lang="ar" class="hidden grid sm:grid-cols-3 gap-4" dir="rtl">
-        {quotidienAr.items.map((item) => (
-          <div class="bg-white rounded-sm border border-black/5 p-4">
-            <p class="font-medium text-[#4A7C59] mb-1">{item.label}</p>
-            <p class="text-sm text-[#2C2824]/60">{item.desc}</p>
+          <div class="bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6 hidden" data-lang="ar" dir="rtl">
+            <p class="text-xs text-[#2C2824]/60 mb-3">{cuisineAr.sousTitre}</p>
+            <ul class="space-y-2">
+              {cuisineAr.taches.map((t) => (
+                <li class="flex items-center gap-3"><span class="w-2 h-2 rounded-full bg-[#C4A855] flex-shrink-0"></span><span class="text-sm text-[#2C2824]">{t}</span></li>
+              ))}
+            </ul>
           </div>
-        ))}
-      </div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -396,58 +363,111 @@ const labelsAr = {
     </div>
   </section>
 
-  <script>
-    // Password protection
+  <script is:inline>
+    // PASSWORD
     const PASSWORD = 'laom2026'
     const STORAGE_KEY = 'laom_auth'
-    
     const overlay = document.getElementById('password-overlay')
     const form = document.getElementById('password-form')
-    const input = document.getElementById('password-input') as HTMLInputElement
+    const input = document.getElementById('password-input')
     const error = document.getElementById('password-error')
-    
-    if (localStorage.getItem(STORAGE_KEY) === 'true') {
-      overlay?.style.setProperty('display', 'none')
-    }
-    
-    form?.addEventListener('submit', (e) => {
+    if (localStorage.getItem(STORAGE_KEY) === 'true') overlay.style.display = 'none'
+    form.addEventListener('submit', (e) => {
       e.preventDefault()
-      if (input?.value === PASSWORD) {
-        localStorage.setItem(STORAGE_KEY, 'true')
-        overlay?.style.setProperty('display', 'none')
-      } else {
-        error?.classList.remove('hidden')
-        input?.classList.add('border-red-500')
-      }
+      if (input.value === PASSWORD) { localStorage.setItem(STORAGE_KEY, 'true'); overlay.style.display = 'none' }
+      else { error.classList.remove('hidden'); input.classList.add('border-red-500') }
     })
 
-    // Language toggle
+    // LANGUAGE TOGGLE
     const LANG_KEY = 'khaldoun_lang'
     let currentLang = localStorage.getItem(LANG_KEY) || 'fr'
-
-    function setLanguage(lang: string) {
+    function setLanguage(lang) {
       currentLang = lang
       localStorage.setItem(LANG_KEY, lang)
-      
-      // Toggle visibility
-      document.querySelectorAll('[data-lang="fr"]').forEach(el => {
-        (el as HTMLElement).classList.toggle('hidden', lang !== 'fr')
-      })
-      document.querySelectorAll('[data-lang="ar"]').forEach(el => {
-        (el as HTMLElement).classList.toggle('hidden', lang !== 'ar')
-      })
-      
-      // Set document direction
+      document.querySelectorAll('[data-lang="fr"]').forEach(el => el.classList.toggle('hidden', lang !== 'fr'))
+      document.querySelectorAll('[data-lang="ar"]').forEach(el => el.classList.toggle('hidden', lang !== 'ar'))
       document.body.dir = lang === 'ar' ? 'rtl' : 'ltr'
     }
-
-    // Initialize
     setLanguage(currentLang)
+    document.getElementById('lang-toggle').addEventListener('click', () => setLanguage(currentLang === 'fr' ? 'ar' : 'fr'))
 
-    // Toggle button
-    const langToggle = document.getElementById('lang-toggle')
-    langToggle?.addEventListener('click', () => {
-      setLanguage(currentLang === 'fr' ? 'ar' : 'fr')
+    // TASK TOGGLE
+    document.querySelectorAll('.task-toggle').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const taskEl = btn.closest('[data-task-id]')
+        if (!taskEl) return
+        const taskId = taskEl.getAttribute('data-task-id')
+        try {
+          const res = await fetch(`/api/tasks/${taskId}`, { method: 'POST' })
+          if (res.ok) window.location.reload()
+        } catch (e) { console.error('Toggle failed:', e) }
+      })
+    })
+
+    // SPEECH-TO-TEXT
+    const micBtn = document.getElementById('mic-button')
+    const micLabel = document.getElementById('mic-label')
+    const textArea = document.getElementById('observation-text')
+    const sendBtn = document.getElementById('send-observation')
+    let recognition = null, isRecording = false
+    textArea.addEventListener('input', () => { sendBtn.disabled = !textArea.value.trim() })
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition
+      recognition = new SR()
+      recognition.continuous = true
+      recognition.interimResults = true
+      // Detect language from page
+      recognition.lang = currentLang === 'ar' ? 'ar-SA' : 'fr-FR'
+      let finalTranscript = ''
+      recognition.onresult = (event) => {
+        let interim = ''
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const t = event.results[i][0].transcript
+          if (event.results[i].isFinal) finalTranscript += t + ' '
+          else interim += t
+        }
+        textArea.value = finalTranscript + interim
+        sendBtn.disabled = !textArea.value.trim()
+      }
+      recognition.onend = () => { if (isRecording) recognition.start() }
+      recognition.onerror = (event) => {
+        if (event.error === 'no-speech') return
+        isRecording = false
+        micLabel.textContent = currentLang === 'ar' ? 'تكلم' : 'Dicter'
+        micBtn.style.backgroundColor = '#4A7C59'
+      }
+      micBtn.addEventListener('click', () => {
+        if (isRecording) {
+          isRecording = false; recognition.stop()
+          micLabel.textContent = currentLang === 'ar' ? 'تكلم' : 'Dicter'
+          micBtn.style.backgroundColor = '#4A7C59'
+        } else {
+          isRecording = true; finalTranscript = textArea.value
+          recognition.lang = currentLang === 'ar' ? 'ar-SA' : 'fr-FR'
+          recognition.start()
+          micLabel.textContent = 'Stop'
+          micBtn.style.backgroundColor = '#dc2626'
+        }
+      })
+    } else { micBtn.style.display = 'none' }
+
+    // SEND OBSERVATION
+    sendBtn.addEventListener('click', async () => {
+      const content = textArea.value.trim()
+      if (!content) return
+      sendBtn.disabled = true
+      sendBtn.textContent = currentLang === 'ar' ? 'جارٍ الإرسال...' : 'Envoi...'
+      try {
+        const today = new Date().toISOString().split('T')[0]
+        const res = await fetch('/api/observations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ person: 'khaldoun', content, date: today })
+        })
+        if (res.ok) { textArea.value = ''; window.location.reload() }
+        else { alert('Erreur'); sendBtn.disabled = false; sendBtn.textContent = currentLang === 'ar' ? 'إرسال' : 'Envoyer' }
+      } catch (e) { alert('Erreur connexion'); sendBtn.disabled = false; sendBtn.textContent = currentLang === 'ar' ? 'إرسال' : 'Envoyer' }
     })
   </script>
 </Layout>

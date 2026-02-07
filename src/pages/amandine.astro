@@ -1,0 +1,238 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+// SSR — lecture D1
+export const prerender = false
+
+// ==========================================
+// DONNEES DYNAMIQUES (D1)
+// ==========================================
+const db = (Astro.locals as any).runtime?.env?.DB
+
+function getCurrentWeek(): string {
+  const now = new Date()
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
+  const dayNum = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`
+}
+
+const currentWeek = getCurrentWeek()
+
+let objectives: any[] = []
+let tasks: any[] = []
+let weeklyContext: any = null
+let recap: any = null
+
+if (db) {
+  try {
+    const objRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind('amandine', currentWeek).all()
+    objectives = objRes.results || []
+    const tasksRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC, id ASC').bind('amandine', currentWeek).all()
+    tasks = tasksRes.results || []
+    weeklyContext = await db.prepare('SELECT * FROM weekly_context WHERE week = ? ORDER BY created_at DESC LIMIT 1').bind(currentWeek).first()
+    recap = await db.prepare('SELECT * FROM weekly_recaps WHERE person = ? AND week = ? ORDER BY created_at DESC LIMIT 1').bind('amandine', currentWeek).first()
+  } catch (e) {}
+}
+
+const completedCount = tasks.filter((t: any) => t.completed).length
+---
+
+<Layout
+  title="Amandine — Espace Cofondatrice | LAOM"
+  description="Espace de pilotage Amandine - DG/COO LAOM"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <!-- Password Protection -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#8B5A3C]/10 border border-[#8B5A3C]/20 mb-6">
+          <svg class="w-8 h-8 text-[#8B5A3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" /></svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace Amandine</h2>
+        <p class="text-white/50 text-sm">Cofondatrice & DG/COO</p>
+      </div>
+      <form id="password-form" class="space-y-4">
+        <input type="password" id="password-input" placeholder="Mot de passe" class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#8B5A3C]/50 focus:ring-1 focus:ring-[#8B5A3C]/30 transition-all" autocomplete="off" />
+        <button type="submit" class="w-full px-6 py-4 rounded-sm bg-[#8B5A3C] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#7A4E33] transition-colors">Acceder</button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <MobileNav currentPage="/amandine/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#8B5A3C]/20 flex items-center justify-center overflow-hidden">
+          <img src="/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp" alt="Amandine" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <h1 class="font-playfair text-3xl sm:text-4xl font-medium text-white tracking-tight">Amandine</h1>
+          <p class="text-[#8B5A3C] text-sm sm:text-base">Cofondatrice · DG/COO</p>
+        </div>
+      </div>
+
+      <!-- Spheres de responsabilite -->
+      <div class="flex flex-wrap gap-2 text-xs">
+        <span class="bg-white/5 border border-white/10 rounded-sm px-3 py-1.5 text-white/70">Admin & juridique</span>
+        <span class="bg-white/5 border border-white/10 rounded-sm px-3 py-1.5 text-white/70">Finances & comptabilite</span>
+        <span class="bg-white/5 border border-white/10 rounded-sm px-3 py-1.5 text-white/70">Ecriture & storytelling</span>
+        <span class="bg-white/5 border border-white/10 rounded-sm px-3 py-1.5 text-white/70">Marketing & communication</span>
+      </div>
+
+      <div class="mt-4 flex flex-wrap gap-4 text-sm">
+        <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
+          <span class="text-white/50">Semaine : </span>
+          <span class="text-white font-medium">{currentWeek}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enjeux de la semaine -->
+  {objectives.length > 0 && (
+    <section class="py-6 sm:py-8 bg-[#8B5A3C]/10 border-b border-[#8B5A3C]/20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#8B5A3C] mb-3">Enjeux de la semaine</h2>
+        <ul class="space-y-2">
+          {objectives.map((obj: any) => (
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#8B5A3C] mt-2 flex-shrink-0"></span>
+              <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- Ce que Charly fait cette semaine -->
+  {weeklyContext && (
+    <section class="py-6 sm:py-8 bg-white border-b border-black/5">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#C4A855] mb-3">Ce que Charly fait cette semaine</h2>
+        <div class="bg-[#C4A855]/5 border border-[#C4A855]/20 rounded-sm p-4">
+          <p class="text-sm text-[#2C2824] whitespace-pre-line">{weeklyContext.charly_focus}</p>
+        </div>
+        {weeklyContext.enjeux && (
+          <div class="mt-4">
+            <h3 class="text-xs font-medium text-[#2C2824]/40 uppercase tracking-wider mb-2">Contexte & enjeux</h3>
+            <p class="text-sm text-[#2C2824]/70 whitespace-pre-line">{weeklyContext.enjeux}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- Propositions de taches -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Propositions de taches</h2>
+      <p class="text-sm text-[#2C2824]/50 mb-6">Suggestions pour la semaine — a toi de prioriser</p>
+
+      {tasks.length > 0 ? (
+        <div class="space-y-3">
+          {tasks.map((t: any) => (
+            <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-white border-black/5'}`}>
+              <span class={`mt-1.5 w-2 h-2 rounded-full flex-shrink-0 ${t.completed ? 'bg-[#4A7C59]' : 'bg-[#8B5A3C]'}`}></span>
+              <div class="flex-1">
+                <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+              </div>
+              {t.priority === 'haute' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">prioritaire</span>}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 text-[#2C2824]/40">
+          <p class="text-lg mb-1">Pas de taches pour cette semaine</p>
+          <p class="text-sm">Charly va poser les enjeux bientot</p>
+        </div>
+      )}
+
+      {tasks.length > 0 && (
+        <p class="text-xs text-[#2C2824]/30 mt-4">{completedCount}/{tasks.length} taches traitees</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Recap de la semaine -->
+  <section class="py-8 sm:py-10 bg-white border-t border-black/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Recap de la semaine</h2>
+      <p class="text-sm text-[#2C2824]/50 mb-6">Ton bilan + tes suggestions pour la semaine prochaine</p>
+
+      <div class="space-y-4">
+        <div>
+          <label class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-2 block">Ce que j'ai fait cette semaine</label>
+          <textarea id="recap-done" rows="4" placeholder="Liste ce que tu as accompli..." class="w-full bg-[#FAF8F5] border border-black/5 rounded-sm p-4 text-sm text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none focus:border-[#8B5A3C]/30 resize-none">{recap?.what_done || ''}</textarea>
+        </div>
+
+        <div>
+          <label class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-2 block">Suggestions pour la semaine prochaine</label>
+          <textarea id="recap-suggestions" rows="3" placeholder="Ce qui te semble important pour W+1..." class="w-full bg-[#FAF8F5] border border-black/5 rounded-sm p-4 text-sm text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none focus:border-[#8B5A3C]/30 resize-none">{recap?.suggestions || ''}</textarea>
+        </div>
+
+        <button id="save-recap" class="px-6 py-3 rounded-sm bg-[#8B5A3C] text-white text-sm font-medium hover:bg-[#7A4E33] transition-colors">
+          Enregistrer le recap
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 sm:py-8 bg-[#1a1a1a]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 text-center">
+      <p class="text-xs text-white/30">Espace Amandine — LAOM 2026</p>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ currentWeek }}>
+    // PASSWORD
+    const PASSWORD = 'laom2026'
+    const STORAGE_KEY = 'laom_auth'
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input')
+    const error = document.getElementById('password-error')
+    if (localStorage.getItem(STORAGE_KEY) === 'true') overlay.style.display = 'none'
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input.value === PASSWORD) { localStorage.setItem(STORAGE_KEY, 'true'); overlay.style.display = 'none' }
+      else { error.classList.remove('hidden'); input.classList.add('border-red-500') }
+    })
+
+    // SAVE RECAP
+    document.getElementById('save-recap').addEventListener('click', async () => {
+      const btn = document.getElementById('save-recap')
+      const whatDone = document.getElementById('recap-done').value.trim()
+      const suggestions = document.getElementById('recap-suggestions').value.trim()
+
+      btn.disabled = true
+      btn.textContent = 'Enregistrement...'
+
+      try {
+        const res = await fetch('/api/weekly-recaps', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ person: 'amandine', week: currentWeek, what_done: whatDone, suggestions })
+        })
+        if (res.ok) {
+          btn.textContent = 'Enregistre !'
+          btn.style.backgroundColor = '#4A7C59'
+          setTimeout(() => { btn.textContent = 'Enregistrer le recap'; btn.style.backgroundColor = '#8B5A3C'; btn.disabled = false }, 2000)
+        } else {
+          btn.textContent = 'Erreur'; btn.disabled = false
+        }
+      } catch (e) {
+        btn.textContent = 'Erreur connexion'; btn.disabled = false
+      }
+    })
+  </script>
+</Layout>

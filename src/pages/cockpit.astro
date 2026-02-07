@@ -2,7 +2,8 @@
 import Layout from '~/layouts/Layout.astro'
 import MobileNav from '~/components/MobileNav.astro'
 
-export const prerender = true
+// SSR pour lire D1
+export const prerender = false
 
 // ==========================================
 // DONNEES COCKPIT CHARLY
@@ -79,6 +80,58 @@ const decisions = [
   { date: '5 fev', decision: 'Corten en mars', detail: 'Apres livraison fin fevrier, avant Studio' },
   { date: '5 fev', decision: 'Amandine prend plus sur Livio', detail: 'Periode Fev-Mai' },
 ]
+
+// ==========================================
+// DONNEES DYNAMIQUES EQUIPE (D1)
+// ==========================================
+const db = (Astro.locals as any).runtime?.env?.DB
+
+function getCurrentWeek(): string {
+  const now = new Date()
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
+  const dayNum = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`
+}
+
+const currentWeek = getCurrentWeek()
+const today = new Date().toISOString().split('T')[0]
+
+interface TeamMember {
+  name: string
+  label: string
+  color: string
+  href: string
+  tasks: any[]
+  completedCount: number
+  totalCount: number
+  todayObservations: any[]
+}
+
+const teamMembers: TeamMember[] = []
+
+if (db) {
+  try {
+    for (const member of [
+      { name: 'lorenzo', label: 'Lorenzo', color: '#C4A855', href: '/lorenzo/' },
+      { name: 'khaldoun', label: 'Khaldoun', color: '#4A7C59', href: '/khaldoun/' },
+      { name: 'amandine', label: 'Amandine', color: '#8B5A3C', href: '/amandine/' },
+    ]) {
+      const tasksRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ?').bind(member.name, currentWeek).all()
+      const tasks = tasksRes.results || []
+      const obsRes = await db.prepare('SELECT * FROM observations WHERE person = ? AND date = ? ORDER BY created_at DESC LIMIT 3').bind(member.name, today).all()
+      teamMembers.push({
+        ...member,
+        tasks,
+        completedCount: tasks.filter((t: any) => t.completed).length,
+        totalCount: tasks.length,
+        todayObservations: obsRes.results || [],
+      })
+    }
+  } catch (e) {}
+}
 
 function getStatutClass(statut: string): string {
   const classes: Record<string, string> = {
@@ -306,25 +359,58 @@ function getStatutLabel(statut: string): string {
     </div>
   </section>
 
-  <!-- EQUIPE -->
+  <!-- EQUIPE CETTE SEMAINE (dynamique D1) -->
   <section id="equipe" class="py-10 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
-      <div class="mb-6">
-        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Equipe 2026</h2>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Equipe cette semaine</h2>
+          <p class="text-xs text-[#2C2824]/40 mt-1">{currentWeek}</p>
+        </div>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {equipe.map((e) => (
-          <div class="bg-white rounded-sm border border-black/5 p-3">
-            <p class="font-medium text-[#2C2824]">{e.nom}</p>
-            <p class="text-xs text-[#2C2824]/50">{e.role}</p>
-            <div class="flex justify-between text-xs mt-2">
-              <span class="text-[#2C2824]/40">{e.dispo}</span>
-              <span class="text-[#C4A855]">{e.cout}</span>
+      {teamMembers.length > 0 ? (
+        <div class="grid sm:grid-cols-3 gap-4">
+          {teamMembers.map((m) => (
+            <a href={m.href} class="bg-white rounded-sm border border-black/5 p-4 hover:border-black/10 transition-colors block">
+              <div class="flex items-center justify-between mb-3">
+                <p class="font-medium text-[#2C2824]">{m.label}</p>
+                <span class="text-xs px-2 py-1 rounded" style={`background-color: ${m.color}15; color: ${m.color};`}>
+                  {m.completedCount}/{m.totalCount}
+                </span>
+              </div>
+              {m.totalCount > 0 ? (
+                <div class="w-full bg-[#FAF8F5] rounded-full h-2 mb-3">
+                  <div class="h-2 rounded-full transition-all" style={`width: ${m.totalCount > 0 ? (m.completedCount / m.totalCount * 100) : 0}%; background-color: ${m.color};`}></div>
+                </div>
+              ) : (
+                <p class="text-xs text-[#2C2824]/30 mb-3">Pas de taches cette semaine</p>
+              )}
+              {m.todayObservations.length > 0 && (
+                <div class="text-xs text-[#2C2824]/50 border-t border-black/5 pt-2 mt-2">
+                  <p class="font-medium mb-1" style={`color: ${m.color};`}>Observations du jour</p>
+                  {m.todayObservations.map((obs: any) => (
+                    <p class="truncate">{obs.content}</p>
+                  ))}
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {equipe.map((e) => (
+            <div class="bg-white rounded-sm border border-black/5 p-3">
+              <p class="font-medium text-[#2C2824]">{e.nom}</p>
+              <p class="text-xs text-[#2C2824]/50">{e.role}</p>
+              <div class="flex justify-between text-xs mt-2">
+                <span class="text-[#2C2824]/40">{e.dispo}</span>
+                <span class="text-[#C4A855]">{e.cout}</span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 

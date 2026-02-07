@@ -10,6 +10,14 @@
     "directory": "./dist",
     "binding": "ASSETS"
   },
+  // D1 database for team management (tasks, observations, recaps)
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "laom-team",
+      "database_id": "206ade19-ba72-4fa0-89f5-f541b6750e9b"
+    }
+  ],
   // Production deploy uses custom domain; no workers.dev fallback
   "workers_dev": false,
   "routes": [

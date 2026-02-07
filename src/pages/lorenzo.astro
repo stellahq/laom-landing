@@ -2,104 +2,31 @@
 import Layout from '~/layouts/Layout.astro'
 import MobileNav from '~/components/MobileNav.astro'
 
-export const prerender = true
+// SSR — pas de prerender, on lit D1
+export const prerender = false
 
 // ==========================================
-// DONNEES LORENZO
+// DONNEES STATIQUES LORENZO (planning long terme, conservees)
 // ==========================================
 
 const profil = {
   nom: 'Lorenzo',
-  role: 'Chef Guinguette',
-  periode: 'Mi-juin a mi-septembre 2026',
+  role: 'Chef Guinguette + Aide chantier',
+  periode: 'Fevrier 2026 — Septembre 2026',
   contact: '06.73.68.35.73 (Charly)',
 }
-
-const tachesParPeriode = [
-  {
-    periode: 'MARS 2026',
-    label: 'Event Perspective (5-8 mars)',
-    couleur: '#C4A855',
-    taches: [
-      { tache: 'Creer menus pour 35 personnes x 7 repas', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Coordonner avec Charly sur logistique', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Preparer liste courses', priorite: 'moyenne', statut: 'a_faire' },
-    ]
-  },
-  {
-    periode: 'AVRIL 2026',
-    label: 'Formations obligatoires',
-    couleur: '#2C2824',
-    taches: [
-      { tache: 'Verifier si formation hygiene alimentaire deja faite', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Si non : inscription formation 14h (200-500 EUR)', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Formation permis exploitation 20h (optionnel)', priorite: 'moyenne', statut: 'a_faire' },
-    ]
-  },
-  {
-    periode: 'MAI 2026',
-    label: 'Preparation guinguette',
-    couleur: '#4A7C59',
-    taches: [
-      { tache: 'Creer menus definitifs avec Charly', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Sourcer fournisseurs viandes (Aubrac)', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Sourcer fournisseurs fromages (aveyronnais)', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Sourcer farines (moulin local)', priorite: 'moyenne', statut: 'a_faire' },
-      { tache: 'Commander epices', priorite: 'moyenne', statut: 'a_faire' },
-      { tache: 'Tester recettes (pizzas, tandour, plancha)', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Creer fiches techniques plats', priorite: 'moyenne', statut: 'a_faire' },
-    ]
-  },
-  {
-    periode: 'JUIN 2026',
-    label: 'Installation',
-    couleur: '#C4A855',
-    taches: [
-      { tache: 'Installer zone four a pizza', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Installer tandour', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Verifier equipements cuisine', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Organiser stockage ingredients', priorite: 'moyenne', statut: 'a_faire' },
-      { tache: 'Preparer affichages obligatoires (allergenes, prix)', priorite: 'haute', statut: 'a_faire' },
-    ]
-  },
-  {
-    periode: 'ETE 2026',
-    label: 'Mi-juin a mi-septembre (operation)',
-    couleur: '#4A7C59',
-    taches: [
-      { tache: 'Chef cuisine — coordination quotidienne', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Gestion equipe (Lily si presente, Khaldoun, extras)', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Approvisionnement depuis jardin LAOM', priorite: 'moyenne', statut: 'a_faire' },
-      { tache: 'Tenir fiches temperatures (frigos, cuissons)', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Tenir fiches reception produits', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Tenir fiches nettoyage/desinfection', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Coordination events LAOM (repas participants)', priorite: 'haute', statut: 'a_faire' },
-    ]
-  },
-  {
-    periode: 'SEPTEMBRE 2026',
-    label: 'Cloture saison',
-    couleur: '#2C2824',
-    taches: [
-      { tache: 'Bilan saison avec Charly', priorite: 'haute', statut: 'a_faire' },
-      { tache: 'Rangement materiel cuisine', priorite: 'moyenne', statut: 'a_faire' },
-      { tache: 'Inventaire fin de saison', priorite: 'moyenne', statut: 'a_faire' },
-      { tache: 'Cloture administrative (documents)', priorite: 'moyenne', statut: 'a_faire' },
-    ]
-  },
-]
-
-const equipe = [
-  { nom: 'Lily', role: 'Tagines, cuisine marocaine', statut: 'Si elle vient du Maroc' },
-  { nom: 'Khaldoun', role: 'Mezzes syriens, baklava, soutien', statut: 'Disponible' },
-  { nom: 'Extras', role: '1-2 personnes haute saison', statut: 'A recruter' },
-]
 
 const cuissonsSignatures = [
   { nom: 'Four a pizza', desc: 'Heritage familial — pizzas farine kamut, fromage brebis' },
   { nom: 'Tandour indien', desc: 'Naans maison, brochettes marines, aubergines' },
   { nom: 'Tagine', desc: 'Cuissons lentes, epices (si Lily presente)' },
   { nom: 'Plancha', desc: 'Legumes du jardin, viandes Aubrac' },
+]
+
+const equipe = [
+  { nom: 'Lily', role: 'Tagines, cuisine marocaine', statut: 'Si elle vient du Maroc' },
+  { nom: 'Khaldoun', role: 'Mezzes syriens, baklava, soutien', statut: 'Disponible' },
+  { nom: 'Extras', role: '1-2 personnes haute saison', statut: 'A recruter' },
 ]
 
 const documentsObligatoires = [
@@ -113,16 +40,52 @@ const documentsObligatoires = [
   'Recepisse licence restaurant',
 ]
 
-function getPrioriteClass(priorite: string): string {
-  if (priorite === 'haute') return 'bg-red-500/10 text-red-600 border-red-200'
-  if (priorite === 'moyenne') return 'bg-[#C4A855]/10 text-[#C4A855] border-[#C4A855]/30'
-  return 'bg-gray-100 text-gray-600 border-gray-200'
+// ==========================================
+// DONNEES DYNAMIQUES (D1)
+// ==========================================
+const db = (Astro.locals as any).runtime?.env?.DB
+
+// Calculer la semaine courante (ISO week)
+function getCurrentWeek(): string {
+  const now = new Date()
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()))
+  const dayNum = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`
 }
+
+const currentWeek = getCurrentWeek()
+const today = new Date().toISOString().split('T')[0]
+
+let tasks: any[] = []
+let objectives: any[] = []
+let observations: any[] = []
+
+if (db) {
+  try {
+    const tasksRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC, id ASC').bind('lorenzo', currentWeek).all()
+    tasks = tasksRes.results || []
+
+    const objRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind('lorenzo', currentWeek).all()
+    objectives = objRes.results || []
+
+    const obsRes = await db.prepare('SELECT * FROM observations WHERE person = ? AND date = ? ORDER BY created_at DESC').bind('lorenzo', today).all()
+    observations = obsRes.results || []
+  } catch (e) {
+    // DB tables might not exist yet — graceful fallback
+  }
+}
+
+const dailyTasks = tasks.filter((t: any) => t.is_daily_highlight)
+const allTasks = tasks
+const completedCount = tasks.filter((t: any) => t.completed).length
 ---
 
 <Layout
-  title="Lorenzo — Chef Guinguette 2026 | LAOM"
-  description="Planning et taches Lorenzo pour la guinguette LAOM 2026"
+  title="Lorenzo — Espace Equipe | LAOM"
+  description="Taches et planning Lorenzo - LAOM 2026"
   seo={{ noindex: true, nofollow: true }}
 >
   <!-- Password Protection Overlay -->
@@ -130,32 +93,19 @@ function getPrioriteClass(priorite: string): string {
     <div class="max-w-md w-full mx-4 text-center">
       <div class="mb-8">
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-6">
-          <span class="text-3xl">👨‍🍳</span>
+          <span class="text-3xl">&#x1F468;&#x200D;&#x1F373;</span>
         </div>
         <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace Lorenzo</h2>
-        <p class="text-white/50 text-sm">Planning guinguette 2026</p>
+        <p class="text-white/50 text-sm">Equipe LAOM 2026</p>
       </div>
-      
       <form id="password-form" class="space-y-4">
-        <input 
-          type="password" 
-          id="password-input"
-          placeholder="Mot de passe"
-          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
-          autocomplete="off"
-        />
-        <button 
-          type="submit"
-          class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
-        >
-          Acceder
-        </button>
+        <input type="password" id="password-input" placeholder="Mot de passe" class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all" autocomplete="off" />
+        <button type="submit" class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors">Acceder</button>
         <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
       </form>
     </div>
   </div>
 
-  <!-- Navbar -->
   <MobileNav currentPage="/lorenzo/" />
 
   <!-- Header -->
@@ -163,119 +113,202 @@ function getPrioriteClass(priorite: string): string {
     <div class="max-w-4xl mx-auto px-4 sm:px-8">
       <div class="flex items-center gap-4 mb-6">
         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#C4A855]/20 flex items-center justify-center">
-          <span class="text-3xl sm:text-4xl">👨‍🍳</span>
+          <span class="text-3xl sm:text-4xl">&#x1F468;&#x200D;&#x1F373;</span>
         </div>
         <div>
-          <h1 class="font-playfair text-3xl sm:text-4xl font-medium text-white tracking-tight">
-            {profil.nom}
-          </h1>
+          <h1 class="font-playfair text-3xl sm:text-4xl font-medium text-white tracking-tight">{profil.nom}</h1>
           <p class="text-[#C4A855] text-sm sm:text-base">{profil.role}</p>
         </div>
       </div>
-      
       <div class="flex flex-wrap gap-4 text-sm">
         <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
-          <span class="text-white/50">Periode : </span>
-          <span class="text-white">{profil.periode}</span>
+          <span class="text-white/50">Semaine : </span>
+          <span class="text-white font-medium">{currentWeek}</span>
         </div>
         <div class="bg-white/5 border border-white/10 rounded-sm px-4 py-2">
-          <span class="text-white/50">Contact : </span>
-          <span class="text-white">{profil.contact}</span>
+          <span class="text-white/50">Progression : </span>
+          <span class="text-[#4A7C59] font-medium">{completedCount}/{tasks.length} taches</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Timeline des taches -->
-  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-8">
-      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">Planning 2026</h2>
-      
-      <div class="space-y-6">
-        {tachesParPeriode.map((periode) => (
-          <div class="bg-white rounded-sm border border-black/5 overflow-hidden">
-            <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-black/5" style={`background-color: ${periode.couleur}15`}>
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                <h3 class="font-medium text-[#2C2824]" style={`color: ${periode.couleur}`}>{periode.periode}</h3>
-                <span class="text-xs text-[#2C2824]/60">{periode.label}</span>
-              </div>
-            </div>
-            <div class="p-4 sm:p-6">
-              <ul class="space-y-3">
-                {periode.taches.map((t) => (
-                  <li class="flex items-start gap-3">
-                    <span class={`mt-0.5 w-5 h-5 rounded border flex-shrink-0 flex items-center justify-center ${t.statut === 'fait' ? 'bg-[#4A7C59] border-[#4A7C59]' : 'border-[#2C2824]/20'}`}>
-                      {t.statut === 'fait' && (
-                        <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                    </span>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sm sm:text-base text-[#2C2824]">{t.tache}</p>
-                    </div>
-                    <span class={`text-[10px] sm:text-xs px-2 py-0.5 rounded border flex-shrink-0 ${getPrioriteClass(t.priorite)}`}>
-                      {t.priorite}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 4 Cuissons signatures -->
-  <section class="py-8 sm:py-12 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-8">
-      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">Les 4 cuissons signatures</h2>
-      
-      <div class="grid sm:grid-cols-2 gap-4">
-        {cuissonsSignatures.map((c) => (
-          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
-            <h3 class="font-medium text-[#C4A855] mb-1">{c.nom}</h3>
-            <p class="text-sm text-[#2C2824]/70">{c.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Equipe -->
-  <section class="py-8 sm:py-12 bg-[#FAF8F5]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-8">
-      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">Ton equipe</h2>
-      
-      <div class="grid sm:grid-cols-3 gap-4">
-        {equipe.map((e) => (
-          <div class="bg-white rounded-sm border border-black/5 p-4">
-            <p class="font-medium text-[#2C2824]">{e.nom}</p>
-            <p class="text-xs text-[#2C2824]/60 mb-2">{e.role}</p>
-            <span class="text-xs text-[#4A7C59]">{e.statut}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Documents obligatoires -->
-  <section class="py-8 sm:py-12 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-8">
-      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Documents obligatoires</h2>
-      <p class="text-sm text-[#2C2824]/60 mb-6">A tenir a jour pour les controles sanitaires</p>
-      
-      <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
-        <ul class="grid sm:grid-cols-2 gap-2">
-          {documentsObligatoires.map((doc) => (
-            <li class="flex items-center gap-2 text-sm text-[#2C2824]/80">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#C4A855] flex-shrink-0"></span>
-              {doc}
+  <!-- Objectifs de la semaine -->
+  {objectives.length > 0 && (
+    <section class="py-6 sm:py-8 bg-[#C4A855]/10 border-b border-[#C4A855]/20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-[#C4A855] mb-3">Objectifs de la semaine</h2>
+        <ul class="space-y-2">
+          {objectives.map((obj: any) => (
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#C4A855] mt-2 flex-shrink-0"></span>
+              <span class="text-sm sm:text-base text-[#2C2824] font-medium">{obj.content}</span>
             </li>
           ))}
         </ul>
       </div>
+    </section>
+  )}
+
+  <!-- Taches du jour (highlight) -->
+  {dailyTasks.length > 0 && (
+    <section class="py-6 sm:py-8 bg-white border-b border-black/5">
+      <div class="max-w-4xl mx-auto px-4 sm:px-8">
+        <h2 class="text-xs font-medium tracking-[0.15em] uppercase text-red-500 mb-4">Taches du jour</h2>
+        <div class="space-y-3">
+          {dailyTasks.map((t: any) => (
+            <div class="flex items-start gap-3 p-3 bg-red-50 rounded-sm border border-red-100" data-task-id={t.id}>
+              <button
+                class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer"
+                data-completed={t.completed ? 'true' : 'false'}
+                style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #dc2626;'}
+              >
+                {t.completed ? (
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                ) : null}
+              </button>
+              <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+              {t.priority === 'haute' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">haute</span>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Toutes les taches de la semaine -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-6">Taches de la semaine</h2>
+
+      {allTasks.length > 0 ? (
+        <div class="space-y-3">
+          {allTasks.map((t: any) => (
+            <div class={`flex items-start gap-3 p-3 rounded-sm border ${t.completed ? 'bg-[#4A7C59]/5 border-[#4A7C59]/20' : 'bg-white border-black/5'}`} data-task-id={t.id}>
+              <button
+                class="task-toggle mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-colors cursor-pointer"
+                data-completed={t.completed ? 'true' : 'false'}
+                style={t.completed ? 'background-color: #4A7C59; border-color: #4A7C59;' : 'border-color: #2C282440;'}
+              >
+                {t.completed ? (
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                ) : null}
+              </button>
+              <div class="flex-1 min-w-0">
+                <span class={`text-sm sm:text-base ${t.completed ? 'line-through text-[#2C2824]/40' : 'text-[#2C2824]'}`}>{t.content}</span>
+              </div>
+              {t.priority === 'haute' && <span class="text-[10px] px-2 py-0.5 rounded bg-red-500/10 text-red-600 border border-red-200 flex-shrink-0">haute</span>}
+              {t.priority === 'normal' && !t.is_daily_highlight && <span class="text-[10px] px-2 py-0.5 rounded bg-gray-100 text-gray-500 border border-gray-200 flex-shrink-0">normal</span>}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 text-[#2C2824]/40">
+          <p class="text-lg mb-1">Pas de taches pour cette semaine</p>
+          <p class="text-sm">Charly va bientot poser les taches</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Zone Observation (dictee vocale) -->
+  <section class="py-8 sm:py-10 bg-white border-t border-black/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] mb-2">Observation du jour</h2>
+      <p class="text-sm text-[#2C2824]/50 mb-6">Dicte ou ecris ce que tu veux remonter a Charly</p>
+
+      <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+        <textarea
+          id="observation-text"
+          rows="4"
+          placeholder="Appuie sur le micro pour dicter, ou ecris ici..."
+          class="w-full bg-transparent border-none resize-none text-[#2C2824] placeholder-[#2C2824]/30 focus:outline-none text-sm sm:text-base"
+        ></textarea>
+
+        <div class="flex items-center justify-between mt-4 pt-4 border-t border-black/5">
+          <button
+            id="mic-button"
+            class="flex items-center gap-2 px-4 py-3 rounded-sm bg-[#C4A855] text-white text-sm font-medium hover:bg-[#B09A4A] transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-14 0m7 7v4m-4 0h8M12 1a3 3 0 00-3 3v7a3 3 0 006 0V4a3 3 0 00-3-3z" />
+            </svg>
+            <span id="mic-label">Dicter</span>
+          </button>
+
+          <button
+            id="send-observation"
+            class="px-6 py-3 rounded-sm bg-[#4A7C59] text-white text-sm font-medium hover:bg-[#3d6a4a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled
+          >
+            Envoyer
+          </button>
+        </div>
+      </div>
+
+      <!-- Observations du jour -->
+      {observations.length > 0 && (
+        <div class="mt-6">
+          <h3 class="text-xs font-medium tracking-[0.15em] uppercase text-[#2C2824]/40 mb-3">Envoye aujourd'hui</h3>
+          <div class="space-y-2">
+            {observations.map((obs: any) => (
+              <div class="bg-[#4A7C59]/5 border border-[#4A7C59]/20 rounded-sm p-3">
+                <p class="text-sm text-[#2C2824]">{obs.content}</p>
+                <p class="text-[10px] text-[#2C2824]/30 mt-1">{new Date(obs.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Planning long terme (repliable) -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5] border-t border-black/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <details>
+        <summary class="font-playfair text-xl sm:text-2xl font-medium text-[#2C2824] cursor-pointer hover:text-[#C4A855] transition-colors">
+          Planning long terme 2026
+        </summary>
+
+        <div class="mt-6">
+          <!-- 4 Cuissons signatures -->
+          <h3 class="text-sm font-medium text-[#C4A855] uppercase tracking-wider mb-3">Les 4 cuissons signatures</h3>
+          <div class="grid sm:grid-cols-2 gap-3 mb-8">
+            {cuissonsSignatures.map((c) => (
+              <div class="bg-white rounded-sm border border-black/5 p-4">
+                <h4 class="font-medium text-[#C4A855] mb-1">{c.nom}</h4>
+                <p class="text-sm text-[#2C2824]/70">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <!-- Equipe -->
+          <h3 class="text-sm font-medium text-[#C4A855] uppercase tracking-wider mb-3">Ton equipe</h3>
+          <div class="grid sm:grid-cols-3 gap-3 mb-8">
+            {equipe.map((e) => (
+              <div class="bg-white rounded-sm border border-black/5 p-4">
+                <p class="font-medium text-[#2C2824]">{e.nom}</p>
+                <p class="text-xs text-[#2C2824]/60 mb-2">{e.role}</p>
+                <span class="text-xs text-[#4A7C59]">{e.statut}</span>
+              </div>
+            ))}
+          </div>
+
+          <!-- Documents obligatoires -->
+          <h3 class="text-sm font-medium text-[#C4A855] uppercase tracking-wider mb-3">Documents obligatoires</h3>
+          <div class="bg-white rounded-sm border border-black/5 p-4">
+            <ul class="grid sm:grid-cols-2 gap-2">
+              {documentsObligatoires.map((doc) => (
+                <li class="flex items-center gap-2 text-sm text-[#2C2824]/80">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#C4A855] flex-shrink-0"></span>
+                  {doc}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -287,27 +320,156 @@ function getPrioriteClass(priorite: string): string {
     </div>
   </section>
 
-  <script>
+  <script is:inline>
+    // ==========================================
+    // PASSWORD PROTECTION
+    // ==========================================
     const PASSWORD = 'laom2026'
     const STORAGE_KEY = 'laom_auth'
-    
     const overlay = document.getElementById('password-overlay')
     const form = document.getElementById('password-form')
-    const input = document.getElementById('password-input') as HTMLInputElement
+    const input = document.getElementById('password-input')
     const error = document.getElementById('password-error')
-    
+
     if (localStorage.getItem(STORAGE_KEY) === 'true') {
-      overlay?.style.setProperty('display', 'none')
+      overlay.style.display = 'none'
     }
-    
-    form?.addEventListener('submit', (e) => {
+
+    form.addEventListener('submit', (e) => {
       e.preventDefault()
-      if (input?.value === PASSWORD) {
+      if (input.value === PASSWORD) {
         localStorage.setItem(STORAGE_KEY, 'true')
-        overlay?.style.setProperty('display', 'none')
+        overlay.style.display = 'none'
       } else {
-        error?.classList.remove('hidden')
-        input?.classList.add('border-red-500')
+        error.classList.remove('hidden')
+        input.classList.add('border-red-500')
+      }
+    })
+
+    // ==========================================
+    // TASK TOGGLE (checkboxes)
+    // ==========================================
+    document.querySelectorAll('.task-toggle').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const taskEl = btn.closest('[data-task-id]')
+        if (!taskEl) return
+        const taskId = taskEl.getAttribute('data-task-id')
+
+        try {
+          const res = await fetch(`/api/tasks/${taskId}`, { method: 'POST' })
+          if (res.ok) {
+            // Reload page to reflect new state
+            window.location.reload()
+          }
+        } catch (e) {
+          console.error('Toggle failed:', e)
+        }
+      })
+    })
+
+    // ==========================================
+    // SPEECH-TO-TEXT (Web Speech API)
+    // ==========================================
+    const micBtn = document.getElementById('mic-button')
+    const micLabel = document.getElementById('mic-label')
+    const textArea = document.getElementById('observation-text')
+    const sendBtn = document.getElementById('send-observation')
+
+    let recognition = null
+    let isRecording = false
+
+    // Enable send button when text is present
+    textArea.addEventListener('input', () => {
+      sendBtn.disabled = !textArea.value.trim()
+    })
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+      recognition = new SpeechRecognition()
+      recognition.continuous = true
+      recognition.interimResults = true
+      recognition.lang = 'fr-FR'
+
+      let finalTranscript = ''
+
+      recognition.onresult = (event) => {
+        let interim = ''
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' '
+          } else {
+            interim += transcript
+          }
+        }
+        textArea.value = finalTranscript + interim
+        sendBtn.disabled = !textArea.value.trim()
+      }
+
+      recognition.onend = () => {
+        if (isRecording) {
+          // Auto-restart if user hasn't stopped manually
+          recognition.start()
+        }
+      }
+
+      recognition.onerror = (event) => {
+        if (event.error === 'no-speech') return // Ignore silence
+        console.error('Speech error:', event.error)
+        isRecording = false
+        micLabel.textContent = 'Dicter'
+        micBtn.style.backgroundColor = '#C4A855'
+      }
+
+      micBtn.addEventListener('click', () => {
+        if (isRecording) {
+          isRecording = false
+          recognition.stop()
+          micLabel.textContent = 'Dicter'
+          micBtn.style.backgroundColor = '#C4A855'
+        } else {
+          isRecording = true
+          finalTranscript = textArea.value
+          recognition.start()
+          micLabel.textContent = 'Stop'
+          micBtn.style.backgroundColor = '#dc2626'
+        }
+      })
+    } else {
+      // Pas de support Speech — cacher le bouton micro
+      micBtn.style.display = 'none'
+    }
+
+    // ==========================================
+    // SEND OBSERVATION
+    // ==========================================
+    sendBtn.addEventListener('click', async () => {
+      const content = textArea.value.trim()
+      if (!content) return
+
+      sendBtn.disabled = true
+      sendBtn.textContent = 'Envoi...'
+
+      try {
+        const today = new Date().toISOString().split('T')[0]
+        const res = await fetch('/api/observations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ person: 'lorenzo', content, date: today })
+        })
+
+        if (res.ok) {
+          textArea.value = ''
+          window.location.reload()
+        } else {
+          alert('Erreur lors de l\'envoi')
+          sendBtn.disabled = false
+          sendBtn.textContent = 'Envoyer'
+        }
+      } catch (e) {
+        alert('Erreur de connexion')
+        sendBtn.disabled = false
+        sendBtn.textContent = 'Envoyer'
       }
     })
   </script>
