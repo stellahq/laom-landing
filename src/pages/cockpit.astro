@@ -6,27 +6,31 @@ import MobileNav from '~/components/MobileNav.astro'
 export const prerender = false
 
 // ==========================================
-// DONNEES COCKPIT CHARLY
+// DONNEES COCKPIT CHARLY (statiques)
 // ==========================================
 
 const phaseDeVie = {
   nom: 'Expansion — Fondation 2026',
   vision: 'Finir le Grand Shambala, ouvrir le coliving printemps 2027, lancer LAOM economiquement.',
-  mot: 'A definir'
 }
 
 const projetsActifs = [
-  { projet: 'EDD SCIA Ouest', statut: 'urgent', action: 'Completer avec plans + descriptions', deadline: '15 fevrier', blocker: 'RDV Christelle 3 fev' },
-  { projet: 'Permis salle ERP5', statut: 'a_faire', action: 'Se renseigner exigences + deposer', deadline: '28 fevrier', blocker: 'Avant SCIA' },
-  { projet: 'Permis modif GS', statut: 'a_faire', action: 'Dessiner terrasses + facade', deadline: '28 fevrier', blocker: 'Avant SCIA' },
-  { projet: 'BP Oasis 200K', statut: 'a_faire', action: 'Actualiser deck previsionnel 2026', deadline: '28 fevrier', blocker: null },
+  { projet: 'EDD SCIA Ouest', statut: 'urgent', action: 'Completer avec plans + descriptions', deadline: '15 fevrier', blocker: null },
+  { projet: 'Permis salle ERP5', statut: 'a_deleguer', action: 'Trouver dessinateur + definir scope ERP + commission pompiers', deadline: 'W08', blocker: 'Dessinateur a contacter W07' },
+  { projet: 'Permis Tiny Houses (x2)', statut: 'a_deleguer', action: 'Idem dessinateur', deadline: 'W08', blocker: 'Dessinateur a contacter W07' },
+  { projet: 'BP Oasis 200K', statut: 'a_faire', action: 'Ouvrir dossier, projeter 2027-2030', deadline: '28 fevrier', blocker: null },
+  { projet: 'Montage financier SCIA', statut: 'fait', action: 'RDV Pierre Levy 3 fev — montage finalise', deadline: '-', blocker: null },
   { projet: 'Studio Charly', statut: 'priorite', action: 'Attendre tresorerie (10K)', deadline: 'FIN MAI', blocker: 'Tresorerie' },
-  { projet: 'Electricite GS', statut: 'a_faire', action: 'Tirer cable 300m + tableau', deadline: 'Mi-mars', blocker: null },
-  { projet: 'Event Perspective Mars', statut: 'urgent', action: 'Creer menus Lorenzo + prep logistique', deadline: '5 mars', blocker: 'Lorenzo a confirmer' },
-  { projet: 'Guinguette', statut: 'planifie', action: 'Verifier formation Lorenzo', deadline: 'Mi-juin', blocker: 'Normes sanitaires' },
+  { projet: 'Electricite GS', statut: 'a_faire', action: 'Raccorder cable 300m + tableau', deadline: 'Mi-mars', blocker: null },
+  { projet: 'Corten GS', statut: 'a_faire', action: 'Devis Arnal Gely, acompte, pose fin mars', deadline: 'Fin mars', blocker: 'Devis attendu' },
+  { projet: 'Assainissement GS', statut: 'bloque', action: 'Appeler SPANC (15 min)', deadline: 'W07', blocker: 'SPANC a contacter' },
+  { projet: 'Event Perspective Mars', statut: 'urgent', action: 'Menus Lorenzo + demander maison Claire & Baptiste', deadline: '5 mars', blocker: null },
+  { projet: 'Guinguette', statut: 'planifie', action: 'Lorenzo confirme. Verifier formation hygiene.', deadline: 'Mi-juin', blocker: 'Normes sanitaires' },
   { projet: 'Jardin', statut: 'a_faire', action: 'Reparer tracteur + poster annonce woofer', deadline: 'Mars', blocker: 'Broyer seigle' },
-  { projet: 'Camp Nomade', statut: 'planifie', action: 'Creer page web + communiquer', deadline: '15 juillet', blocker: 'Terrain a preparer' },
-  { projet: 'YouTube', statut: 'planifie', action: 'Batch tournage #1 (2 jours)', deadline: 'Fevrier', blocker: 'Format a trancher' },
+  { projet: 'Camp Nomade Familial', statut: 'planifie', action: 'Creer page web + communiquer', deadline: '15 juillet', blocker: 'Terrain a preparer' },
+  { projet: 'YouTube', statut: 'planifie', action: 'Amandine formalise plan tournage batch #1', deadline: 'W07-W08', blocker: 'Format a trancher' },
+  { projet: 'Appart Montpellier', statut: 'a_faire', action: 'Envoyer dossier a Agathe', deadline: 'En cours', blocker: 'Docs Amandine' },
+  { projet: 'Site LAOM V1', statut: 'fait', action: 'Quasi-termine, retours + photos ce week-end', deadline: 'W06', blocker: null },
 ]
 
 const jalons = [
@@ -35,10 +39,13 @@ const jalons = [
   { nom: 'BP Oasis', date: 'Fin fev', fait: false },
   { nom: 'Electricite GS', date: 'Mi-mars', fait: false },
   { nom: 'Event Perspective', date: '5-8 mars', fait: false },
+  { nom: 'Corten termine', date: 'Fin mars', fait: false },
   { nom: 'Tresorerie OK', date: 'Fin mars', fait: false },
   { nom: 'STUDIO TERMINE', date: 'FIN MAI', fait: false, priorite: true },
   { nom: 'Guinguette ouvre', date: 'Mi-juin', fait: false },
+  { nom: 'Terrasses terminees', date: 'Fin juil', fait: false },
   { nom: 'Camp Nomade ouvre', date: '15 juil', fait: false },
+  { nom: 'Lots prives habitables', date: 'Rentree', fait: false },
   { nom: 'Coliving', date: 'P. 2027', fait: false, objectif: true },
 ]
 
@@ -48,37 +55,75 @@ const finances = {
   dettesPerso: 6600,
   duLily: 2540,
   duBaptiste: 3286,
-  cortenAVenir: '5-8k',
   pretOasis: 200000,
   quotePartsProprios: 209000,
 }
 
-const chargeMentale = [
-  { categorie: 'Event Perspective', items: ['Creer menus Lorenzo (35 pers x 7 repas)', 'Demander maison Claire & Baptiste', 'Menage salle + stockage', 'Nettoyage exterieurs'] },
-  { categorie: 'Guinguette', items: ['Verifier formation Lorenzo', 'Formation permis exploitation', 'Declaration mairie', 'Declaration DDPP'] },
-  { categorie: 'Jardin', items: ['Reparer tracteur (bloc CDI + batterie)', 'Commander semences', 'Poster annonce woofer'] },
-  { categorie: 'Camp Nomade', items: ['Creer page web', 'Communiquer sur reseaux', 'Preparer contrat/charte'] },
-  { categorie: 'Admin', items: ['Retour a Greg — partage main a main', 'Factures 2024 + releves comptes', 'Payer Lily 2540€', 'Rembourser Baptiste 3286€'] },
-  { categorie: 'Maison', items: ['Fuite eau toit agleco', 'Lambris SDB Eliott', 'Gouttiere nord GS', 'Reparer porte serre'] },
-  { categorie: 'Recrutement', items: ['Aide menage/Livio (25h/sem)', 'Aide Studio (avril 2-3 sem)', 'Jardinier/woofer (mars)'] },
+const budgetTravaux = [
+  { poste: 'Studio Charly', budget: '10K' },
+  { poste: 'Electricite', budget: '2-4K' },
+  { poste: 'Assainissement', budget: '8-15K' },
+  { poste: 'Corten', budget: '5-8K' },
+  { poste: 'Terrasses', budget: '15-25K' },
+  { poste: 'Paysagement', budget: '20-30K' },
+  { poste: 'Khaldoun (12 mois)', budget: '24K' },
 ]
 
-const equipe = [
-  { nom: 'Khaldoun', role: 'Ouvrier polyvalent', dispo: '12 mois', cout: '2k/mois' },
-  { nom: 'David Coste', role: 'Aide travaux', dispo: 'Mai-Sept', cout: 'Nourri-loge' },
-  { nom: 'Lorenzo', role: 'Chef guinguette', dispo: 'Ete', cout: 'A definir' },
-  { nom: 'Lily', role: 'Cuisine marocaine', dispo: 'Ete (si vient)', cout: 'Nourrie-logee' },
-  { nom: 'Jardinier/woofer', role: 'Maraichage', dispo: 'Mars-Sept', cout: 'Nourri-loge' },
-  { nom: 'Aide Studio', role: 'Renfort', dispo: 'Avril 2-3 sem', cout: '2-3k' },
-  { nom: 'Aide Livio', role: 'Menage + enfant', dispo: '25h/sem', cout: '500€/mois' },
+const chargeMentale = [
+  { categorie: 'Event Perspective', items: [
+    'Menus Lorenzo (35 pers x 7 repas) — EN COURS',
+    'Demander maison Claire & Baptiste — A FAIRE dim 8',
+    'Menage salle + stockage (Lorenzo + Khaldoun)',
+    'Nettoyage exterieurs et chantier',
+  ]},
+  { categorie: 'Guinguette', items: [
+    'Verifier formation hygiene Lorenzo',
+    'Formation permis exploitation (avril-mai)',
+  ]},
+  { categorie: 'Jardin', items: [
+    'Reparer tracteur (bloc CDI + batterie)',
+    'Commander semences (fevrier)',
+    'Poster annonce woofer (WWOOF, Workaway)',
+  ]},
+  { categorie: 'Camp Nomade', items: [
+    'Creer page web',
+    'Communiquer sur reseaux (mars-avril)',
+    'Preparer contrat/charte de vie',
+  ]},
+  { categorie: 'Admin / Delegue', items: [
+    'Retour a Greg — partage main a main',
+    'Factures 2024 + releves comptes → DELEGUER AMANDINE',
+    'Payer Lily 2540\u20AC (Western Union)',
+    'Rembourser Baptiste 3286\u20AC (via locavente)',
+    'Dossier assurance telephone → DELEGUE AMANDINE',
+    'Stock CBD 50-80kg saison 2023 — ceder/vendre',
+  ]},
+  { categorie: 'Maison / Chantier', items: [
+    'Fuite eau toit agleco cuisine d\'ete',
+    'Lambris SDB Eliott',
+    'Gouttiere nord GS — devier eau descente',
+    'Nettoyer chantier + trier outils → DELEGUE KHALDOUN',
+    'Nettoyer ext. cuisine d\'ete + serre → DELEGUE KHALDOUN',
+    'Reparer porte serre',
+  ]},
+  { categorie: 'Recrutement', items: [
+    'Aide menage/Livio (25h/sem, 500\u20AC/mois + logement)',
+    'Aide temporaire Studio (avril, 2-3 sem, 2-3K\u20AC)',
+    'Jardinier/woofer (mars-sept)',
+  ]},
 ]
 
 const decisions = [
-  { date: '5 fev', decision: 'Petit Shambala reporte a 2027', detail: 'Focus Grand Shambala' },
-  { date: '5 fev', decision: 'Studio fin mai = non negociable', detail: 'Logement fille au pair, parents' },
-  { date: '5 fev', decision: 'YouTube = batch 2j / 3 semaines', detail: '10 batchs en 2026' },
-  { date: '5 fev', decision: 'Corten en mars', detail: 'Apres livraison fin fevrier, avant Studio' },
-  { date: '5 fev', decision: 'Amandine prend plus sur Livio', detail: 'Periode Fev-Mai' },
+  { date: 'W05', decision: 'Petit Shambala reporte a 2027', detail: 'Focus Grand Shambala' },
+  { date: 'W05', decision: 'Studio fin mai = non negociable', detail: 'Logement fille au pair, parents' },
+  { date: 'W05', decision: 'YouTube = batch 2j / 3 semaines', detail: '10 batchs en 2026' },
+  { date: 'W05', decision: 'Corten fin mars', detail: 'Reception fin fevrier, pose fin mars (avant Studio)' },
+  { date: 'W05', decision: 'Aide temporaire Studio', detail: 'Recruter pour avril (2-3 semaines)' },
+  { date: 'W06', decision: 'Montage financier SCIA finalise', detail: 'Pierre Levy, dossier clos' },
+  { date: 'W06', decision: 'Lorenzo confirme', detail: 'Guinguette + aide chantier 3-4h/jour' },
+  { date: 'W06', decision: 'Amandine = DG/COO', detail: 'Admin, finances, ecriture, marketing. Demande droit associe.' },
+  { date: 'W06', decision: 'Permis a deleguer', detail: 'Dessinateur pour salle ERP + 2 Tiny Houses' },
+  { date: 'W06', decision: 'Systeme management equipe', detail: 'Pages individuelles site + D1 + Obsidian source de verite' },
 ]
 
 // ==========================================
@@ -96,8 +141,28 @@ function getCurrentWeek(): string {
   return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`
 }
 
+function getNextWeek(week: string): string {
+  const [yearStr, wStr] = week.split('-W')
+  const year = parseInt(yearStr)
+  const wNum = parseInt(wStr)
+  const jan4 = new Date(Date.UTC(year, 0, 4))
+  const jan4Day = jan4.getUTCDay() || 7
+  const week1Monday = new Date(jan4)
+  week1Monday.setUTCDate(jan4.getUTCDate() - jan4Day + 1)
+  const targetMonday = new Date(week1Monday)
+  targetMonday.setUTCDate(week1Monday.getUTCDate() + (wNum - 1) * 7 + 7)
+  const d = new Date(targetMonday)
+  const dayNum = d.getUTCDay() || 7
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+  const ys = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+  const nextWNum = Math.ceil((((d.getTime() - ys.getTime()) / 86400000) + 1) / 7)
+  return `${d.getUTCFullYear()}-W${String(nextWNum).padStart(2, '0')}`
+}
+
 const currentWeek = getCurrentWeek()
+const nextWeek = getNextWeek(currentWeek)
 const today = new Date().toISOString().split('T')[0]
+const dateStr = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
 
 interface TeamMember {
   name: string
@@ -107,27 +172,58 @@ interface TeamMember {
   tasks: any[]
   completedCount: number
   totalCount: number
+  objectives: any[]
   todayObservations: any[]
 }
 
-const teamMembers: TeamMember[] = []
+// Semaine en cours
+let weeklyContext: any = null
+let teamMembers: TeamMember[] = []
+
+// Semaine suivante
+let weeklyContextNext: any = null
+let teamMembersNext: TeamMember[] = []
+
+const memberDefs = [
+  { name: 'lorenzo', label: 'Lorenzo', color: '#C4A855', href: '/lorenzo/' },
+  { name: 'khaldoun', label: 'Khaldoun', color: '#4A7C59', href: '/khaldoun/' },
+  { name: 'amandine', label: 'Amandine', color: '#8B5A3C', href: '/amandine/' },
+]
 
 if (db) {
   try {
-    for (const member of [
-      { name: 'lorenzo', label: 'Lorenzo', color: '#C4A855', href: '/lorenzo/' },
-      { name: 'khaldoun', label: 'Khaldoun', color: '#4A7C59', href: '/khaldoun/' },
-      { name: 'amandine', label: 'Amandine', color: '#8B5A3C', href: '/amandine/' },
-    ]) {
-      const tasksRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ?').bind(member.name, currentWeek).all()
+    // Weekly context
+    weeklyContext = await db.prepare('SELECT * FROM weekly_context WHERE week = ? ORDER BY created_at DESC LIMIT 1').bind(currentWeek).first()
+    weeklyContextNext = await db.prepare('SELECT * FROM weekly_context WHERE week = ? ORDER BY created_at DESC LIMIT 1').bind(nextWeek).first()
+
+    // Team members — current week
+    for (const m of memberDefs) {
+      const tasksRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC, id ASC').bind(m.name, currentWeek).all()
       const tasks = tasksRes.results || []
-      const obsRes = await db.prepare('SELECT * FROM observations WHERE person = ? AND date = ? ORDER BY created_at DESC LIMIT 3').bind(member.name, today).all()
+      const objRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind(m.name, currentWeek).all()
+      const obsRes = await db.prepare('SELECT * FROM observations WHERE person = ? AND date = ? ORDER BY created_at DESC LIMIT 3').bind(m.name, today).all()
       teamMembers.push({
-        ...member,
+        ...m,
         tasks,
         completedCount: tasks.filter((t: any) => t.completed).length,
         totalCount: tasks.length,
+        objectives: objRes.results || [],
         todayObservations: obsRes.results || [],
+      })
+    }
+
+    // Team members — next week
+    for (const m of memberDefs) {
+      const tasksRes = await db.prepare('SELECT * FROM tasks WHERE person = ? AND week = ? ORDER BY sort_order ASC, id ASC').bind(m.name, nextWeek).all()
+      const tasks = tasksRes.results || []
+      const objRes = await db.prepare('SELECT * FROM weekly_objectives WHERE person = ? AND week = ? ORDER BY id ASC').bind(m.name, nextWeek).all()
+      teamMembersNext.push({
+        ...m,
+        tasks,
+        completedCount: tasks.filter((t: any) => t.completed).length,
+        totalCount: tasks.length,
+        objectives: objRes.results || [],
+        todayObservations: [],
       })
     }
   } catch (e) {}
@@ -138,7 +234,10 @@ function getStatutClass(statut: string): string {
     'priorite': 'bg-[#C4A855] text-white',
     'urgent': 'bg-red-500 text-white',
     'a_faire': 'bg-[#2C2824] text-white',
+    'a_deleguer': 'bg-[#8B5A3C] text-white',
     'planifie': 'bg-[#4A7C59]/80 text-white',
+    'bloque': 'bg-red-800 text-white',
+    'fait': 'bg-[#4A7C59] text-white',
     'attente': 'bg-white/10 text-white/60 border border-white/20',
   }
   return classes[statut] || 'bg-white/10 text-white/60'
@@ -149,7 +248,10 @@ function getStatutLabel(statut: string): string {
     'priorite': 'Priorite',
     'urgent': 'Urgent',
     'a_faire': 'A faire',
+    'a_deleguer': 'A deleguer',
     'planifie': 'Planifie',
+    'bloque': 'Bloque',
+    'fait': 'Fait',
     'attente': 'Attente',
   }
   return labels[statut] || statut
@@ -211,30 +313,180 @@ function getStatutLabel(statut: string): string {
           </h1>
         </div>
         <div class="text-left sm:text-right">
-          <p class="text-xs text-white/40">Derniere mise a jour</p>
-          <p class="text-sm text-white/70">5 fevrier 2026</p>
+          <p class="text-xs text-white/40">Mise a jour</p>
+          <p class="text-sm text-white/70 capitalize">{dateStr}</p>
         </div>
       </div>
       <p class="text-sm text-white/50 max-w-2xl">{phaseDeVie.vision}</p>
+
+      <!-- Week toggle -->
+      <div class="flex flex-wrap gap-4 mt-6 text-sm">
+        <div class="flex items-center bg-white/5 border border-white/10 rounded-sm overflow-hidden">
+          <button id="btn-current" class="week-toggle px-4 py-2 text-white font-medium bg-[#C4A855]/30 transition-colors" data-target="current">{currentWeek}</button>
+          <button id="btn-next" class="week-toggle px-4 py-2 text-white/40 hover:text-white/60 transition-colors" data-target="next">{nextWeek}</button>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Navigation -->
+  <!-- Navigation sticky -->
   <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <div class="flex gap-4 overflow-x-auto text-xs sm:text-sm">
-        <a href="#projets" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap font-medium">Projets</a>
+        <a href="#focus" class="text-[#C4A855] font-medium whitespace-nowrap">Focus</a>
+        <a href="#projets" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Projets</a>
         <a href="#jalons" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Jalons</a>
         <a href="#finances" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Finances</a>
         <a href="#charge" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Charge mentale</a>
-        <a href="#equipe" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Equipe</a>
         <a href="#decisions" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors whitespace-nowrap">Decisions</a>
       </div>
     </div>
   </nav>
 
+  <!-- ============================================== -->
+  <!-- FOCUS SEMAINE (dynamique D1) -->
+  <!-- ============================================== -->
+  <section id="focus" class="py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+
+      <!-- ===== SEMAINE EN COURS ===== -->
+      <div data-week="current">
+        <div class="mb-8">
+          <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Focus de la semaine</h2>
+          <p class="text-xs text-[#2C2824]/40 mt-1">{currentWeek}</p>
+        </div>
+
+        <!-- Contexte Charly -->
+        {weeklyContext && (
+          <div class="grid sm:grid-cols-2 gap-4 mb-8">
+            {weeklyContext.charly_focus && (
+              <div class="bg-white rounded-sm border border-[#C4A855]/20 p-5">
+                <p class="text-xs font-medium text-[#C4A855] uppercase tracking-wider mb-3">Focus Charly</p>
+                <p class="text-sm text-[#2C2824] leading-relaxed whitespace-pre-line">{weeklyContext.charly_focus}</p>
+              </div>
+            )}
+            {weeklyContext.enjeux && (
+              <div class="bg-white rounded-sm border border-red-200 p-5">
+                <p class="text-xs font-medium text-red-500 uppercase tracking-wider mb-3">Enjeux de la semaine</p>
+                <p class="text-sm text-[#2C2824] leading-relaxed whitespace-pre-line">{weeklyContext.enjeux}</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        <!-- Equipe cards -->
+        {teamMembers.length > 0 && (
+          <div class="grid sm:grid-cols-3 gap-4">
+            {teamMembers.map((m) => (
+              <a href={m.href} class="bg-white rounded-sm border border-black/5 p-5 hover:border-black/15 transition-colors block">
+                <div class="flex items-center justify-between mb-3">
+                  <p class="font-medium text-[#2C2824]">{m.label}</p>
+                  <span class="text-xs px-2 py-1 rounded font-medium" style={`background-color: ${m.color}15; color: ${m.color};`}>
+                    {m.completedCount}/{m.totalCount}
+                  </span>
+                </div>
+
+                {m.totalCount > 0 ? (
+                  <div class="w-full bg-[#FAF8F5] rounded-full h-2 mb-3">
+                    <div class="h-2 rounded-full transition-all" style={`width: ${(m.completedCount / m.totalCount * 100)}%; background-color: ${m.color};`}></div>
+                  </div>
+                ) : (
+                  <p class="text-xs text-[#2C2824]/30 mb-3">Pas de taches cette semaine</p>
+                )}
+
+                {m.objectives.length > 0 && (
+                  <div class="mb-3">
+                    <p class="text-xs font-medium text-[#2C2824]/50 mb-1">Objectifs</p>
+                    {m.objectives.slice(0, 2).map((obj: any) => (
+                      <p class="text-xs text-[#2C2824]/70 truncate">- {obj.content}</p>
+                    ))}
+                    {m.objectives.length > 2 && (
+                      <p class="text-xs text-[#2C2824]/40">+{m.objectives.length - 2} autres</p>
+                    )}
+                  </div>
+                )}
+
+                {m.todayObservations.length > 0 && (
+                  <div class="text-xs text-[#2C2824]/50 border-t border-black/5 pt-2 mt-2">
+                    <p class="font-medium mb-1" style={`color: ${m.color};`}>Observations du jour</p>
+                    {m.todayObservations.map((obs: any) => (
+                      <p class="truncate">{obs.content}</p>
+                    ))}
+                  </div>
+                )}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- ===== SEMAINE SUIVANTE ===== -->
+      <div data-week="next" class="hidden">
+        <div class="mb-8">
+          <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Focus de la semaine</h2>
+          <p class="text-xs text-[#2C2824]/40 mt-1">{nextWeek}</p>
+        </div>
+
+        {weeklyContextNext && (
+          <div class="grid sm:grid-cols-2 gap-4 mb-8">
+            {weeklyContextNext.charly_focus && (
+              <div class="bg-white rounded-sm border border-[#C4A855]/20 p-5">
+                <p class="text-xs font-medium text-[#C4A855] uppercase tracking-wider mb-3">Focus Charly</p>
+                <p class="text-sm text-[#2C2824] leading-relaxed whitespace-pre-line">{weeklyContextNext.charly_focus}</p>
+              </div>
+            )}
+            {weeklyContextNext.enjeux && (
+              <div class="bg-white rounded-sm border border-red-200 p-5">
+                <p class="text-xs font-medium text-red-500 uppercase tracking-wider mb-3">Enjeux de la semaine</p>
+                <p class="text-sm text-[#2C2824] leading-relaxed whitespace-pre-line">{weeklyContextNext.enjeux}</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {teamMembersNext.length > 0 && (
+          <div class="grid sm:grid-cols-3 gap-4">
+            {teamMembersNext.map((m) => (
+              <a href={m.href} class="bg-white rounded-sm border border-black/5 p-5 hover:border-black/15 transition-colors block">
+                <div class="flex items-center justify-between mb-3">
+                  <p class="font-medium text-[#2C2824]">{m.label}</p>
+                  <span class="text-xs px-2 py-1 rounded font-medium" style={`background-color: ${m.color}15; color: ${m.color};`}>
+                    {m.completedCount}/{m.totalCount}
+                  </span>
+                </div>
+
+                {m.totalCount > 0 ? (
+                  <div class="w-full bg-[#FAF8F5] rounded-full h-2 mb-3">
+                    <div class="h-2 rounded-full transition-all" style={`width: ${(m.completedCount / m.totalCount * 100)}%; background-color: ${m.color};`}></div>
+                  </div>
+                ) : (
+                  <p class="text-xs text-[#2C2824]/30 mb-3">Pas de taches cette semaine</p>
+                )}
+
+                {m.objectives.length > 0 && (
+                  <div class="mb-3">
+                    <p class="text-xs font-medium text-[#2C2824]/50 mb-1">Objectifs</p>
+                    {m.objectives.slice(0, 2).map((obj: any) => (
+                      <p class="text-xs text-[#2C2824]/70 truncate">- {obj.content}</p>
+                    ))}
+                    {m.objectives.length > 2 && (
+                      <p class="text-xs text-[#2C2824]/40">+{m.objectives.length - 2} autres</p>
+                    )}
+                  </div>
+                )}
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================== -->
   <!-- PROJETS ACTIFS -->
-  <section id="projets" class="py-10 bg-[#FAF8F5]">
+  <!-- ============================================== -->
+  <section id="projets" class="py-10 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <div class="mb-6">
         <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Projets actifs</h2>
@@ -243,7 +495,7 @@ function getStatutLabel(statut: string): string {
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-black/10 bg-white">
+            <tr class="border-b border-black/10 bg-[#FAF8F5]">
               <th class="text-left py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Projet</th>
               <th class="text-center py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Statut</th>
               <th class="text-left py-3 px-3 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Prochaine action</th>
@@ -253,7 +505,7 @@ function getStatutLabel(statut: string): string {
           </thead>
           <tbody>
             {projetsActifs.map((p) => (
-              <tr class={`border-b border-black/5 ${p.statut === 'priorite' ? 'bg-[#C4A855]/5' : p.statut === 'urgent' ? 'bg-red-50' : 'hover:bg-white/50'}`}>
+              <tr class={`border-b border-black/5 ${p.statut === 'priorite' ? 'bg-[#C4A855]/5' : p.statut === 'urgent' ? 'bg-red-50' : p.statut === 'fait' ? 'bg-[#4A7C59]/5' : 'hover:bg-[#FAF8F5]'}`}>
                 <td class="py-3 px-3 font-medium text-[#2C2824]">{p.projet}</td>
                 <td class="py-3 px-3 text-center">
                   <span class={`badge ${getStatutClass(p.statut)}`}>{getStatutLabel(p.statut)}</span>
@@ -269,8 +521,10 @@ function getStatutLabel(statut: string): string {
     </div>
   </section>
 
-  <!-- JALONS -->
-  <section id="jalons" class="py-10 bg-white">
+  <!-- ============================================== -->
+  <!-- JALONS 2026 -->
+  <!-- ============================================== -->
+  <section id="jalons" class="py-10 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <div class="mb-6">
         <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Jalons 2026</h2>
@@ -278,7 +532,7 @@ function getStatutLabel(statut: string): string {
 
       <div class="flex flex-wrap gap-2">
         {jalons.map((j) => (
-          <div class={`flex items-center gap-2 px-3 py-2 rounded-sm border ${j.priorite ? 'bg-[#C4A855]/10 border-[#C4A855]' : j.objectif ? 'bg-[#4A7C59]/10 border-[#4A7C59]' : j.fait ? 'bg-[#4A7C59]/10 border-[#4A7C59]/30' : 'bg-[#FAF8F5] border-black/5'}`}>
+          <div class={`flex items-center gap-2 px-3 py-2 rounded-sm border ${j.priorite ? 'bg-[#C4A855]/10 border-[#C4A855]' : j.objectif ? 'bg-[#4A7C59]/10 border-[#4A7C59]' : j.fait ? 'bg-[#4A7C59]/10 border-[#4A7C59]/30' : 'bg-white border-black/5'}`}>
             <span class={`w-3 h-3 rounded-full flex-shrink-0 ${j.fait ? 'bg-[#4A7C59]' : j.priorite ? 'bg-[#C4A855]' : j.objectif ? 'bg-[#4A7C59]' : 'bg-[#2C2824]/20'}`}></span>
             <span class={`text-sm ${j.priorite ? 'text-[#C4A855] font-medium' : j.objectif ? 'text-[#4A7C59] font-medium' : 'text-[#2C2824]'}`}>{j.nom}</span>
             <span class="text-xs text-[#2C2824]/40">{j.date}</span>
@@ -288,53 +542,75 @@ function getStatutLabel(statut: string): string {
     </div>
   </section>
 
+  <!-- ============================================== -->
   <!-- FINANCES -->
-  <section id="finances" class="py-10 bg-[#FAF8F5]">
+  <!-- ============================================== -->
+  <section id="finances" class="py-10 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <div class="mb-6">
         <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Finances</h2>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Cards principales -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <!-- Tresorerie -->
-        <div class="bg-white rounded-sm border border-red-200 p-4">
+        <div class="bg-[#FAF8F5] rounded-sm border border-red-200 p-4">
           <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Tresorerie FDV</p>
           <p class="text-xl font-medium text-red-500">{finances.tresorerie.statut}</p>
-          <p class="text-xs text-[#2C2824]/40 mt-2">Factures impayees : {finances.facturesImpayees.toLocaleString()}€</p>
+          <p class="text-xs text-[#2C2824]/40 mt-2">Factures impayees : {finances.facturesImpayees.toLocaleString()}\u20AC</p>
         </div>
 
         <!-- Dettes -->
-        <div class="bg-white rounded-sm border border-black/5 p-4">
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
           <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Dettes perso</p>
-          <p class="text-xl font-medium text-[#2C2824]">{finances.dettesPerso.toLocaleString()}€</p>
+          <p class="text-xl font-medium text-[#2C2824]">{finances.dettesPerso.toLocaleString()}\u20AC</p>
           <div class="text-xs text-[#2C2824]/40 mt-2 space-y-1">
-            <p>Lily : {finances.duLily.toLocaleString()}€</p>
-            <p>Baptiste : {finances.duBaptiste.toLocaleString()}€</p>
+            <p>Lily : {finances.duLily.toLocaleString()}\u20AC</p>
+            <p>Baptiste : {finances.duBaptiste.toLocaleString()}\u20AC</p>
           </div>
         </div>
 
         <!-- Attendu -->
-        <div class="bg-white rounded-sm border border-[#4A7C59]/30 p-4">
+        <div class="bg-[#FAF8F5] rounded-sm border border-[#4A7C59]/30 p-4">
           <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Attendu</p>
-          <p class="text-xl font-medium text-[#4A7C59]">~409k€</p>
+          <p class="text-xl font-medium text-[#4A7C59]">~409k\u20AC</p>
           <div class="text-xs text-[#2C2824]/40 mt-2 space-y-1">
-            <p>Quote-parts : {(finances.quotePartsProprios/1000).toFixed(0)}k€</p>
-            <p>Pret Oasis : {(finances.pretOasis/1000).toFixed(0)}k€</p>
+            <p>Quote-parts : {(finances.quotePartsProprios/1000).toFixed(0)}k\u20AC</p>
+            <p>Pret Oasis : {(finances.pretOasis/1000).toFixed(0)}k\u20AC</p>
           </div>
         </div>
 
-        <!-- A venir -->
-        <div class="bg-white rounded-sm border border-[#C4A855]/30 p-4">
-          <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Depenses a venir</p>
-          <p class="text-xl font-medium text-[#C4A855]">{finances.cortenAVenir}€</p>
-          <p class="text-xs text-[#2C2824]/40 mt-2">Corten (devis attendu)</p>
+        <!-- Amandine -->
+        <div class="bg-[#FAF8F5] rounded-sm border border-[#8B5A3C]/30 p-4">
+          <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Remuneration Amandine</p>
+          <p class="text-xl font-medium text-[#8B5A3C]">22k\u20AC/an</p>
+          <p class="text-xs text-[#2C2824]/40 mt-2">DG/COO — plein temps</p>
+        </div>
+      </div>
+
+      <!-- Budget travaux 2026 -->
+      <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-5">
+        <p class="text-xs font-medium text-[#C4A855] uppercase tracking-wider mb-4">Budget travaux 2026</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {budgetTravaux.map((b) => (
+            <div class="text-center">
+              <p class="text-lg font-medium text-[#2C2824]">{b.budget}\u20AC</p>
+              <p class="text-xs text-[#2C2824]/50">{b.poste}</p>
+            </div>
+          ))}
+        </div>
+        <div class="border-t border-black/10 mt-4 pt-3 text-center">
+          <p class="text-xs text-[#2C2824]/50">Total mutualise</p>
+          <p class="text-lg font-medium text-[#C4A855]">~95-130K\u20AC</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ============================================== -->
   <!-- CHARGE MENTALE -->
-  <section id="charge" class="py-10 bg-white">
+  <!-- ============================================== -->
+  <section id="charge" class="py-10 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <div class="mb-6">
         <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Charge mentale</h2>
@@ -343,15 +619,18 @@ function getStatutLabel(statut: string): string {
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {chargeMentale.map((cat) => (
-          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <div class="bg-white rounded-sm border border-black/5 p-4">
             <p class="text-xs font-medium text-[#C4A855] uppercase tracking-wider mb-3">{cat.categorie}</p>
             <ul class="space-y-2">
-              {cat.items.map((item) => (
-                <li class="flex items-start gap-2 text-sm text-[#2C2824]/70">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#2C2824]/30 mt-2 flex-shrink-0"></span>
-                  <span>{item}</span>
-                </li>
-              ))}
+              {cat.items.map((item) => {
+                const isDelegue = item.includes('DELEGUE') || item.includes('DELEGUER')
+                return (
+                  <li class="flex items-start gap-2 text-sm text-[#2C2824]/70">
+                    <span class={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${isDelegue ? 'bg-[#8B5A3C]' : 'bg-[#2C2824]/30'}`}></span>
+                    <span class={isDelegue ? 'text-[#8B5A3C]' : ''}>{item}</span>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         ))}
@@ -359,62 +638,9 @@ function getStatutLabel(statut: string): string {
     </div>
   </section>
 
-  <!-- EQUIPE CETTE SEMAINE (dynamique D1) -->
-  <section id="equipe" class="py-10 bg-[#FAF8F5]">
-    <div class="max-w-6xl mx-auto px-4 sm:px-8">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Equipe cette semaine</h2>
-          <p class="text-xs text-[#2C2824]/40 mt-1">{currentWeek}</p>
-        </div>
-      </div>
-
-      {teamMembers.length > 0 ? (
-        <div class="grid sm:grid-cols-3 gap-4">
-          {teamMembers.map((m) => (
-            <a href={m.href} class="bg-white rounded-sm border border-black/5 p-4 hover:border-black/10 transition-colors block">
-              <div class="flex items-center justify-between mb-3">
-                <p class="font-medium text-[#2C2824]">{m.label}</p>
-                <span class="text-xs px-2 py-1 rounded" style={`background-color: ${m.color}15; color: ${m.color};`}>
-                  {m.completedCount}/{m.totalCount}
-                </span>
-              </div>
-              {m.totalCount > 0 ? (
-                <div class="w-full bg-[#FAF8F5] rounded-full h-2 mb-3">
-                  <div class="h-2 rounded-full transition-all" style={`width: ${m.totalCount > 0 ? (m.completedCount / m.totalCount * 100) : 0}%; background-color: ${m.color};`}></div>
-                </div>
-              ) : (
-                <p class="text-xs text-[#2C2824]/30 mb-3">Pas de taches cette semaine</p>
-              )}
-              {m.todayObservations.length > 0 && (
-                <div class="text-xs text-[#2C2824]/50 border-t border-black/5 pt-2 mt-2">
-                  <p class="font-medium mb-1" style={`color: ${m.color};`}>Observations du jour</p>
-                  {m.todayObservations.map((obs: any) => (
-                    <p class="truncate">{obs.content}</p>
-                  ))}
-                </div>
-              )}
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {equipe.map((e) => (
-            <div class="bg-white rounded-sm border border-black/5 p-3">
-              <p class="font-medium text-[#2C2824]">{e.nom}</p>
-              <p class="text-xs text-[#2C2824]/50">{e.role}</p>
-              <div class="flex justify-between text-xs mt-2">
-                <span class="text-[#2C2824]/40">{e.dispo}</span>
-                <span class="text-[#C4A855]">{e.cout}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  </section>
-
+  <!-- ============================================== -->
   <!-- DECISIONS -->
+  <!-- ============================================== -->
   <section id="decisions" class="py-10 bg-[#1a1a1a]">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <div class="mb-6">
@@ -424,7 +650,7 @@ function getStatutLabel(statut: string): string {
       <div class="space-y-3">
         {decisions.map((d) => (
           <div class="flex items-start gap-4 p-4 bg-white/5 border border-white/10 rounded-sm">
-            <span class="text-xs text-white/40 whitespace-nowrap">{d.date}</span>
+            <span class={`text-xs whitespace-nowrap px-2 py-1 rounded ${d.date === 'W06' ? 'bg-[#C4A855]/20 text-[#C4A855]' : 'text-white/40'}`}>{d.date}</span>
             <div>
               <p class="text-white font-medium">{d.decision}</p>
               <p class="text-sm text-white/50">{d.detail}</p>
@@ -445,7 +671,7 @@ function getStatutLabel(statut: string): string {
   </section>
 
   <script>
-    // Password protection logic - DIFFERENT PASSWORD
+    // Password protection
     const PASSWORD = 'charly2026'
     const STORAGE_KEY = 'charly_cockpit_auth'
     
@@ -454,7 +680,6 @@ function getStatutLabel(statut: string): string {
     const input = document.getElementById('password-input') as HTMLInputElement
     const error = document.getElementById('password-error')
     
-    // Check if already authenticated
     if (localStorage.getItem(STORAGE_KEY) === 'true') {
       overlay?.style.setProperty('display', 'none')
     }
@@ -468,6 +693,31 @@ function getStatutLabel(statut: string): string {
         error?.classList.remove('hidden')
         input?.classList.add('border-red-500')
       }
+    })
+
+    // Week toggle
+    document.querySelectorAll('.week-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = (btn as HTMLElement).dataset.target
+        
+        // Update buttons
+        document.querySelectorAll('.week-toggle').forEach(b => {
+          b.classList.remove('bg-[#C4A855]/30', 'font-medium')
+          b.classList.add('text-white/40')
+        })
+        btn.classList.add('bg-[#C4A855]/30', 'font-medium')
+        btn.classList.remove('text-white/40')
+        
+        // Toggle content
+        document.querySelectorAll('[data-week]').forEach(el => {
+          const weekEl = el as HTMLElement
+          if (weekEl.dataset.week === target) {
+            weekEl.classList.remove('hidden')
+          } else {
+            weekEl.classList.add('hidden')
+          }
+        })
+      })
     })
   </script>
 </Layout>
