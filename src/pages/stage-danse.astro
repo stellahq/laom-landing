@@ -228,101 +228,124 @@ const sessions = [
     </div>
   </section>
 
-  <!-- Témoignages -->
+  <!-- Temoignages -->
   <section class="py-24 md:py-32 bg-white">
-    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Retours d'experience</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Ce qu'ils ont vecu</h2>
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Retours d'experience</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">Ce qu'ils ont vecu</h2>
+      </div>
 
-      <!-- Temoignage vedette -->
-      <div class="mb-12 p-8 md:p-12 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
-        <blockquote class="text-base md:text-lg font-light text-[#2C2824]/80 italic leading-relaxed space-y-4">
-          <p>"Incroyable, apaisant, ressourcant. Le groupe etait tres diversifie — dans les personnalites, dans les generations. C'est ce qui a cree une vraie richesse autour de l'experience.</p>
-          <p>Je venais pour me reconnecter a moi, pour ressentir ces sensations de connexion a la vie, dans mon corps. Et je suis moi-meme surprise d'avoir retabli des connexions grace aux autres, grace au groupe. La ou j'avais la sensation d'un grand vide, quelque chose de presque vertigineux, je me sens emplie de tout l'amour qui a ete vehicule au cours de la semaine, toute la bienveillance, l'expression des singularites.</p>
-          <p>Ca me donne envie de creer ce style de vie. C'est finalement des choses tellement simples : venez, et il se passera forcement des choses."</p>
-        </blockquote>
-        <div class="flex items-center gap-4 mt-8">
-          <div class="w-14 h-14 rounded-full bg-[#E8E3D8] flex items-center justify-center text-sm font-medium text-[#2C2824]/40">P3</div>
+      <!-- Temoignage vedette — Camille -->
+      <div class="mb-16 relative">
+        <div class="absolute top-0 left-0 font-playfair text-[120px] md:text-[160px] leading-none text-[#C4A855]/10 -translate-x-2 -translate-y-4 select-none pointer-events-none">"</div>
+        <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start pt-8">
+          <div class="flex-shrink-0 mx-auto md:mx-0">
+            <img
+              src="/images/en-mouvement/camille.webp"
+              alt="Camille, participante de la residence danse En Mouvement"
+              class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-2 border-[#C4A855]/20"
+              loading="lazy"
+              width="96"
+              height="96"
+            />
+          </div>
           <div>
-            <p class="font-medium text-[#2C2824]">Participante</p>
-            <p class="text-sm text-[#2C2824]/50">Residence danse, juin 2025</p>
+            <blockquote class="text-lg md:text-xl font-light text-[#2C2824]/80 italic leading-relaxed space-y-4">
+              <p>Incroyable, apaisant, ressourcant. Le groupe etait tres diversifie — dans les personnalites, dans les generations. C'est ce qui a cree une vraie richesse autour de l'experience.</p>
+              <p>Je venais pour me reconnecter a moi, pour ressentir ces sensations de connexion a la vie, dans mon corps. Et je suis moi-meme surprise d'avoir retabli des connexions grace aux autres, grace au groupe. La ou j'avais la sensation d'un grand vide, quelque chose de presque vertigineux, je me sens emplie de tout l'amour qui a ete vehicule au cours de la semaine, toute la bienveillance, l'expression des singularites.</p>
+              <p>Ca me donne envie de creer ce style de vie. C'est finalement des choses tellement simples : venez, et il se passera forcement des choses.</p>
+            </blockquote>
+            <p class="mt-6 text-sm font-medium text-[#2C2824]">Camille</p>
+            <p class="text-xs text-[#2C2824]/40">Residence danse, juin 2025</p>
           </div>
         </div>
       </div>
 
-      <!-- Grille temoignages -->
-      <div class="grid md:grid-cols-2 gap-8">
+      <!-- Grille 2x2 -->
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
 
-        <!-- Temoignage 1 -->
-        <div class="bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+        <!-- Julyan -->
+        <div class="bg-[#FAF8F5] p-8 rounded-sm">
+          <blockquote class="text-base font-light text-[#2C2824]/75 italic leading-relaxed mb-6">
             "Creatif, joueur, dejante. Des gens venus de raisons tres differentes, avec une envie de partager, de creer ensemble, de jouer. C'est une experience a vivre, a la fois ancree dans le monde, dans la nature environnante, avec des gens vivants, et a la fois une ouverture sur d'autres modes de vie."
           </blockquote>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-[#E8E3D8] flex items-center justify-center text-sm font-medium text-[#2C2824]/40">P1</div>
+          <div class="flex items-center gap-3">
+            <img src="/images/en-mouvement/julyan.webp" alt="Julyan" class="w-10 h-10 rounded-full object-cover" loading="lazy" width="40" height="40" />
             <div>
-              <p class="font-medium text-[#2C2824]">Participant</p>
-              <p class="text-sm text-[#2C2824]/50">Residence danse, juin 2025</p>
+              <p class="text-sm font-medium text-[#2C2824]">Julyan</p>
+              <p class="text-xs text-[#2C2824]/40">Residence danse, juin 2025</p>
             </div>
           </div>
         </div>
 
-        <!-- Temoignage 2 -->
-        <div class="bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+        <!-- Yaron -->
+        <div class="bg-[#FAF8F5] p-8 rounded-sm">
+          <blockquote class="text-base font-light text-[#2C2824]/75 italic leading-relaxed mb-6">
             "Generosite, opulence, connexion. Le groupe etait magique : beaucoup de rencontres, des partages vraiment corporels et humains d'une intensite folle. Je repars nourri de cette belle experience que je vais pouvoir mettre en mouvement dans ma vie. Venez sans hesiter."
           </blockquote>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-[#E8E3D8] flex items-center justify-center text-sm font-medium text-[#2C2824]/40">P2</div>
+          <div class="flex items-center gap-3">
+            <img src="/images/en-mouvement/yaron.webp" alt="Yaron" class="w-10 h-10 rounded-full object-cover" loading="lazy" width="40" height="40" />
             <div>
-              <p class="font-medium text-[#2C2824]">Participant</p>
-              <p class="text-sm text-[#2C2824]/50">Residence danse, juin 2025</p>
+              <p class="text-sm font-medium text-[#2C2824]">Yaron</p>
+              <p class="text-xs text-[#2C2824]/40">Residence danse, juin 2025</p>
             </div>
           </div>
         </div>
 
-        <!-- Temoignage 4 -->
-        <div class="bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+        <!-- Anthony -->
+        <div class="bg-[#FAF8F5] p-8 rounded-sm">
+          <blockquote class="text-base font-light text-[#2C2824]/75 italic leading-relaxed mb-6">
             "Ressourcant, intemporel, beau. Vraiment une bonne dynamique dans le groupe, une belle cohesion malgre nos backgrounds differents. Un endroit hors du temps qui contraste avec les endroits plus agites du quotidien. Je repars inspire et plein de belles images en tete."
           </blockquote>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-[#E8E3D8] flex items-center justify-center text-sm font-medium text-[#2C2824]/40">P4</div>
+          <div class="flex items-center gap-3">
+            <img src="/images/en-mouvement/anthony.webp" alt="Anthony" class="w-10 h-10 rounded-full object-cover" loading="lazy" width="40" height="40" />
             <div>
-              <p class="font-medium text-[#2C2824]">Participant</p>
-              <p class="text-sm text-[#2C2824]/50">Residence danse, juin 2025</p>
+              <p class="text-sm font-medium text-[#2C2824]">Anthony</p>
+              <p class="text-xs text-[#2C2824]/40">Residence danse, juin 2025</p>
             </div>
           </div>
         </div>
 
-        <!-- Temoignage 5 -->
-        <div class="bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+        <!-- Perrine -->
+        <div class="bg-[#FAF8F5] p-8 rounded-sm">
+          <blockquote class="text-base font-light text-[#2C2824]/75 italic leading-relaxed mb-6">
             "Humain, proche de la nature, riche de sens. On venait tous d'horizons differents, ce qui rendait le groupe tres riche. L'atmosphere etait saine, paisible, tout le monde etait disponible et dans son flot naturel. C'etait emouvant et vrai. Je repars pleine de sensations et de questionnements nouveaux."
           </blockquote>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-[#E8E3D8] flex items-center justify-center text-sm font-medium text-[#2C2824]/40">P5</div>
+          <div class="flex items-center gap-3">
+            <img src="/images/en-mouvement/perrine.webp" alt="Perrine" class="w-10 h-10 rounded-full object-cover" loading="lazy" width="40" height="40" />
             <div>
-              <p class="font-medium text-[#2C2824]">Participante</p>
-              <p class="text-sm text-[#2C2824]/50">Residence danse, juin 2025</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Temoignage 6 — anglophone -->
-        <div class="md:col-span-2 bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-base md:text-lg font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-            "Community, peace, trance. People from all walks of life, all ages — it felt strange at first, and then we all connected through the dance. It feels like family. I didn't know you could have this depth of connection with a group of people so quickly. I leave with the knowledge that this kind of connection is possible — something I will seek, something I will try to emulate. It's outside of time and outside of your daily life. The people who live here set the vibe for everyone, and it gives everyone the chance to be their best self."
-          </blockquote>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-[#E8E3D8] flex items-center justify-center text-sm font-medium text-[#2C2824]/40">P6</div>
-            <div>
-              <p class="font-medium text-[#2C2824]">Participant</p>
-              <p class="text-sm text-[#2C2824]/50">Dance residency, June 2025</p>
+              <p class="text-sm font-medium text-[#2C2824]">Perrine</p>
+              <p class="text-xs text-[#2C2824]/40">Residence danse, juin 2025</p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Temoignage de fermeture — Valentin (anglophone) -->
+      <div class="relative mt-16">
+        <div class="absolute top-0 right-0 font-playfair text-[100px] md:text-[140px] leading-none text-[#C4A855]/10 translate-x-2 -translate-y-4 select-none pointer-events-none rotate-180">"</div>
+        <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+          <div class="flex-shrink-0 mx-auto md:mx-0">
+            <img
+              src="/images/en-mouvement/valentin.webp"
+              alt="Valentin, participant de la residence danse En Mouvement"
+              class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-2 border-[#C4A855]/20"
+              loading="lazy"
+              width="96"
+              height="96"
+            />
+          </div>
+          <div>
+            <blockquote class="text-lg md:text-xl font-light text-[#2C2824]/80 italic leading-relaxed">
+              Community, peace, trance. People from all walks of life, all ages — it felt strange at first, and then we all connected through the dance. It feels like family. I didn't know you could have this depth of connection with a group of people so quickly. I leave with the knowledge that this kind of connection is possible — something I will seek, something I will try to emulate. It's outside of time and outside of your daily life. The people who live here set the vibe for everyone, and it gives everyone the chance to be their best self.
+            </blockquote>
+            <p class="mt-6 text-sm font-medium text-[#2C2824]">Valentin</p>
+            <p class="text-xs text-[#2C2824]/40">Dance residency, June 2025</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -335,11 +358,14 @@ const sessions = [
       <div class="grid md:grid-cols-2 gap-16">
         <!-- Charly -->
         <div>
-          <div class="aspect-[3/4] bg-[#E8E3D8] overflow-hidden rounded-sm mb-6 flex items-center justify-center border border-black/5" role="img" aria-label="Photo Charly à venir">
-            <div class="text-center px-8">
-              <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
-              <p class="text-sm font-light text-black/50">Portrait de Charly,  en extérieur à LAOM, lumière naturelle, regard direct, vêtements simples. Pas de pose, juste une présence.</p>
-            </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm mb-6">
+            <img
+              src="/images/en-mouvement/charly-aubert.webp"
+              alt="Charly Aubert, co-fondateur de LAOM et guide de l'immersion En Mouvement"
+              title="Portrait de Charly Aubert"
+              class="w-full h-full object-cover object-top rounded-sm"
+              loading="lazy"
+            />
           </div>
           <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
           <p class="text-sm font-light text-[#2C2824]/50 mb-4">Co-fondateur de LAOM</p>
@@ -372,84 +398,103 @@ const sessions = [
 
   <!-- Le lieu -->
   <section class="py-24 md:py-32 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-        <div class="w-full lg:w-96 flex-shrink-0">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le lieu</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">Un ecrin pour le mouvement</h2>
+      </div>
+
+      <!-- Photo pleine largeur — vue aerienne tipis + Shala -->
+      <div class="aspect-[21/9] overflow-hidden rounded-sm mb-16">
+        <img
+          src="/images/en-mouvement/le-shala.webp"
+          alt="Vue aerienne de LAOM : le Shala, salle de pratique de 120 m2, entoure de tipis dans une vallee verdoyante de l'Aveyron"
+          title="Le Shala et les tipis a LAOM, Aveyron"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          width="1400"
+          height="600"
+        />
+      </div>
+
+      <!-- Texte + grille photos -->
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+
+        <!-- Colonne texte -->
+        <div>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Le Shala, 120 m²</h3>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <p>
+              LAOM est un ecolieu niche dans une vallee sauvage du sud de l'Aveyron, au coeur du Parc Naturel des Grands Causses.
+            </p>
+            <p>
+              Le stage se deroule dans Le Shala, notre salle de pratique : sol de danse professionnel Harlequin, plafond en bois massif, murs en terre, grandes baies vitrees sur les collines et les tipis. Un espace concu pour le mouvement et le silence.
+            </p>
+            <p>
+              Hebergement sur place : tipis avec vue sur la vallee, chambres, dortoir. Repas prepares avec les legumes du jardin.
+            </p>
+          </div>
+        </div>
+
+        <!-- Colonne photos — Shala interieur + Tipi -->
+        <div class="grid grid-cols-2 gap-3">
           <div class="aspect-[3/4] overflow-hidden rounded-sm">
             <img
-              src="/images/laom/salle-de-pratique.webp"
-              alt="Le Shala,  salle de pratique LAOM, 120 m², sol de danse professionnel Harlequin, matériaux naturels, lumière naturelle"
-              title="Le Shala, salle de pratique de 120 m2 a LAOM"
-              class="w-full h-full object-cover rounded-sm"
+              src="/images/en-mouvement/shala.webp"
+              alt="Interieur du Shala : sol de danse Harlequin, plafond bois, baies vitrees sur la nature"
+              title="Le Shala vu de l'interieur"
+              class="w-full h-full object-cover"
               loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/en-mouvement/tipi.webp"
+              alt="Interieur d'un tipi a LAOM : lit confortable avec vue sur les collines de l'Aveyron"
+              title="Tipi avec vue sur la vallee"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
             />
           </div>
         </div>
-        <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Le lieu</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">Le Shala (la salle de pratique), 120 m²</h2>
-          <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
-            <p>
-              LAOM est un écolieu situé dans le sud de l'Aveyron, au cœur du Parc Naturel des Grands Causses.
-            </p>
-            <p>
-              Le stage se déroule dans Le Shala, notre salle de pratique : sol de danse professionnel (Harlequin), salle conçue en matériaux naturels, grandes ouvertures sur les collines, air sain, lumière naturelle. Un espace conçu pour le mouvement.
-            </p>
-            <p>
-              Hébergement sur place : chambres, tipis, dortoir. Repas préparés avec les légumes du jardin.
-            </p>
-          </div>
+      </div>
 
-          <!-- Temoignages lieu -->
-          <div class="mt-10 pt-8 border-t border-black/10">
-            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Ce qu'ils en disent</p>
-            <div class="space-y-4">
-              <div class="flex gap-3 items-start">
-                <span class="text-[#C4A855] text-lg leading-none shrink-0">"</span>
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">La salle de danse est un espace parfait pour l'introspection : epuree, zen, esthetique, harmonieuse. Un lieu unique, ou la relation a soi, aux autres et a la nature est mise au centre.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">— Clemence</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <span class="text-[#C4A855] text-lg leading-none shrink-0">"</span>
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">La salle est dingue, la lumiere, l'espace, la vue... Le lieu y a participe a hauteur d'au moins 50%.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">— Caroline</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <span class="text-[#C4A855] text-lg leading-none shrink-0">"</span>
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">La salle de danse est extraordinaire. Le cadre est calme et grand. L'accueil est extraordinaire par la qualite de presence.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">— Francois</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <span class="text-[#C4A855] text-lg leading-none shrink-0">"</span>
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Ce lieu invite a la connexion, des vibrations hautes. La salle de danse est top !</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">— Perrine</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <span class="text-[#C4A855] text-lg leading-none shrink-0">"</span>
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Un lieu magique, proche de la nature et plein de gens inspirants.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">— Gregoire</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <span class="text-[#C4A855] text-lg leading-none shrink-0">"</span>
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Un ecolieu singulier, avec un paysage magnifique, un fond culturel palpable, une energie ressourcante.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">— Flavien</p>
-                </div>
-              </div>
-            </div>
+      <!-- Temoignages lieu — bandeau horizontal -->
+      <div class="border-t border-[#2C2824]/10 pt-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8 text-center">Ce qu'ils disent du lieu</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">La salle de danse est un espace parfait pour l'introspection : epuree, zen, esthetique, harmonieuse. Un lieu unique, ou la relation a soi, aux autres et a la nature est mise au centre.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40">— Clemence</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">La salle est dingue, la lumiere, l'espace, la vue... Le lieu y a participe a hauteur d'au moins 50%.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40">— Caroline</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">La salle de danse est extraordinaire. Le cadre est calme et grand. L'accueil est extraordinaire par la qualite de presence.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40">— Francois</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">Ce lieu invite a la connexion, des vibrations hautes. La salle de danse est top !</p>
+            <p class="text-xs font-medium text-[#2C2824]/40">— Perrine</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">Un lieu magique, proche de la nature et plein de gens inspirants.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40">— Gregoire</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">Un ecolieu singulier, avec un paysage magnifique, un fond culturel palpable, une energie ressourcante.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40">— Flavien</p>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
