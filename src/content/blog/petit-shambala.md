@@ -19,9 +19,11 @@ C'est ça, l'histoire du Petit Shambala. Pas un récit lisse d'éco-construction
 
 Mais je vais trop vite. Reprenons du début.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Vue exterieure actuelle du Petit Shambala — la maison dans son environnement, potager visible si possible</p>
 </div>
+-->
 
 ## Un studio de yoga démoli
 
@@ -41,9 +43,11 @@ Quelques semaines plus tard, rebelote. 49 m², c'est encore trop juste. On repas
 
 Le budget explose. Le planning aussi. Mais on a une vraie maison.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Chantier en cours d'agrandissement — structure bois visible, modifications en cours</p>
 </div>
+-->
 
 ## L'appel à un ami
 
@@ -59,9 +63,11 @@ Serge, c'est celui que j'appelle quand je ne sais pas. Une question sur une stru
 
 C'est comme ça que j'ai appris la construction bois. Pas dans une école. Au téléphone, avec Serge, face à mes erreurs en temps réel.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Portrait de Serge, ou Serge en train d'expliquer quelque chose, ou un de ses croquis</p>
 </div>
+-->
 
 ## L'équipe des premières heures
 
@@ -77,9 +83,11 @@ Le Petit Shambala, c'est deux ans de chantier intermittent. 2022-2024. Une équi
 
 **Lolo** — mon frère. Il m'a aidé à faire le sol en terre crue. Ce qui nous amène à la partie la plus technique de cette histoire.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Photo de groupe sur le chantier — Paul, Khaldoun, Remy, Sebastien, Lolo, ou une partie de l'equipe</p>
 </div>
+-->
 
 ## Le sol en terre : 13 mètres cubes à la main
 
@@ -105,9 +113,11 @@ Quand c'était sec, le résultat était magnifique. Une surface douce, dense, av
 
 Et on passe à l'étape du huilage.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Le sol en terre pendant ou apres le lissage — texture visible, lumiere rasante</p>
 </div>
+-->
 
 ### L'huile de chanvre : intelligent, mais mal exécuté
 
@@ -163,9 +173,11 @@ La solution alternative : j'ai fait une double ossature croisée avec des pannea
 
 On ne l'a pas fait. On vit avec. Et on compense avec la ventilation.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Vue interieure actuelle — salon ou piece de vie, ambiance quotidienne</p>
 </div>
+-->
 
 ## Ce qu'on a bien fait
 
@@ -193,9 +205,11 @@ Le **plafond acoustique** est super beau. Le **bureau**, le **mobilier sur mesur
 
 C'est beau. On aime cette maison.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Photo de famille — Charly, Amandine, Livio (et/ou Felix, Gribouille) dans ou devant la maison</p>
 </div>
+-->
 
 ## Qui habite là aujourd'hui
 

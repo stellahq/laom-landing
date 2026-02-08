@@ -21,9 +21,11 @@ Et on reprend.
 
 C'est ça, l'histoire du Shala. Une aventure de dingues, portée par une communauté, avec des moments où on a failli tout casser — au sens propre.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : L'equipe de benevoles devant la structure en bois du Shala, ete 2023</p>
 </div>
+-->
 
 ## La rencontre
 
@@ -65,6 +67,7 @@ On est en juillet 2023. Le chantier peut commencer.
 
 De la conversation sur la terrasse au premier coup de marteau : moins d'un mois. C'est comme ça qu'on fonctionne.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 grid grid-cols-3 gap-4">
   <div class="aspect-[4/3] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
     <p class="text-xs font-light text-[#2C2824]/40 px-2 text-center">Photo a prendre : Le moodboard de la salle</p>
@@ -76,6 +79,7 @@ De la conversation sur la terrasse au premier coup de marteau : moins d'un mois.
     <p class="text-xs font-light text-[#2C2824]/40 px-2 text-center">Photo a prendre : Le bois livre sur place</p>
   </div>
 </div>
+-->
 
 ## Le pari communautaire
 
@@ -91,9 +95,11 @@ Des dizaines de personnes veulent venir. Pas juste donner un coup de main un apr
 
 On met en place un système : des rotations de 20 personnes tous les 10 jours. Pendant 3 mois, c'est un flux continu de bénévoles qui arrivent, construisent, repartent, et passent le relais.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Vue aerienne du chantier du Shala en cours — structure bois visible, benevoles au travail</p>
 </div>
+-->
 
 ## Une mini-société autogérée
 
@@ -137,9 +143,11 @@ C'est facile de montrer les photos du chantier. C'est plus dur de montrer les mo
 
 On a continué. Et on est plus solides aujourd'hui grâce à cette dispute. (En vrai, je sais pas — peut-être que j'ai vraiment descendu dans son estime et qu'il fait semblant depuis. Eliott, si tu lis ça, dis-moi!!)
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Travail sur la charpente du Shala — benevoles sur echafaudages, 6m80 de hauteur</p>
 </div>
+-->
 
 ## Au-delà du chantier
 
@@ -151,9 +159,11 @@ Les sessions de coaching improvisées, c'était ça. Pas du one-one dans un bure
 
 C'est là qu'on a compris : la vraie magie, c'est le collectif. 20 personnes qui arrivent, qui s'organisent, qui construisent ensemble — c'est quelque chose qu'aucun budget ne peut acheter.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Video a integrer : Vlog d'Eliott Meunier sur la construction du Shala</p>
 </div>
+-->
 
 ## Ce que le Shala a débloqué
 
@@ -179,9 +189,11 @@ C'est ici qu'on accueille les stages de mouvement. Les ateliers de danse. Les te
 
 Avant le Shala, LAOM était un chantier. Après le Shala, LAOM est devenu un lieu de vie. Cette salle a permis de commencer les animations, d'accueillir des groupes, de faire vivre l'écolieu.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Interieur du Shala termine — volume genereux, lumiere naturelle, vue sur les collines</p>
 </div>
+-->
 
 ## Ce qu'on a appris
 
@@ -201,8 +213,10 @@ Le Shala n'est pas qu'un bâtiment. C'est la preuve que quand une communauté d�
 
 Et parfois, il faut qu'une arche tombe pour qu'on comprenne vraiment ce qu'on est en train de construire.
 
+<!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
   <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Seance de mouvement dans le Shala — silhouettes, lumiere du soir, corps en expression</p>
 </div>
+-->
 
 *Article écrit par Charly — relecture et modifications par Amandine.*
