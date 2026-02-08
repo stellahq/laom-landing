@@ -5,7 +5,7 @@ pubDate: 2025-01-15
 author: "LAOM"
 locale: "en"
 tags: ["restaurant", "greenhouse", "garden", "eco-construction"]
-draft: false
+draft: true
 ---
 
 The restaurant space serves people staying at LAOM (temporary residents, retreat participants, guests), especially in summer. The greenhouse and the food garden support it: growing, harvesting and cooking on site are part of the project.

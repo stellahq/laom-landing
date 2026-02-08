@@ -190,30 +190,50 @@ function formatMontant(n: number): string {
                 </div>
 
                 {projet.href ? (
-                  <div class="flex flex-col gap-3">
-                    <a
-                      href={projet.href}
-                      class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3830] transition-colors text-center"
+                  <div class="capital-interest-form">
+                    <p class="text-sm font-light text-[#2C2824]/70 mb-3">Interesse par cet investissement ?</p>
+                    <form
+                      action="https://app.kit.com/forms/8987350/subscriptions"
+                      class="seva-form formkit-form"
+                      method="post"
+                      data-sv-form="8987350"
+                      data-uid="af2e0fc1e5"
+                      data-format="inline"
+                      data-version="5"
+                      min-width="400 500 600 700 800"
                     >
-                      Voir le projet
-                    </a>
-                    <a
-                      href="https://fyneo.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors text-center"
-                    >
-                      Investir sur Fyneo
-                    </a>
+                      <div data-style="clean">
+                        <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+                        <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields flex gap-2">
+                          <div class="formkit-field flex-1">
+                            <input
+                              class="formkit-input w-full rounded-sm px-4 py-3 text-sm font-light border border-black/10 text-[#2C2824] placeholder-[#2C2824]/40 focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30"
+                              name="email_address"
+                              type="email"
+                              required
+                              placeholder="Votre email"
+                              autocomplete="email"
+                            />
+                          </div>
+                          <button
+                            type="submit"
+                            data-element="submit"
+                            class="formkit-submit px-5 py-3 rounded-sm bg-[#C4A855] text-white text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors relative whitespace-nowrap"
+                          >
+                            <div class="formkit-spinner" aria-hidden="true">
+                              <div></div><div></div><div></div>
+                            </div>
+                            <span>Envoyer</span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 ) : (
                   <a
-                    href="https://fyneo.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class={`inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center ${projet.status === 'En financement' ? 'bg-[#C4A855] hover:bg-[#B09A4A]' : 'bg-[#2C2824]/20 cursor-default pointer-events-none'}`}
+                    class="inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center bg-[#2C2824]/20 cursor-default pointer-events-none"
                   >
-                    {projet.status === 'En financement' ? 'Voir sur Fyneo' : 'Bientôt disponible'}
+                    Bientot disponible
                   </a>
                 )}
               </div>

@@ -6,7 +6,7 @@ heroImage: "/images/laom/jardin-laom.webp"
 author: "LAOM"
 locale: "fr"
 tags: ["restaurant", "serre", "permaculture", "agriculture-regeneratrice", "vision"]
-draft: false
+draft: true
 ---
 
 ## Ce qui existe

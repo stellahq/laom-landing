@@ -113,13 +113,18 @@ const sessions = [
           </p>
         </div>
 
-        <!-- Placeholder image -->
+        <!-- Video danseurs dans le Shala -->
         <div class="!ml-[-2.5rem] my-8">
-          <div class="aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm" role="img" aria-label="Photo à venir">
-            <div class="text-center px-8">
-              <p class="text-xs font-medium text-black/40 uppercase tracking-[0.2em] mb-2">Placeholder</p>
-              <p class="text-sm font-light text-black/50 max-w-lg">Danseurs en mouvement dans le Shala,  lumière naturelle, silhouettes floues, atmosphère d'immersion totale. Photo prise pendant un stage.</p>
-            </div>
+          <div class="aspect-[16/9] overflow-hidden rounded-sm">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              class="w-full h-full object-cover"
+            >
+              <source src="/videos/danseurs-shala.webm" type="video/webm" />
+            </video>
           </div>
         </div>
 
