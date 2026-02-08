@@ -47,28 +47,38 @@ const pageSchema = createWebPageSchema({
     </div>
   </section>
 
-  <!-- Grand Shambala : toujours en haut, statique (lien vers la page dédiée) -->
-  <section class="bg-white">
+  <!-- Grand Shambala : article a la une -->
+  <section class="bg-[#2C2824]">
     <a href={grandShambalaHref} class="group block">
-      <div class="relative aspect-[21/9] overflow-hidden">
-        <img
-          src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
-          alt="Grand Shambala, 850 m² de paille porteuse"
-          title="Grand Shambala, le plus grand batiment en paille porteuse au monde"
-          class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
-          loading="eager"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 lg:p-16">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-white/60 mb-4">
-            Grand Shambala
-          </p>
-          <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight mb-4 max-w-3xl">
-            {t.home.grandShambalaTitle}
-          </h2>
-          <p class="text-base md:text-lg font-light text-white/75 leading-relaxed max-w-2xl line-clamp-2">
-            {t.home.grandShambalaDescription}
-          </p>
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2">
+          <!-- Image -->
+          <div class="relative aspect-[16/10] lg:aspect-auto overflow-hidden">
+            <img
+              src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
+              alt="Grand Shambala, 850 m2 de paille porteuse"
+              title="Grand Shambala, le plus grand batiment en paille porteuse au monde"
+              class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
+              loading="eager"
+            />
+          </div>
+          <!-- Texte -->
+          <div class="flex flex-col justify-center px-10 sm:px-16 lg:px-16 py-12 lg:py-20">
+            <div class="inline-flex items-center gap-2 mb-6">
+              <span class="inline-block w-2 h-2 rounded-full bg-[#C4A855]"></span>
+              <span class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855]">A la une</span>
+            </div>
+            <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight mb-6">
+              {t.home.grandShambalaTitle}
+            </h2>
+            <p class="text-base md:text-lg font-light text-white/70 leading-relaxed mb-8 max-w-lg">
+              {t.home.grandShambalaDescription}
+            </p>
+            <div class="flex items-center gap-3 text-[#C4A855] group-hover:gap-5 transition-all duration-300">
+              <span class="text-sm font-light tracking-[0.15em] uppercase">Lire l'article</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </div>
+          </div>
         </div>
       </div>
     </a>
