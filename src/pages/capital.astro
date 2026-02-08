@@ -29,7 +29,7 @@ const projets = [
     leve: 0,
     rendement: '8%',
     status: 'À venir',
-    image: '/images/laom/capture-da-a-cran-2026-02-04-a-000451.webp',
+    image: '/images/laom/laom-carte-projet-capital-2026.webp',
     imageAlt: 'Paysage de Madère, végétation luxuriante, océan, terrasses en levadas',
   },
 ]
@@ -139,7 +139,7 @@ function formatMontant(n: number): string {
               {projet.href ? (
                 <a href={projet.href} class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center overflow-hidden block">
                   {projet.image ? (
-                    <img src={projet.image} alt={projet.imageAlt || projet.name} class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                    <img src={projet.image} alt={projet.imageAlt || projet.name} title={projet.name} class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                   ) : (
                     <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">Photo à venir</p>
                   )}
@@ -147,7 +147,7 @@ function formatMontant(n: number): string {
               ) : (
                 <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center overflow-hidden">
                   {projet.image ? (
-                    <img src={projet.image} alt={projet.imageAlt || projet.name} class="w-full h-full object-cover" loading="lazy" />
+                    <img src={projet.image} alt={projet.imageAlt || projet.name} title={projet.name} class="w-full h-full object-cover" loading="lazy" />
                   ) : (
                     <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">Photo à venir</p>
                   )}

@@ -30,7 +30,7 @@ const formKitOptions = {
 }
 
 const eventImages = [
-  '/images/claire-danse-libre-retraite-2048x1368.webp',
+  '/images/claire-danse-libre-retraite-laom.webp',
   '/images/event-rencontre-perspective.webp',
   '/images/colette.webp',
   '/images/david-lin-fyneo.webp',
@@ -45,7 +45,7 @@ const spaceImages = [
   'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=420&h=560&fit=crop&q=85',
   '/images/laom/tipis.webp',
   '/images/laom/salle-de-pratique.webp',
-  '/images/laom/planification/agri-1-0246e509.webp',
+  '/images/laom/planification/agriculture-permaculture-laom-01.webp',
   'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=420&h=560&fit=crop&q=85',
   'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=420&h=560&fit=crop&q=85',
 ]
@@ -142,8 +142,9 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       </div>
       <div class="relative h-[50vh] lg:h-auto order-1 lg:order-2 overflow-hidden">
         <img
-          src="/images/laom/vanlifest-img1373.webp"
+          src="/images/laom/festival-laom-ambiance-nature-aveyron.webp"
           alt="LAOM community at a retreat"
+          title="Nature retreat at LAOM, Aveyron"
           class="absolute inset-0 w-full h-full object-cover"
           loading="eager"
           fetchpriority="high"
@@ -183,6 +184,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <img
         src="/images/laom/newsletter/vue%20aeriene%20laom2.webp"
         alt="Aerial view of LAOM estate, 21 hectares, meadows, forest, buildings, river"
+        title="LAOM estate from above, south Aveyron"
         class="w-full h-full object-cover"
         loading="lazy"
       />
@@ -204,6 +206,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
             <img
               src="/images/laom/samuel-planas.webp"
               alt="Samuel Planas, En Mouvement, body immersion at LAOM"
+              title="Samuel Planas guiding the En Mouvement immersion"
               class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
               loading="lazy"
             />
@@ -258,8 +261,9 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           <article class="flex flex-col md:flex-row gap-8 items-start">
             <div class="w-full md:w-2/3 aspect-[16/9] overflow-hidden rounded-sm">
               <img
-                src="/images/laom/grand-shambala/p1.webp"
+                src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
                 alt="Grand Shambala, 850 m² load-bearing straw"
+                title="Grand Shambala, the world's largest load-bearing straw building"
                 class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                 loading="lazy"
               />
@@ -290,6 +294,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                       <img
                         src={post.data.heroImage}
                         alt={post.data.title}
+                        title={post.data.title}
                         class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                         loading="lazy"
                       />
@@ -353,6 +358,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                 <img
                   src={space.image}
                   alt={(space as { imageAlt?: string }).imageAlt ?? space.title}
+                  title={space.title}
                   class={`w-full h-full object-cover rounded-sm ${i === 2 ? 'object-left' : i === 3 ? 'object-right' : ''}`}
                   loading="lazy"
                   width="420"

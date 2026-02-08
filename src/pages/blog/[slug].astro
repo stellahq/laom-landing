@@ -61,6 +61,7 @@ const pageSchema = createWebPageSchema({
         <img
           src={post.data.heroImage}
           alt={post.data.title}
+          title={post.data.title}
           class="w-full h-[50vh] md:h-[65vh] lg:h-[75vh] object-cover object-center"
           loading="eager"
           fetchpriority="high"
@@ -146,6 +147,7 @@ const pageSchema = createWebPageSchema({
                       <img
                         src={related.data.heroImage}
                         alt={related.data.title}
+                        title={related.data.title}
                         class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                         loading="lazy"
                       />

@@ -28,7 +28,7 @@ const pct = Math.round((projet.leve / projet.objectif) * 100)
 
 // Galerie photos
 const photos = [
-  { src: '/images/laom/grand-shambala/p1.webp', alt: 'Grand Shambala - Vue extérieure' },
+  { src: '/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp', alt: 'Grand Shambala - Vue extérieure' },
   { src: '/images/laom/vue-aeriene-laom.webp', alt: 'Vue aérienne du domaine LAOM' },
   { src: '/images/laom/salle-de-pratique.webp', alt: 'La salle de pratique' },
   { src: '/images/laom/petit-shambala-exterieur.webp', alt: 'Petit Shambala' },
@@ -189,6 +189,7 @@ function formatMontant(n: number): string {
             <img 
               src={photos[0].src} 
               alt={photos[0].alt}
+              title="Grand Shambala, batiment en paille porteuse"
               class="w-full h-full object-cover"
               id="main-photo-img"
             />
@@ -200,7 +201,7 @@ function formatMontant(n: number): string {
                 data-src={photo.src}
                 data-alt={photo.alt}
               >
-                <img src={photo.src} alt={photo.alt} class="w-full h-full object-cover" />
+                <img src={photo.src} alt={photo.alt} title={photo.alt} class="w-full h-full object-cover" />
               </button>
             ))}
           </div>
@@ -320,8 +321,9 @@ function formatMontant(n: number): string {
           <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">La localisation</h3>
           <div class="aspect-[16/9] bg-[#E8E3D8] rounded-sm overflow-hidden mb-4">
             <img 
-              src="/images/laom/capture-d-cran-2023-10-24-22-30-40-95f74a2c.webp" 
+               src="/images/laom/laom-vue-3d-ensemble.webp" 
               alt="Vue aérienne du domaine LAOM"
+              title="Vue 3D du domaine LAOM, 21 hectares"
               class="w-full h-full object-cover"
             />
           </div>
@@ -374,6 +376,7 @@ function formatMontant(n: number): string {
             <img 
               src="/images/charly-aubert.webp" 
               alt="Charly Aubert"
+              title="Charly Aubert, fondateur de LAOM"
               class="w-full h-full object-cover"
             />
           </div>
@@ -402,7 +405,7 @@ function formatMontant(n: number): string {
           <div class="text-center">
             <div class="aspect-square bg-[#E8E3D8] rounded-full overflow-hidden mb-3 mx-auto w-20 h-20">
               {membre.photo ? (
-                <img src={membre.photo} alt={membre.name} class="w-full h-full object-cover" />
+                <img src={membre.photo} alt={membre.name} title={`${membre.name}, ${membre.role}`} class="w-full h-full object-cover" />
               ) : (
                 <div class="w-full h-full flex items-center justify-center text-[#2C2824]/20 text-2xl font-playfair">
                   {membre.name[0]}

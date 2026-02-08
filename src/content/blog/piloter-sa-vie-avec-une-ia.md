@@ -2,7 +2,7 @@
 title: "Comment je pilote un écolieu de 21 hectares, un chantier de 800m², une équipe et ma vie entière — avec une IA"
 description: "Récit personnel d'un système de pilotage de vie construit avec Claude Code, Obsidian et la méthode PARA. Vision, élans, introspection et IA comme partenaire de clarté."
 pubDate: 2026-02-08
-heroImage: "/images/laom/vanlifest2025-074-copie.webp"
+heroImage: "/images/piloter-vie-avec-ia-opencode.webp"
 author: "Charly Aubert"
 locale: "fr"
 tags: ["ia", "organisation", "claude-code", "para", "obsidian", "pilotage", "clarte"]

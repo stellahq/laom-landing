@@ -45,7 +45,7 @@ const weekendsLaom = [
     price: '1 000 €',
     animateur: 'Charly Aubert',
     href: '/clarte',
-    image: '/images/laom/vanlifest2025-074-copie.webp',
+    image: '/images/laom/laomfest/vanlifest-IMG_1373.webp',
   },
   {
     title: 'Clarté #2',
@@ -54,7 +54,7 @@ const weekendsLaom = [
     price: '1 000 €',
     animateur: 'Charly Aubert',
     href: '/clarte',
-    image: '/images/laom/vanlifest2025-074-copie.webp',
+    image: '/images/laom/laomfest/vanlifest-IMG_1373.webp',
   },
   {
     title: 'LAOM School #1',
@@ -63,7 +63,7 @@ const weekendsLaom = [
     price: '1 000 €',
     animateur: 'Charly Aubert',
     href: '/school',
-    image: '/images/laom/vanlifest-img1373.webp',
+    image: '/images/laom/festival-laom-ambiance-nature-aveyron.webp',
   },
   {
     title: 'LAOM School #2',
@@ -72,7 +72,7 @@ const weekendsLaom = [
     price: '1 000 €',
     animateur: 'Charly Aubert',
     href: '/school',
-    image: '/images/laom/vanlifest-img1373.webp',
+    image: '/images/laom/festival-laom-ambiance-nature-aveyron.webp',
   },
 ]
 
@@ -98,6 +98,7 @@ const laomfestImages = [
       <img
         src="/images/events-hero.webp"
         alt="Rassemblement en plein air à LAOM, bâtiment LAOM, prairie, événement et communauté"
+        title="Evenement en plein air a LAOM, sud Aveyron"
         class="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
         fetchpriority="high"
@@ -126,6 +127,7 @@ const laomfestImages = [
               <img
                 src="/images/laom/samuel-planas.webp"
                 alt="Samuel Planas, En Mouvement"
+                title="Samuel Planas, danseur et guide de l'immersion En Mouvement"
                 class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
                 loading="lazy"
               />
@@ -183,6 +185,7 @@ const laomfestImages = [
                 <img
                   src={w.image}
                   alt={w.title}
+                  title={w.title}
                   class="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 {(w.title.startsWith('Clarté') ? 'scale-105' : '')}"
                   loading="lazy"
                 />
@@ -227,6 +230,7 @@ const laomfestImages = [
                 <img
                   src={event.image}
                   alt={event.title}
+                  title={event.title}
                   class={`w-full h-full rounded-sm transition-transform duration-500 ${isFyneo ? 'object-contain group-hover:scale-[1.02]' : 'object-cover group-hover:scale-[1.02]'}`}
                   loading="lazy"
                 />

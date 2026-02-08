@@ -52,8 +52,9 @@ const pageSchema = createWebPageSchema({
     <a href={grandShambalaHref} class="group block">
       <div class="relative aspect-[21/9] overflow-hidden">
         <img
-          src="/images/laom/grand-shambala/p1.webp"
+          src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
           alt="Grand Shambala, 850 m² de paille porteuse"
+          title="Grand Shambala, le plus grand batiment en paille porteuse au monde"
           class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
           loading="eager"
         />
@@ -92,6 +93,7 @@ const pageSchema = createWebPageSchema({
                     <img
                       src={post.data.heroImage}
                       alt={post.data.title}
+                      title={post.data.title}
                       class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                       loading="lazy"
                     />

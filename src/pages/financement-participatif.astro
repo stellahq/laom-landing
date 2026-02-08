@@ -10,26 +10,26 @@ const pageSchema = createWebPageSchema({
 })
 
 const galleryImages = [
-  '/images/laom/financement-participatif/0f7ae2_e45a4e189b1b487a80e026f7328068ed-mv2-40e6c9c1.webp',
-  '/images/laom/financement-participatif/279583110_758166185557020_8198996223225117740_n-2-24f1a66b.webp',
-  '/images/laom/financement-participatif/apr-s-gs-75f77fc6.webp',
-  '/images/laom/financement-participatif/avant-gs-161dd7e5.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-05-12-17-17-04-copie-9e9ad7a5.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-12-17-00-19-a18f92cf.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-12-18-12-06-bc557e20.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-12-18-14-06-b219489e.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-13-23-21-24-5b587058.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-13-23-28-22-3b450202.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-13-23-28-56-01b20fae.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-13-23-33-56-a0c065d2.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-14-00-00-41-f8ce6ed1.webp',
-  '/images/laom/financement-participatif/capture-d-cran-2024-07-14-00-01-38-86af78b7.webp',
-  '/images/laom/financement-participatif/coop-rative-oasis-0074c086.webp',
+  '/images/laom/financement-participatif/financement-participatif-hero-laom.webp',
+  '/images/laom/financement-participatif/communaute-laom-chantier-participatif.webp',
+  '/images/laom/financement-participatif/grand-shambala-apres-construction.webp',
+  '/images/laom/financement-participatif/grand-shambala-avant-construction.webp',
+  '/images/laom/financement-participatif/financement-participatif-plan-laom.webp',
+  '/images/laom/financement-participatif/financement-participatif-chiffres-cles.webp',
+  '/images/laom/financement-participatif/financement-participatif-projet-01.webp',
+  '/images/laom/financement-participatif/financement-participatif-projet-02.webp',
+  '/images/laom/financement-participatif/financement-participatif-rendu-3d-01.webp',
+  '/images/laom/financement-participatif/financement-participatif-rendu-3d-02.webp',
+  '/images/laom/financement-participatif/financement-participatif-rendu-3d-03.webp',
+  '/images/laom/financement-participatif/financement-participatif-timeline.webp',
+  '/images/laom/financement-participatif/financement-participatif-impact.webp',
+  '/images/laom/financement-participatif/financement-participatif-objectif.webp',
+  '/images/laom/financement-participatif/logo-cooperative-oasis-partenaire.webp',
   '/images/laom/financement-participatif/patricia-74e89fdb.webp',
   '/images/laom/financement-participatif/photo-groupe-laom-1502d4dc.webp',
   '/images/laom/financement-participatif/serge-9f3d2149.webp',
-  '/images/laom/financement-participatif/tempimagecbwwmo-b2907369.webp',
-  '/images/laom/financement-participatif/tempimagewfnjjn-4383dcc4.webp',
+  '/images/laom/financement-participatif/laom-terrain-vue-aerienne.webp',
+  '/images/laom/financement-participatif/laom-domaine-nature-aveyron.webp',
 ]
 ---
 
@@ -57,16 +57,18 @@ const galleryImages = [
       <div class="grid gap-6 md:grid-cols-2">
         <div class="border border-black/10 rounded-sm overflow-hidden">
           <img
-            src="/images/laom/financement-participatif/avant-gs-161dd7e5.webp"
+            src="/images/laom/financement-participatif/grand-shambala-avant-construction.webp"
             alt="Avant Grand Shambala"
+            title="Le terrain avant la construction du Grand Shambala"
             class="h-64 w-full object-cover rounded-sm"
             loading="lazy"
           />
         </div>
         <div class="border border-black/10 rounded-sm overflow-hidden">
           <img
-            src="/images/laom/financement-participatif/apr-s-gs-75f77fc6.webp"
+            src="/images/laom/financement-participatif/grand-shambala-apres-construction.webp"
             alt="Après Grand Shambala"
+            title="Le Grand Shambala apres construction, 850 m2"
             class="h-64 w-full object-cover rounded-sm"
             loading="lazy"
           />
@@ -106,14 +108,16 @@ const galleryImages = [
         </div>
         <div class="mt-8 grid gap-6 md:grid-cols-2">
           <img
-            src="/images/laom/financement-participatif/coop-rative-oasis-0074c086.webp"
+            src="/images/laom/financement-participatif/logo-cooperative-oasis-partenaire.webp"
             alt="Coopérative Oasis"
+            title="Logo Cooperative Oasis, partenaire de LAOM"
             class="h-40 w-full rounded-sm object-contain border border-black/10 bg-white p-4"
             loading="lazy"
           />
           <img
             src="/images/laom/financement-participatif/photo-groupe-laom-1502d4dc.webp"
             alt="Collectif LAOM"
+            title="Photo de groupe du collectif LAOM"
             class="h-40 w-full rounded-sm object-cover border border-black/10"
             loading="lazy"
           />
@@ -215,6 +219,7 @@ const galleryImages = [
           <img
             src={src}
             alt={`Galerie Financement participatif ${index + 1}`}
+            title={`Financement participatif LAOM - photo ${index + 1}`}
             class="h-56 w-full rounded-sm object-cover border border-black/10 bg-white"
             loading="lazy"
           />

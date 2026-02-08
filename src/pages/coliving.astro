@@ -10,23 +10,23 @@ const pageSchema = createWebPageSchema({
 })
 
 const galleryImages = [
-  '/images/laom/coliving/capture-d-cran-2023-10-24-22-30-40-95f74a2c.webp',
-  '/images/laom/coliving/capture-d-cran-2024-05-12-17-17-04-copie-9da29b45.webp',
-  '/images/laom/coliving/capture-d-cran-2024-07-15-19-48-05-f53c1637.webp',
-  '/images/laom/coliving/capture-d-cran-2024-11-20-22-48-19-3d59ffca.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-00-57-31-43a2b343.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-01-01-43-9e5e26ed.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-01-38-49-90f61194.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-01-41-24-3ea1947f.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-01-44-24-6d56c2b8.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-02-01-00-6585dc9e.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-02-02-45-1f3a62d7.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-12-12-20-182e5e91.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-07-12-17-41-1ae02366.webp',
-  '/images/laom/coliving/capture-d-cran-2025-02-08-02-12-17-9228e513.webp',
-  '/images/laom/coliving/e24281c9-461c-425b-9b56-16c4ca1ff95e-c7fdc793.webp',
+  '/images/laom/coliving/coliving-laom-rendu-3d-vue-generale.webp',
+  '/images/laom/coliving/coliving-laom-plan-etage.webp',
+  '/images/laom/coliving/coliving-laom-rendu-chambre.webp',
+  '/images/laom/coliving/coliving-laom-rendu-facade.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-01.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-02.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-03.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-04.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-05.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-06.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-07.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-08.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-09.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-10.webp',
+  '/images/laom/coliving/coliving-laom-maquette-interieure.webp',
   '/images/laom/coliving/hameau-5-8b46de75.webp',
-  '/images/laom/coliving/tempimageuvgnhu-3cb8fad7.webp',
+  '/images/laom/coliving/coliving-laom-vue-domaine.webp',
 ]
 ---
 
@@ -49,20 +49,23 @@ const galleryImages = [
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="grid gap-6 md:grid-cols-3">
         <img
-          src="/images/laom/coliving/tempimageuvgnhu-3cb8fad7.webp"
+          src="/images/laom/coliving/coliving-laom-vue-domaine.webp"
           alt="Maison du coliving"
+          title="Vue du domaine et du coliving LAOM"
           class="h-64 w-full rounded-sm object-cover border border-black/10"
           loading="lazy"
         />
         <img
-          src="/images/laom/coliving/e24281c9-461c-425b-9b56-16c4ca1ff95e-c7fdc793.webp"
+          src="/images/laom/coliving/coliving-laom-maquette-interieure.webp"
           alt="Espaces intérieurs du coliving"
+          title="Maquette interieure du coliving LAOM"
           class="h-64 w-full rounded-sm object-cover border border-black/10"
           loading="lazy"
         />
         <img
           src="/images/laom/coliving/hameau-5-8b46de75.webp"
           alt="Vue du hameau et de la vallée"
+          title="Le hameau de La Margue et la vallee"
           class="h-64 w-full rounded-sm object-cover border border-black/10"
           loading="lazy"
         />
@@ -116,6 +119,7 @@ const galleryImages = [
           <img
             src={src}
             alt={`Galerie Coliving ${index + 1}`}
+            title={`Coliving LAOM - photo ${index + 1}`}
             class="h-56 w-full rounded-sm object-cover border border-black/10 bg-white"
             loading="lazy"
           />
