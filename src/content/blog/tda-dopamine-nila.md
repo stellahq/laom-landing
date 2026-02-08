@@ -6,7 +6,7 @@ heroImage: "/images/laom/laom-potager-chalet.webp"
 author: "Charly Aubert"
 locale: "fr"
 tags: ["TDA", "TDAH", "dopamine", "productivite", "NILA", "voix", "systeme"]
-draft: false
+draft: true
 ---
 
 ## Le système parfait qui tient 3 jours
