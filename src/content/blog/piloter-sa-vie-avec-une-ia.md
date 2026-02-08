@@ -141,6 +141,6 @@ Fais-le en vocal. Parle tes réponses. Le flou deviendra de la clarté.
 
 L'ordre n'est pas la rigidité. L'ordre, c'est ce qui permet à la vie de s'exprimer.
 
-**Un mot de gratitude.** Mon système doit beaucoup à [Eliott Meunier](https://music.eliottmeunier.com/). C'est à travers ses formations Atomic Timing et Atomic Knowledge que j'ai découvert la méthode PARA, le concept des phases de vie, et toute l'intelligence d'un système d'organisation pensé pour les créateurs. Mon architecture en est grandement inspirée. Ce que j'ai ajouté, c'est l'IA comme partenaire de pilotage — mais les fondations intellectuelles, c'est Eliott qui me les a transmises. Merci.
+**Un mot de gratitude.** Mon système doit beaucoup à [Eliott Meunier](https://eliottmeunier.com/). C'est à travers ses formations Atomic Timing et Atomic Knowledge que j'ai découvert la méthode PARA, le concept des phases de vie, et toute l'intelligence d'un système d'organisation pensé pour les créateurs. Mon architecture en est grandement inspirée. Ce que j'ai ajouté, c'est l'IA comme partenaire de pilotage — mais les fondations intellectuelles, c'est Eliott qui me les a transmises. Merci.
 
 *Charly Aubert — en vocal, avec NILA qui structure.*
