@@ -736,7 +736,7 @@ export const translations = {
       clarteCard: {
         title: 'Clarté',
         description: 'Un week-end pour créer ton système de vie : vision, PARA, et Claude Code comme agent IA personnel.',
-        date: '25-27 avril 2026 · 12 places',
+        date: '17-19 avril 2026 · 12 places',
       },
       journalTitle: 'Journal de bord',
       featuredLabel: 'À la une',
@@ -1533,7 +1533,7 @@ export const translations = {
       clarteCard: {
         title: 'Clarté',
         description: 'A weekend to create your life system: vision, PARA, and Claude Code as your personal AI agent.',
-        date: '25-27 April 2026 · 12 places',
+        date: '17-19 April 2026 · 12 places',
       },
       journalTitle: 'Blog',
       featuredLabel: 'Featured',
