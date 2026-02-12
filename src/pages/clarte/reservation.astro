@@ -12,7 +12,6 @@ const pageSchema = createWebPageSchema({
 
 const inclus = [
   { text: 'Formation Vision + PARA + Claude Code' },
-  { text: 'Hébergement sur place (tipi ou chambre)' },
   { text: 'Tous les repas (cuisine maison, produits locaux)' },
   { text: 'Configuration personnalisée de ton agent IA' },
   { text: 'Documentation et ressources' },
@@ -45,7 +44,7 @@ const reassurance = [
         Clarté
       </h1>
       <p class="text-lg font-light text-white/70 max-w-xl mx-auto">
-        2 sessions en avril 2026 · Vision, PARA, Claude Code
+        17 – 19 avril 2026 · Vision, PARA, Claude Code
       </p>
     </div>
   </section>
@@ -54,27 +53,12 @@ const reassurance = [
   <section class="py-16 md:py-20 bg-white">
     <div class="max-w-4xl mx-auto px-8 md:px-12 lg:px-16">
       
-      <!-- Choix de session -->
+      <!-- Session -->
       <div class="mb-12 p-8 bg-[#FAF8F5] rounded-sm">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Choisis ta session</p>
-        
-        <div class="grid md:grid-cols-2 gap-4 mb-8">
-          <label class="session-choice relative cursor-pointer">
-            <input type="radio" name="session" value="session1" class="sr-only peer" checked />
-            <div class="p-6 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white transition-colors">
-              <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Session 1</p>
-              <p class="font-playfair text-xl font-medium text-[#2C2824]">17 – 19 avril 2026</p>
-              <p class="text-sm font-light text-[#2C2824]/50 mt-1">LAOM, Aveyron · 3 jours / 2 nuits</p>
-            </div>
-          </label>
-          <label class="session-choice relative cursor-pointer">
-            <input type="radio" name="session" value="session2" class="sr-only peer" />
-            <div class="p-6 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white transition-colors">
-              <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Session 2</p>
-              <p class="font-playfair text-xl font-medium text-[#2C2824]">25 – 27 avril 2026</p>
-              <p class="text-sm font-light text-[#2C2824]/50 mt-1">LAOM, Aveyron · 3 jours / 2 nuits</p>
-            </div>
-          </label>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Session</p>
+        <div class="p-6 border-2 border-[#C4A855] rounded-sm bg-white mb-8">
+          <p class="font-playfair text-xl font-medium text-[#2C2824]">17 – 19 avril 2026</p>
+          <p class="text-sm font-light text-[#2C2824]/50 mt-1">LAOM, Aveyron · 3 jours / 2 nuits</p>
         </div>
         
         <h3 class="text-sm font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Ce qui est inclus</h3>
@@ -123,19 +107,8 @@ const reassurance = [
           </div>
           <div class="flex-shrink-0">
             <a 
-              id="pay-btn-session1"
               href="#STRIPE_LINK_CLARTE_SESSION_1"
-              class="pay-btn inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full md:w-auto"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-              </svg>
-              Payer 1 000 €
-            </a>
-            <a 
-              id="pay-btn-session2"
-              href="#STRIPE_LINK_CLARTE_SESSION_2"
-              class="pay-btn hidden inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full md:w-auto"
+              class="inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full md:w-auto"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -231,23 +204,4 @@ const reassurance = [
     </div>
   </section>
 
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function() {
-      const radios = document.querySelectorAll('input[name="session"]');
-      const btn1 = document.getElementById('pay-btn-session1');
-      const btn2 = document.getElementById('pay-btn-session2');
-      
-      radios.forEach(function(radio) {
-        radio.addEventListener('change', function() {
-          if (this.value === 'session1') {
-            btn1.classList.remove('hidden');
-            btn2.classList.add('hidden');
-          } else {
-            btn1.classList.add('hidden');
-            btn2.classList.remove('hidden');
-          }
-        });
-      });
-    });
-  </script>
 </Layout>
