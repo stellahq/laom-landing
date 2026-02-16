@@ -135,7 +135,7 @@ cd nila-blueprint
 
 Fais-le en vocal. Parle tes réponses. Le flou deviendra de la clarté.
 
-**Aller plus loin** : si tu veux construire ce système en immersion sur 3 jours — vision, élans, organisation, agent IA — avec un accompagnement personnalisé dans un lieu magnifique, c'est ce qu'on fait pendant [Clarté](/clarte/) à LAOM. 12 places, 17-19 avril ou 25-27 avril 2026.
+**Aller plus loin** : si tu veux construire ce système en immersion sur 3 jours — vision, élans, organisation, agent IA — avec un accompagnement personnalisé dans un lieu magnifique, c'est ce qu'on fait pendant [Clarté](/clarte/) à LAOM. 12 places, 17-19 avril 2026.
 
 ---
 
