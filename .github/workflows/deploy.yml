@@ -10,7 +10,9 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**.md'
+      - 'README.md'
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
       - '.gitignore'
 
 jobs:
