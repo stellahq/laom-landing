@@ -1,0 +1,840 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// DEVIS IMPLEMENTATION IA — VODA ENERGIES
+// Charly Aubert / La Ferme du Verseau
+// Fevrier 2026
+// ==========================================
+
+// Phases du projet
+const phases = [
+  {
+    numero: 0,
+    titre: 'Fondations',
+    duree: 'Semaine 1',
+    prix: 1200,
+    livrables: [
+      'Serveur cloud (VPS) provisionne et securise',
+      'Infrastructure Cloudflare (Workers, base de donnees D1, stockage KV)',
+      'Catalogue fournisseur importe dans la base de donnees (200-300 references)',
+      'Compte Tiime configure (societe, mentions legales, TVA)',
+      'Board Trello structure (Prospect > Devis > Signe > En cours > Facture > Paye)',
+      'Agent IA configure et connecte a l\'ensemble des services',
+    ],
+  },
+  {
+    numero: 1,
+    titre: 'Pipeline devis + facturation',
+    duree: 'Semaines 2-3',
+    prix: 2400,
+    livrables: [
+      'Transcription vocale automatique (vocal du patron > texte structure)',
+      'Generation intelligente de devis (IA matche avec votre catalogue fournisseur reel, calcule les marges)',
+      'Creation automatique des devis dans Tiime avec lignes detaillees',
+      'Synchronisation Trello (carte creee et deplacee automatiquement)',
+      'Conversion devis > facture automatique quand le chantier est termine',
+      'Envoi automatique des factures au client par email',
+      'Tests avec 10-15 devis reels pour affiner la precision',
+    ],
+  },
+  {
+    numero: 2,
+    titre: 'Relances + automatisations bureau',
+    duree: 'Semaine 3',
+    prix: 600,
+    livrables: [
+      'Relances automatiques des impayes (J+7, J+15, J+30)',
+      'Synchronisation Tiime <> Trello (paiements, statuts)',
+      'Notifications email sur evenements cles (devis cree, facture payee, alerte)',
+    ],
+  },
+  {
+    numero: 3,
+    titre: 'Gestion des stocks',
+    duree: 'Semaine 3-4',
+    prix: 1200,
+    livrables: [
+      'Inventaire complet du depot dans la base de donnees',
+      'Formulaire mobile pour les plombiers (sortie materiel avant chaque chantier)',
+      'Mise a jour automatique des stocks en temps reel',
+      'Alertes seuil bas (email + carte Trello "Commande a passer")',
+      'Generation automatique de bons de commande fournisseur pre-remplis',
+      'L\'agent peut repondre : "combien de groupes secu en stock ?"',
+    ],
+  },
+  {
+    numero: 4,
+    titre: 'Formation + optimisation',
+    duree: 'Semaine 4',
+    prix: 600,
+    livrables: [
+      'Formation patron a l\'utilisation de l\'agent',
+      'Formation secretaire (devis, facturation, stocks, relances)',
+      'Documentation complete des processus',
+      'Affinage des prompts IA base sur les retours',
+      'Tests finaux et recette avec validation client',
+    ],
+  },
+]
+
+const totalCatalogue = 12000
+const remise = 50
+const totalRemise = 6000
+
+// Couts recurrents
+const coutsRecurrents = [
+  { poste: 'Serveur cloud (VPS)', cout: '~10', note: 'Hebergement de l\'agent' },
+  { poste: 'Abonnement Claude (Pro)', cout: '~20', note: 'Intelligence de l\'agent' },
+  { poste: 'API Whisper (OpenAI)', cout: '~3-5', note: 'Transcription vocale' },
+  { poste: 'API Claude (Anthropic)', cout: '~10-15', note: 'Structuration des devis' },
+  { poste: 'Tiime', cout: 'Gratuit', note: 'Avec expert-comptable partenaire' },
+  { poste: 'Trello', cout: 'Gratuit', note: 'Plan existant' },
+  { poste: 'Cloudflare (Workers/D1)', cout: 'Gratuit', note: 'Free tier largement suffisant' },
+]
+
+// Gains operationnels
+const gains = [
+  { poste: 'Temps secretaire (saisie/relance)', avant: '~40h/mois', apres: '~12h/mois', gain: '28h liberees' },
+  { poste: 'Temps patron sur l\'admin', avant: '~15h/mois', apres: '~2h/mois', gain: '13h liberees' },
+  { poste: 'Creation d\'un devis', avant: '20-30 min', apres: '2 min (vocal)', gain: 'x10 plus rapide' },
+  { poste: 'Factures impayees', avant: '5-10%', apres: '< 2%', gain: 'Tresorerie amelioree' },
+  { poste: 'Commandes urgentes', avant: 'Frequentes', apres: 'Rares', gain: 'Fin des surcouts' },
+  { poste: 'Double saisie', avant: 'Systematique', apres: 'Zero', gain: 'Eliminee' },
+  { poste: 'Visibilite stocks', avant: 'Aucune', apres: 'Temps reel', gain: 'Nouveau' },
+  { poste: 'Conformite fact. elec. 2026', avant: 'Non verifiee', apres: 'Prete (Tiime PA)', gain: 'Risque elimine' },
+]
+
+// Contreparties
+const contreparties = [
+  {
+    titre: '3 recommandations actives',
+    description: 'Recommander nos services a 3 entreprises dans les 6 mois suivant la livraison.',
+  },
+  {
+    titre: 'Temoignage ecrit',
+    description: 'Un temoignage utilisable sur notre site et nos supports commerciaux.',
+  },
+  {
+    titre: 'Temoignage video',
+    description: 'Participation a une etude de cas video (5-10 min) pour notre chaine YouTube.',
+  },
+  {
+    titre: 'Droit d\'etude de cas',
+    description: 'Autorisation d\'utiliser le projet comme etude de cas publique.',
+  },
+]
+
+function formatNumber(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+---
+
+<Layout
+  title="Devis Implementation IA | LAOM"
+  description="Devis d'implementation IA pour Voda Energies — Document confidentiel"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-container table { min-width: 100%; }
+    @media (max-width: 640px) {
+      .table-container table { font-size: 0.8rem; }
+      .table-container th, .table-container td { padding: 0.5rem 0.375rem; }
+    }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#285230]/10 border border-[#285230]/20 mb-6">
+          <svg class="w-8 h-8 text-[#285230]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace devis</h2>
+        <p class="text-white/50 text-sm">Document confidentiel — Voda Energies</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#285230]/50 focus:ring-1 focus:ring-[#285230]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#285230] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#1e3f24] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/devis-voda/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#285230] mb-2">Devis n°2026-02-VODA</p>
+          <h1 class="font-playfair text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight">
+            Implementation IA
+          </h1>
+          <p class="font-playfair text-lg sm:text-xl text-white/60 mt-1">Voda Energies</p>
+        </div>
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-white/40">Fevrier 2026</p>
+          <p class="text-sm text-white/70">Validite : 30 jours</p>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm text-white/50 mt-4 pt-4 border-t border-white/10">
+        <div>
+          <p class="text-white/30 text-xs uppercase tracking-wider mb-1">Prestataire</p>
+          <p class="text-white/70">Charly Aubert — La Ferme du Verseau</p>
+        </div>
+        <div>
+          <p class="text-white/30 text-xs uppercase tracking-wider mb-1">Client</p>
+          <p class="text-white/70">Voda Energies</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm pb-1">
+        <a href="#contexte" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap font-medium">Contexte</a>
+        <a href="#solution" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Solution</a>
+        <a href="#livrables" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Livrables</a>
+        <a href="#planning" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Planning</a>
+        <a href="#investissement" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Investissement</a>
+        <a href="#roi" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">ROI</a>
+        <a href="#conditions" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Conditions</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTEXTE -->
+  <section id="contexte" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Contexte</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Diagnostic operationnel — 3 silos identifies</p>
+      </div>
+
+      <!-- Les 3 silos -->
+      <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-full bg-[#285230]/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-[#285230]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </span>
+            <h3 class="text-sm font-medium text-[#2C2824]">Terrain</h3>
+          </div>
+          <p class="text-sm text-[#2C2824]/60 leading-relaxed">3 plombiers, information orale via Trello. Aucun retour materiel apres intervention. Le patron est le seul lien entre terrain et bureau.</p>
+        </div>
+
+        <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-full bg-[#285230]/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-[#285230]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </span>
+            <h3 class="text-sm font-medium text-[#2C2824]">Bureau</h3>
+          </div>
+          <p class="text-sm text-[#2C2824]/60 leading-relaxed">1 secretaire, saisie manuelle dans ProGBat. Double saisie systematique (oral > Trello > ProGBat). Relances et facturation 100% manuelles.</p>
+        </div>
+
+        <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-8 h-8 rounded-full bg-[#285230]/10 flex items-center justify-center">
+              <svg class="w-4 h-4 text-[#285230]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              </svg>
+            </span>
+            <h3 class="text-sm font-medium text-[#2C2824]">Depot</h3>
+          </div>
+          <p class="text-sm text-[#2C2824]/60 leading-relaxed">Aucun responsable dedie. Zero suivi des stocks. Inventaire papier. Commandes d'urgence frequentes et couteuses.</p>
+        </div>
+      </div>
+
+      <!-- Cout de l'inaction -->
+      <div class="bg-[#2C2824] rounded-sm p-4 sm:p-6 text-white">
+        <h3 class="text-sm font-medium mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+          Cout de l'inaction
+        </h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white/5 rounded-sm p-3">
+            <p class="text-2xl font-medium text-[#C4A855]">~40h</p>
+            <p class="text-xs text-white/50 mt-1">Saisie et relance / mois</p>
+          </div>
+          <div class="bg-white/5 rounded-sm p-3">
+            <p class="text-2xl font-medium text-[#C4A855]">~15h</p>
+            <p class="text-xs text-white/50 mt-1">Patron sur l'admin / mois</p>
+          </div>
+          <div class="bg-white/5 rounded-sm p-3">
+            <p class="text-2xl font-medium text-[#C4A855]">5-10%</p>
+            <p class="text-xs text-white/50 mt-1">Factures impayees (oublis)</p>
+          </div>
+          <div class="bg-white/5 rounded-sm p-3">
+            <p class="text-2xl font-medium text-[#C4A855]">ProGBat</p>
+            <p class="text-xs text-white/50 mt-1">Non conforme fact. elec. 2026</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section id="solution" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">La solution</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Un agent IA dedie a votre entreprise</p>
+      </div>
+
+      <!-- Principe -->
+      <div class="bg-[#285230]/5 rounded-sm border border-[#285230]/20 p-4 sm:p-6 mb-8">
+        <h3 class="text-sm font-medium text-[#285230] mb-4">Le principe</h3>
+        <p class="text-sm text-[#2C2824]/70 leading-relaxed mb-4">
+          Au lieu de multiplier les outils deconnectes, nous deployons un <strong>agent IA central</strong> qui comprend votre metier. Le patron et la secretaire lui parlent en langage naturel. L'agent orchestre tout : creation de devis, facturation, relances, gestion des stocks.
+        </p>
+        <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+          <strong>Concretement :</strong> le patron envoie un message vocal apres une visite client. L'agent transcrit, identifie le materiel dans votre catalogue fournisseur avec vos vrais prix negocies, calcule les marges, genere le devis dans Tiime, cree la carte Trello, et envoie le devis au client. Temps total : 2 minutes au lieu de 30.
+        </p>
+      </div>
+
+      <!-- Architecture simplifiee -->
+      <div class="mb-8">
+        <h3 class="text-sm font-medium text-[#285230] uppercase tracking-wider mb-4">Architecture</h3>
+        <div class="grid sm:grid-cols-2 gap-6">
+          <!-- Colonne gauche : ce que vous voyez -->
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+            <h4 class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-4">Ce que vous voyez</h4>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#285230] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">Un agent IA intelligent</p>
+                  <p class="text-xs text-[#2C2824]/50">Votre interlocuteur unique. Il comprend vos demandes en langage naturel.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#285230] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">Tiime (devis, factures, compta)</p>
+                  <p class="text-xs text-[#2C2824]/50">Outil de gestion conforme facturation electronique 2026.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#285230] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">Trello (pipeline chantiers)</p>
+                  <p class="text-xs text-[#2C2824]/50">Votre tableau de bord visuel, deja en place.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Colonne droite : ce qui tourne en arriere-plan -->
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+            <h4 class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-4">Ce qui tourne en arriere-plan</h4>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#2C2824]/20 text-[#2C2824] text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd" /></svg>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">Cloudflare Workers</p>
+                  <p class="text-xs text-[#2C2824]/50">Infrastructure cloud ultra-rapide. Execute les automatisations.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#2C2824]/20 text-[#2C2824] text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187 1.116-1.116A3 3 0 009 8.172z" clip-rule="evenodd" /></svg>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">IA (Whisper + Claude)</p>
+                  <p class="text-xs text-[#2C2824]/50">Transcription vocale + intelligence de structuration des devis.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#2C2824]/20 text-[#2C2824] text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" /><path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" /><path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" /></svg>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">Base de donnees (D1)</p>
+                  <p class="text-xs text-[#2C2824]/50">Votre catalogue fournisseur, stocks et historique.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transparence IA -->
+      <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-[#2C2824] mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#285230]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Note de transparence
+        </h3>
+        <p class="text-sm text-[#2C2824]/60 leading-relaxed">
+          Ce projet est construit avec l'IA. J'utilise Claude Code (Anthropic) comme outil de developpement principal — l'IA ecrit le code sous ma supervision, ce qui me permet de livrer plus vite et a moindre cout. L'infrastructure que je deploie pour vous utilise les memes technologies (Cloudflare Workers, API Claude) que celles que j'utilise pour construire le systeme. C'est coherent : je ne vends pas quelque chose que je n'utilise pas moi-meme.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVRABLES -->
+  <section id="livrables" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Livrables par phase</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">5 phases, 4 semaines, chaque phase produit des resultats concrets</p>
+      </div>
+
+      <div class="space-y-6">
+        {phases.map((phase) => (
+          <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-full bg-[#285230] text-white text-sm font-medium flex items-center justify-center flex-shrink-0">{phase.numero}</span>
+                <div>
+                  <h3 class="text-sm font-medium text-[#2C2824]">{phase.titre}</h3>
+                  <p class="text-xs text-[#2C2824]/40">{phase.duree}</p>
+                </div>
+              </div>
+              <span class="text-lg font-medium text-[#285230]">{formatNumber(phase.prix)} &euro; HT</span>
+            </div>
+            <ul class="space-y-2">
+              {phase.livrables.map((livrable) => (
+                <li class="flex items-start gap-2">
+                  <svg class="w-4 h-4 text-[#285230] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="text-sm text-[#2C2824]/70">{livrable}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Support inclus -->
+      <div class="mt-6 bg-[#285230]/5 rounded-sm border border-[#285230]/20 p-4 sm:p-6">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-[#285230]/20 text-[#285230] flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="text-sm font-medium text-[#285230]">Support post-deploiement inclus</h3>
+            <p class="text-xs text-[#2C2824]/50">1 mois de support apres la livraison finale (corrections, ajustements, reponse aux questions).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANNING -->
+  <section id="planning" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Planning</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">4 semaines de deploiement + 1 mois de support</p>
+      </div>
+
+      <!-- Timeline visuelle -->
+      <div class="space-y-4">
+        <div class="grid grid-cols-4 gap-2 sm:gap-4">
+          <div class="bg-[#285230] rounded-sm p-3 sm:p-4 text-white text-center">
+            <p class="text-xs font-medium uppercase tracking-wider mb-1">Semaine 1</p>
+            <p class="text-xs text-white/70">Fondations</p>
+            <p class="text-xs text-white/50 mt-1">Phase 0</p>
+          </div>
+          <div class="bg-[#285230]/80 rounded-sm p-3 sm:p-4 text-white text-center">
+            <p class="text-xs font-medium uppercase tracking-wider mb-1">Semaine 2</p>
+            <p class="text-xs text-white/70">Pipeline devis</p>
+            <p class="text-xs text-white/50 mt-1">Phase 1</p>
+          </div>
+          <div class="bg-[#285230]/60 rounded-sm p-3 sm:p-4 text-white text-center">
+            <p class="text-xs font-medium uppercase tracking-wider mb-1">Semaine 3</p>
+            <p class="text-xs text-white/70">Relances + stocks</p>
+            <p class="text-xs text-white/50 mt-1">Phases 2-3</p>
+          </div>
+          <div class="bg-[#285230]/40 rounded-sm p-3 sm:p-4 text-white text-center">
+            <p class="text-xs font-medium uppercase tracking-wider mb-1">Semaine 4</p>
+            <p class="text-xs text-white/70">Formation + recette</p>
+            <p class="text-xs text-white/50 mt-1">Phases 3-4</p>
+          </div>
+        </div>
+
+        <!-- Support -->
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-3 sm:p-4 text-center">
+          <p class="text-xs font-medium text-[#2C2824]/50 uppercase tracking-wider">Semaines 5 a 8 — Support post-deploiement inclus</p>
+        </div>
+      </div>
+
+      <!-- Prerequis client -->
+      <div class="mt-6 bg-[#C4A855]/10 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-[#2C2824] mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+          Prerequis client
+        </h3>
+        <p class="text-sm text-[#2C2824]/60 leading-relaxed">
+          Le respect du planning de 4 semaines est conditionne a la <strong>reactivite du client</strong> : acces aux comptes (Tiime, Trello), fourniture des informations catalogue fournisseur, disponibilite pour les tests et la formation. Tout retard cote client decale d'autant la livraison.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTISSEMENT -->
+  <section id="investissement" class="py-8 sm:py-10 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-white">Investissement</h2>
+      </div>
+
+      <!-- Tableau des phases -->
+      <div class="table-container mb-8">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="text-left py-3 px-3 sm:px-4 font-medium text-white/50 text-xs uppercase tracking-wider">Phase</th>
+              <th class="text-left py-3 px-3 sm:px-4 font-medium text-white/50 text-xs uppercase tracking-wider hidden sm:table-cell">Contenu</th>
+              <th class="text-right py-3 px-3 sm:px-4 font-medium text-white/50 text-xs uppercase tracking-wider">Prix HT</th>
+            </tr>
+          </thead>
+          <tbody>
+            {phases.map((phase) => (
+              <tr class="border-b border-white/5">
+                <td class="py-3 px-3 sm:px-4 text-white font-medium">Phase {phase.numero}</td>
+                <td class="py-3 px-3 sm:px-4 text-white/60 hidden sm:table-cell">{phase.titre}</td>
+                <td class="py-3 px-3 sm:px-4 text-right text-white font-medium">{formatNumber(phase.prix)} &euro;</td>
+              </tr>
+            ))}
+            <tr class="border-b border-white/5">
+              <td class="py-3 px-3 sm:px-4 text-white/40">Support</td>
+              <td class="py-3 px-3 sm:px-4 text-white/40 hidden sm:table-cell">1 mois post-deploiement</td>
+              <td class="py-3 px-3 sm:px-4 text-right text-white/40">Inclus</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Prix -->
+      <div class="grid sm:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white/5 rounded-sm p-4 text-center">
+          <p class="text-xs text-white/40 uppercase tracking-wider mb-1">Prix catalogue</p>
+          <p class="text-2xl font-medium text-white/40 line-through">{formatNumber(totalCatalogue)} &euro; HT</p>
+        </div>
+        <div class="bg-white/5 rounded-sm p-4 text-center">
+          <p class="text-xs text-white/40 uppercase tracking-wider mb-1">Remise premier client</p>
+          <p class="text-2xl font-medium text-[#C4A855]">-{remise}%</p>
+        </div>
+        <div class="bg-[#285230] rounded-sm p-4 text-center">
+          <p class="text-xs text-white/70 uppercase tracking-wider mb-1">Total</p>
+          <p class="text-3xl font-bold text-white">{formatNumber(totalRemise)} &euro; HT</p>
+        </div>
+      </div>
+
+      <!-- Echelonnement -->
+      <div class="bg-white/5 rounded-sm border border-white/10 p-4 sm:p-6">
+        <h3 class="text-sm font-medium text-white mb-4">Echelonnement de paiement</h3>
+        <div class="space-y-3">
+          {phases.map((phase) => (
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#285230] text-white text-xs flex items-center justify-center flex-shrink-0">{phase.numero}</span>
+                <span class="text-sm text-white/70">
+                  {phase.numero === 0 ? 'A la commande' : `A la livraison : ${phase.titre}`}
+                </span>
+              </div>
+              <span class="text-sm font-medium text-white">{formatNumber(phase.prix)} &euro; HT</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Couts recurrents -->
+      <div class="mt-8">
+        <h3 class="text-sm font-medium text-white/50 uppercase tracking-wider mb-4">Couts recurrents mensuels (a votre charge)</h3>
+        <div class="table-container">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-white/10">
+                <th class="text-left py-3 px-3 sm:px-4 font-medium text-white/40 text-xs uppercase tracking-wider">Service</th>
+                <th class="text-left py-3 px-3 sm:px-4 font-medium text-white/40 text-xs uppercase tracking-wider hidden sm:table-cell">Role</th>
+                <th class="text-right py-3 px-3 sm:px-4 font-medium text-white/40 text-xs uppercase tracking-wider">Cout/mois</th>
+              </tr>
+            </thead>
+            <tbody>
+              {coutsRecurrents.map((cout) => (
+                <tr class="border-b border-white/5">
+                  <td class="py-3 px-3 sm:px-4 text-white/70">{cout.poste}</td>
+                  <td class="py-3 px-3 sm:px-4 text-white/40 hidden sm:table-cell">{cout.note}</td>
+                  <td class="py-3 px-3 sm:px-4 text-right text-white font-medium">{cout.cout} &euro;</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr class="border-t border-white/10">
+                <td class="py-3 px-3 sm:px-4 text-white font-medium" colspan={2}>Total mensuel estime</td>
+                <td class="py-3 px-3 sm:px-4 text-right text-[#C4A855] font-bold text-lg">~45-50 &euro;</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="text-xs text-white/30 mt-3">
+          Comparaison : ProGBat seul = 17 &euro;/mois, mais sans automatisation, sans IA, sans conformite 2026, sans gestion de stocks, sans compta integree.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI -->
+  <section id="roi" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Retour sur investissement</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Comparatif avant / apres deploiement</p>
+      </div>
+
+      <!-- Tableau gains -->
+      <div class="table-container bg-white rounded-sm border border-black/5 mb-8">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/10">
+              <th class="text-left py-3 px-3 sm:px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Poste</th>
+              <th class="text-center py-3 px-3 sm:px-4 font-medium text-[#2C2824]/40 text-xs uppercase tracking-wider">Avant</th>
+              <th class="text-center py-3 px-3 sm:px-4 font-medium text-[#285230] text-xs uppercase tracking-wider">Apres</th>
+              <th class="text-right py-3 px-3 sm:px-4 font-medium text-[#285230] text-xs uppercase tracking-wider hidden sm:table-cell">Gain</th>
+            </tr>
+          </thead>
+          <tbody>
+            {gains.map((g) => (
+              <tr class="border-b border-black/5">
+                <td class="py-3 px-3 sm:px-4 text-[#2C2824] font-medium text-xs sm:text-sm">{g.poste}</td>
+                <td class="py-3 px-3 sm:px-4 text-center text-[#2C2824]/40">{g.avant}</td>
+                <td class="py-3 px-3 sm:px-4 text-center text-[#285230] font-medium">{g.apres}</td>
+                <td class="py-3 px-3 sm:px-4 text-right text-[#285230] hidden sm:table-cell">{g.gain}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Chiffres cles -->
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="bg-[#285230] rounded-sm p-4 sm:p-6 text-white text-center">
+          <p class="text-3xl font-bold">41h</p>
+          <p class="text-xs text-white/70 mt-1">liberees par mois</p>
+        </div>
+        <div class="bg-[#285230] rounded-sm p-4 sm:p-6 text-white text-center">
+          <p class="text-3xl font-bold">~1 070 &euro;</p>
+          <p class="text-xs text-white/70 mt-1">de valeur / mois</p>
+        </div>
+        <div class="bg-[#285230] rounded-sm p-4 sm:p-6 text-white text-center">
+          <p class="text-3xl font-bold">~6 mois</p>
+          <p class="text-xs text-white/70 mt-1">d'amortissement</p>
+        </div>
+      </div>
+
+      <p class="text-xs text-[#2C2824]/40 mt-4 text-center">
+        Calcul : patron valorise a 50 &euro;/h (13h liberees = 650 &euro;), secretaire a 15 &euro;/h (28h liberees = 420 &euro;). Reduction impayees non comptee.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONDITIONS -->
+  <section id="conditions" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Conditions</h2>
+      </div>
+
+      <!-- Contreparties -->
+      <div class="mb-8">
+        <h3 class="text-sm font-medium text-[#285230] uppercase tracking-wider mb-4">Contreparties de la remise (-50%)</h3>
+        <p class="text-sm text-[#2C2824]/50 mb-4">La remise de 6 000 &euro; est accordee en echange des engagements suivants :</p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {contreparties.map((c, i) => (
+            <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+              <div class="flex items-start gap-3">
+                <span class="w-6 h-6 rounded-full bg-[#285230] text-white text-xs flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">{c.titre}</p>
+                  <p class="text-xs text-[#2C2824]/50 mt-1">{c.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Conditions generales -->
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4">Inclus</h3>
+          <ul class="space-y-2 text-sm text-[#2C2824]/60">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#285230] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span>Conception, developpement et deploiement complet</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#285230] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span>Saisie du catalogue fournisseur (200-300 references)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#285230] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span>Formation patron + secretaire</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#285230] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span>Documentation complete</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#285230] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span>1 mois de support post-deploiement</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#285230] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+              <span>Propriete du code : le client est proprietaire</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4">Exclusions</h3>
+          <ul class="space-y-2 text-sm text-[#2C2824]/60">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#2C2824]/30 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+              <span>Maintenance au-dela du 1er mois</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#2C2824]/30 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+              <span>Formation continue de l'equipe</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#2C2824]/30 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+              <span>Couts d'abonnement des outils (a votre charge)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-[#2C2824]/30 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+              <span>Evolutions fonctionnelles non prevues au scope</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE -->
+  <section class="py-8 sm:py-10 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-8">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-white">Bon pour accord</h2>
+        <p class="text-sm text-white/50 mt-1">Devis valable 30 jours a compter du 17 fevrier 2026</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-8">
+        <!-- Prestataire -->
+        <div class="bg-white/5 rounded-sm border border-white/10 p-4 sm:p-6">
+          <p class="text-xs text-white/40 uppercase tracking-wider mb-3">Le prestataire</p>
+          <p class="text-sm text-white font-medium">Charly Aubert</p>
+          <p class="text-sm text-white/50">La Ferme du Verseau</p>
+          <p class="text-sm text-white/50">La Margue, 12520 Compeyre</p>
+          <div class="mt-6 pt-4 border-t border-white/10">
+            <p class="text-xs text-white/30">Date et signature</p>
+            <div class="h-16 mt-2"></div>
+          </div>
+        </div>
+
+        <!-- Client -->
+        <div class="bg-white/5 rounded-sm border border-white/10 p-4 sm:p-6">
+          <p class="text-xs text-white/40 uppercase tracking-wider mb-3">Le client</p>
+          <p class="text-sm text-white font-medium">Voda Energies</p>
+          <p class="text-sm text-white/50">&nbsp;</p>
+          <p class="text-sm text-white/50">&nbsp;</p>
+          <div class="mt-6 pt-4 border-t border-white/10">
+            <p class="text-xs text-white/30">Date, signature et mention "Bon pour accord"</p>
+            <div class="h-16 mt-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Montant rappel -->
+      <div class="mt-8 text-center">
+        <p class="text-white/40 text-sm">Montant total</p>
+        <p class="text-4xl font-bold text-white mt-1">{formatNumber(totalRemise)} &euro; HT</p>
+        <p class="text-white/30 text-xs mt-2">TVA non applicable, article 293 B du CGI</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer interne -->
+  <section class="py-6 bg-[#1a1a1a] border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <p class="text-xs text-white/30">
+          Devis n°2026-02-VODA — Document confidentiel
+        </p>
+        <p class="text-xs text-white/30">
+          Charly Aubert &middot; La Ferme du Verseau &middot; Fevrier 2026
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Password protection
+    const PASSWORD = 'voda'
+    const STORAGE_KEY = 'voda_devis_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>

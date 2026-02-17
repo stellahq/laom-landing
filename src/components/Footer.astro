@@ -52,9 +52,14 @@ const t = getTranslations(lang as 'fr' | 'en')
       <p class="text-white/50 text-xs font-light">
         {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
       </p>
-      <a href="/previsionnel-2026" class="text-white/70 hover:text-white text-sm font-light transition-colors">
-        Espace associes
-      </a>
+      <div class="flex items-center gap-4">
+        <a href="/devis-voda" class="text-white/70 hover:text-white text-sm font-light transition-colors">
+          Espace devis
+        </a>
+        <a href="/previsionnel-2026" class="text-white/70 hover:text-white text-sm font-light transition-colors">
+          Espace associes
+        </a>
+      </div>
     </div>
   </div>
 </footer>
