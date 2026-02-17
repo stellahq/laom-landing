@@ -22,8 +22,8 @@ const phases = [
       'Infrastructure Cloudflare (Workers, base de donnees D1, stockage KV)',
       'Catalogue fournisseur importe dans la base de donnees (200-300 references)',
       'Compte Tiime configure (societe, mentions legales, TVA)',
-      'Board Trello structure (Prospect > Devis > Signe > En cours > Facture > Paye)',
-      'Agent IA configure et connecte a l\'ensemble des services',
+      'Board Trello structure (Prospect → Devis → Signe → En cours → Facture → Paye)',
+      'Agent IA configure et connecte a l\u2019ensemble des services',
     ],
   },
   {
@@ -32,11 +32,11 @@ const phases = [
     duree: 'Semaines 2-3',
     prix: 2400,
     livrables: [
-      'Transcription vocale automatique (vocal du patron > texte structure)',
+      'Transcription vocale automatique (vocal du patron → texte structure)',
       'Generation intelligente de devis (IA matche avec votre catalogue fournisseur reel, calcule les marges)',
       'Creation automatique des devis dans Tiime avec lignes detaillees',
       'Synchronisation Trello (carte creee et deplacee automatiquement)',
-      'Conversion devis > facture automatique quand le chantier est termine',
+      'Conversion devis → facture automatique quand le chantier est termine',
       'Envoi automatique des factures au client par email',
       'Tests avec 10-15 devis reels pour affiner la precision',
     ],
@@ -48,7 +48,7 @@ const phases = [
     prix: 600,
     livrables: [
       'Relances automatiques des impayes (J+7, J+15, J+30)',
-      'Synchronisation Tiime <> Trello (paiements, statuts)',
+      'Synchronisation Tiime ↔ Trello (paiements, statuts)',
       'Notifications email sur evenements cles (devis cree, facture payee, alerte)',
     ],
   },
@@ -61,9 +61,9 @@ const phases = [
       'Inventaire complet du depot dans la base de donnees',
       'Formulaire mobile pour les plombiers (sortie materiel avant chaque chantier)',
       'Mise a jour automatique des stocks en temps reel',
-      'Alertes seuil bas (email + carte Trello "Commande a passer")',
+      'Alertes seuil bas (email + carte Trello \u00AB Commande a passer \u00BB)',
       'Generation automatique de bons de commande fournisseur pre-remplis',
-      'L\'agent peut repondre : "combien de groupes secu en stock ?"',
+      'L\u2019agent peut repondre : \u00AB combien de groupes secu en stock ? \u00BB',
     ],
   },
   {
@@ -72,7 +72,7 @@ const phases = [
     duree: 'Semaine 4',
     prix: 600,
     livrables: [
-      'Formation patron a l\'utilisation de l\'agent',
+      'Formation patron a l\u2019utilisation de l\u2019agent',
       'Formation secretaire (devis, facturation, stocks, relances)',
       'Documentation complete des processus',
       'Affinage des prompts IA base sur les retours',
@@ -87,8 +87,8 @@ const totalRemise = 6000
 
 // Couts recurrents
 const coutsRecurrents = [
-  { poste: 'Serveur cloud (VPS)', cout: '~10', note: 'Hebergement de l\'agent' },
-  { poste: 'Abonnement Claude (Pro)', cout: '~20', note: 'Intelligence de l\'agent' },
+  { poste: 'Serveur cloud (VPS)', cout: '~10', note: 'Hebergement de l\u2019agent' },
+  { poste: 'Abonnement Claude (Pro)', cout: '~20', note: 'Intelligence de l\u2019agent' },
   { poste: 'API Whisper (OpenAI)', cout: '~3-5', note: 'Transcription vocale' },
   { poste: 'API Claude (Anthropic)', cout: '~10-15', note: 'Structuration des devis' },
   { poste: 'Tiime', cout: 'Gratuit', note: 'Avec expert-comptable partenaire' },
@@ -99,9 +99,9 @@ const coutsRecurrents = [
 // Gains operationnels
 const gains = [
   { poste: 'Temps secretaire (saisie/relance)', avant: '~40h/mois', apres: '~12h/mois', gain: '28h liberees' },
-  { poste: 'Temps patron sur l\'admin', avant: '~15h/mois', apres: '~2h/mois', gain: '13h liberees' },
-  { poste: 'Creation d\'un devis', avant: '20-30 min', apres: '2 min (vocal)', gain: 'x10 plus rapide' },
-  { poste: 'Factures impayees', avant: '5-10%', apres: '< 2%', gain: 'Tresorerie amelioree' },
+  { poste: 'Temps patron sur l\u2019admin', avant: '~15h/mois', apres: '~2h/mois', gain: '13h liberees' },
+  { poste: 'Creation d\u2019un devis', avant: '20-30 min', apres: '2 min (vocal)', gain: 'x10 plus rapide' },
+  { poste: 'Factures impayees', avant: '5-10%', apres: '\u003C 2%', gain: 'Tresorerie amelioree' },
   { poste: 'Commandes urgentes', avant: 'Frequentes', apres: 'Rares', gain: 'Fin des surcouts' },
   { poste: 'Double saisie', avant: 'Systematique', apres: 'Zero', gain: 'Eliminee' },
   { poste: 'Visibilite stocks', avant: 'Aucune', apres: 'Temps reel', gain: 'Nouveau' },
@@ -123,8 +123,8 @@ const contreparties = [
     description: 'Participation a une etude de cas video (5-10 min) pour notre chaine YouTube.',
   },
   {
-    titre: 'Droit d\'etude de cas',
-    description: 'Autorisation d\'utiliser le projet comme etude de cas publique.',
+    titre: 'Droit d\u2019etude de cas',
+    description: 'Autorisation d\u2019utiliser le projet comme etude de cas publique.',
   },
 ]
 
@@ -426,7 +426,7 @@ function formatNumber(n: number): string {
                   <p class="text-xs text-[#2C2824]/40">{phase.duree}</p>
                 </div>
               </div>
-              <span class="text-lg font-medium text-[#285230]">{formatNumber(phase.prix)} &euro; HT</span>
+              <span class="text-lg font-medium text-[#285230]">{formatNumber(phase.prix)} € HT</span>
             </div>
             <ul class="space-y-2">
               {phase.livrables.map((livrable) => (
@@ -535,7 +535,7 @@ function formatNumber(n: number): string {
               <tr class="border-b border-white/5">
                 <td class="py-3 px-3 sm:px-4 text-white font-medium">Phase {phase.numero}</td>
                 <td class="py-3 px-3 sm:px-4 text-white/60 hidden sm:table-cell">{phase.titre}</td>
-                <td class="py-3 px-3 sm:px-4 text-right text-white font-medium">{formatNumber(phase.prix)} &euro;</td>
+                <td class="py-3 px-3 sm:px-4 text-right text-white font-medium">{formatNumber(phase.prix)} €</td>
               </tr>
             ))}
             <tr class="border-b border-white/5">
@@ -551,7 +551,7 @@ function formatNumber(n: number): string {
       <div class="grid sm:grid-cols-3 gap-4 mb-8">
         <div class="bg-white/5 rounded-sm p-4 text-center">
           <p class="text-xs text-white/40 uppercase tracking-wider mb-1">Prix catalogue</p>
-          <p class="text-2xl font-medium text-white/40 line-through">{formatNumber(totalCatalogue)} &euro; HT</p>
+          <p class="text-2xl font-medium text-white/40 line-through">{formatNumber(totalCatalogue)} € HT</p>
         </div>
         <div class="bg-white/5 rounded-sm p-4 text-center">
           <p class="text-xs text-white/40 uppercase tracking-wider mb-1">Remise premier client</p>
@@ -559,7 +559,7 @@ function formatNumber(n: number): string {
         </div>
         <div class="bg-[#285230] rounded-sm p-4 text-center">
           <p class="text-xs text-white/70 uppercase tracking-wider mb-1">Total</p>
-          <p class="text-3xl font-bold text-white">{formatNumber(totalRemise)} &euro; HT</p>
+          <p class="text-3xl font-bold text-white">{formatNumber(totalRemise)} € HT</p>
         </div>
       </div>
 
@@ -575,7 +575,7 @@ function formatNumber(n: number): string {
                   {phase.numero === 0 ? 'A la commande' : `A la livraison : ${phase.titre}`}
                 </span>
               </div>
-              <span class="text-sm font-medium text-white">{formatNumber(phase.prix)} &euro; HT</span>
+              <span class="text-sm font-medium text-white">{formatNumber(phase.prix)} € HT</span>
             </div>
           ))}
         </div>
@@ -598,20 +598,20 @@ function formatNumber(n: number): string {
                 <tr class="border-b border-white/5">
                   <td class="py-3 px-3 sm:px-4 text-white/70">{cout.poste}</td>
                   <td class="py-3 px-3 sm:px-4 text-white/40 hidden sm:table-cell">{cout.note}</td>
-                  <td class="py-3 px-3 sm:px-4 text-right text-white font-medium">{cout.cout} &euro;</td>
+                  <td class="py-3 px-3 sm:px-4 text-right text-white font-medium">{cout.cout} €</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr class="border-t border-white/10">
                 <td class="py-3 px-3 sm:px-4 text-white font-medium" colspan={2}>Total mensuel estime</td>
-                <td class="py-3 px-3 sm:px-4 text-right text-[#C4A855] font-bold text-lg">~45-50 &euro;</td>
+                <td class="py-3 px-3 sm:px-4 text-right text-[#C4A855] font-bold text-lg">~45-50 €</td>
               </tr>
             </tfoot>
           </table>
         </div>
         <p class="text-xs text-white/30 mt-3">
-          Comparaison : ProGBat seul = 17 &euro;/mois, mais sans automatisation, sans IA, sans conformite 2026, sans gestion de stocks, sans compta integree.
+          Comparaison : ProGBat seul = 17 €/mois, mais sans automatisation, sans IA, sans conformite 2026, sans gestion de stocks, sans compta integree.
         </p>
       </div>
     </div>
@@ -656,7 +656,7 @@ function formatNumber(n: number): string {
           <p class="text-xs text-white/70 mt-1">liberees par mois</p>
         </div>
         <div class="bg-[#285230] rounded-sm p-4 sm:p-6 text-white text-center">
-          <p class="text-3xl font-bold">~1 070 &euro;</p>
+          <p class="text-3xl font-bold">~1 070 €</p>
           <p class="text-xs text-white/70 mt-1">de valeur / mois</p>
         </div>
         <div class="bg-[#285230] rounded-sm p-4 sm:p-6 text-white text-center">
@@ -666,7 +666,7 @@ function formatNumber(n: number): string {
       </div>
 
       <p class="text-xs text-[#2C2824]/40 mt-4 text-center">
-        Calcul : patron valorise a 50 &euro;/h (13h liberees = 650 &euro;), secretaire a 15 &euro;/h (28h liberees = 420 &euro;). Reduction impayees non comptee.
+        Calcul : patron valorise a 50 €/h (13h liberees = 650 €), secretaire a 15 €/h (28h liberees = 420 €). Reduction impayees non comptee.
       </p>
     </div>
   </section>
@@ -681,7 +681,7 @@ function formatNumber(n: number): string {
       <!-- Contreparties -->
       <div class="mb-8">
         <h3 class="text-sm font-medium text-[#285230] uppercase tracking-wider mb-4">Contreparties de la remise (-50%)</h3>
-        <p class="text-sm text-[#2C2824]/50 mb-4">La remise de 6 000 &euro; est accordee en echange des engagements suivants :</p>
+        <p class="text-sm text-[#2C2824]/50 mb-4">La remise de 6 000 € est accordee en echange des engagements suivants :</p>
         <div class="grid sm:grid-cols-2 gap-4">
           {contreparties.map((c, i) => (
             <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
@@ -791,7 +791,7 @@ function formatNumber(n: number): string {
       <!-- Montant rappel -->
       <div class="mt-8 text-center">
         <p class="text-white/40 text-sm">Montant total</p>
-        <p class="text-4xl font-bold text-white mt-1">{formatNumber(totalRemise)} &euro; HT</p>
+        <p class="text-4xl font-bold text-white mt-1">{formatNumber(totalRemise)} € HT</p>
         <p class="text-white/30 text-xs mt-2">TVA non applicable, article 293 B du CGI</p>
       </div>
     </div>
@@ -805,7 +805,7 @@ function formatNumber(n: number): string {
           Devis n°2026-02-VODA — Document confidentiel
         </p>
         <p class="text-xs text-white/30">
-          Charly Aubert &middot; La Ferme du Verseau &middot; Fevrier 2026
+          Charly Aubert · La Ferme du Verseau · Fevrier 2026
         </p>
       </div>
     </div>
