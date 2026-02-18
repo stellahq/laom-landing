@@ -150,7 +150,7 @@ const pageSchema = createWebPageSchema({
                 aria-label={isInternal ? nl.data.title : `${nl.data.title} (ouvre dans un nouvel onglet)`}
               >
                 <span class="font-playfair text-lg font-medium text-[#2C2824] group-hover:text-[#2C2824]/70 transition-colors tracking-tight">
-                  {nl.data.title}
+                  {nl.data.title}{nl.data.subtitle ? ` — ${nl.data.subtitle}` : ''}
                 </span>
                 <span class="text-xs font-light text-[#2C2824]/40 tracking-[0.1em] uppercase flex-shrink-0 ml-6">
                   {formattedDate}

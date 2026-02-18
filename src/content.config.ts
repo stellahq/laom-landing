@@ -20,6 +20,7 @@ const newsletters = defineCollection({
   type: 'data',
   schema: z.object({
     title: z.string(),
+    subtitle: z.string().optional(),
     date: z.coerce.date(),
     url: z.string().url(),
     description: z.string().optional(),
