@@ -24,6 +24,7 @@ const teamLinks = [
 
 const cockpitLink = { href: '/cockpit/', label: 'Cockpit Charly', short: 'Cockpit' }
 const valorisationLink = { href: '/valorisation-fdv/', label: 'Valorisation FDV', short: 'Valo.' }
+const magaliLink = { href: '/magali/', label: 'Espace Magali', short: 'Magali' }
 
 function isActive(href: string): boolean {
   return currentPage === href || currentPage === href.replace(/\/$/, '')
@@ -72,6 +73,12 @@ function isActive(href: string): boolean {
         class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(valorisationLink.href) ? 'text-[#8B5A3C] bg-[#8B5A3C]/10' : 'text-[#8B5A3C]/70 hover:text-[#8B5A3C] hover:bg-[#8B5A3C]/10'}`}
       >
         {valorisationLink.short}
+      </a>
+      <a 
+        href={magaliLink.href} 
+        class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(magaliLink.href) ? 'text-[#7B6B8A] bg-[#7B6B8A]/10' : 'text-[#7B6B8A]/70 hover:text-[#7B6B8A] hover:bg-[#7B6B8A]/10'}`}
+      >
+        {magaliLink.short}
       </a>
     </div>
 
@@ -142,14 +149,22 @@ function isActive(href: string): boolean {
     <!-- Separator -->
     <div class="border-t border-white/10 my-6"></div>
 
-    <!-- Valorisation -->
+    <!-- Finance -->
     <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B5A3C]/70 mb-4">Finance</p>
-    <a 
-      href={valorisationLink.href} 
-      class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(valorisationLink.href) ? 'text-[#8B5A3C] bg-[#8B5A3C]/10' : 'text-[#8B5A3C]/70 hover:text-[#8B5A3C] hover:bg-[#8B5A3C]/5'}`}
-    >
-      {valorisationLink.label}
-    </a>
+    <div class="space-y-1 mb-8">
+      <a 
+        href={valorisationLink.href} 
+        class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(valorisationLink.href) ? 'text-[#8B5A3C] bg-[#8B5A3C]/10' : 'text-[#8B5A3C]/70 hover:text-[#8B5A3C] hover:bg-[#8B5A3C]/5'}`}
+      >
+        {valorisationLink.label}
+      </a>
+      <a 
+        href={magaliLink.href} 
+        class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(magaliLink.href) ? 'text-[#7B6B8A] bg-[#7B6B8A]/10' : 'text-[#7B6B8A]/70 hover:text-[#7B6B8A] hover:bg-[#7B6B8A]/5'}`}
+      >
+        {magaliLink.label}
+      </a>
+    </div>
   </div>
 </div>
 

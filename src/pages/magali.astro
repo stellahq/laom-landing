@@ -1,0 +1,1073 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// ESPACE MAGALI ROUBY
+// Presentation personnalisee — Fevrier 2026
+// ==========================================
+
+// Couleur d'accent : Mauve doux (#7B6B8A)
+const ACCENT = '#7B6B8A'
+
+// Budget global
+const budgetTotal = 535000
+
+// Lot SCIA
+const lotSCIA = { nom: 'Le Ruisseau', surface: '—', quotepart: 174281, scia: 'SCIA LAOM Est' }
+
+// Travaux
+const travaux = [
+  { poste: 'SAS d\'entree / Veranda', surface: '15 m2', estimBasse: 12000, estimHaute: 20000, detail: 'Creation d\'un sas d\'entree de 15 m2, type veranda. Variabilite selon materiaux, vitrage et complexite d\'integration.' },
+  { poste: 'Poele Tully Kiwi + pose', surface: '—', estimBasse: 8000, estimHaute: 17000, detail: 'Fourniture et installation complete (conduit, habillage, mise en service). Fourchette haute : conduit complexe et finition premium.' },
+  { poste: 'Cuisine', surface: '—', estimBasse: 10000, estimHaute: 10000, detail: 'Pose d\'une cuisine equipee complete. Poste stable.' },
+  { poste: 'Frais annexes (SDB, placards)', surface: '—', estimBasse: 10000, estimHaute: 10000, detail: 'Petits travaux salle de bain et placards sur mesure installes. Poste stable.' },
+]
+const totalTravauxBas = travaux.reduce((s, t) => s + t.estimBasse, 0)
+const totalTravauxHaut = travaux.reduce((s, t) => s + t.estimHaute, 0)
+
+// Pergola
+const pergola = {
+  achat: 8979,
+  construction: 50000,
+  surface: 25,
+  prixM2: 2000,
+  revenuAnnuelMin: 2000,
+  revenuAnnuelMax: 3000,
+  demarrage: 'Saison 2027',
+}
+const totalPergola = pergola.achat + pergola.construction
+
+// Frais d'installation
+const frais = [
+  { poste: 'Main a main (petit materiel domaine)', montant: 4500, detail: 'Contribution a l\'achat du petit materiel d\'entretien collectif du domaine. Reglement en cash a l\'arrivee.' },
+  { poste: 'Provision frais de notaire', montant: 4000, detail: 'Provision conservatoire. En principe non due, reservee par prudence.' },
+  { poste: 'Quote-part foyer commun', montant: 7000, detail: 'Contribution a l\'acquisition de la quote-part du foyer commun du domaine.' },
+  { poste: 'Entree au capital SAS (1 action)', montant: 50, detail: 'Part symbolique — donne la qualite d\'associee pour ouvrir un Compte Courant.' },
+]
+const totalFrais = frais.reduce((s, f) => s + f.montant, 0)
+
+// CCA
+const ccaMontant = 200000
+
+// Totaux
+const totalDepensesBas = lotSCIA.quotepart + totalTravauxBas + totalPergola + totalFrais
+const totalDepensesHaut = lotSCIA.quotepart + totalTravauxHaut + totalPergola + totalFrais
+const epargneBas = budgetTotal - totalDepensesHaut - ccaMontant
+const epargneHaut = budgetTotal - totalDepensesBas - ccaMontant
+
+// Scenarios CCA
+const scenarioA = {
+  nom: 'Scenario A',
+  duree: 15,
+  taux: 2.5,
+  tauxLabel: 'Inflation (~2,5%)',
+  tauxType: 'Variable (indexe inflation)',
+  mensualite: 1333,
+  totalRecu: 239940,
+  totalInterets: 39940,
+  ageFin: 76,
+  tableau: [
+    { annee: 1, age: 61, interets: 4830, capital: 11166, restant: 188834 },
+    { annee: 2, age: 62, interets: 4545, capital: 11451, restant: 177383 },
+    { annee: 3, age: 63, interets: 4250, capital: 11746, restant: 165637 },
+    { annee: 4, age: 64, interets: 3945, capital: 12051, restant: 153586 },
+    { annee: 5, age: 65, interets: 3630, capital: 12366, restant: 141220 },
+    { annee: 6, age: 66, interets: 3305, capital: 12691, restant: 128529 },
+    { annee: 7, age: 67, interets: 2970, capital: 13026, restant: 115503 },
+    { annee: 8, age: 68, interets: 2625, capital: 13371, restant: 102132 },
+    { annee: 9, age: 69, interets: 2270, capital: 13726, restant: 88406 },
+    { annee: 10, age: 70, interets: 1905, capital: 14091, restant: 74315 },
+    { annee: 11, age: 71, interets: 1530, capital: 14466, restant: 59849 },
+    { annee: 12, age: 72, interets: 1140, capital: 14856, restant: 44993 },
+    { annee: 13, age: 73, interets: 740, capital: 15256, restant: 29737 },
+    { annee: 14, age: 74, interets: 330, capital: 15666, restant: 14071 },
+    { annee: 15, age: 75, interets: 0, capital: 14071, restant: 0 },
+  ]
+}
+
+const scenarioB = {
+  nom: 'Scenario B',
+  duree: 25,
+  taux: 4.5,
+  tauxLabel: '4,5% fixe',
+  tauxType: 'Fixe',
+  mensualite: 1111,
+  totalRecu: 333300,
+  totalInterets: 133300,
+  ageFin: 86,
+  tableau: [
+    { annee: 1, age: 61, interets: 8860, capital: 4472, restant: 195528 },
+    { annee: 2, age: 62, interets: 8655, capital: 4677, restant: 190851 },
+    { annee: 3, age: 63, interets: 8440, capital: 4892, restant: 185959 },
+    { annee: 4, age: 64, interets: 8215, capital: 5117, restant: 180842 },
+    { annee: 5, age: 65, interets: 7978, capital: 5354, restant: 175488 },
+    { annee: 6, age: 66, interets: 7730, capital: 5602, restant: 169886 },
+    { annee: 7, age: 67, interets: 7470, capital: 5862, restant: 164024 },
+    { annee: 8, age: 68, interets: 7197, capital: 6135, restant: 157889 },
+    { annee: 9, age: 69, interets: 6910, capital: 6422, restant: 151467 },
+    { annee: 10, age: 70, interets: 6608, capital: 6724, restant: 144743 },
+    { annee: 11, age: 71, interets: 6290, capital: 7042, restant: 137701 },
+    { annee: 12, age: 72, interets: 5955, capital: 7377, restant: 130324 },
+    { annee: 13, age: 73, interets: 5600, capital: 7732, restant: 122592 },
+    { annee: 14, age: 74, interets: 5226, capital: 8106, restant: 114486 },
+    { annee: 15, age: 75, interets: 4830, capital: 8502, restant: 105984 },
+    { annee: 16, age: 76, interets: 4410, capital: 8922, restant: 97062 },
+    { annee: 17, age: 77, interets: 3965, capital: 9367, restant: 87695 },
+    { annee: 18, age: 78, interets: 3494, capital: 9838, restant: 77857 },
+    { annee: 19, age: 79, interets: 2994, capital: 10338, restant: 67519 },
+    { annee: 20, age: 80, interets: 2464, capital: 10868, restant: 56651 },
+    { annee: 21, age: 81, interets: 1902, capital: 11430, restant: 45221 },
+    { annee: 22, age: 82, interets: 1305, capital: 12027, restant: 33194 },
+    { annee: 23, age: 83, interets: 670, capital: 12662, restant: 20532 },
+    { annee: 24, age: 84, interets: 340, capital: 12992, restant: 7540 },
+    { annee: 25, age: 85, interets: 0, capital: 7540, restant: 0 },
+  ]
+}
+
+function formatNumber(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+
+function formatK(n: number): string {
+  return (n / 1000).toFixed(0) + 'k'
+}
+---
+
+<Layout
+  title="Magali Rouby — Espace Personnel | LAOM"
+  description="Espace personnel de Magali Rouby — Projet d'installation et montage financier"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-container table { min-width: 100%; }
+    @media (max-width: 640px) {
+      .table-container table { font-size: 0.8rem; }
+      .table-container th, .table-container td { padding: 0.5rem 0.375rem; }
+    }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#7B6B8A]/10 border border-[#7B6B8A]/20 mb-6">
+          <svg class="w-8 h-8 text-[#7B6B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace Magali</h2>
+        <p class="text-white/50 text-sm">Document personnel et confidentiel</p>
+      </div>
+
+      <form id="password-form" class="space-y-4">
+        <input
+          type="password"
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#7B6B8A]/50 focus:ring-1 focus:ring-[#7B6B8A]/30 transition-all"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#7B6B8A] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#6A5C78] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/magali/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#7B6B8A] mb-2">Espace personnel</p>
+          <h1 class="font-playfair text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight">
+            Votre projet a LAOM
+          </h1>
+        </div>
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-white/40">Fevrier 2026</p>
+          <p class="text-sm text-white/70">Magali Rouby</p>
+        </div>
+      </div>
+      <p class="text-sm text-white/50 max-w-2xl">
+        Document personnalise — Budget, travaux, montage financier et simulation de revenu.
+      </p>
+
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-white/10">
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#7B6B8A]">{formatK(budgetTotal)}</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Budget total</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">{formatK(lotSCIA.quotepart)}</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Lot Le Ruisseau</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">{formatK(ccaMontant)}</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Investissement CCA</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#4A7C59]">2 scenarios</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">A votre choix</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm pb-1">
+        <a href="#lot" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap font-medium">Votre lot</a>
+        <a href="#travaux" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Travaux</a>
+        <a href="#pergola" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Pergola</a>
+        <a href="#budget" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Budget</a>
+        <a href="#epargne" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Epargne</a>
+        <a href="#scenarios" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Scenarios</a>
+        <a href="#comparatif" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Comparatif</a>
+        <a href="#garanties" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Garanties</a>
+        <a href="#etapes" class="text-[#2C2824]/60 hover:text-[#7B6B8A] transition-colors whitespace-nowrap">Etapes</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- VOTRE LOT -->
+  <section id="lot" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Votre lot : Le Ruisseau</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">SCIA LAOM Est — Quote-part : {formatNumber(lotSCIA.quotepart)} EUR</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#7B6B8A]"></span>
+            Ce que vous achetez
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Parts dans la SCIA LAOM Est</p>
+                <p class="text-xs text-[#2C2824]/50">Proportionnelles a votre lot — jouissance exclusive du Ruisseau</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Usage des parties communes</p>
+                <p class="text-xs text-[#2C2824]/50">Acces aux espaces partages du domaine</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Patrimoine revalorisable</p>
+                <p class="text-xs text-[#2C2824]/50">La valeur augmente avec les ameliorations du domaine</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Parts cessibles</p>
+                <p class="text-xs text-[#2C2824]/50">Revendables si vous quittez le collectif (sous agrement)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#7B6B8A]/5 rounded-sm border border-[#7B6B8A]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#7B6B8A] mb-4">Qu'est-ce qu'une SCIA ?</h3>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed mb-3">
+            La <strong>Societe Civile Immobiliere d'Attribution</strong> est la structure juridique qui porte les batiments du domaine. Chaque habitant detient des parts proportionnelles a son lot.
+          </p>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+            Vos parts vous donnent la <strong>jouissance exclusive</strong> de votre logement (Le Ruisseau) et un <strong>droit d'usage</strong> des parties communes. C'est un patrimoine immobilier reel, valorise a {formatNumber(lotSCIA.quotepart)} EUR.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAVAUX -->
+  <section id="travaux" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Travaux d'amenagement</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Amenagement interieur de votre lot — Estimation basse et haute</p>
+      </div>
+
+      <div class="space-y-4 mb-6">
+        {travaux.map((t) => (
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-5">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                  <h3 class="font-medium text-[#2C2824]">{t.poste}</h3>
+                  {t.surface !== '—' && <span class="badge bg-[#7B6B8A]/10 text-[#7B6B8A]">{t.surface}</span>}
+                </div>
+                <p class="text-sm text-[#2C2824]/60">{t.detail}</p>
+              </div>
+              <div class="grid grid-cols-2 gap-3 min-w-[200px]">
+                <div class="bg-white rounded-sm p-3 text-center">
+                  <p class="text-xs text-[#2C2824]/40 uppercase tracking-wider mb-1">Estim. basse</p>
+                  <p class="font-playfair text-lg font-medium text-[#2C2824]">{formatK(t.estimBasse)}</p>
+                </div>
+                <div class="bg-white rounded-sm p-3 text-center">
+                  <p class="text-xs text-[#2C2824]/40 uppercase tracking-wider mb-1">Estim. haute</p>
+                  <p class="font-playfair text-lg font-medium text-[#7B6B8A]">{formatK(t.estimHaute)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Total travaux -->
+      <div class="bg-[#1a1a1a] rounded-sm p-4 sm:p-6">
+        <div class="flex items-center justify-between">
+          <span class="text-white/50 text-sm">Total travaux</span>
+          <div class="flex items-center gap-4">
+            <div class="text-right">
+              <p class="text-xs text-white/40">Basse</p>
+              <p class="text-xl font-medium text-white">{formatK(totalTravauxBas)}</p>
+            </div>
+            <span class="text-white/30">—</span>
+            <div class="text-right">
+              <p class="text-xs text-[#7B6B8A]/70">Haute</p>
+              <p class="text-xl font-medium text-[#7B6B8A]">{formatK(totalTravauxHaut)}</p>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-white/40 mt-4">
+          La variabilite ({formatNumber(totalTravauxHaut - totalTravauxBas)} EUR d'ecart) se concentre sur le SAS/veranda et le poele Tully Kiwi. La cuisine et les frais annexes sont stables.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERGOLA -->
+  <section id="pergola" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Pergola</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">{pergola.surface} m2 — Hebergement independant exploite en direct</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <!-- Couts -->
+        <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4">Investissement</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-[#FAF8F5]">
+              <div>
+                <span class="text-sm text-[#2C2824]">Quote-part achat pergola</span>
+                <span class="block text-xs text-[#2C2824]/40">Part proportionnelle de la structure existante</span>
+              </div>
+              <span class="text-sm font-medium text-[#2C2824]">{formatNumber(pergola.achat)} EUR</span>
+            </div>
+            <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-[#FAF8F5]">
+              <div>
+                <span class="text-sm text-[#2C2824]">Construction / amenagement</span>
+                <span class="block text-xs text-[#2C2824]/40">{pergola.surface} m2 x {formatNumber(pergola.prixM2)} EUR/m2 — ossature existante, reprise etancheite</span>
+              </div>
+              <span class="text-sm font-medium text-[#2C2824]">{formatNumber(pergola.construction)} EUR</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-black/5 flex items-center justify-between">
+            <span class="text-sm font-medium text-[#2C2824]">Total pergola</span>
+            <span class="text-xl font-bold text-[#7B6B8A]">{formatNumber(totalPergola)} EUR</span>
+          </div>
+        </div>
+
+        <!-- Revenu -->
+        <div class="bg-[#4A7C59] rounded-sm p-4 sm:p-6 text-white">
+          <h3 class="text-sm font-medium mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Revenu locatif
+          </h3>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <p class="text-white/60 text-xs uppercase tracking-wider mb-1">Revenu annuel</p>
+              <p class="text-2xl font-medium">{formatNumber(pergola.revenuAnnuelMin)} - {formatNumber(pergola.revenuAnnuelMax)} EUR</p>
+            </div>
+            <div>
+              <p class="text-white/60 text-xs uppercase tracking-wider mb-1">Soit par mois</p>
+              <p class="text-2xl font-medium">~167 - 250 EUR</p>
+            </div>
+          </div>
+          <div class="space-y-2 text-sm text-white/80">
+            <p><strong>Demarrage :</strong> {pergola.demarrage}</p>
+            <p><strong>Exploitation :</strong> Directe par vous (Airbnb, Booking, reseau LAOM)</p>
+            <p><strong>Duree :</strong> Indefinie — tant que vous etes a LAOM</p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/20">
+            <p class="text-sm text-white/70">
+              Contrairement au CCA qui s'epuise, la rente pergola est <strong>permanente</strong>. Elle continue a produire du revenu meme apres la fin du remboursement de votre Compte Courant.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAIS + BUDGET COMPLET -->
+  <section id="budget" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Budget complet</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Recapitulatif de l'ensemble de vos depenses et investissements</p>
+      </div>
+
+      <!-- Frais d'installation -->
+      <div class="mb-6">
+        <h3 class="text-sm font-medium text-[#7B6B8A] uppercase tracking-wider mb-4">Frais d'installation</h3>
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5">
+          {frais.map((f, i) => (
+            <div class={`flex items-center justify-between p-4 ${i < frais.length - 1 ? 'border-b border-black/5' : ''}`}>
+              <div>
+                <span class="text-sm text-[#2C2824]">{f.poste}</span>
+                <span class="block text-xs text-[#2C2824]/40 mt-0.5">{f.detail}</span>
+              </div>
+              <span class="text-sm font-medium text-[#2C2824] whitespace-nowrap ml-4">{formatNumber(f.montant)} EUR</span>
+            </div>
+          ))}
+          <div class="flex items-center justify-between p-4 bg-[#7B6B8A]/5 border-t border-[#7B6B8A]/10">
+            <span class="text-sm font-medium text-[#7B6B8A]">Total frais d'installation</span>
+            <span class="text-sm font-bold text-[#7B6B8A]">{formatNumber(totalFrais)} EUR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recapitulatif complet -->
+      <h3 class="text-sm font-medium text-[#7B6B8A] uppercase tracking-wider mb-4">Recapitulatif complet</h3>
+      <div class="table-container bg-[#FAF8F5] rounded-sm border border-black/5 mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/10">
+              <th class="text-left py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Poste</th>
+              <th class="text-right py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Estim. basse</th>
+              <th class="text-right py-3 px-4 font-medium text-[#7B6B8A]/70 text-xs uppercase tracking-wider">Estim. haute</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Lot Le Ruisseau (SCIA Est)</td>
+              <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(lotSCIA.quotepart)}</td>
+              <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(lotSCIA.quotepart)}</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824]">Travaux d'amenagement</td>
+              <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(totalTravauxBas)}</td>
+              <td class="py-3 px-4 text-right text-[#7B6B8A]">{formatNumber(totalTravauxHaut)}</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824]">Pergola (achat + construction)</td>
+              <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(totalPergola)}</td>
+              <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(totalPergola)}</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824]">Frais d'installation</td>
+              <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(totalFrais)}</td>
+              <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(totalFrais)}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="bg-[#2C2824] text-white">
+              <td class="py-3 px-4 font-medium">Sous-total depenses</td>
+              <td class="py-3 px-4 text-right font-bold">{formatNumber(totalDepensesBas)}</td>
+              <td class="py-3 px-4 text-right font-bold">{formatNumber(totalDepensesHaut)}</td>
+            </tr>
+            <tr class="bg-[#4A7C59]/10 border-t border-[#4A7C59]/20">
+              <td class="py-3 px-4 font-medium text-[#4A7C59]">Epargne de securite</td>
+              <td class="py-3 px-4 text-right font-bold text-[#4A7C59]">{formatNumber(epargneHaut)}</td>
+              <td class="py-3 px-4 text-right font-bold text-[#4A7C59]">{formatNumber(epargneBas)}</td>
+            </tr>
+            <tr class="bg-[#7B6B8A]/10 border-t border-[#7B6B8A]/20">
+              <td class="py-3 px-4 font-medium text-[#7B6B8A]">Compte Courant d'Associes (CCA)</td>
+              <td class="py-3 px-4 text-right font-bold text-[#7B6B8A]">{formatNumber(ccaMontant)}</td>
+              <td class="py-3 px-4 text-right font-bold text-[#7B6B8A]">{formatNumber(ccaMontant)}</td>
+            </tr>
+            <tr class="bg-[#1a1a1a] text-white">
+              <td class="py-3 px-4 font-medium">TOTAL</td>
+              <td class="py-3 px-4 text-right font-bold text-lg">{formatNumber(totalDepensesBas + epargneHaut + ccaMontant)}</td>
+              <td class="py-3 px-4 text-right font-bold text-lg">{formatNumber(totalDepensesHaut + epargneBas + ccaMontant)}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- EPARGNE DE SECURITE -->
+  <section id="epargne" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Votre epargne de securite</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-sm border border-[#4A7C59]/20 p-4 sm:p-6">
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="text-center p-4 bg-[#4A7C59]/5 rounded-sm">
+              <p class="text-xs text-[#4A7C59]/70 uppercase tracking-wider mb-1">Si travaux estim. basse</p>
+              <p class="font-playfair text-2xl font-bold text-[#4A7C59]">{formatNumber(epargneHaut)} EUR</p>
+            </div>
+            <div class="text-center p-4 bg-[#7B6B8A]/5 rounded-sm">
+              <p class="text-xs text-[#7B6B8A]/70 uppercase tracking-wider mb-1">Si travaux estim. haute</p>
+              <p class="font-playfair text-2xl font-bold text-[#7B6B8A]">{formatNumber(epargneBas)} EUR</p>
+            </div>
+          </div>
+          <div class="bg-[#4A7C59]/5 border border-[#4A7C59]/10 rounded-sm p-4">
+            <p class="text-sm text-[#4A7C59] font-medium">
+              Cette somme reste integralement sur vos comptes personnels. Elle n'est ni investie dans le projet, ni versee a LAOM. Elle vous appartient et reste disponible a tout moment.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4">A quoi sert cette epargne ?</h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#7B6B8A] mt-1.5 flex-shrink-0"></span>
+              <p class="text-sm text-[#2C2824]/70"><strong>Imprevus</strong> — frais de sante, reparations, depenses non anticipees</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#7B6B8A] mt-1.5 flex-shrink-0"></span>
+              <p class="text-sm text-[#2C2824]/70"><strong>Complement de revenu</strong> — si vous avez besoin de plus que votre mensualite CCA certains mois</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#7B6B8A] mt-1.5 flex-shrink-0"></span>
+              <p class="text-sm text-[#2C2824]/70"><strong>Transition</strong> — les premiers mois avant que la rente pergola ne demarre (saison 2027)</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-[#7B6B8A] mt-1.5 flex-shrink-0"></span>
+              <p class="text-sm text-[#2C2824]/70"><strong>Tranquillite d'esprit</strong> — un matelas financier disponible en toutes circonstances</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-black/5">
+            <p class="text-xs text-[#2C2824]/50">
+              <strong>Placements recommandes :</strong> Livret A (plafond 22 950 EUR), LDDS (plafond 12 000 EUR), fonds euros en assurance-vie (capital garanti, disponible sous quelques jours).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CCA EXPLICATION -->
+  <section class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Votre investissement : le Compte Courant d'Associes</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">200 000 EUR pretes a la Ferme du Verseau (SAS LAOM)</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="bg-[#7B6B8A]/5 rounded-sm border border-[#7B6B8A]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#7B6B8A] mb-3">Qu'est-ce qu'un CCA ?</h3>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+            Une <strong>avance de fonds</strong> que vous faites a la societe. Ce n'est pas un investissement a risque — c'est une <strong>creance</strong>. Vous etes creanciere : en cas de difficulte, vous etes remboursee <strong>avant les actionnaires</strong>.
+          </p>
+        </div>
+        <div class="bg-[#7B6B8A]/5 rounded-sm border border-[#7B6B8A]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#7B6B8A] mb-3">Comment ca marche ?</h3>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+            Vous pretez 200 000 EUR a la societe. La societe vous rembourse <strong>chaque mois</strong> (capital + interets), exactement comme un pret bancaire — sauf que c'est vous la banque.
+          </p>
+        </div>
+        <div class="bg-[#7B6B8A]/5 rounded-sm border border-[#7B6B8A]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#7B6B8A] mb-3">A quoi sert votre pret ?</h3>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+            Vos 200 000 EUR financent les travaux du <strong>coliving de LAOM</strong> (7 chambres, 125 m2). Ce coliving genere des revenus d'hebergement qui permettent de vous rembourser.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENARIOS -->
+  <section id="scenarios" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Deux scenarios a votre choix</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Choisissez celui qui correspond le mieux a vos besoins</p>
+      </div>
+
+      <!-- Scenario A -->
+      <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div>
+            <span class="badge bg-[#C4A855] text-white mb-2">Scenario A</span>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824]">15 ans — Taux indexe sur l'inflation</h3>
+          </div>
+          <div class="text-left sm:text-right">
+            <p class="text-2xl font-bold text-[#C4A855]">{formatNumber(scenarioA.mensualite)} EUR/mois</p>
+            <p class="text-xs text-[#2C2824]/50">Capital epuise a {scenarioA.ageFin} ans</p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-4 gap-4 mb-6">
+          <div class="bg-[#FAF8F5] rounded-sm p-3 text-center">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Duree</p>
+            <p class="text-lg font-medium text-[#2C2824]">{scenarioA.duree} ans</p>
+          </div>
+          <div class="bg-[#FAF8F5] rounded-sm p-3 text-center">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Taux</p>
+            <p class="text-lg font-medium text-[#2C2824]">{scenarioA.tauxLabel}</p>
+          </div>
+          <div class="bg-[#FAF8F5] rounded-sm p-3 text-center">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Total recu</p>
+            <p class="text-lg font-medium text-[#2C2824]">{formatNumber(scenarioA.totalRecu)} EUR</p>
+          </div>
+          <div class="bg-[#C4A855]/10 rounded-sm p-3 text-center">
+            <p class="text-xs text-[#C4A855]/70 uppercase tracking-wider mb-1">Dont interets</p>
+            <p class="text-lg font-bold text-[#C4A855]">{formatNumber(scenarioA.totalInterets)} EUR</p>
+          </div>
+        </div>
+
+        <!-- Tableau A -->
+        <details class="group">
+          <summary class="cursor-pointer text-sm text-[#7B6B8A] font-medium flex items-center gap-2 hover:text-[#6A5C78] transition-colors">
+            <svg class="w-4 h-4 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            Voir le tableau de remboursement annuel
+          </summary>
+          <div class="table-container mt-4">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-black/10 bg-[#FAF8F5]">
+                  <th class="text-left py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Annee</th>
+                  <th class="text-center py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Age</th>
+                  <th class="text-right py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Interets</th>
+                  <th class="text-right py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Capital</th>
+                  <th class="text-right py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Restant du</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scenarioA.tableau.map((r, i) => (
+                  <tr class={`border-b border-black/5 ${i === scenarioA.tableau.length - 1 ? 'bg-[#C4A855]/5' : ''}`}>
+                    <td class="py-2 px-3 text-[#2C2824]">{r.annee}</td>
+                    <td class="py-2 px-3 text-center text-[#2C2824]/60">{r.age} ans</td>
+                    <td class="py-2 px-3 text-right text-[#C4A855]">{formatNumber(r.interets)} EUR</td>
+                    <td class="py-2 px-3 text-right text-[#2C2824]">{formatNumber(r.capital)} EUR</td>
+                    <td class="py-2 px-3 text-right font-medium text-[#2C2824]">{formatNumber(r.restant)} EUR</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Revenu total A -->
+        <div class="mt-6 pt-4 border-t border-black/5">
+          <p class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-3">Revenu total avec pergola</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-[#FAF8F5] rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/50 mb-1">De 61 a 76 ans</p>
+              <p class="text-lg font-medium text-[#2C2824]">~1 500 - 1 583 EUR/mois</p>
+              <p class="text-xs text-[#2C2824]/40">CCA {formatNumber(scenarioA.mensualite)} + pergola 167-250</p>
+            </div>
+            <div class="bg-[#FAF8F5] rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/50 mb-1">Apres 76 ans</p>
+              <p class="text-lg font-medium text-[#2C2824]">167 - 250 EUR/mois</p>
+              <p class="text-xs text-[#2C2824]/40">Pergola uniquement (rente indefinie)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario B -->
+      <div class="bg-white rounded-sm border border-[#7B6B8A]/20 p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div>
+            <span class="badge bg-[#7B6B8A] text-white mb-2">Scenario B</span>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824]">25 ans — Taux fixe 4,5%</h3>
+          </div>
+          <div class="text-left sm:text-right">
+            <p class="text-2xl font-bold text-[#7B6B8A]">{formatNumber(scenarioB.mensualite)} EUR/mois</p>
+            <p class="text-xs text-[#2C2824]/50">Capital epuise a {scenarioB.ageFin} ans</p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-4 gap-4 mb-6">
+          <div class="bg-[#FAF8F5] rounded-sm p-3 text-center">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Duree</p>
+            <p class="text-lg font-medium text-[#2C2824]">{scenarioB.duree} ans</p>
+          </div>
+          <div class="bg-[#FAF8F5] rounded-sm p-3 text-center">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Taux</p>
+            <p class="text-lg font-medium text-[#2C2824]">{scenarioB.tauxLabel}</p>
+          </div>
+          <div class="bg-[#FAF8F5] rounded-sm p-3 text-center">
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-1">Total recu</p>
+            <p class="text-lg font-medium text-[#2C2824]">{formatNumber(scenarioB.totalRecu)} EUR</p>
+          </div>
+          <div class="bg-[#7B6B8A]/10 rounded-sm p-3 text-center">
+            <p class="text-xs text-[#7B6B8A]/70 uppercase tracking-wider mb-1">Dont interets</p>
+            <p class="text-lg font-bold text-[#7B6B8A]">{formatNumber(scenarioB.totalInterets)} EUR</p>
+          </div>
+        </div>
+
+        <!-- Tableau B -->
+        <details class="group">
+          <summary class="cursor-pointer text-sm text-[#7B6B8A] font-medium flex items-center gap-2 hover:text-[#6A5C78] transition-colors">
+            <svg class="w-4 h-4 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            Voir le tableau de remboursement annuel
+          </summary>
+          <div class="table-container mt-4">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-black/10 bg-[#FAF8F5]">
+                  <th class="text-left py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Annee</th>
+                  <th class="text-center py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Age</th>
+                  <th class="text-right py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Interets</th>
+                  <th class="text-right py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Capital</th>
+                  <th class="text-right py-2 px-3 text-xs uppercase tracking-wider text-[#2C2824]/50">Restant du</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scenarioB.tableau.map((r, i) => (
+                  <tr class={`border-b border-black/5 ${i === scenarioB.tableau.length - 1 ? 'bg-[#7B6B8A]/5' : ''}`}>
+                    <td class="py-2 px-3 text-[#2C2824]">{r.annee}</td>
+                    <td class="py-2 px-3 text-center text-[#2C2824]/60">{r.age} ans</td>
+                    <td class="py-2 px-3 text-right text-[#7B6B8A]">{formatNumber(r.interets)} EUR</td>
+                    <td class="py-2 px-3 text-right text-[#2C2824]">{formatNumber(r.capital)} EUR</td>
+                    <td class="py-2 px-3 text-right font-medium text-[#2C2824]">{formatNumber(r.restant)} EUR</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Revenu total B -->
+        <div class="mt-6 pt-4 border-t border-black/5">
+          <p class="text-xs font-medium text-[#2C2824]/60 uppercase tracking-wider mb-3">Revenu total avec pergola</p>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-[#FAF8F5] rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/50 mb-1">De 61 a 86 ans</p>
+              <p class="text-lg font-medium text-[#2C2824]">~1 278 - 1 361 EUR/mois</p>
+              <p class="text-xs text-[#2C2824]/40">CCA {formatNumber(scenarioB.mensualite)} + pergola 167-250</p>
+            </div>
+            <div class="bg-[#FAF8F5] rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/50 mb-1">Apres 86 ans</p>
+              <p class="text-lg font-medium text-[#2C2824]">167 - 250 EUR/mois</p>
+              <p class="text-xs text-[#2C2824]/40">Pergola uniquement (rente indefinie)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARATIF -->
+  <section id="comparatif" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Comparatif</h2>
+      </div>
+
+      <div class="table-container bg-[#FAF8F5] rounded-sm border border-black/5 mb-8">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/10">
+              <th class="text-left py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider"></th>
+              <th class="text-center py-3 px-4 font-medium text-[#C4A855] text-xs uppercase tracking-wider">Scenario A (15 ans)</th>
+              <th class="text-center py-3 px-4 font-medium text-[#7B6B8A] text-xs uppercase tracking-wider">Scenario B (25 ans)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Duree</td>
+              <td class="py-3 px-4 text-center">{scenarioA.duree} ans</td>
+              <td class="py-3 px-4 text-center">{scenarioB.duree} ans</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Taux</td>
+              <td class="py-3 px-4 text-center">{scenarioA.tauxType}</td>
+              <td class="py-3 px-4 text-center">{scenarioB.tauxType}</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Mensualite CCA</td>
+              <td class="py-3 px-4 text-center font-bold text-[#C4A855]">{formatNumber(scenarioA.mensualite)} EUR</td>
+              <td class="py-3 px-4 text-center font-bold text-[#7B6B8A]">{formatNumber(scenarioB.mensualite)} EUR</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Revenu total/mois (avec pergola)</td>
+              <td class="py-3 px-4 text-center">~1 500 - 1 583 EUR</td>
+              <td class="py-3 px-4 text-center">~1 278 - 1 361 EUR</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Total recu</td>
+              <td class="py-3 px-4 text-center">{formatNumber(scenarioA.totalRecu)} EUR</td>
+              <td class="py-3 px-4 text-center">{formatNumber(scenarioB.totalRecu)} EUR</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Dont interets</td>
+              <td class="py-3 px-4 text-center text-[#C4A855]">{formatNumber(scenarioA.totalInterets)} EUR</td>
+              <td class="py-3 px-4 text-center text-[#7B6B8A]">{formatNumber(scenarioB.totalInterets)} EUR</td>
+            </tr>
+            <tr class="border-b border-black/5 bg-[#FAF8F5]">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Capital epuise a</td>
+              <td class="py-3 px-4 text-center font-bold">{scenarioA.ageFin} ans</td>
+              <td class="py-3 px-4 text-center font-bold">{scenarioB.ageFin} ans</td>
+            </tr>
+            <tr class="border-b border-black/5">
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Revenu apres fin CCA</td>
+              <td class="py-3 px-4 text-center text-[#4A7C59]">Pergola 167-250 EUR/mois</td>
+              <td class="py-3 px-4 text-center text-[#4A7C59]">Pergola 167-250 EUR/mois</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-[#2C2824] font-medium">Patrimoine conserve</td>
+              <td class="py-3 px-4 text-center" colspan="2">Lot Le Ruisseau (174k+) + Pergola + Epargne securite</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Avantages -->
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-[#C4A855]/5 rounded-sm border border-[#C4A855]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#C4A855] mb-4">Avantages du Scenario A</h3>
+          <ul class="space-y-2 text-sm text-[#2C2824]/70">
+            <li class="flex items-start gap-2"><span class="text-[#C4A855]">+</span> Mensualite plus elevee (+222 EUR/mois)</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855]">+</span> Capital rembourse plus vite = liberte financiere plus tot</li>
+            <li class="flex items-start gap-2"><span class="text-[#C4A855]">+</span> Si l'inflation baisse, vos mensualites pourraient baisser aussi</li>
+          </ul>
+        </div>
+        <div class="bg-[#7B6B8A]/5 rounded-sm border border-[#7B6B8A]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#7B6B8A] mb-4">Avantages du Scenario B</h3>
+          <ul class="space-y-2 text-sm text-[#2C2824]/70">
+            <li class="flex items-start gap-2"><span class="text-[#7B6B8A]">+</span> Revenu qui dure 10 ans de plus (jusqu'a 86 ans)</li>
+            <li class="flex items-start gap-2"><span class="text-[#7B6B8A]">+</span> Mensualite stable et previsible (taux fixe)</li>
+            <li class="flex items-start gap-2"><span class="text-[#7B6B8A]">+</span> Plus d'interets recus au total (+93 360 EUR)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RACHAT ANTICIPE -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="bg-[#2C2824] rounded-sm p-4 sm:p-6 text-white">
+        <h3 class="text-sm font-medium mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Rachat anticipe possible — Dans les deux scenarios
+        </h3>
+        <p class="text-sm text-white/80 leading-relaxed mb-4">
+          Une clause de <strong>remboursement anticipe sans penalite</strong> est prevue dans la convention.
+        </p>
+        <p class="text-sm text-white/80 leading-relaxed mb-4">
+          A partir de <strong>2030</strong>, la Ferme du Verseau devrait atteindre sa vitesse de croisiere economique : le coliving sera operationnel, les evenements en croissance, le lieu de restauration ouvert. A ce moment-la, la societe pourra contracter un <strong>pret bancaire classique</strong> pour racheter votre Compte Courant d'Associes.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4 mt-4 pt-4 border-t border-white/10">
+          <div>
+            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Ce que ca signifie</p>
+            <p class="text-sm text-white/90">Vous recevez le solde de votre capital restant du <strong>en une seule fois</strong></p>
+          </div>
+          <div>
+            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Vos actifs</p>
+            <p class="text-sm text-white/90">Vous conservez votre lot, votre pergola et votre epargne</p>
+          </div>
+          <div>
+            <p class="text-white/50 text-xs uppercase tracking-wider mb-1">Votre capital</p>
+            <p class="text-sm text-white/90">Vous pouvez le placer ou l'utiliser comme vous le souhaitez</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GARANTIES -->
+  <section id="garanties" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Vos droits et garanties</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <div class="w-8 h-8 rounded-full bg-[#7B6B8A]/10 flex items-center justify-center mb-3">
+            <svg class="w-4 h-4 text-[#7B6B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-medium text-[#2C2824] mb-2">Priorite de remboursement</h3>
+          <p class="text-xs text-[#2C2824]/60">Votre CCA est rembourse en priorite sur les autres comptes courants existants (560k EUR au total). Vous passez en premier.</p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <div class="w-8 h-8 rounded-full bg-[#7B6B8A]/10 flex items-center justify-center mb-3">
+            <svg class="w-4 h-4 text-[#7B6B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-medium text-[#2C2824] mb-2">Remboursement anticipe</h3>
+          <p class="text-xs text-[#2C2824]/60">La societe peut rembourser tout ou partie de votre CCA a tout moment, sans penalite ni indemnite.</p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <div class="w-8 h-8 rounded-full bg-[#7B6B8A]/10 flex items-center justify-center mb-3">
+            <svg class="w-4 h-4 text-[#7B6B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-medium text-[#2C2824] mb-2">Droit d'information</h3>
+          <p class="text-xs text-[#2C2824]/60">Acces aux comptes annuels de la societe (bilan, compte de resultat). Vous voyez comment votre argent est utilise.</p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <div class="w-8 h-8 rounded-full bg-[#7B6B8A]/10 flex items-center justify-center mb-3">
+            <svg class="w-4 h-4 text-[#7B6B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-medium text-[#2C2824] mb-2">Exigibilite anticipee</h3>
+          <p class="text-xs text-[#2C2824]/60">En cas de liquidation ou procedure collective, votre CCA devient immediatement exigible. Vous etes creanciere avant les actionnaires.</p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <div class="w-8 h-8 rounded-full bg-[#7B6B8A]/10 flex items-center justify-center mb-3">
+            <svg class="w-4 h-4 text-[#7B6B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-medium text-[#2C2824] mb-2">Cessibilite</h3>
+          <p class="text-xs text-[#2C2824]/60">Votre CCA est transmissible a vos heritiers et cessible a un tiers (sous agrement de la societe).</p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4">
+          <div class="w-8 h-8 rounded-full bg-[#7B6B8A]/10 flex items-center justify-center mb-3">
+            <svg class="w-4 h-4 text-[#7B6B8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </div>
+          <h3 class="text-sm font-medium text-[#2C2824] mb-2">Patrimoine conserve</h3>
+          <p class="text-xs text-[#2C2824]/60">Lot Le Ruisseau (174k+), pergola generatrice de revenu, epargne de securite. Vous ne vous retrouvez jamais "sans rien".</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCHAINES ETAPES -->
+  <section id="etapes" class="py-8 sm:py-10 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-white">Prochaines etapes</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#7B6B8A] text-white text-sm font-medium mb-3">1</span>
+          <h3 class="text-sm font-medium text-white mb-2">Choix du scenario</h3>
+          <p class="text-xs text-white/50">Prenez le temps de lire ce document. Choisissez le scenario A ou B.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#7B6B8A]/80 text-white text-sm font-medium mb-3">2</span>
+          <h3 class="text-sm font-medium text-white mb-2">Signature convention CCA</h3>
+          <p class="text-xs text-white/50">Document juridique formalisant les conditions de votre Compte Courant.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#7B6B8A]/60 text-white text-sm font-medium mb-3">3</span>
+          <h3 class="text-sm font-medium text-white mb-2">Entree au capital SAS</h3>
+          <p class="text-xs text-white/50">Acquisition d'une action (50 EUR). Validation en Assemblee Generale.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#7B6B8A]/40 text-white/80 text-sm font-medium mb-3">4</span>
+          <h3 class="text-sm font-medium text-white mb-2">Versement du CCA</h3>
+          <p class="text-xs text-white/50">Virement de 200 000 EUR sur le compte de la SAS.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/60 text-sm font-medium mb-3">5</span>
+          <h3 class="text-sm font-medium text-white mb-2">Acquisition lot SCIA</h3>
+          <p class="text-xs text-white/50">Passage chez le notaire pour l'acquisition de vos parts (Le Ruisseau).</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/60 text-sm font-medium mb-3">6</span>
+          <h3 class="text-sm font-medium text-white mb-2">Demarrage travaux</h3>
+          <p class="text-xs text-white/50">Amenagement de votre lot et construction de la pergola.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 bg-[#1a1a1a] border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <p class="text-xs text-white/30">
+          Espace Magali — Document confidentiel
+        </p>
+        <p class="text-xs text-white/30">
+          NILA · Fevrier 2026
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Password protection
+    const PASSWORD = 'magalie'
+    const STORAGE_KEY = 'magali_auth'
+
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>
