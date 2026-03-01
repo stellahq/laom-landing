@@ -25,7 +25,6 @@ const teamLinks = [
 const cockpitLink = { href: '/cockpit/', label: 'Cockpit Charly', short: 'Cockpit' }
 const valorisationLink = { href: '/valorisation-fdv/', label: 'Valorisation FDV', short: 'Valo.' }
 const magaliLink = { href: '/magali/', label: 'Espace Magali', short: 'Magali' }
-const margueEstLink = { href: '/la-margue-est/', label: 'La Margue Est', short: 'Margue Est' }
 
 function isActive(href: string): boolean {
   return currentPage === href || currentPage === href.replace(/\/$/, '')
@@ -80,12 +79,6 @@ function isActive(href: string): boolean {
         class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(magaliLink.href) ? 'text-[#7B6B8A] bg-[#7B6B8A]/10' : 'text-[#7B6B8A]/70 hover:text-[#7B6B8A] hover:bg-[#7B6B8A]/10'}`}
       >
         {magaliLink.short}
-      </a>
-      <a 
-        href={margueEstLink.href} 
-        class={`px-3 py-2 text-xs font-light rounded-sm transition-colors whitespace-nowrap ${isActive(margueEstLink.href) ? 'text-[#4A7C59] bg-[#4A7C59]/10' : 'text-[#4A7C59]/70 hover:text-[#4A7C59] hover:bg-[#4A7C59]/10'}`}
-      >
-        {margueEstLink.short}
       </a>
     </div>
 
@@ -170,12 +163,6 @@ function isActive(href: string): boolean {
         class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(magaliLink.href) ? 'text-[#7B6B8A] bg-[#7B6B8A]/10' : 'text-[#7B6B8A]/70 hover:text-[#7B6B8A] hover:bg-[#7B6B8A]/5'}`}
       >
         {magaliLink.label}
-      </a>
-      <a 
-        href={margueEstLink.href} 
-        class={`block px-4 py-4 text-xl font-light rounded-sm transition-colors ${isActive(margueEstLink.href) ? 'text-[#4A7C59] bg-[#4A7C59]/10' : 'text-[#4A7C59]/70 hover:text-[#4A7C59] hover:bg-[#4A7C59]/5'}`}
-      >
-        {margueEstLink.label}
       </a>
     </div>
   </div>

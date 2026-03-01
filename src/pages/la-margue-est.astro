@@ -1,6 +1,5 @@
 ---
 import Layout from '~/layouts/Layout.astro'
-import MobileNav from '~/components/MobileNav.astro'
 
 export const prerender = true
 
@@ -190,8 +189,18 @@ function formatNumber(n: number): string {
     </div>
   </div>
 
-  <!-- Navbar -->
-  <MobileNav currentPage="/la-margue-est/" />
+  <!-- Navbar autonome -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a] border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 h-14 flex items-center justify-between">
+      <a href="/" class="text-white/50 hover:text-white text-sm font-light transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>LAOM</span>
+      </a>
+      <span class="text-xs font-light tracking-[0.15em] uppercase text-[#4A7C59]">Espace La Margue Est</span>
+    </div>
+  </nav>
 
   <!-- Header -->
   <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-10">
@@ -613,9 +622,10 @@ function formatNumber(n: number): string {
   <section class="py-6 bg-[#1a1a1a] border-t border-white/10">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-        <p class="text-xs text-white/30">
-          SCIA La Margue Est — Document confidentiel
-        </p>
+        <div>
+          <p class="text-xs text-[#4A7C59]/70 font-medium uppercase tracking-wider mb-1">Espace La Margue Est</p>
+          <p class="text-xs text-white/30">Document confidentiel — Accès réservé aux associés</p>
+        </div>
         <p class="text-xs text-white/30">
           NILA · Mars 2026
         </p>
