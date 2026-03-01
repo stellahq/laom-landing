@@ -1,0 +1,652 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// SCIA LA MARGUE EST — Espace Associés
+// Récapitulatif financier par lot — Mars 2026
+// ==========================================
+
+// Couleurs par lot
+const COLORS = {
+  lavande: '#7B6B9A',
+  olivier: '#6B7D3E',
+  grange: '#8B6B4A',
+  lyre: '#C4A855',
+  ruisseau: '#7B6B8A',
+  riviere: '#4A7C8A',
+  maisonCommune: '#B06B4A',
+}
+
+// Main à main : fourchette
+const mainAMainBas = 3083
+const mainAMainHaut = 4167
+
+// Frais communs (identiques pour tous les associés, payés une seule fois)
+const fraisCommuns = [
+  { poste: 'Main à main (petit matériel domaine)', montantLabel: `${mainAMainBas.toLocaleString('fr-FR')} à ${mainAMainHaut.toLocaleString('fr-FR')} EUR`, detail: 'Montant total à déterminer entre 37 000 et 50 000 EUR, divisé par 12 associés. Contribution à l\'achat du petit matériel d\'entretien collectif (tronçonneuse, débroussailleuse, outillage), au deck et aux frais d\'accompagnement engagés (Pierre Lévy, Mika, Stéphanie, STECAL, Oasis).', isRange: true },
+  { poste: 'Quote-part foyer commun', montantLabel: '7 000 EUR', detail: 'Contribution à l\'acquisition de la quote-part du foyer commun du domaine.', isRange: false, montant: 7000 },
+  { poste: 'Frais administratifs à prévoir', montantLabel: '4 000 EUR', detail: 'Provision conservatoire pour frais de notaire et frais administratifs liés à la constitution de la SCIA.', isRange: false, montant: 4000 },
+]
+const totalFraisCommunsBas = mainAMainBas + 7000 + 4000
+const totalFraisCommunsHaut = mainAMainHaut + 7000 + 4000
+
+// Lots SCIA La Margue Est
+const lots = [
+  {
+    numero: 1,
+    nom: 'Gîte Lavande',
+    associe: 'Khaldoun Alshaar',
+    prix: 62938,
+    quotePartDomaine: 8979,
+    provisionTravaux: 3750,
+    color: COLORS.lavande,
+    description: 'Gîte de 25 m² — ancien gîte piscine rénové.',
+    decomposable: true,
+  },
+  {
+    numero: 2,
+    nom: 'Gîte Olivier',
+    associe: 'Serge et Marie-Agnès Lièvremont',
+    prix: 88113,
+    quotePartDomaine: 8979,
+    provisionTravaux: 3750,
+    color: COLORS.olivier,
+    description: 'Gîte de 35 m² — ancien gîte piscine rénové.',
+    decomposable: true,
+  },
+  {
+    numero: 3,
+    nom: 'La Grange',
+    associe: 'Patricia Salgon',
+    prix: 156087,
+    quotePartDomaine: 12958,
+    provisionTravaux: 3750,
+    color: COLORS.grange,
+    description: 'Résidence principale — ancienne grange rénovée.',
+    decomposable: true,
+  },
+  {
+    numero: 4,
+    nom: 'La Lyre',
+    associe: 'Awa Boyé',
+    prix: 286998,
+    quotePartDomaine: 17958,
+    provisionTravaux: 3750,
+    color: COLORS.lyre,
+    description: 'Résidence principale — habitation avec travaux de rénovation engagés.',
+    decomposable: true,
+  },
+  {
+    numero: 5,
+    nom: 'Le Ruisseau',
+    associe: 'Magali Rouby',
+    prix: 173709,
+    quotePartDomaine: 17958,
+    provisionTravaux: 3750,
+    color: COLORS.ruisseau,
+    description: 'Résidence principale.',
+    decomposable: true,
+  },
+  {
+    numero: 6,
+    nom: 'Rivière',
+    associe: 'Grégoire Renevier',
+    prix: 170185,
+    quotePartDomaine: 17958,
+    provisionTravaux: 3750,
+    color: COLORS.riviere,
+    description: 'Résidence principale — terrasse créée.',
+    decomposable: true,
+  },
+  {
+    numero: 7,
+    nom: 'Ex-Maison Commune',
+    associe: 'David Viala et Charlotte Brun',
+    prix: 201402,
+    quotePartDomaine: 17958,
+    provisionTravaux: 3750,
+    color: COLORS.maisonCommune,
+    description: 'Résidence principale — ancienne maison commune.',
+    decomposable: true,
+  },
+  {
+    numero: 8,
+    nom: 'Pergola',
+    associe: 'Magali Rouby',
+    prix: 10977,
+    quotePartDomaine: 8977,
+    provisionTravaux: 2000,
+    color: COLORS.ruisseau,
+    description: 'Hébergement indépendant de 25 m² — structure existante.',
+    decomposable: false,
+  },
+]
+
+// Regrouper par associé pour le récapitulatif
+const associes = [
+  { nom: 'Khaldoun Alshaar', lots: [lots[0]], totalLots: lots[0].prix, color: COLORS.lavande },
+  { nom: 'Serge et Marie-Agnès Lièvremont', lots: [lots[1]], totalLots: lots[1].prix, color: COLORS.olivier },
+  { nom: 'Patricia Salgon', lots: [lots[2]], totalLots: lots[2].prix, color: COLORS.grange },
+  { nom: 'Awa Boyé', lots: [lots[3]], totalLots: lots[3].prix, color: COLORS.lyre },
+  { nom: 'Magali Rouby', lots: [lots[4], lots[7]], totalLots: lots[4].prix + lots[7].prix, color: COLORS.ruisseau },
+  { nom: 'Grégoire Renevier', lots: [lots[5]], totalLots: lots[5].prix, color: COLORS.riviere },
+  { nom: 'David Viala et Charlotte Brun', lots: [lots[6]], totalLots: lots[6].prix, color: COLORS.maisonCommune },
+]
+
+const totalValeurLots = lots.reduce((s, l) => s + l.prix, 0)
+
+function formatNumber(n: number): string {
+  return n.toLocaleString('fr-FR')
+}
+---
+
+<Layout
+  title="SCIA La Margue Est — Espace Associés | LAOM"
+  description="Récapitulatif financier par lot — SCIA La Margue Est"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-container table { min-width: 100%; }
+    @media (max-width: 640px) {
+      .table-container table { font-size: 0.8rem; }
+      .table-container th, .table-container td { padding: 0.5rem 0.375rem; }
+    }
+  </style>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#4A7C59]/10 border border-[#4A7C59]/20 mb-6">
+          <svg class="w-8 h-8 text-[#4A7C59]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">SCIA La Margue Est</h2>
+        <p class="text-white/50 text-sm">Espace associés — Document confidentiel</p>
+      </div>
+
+      <form id="password-form" class="space-y-4">
+        <input
+          type="password"
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#4A7C59]/50 focus:ring-1 focus:ring-[#4A7C59]/30 transition-all"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#4A7C59] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3d6a4b] transition-colors"
+        >
+          Accéder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/la-margue-est/" />
+
+  <!-- Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#4A7C59] mb-2">Espace associés</p>
+          <h1 class="font-playfair text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight">
+            SCIA La Margue Est
+          </h1>
+        </div>
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-white/40">Mars 2026</p>
+          <p class="text-sm text-white/70">Récapitulatif financier</p>
+        </div>
+      </div>
+      <p class="text-sm text-white/50 max-w-2xl">
+        Récapitulatif des montants par lot et par associé. Chaque lot inclut la quote-part domaine, la provision rénovation fosse et la provision travaux imprévus.
+      </p>
+
+      <!-- Quick stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-white/10">
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-[#4A7C59]">8</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Lots</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">7</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Associés / ménages</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white">{formatNumber(totalValeurLots)} EUR</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Valeur totale lots</p>
+        </div>
+        <div>
+          <p class="font-playfair text-2xl sm:text-3xl font-medium text-white/70">{formatNumber(totalFraisCommunsBas)} à {formatNumber(totalFraisCommunsHaut)} EUR</p>
+          <p class="text-xs font-light text-white/40 uppercase tracking-wider mt-1">Frais communs / associé</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm pb-1">
+        <a href="#documents-top" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap">Documents</a>
+        <a href="#recapitulatif" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap font-medium">Récapitulatif</a>
+        <a href="#frais" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap">Frais communs</a>
+        <a href="#lots" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap">Détail par lot</a>
+        <a href="#comprendre" class="text-[#2C2824]/60 hover:text-[#4A7C59] transition-colors whitespace-nowrap">Comprendre</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- DOCUMENTS DE REFERENCE (HAUT) -->
+  <section id="documents-top" class="py-6 bg-white border-b border-black/5">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <p class="text-xs font-medium text-[#2C2824]/50 uppercase tracking-wider mb-3">Documents de référence</p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a
+          href="https://docs.google.com/spreadsheets/d/1lF2Y-HXcoMBFGekGgZmUevP9XvDhY8Np/edit?gid=38534106#gid=38534106"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm bg-[#4A7C59]/5 border border-[#4A7C59]/15 text-sm text-[#4A7C59] hover:bg-[#4A7C59]/10 transition-colors"
+          aria-label="Montage financier SCIA — ouvre dans un nouvel onglet"
+        >
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Montage financier SCIA
+          <svg class="w-3 h-3 flex-shrink-0 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+        <a
+          href="https://docs.google.com/document/d/1QFltlG0GssUVV81iwfpMfTW8FbBD9MN-/edit?rtpof=true&tab=t.0"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm bg-[#C4A855]/5 border border-[#C4A855]/15 text-sm text-[#C4A855] hover:bg-[#C4A855]/10 transition-colors"
+          aria-label="Statuts SCIA La Margue — ouvre dans un nouvel onglet"
+        >
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Statuts SCIA La Margue
+          <svg class="w-3 h-3 flex-shrink-0 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECAPITULATIF GLOBAL -->
+  <section id="recapitulatif" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Récapitulatif par associé</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Vue globale — Tous les montants incluent la quote-part domaine et les provisions travaux</p>
+      </div>
+
+      <div class="table-container bg-white rounded-sm border border-black/5">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-black/10">
+              <th class="text-left py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Associé</th>
+              <th class="text-left py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Lot(s)</th>
+              <th class="text-right py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Prix lot(s)</th>
+              <th class="text-right py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Frais communs</th>
+              <th class="text-right py-3 px-4 font-medium text-[#2C2824]/70 text-xs uppercase tracking-wider">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {associes.map((a, i) => (
+              <tr class={`border-b border-black/5 ${i === associes.length - 1 ? 'border-b-0' : ''}`}>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style={`background-color: ${a.color}`}></span>
+                    <span class="text-[#2C2824] font-medium">{a.nom}</span>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-[#2C2824]/70">{a.lots.map(l => l.nom).join(' + ')}</td>
+                <td class="py-3 px-4 text-right text-[#2C2824]">{formatNumber(a.totalLots)} EUR</td>
+                <td class="py-3 px-4 text-right text-[#2C2824]/60 text-xs">{formatNumber(totalFraisCommunsBas)} à {formatNumber(totalFraisCommunsHaut)} EUR</td>
+                <td class="py-3 px-4 text-right font-bold text-xs" style={`color: ${a.color}`}>{formatNumber(a.totalLots + totalFraisCommunsBas)} à {formatNumber(a.totalLots + totalFraisCommunsHaut)} EUR</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr class="bg-[#1a1a1a] text-white">
+              <td class="py-3 px-4 font-medium" colspan="2">Total SCIA La Margue Est</td>
+              <td class="py-3 px-4 text-right font-bold">{formatNumber(totalValeurLots)} EUR</td>
+              <td class="py-3 px-4 text-right font-bold text-xs">{formatNumber(totalFraisCommunsBas * associes.length)} à {formatNumber(totalFraisCommunsHaut * associes.length)} EUR</td>
+              <td class="py-3 px-4 text-right font-bold text-xs">{formatNumber(totalValeurLots + totalFraisCommunsBas * associes.length)} à {formatNumber(totalValeurLots + totalFraisCommunsHaut * associes.length)} EUR</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRAIS COMMUNS -->
+  <section id="frais" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Frais communs</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Identiques pour chaque associé — payés une seule fois, quel que soit le nombre de lots</p>
+      </div>
+
+      <div class="bg-[#FAF8F5] rounded-sm border border-black/5">
+        {fraisCommuns.map((f, i) => (
+          <div class={`flex flex-col sm:flex-row sm:items-center justify-between p-4 ${i < fraisCommuns.length - 1 ? 'border-b border-black/5' : ''}`}>
+            <div class="mb-2 sm:mb-0">
+              <span class="text-sm text-[#2C2824] font-medium">{f.poste}</span>
+              <span class="block text-xs text-[#2C2824]/40 mt-0.5">{f.detail}</span>
+            </div>
+            <span class="text-sm font-medium text-[#2C2824] whitespace-nowrap">{f.montantLabel}</span>
+          </div>
+        ))}
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-[#4A7C59]/5 border-t border-[#4A7C59]/10">
+          <span class="text-sm font-medium text-[#4A7C59]">Total frais communs par associé</span>
+          <span class="text-sm font-bold text-[#4A7C59]">{formatNumber(totalFraisCommunsBas)} à {formatNumber(totalFraisCommunsHaut)} EUR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÉTAIL PAR LOT -->
+  <section id="lots" class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Détail par lot</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Cliquez sur chaque associé pour voir le détail des montants</p>
+      </div>
+
+      <div class="space-y-3">
+        {associes.map((a) => (
+          <details class="group bg-white rounded-sm border border-black/5 overflow-hidden">
+            <summary class="cursor-pointer p-4 sm:p-5 flex items-center justify-between hover:bg-black/[0.01] transition-colors">
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 rounded-full flex-shrink-0" style={`background-color: ${a.color}`}></span>
+                <div>
+                  <h3 class="font-medium text-[#2C2824]">{a.nom}</h3>
+                  <p class="text-xs text-[#2C2824]/50 mt-0.5">{a.lots.map(l => `Lot ${l.numero} — ${l.nom}`).join(' + ')}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <span class="font-playfair text-lg sm:text-xl font-bold whitespace-nowrap" style={`color: ${a.color}`}>{formatNumber(a.totalLots + totalFraisCommunsHaut)} EUR</span>
+                <svg class="w-5 h-5 text-[#2C2824]/30 transition-transform group-open:rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </summary>
+
+            <div class="border-t border-black/5 p-4 sm:p-5" style={`border-top-color: ${a.color}20`}>
+              <!-- Lots de l'associé -->
+              {a.lots.map((lot) => (
+                <div class="mb-5 last:mb-0">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="badge text-white" style={`background-color: ${lot.color}`}>Lot {lot.numero}</span>
+                    <span class="text-sm font-medium text-[#2C2824]">{lot.nom}</span>
+                  </div>
+                  <div class="bg-[#FAF8F5] rounded-sm p-4 mb-3">
+                    <p class="text-sm text-[#2C2824]/70">{lot.description}</p>
+                  </div>
+
+                  {lot.decomposable ? (
+                    <div class="space-y-1">
+                      <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-white">
+                        <span class="text-sm text-[#2C2824]/70">Valeur du bâti</span>
+                        <span class="text-sm text-[#2C2824]">{formatNumber(lot.prix - lot.quotePartDomaine - lot.provisionTravaux)} EUR</span>
+                      </div>
+                      <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-white">
+                        <span class="text-sm text-[#2C2824]/70">Quote-part domaine</span>
+                        <span class="text-sm text-[#2C2824]">{formatNumber(lot.quotePartDomaine)} EUR</span>
+                      </div>
+                      <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-white">
+                        <span class="text-sm text-[#2C2824]/70">Provision travaux (fosse + imprévus)</span>
+                        <span class="text-sm text-[#2C2824]">{formatNumber(lot.provisionTravaux)} EUR</span>
+                      </div>
+                      <div class="flex items-center justify-between py-2 px-3 rounded-sm" style={`background-color: ${lot.color}08`}>
+                        <span class="text-sm font-medium" style={`color: ${lot.color}`}>Total lot {lot.nom}</span>
+                        <span class="text-sm font-bold" style={`color: ${lot.color}`}>{formatNumber(lot.prix)} EUR</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div class="space-y-1">
+                      <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-white">
+                        <span class="text-sm text-[#2C2824]/70">Quote-part domaine</span>
+                        <span class="text-sm text-[#2C2824]">{formatNumber(lot.quotePartDomaine)} EUR</span>
+                      </div>
+                      <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-white">
+                        <span class="text-sm text-[#2C2824]/70">Provision travaux</span>
+                        <span class="text-sm text-[#2C2824]">{formatNumber(lot.provisionTravaux)} EUR</span>
+                      </div>
+                      <div class="flex items-center justify-between py-2 px-3 rounded-sm" style={`background-color: ${lot.color}08`}>
+                        <span class="text-sm font-medium" style={`color: ${lot.color}`}>Total lot {lot.nom}</span>
+                        <span class="text-sm font-bold" style={`color: ${lot.color}`}>{formatNumber(lot.prix)} EUR</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              <!-- Séparation -->
+              <div class="border-t border-black/5 my-4"></div>
+
+              <!-- Frais communs -->
+              <p class="text-xs font-medium text-[#2C2824]/50 uppercase tracking-wider mb-3">Frais communs</p>
+              {fraisCommuns.map((f) => (
+                <div class="flex items-center justify-between py-2 px-3">
+                  <span class="text-sm text-[#2C2824]/70">{f.poste}</span>
+                  <span class="text-sm text-[#2C2824]/70 whitespace-nowrap ml-4">{f.montantLabel}</span>
+                </div>
+              ))}
+              <div class="flex items-center justify-between py-2 px-3 rounded-sm bg-[#4A7C59]/5 mt-2">
+                <span class="text-sm text-[#4A7C59]">Sous-total frais communs</span>
+                <span class="text-sm font-medium text-[#4A7C59]">{formatNumber(totalFraisCommunsBas)} à {formatNumber(totalFraisCommunsHaut)} EUR</span>
+              </div>
+
+              <!-- Total -->
+              <div class="mt-4 pt-4 border-t border-black/5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between py-3 px-4 rounded-sm" style={`background-color: ${a.color}10; border: 1px solid ${a.color}20`}>
+                  <span class="text-sm font-medium mb-1 sm:mb-0" style={`color: ${a.color}`}>Total à prévoir — {a.nom}</span>
+                  <span class="font-playfair text-xl font-bold" style={`color: ${a.color}`}>{formatNumber(a.totalLots + totalFraisCommunsBas)} à {formatNumber(a.totalLots + totalFraisCommunsHaut)} EUR</span>
+                </div>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPRENDRE -->
+  <section id="comprendre" class="py-8 sm:py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Comprendre les montants</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div class="bg-[#4A7C59]/5 rounded-sm border border-[#4A7C59]/20 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#4A7C59] mb-4">Qu'est-ce qu'une SCIA ?</h3>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed mb-3">
+            La <strong>Société Civile Immobilière d'Attribution</strong> est la structure juridique qui porte les bâtiments du domaine. Chaque habitant détient des parts proportionnelles à son lot.
+          </p>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+            Vos parts vous donnent la <strong>jouissance exclusive</strong> de votre logement et un <strong>droit d'usage</strong> des parties communes. C'est un patrimoine immobilier réel, revalorisable avec les améliorations du domaine.
+          </p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4">Ce que comprend le prix du lot</h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Quote-part du domaine</p>
+                <p class="text-xs text-[#2C2824]/50">Part proportionnelle des espaces extérieurs et foncier commun</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Provision rénovation fosse</p>
+                <p class="text-xs text-[#2C2824]/50">Contribution à la mise aux normes de l'assainissement</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Provision travaux imprévus</p>
+                <p class="text-xs text-[#2C2824]/50">Réserve pour les impondérables de chantier</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-[#4A7C59]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-[#4A7C59]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">Parts cessibles</p>
+                <p class="text-xs text-[#2C2824]/50">Revendables si vous quittez le collectif (sous agrément des associés)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4">Le main à main</h3>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed mb-3">
+            Le "main à main" correspond au partage du <strong>petit matériel collectif</strong> du domaine : tronçonneuse, débroussailleuse, outillage, deck, et aux frais d'accompagnement déjà engagés (Pierre Lévy, Mika, Stéphanie, STECAL, Oasis).
+          </p>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+            Le total est à déterminer entre <strong>37 000 et 50 000 EUR</strong>, réparti entre les 12 associés des deux SCIA (La Margue Est et LAOM Ouest), soit <strong>3 083 à 4 167 EUR par associé</strong>.
+          </p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6">
+          <h3 class="text-sm font-medium text-[#2C2824] mb-4">Le foyer commun</h3>
+          <p class="text-sm text-[#2C2824]/70 leading-relaxed">
+            Le foyer commun est un espace partagé du domaine dont chaque associé acquiert une quote-part de <strong>7 000 EUR</strong>. Cet espace est à la disposition de l'ensemble des habitants pour les activités collectives (réunions, repas, vie sociale).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTS DE REFERENCE (BAS) -->
+  <section id="documents" class="py-8 sm:py-10 bg-[#1a1a1a]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-white">Documents de référence</h2>
+        <p class="text-sm text-white/50 mt-1">Accès aux documents source</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <a
+          href="https://docs.google.com/spreadsheets/d/1lF2Y-HXcoMBFGekGgZmUevP9XvDhY8Np/edit?gid=38534106#gid=38534106"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5 hover:bg-white/10 transition-colors group"
+          aria-label="Montage financier SCIA — ouvre dans un nouvel onglet"
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-[#4A7C59]/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#4A7C59]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-medium text-white group-hover:text-[#4A7C59] transition-colors">Montage financier SCIA</h3>
+              <p class="text-xs text-white/40">Google Sheets — Source financière</p>
+            </div>
+          </div>
+          <p class="text-xs text-white/50">Tableur complet avec la ventilation des apports, quote-parts domaine, et répartition entre les deux SCIA.</p>
+        </a>
+
+        <a
+          href="https://docs.google.com/document/d/1QFltlG0GssUVV81iwfpMfTW8FbBD9MN-/edit?rtpof=true&tab=t.0"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-5 hover:bg-white/10 transition-colors group"
+          aria-label="Statuts SCIA La Margue — ouvre dans un nouvel onglet"
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-[#C4A855]/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-medium text-white group-hover:text-[#C4A855] transition-colors">Statuts SCIA La Margue</h3>
+              <p class="text-xs text-white/40">Google Docs — Document juridique</p>
+            </div>
+          </div>
+          <p class="text-xs text-white/50">Projet de statuts de la Société Civile Immobilière d'Attribution, en cours de finalisation chez le notaire.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section class="py-6 bg-[#1a1a1a] border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <p class="text-xs text-white/30">
+          SCIA La Margue Est — Document confidentiel
+        </p>
+        <p class="text-xs text-white/30">
+          NILA · Mars 2026
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Password protection
+    const PASSWORD = 'lamargue'
+    const STORAGE_KEY = 'lamargue_est_auth'
+
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+
+    // Check if already authenticated
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>
