@@ -6,17 +6,18 @@ import { createWebPageSchema } from '~/utils/schema'
 export const prerender = true
 
 const pageSchema = createWebPageSchema({
-  name: 'Clarté — Créer ton système de vie avec Claude Code | LAOM',
+  name: 'Expérience Clarté — Vision, PARA & Agent IA Personnel | LAOM',
   url: Astro.url.toString(),
-  description: 'Un week-end pour clarifier ta vision, construire ton système PARA, et créer ton agent IA personnel avec Claude Code. LAOM, Aveyron.',
+  description: 'Un week-end pour intégrer un système qui te libère du temps perso et optimise ton business. Vision, méthode PARA et agent IA personnel. LAOM, Aveyron.',
 })
 
 const transformation = [
-  { before: 'Tu réfléchis trop', after: 'Tu agis avec clarté' },
-  { before: 'Tu dors mal, tu rumines', after: 'Tu dors serein, l\'esprit libre' },
-  { before: 'Tu as peur des mauvais choix', after: 'Tu fais confiance à ton système' },
-  { before: 'Ta to-do déborde', after: 'Tout est capturé, rien n\'est oublié' },
-  { before: 'Tu te disperses', after: 'Tes actions sont cohérentes' },
+  { before: 'Trop d\'idées, pas assez d\'actions', after: 'Un système qui capte tout et te dit quoi faire' },
+  { before: 'Tu jongles entre perso et pro sans filet', after: 'Tes projets sont organisés, visibles, pilotables' },
+  { before: 'Tu délègues au hasard à l\'IA', after: 'Un agent IA configuré pour TOI qui te connaît vraiment' },
+  { before: 'Tu te disperses sur 10 fronts', after: 'Tes priorités sont claires, tes actions cohérentes' },
+  { before: 'Tu dors en pensant à ce que tu as oublié', after: 'Tu dors serein — tout est capturé' },
+  { before: 'Tu subis ton organisation', after: 'Tu pilotes ta vie' },
 ]
 
 const pillars = [
@@ -34,71 +35,59 @@ const pillars = [
   },
   {
     num: '03',
-    title: 'Claude Code',
-    subtitle: 'Ton agent IA personnel',
-    description: 'Claude Code n\'est pas un chatbot. C\'est un agent qui peut lire tes fichiers, exécuter des actions, et garder une mémoire de qui tu es. On va le configurer avec ta vision, ton système PARA, et lui donner une mémoire persistante. Il devient ton copilote.',
+    title: 'Ton Agent IA Personnel',
+    subtitle: 'Un assistant qui te connaît — vraiment',
+    description: 'Pas un chatbot. Un agent IA à ton service, configuré avec ta vision, ton organisation PARA, tes préférences et tes patterns. Il garde la mémoire. Il lit tes fichiers. Il exécute. Il te challenge quand tu te disperses. Il devient ton copilote permanent — disponible à tout moment, aligné sur qui tu es.',
   },
 ]
 ---
 
 <Layout
-  title="Clarté — Créer ton système de vie avec Claude Code | LAOM"
-  description="Un week-end pour clarifier ta vision, construire ton système PARA, et créer ton agent IA personnel avec Claude Code. LAOM, Aveyron."
+  title="Expérience Clarté — Vision, PARA & Agent IA Personnel | LAOM"
+  description="Un week-end pour intégrer un système qui te libère du temps perso et optimise ton business. Vision, méthode PARA et agent IA personnel. LAOM, Aveyron."
   ogImage="/images/clarte-jaquette-claude-code.webp"
   seo={{ ldJSON: pageSchema }}
 >
 
   <!-- Hero -->
-  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28 bg-[#1a1a1a]">
-    <div class="absolute inset-0 z-0">
-      <img
-        src="/images/clarte-jaquette-claude-code.webp"
-        alt=""
-        aria-hidden="true"
-        class="absolute inset-0 w-full h-full object-cover"
-      />
-      <div class="absolute inset-0 bg-gradient-to-b from-[#1a1a1a]/70 via-[#1a1a1a]/60 to-[#1a1a1a]/80"></div>
-    </div>
-    
-    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-32 pb-16">
-      <div class="mb-8">
-        <!-- Claude logo placeholder -->
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20">
-          <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
+  <section class="py-20 lg:py-32 -mt-24 md:-mt-28 pt-36 md:pt-44 bg-[#1a1a1a]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+
+      <span class="inline-block px-4 py-1.5 text-xs font-mono tracking-[0.15em] uppercase text-[#C4A855] bg-[#C4A855]/5 border border-[#C4A855]/15 rounded-sm mb-8">Cohorte Avril 2026 · Places limitées</span>
+
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-4 tracking-tight leading-[1.1]">
+        Expérience Clarté
+      </h1>
+      <p class="text-lg md:text-xl font-light text-white/50 max-w-2xl mx-auto leading-relaxed mb-12">
+        Un week-end pour intégrer un système qui te libère du temps perso et optimise ton business.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-8 md:gap-12 mb-12">
+        <div class="text-center">
+          <p class="text-2xl font-medium text-white">3 jours</p>
+          <p class="text-xs font-light text-white/40 mt-1">d'immersion</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-medium text-white">12 places</p>
+          <p class="text-xs font-light text-white/40 mt-1">maximum</p>
+        </div>
+        <div class="text-center">
+          <p class="text-2xl font-medium text-white">1 000 €</p>
+          <p class="text-xs font-light text-white/40 mt-1">tout compris</p>
         </div>
       </div>
-      
-      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/50 mb-6">LAOM présente</p>
-      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight leading-tight">
-        Clarté
-      </h1>
-      <p class="text-lg md:text-xl font-light text-white/70 max-w-2xl mx-auto leading-relaxed">
-        Un week-end pour créer le système qui libère ta tête.<br/>
-        Vision. PARA. Claude Code.
-      </p>
-      
-      <div class="mt-10 flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center">
-        <p class="text-sm font-light text-[#C4A855]">17 – 19 avril 2026</p>
-        <!-- ARCHIVÉ — Réactiver quand session 1 est pleine : <p class="text-sm font-light text-[#C4A855]">Session 2 : 25 – 27 avril 2026</p> -->
-      </div>
-      <p class="mt-2 text-xs font-light text-white/40">LAOM, Aveyron</p>
-    </div>
 
-    <!-- Scroll arrow -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-      <a href="#probleme" class="block text-white/40 hover:text-white transition-colors" aria-label="Défiler">
-        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </a>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/clarte/reservation/" class="px-8 py-3 text-sm font-medium bg-[#C4A855] text-[#1a1a1a] rounded-sm hover:opacity-90 transition-opacity">Réserver ma place</a>
+        <a href="#programme" class="px-8 py-3 text-sm font-medium text-white/70 border border-white/15 rounded-sm hover:border-white/30 transition-colors">Découvrir le programme</a>
+      </div>
+
     </div>
   </section>
 
   <!-- Le problème -->
   <section id="probleme" class="py-24 md:py-32 bg-white">
-    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">Le constat</p>
       <div class="space-y-6 text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
         <p>
@@ -142,6 +131,38 @@ const pillars = [
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Livrables -->
+  <section class="py-28 md:py-36 bg-white">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Ce avec quoi tu repars</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">Du concret. Installé. Utilisable dès lundi.</h2>
+      <p class="text-base font-light text-[#2C2824]/60 mb-16 max-w-2xl">Pas des slides. Pas des bonnes intentions. Du concret, installé sur ton ordinateur, utilisable dès le lundi matin.</p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-[#FAF8F5] p-8 rounded-sm">
+          <span class="text-3xl font-light text-[#C4A855]/40">01</span>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mt-4 mb-3">Une organisation structurée sur ton ordinateur</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">Tes fichiers, tes projets, tes ressources classés selon la méthode PARA. Plus rien ne se perd. Tout est au bon endroit, accessible en quelques secondes.</p>
+        </div>
+        <div class="bg-[#FAF8F5] p-8 rounded-sm">
+          <span class="text-3xl font-light text-[#C4A855]/40">02</span>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mt-4 mb-3">Un agent IA intégré à ton organisation personnelle</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">Configuré avec ta vision, ton système, tes préférences. Il te connaît. Il t'assiste. Il exécute ce que tu n'as pas le temps de faire.</p>
+        </div>
+        <div class="bg-[#FAF8F5] p-8 rounded-sm">
+          <span class="text-3xl font-light text-[#C4A855]/40">03</span>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mt-4 mb-3">Un système qui optimise ton temps pro ET perso</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">Tu sais ce qui est prioritaire, quand le faire, et comment déléguer le reste à ton agent. Moins de bruit. Plus d'impact — dans tous les domaines de ta vie.</p>
+        </div>
+        <div class="bg-[#FAF8F5] p-8 rounded-sm border-l-4 border-[#C4A855]">
+          <span class="text-3xl font-light text-[#C4A855]/40">04</span>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mt-4 mb-3">De la délivrabilité — dès la première semaine</h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">Tu ne repars pas avec une méthode à appliquer "quand tu auras le temps". Tu repars avec quelque chose qui livre des résultats concrets dès le retour.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -209,8 +230,8 @@ const pillars = [
   </section>
 
   <!-- Le week-end, étape par étape -->
-  <section class="py-24 md:py-32 bg-white">
-    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+  <section id="programme" class="py-24 md:py-32 bg-white">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Le programme</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">Le week-end, étape par étape</h2>
 
@@ -225,25 +246,33 @@ const pillars = [
 
         <div>
           <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Samedi matin</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Vision</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Vision + PARA</h3>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-            On commence par le fondement : qu'est-ce que tu veux vraiment vivre ? Pas tes objectifs. Pas ta to-do. Ta vision. Ce qui te fait vibrer. Ce qui donne du sens à tes actions. On utilise des exercices concrets pour faire émerger ce qui compte vraiment.
+            On commence par le fondement : qu'est-ce que tu veux vraiment vivre ? Pas tes objectifs. Pas ta to-do. Ta vision. Ce qui te fait vibrer. Puis on construit ton système d'organisation — PARA : Projets, Aires, Ressources, Archives. Simple, robuste, adapté à ta vie. Tu repars avec une structure claire dans laquelle tu peux avoir confiance.
           </p>
         </div>
 
         <div>
           <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Samedi après-midi</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">PARA</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Agent IA Personnel</h3>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-            On construit ton système d'organisation. PARA : Projets, Aires, Ressources, Archives. Simple, robuste, universel. Tu repars avec un système prêt à l'emploi, adapté à ta vie, pas à une théorie. Un système dans lequel tu peux avoir confiance.
+            On installe et configure ton agent IA. Il apprend qui tu es, ta vision, ton système PARA, tes préférences. Premières interactions guidées. Tu découvres ce qu'un agent IA peut vraiment faire quand il te connaît.
+          </p>
+        </div>
+
+        <div class="py-5 px-6 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Samedi soir</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Soirée musicale + Networking</h3>
+          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
+            Après une journée intense, on lâche prise. Musique, feu de camp, échanges libres entre entrepreneurs. Un moment humain et convivial — le genre de soirée dont on parle encore longtemps après.
           </p>
         </div>
 
         <div>
           <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Dimanche matin</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Claude Code</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Agent IA Personnel — approfondissement</h3>
           <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-            On installe et configure Claude Code. Pas un chatbot. Un agent IA qui peut lire tes fichiers, exécuter des actions, et garder une mémoire persistante. On lui donne ta vision, ton système PARA, tes préférences. Il devient ton copilote — un assistant qui te connaît vraiment.
+            On pousse plus loin. Cas d'usage avancés, automatisations, personnalisation poussée. L'agent devient ton copilote permanent — capable de te challenger, d'exécuter, et de garder la mémoire de tes projets.
           </p>
         </div>
 
@@ -260,14 +289,14 @@ const pillars = [
 
   <!-- Pourquoi ça marche -->
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
-    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">Pourquoi ça marche</h2>
       <div class="space-y-6 text-lg font-light text-[#2C2824]/80 leading-relaxed">
         <p>
           Un système externe libère le cerveau. Quand tu sais que tout est capturé, organisé, accessible — tu arrêtes de ruminer. La charge mentale disparaît.
         </p>
         <p>
-          L'IA amplifie ta capacité. Claude Code n'est pas là pour te remplacer. Il est là pour exécuter ce que tu n'as pas le temps de faire, te rappeler ce que tu oublies, et te challenger quand tu te disperses.
+          L'IA amplifie ta capacité. Ton agent IA n'est pas là pour te remplacer. Il est là pour exécuter ce que tu n'as pas le temps de faire, te rappeler ce que tu oublies, et te challenger quand tu te disperses.
         </p>
         <p>
           Le groupe crée l'engagement. Seul chez toi, tu procrastines. En immersion avec d'autres, tu avances. Le week-end crée le momentum pour installer des habitudes qui durent.
@@ -279,117 +308,212 @@ const pillars = [
     </div>
   </section>
 
-  <!-- Qui anime -->
+  <!-- Ton formateur -->
   <section class="py-24 md:py-32 bg-white">
-    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Ton guide</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">Qui va t'accompagner</h2>
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="bg-[#FAF8F5] border border-[#2C2824]/10 rounded-sm overflow-hidden">
+        <div class="grid md:grid-cols-2">
 
-      <div class="flex flex-col md:flex-row gap-12 md:gap-16 items-start">
-        <div class="w-full md:w-80 flex-shrink-0">
-          <img
-            src="/images/en-mouvement/charly-aubert.webp"
-            alt="Charly Aubert, fondateur de LAOM"
-            class="w-full aspect-[3/4] object-cover rounded-sm"
-            loading="lazy"
-          />
-        </div>
-        <div class="flex-1">
-          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
-          <p class="text-sm font-light text-[#2C2824]/50 mb-6">Fondateur de LAOM · Bâtisseur · Coach</p>
-          <div class="space-y-4 text-base font-light text-[#2C2824]/75 leading-relaxed">
-            <p>
-              J'utilise ce système tous les jours. Vision documentée, PARA dans Obsidian, Claude Code comme copilote. C'est ce qui me permet de piloter LAOM, construire le Grand Shambala, accompagner des clients, et élever mon fils — sans perdre la tête.
-            </p>
-            <p>
-              J'ai développé NILA, mon agent IA personnel, avec une mémoire de plusieurs années. Il connaît mes projets, mes valeurs, mes patterns. Il me challenge quand je me disperse. Il m'aide à rester cohérent.
-            </p>
-            <p>
-              Ce week-end, je te transmets exactement ce que j'ai mis des années à construire — en un format condensé, pratique, applicable immédiatement.
-            </p>
+          <!-- Photo -->
+          <div class="relative h-72 md:h-auto">
+            <img
+              src="/images/en-mouvement/charly-aubert.webp"
+              alt="Charly Aubert, fondateur de LAOM"
+              class="absolute inset-0 w-full h-full object-cover"
+              style="object-position: center 20%"
+              loading="lazy"
+              width="800"
+              height="1000"
+            />
           </div>
+
+          <!-- Texte -->
+          <div class="p-8 md:p-12 flex flex-col justify-center">
+            <span class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4 block">Ton formateur</span>
+            <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
+            <p class="text-sm font-light text-[#2C2824]/50 mb-6">Fondateur de LAOM · Ancien d'Epitech · IA depuis 2012</p>
+            <div class="space-y-4 text-base font-light text-[#2C2824]/75 leading-relaxed">
+              <p>
+                Ancien d'Epitech, je travaille dans l'intelligence artificielle depuis 2012. Aujourd'hui, j'utilise ce système au quotidien. Vision documentée, PARA dans Obsidian, un agent IA comme copilote. C'est ce qui me permet de piloter un écolieu de 21 hectares, accompagner des clients, et élever mon fils — sans perdre la tête.
+              </p>
+              <p>
+                J'ai développé mon propre agent IA personnel, avec une mémoire de plusieurs années. Il connaît mes projets, mes valeurs, mes patterns. Il me challenge quand je me disperse. Il m'aide à rester cohérent.
+              </p>
+              <p class="text-[#2C2824] font-medium">
+                Ce week-end, je te transmets exactement ce que j'ai mis des années à construire — en un format condensé, pratique, applicable immédiatement.
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
 
   <!-- Le lieu -->
-  <section class="py-24 md:py-32 bg-[#FAF8F5]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-        <div class="w-full lg:w-96 flex-shrink-0">
+  <section class="py-28 md:py-36 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le lieu</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">Un écrin pour la clarté</h2>
+      </div>
+
+      <!-- Photo panoramique pleine largeur -->
+      <div class="aspect-[21/9] overflow-hidden rounded-sm mb-16">
+        <img
+          src="/images/en-mouvement/le-shala.webp"
+          alt="Vue aérienne de LAOM : le Shala, salle de pratique de 121 m², entouré de tipis dans une vallée verdoyante de l'Aveyron"
+          title="Le Shala et les tipis à LAOM, Aveyron"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          width="1400"
+          height="600"
+        />
+      </div>
+
+      <!-- Texte + grille photos -->
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+
+        <!-- Colonne texte -->
+        <div>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Le Shala, 121 m²</h3>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <p>
+              LAOM est un écolieu niché dans une vallée sauvage du sud de l'Aveyron, au c&#339;ur du Parc Naturel des Grands Causses. 21 hectares de forêt, rivière et prairie. Loin du bruit. L'endroit idéal pour prendre du recul et construire quelque chose de solide.
+            </p>
+            <p>
+              Le stage se déroule dans le Shala — notre salle de pratique : sol de danse professionnel, plafond en bois massif, murs en terre, grandes baies vitrées sur les collines et les tipis. 121 m² de lumière naturelle. Un espace conçu pour la concentration et la clarté.
+            </p>
+            <p>
+              Repas vegan et locaux compris. Hébergement non compris — possibilité dans les tipis sur place (si météo) ou dans des gîtes à proximité.
+            </p>
+          </div>
+        </div>
+
+        <!-- Colonne photos -->
+        <div class="grid grid-cols-2 gap-3">
           <div class="aspect-[3/4] overflow-hidden rounded-sm">
             <img
-              src="/images/laom/salle-de-pratique.webp"
-              alt="LAOM, écolieu en Aveyron"
-              class="w-full h-full object-cover rounded-sm"
+              src="/images/en-mouvement/shala.webp"
+              alt="Intérieur du Shala à LAOM : sol de danse, plafond bois massif, baies vitrées sur la nature"
+              title="Le Shala vu de l'intérieur"
+              class="w-full h-full object-cover"
               loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/en-mouvement/tipi.webp"
+              alt="Intérieur d'un tipi à LAOM : lit confortable avec vue sur les collines de l'Aveyron"
+              title="Tipi avec vue sur la vallée"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
             />
           </div>
         </div>
-        <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Le lieu</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">LAOM, Aveyron</h2>
-          <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
-            <p>
-              Un écolieu de 21 hectares dans le sud de l'Aveyron. Forêt, rivière, prairie. Loin du bruit. L'endroit idéal pour prendre du recul et construire quelque chose de solide.
-            </p>
-            <p>
-              On travaille dans le Grand Shambala — 850 m² de paille porteuse, lumière naturelle, matériaux sains. Un espace qui invite à la clarté.
-            </p>
-            <p>
-              Repas compris. Hébergement non compris (possibilité dans les tipis s'il fait beau ou dans des gîtes dans les communes proches).
-            </p>
-          </div>
+      </div>
 
-          <!-- Temoignages lieu -->
-          <div class="mt-10 pt-8 border-t border-black/10">
-            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Ce qu'ils en disent</p>
-            <div class="space-y-4">
-              <div class="flex gap-3 items-start">
-                <img src="/images/temoignages-lieu/camille-flex.webp" alt="Camille Flex" class="w-6 h-6 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="24" height="24" />
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Un lieu stimulant en pleine nature, favorable au calme, à la concentration et à des échanges inspirants, qui permet d'être productif sur l'essentiel, en repartant avec les idées plus claires.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">Camille Flex</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <img src="/images/temoignages-lieu/krystel-gilberton.webp" alt="Krystel Gilberton" class="w-6 h-6 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="24" height="24" />
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">LAOM est un lieu hors du temps magnifique pour une immersion. La salle est agréable et lumineuse.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">Krystel Gilberton</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <img src="/images/temoignages-lieu/henri-duran.webp" alt="Henri Duran" class="w-6 h-6 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="24" height="24" />
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">La salle est très agréable et les infrastructures très plaisantes. La nourriture était au top.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">Henri Duran</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <img src="/images/temoignages-lieu/melea.webp" alt="Melea" class="w-6 h-6 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="24" height="24" />
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Super cadre, pour des moments de nature et de tranquillité, avec des personnes d'une très belle humanité.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">Melea</p>
-                </div>
-              </div>
-              <div class="flex gap-3 items-start">
-                <img src="/images/henri-beaumont.webp" alt="Henri Beaumont" class="w-6 h-6 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="24" height="24" />
-                <div>
-                  <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">LAOM est un lieu magique niché au cœur de la nature. Les habitants y sont très accueillants et bienveillants.</p>
-                  <p class="text-xs font-medium text-[#2C2824]/40 mt-1">Henri Beaumont</p>
-                </div>
-              </div>
+      <!-- Témoignages lieu — grille 3 colonnes -->
+      <div class="border-t border-[#2C2824]/10 pt-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8 text-center">Ce qu'ils disent du lieu</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">Un lieu stimulant en pleine nature, favorable au calme, à la concentration et à des échanges inspirants, qui permet d'être productif sur l'essentiel.</p>
+            <div class="flex items-center gap-2 mt-3">
+              <img src="/images/temoignages-lieu/camille-flex.webp" alt="Camille Flex" class="w-6 h-6 rounded-full object-cover" loading="lazy" width="24" height="24" />
+              <p class="text-xs font-medium text-[#2C2824]/40">Camille Flex</p>
+            </div>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">LAOM est un lieu hors du temps magnifique pour une immersion. La salle est agréable et lumineuse.</p>
+            <div class="flex items-center gap-2 mt-3">
+              <img src="/images/temoignages-lieu/krystel-gilberton.webp" alt="Krystel Gilberton" class="w-6 h-6 rounded-full object-cover" loading="lazy" width="24" height="24" />
+              <p class="text-xs font-medium text-[#2C2824]/40">Krystel Gilberton</p>
+            </div>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">La salle est très agréable et les infrastructures très plaisantes. La nourriture était au top.</p>
+            <div class="flex items-center gap-2 mt-3">
+              <img src="/images/temoignages-lieu/henri-duran.webp" alt="Henri Duran" class="w-6 h-6 rounded-full object-cover" loading="lazy" width="24" height="24" />
+              <p class="text-xs font-medium text-[#2C2824]/40">Henri Duran</p>
+            </div>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">Super cadre, pour des moments de nature et de tranquillité, avec des personnes d'une très belle humanité.</p>
+            <div class="flex items-center gap-2 mt-3">
+              <img src="/images/temoignages-lieu/melea.webp" alt="Melea" class="w-6 h-6 rounded-full object-cover" loading="lazy" width="24" height="24" />
+              <p class="text-xs font-medium text-[#2C2824]/40">Melea</p>
+            </div>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">LAOM est un lieu magique niché au c&#339;ur de la nature. Les habitants y sont très accueillants et bienveillants.</p>
+            <div class="flex items-center gap-2 mt-3">
+              <img src="/images/henri-beaumont.webp" alt="Henri Beaumont" class="w-6 h-6 rounded-full object-cover" loading="lazy" width="24" height="24" />
+              <p class="text-xs font-medium text-[#2C2824]/40">Henri Beaumont</p>
+            </div>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed mb-3">Un lieu ressourçant, une énergie particulière. On sent que tout a été pensé avec soin et avec le c&#339;ur.</p>
+            <div class="flex items-center gap-2 mt-3">
+              <img src="/images/temoignages-lieu/florence-pechot.webp" alt="Florence Pechot" class="w-6 h-6 rounded-full object-cover" loading="lazy" width="24" height="24" />
+              <p class="text-xs font-medium text-[#2C2824]/40">Florence Pechot</p>
             </div>
           </div>
         </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Communauté -->
+  <section class="py-28 md:py-36 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- Colonne texte -->
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">La communauté</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-10">
+            Des entrepreneurs d'univers différents.<br/>
+            Une même quête de clarté.
+          </h2>
+          <div class="space-y-6 text-base font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              Autour de toi : des entrepreneurs, des créateurs, des indépendants venus d'univers très différents — mais qui partagent tous le même défi. Trop de projets. Pas assez de clarté. L'envie de mieux fonctionner.
+            </p>
+            <p>
+              Ce week-end, vous construisez ensemble. Vous comparez vos réalités, vos systèmes, vos questions. Vous vous challengez. Vous vous inspirez mutuellement.
+            </p>
+            <p class="text-[#2C2824] font-medium">
+              Tu repars avec plus qu'un système — tu repars avec des connexions réelles, avec des gens qui comprennent ton mode de fonctionnement parce qu'ils l'ont vécu eux aussi.
+            </p>
+          </div>
+        </div>
+
+        <!-- Colonne photo -->
+        <div class="aspect-[3/4] overflow-hidden rounded-sm">
+          <img
+            src="/images/laom/laom-equipe-moment-convivial.webp"
+            alt="Moment convivial entre participants à LAOM, échange et connexion humaine"
+            title="L'ambiance communautaire à LAOM"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            width="600"
+            height="800"
+          />
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- Pour qui -->
-  <section class="py-24 md:py-32 bg-white">
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Profil</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">C'est pour toi si...</h2>
@@ -406,7 +530,7 @@ const pillars = [
           </div>
           <div class="flex gap-3 items-start">
             <span class="text-[#C4A855] mt-1">✓</span>
-            <p class="text-base font-light text-[#2C2824]/80">Tu veux utiliser l'IA de manière profonde, pas juste pour des prompts ponctuels</p>
+            <p class="text-base font-light text-[#2C2824]/80">Tu es convaincu que l'IA va transformer notre monde et qu'apprendre à l'utiliser est un réel avantage pour le futur</p>
           </div>
           <div class="flex gap-3 items-start">
             <span class="text-[#C4A855] mt-1">✓</span>
@@ -460,11 +584,15 @@ const pillars = [
         </div>
         <div class="flex justify-between items-start py-4 border-b border-black/5">
           <span class="text-base font-light text-[#2C2824]/50">Inclus</span>
-          <span class="text-base font-light text-[#2C2824] text-right">Repas, formation</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Formation + repas vegan & locaux + licence agent IA + suivi post-stage + groupe alumni</span>
+        </div>
+        <div class="flex justify-between items-start py-4 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Hébergement</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Non inclus — tipis sur place (météo) ou gîtes à proximité</span>
         </div>
         <div class="flex justify-between items-start py-4 border-b border-black/5">
           <span class="text-base font-light text-[#2C2824]/50">Prérequis</span>
-          <span class="text-base font-light text-[#2C2824] text-right">Aucun — juste un ordinateur portable</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Un ordinateur portable — aucun niveau technique requis</span>
         </div>
       </div>
     </div>
@@ -479,11 +607,11 @@ const pillars = [
       <div class="space-y-6" id="faq-clarte">
         <details class="group border-b border-black/10 pb-6">
           <summary class="flex justify-between items-center cursor-pointer list-none">
-            <h3 class="font-medium text-[#2C2824] pr-8">Quel niveau technique faut-il pour utiliser Claude Code ?</h3>
+            <h3 class="font-medium text-[#2C2824] pr-8">Quel niveau technique faut-il pour utiliser l'agent IA ?</h3>
             <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
           </summary>
           <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
-            Aucun niveau technique préalable n'est requis. Claude Code fonctionne en langage naturel : tu lui parles comme à un assistant humain. On t'accompagne pas à pas dans l'installation et la configuration. Si tu sais utiliser un ordinateur et naviguer sur internet, tu as le niveau.
+            Aucun niveau technique préalable n'est requis. L'agent IA fonctionne en langage naturel : tu lui parles comme à un assistant humain. On t'accompagne pas à pas dans l'installation et la configuration. Si tu sais utiliser un ordinateur et naviguer sur internet, tu as le niveau.
           </p>
         </details>
 
@@ -493,7 +621,7 @@ const pillars = [
             <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
           </summary>
           <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
-            Un ordinateur portable (Mac, Windows ou Linux). C'est tout. On te fournit l'accès à Claude Code (licence incluse dans le prix) et tous les templates nécessaires. Wifi haut débit disponible sur place.
+            Un ordinateur portable (Mac, Windows ou Linux). C'est tout. On te fournit la licence de l'agent IA (incluse dans le prix) et tous les templates nécessaires. Wifi haut débit disponible sur place.
           </p>
         </details>
 
@@ -513,7 +641,7 @@ const pillars = [
             <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
           </summary>
           <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
-            Arrivée vendredi soir (18h), départ dimanche après-midi (17h). Alternance entre sessions de travail (vision, PARA, Claude Code), moments de pratique individuelle accompagnée, et temps de partage en groupe. Rythme soutenu mais respectueux de ton énergie.
+            Arrivée vendredi soir (18h), départ dimanche après-midi (17h). Alternance entre sessions de travail (vision, PARA, agent IA), moments de pratique individuelle accompagnée, et temps de partage en groupe. Soirée musicale le samedi soir. Rythme soutenu mais respectueux de ton énergie.
           </p>
         </details>
 
