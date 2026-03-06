@@ -1,0 +1,355 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// TABLE THEMATIQUE — CLARTE & BUSINESS
+// Rencontre Perspectives #4, Jour 1
+// 6 mars 2026, 16h-18h, LAOM
+// ~15 participants membres Perspectives
+// ==========================================
+
+const problemes = [
+  {
+    numero: 1,
+    titre: 'Les voix interieures',
+    description: 'Doute, comparaison, legitimite, syndrome de l\'imposteur. "Est-ce que c\'est le bon choix ?" en boucle. Paralysie par la peur de se tromper et de perdre du temps.',
+    icon: 'brain'
+  },
+  {
+    numero: 2,
+    titre: 'Vendre sans trahir ses valeurs',
+    description: 'Croyances negatives sur la vente, comparaison avec ceux qui "vendent mieux" mais de maniere non alignee. Comment rester coherent dans l\'acte de vendre.',
+    icon: 'heart'
+  },
+  {
+    numero: 3,
+    titre: 'La jonction des deux',
+    description: 'Faire coexister "moi (competences, valeurs, chemin)" et "le probleme que je resous". Deux briques separees qu\'il faut faire cohabiter.',
+    icon: 'link'
+  },
+]
+
+const blocs = [
+  {
+    numero: 1,
+    titre: 'Dissocier competences, valeurs et probleme',
+    points: [
+      '<strong>Valeurs</strong> : les lister clairement. Inclure le plaisir et le bonheur a pratiquer. Connaitre son environnement optimal.',
+      '<strong>Competences vs connaissances</strong> : honnetete intellectuelle. Avoir lu un framework ≠ avoir une competence. La connaissance c\'est un index, pas une capacite.',
+      'Au 0-a-1 avec peu de competences forgees, c\'est <strong>normal</strong> d\'avoir le doute. C\'est sain. Ca pointe les zones d\'ombre.',
+    ],
+    couleur: '#C4A855'
+  },
+  {
+    numero: 2,
+    titre: 'Transformer sa relation aux voix interieures',
+    points: [
+      'Ne pas lutter contre, les <strong>remercier</strong>. "Merci de me montrer que je suis peut-etre un imposteur. C\'est OK."',
+      'Effet Dunning-Kruger inverse : les gens conscients de leur ignorance sont les plus competents mais ont le moins confiance.',
+      'Ca se calme en <strong>pratiquant</strong>. La paralysie dans le non-faire est pire que l\'echec.',
+      '<strong>KPI du 0-a-1</strong> : compter ses echecs. Velocite d\'echec = capacite a atteindre le succes.',
+    ],
+    couleur: '#4A7C59'
+  },
+  {
+    numero: 3,
+    titre: 'Structure d\'une offre simple',
+    points: [
+      '<strong>Probleme</strong> → <strong>Methode</strong> (comment je le resous) → <strong>Inconfort</strong> (les mots sur ce que vit le prospect) → Achete.',
+      'Faire son offre en <strong>une demi-journee</strong>. Dicter a l\'oral, prendre une IA, c\'est fini.',
+      'Premiere methode = souvent sa propre transformation. "Je suis mon premier client."',
+      'Pas besoin d\'etre certain que ca marche. L\'ecrire, puis <strong>confronter</strong>.',
+    ],
+    couleur: '#8B5A3C'
+  },
+  {
+    numero: 4,
+    titre: 'Confronter = aller voir les gens',
+    points: [
+      'Le truc sous-cote : aller <strong>physiquement</strong> la ou sont les gens. Pas derriere son ecran.',
+      'Exemple LAOM : terrain non constructible, zone UNESCO → ComCom, politique, ecosysteme soutenant.',
+      'Exemple boite IA : 40K€ sans page de vente. Google Agenda + IA. Reseau physique. Installation gratuite, retrocommission, transparence.',
+      'Exemple medical : voulait vendre des algorithmes, a decouvert le vrai probleme en etant sur place.',
+      '<strong>Confronter n\'est jamais du temps perdu</strong> : ca clarifie la vision. Si c\'est pas le bon chemin, on le sait vraiment.',
+    ],
+    couleur: '#C4A855'
+  },
+  {
+    numero: 5,
+    titre: 'Toujours dire la verite',
+    points: [
+      '"Vous etes mon premier client, je sais pas comment ca va se passer." -50% sur le devis, retrocommission, paiement a la satisfaction.',
+      'Ne pas se faire passer pour un expert quand on ne l\'est pas. Les gens sont fatigues des pseudo-experts.',
+      '<strong>La verite = bien dormir le soir.</strong> L\'incoherence dans le systeme empeche de dormir.',
+    ],
+    couleur: '#4A7C59'
+  },
+  {
+    numero: 6,
+    titre: 'Trouver son cap — la methode des dimensions',
+    points: [
+      '12 dimensions de vie (sante, famille, etc.), noter ou j\'en suis vs ou je veux etre.',
+      'L\'ecart = les actions a traquer.',
+      '<strong>Equation</strong> : chaque action repetee = habitude, somme des habitudes = destin.',
+      'Utiliser l\'IA pour dicter a l\'oral et maintenir la congruence.',
+      'La perspective n\'est pas figee, elle change en iterant. Elle sort du reel, pas de la tete.',
+    ],
+    couleur: '#8B5A3C'
+  },
+  {
+    numero: 7,
+    titre: 'L\'argent, les croyances et les privileges',
+    points: [
+      '<strong>5% des infos pour se lancer</strong>, 95% viennent en chemin.',
+      'Pas d\'etude de marche, pas de business plan au debut. Rentrer dans le marche directement.',
+      'L\'entrepreneuriat ne resout pas les problemes financiers au debut. Si le drive est purement financier, envisager d\'autres leviers.',
+      '<strong>Matrice de Schwartz</strong> : niveau de conscience du probleme chez le prospect. Plus il est haut = plus facile a vendre.',
+      'L\'argent = vehicule de transfert du temps et de l\'energie. La question : d\'ou il vient et qu\'est-ce que j\'en fais ?',
+      'Les ecolieux qui se crashent = ceux qui refusent la verticalite. Il faut integrer, pas polariser.',
+    ],
+    couleur: '#C4A855'
+  },
+]
+
+const interventions = [
+  { participant: 'Stephanie', contenu: 'Rebond sur la velocite d\'echec (deja aborde en coaching individuel).' },
+  { participant: 'Participante livre enfants', contenu: 'A confronte en allant dans les ecoles malgre les "ca sert a rien" → accueillie a bras ouverts, ventes reelles.' },
+  { participant: 'Participant methode', contenu: '"Si le probleme je l\'ai pas encore resolu ?" → Ecris ta methode quand meme, les temoignages viendront apres.' },
+  { participant: 'Participant velo', contenu: 'Pas d\'elan entrepreneurial identifie → Ne force pas, mets des systemes financiers en place et suis ton elan reel.' },
+  { participant: 'Participante privileges', contenu: 'Comment s\'autoriser a facturer cher ? → D\'ou vient l\'argent et qu\'est-ce que j\'en fais ? Contribuer, pas se comparer.' },
+]
+
+const phraseCles = [
+  'On a besoin de 5% des informations pour se lancer. Les 95% viennent en arrivant.',
+  'La seule action necessaire c\'est de faire. Vraiment, il n\'y a qu\'a faire.',
+  'Monter en connaissance c\'est pas faire. Dans 99,9% des cas.',
+  'Une offre on est cense la faire en une demi-journee.',
+  'Il faut toujours dire la verite. C\'est le truc qui fait que vous allez vous sentir bien.',
+  'Chaque action repetee = une habitude. La somme des habitudes = le destin.',
+  'Le temps qui passe est votre ennemi a tous.',
+  'Il n\'y a pas de honte a gagner de l\'argent.',
+]
+---
+
+<Layout
+  title="Table Clarte & Business | Perspectives #4"
+  description="Synthese de la table thematique Clarte & Business — Rencontre Perspectives #4, LAOM, 6 mars 2026"
+  seo={{ noindex: true, nofollow: true }}
+>
+
+  <!-- Password Protection Overlay -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-6">
+          <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Espace Perspectives</h2>
+        <p class="text-white/50 text-sm">Table thematique — Clarte & Business</p>
+      </div>
+      
+      <form id="password-form" class="space-y-4">
+        <input 
+          type="password" 
+          id="password-input"
+          placeholder="Mot de passe"
+          class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#C4A855]/50 focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+          autocomplete="off"
+        />
+        <button 
+          type="submit"
+          class="w-full px-6 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Acceder
+        </button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <MobileNav currentPage="/perspectives-table/" />
+
+  <!-- Hero Header -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-10 sm:pb-14">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Rencontre Perspectives #4 — Jour 1</p>
+        <h1 class="font-playfair text-3xl sm:text-4xl md:text-5xl font-medium text-white tracking-tight leading-tight mb-4">
+          Clarte & Business
+        </h1>
+        <p class="text-white/50 text-sm sm:text-base max-w-2xl leading-relaxed">
+          Comment passer d'une vision claire a un business reel — sans trahir ses valeurs, sans se perdre, sans attendre d'etre pret.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4 text-xs text-white/40">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+          6 mars 2026
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          16h — 18h
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          ~15 participants
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          LAOM, Aveyron
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation interne -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <div class="flex gap-3 sm:gap-4 overflow-x-auto text-xs sm:text-sm pb-1">
+        <a href="#problemes" class="text-[#2C2824]/60 hover:text-[#2C2824] whitespace-nowrap transition-colors py-1">Problemes</a>
+        <a href="#contenu" class="text-[#2C2824]/60 hover:text-[#2C2824] whitespace-nowrap transition-colors py-1">Contenu</a>
+        <a href="#interventions" class="text-[#2C2824]/60 hover:text-[#2C2824] whitespace-nowrap transition-colors py-1">Interventions</a>
+        <a href="#phrases" class="text-[#2C2824]/60 hover:text-[#2C2824] whitespace-nowrap transition-colors py-1">Phrases-cles</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 3 Problemes identifies -->
+  <section id="problemes" class="bg-[#FAF8F5] py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Diagnostic</p>
+      <h2 class="font-playfair text-2xl sm:text-3xl font-medium text-[#2C2824] mb-8">Les 3 problemes du groupe</h2>
+      
+      <div class="grid gap-6 sm:grid-cols-3">
+        {problemes.map((p) => (
+          <div class="bg-white rounded-sm border border-black/5 p-6 sm:p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#C4A855]/10 text-[#C4A855] text-sm font-medium">
+                {p.numero}
+              </span>
+              <h3 class="font-playfair text-lg font-medium text-[#2C2824]">{p.titre}</h3>
+            </div>
+            <p class="text-sm text-[#2C2824]/70 leading-relaxed">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenu delivre — 7 blocs -->
+  <section id="contenu" class="bg-[#F3EEDC] py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B5A3C] mb-2">Contenu</p>
+      <h2 class="font-playfair text-2xl sm:text-3xl font-medium text-[#2C2824] mb-10">Les 7 blocs delivres</h2>
+
+      <div class="space-y-6">
+        {blocs.map((bloc) => (
+          <div class="bg-white rounded-sm border-l-4 p-6 sm:p-8" style={`border-left-color: ${bloc.couleur}`}>
+            <div class="flex items-baseline gap-3 mb-4">
+              <span class="text-xs font-medium tracking-wider uppercase" style={`color: ${bloc.couleur}`}>
+                Bloc {bloc.numero}
+              </span>
+              <h3 class="font-playfair text-lg sm:text-xl font-medium text-[#2C2824]">{bloc.titre}</h3>
+            </div>
+            <ul class="space-y-3">
+              {bloc.points.map((point) => (
+                <li class="flex gap-3 text-sm text-[#2C2824]/80 leading-relaxed">
+                  <span class="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={`background-color: ${bloc.couleur}`}></span>
+                  <span set:html={point} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Interventions participants -->
+  <section id="interventions" class="bg-[#FAF8F5] py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#4A7C59] mb-2">Participants</p>
+      <h2 class="font-playfair text-2xl sm:text-3xl font-medium text-[#2C2824] mb-8">Interventions notables</h2>
+
+      <div class="space-y-4">
+        {interventions.map((inter) => (
+          <div class="bg-white rounded-sm border border-black/5 p-5 sm:p-6 flex gap-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#4A7C59]/10 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[#4A7C59]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-[#2C2824] mb-1">{inter.participant}</p>
+              <p class="text-sm text-[#2C2824]/70 leading-relaxed">{inter.contenu}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Phrases-cles -->
+  <section id="phrases" class="bg-[#1a1a1a] py-12 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">A retenir</p>
+      <h2 class="font-playfair text-2xl sm:text-3xl font-medium text-white mb-10">Phrases-cles</h2>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        {phraseCles.map((phrase, i) => (
+          <div class="relative bg-white/5 border border-white/10 rounded-sm p-6">
+            <svg class="absolute top-4 left-4 w-5 h-5 text-[#C4A855]/30" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+            <p class="text-white/90 text-sm sm:text-base leading-relaxed pl-6 italic">
+              {phrase}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer section -->
+  <section class="bg-[#1a1a1a] border-t border-white/10 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 text-center">
+      <p class="text-white/30 text-xs">
+        Synthese de session — Rencontre Perspectives #4 — LAOM, 6 mars 2026
+      </p>
+      <p class="text-white/20 text-xs mt-2">
+        Anime par Charly Aubert
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const PASSWORD = 'perspectives2026'
+    const STORAGE_KEY = 'perspectives_table_auth'
+    
+    const overlay = document.getElementById('password-overlay')
+    const form = document.getElementById('password-form')
+    const input = document.getElementById('password-input') as HTMLInputElement
+    const error = document.getElementById('password-error')
+    
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      overlay?.style.setProperty('display', 'none')
+    }
+    
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      if (input?.value === PASSWORD) {
+        localStorage.setItem(STORAGE_KEY, 'true')
+        overlay?.style.setProperty('display', 'none')
+      } else {
+        error?.classList.remove('hidden')
+        input?.classList.add('border-red-500')
+      }
+    })
+  </script>
+</Layout>
