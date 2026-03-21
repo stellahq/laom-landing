@@ -22,6 +22,7 @@ export interface LayoutProps {
   ogImage?: string
   description?: string
   seo?: SEOProps
+  hideChrome?: boolean
 }
 
 const {
@@ -29,6 +30,7 @@ const {
   ogImage,
   description = 'Experience nature, wellness, and mindful living in harmony with the earth. A transformative journey where every moment is designed to inspire and renew.',
   seo = {},
+  hideChrome = false,
 }: LayoutProps = Astro.props
 
 import '../styles/global.css'
@@ -67,11 +69,11 @@ const seoProps = {
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-black focus:text-white focus:px-4 focus:py-2 focus:rounded">
       Skip to main content
     </a>
-    <Header />
-    <main id="main-content" class="pt-[95px] md:pt-[111px]">
+    {!hideChrome && <Header />}
+    <main id="main-content" class={hideChrome ? '' : 'pt-[95px] md:pt-[111px]'}>
       <slot />
     </main>
-    <Footer />
+    {!hideChrome && <Footer />}
     <script is:inline src="https://f.convertkit.com/ckjs/ck.5.js"></script>
     <script>
       // Smooth scroll reveal animation

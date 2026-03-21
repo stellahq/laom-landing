@@ -1,0 +1,567 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Conférence gratuite — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM',
+  url: Astro.url.toString(),
+  description: '5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Conférence gratuite le 21 avril à 20h30.',
+})
+
+// Kit form options
+const formKitOptions = {
+  settings: {
+    after_subscribe: {
+      action: 'message',
+      success_message: 'Inscription confirmée ! Vous recevrez le lien de connexion par email avant la conférence.',
+      redirect_url: '',
+    },
+    powered_by: { show: false },
+    recaptcha: { enabled: false },
+  },
+  version: '5',
+}
+
+// Ce que vous apprendrez
+const learnings = [
+  {
+    title: 'Acheter en collectif',
+    description: 'Comment on a acheté 21 hectares à 8 sans se connaître — et ce qu\'on aurait dû faire autrement.',
+    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+  },
+  {
+    title: 'Structurer juridiquement',
+    description: 'Les 4 structures qu\'on a testées en 5 ans — et laquelle marche vraiment.',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  },
+  {
+    title: 'Financer sans banque',
+    description: 'Comment on a levé plus de 3 millions d\'euros sans prêt bancaire traditionnel.',
+    icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: 'Créer un business rentable',
+    description: 'Le modèle qui génère 200 à 500K/an sans devenir esclave du lieu.',
+    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+  },
+  {
+    title: 'Éviter nos erreurs',
+    description: 'Les 7 erreurs qui nous ont coûté 49 000 € d\'avocats et 5 ans de chaos.',
+    icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+  },
+  {
+    title: 'Passer à l\'action',
+    description: 'Ce qu\'on ferait différemment si c\'était à refaire.',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+  },
+]
+
+// Témoignages
+const testimonials = [
+  {
+    quote: "Une heure. Il m'a fallu une heure avec Charly pour avoir les réponses que je cherchais depuis des mois. Il a immédiatement vu les angles morts de mon plan de financement. Quand je fais le calcul des erreurs que j'aurais commises sans cet échange, c'est au moins 30 000 euros que je n'aurai pas à perdre.",
+    author: "Nicolas",
+    context: "Porteur de projet écolieu",
+  },
+  {
+    quote: "Échanger avec Charly, c'est avoir accès à quelqu'un qui a déjà porté un lieu pendant cinq ans — et qui te dit les choses telles qu'elles sont. Il nous a ouvert les yeux sur des pistes de financement qu'on n'avait pas envisagées. Ce qui a le plus de valeur, c'est la relation de pair : quelqu'un qui comprend exactement ce que tu traverses.",
+    author: "Rico & Martin",
+    context: "Cofondateurs de Naturopia, Madère",
+  },
+  {
+    quote: "Jusque-là je n'avais croisé que des alternatifs sans le sou et des entrepreneurs qui n'ont rien à faire des questions écologiques — et Charly m'a montré que cette intersection existe. Ça me donne de la force et l'envie de bâtir des projets d'envergure allant dans le sens de mes valeurs.",
+    author: "Nicolas Zanuttini",
+    context: "Auto-entrepreneur",
+    image: "/images/nicolas-zanuttini.webp",
+  },
+]
+---
+
+<Layout
+  title="Conférence gratuite — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM"
+  description="5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Conférence gratuite le 21 avril à 20h30."
+  seo={{ ldJSON: pageSchema }}
+  hideChrome={true}
+>
+  <style is:global>
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+    .formkit-alert:empty { display: none; }
+    .formkit-alert-error {
+      background: rgba(254, 226, 226, 0.9);
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      list-style: none;
+      margin: 0 0 0.75rem 0;
+    }
+    .formkit-alert-success {
+      background: rgba(187, 247, 208, 0.9);
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      border-radius: 0.25rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      list-style: none;
+      margin: 0 0 0.75rem 0;
+    }
+
+    /* /animate — entrance animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .animate-enter {
+      opacity: 0;
+    }
+    .animate-enter.is-visible {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* /animate — hero choreography */
+    .hero-badge { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+    .hero-title { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards; opacity: 0; }
+    .hero-subtitle { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; opacity: 0; }
+    .hero-date { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards; opacity: 0; }
+    .hero-form { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; opacity: 0; }
+    .hero-note { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards; opacity: 0; }
+
+    /* /animate — stagger for learning cards */
+    .learning-card { opacity: 0; }
+    .learning-card.is-visible {
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .learning-card:nth-child(1).is-visible { animation-delay: 0ms; }
+    .learning-card:nth-child(2).is-visible { animation-delay: 80ms; }
+    .learning-card:nth-child(3).is-visible { animation-delay: 160ms; }
+    .learning-card:nth-child(4).is-visible { animation-delay: 240ms; }
+    .learning-card:nth-child(5).is-visible { animation-delay: 320ms; }
+    .learning-card:nth-child(6).is-visible { animation-delay: 400ms; }
+
+    /* /harden — focus-visible for all interactive elements */
+    input:focus-visible, button:focus-visible, a:focus-visible {
+      outline: 2px solid #C4A855;
+      outline-offset: 2px;
+    }
+
+    /* /optimize — content-visibility for below-fold sections */
+    .below-fold {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 600px;
+    }
+
+    /* /polish — reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-badge, .hero-title, .hero-subtitle, .hero-date, .hero-form, .hero-note { animation: none; opacity: 1; }
+      .animate-enter { opacity: 1; }
+      .animate-enter.is-visible { animation: none; }
+      .learning-card.is-visible { animation: none; opacity: 1; }
+      .animate-bounce { animation: none; }
+    }
+  </style>
+
+  <!-- ============================================ -->
+  <!-- HERO — Full-screen immersive -->
+  <!-- ============================================ -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
+        alt="Le Grand Shambala vu par drone — plus grand bâtiment en paille porteuse du monde, LAOM, Aveyron"
+        title="Grand Shambala — 800 m² en paille porteuse, LAOM Aveyron"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        sizes="100vw"
+      />
+      <!-- /colorize — gradient plus riche, meilleur contraste texte -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/25"></div>
+    </div>
+
+    <!-- /arrange — contenu avec max-width: 65ch pour lisibilité optimale -->
+    <div class="relative z-10 w-full max-w-[65ch] mx-auto px-6 sm:px-10 text-center py-24 md:py-32">
+
+      <!-- /animate — badge en premier, fade in -->
+      <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-sm mb-10 backdrop-blur-sm">
+        <span class="w-2 h-2 bg-[#C4A855] rounded-full animate-pulse"></span>
+        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/90">Conférence gratuite en ligne</span>
+      </div>
+
+      <!-- /typeset — titre avec leading plus généreux sur fond sombre -->
+      <h1 class="hero-title font-playfair text-4xl sm:text-5xl md:text-6xl font-medium text-white mb-8 tracking-tight leading-[1.15] md:leading-[1.12]">
+        Comment on a quitté la ville pour créer un coliving rentable en pleine nature
+      </h1>
+
+      <!-- /distill + /clarify — sous-titre condensé, une seule phrase d'impact + détails -->
+      <div class="hero-subtitle max-w-[55ch] mx-auto mb-10 space-y-3">
+        <p class="text-lg md:text-xl font-light text-white/90 leading-relaxed">
+          5 ans d'expérience condensés en 45 minutes.
+        </p>
+        <!-- /colorize — text-white/70 au lieu de /60 pour passer WCAG sur fond sombre -->
+        <p class="text-base md:text-lg font-light text-white/70 leading-relaxed">
+          800&nbsp;m² en paille porteuse, une ferme, un restaurant, plus de 3M&nbsp;€ levés — et un business model qui tourne entre 200 et 500K&nbsp;€/an sans nous enfermer.
+        </p>
+      </div>
+
+      <!-- Date — bien visible -->
+      <div class="hero-date mb-10">
+        <p class="font-playfair text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight">
+          Lundi 21 avril · 20h30
+        </p>
+        <p class="text-sm md:text-base font-light text-white/60 mt-2">45 min de conférence + questions en direct</p>
+      </div>
+
+      <!-- /harden — formulaire avec focus-visible, aria-labels explicites -->
+      <div class="hero-form">
+        <form
+          action="https://app.kit.com/forms/8987350/subscriptions"
+          class="seva-form formkit-form"
+          method="post"
+          data-sv-form="8987350"
+          data-uid="af2e0fc1e5"
+          data-format="inline"
+          data-version="5"
+          data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+        >
+          <div data-style="clean">
+            <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite" style="color: #fecaca; background: rgba(254,226,226,0.15); border-color: rgba(248,113,113,0.5);"></ul>
+            <div data-element="fields" data-stacked="false" class="flex flex-col gap-3 max-w-lg mx-auto">
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input
+                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out backdrop-blur-sm focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                  name="fields[first_name]"
+                  type="text"
+                  placeholder="Prénom"
+                  aria-label="Votre prénom"
+                  autocomplete="given-name"
+                />
+                <input
+                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out backdrop-blur-sm focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                  name="email_address"
+                  type="email"
+                  required
+                  aria-label="Votre adresse e-mail"
+                  placeholder="votre@email.com"
+                  autocomplete="email"
+                />
+              </div>
+              <button
+                type="submit"
+                data-element="submit"
+                class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
+              >
+                Réserver ma place gratuitement
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p class="hero-note text-xs text-white/40 mt-4">Places limitées · Lien envoyé par email après inscription</p>
+    </div>
+
+    <!-- /animate — scroll arrow -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <a href="#programme" class="block text-white/30 hover:text-white/60 transition-colors duration-200 ease-out" aria-label="Voir le programme de la conférence">
+        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- CHIFFRES CLÉS -->
+  <!-- /arrange — espacement varié vs la section suivante -->
+  <!-- /typeset — tabular-nums pour les chiffres alignés -->
+  <!-- ============================================ -->
+  <section class="py-10 md:py-14 bg-[#FAF8F5] border-b border-[#2C2824]/5 below-fold">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 md:gap-6 text-center" style="font-variant-numeric: tabular-nums;">
+        <div class="animate-enter">
+          <p class="text-3xl md:text-4xl font-playfair font-medium text-[#2C2824] tracking-tight">21</p>
+          <p class="text-sm font-light text-[#2C2824]/50 mt-1">hectares</p>
+        </div>
+        <div class="animate-enter">
+          <p class="text-3xl md:text-4xl font-playfair font-medium text-[#2C2824] tracking-tight">800&nbsp;m²</p>
+          <p class="text-sm font-light text-[#2C2824]/50 mt-1">paille porteuse</p>
+        </div>
+        <div class="animate-enter">
+          <p class="text-3xl md:text-4xl font-playfair font-medium text-[#2C2824] tracking-tight">15</p>
+          <p class="text-sm font-light text-[#2C2824]/50 mt-1">familles</p>
+        </div>
+        <div class="animate-enter">
+          <p class="text-3xl md:text-4xl font-playfair font-medium text-[#2C2824] tracking-tight">3M&nbsp;€</p>
+          <p class="text-sm font-light text-[#2C2824]/50 mt-1">financés</p>
+        </div>
+        <div class="animate-enter col-span-2 sm:col-span-1">
+          <p class="text-3xl md:text-4xl font-playfair font-medium text-[#2C2824] tracking-tight">200K&nbsp;€</p>
+          <p class="text-sm font-light text-[#2C2824]/50 mt-1">de CA / an</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- CE QUE VOUS APPRENDREZ -->
+  <!-- /arrange — espacement asymétrique (py-20 md:py-28 vs py-24 md:py-32) -->
+  <!-- /animate — stagger sur les cards -->
+  <!-- ============================================ -->
+  <section id="programme" class="py-20 md:py-28 bg-white below-fold">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <div class="animate-enter">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6 text-center">Pendant cette conférence</p>
+        <!-- /typeset — h2 cohérent avec le reste du site -->
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] mb-16 text-center tracking-tight">
+          Ce que vous apprendrez
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-10">
+        {learnings.map((item, i) => (
+          <div class="learning-card group" data-stagger={i}>
+            <div class="w-10 h-10 mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10 group-hover:bg-[#C4A855]/20 transition-colors duration-200 ease-out">
+              <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={item.icon} />
+              </svg>
+            </div>
+            <!-- /typeset — titres h3 avec espacement cohérent -->
+            <h3 class="text-lg font-medium text-[#2C2824] mb-2 leading-snug">{item.title}</h3>
+            <!-- /typeset — max-width: 45ch pour lisibilité des descriptions courtes -->
+            <p class="text-base font-light text-[#2C2824]/60 leading-relaxed max-w-[45ch]">
+              {item.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- QUI PRÉSENTE -->
+  <!-- /arrange — espacement plus généreux (py-24 md:py-36) -->
+  <!-- ============================================ -->
+  <section class="py-24 md:py-36 bg-[#FAF8F5] below-fold">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-10 animate-enter">Votre hôte</p>
+      <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 items-start">
+        <div class="aspect-[3/4] overflow-hidden rounded-sm animate-enter">
+          <img
+            src="/images/laom/mentorat-charly-aubert-ecolieu.webp"
+            alt="Charly Aubert, fondateur de LAOM, écolieu en Aveyron"
+            title="Charly Aubert — Fondateur de LAOM"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 280px"
+          />
+        </div>
+        <div class="flex flex-col justify-center animate-enter">
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">
+            Charly Aubert
+          </h2>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-8">Co-fondateur de LAOM</p>
+          <!-- /typeset — max-width: 55ch, line-height 1.7 pour le body -->
+          <div class="space-y-5 text-base md:text-lg font-light text-[#2C2824]/80 leading-[1.7] max-w-[55ch]">
+            <p>
+              33 ans, autodidacte. Aucun diplôme en construction, en droit ni en agriculture.
+            </p>
+            <p>
+              Et pourtant : j'ai co-créé un écolieu de 21 hectares, construit le plus grand bâtiment en paille porteuse du monde, et monté un business model qui génère entre 200 et 500K&nbsp;€ par an.
+            </p>
+            <p>
+              Avant, je tenais un tiers-lieu en Guyane. Aujourd'hui, je vis à LAOM avec ma compagne Amandine et notre fils Livio, au milieu de 15 familles.
+            </p>
+            <!-- /colorize — contraste renforcé pour l'italic -->
+            <p class="text-[#2C2824]/65 italic">
+              Je partage tout : les victoires, les galères, les chiffres, les erreurs. Pas de filtre.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- TÉMOIGNAGES -->
+  <!-- ============================================ -->
+  <section class="py-20 md:py-28 bg-white below-fold">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6 text-center animate-enter">Ils portent des projets similaires</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] mb-16 text-center tracking-tight animate-enter">
+        Ce qu'ils en disent
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-8 md:gap-10">
+        {testimonials.map((t) => (
+          <blockquote class="border-l-[3px] border-[#C4A855] pl-6 animate-enter">
+            <p class="text-base font-light text-[#2C2824]/80 leading-[1.7] italic">
+              "{t.quote}"
+            </p>
+            <footer class="mt-5 flex items-center gap-3">
+              {t.image ? (
+                <img src={t.image} alt={t.author} class="w-10 h-10 rounded-full object-cover" loading="lazy" />
+              ) : (
+                <div class="w-10 h-10 rounded-full bg-[#C4A855]/15 flex items-center justify-center text-sm font-medium text-[#8B7A3A]">
+                  {t.author.charAt(0)}
+                </div>
+              )}
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">{t.author}</p>
+                <p class="text-xs font-light text-[#2C2824]/50">{t.context}</p>
+              </div>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- PHOTOS LAOM -->
+  <!-- /optimize — lazy loading, sizes attribute -->
+  <!-- /animate — fade in on scroll -->
+  <!-- ============================================ -->
+  <section class="py-10 md:py-14 bg-[#FAF8F5] below-fold">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        <div class="aspect-[4/3] overflow-hidden rounded-sm animate-enter">
+          <img
+            src="/images/laom/grand-shambala/facade-sud-grand-shambala-ouvertures-2025.webp"
+            alt="Façade sud du Grand Shambala avec ses ouvertures, 2025"
+            title="Grand Shambala — façade sud, LAOM"
+            class="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-300 ease-out"
+            loading="lazy"
+            sizes="(max-width: 768px) 50vw, 33vw"
+          />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-sm animate-enter">
+          <img
+            src="/images/laom/financement-participatif/communaute-laom-chantier-participatif.webp"
+            alt="Chantier participatif à LAOM avec la communauté"
+            title="Chantier participatif — communauté LAOM"
+            class="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-300 ease-out"
+            loading="lazy"
+            sizes="(max-width: 768px) 50vw, 33vw"
+          />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-sm col-span-2 md:col-span-1 animate-enter">
+          <img
+            src="/images/laom/laom-equipe-moment-convivial.webp"
+            alt="L'équipe LAOM dans un moment convivial"
+            title="Équipe LAOM — moment de convivialité"
+            class="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-300 ease-out"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        </div>
+      </div>
+      <p class="text-center text-sm font-light text-[#2C2824]/40 mt-6">
+        21 hectares · Sud Aveyron · Parc Naturel des Grands Causses
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- CTA FINAL -->
+  <!-- /colorize — texte renforcé pour WCAG sur fond sombre -->
+  <!-- /animate — fade in up -->
+  <!-- /delight — hover shadow sur le bouton -->
+  <!-- ============================================ -->
+  <section class="py-24 md:py-32 bg-[#2C2824] below-fold">
+    <div class="max-w-xl mx-auto px-6 text-center">
+
+      <p class="font-playfair text-3xl md:text-4xl font-medium text-white mb-3 tracking-tight animate-enter">
+        Lundi 21 avril · 20h30
+      </p>
+      <!-- /colorize — text-white/60 au lieu de /50 pour meilleur contraste -->
+      <p class="text-base font-light text-white/60 mb-10 max-w-[45ch] mx-auto leading-relaxed animate-enter">
+        5 ans de recul condensés en 45 minutes. Tout ce qu'on a appris — pour que vous alliez plus vite que nous.
+      </p>
+
+      <div class="animate-enter">
+        <form
+          action="https://app.kit.com/forms/8987350/subscriptions"
+          class="seva-form formkit-form"
+          method="post"
+          data-sv-form="8987350"
+          data-uid="af2e0fc1e5"
+          data-format="inline"
+          data-version="5"
+          data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+        >
+          <div data-style="clean">
+            <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite" style="color: #fecaca; background: rgba(254,226,226,0.15); border-color: rgba(248,113,113,0.5);"></ul>
+            <div data-element="fields" data-stacked="false" class="flex flex-col gap-3 max-w-lg mx-auto">
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input
+                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                  name="fields[first_name]"
+                  type="text"
+                  placeholder="Prénom"
+                  aria-label="Votre prénom"
+                  autocomplete="given-name"
+                />
+                <input
+                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                  name="email_address"
+                  type="email"
+                  required
+                  aria-label="Votre adresse e-mail"
+                  placeholder="votre@email.com"
+                  autocomplete="email"
+                />
+              </div>
+              <button
+                type="submit"
+                data-element="submit"
+                class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
+              >
+                Réserver ma place gratuitement
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- /clarify — mention utile et spécifique -->
+      <p class="text-xs text-white/40 mt-6">Vous recevrez le lien de connexion par email le jour de la conférence.</p>
+    </div>
+  </section>
+
+
+  <!-- MINI FOOTER -->
+  <section class="py-6 bg-[#2C2824] border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <a href="https://laom.fr/" class="font-playfair text-lg text-white/25 hover:text-white/50 transition-colors duration-200 ease-out tracking-tight" aria-label="Retour au site LAOM">LAOM</a>
+    </div>
+  </section>
+
+  <!-- /animate — Intersection Observer pour les animations au scroll -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    )
+    document.querySelectorAll('.animate-enter, .learning-card').forEach((el) => observer.observe(el))
+  </script>
+
+</Layout>
