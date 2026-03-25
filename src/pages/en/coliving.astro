@@ -8,6 +8,26 @@ const pageSchema = createWebPageSchema({
   description:
     'Opening late 2026: 7 rooms, shared living/kitchen, summer kitchen, multipurpose hall, coworking, river and meadows.',
 })
+
+const galleryImages = [
+  '/images/laom/coliving/coliving-laom-rendu-3d-vue-generale.webp',
+  '/images/laom/coliving/coliving-laom-plan-etage.webp',
+  '/images/laom/coliving/coliving-laom-rendu-chambre.webp',
+  '/images/laom/coliving/coliving-laom-rendu-facade.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-01.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-02.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-03.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-04.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-05.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-06.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-07.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-08.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-09.webp',
+  '/images/laom/coliving/coliving-laom-vue-interieure-10.webp',
+  '/images/laom/coliving/coliving-laom-maquette-interieure.webp',
+  '/images/laom/coliving/hameau-5-8b46de75.webp',
+  '/images/laom/coliving/coliving-laom-vue-domaine.webp',
+]
 ---
 
 <Layout
@@ -22,6 +42,34 @@ const pageSchema = createWebPageSchema({
       <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
         7 rooms · 1 shared living room / kitchen · 1 summer kitchen · 1 multipurpose hall · 21 hectares · a river
       </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid gap-6 md:grid-cols-3">
+        <img
+          src="/images/laom/coliving/coliving-laom-vue-domaine.webp"
+          alt="Coliving house"
+          title="View of the LAOM coliving estate"
+          class="h-64 w-full rounded-sm object-cover border border-black/10"
+          loading="lazy"
+        />
+        <img
+          src="/images/laom/coliving/coliving-laom-maquette-interieure.webp"
+          alt="Coliving interior spaces"
+          title="Interior model of the LAOM coliving"
+          class="h-64 w-full rounded-sm object-cover border border-black/10"
+          loading="lazy"
+        />
+        <img
+          src="/images/laom/coliving/hameau-5-8b46de75.webp"
+          alt="View of the hamlet and valley"
+          title="The hamlet of La Margue and the valley"
+          class="h-64 w-full rounded-sm object-cover border border-black/10"
+          loading="lazy"
+        />
+      </div>
     </div>
   </section>
 
@@ -59,6 +107,23 @@ const pageSchema = createWebPageSchema({
         <div class="border border-black/10 p-5">The meadows</div>
         <div class="border border-black/10 p-5">The valley</div>
         <div class="border border-black/10 p-5">Shows and shared moments</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-[#faf9f6]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="text-3xl md:text-4xl font-light text-black mb-10">Gallery</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {galleryImages.map((src, index) => (
+          <img
+            src={src}
+            alt={`Coliving Gallery ${index + 1}`}
+            title={`LAOM Coliving - photo ${index + 1}`}
+            class="h-56 w-full rounded-sm object-cover border border-black/10 bg-white"
+            loading="lazy"
+          />
+        ))}
       </div>
     </div>
   </section>

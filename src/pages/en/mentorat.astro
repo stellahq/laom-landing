@@ -3,170 +3,374 @@ import Layout from '~/layouts/Layout.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
-  name: 'Mentorship – Charly Aubert',
+  name: 'Duo Mentorship — Charly & Amandine | LAOM',
   url: Astro.url.toString(),
-  description: 'One-to-one support for those who want to change their life, create a coliving or build an eco-place.',
+  description: 'Two complementary mentors to help you create the life you want. Vision, systems, action. Charly (field, construction, eco-places) + Amandine (online business, acquisition, communities).',
 })
+
+const expertiseCharly = [
+  'Tech & startup (ex-Epitech, AI since 2012)',
+  'Fundraising and real estate investment',
+  'Field construction and eco-building (850m2 load-bearing straw)',
+  'Project management, budgeting, agricultural funding',
+  'Creating and running an eco-place (LAOM, 21 hectares)',
+]
+
+const expertiseAmandine = [
+  'Online business and monetization',
+  'Community building (50,000 emails)',
+  'Challenges and launches (100,000 participants)',
+  'Acquisition and sales funnels',
+  'Marketing systems and automation',
+]
+
+const whoItsFor = [
+  {
+    num: '01',
+    titre: 'You want to bring a life vision to reality',
+    desc: 'You have a clear vision of what you want to live, but you get stuck when it\'s time to take action. You need a framework, an outside perspective, and someone who helps you move forward concretely.',
+  },
+  {
+    num: '02',
+    titre: 'You want to create a collective place',
+    desc: 'Eco-place, coliving, third place, shared housing. You want to build a project from A to Z: land, group, governance, funding, construction. You\'re looking for someone who\'s done it and can help you avoid the classic mistakes.',
+  },
+  {
+    num: '03',
+    titre: 'You want to grow your online business',
+    desc: 'You have expertise, a message, an offer. You want to build an audience, a community, an acquisition system that runs on its own. You\'re looking for someone who\'s already built that and can show you how.',
+  },
+]
 ---
 
 <Layout
-  title="Mentorship – Charly Aubert | LAOM"
-  description="One-to-one support for those who want to change their life, create a coliving or build an eco-place."
-  seo={{
-    ldJSON: pageSchema,
-  }}
+  title="Duo Mentorship — Charly & Amandine | LAOM"
+  description="Two complementary mentors to help you create the life you want. Vision, systems, action."
+  seo={{ ldJSON: pageSchema }}
 >
   <!-- Hero -->
-  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
+  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden -mt-24 md:-mt-28 bg-[#1a1a1a]">
     <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-[#E8E3D8] flex items-center justify-center">
-        <p class="text-sm font-light text-[#2C2824]/40">Photo to take: Charly outdoors, natural light, open posture</p>
-      </div>
-      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-[#2C2824] via-[#1a1a1a] to-[#0a0a0a]"></div>
+      <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 25% 40%, rgba(196,168,85,0.2) 0%, transparent 50%), radial-gradient(circle at 75% 60%, rgba(74,124,89,0.15) 0%, transparent 40%);"></div>
     </div>
     <div class="relative z-10 max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center py-32 lg:py-40">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-white/80 mb-6">One-to-one support</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Personalized support</p>
       <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight">
-        Mentorship
+        Duo Mentorship
       </h1>
-      <p class="text-xl md:text-2xl font-light text-white/90 max-w-3xl mx-auto leading-relaxed">
-        A space to clarify your vision, structure your project and take action. With someone who's done it.
+      <p class="text-xl md:text-2xl font-light text-white/80 max-w-3xl mx-auto leading-relaxed mb-4">
+        Two complementary areas of expertise. Tailored support.
+      </p>
+      <p class="text-lg font-light text-white/50 max-w-2xl mx-auto">
+        To create the life you want with a clear vision and systems that support you.
       </p>
     </div>
   </section>
 
-  <!-- Intro -->
+  <!-- The promise -->
   <section class="py-20 md:py-24 bg-white">
-    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-4">
-        This mentorship is for those who are ready to stop thinking their dream… and start living it.
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
+        You have a vision. You know what you want to live. But you keep hitting reality: where do you start? How do you structure it? How do you move forward without burning out?
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        You want to change your life, create a collective place, an eco-place or a coliving, build an ecological house, rethink your path to finally create the life you dream of. Or simply find more meaning in what you do.
+        With Charly and Amandine, you get two complementary perspectives: one grounded in the field, construction, and collective projects. The other in digital, acquisition, and community building.
       </p>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Charly supports you one-to-one, with a pragmatic approach rooted in the field. Mentorship is a simple frame: regular sessions, by video or on site, to move forward concretely. No off-the-shelf method. Tailored support, nourished by hands-on experience.
+      <p class="text-lg md:text-xl font-medium text-[#2C2824] leading-relaxed">
+        Together, they support you in turning your vision into reality — with concrete systems, not theories.
       </p>
+    </div>
+  </section>
+
+  <!-- The duo -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">The duo</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Two areas of expertise, one mentorship
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Charly -->
+        <div class="bg-white rounded-sm overflow-hidden border border-black/5">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img 
+              src="/images/laom/mentorat-charly-aubert-ecolieu.webp" 
+              alt="Charly Aubert, co-founder of LAOM"
+              title="Charly Aubert, mentor and co-founder of LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-8">
+            <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
+            <p class="text-sm font-light text-[#C4A855] mb-6 uppercase tracking-wider">Field · Construction · Eco-places</p>
+            <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-6">
+              33 years old. Self-taught. Ex-Epitech. Co-founder of LAOM and Oasis La Margue (21 hectares, 15 households). Built the world's largest load-bearing straw building (850 m2). Working with AI since 2012 (medical decision-support algorithms).
+            </p>
+            <div class="space-y-2">
+              {expertiseCharly.map((e) => (
+                <div class="flex items-start gap-3">
+                  <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+                  <span class="text-sm font-light text-[#2C2824]/70">{e}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Amandine -->
+        <div class="bg-white rounded-sm overflow-hidden border border-black/5">
+          <div class="aspect-[4/3] overflow-hidden">
+            <img
+              src="/images/amandine-orriols.webp"
+              alt="Amandine Orriols, LAOM co-founder, digital acquisition and community expert"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="634"
+              height="800"
+            />
+          </div>
+          <div class="p-8">
+            <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Amandine Orriols</h3>
+            <p class="text-sm font-light text-[#4A7C59] mb-6 uppercase tracking-wider">Digital · Acquisition · Communities</p>
+            <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-6">
+              Digital entrepreneur. Has built several profitable online businesses. Grew a community of 50,000 emails and organized challenges with over 100,000 participants. Expert in acquisition, sales funnels, and marketing systems.
+            </p>
+            <div class="space-y-2">
+              {expertiseAmandine.map((e) => (
+                <div class="flex items-start gap-3">
+                  <span class="text-[#4A7C59] mt-0.5 flex-shrink-0">&#10003;</span>
+                  <span class="text-sm font-light text-[#2C2824]/70">{e}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Who it's for -->
-  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+  <section class="py-20 md:py-24 bg-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="text-center mb-16 opacity-0" animate-fade-in-up>
+      <div class="text-center mb-16">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Who it's for</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight title-underline mx-auto">
-          Three profiles, one same impulse
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Three profiles, one same drive
         </h2>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8 opacity-0" animate-fade-in-up>
-        <div class="bg-white border border-black/5 rounded-sm p-8">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">01</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Give form to a life vision and live what's calling you</h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
-            You want to find a living environment that's more aligned, or give concrete form to a life vision that's calling you. But you're stuck in your head, in doubt, when it comes to taking action.
-          </p>
-          <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed">
-            Mentorship helps you: clarify what you want to bring to life, notice what's going on inside you when facing action, release what's blocking execution, move forward with concrete actions while staying aligned with your vision.
-          </p>
-        </div>
-        <div class="bg-white border border-black/5 rounded-sm p-8">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">02</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Create a collective place</h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
-            You have a coliving, eco-place or shared place project. You want to set up an eco-place from A to Z: land, group, governance, permits, construction. Rally people around a vision, make it work economically without sacrificing what matters, and avoid burnout or structural conflict.
-          </p>
-          <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed">
-            Mentorship helps you: clarify the vision of the place and the collective, spot blind spots (human, structural, time-related), lay solid foundations before everything gets heavy. Support to avoid the classic pitfalls of collective projects.
-          </p>
-        </div>
-        <div class="bg-white border border-black/5 rounded-sm p-8">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">03</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">Build or renovate</h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
-            You want to build or renovate an ecological house. Make coherent choices (materials, techniques, uses), avoid costly mistakes in time, money and energy. You're looking for someone who's been through it and can help you move forward with realistic, lasting choices.
-          </p>
-          <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed">
-            Mentorship helps you: think through your project before building, anticipate friction points, move forward with less stress and more clarity.
-          </p>
-        </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        {whoItsFor.map((p) => (
+          <div class="bg-[#FAF8F5] border border-black/5 rounded-sm p-8">
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">{p.num}</p>
+            <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-4">{p.titre}</h3>
+            <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- The approach -->
-  <section class="py-20 md:py-24 bg-white">
-    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">The approach</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8 title-underline">
-        From the field, not theory
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">
+        Concrete, not theoretical
       </h2>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Mentorship is individual. We start from your situation, your vision, your constraints. We move at your pace. We clarify. We structure. We take action.
-      </p>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        This isn't generic coaching. It's support nourished by 5 years building a 21-hectare eco-place, a collective of 15 households, building the world's largest load-bearing straw building, and all the mistakes we've made along the way.
-      </p>
-      <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
-        We talk about governance, legal, eco-construction, funding, group dynamics, positioning. But also doubts, fears, solitude. Because creating a place means going through all of that too.
-      </p>
-      <div class="mt-12 pt-10 border-t border-[#2C2824]/10">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Format</p>
-        <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-          100% individual mentorship, over 3 months. Personalised sessions with Charly. Content and rhythm adapted to your situation.
+      <div class="space-y-6 text-lg font-light text-[#2C2824]/85 leading-relaxed">
+        <p>
+          The mentorship is personalized. We start from your situation, your vision, your constraints. We move at your pace.
+        </p>
+        <p>
+          Depending on your needs, you work with Charly, with Amandine, or with both. The format adapts: regular sessions, one-off check-ins, or intensive support over a set period.
+        </p>
+        <p>
+          This isn't generic coaching. It's support nourished by years of hands-on experience — building an eco-place, launching businesses, growing communities, managing complex projects.
         </p>
       </div>
-    </div>
-  </section>
 
-  <!-- Charly Aubert -->
-  <section class="py-20 md:py-24 bg-[#FAF8F5]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col md:flex-row gap-12 items-start opacity-0" animate-fade-in-up>
-        <div class="w-full md:w-80 flex-shrink-0">
-          <div class="aspect-[3/4] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
-            <p class="text-sm font-light text-[#2C2824]/40 px-6 text-center">Photo to take: portrait of Charly, natural, outdoors</p>
+      <div class="mt-12 p-6 bg-white rounded-sm border border-black/5">
+        <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">What we don't do</h3>
+        <div class="grid sm:grid-cols-2 gap-3 text-sm font-light text-[#2C2824]/60">
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 mt-0.5">&#10005;</span>
+            <span>One-size-fits-all methods</span>
           </div>
-        </div>
-        <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Who</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
-            Charly Aubert
-          </h2>
-          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
-            33. Self-taught. Ex-Epitech. Co-founder of LAOM and Oasis La Margue, a 21-hectare eco-place in the south of Aveyron. Built the world's largest load-bearing straw building (Grand Shambala, 850 m²). Father. Builder.
-          </p>
-          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed mb-4">
-            5 years navigating permits, collective governance, eco-construction, departures, arrivals, questioning. And building anyway.
-          </p>
-          <p class="text-lg font-light text-[#2C2824]/85 leading-relaxed">
-            Today he shares what he's learned, to save time for those who are just starting.
-          </p>
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 mt-0.5">&#10005;</span>
+            <span>Promises of magic results</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 mt-0.5">&#10005;</span>
+            <span>Coaching without field expertise</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 mt-0.5">&#10005;</span>
+            <span>Theory disconnected from reality</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Book -->
+  <!-- Testimonials -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Testimonials</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          What they say
+        </h2>
+      </div>
+
+      <!-- Featured testimonial — JF Gignac -->
+      <div class="mb-12 p-8 md:p-12 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+        <blockquote class="text-base md:text-lg font-light text-[#2C2824]/80 italic leading-relaxed space-y-4">
+          <p>"Former teacher turned therapist and coach, I wanted to level up too fast: sales funnels, online courses. I dropped what was working to bet everything on that. It didn't work. I ended up with zero in the bank, unable to sleep at night.</p>
+          <p>Charly helped me understand that I was acting from stress and urgency. People can feel it. It doesn't convert. I needed to come back to a space of trust and value — not 'give me your money,' but 'I have something powerful to offer you.'</p>
+          <p>What struck me most was his psychological sharpness. He diagnosed my blocks, gave me concrete, lived advice — because he'd been through situations far worse than mine. A few days after shifting my approach, I launched a sales funnel that took off. 3 euros back for every euro invested. I went from survival mode to financial peace of mind.</p>
+          <p>But beyond the business results, Charly helped me understand something deeper: when you act in alignment with what truly matters to you, things unlock. That lesson stays with me to this day."</p>
+        </blockquote>
+        <div class="flex items-center gap-4 mt-8">
+          <img src="/images/jf-gignac.webp" alt="JF Gignac" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-medium text-[#2C2824]">JF Gignac</p>
+            <p class="text-sm text-[#2C2824]/50">Therapist & Coach</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials grid -->
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- Henri Beaumont -->
+        <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+            "Charly's mentorship is rich. He wears many hats. He can talk about people, business, AI, tech as well as marketing. It's a pleasure to exchange with him. One thing is certain: he helps you take action!"
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="/images/henri-beaumont.webp" alt="Henri Beaumont" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+            <div>
+              <p class="font-medium text-[#2C2824]">Henri Beaumont</p>
+              <p class="text-sm text-[#2C2824]/50">Business leader</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agathe Chapalain -->
+        <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+            "I had a 90-minute strategy call with Charly. I came in with the goal of leaving with a plan for my business. In the end, I left with a different vision and new ideas for entrepreneuring in a more aligned and relevant way. It's a call that can shift your direction, see beyond your blinders, and save you precious time."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="/images/agathe-chapalain.webp" alt="Agathe Chapalain" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+            <div>
+              <p class="font-medium text-[#2C2824]">Agathe Chapalain</p>
+              <p class="text-sm text-[#2C2824]/50">Career transition coach</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Caroline Toussaint -->
+        <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+            "Whether it was about blocks in my projects, content creation, building my offer, or my sales page — every time, Charly brought clarity that allowed me to move forward with confidence. I knew exactly what to do, where to go, which mistakes to avoid. I've never made as much progress as when I was being supported by Charly. Beyond the technical side, there's this human dimension: a lot of warmth, spontaneous exchanges, while still telling it like it is when needed."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="/images/caroline-toussaint.webp" alt="Caroline Toussaint" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+            <div>
+              <p class="font-medium text-[#2C2824]">Caroline Toussaint</p>
+              <p class="text-sm text-[#2C2824]/50">Drawing teacher</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thomas Gillet -->
+        <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+            "Since Charly has been mentoring me, I've finally reconciled my vision with business support. His warmth and professionalism make all the difference. His advice is always insightful, and taking action becomes simple, fluid, and above all aligned with my life. Stepping out of my comfort zone is essential, but with him, it happens in the right direction and with much more ease."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="/images/thomas-gillet.webp" alt="Thomas Gillet" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+            <div>
+              <p class="font-medium text-[#2C2824]">Thomas Gillet</p>
+              <p class="text-sm text-[#2C2824]/50">Organization expert</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clemence Martin -->
+        <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+            "Charly quickly helped me identify what I'm truly passionate about and what didn't match my aspirations. In one session, I clarified my focus: emotional intelligence with a playful approach centered on improvised musical comedy. Before, I was scattered across three different directions without knowing how to move forward. After, I had a clear path. Charly is sensitive, empathetic, and sharp — laser coaching in 90 minutes. He helps reveal the very essence of a person, like an alchemist."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="/images/clemence-martin.jpg" alt="Clemence Martin" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+            <div>
+              <p class="font-medium text-[#2C2824]">Clemence Martin</p>
+              <p class="text-sm text-[#2C2824]/50">Founder of The Positive Place</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guillaume Steinmetz -->
+        <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+            "Unlike many business coaches, Charly isn't there to impose a single methodology he thinks is universal. He helps you find the right method for you, one that's sustainable over time. After our session, I felt understood and valued — I especially appreciated his acceptance of my reluctance toward extreme strategizing. Present, focused, attentive."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="/images/guillaume-steinmetz.jpeg" alt="Guillaume Steinmetz" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+            <div>
+              <p class="font-medium text-[#2C2824]">Guillaume Steinmetz</p>
+              <p class="text-sm text-[#2C2824]/50">Founder of Escapade Reconnexions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nicolas Zanuttini — full width, closing -->
+      <div class="mt-8 p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
+        <blockquote class="text-base md:text-lg font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
+          "I was deeply inspired by the way you think and solve problems. Your lifestyle, your commitment to this eco-place with your whole startup background, and this joyful energy you bring to everything. Until then, I'd only met alternative types with no money and entrepreneurs who couldn't care less about ecological questions, and you showed me that this intersection exists. It gives me strength and the desire to develop my entrepreneurial side, so that I too can one day build ambitious projects aligned with my values."
+        </blockquote>
+        <div class="flex items-center gap-4">
+          <img src="/images/nicolas-zanuttini.webp" alt="Nicolas Zanuttini" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+          <div>
+            <p class="font-medium text-[#2C2824]">Nicolas Zanuttini</p>
+            <p class="text-sm text-[#2C2824]/50">Self-employed entrepreneur</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
   <section class="py-20 md:py-24 bg-[#2C2824]">
-    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">First exchange</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
-        Let's talk?
+        Shall we talk?
       </h2>
       <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
-        30 minutes, by video, no commitment. We take stock of your situation, see if mentorship can help, and decide together.
+        30 minutes, by video, no commitment. We take stock of your situation, see if the mentorship can help, and decide together on the right format.
       </p>
       <a
         href="https://cal.atomik.world/charly/30min"
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
-        aria-label="Book a call (opens in new tab)"
       >
-        Book a call
+        Book a discovery call
       </a>
+      <p class="text-sm font-light text-white/40 mt-6">
+        Pricing on request, adapted to your situation and goals
+      </p>
     </div>
   </section>
 

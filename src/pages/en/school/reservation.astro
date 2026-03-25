@@ -19,14 +19,6 @@ const sessions = [
     spotsLeft: 12,
     stripeLink: '#STRIPE_LINK_SESSION_1'
   },
-  { 
-    id: 'october-2026',
-    num: '02', 
-    date: 'October 16-18, 2026', 
-    status: 'Fall session',
-    spotsLeft: 15,
-    stripeLink: '#STRIPE_LINK_SESSION_2'
-  },
 ]
 
 const inclus = [
@@ -39,7 +31,7 @@ const inclus = [
 const reassurance = [
   { icon: 'users', title: '15 spots max', desc: 'Quality guidance' },
   { icon: 'shield', title: '5 years of fieldwork', desc: 'No theory, real experience' },
-  { icon: 'lock', title: 'Secure payment', desc: 'Via Stripe' },
+  { icon: 'lock', title: 'Simple booking', desc: 'By email' },
   { icon: 'calendar', title: 'Cancel -14 days', desc: 'Full refund' },
 ]
 ---
@@ -72,37 +64,17 @@ const reassurance = [
   <section class="py-16 md:py-20 bg-white">
     <div class="max-w-4xl mx-auto px-8 md:px-12 lg:px-16">
       
-      <!-- Session selection -->
+      <!-- Session -->
       <div class="mb-12">
-        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Choose your session</h2>
-        <div class="grid md:grid-cols-2 gap-4">
-          {sessions.map((s) => (
-            <label class="session-card relative cursor-pointer group">
-              <input 
-                type="radio" 
-                name="session" 
-                value={s.id}
-                data-stripe={s.stripeLink}
-                class="sr-only peer" 
-                checked={s.num === '01'}
-              />
-              <div class="p-6 rounded-sm border-2 border-black/10 peer-checked:border-[#C4A855] peer-checked:bg-[#C4A855]/5 transition-all hover:border-[#C4A855]/50">
-                <div class="flex items-start justify-between mb-4">
-                  <div>
-                    <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855]">Session {s.num}</p>
-                    <p class="font-playfair text-xl font-medium text-[#2C2824] mt-1">{s.date}</p>
-                  </div>
-                  <div class="w-5 h-5 rounded-full border-2 border-black/20 peer-checked:border-[#C4A855] peer-checked:bg-[#C4A855] flex items-center justify-center transition-all">
-                    <svg class="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                  </div>
-                </div>
-                <p class="text-sm font-light text-[#2C2824]/50">{s.status}</p>
-                <p class="text-xs font-light text-[#4A7C59] mt-2">{s.spotsLeft} spots available</p>
-              </div>
-            </label>
-          ))}
+        <div class="p-6 rounded-sm border-2 border-[#C4A855] bg-[#C4A855]/5">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855]">Session 01</p>
+              <p class="font-playfair text-xl font-medium text-[#2C2824] mt-1">May 8-10, 2026</p>
+            </div>
+          </div>
+          <p class="text-sm font-light text-[#2C2824]/50">Next session</p>
+          <p class="text-xs font-light text-[#4A7C59] mt-2">12 spots available</p>
         </div>
       </div>
 
@@ -132,14 +104,13 @@ const reassurance = [
           </div>
           <div class="flex-shrink-0">
             <a 
-              href="#STRIPE_LINK_SESSION_1"
-              id="stripe-button"
+              href="mailto:hello@laom.fr?subject=Booking%20LAOM%20School"
               class="inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full md:w-auto"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              Pay 1,000 €
+              Book by email
             </a>
           </div>
         </div>
@@ -147,12 +118,12 @@ const reassurance = [
         <div class="flex flex-wrap items-center justify-center gap-4 pt-6 border-t border-black/5 text-xs font-light text-[#2C2824]/50">
           <span class="flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            100% secure payment via Stripe
+            Write to us at hello@laom.fr
           </span>
           <span>|</span>
-          <span>Credit card, Apple Pay, Google Pay</span>
+          <span>We reply within 24h</span>
           <span>|</span>
           <span>Invoice sent by email</span>
         </div>
@@ -206,7 +177,7 @@ const reassurance = [
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
-            href="https://cal.com/charly-aubert/30min"
+            href="https://cal.atomik.world/charly/30min"
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#2C2824]/20 text-[#2C2824] px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#2C2824] hover:text-white transition-colors"
@@ -230,36 +201,7 @@ const reassurance = [
     </div>
   </section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sessionInputs = document.querySelectorAll('input[name="session"]');
-      const stripeButton = document.getElementById('stripe-button');
-      
-      sessionInputs.forEach(input => {
-        input.addEventListener('change', (e) => {
-          const target = e.target as HTMLInputElement;
-          const stripeLink = target.dataset.stripe;
-          if (stripeButton && stripeLink) {
-            stripeButton.setAttribute('href', stripeLink);
-          }
-        });
-      });
-    });
-  </script>
 
-  <style>
-    .session-card input:checked + div {
-      border-color: #C4A855;
-      background-color: rgba(196, 168, 85, 0.05);
-    }
-    .session-card input:checked + div .peer-checked\:border-\[\#C4A855\] {
-      border-color: #C4A855;
-    }
-    .session-card input:checked + div .peer-checked\:bg-\[\#C4A855\] {
-      background-color: #C4A855;
-    }
-    .session-card input:checked + div svg {
-      opacity: 1;
-    }
-  </style>
+
+
 </Layout>

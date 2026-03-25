@@ -8,6 +8,45 @@ const pageSchema = createWebPageSchema({
   description:
     'September 12-14, 2025 at Domaine de la Margue: gatherings, workshops, concerts, and collective life around chosen lifestyles.',
 })
+
+const galleryImages = [
+  '/images/laom/laomfest/laomfest-photo-pro-domaine.webp',
+  '/images/laom/laomfest/afrique-5d7d9d96.webp',
+  '/images/laom/laomfest/laomfest-ambiance-soiree-2023.webp',
+  '/images/laom/laomfest/laomfest-scene-spectacle-2023.webp',
+  '/images/laom/laomfest/laomfest-festival-vue-2023.webp',
+  '/images/laom/laomfest/laomfest-vue-exterieure-2023.webp',
+  '/images/laom/laomfest/laomfest-ambiance-2024.webp',
+  '/images/laom/laomfest/laomfest-preparation-2025.webp',
+  '/images/laom/laomfest/laomfest-programme-2025.webp',
+  '/images/laom/laomfest/laomfest-affiche-2025.webp',
+  '/images/laom/laomfest/laomfest-evenement-2025.webp',
+  '/images/laom/laomfest/laomfest-galerie-01.webp',
+  '/images/laom/laomfest/laomfest-galerie-02.webp',
+  '/images/laom/laomfest/laomfest-galerie-03.webp',
+  '/images/laom/laomfest/laomfest-galerie-04.webp',
+  '/images/laom/laomfest/laomfest-galerie-05.webp',
+  '/images/laom/laomfest/laomfest-galerie-06.webp',
+  '/images/laom/laomfest/laomfest-galerie-07.webp',
+  '/images/laom/laomfest/laomfest-galerie-08.webp',
+  '/images/laom/laomfest/laomfest-galerie-09.webp',
+  '/images/laom/laomfest/laomfest-galerie-10.webp',
+  '/images/laom/laomfest/laomfest-galerie-11.webp',
+  '/images/laom/laomfest/laomfest-galerie-12.webp',
+  '/images/laom/laomfest/laomfest-galerie-13.webp',
+  '/images/laom/laomfest/laomfest-galerie-14.webp',
+  '/images/laom/laomfest/laomfest-galerie-15.webp',
+  '/images/laom/laomfest/laomfest-galerie-16.webp',
+  '/images/laom/laomfest/laomfest-groupe-participants.webp',
+  '/images/laom/laomfest/hameau-2-01a1af11.webp',
+  '/images/laom/laomfest/hameau-4-8a118420.webp',
+  '/images/laom/laomfest/laomfest-activite-groupe.webp',
+  '/images/laom/laomfest/laomfest-scene-principale.webp',
+  '/images/laom/laomfest/imprimante3d-23b0a1bf.webp',
+  '/images/laom/laomfest/laomfest-festival-soiree.webp',
+  '/images/laom/laomfest/laomfest-communaute-2021.webp',
+  '/images/laom/laomfest/laomfest-scene-festival.webp',
+]
 ---
 
 <Layout
@@ -25,6 +64,31 @@ const pageSchema = createWebPageSchema({
       <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
         The gathering of people designing their way of life.
       </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid gap-6 md:grid-cols-3">
+        <img
+          src="/images/laom/laomfest/laomfest-scene-principale.webp"
+          alt="LAOMFEST atmosphere"
+          class="h-64 w-full rounded-sm object-cover border border-black/10"
+          loading="lazy"
+        />
+        <img
+          src="/images/laom/laomfest/laomfest-galerie-06.webp"
+          alt="Stage and gatherings at LAOMFEST"
+          class="h-64 w-full rounded-sm object-cover border border-black/10"
+          loading="lazy"
+        />
+        <img
+          src="/images/laom/laomfest/laomfest-scene-festival.webp"
+          alt="Collective moments at LAOMFEST"
+          class="h-64 w-full rounded-sm object-cover border border-black/10"
+          loading="lazy"
+        />
+      </div>
     </div>
   </section>
 
@@ -107,6 +171,22 @@ const pageSchema = createWebPageSchema({
             <li>DJ set</li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="text-3xl md:text-4xl font-light text-black mb-10">Gallery</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {galleryImages.map((src, index) => (
+          <img
+            src={src}
+            alt={`LAOMFEST Gallery ${index + 1}`}
+            class="h-56 w-full rounded-sm object-cover border border-black/10 bg-white"
+            loading="lazy"
+          />
+        ))}
       </div>
     </div>
   </section>

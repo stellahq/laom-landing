@@ -17,7 +17,9 @@ const projets = [
     leve: 180000,
     rendement: '8%',
     status: 'In funding',
-    placeholder: 'Photo to take: aerial view of LAOM estate, buildings, meadows, forest, river',
+    image: '/images/laom/laom-batiment-paille.webp',
+    imageAlt: 'Aerial view of the LAOM estate, buildings, meadows, forest, river',
+    href: '/en/capital/laom',
   },
   {
     name: 'Naturopia',
@@ -27,7 +29,8 @@ const projets = [
     leve: 0,
     rendement: '8%',
     status: 'Coming soon',
-    placeholder: 'Photo to take: Madeira landscape, lush vegetation, ocean, levada terraces',
+    image: '/images/laom/laom-carte-projet-capital-2026.webp',
+    imageAlt: 'Madeira landscape, lush vegetation, ocean, levada terraces',
   },
 ]
 
@@ -132,10 +135,24 @@ function formatMontant(n: number): string {
         {projets.map((projet) => {
           const pct = projet.objectif > 0 ? Math.round((projet.leve / projet.objectif) * 100) : 0
           return (
-            <div class="border border-black/5 rounded-sm overflow-hidden bg-white flex flex-col">
-              <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center">
-                <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">{projet.placeholder}</p>
-              </div>
+            <div class="border border-black/5 rounded-sm overflow-hidden bg-white flex flex-col group">
+              {projet.href ? (
+                <a href={projet.href} class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center overflow-hidden block">
+                  {projet.image ? (
+                    <img src={projet.image} alt={projet.imageAlt || projet.name} title={projet.name} class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                  ) : (
+                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">Photo coming soon</p>
+                  )}
+                </a>
+              ) : (
+                <div class="aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center overflow-hidden">
+                  {projet.image ? (
+                    <img src={projet.image} alt={projet.imageAlt || projet.name} title={projet.name} class="w-full h-full object-cover" loading="lazy" />
+                  ) : (
+                    <p class="text-xs font-light text-[#2C2824]/30 px-6 text-center">Photo coming soon</p>
+                  )}
+                </div>
+              )}
 
               <div class="p-6 md:p-8 flex flex-col flex-1">
                 <div class="mb-4">
@@ -144,7 +161,13 @@ function formatMontant(n: number): string {
                   </span>
                 </div>
 
-                <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{projet.name}</h3>
+                {projet.href ? (
+                  <a href={projet.href} class="hover:text-[#C4A855] transition-colors">
+                    <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1 group-hover:text-[#C4A855] transition-colors">{projet.name}</h3>
+                  </a>
+                ) : (
+                  <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{projet.name}</h3>
+                )}
                 <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-4">{projet.location}</p>
                 <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed mb-6 flex-1">{projet.description}</p>
 
@@ -166,15 +189,53 @@ function formatMontant(n: number): string {
                   <span class="font-playfair text-lg font-medium text-[#2C2824]">{projet.rendement}</span>
                 </div>
 
-                <a
-                  href="https://fyneo.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class={`inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center ${projet.status === 'In funding' ? 'bg-[#C4A855] hover:bg-[#B09A4A]' : 'bg-[#2C2824]/20 cursor-default pointer-events-none'}`}
-                  aria-label={projet.status === 'In funding' ? 'View on Fyneo (opens in new tab)' : 'Coming soon'}
-                >
-                  {projet.status === 'In funding' ? 'View on Fyneo' : 'Coming soon'}
-                </a>
+                {projet.href ? (
+                  <div class="capital-interest-form">
+                    <p class="text-sm font-light text-[#2C2824]/70 mb-3">Interested in this investment?</p>
+                    <form
+                      action="https://app.kit.com/forms/8987350/subscriptions"
+                      class="seva-form formkit-form"
+                      method="post"
+                      data-sv-form="8987350"
+                      data-uid="af2e0fc1e5"
+                      data-format="inline"
+                      data-version="5"
+                      min-width="400 500 600 700 800"
+                    >
+                      <div data-style="clean">
+                        <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+                        <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields flex gap-2">
+                          <div class="formkit-field flex-1">
+                            <input
+                              class="formkit-input w-full rounded-sm px-4 py-3 text-sm font-light border border-black/10 text-[#2C2824] placeholder-[#2C2824]/40 focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30"
+                              name="email_address"
+                              type="email"
+                              required
+                              placeholder="Your email"
+                              autocomplete="email"
+                            />
+                          </div>
+                          <button
+                            type="submit"
+                            data-element="submit"
+                            class="formkit-submit px-5 py-3 rounded-sm bg-[#C4A855] text-white text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors relative whitespace-nowrap"
+                          >
+                            <div class="formkit-spinner" aria-hidden="true">
+                              <div></div><div></div><div></div>
+                            </div>
+                            <span>Send</span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                ) : (
+                  <a
+                    class="inline-flex items-center justify-center rounded-sm text-white px-6 py-3 text-xs tracking-[0.2em] uppercase transition-colors text-center bg-[#2C2824]/20 cursor-default pointer-events-none"
+                  >
+                    Coming soon
+                  </a>
+                )}
               </div>
             </div>
           )

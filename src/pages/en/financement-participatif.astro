@@ -8,6 +8,29 @@ const pageSchema = createWebPageSchema({
   description:
     'Peer-to-peer loan campaign to complete phase two of the LAOM rural third place and open the welcome center from 2025.',
 })
+
+const galleryImages = [
+  '/images/laom/financement-participatif/financement-participatif-hero-laom.webp',
+  '/images/laom/financement-participatif/communaute-laom-chantier-participatif.webp',
+  '/images/laom/financement-participatif/grand-shambala-apres-construction.webp',
+  '/images/laom/financement-participatif/grand-shambala-avant-construction.webp',
+  '/images/laom/financement-participatif/financement-participatif-plan-laom.webp',
+  '/images/laom/financement-participatif/financement-participatif-chiffres-cles.webp',
+  '/images/laom/financement-participatif/financement-participatif-projet-01.webp',
+  '/images/laom/financement-participatif/financement-participatif-projet-02.webp',
+  '/images/laom/financement-participatif/financement-participatif-rendu-3d-01.webp',
+  '/images/laom/financement-participatif/financement-participatif-rendu-3d-02.webp',
+  '/images/laom/financement-participatif/financement-participatif-rendu-3d-03.webp',
+  '/images/laom/financement-participatif/financement-participatif-timeline.webp',
+  '/images/laom/financement-participatif/financement-participatif-impact.webp',
+  '/images/laom/financement-participatif/financement-participatif-objectif.webp',
+  '/images/laom/financement-participatif/logo-cooperative-oasis-partenaire.webp',
+  '/images/laom/financement-participatif/patricia-74e89fdb.webp',
+  '/images/laom/financement-participatif/photo-groupe-laom-1502d4dc.webp',
+  '/images/laom/financement-participatif/serge-9f3d2149.webp',
+  '/images/laom/financement-participatif/laom-terrain-vue-aerienne.webp',
+  '/images/laom/financement-participatif/laom-domaine-nature-aveyron.webp',
+]
 ---
 
 <Layout
@@ -26,6 +49,31 @@ const pageSchema = createWebPageSchema({
       <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
         Goal: raise €350&nbsp;000 to complete the second phase of our LAOM rural third place.
       </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="border border-black/10 rounded-sm overflow-hidden">
+          <img
+            src="/images/laom/financement-participatif/grand-shambala-avant-construction.webp"
+            alt="Before Grand Shambala"
+            title="The site before the Grand Shambala construction"
+            class="h-64 w-full object-cover rounded-sm"
+            loading="lazy"
+          />
+        </div>
+        <div class="border border-black/10 rounded-sm overflow-hidden">
+          <img
+            src="/images/laom/financement-participatif/grand-shambala-apres-construction.webp"
+            alt="After Grand Shambala"
+            title="The Grand Shambala after construction, 850 sqm"
+            class="h-64 w-full object-cover rounded-sm"
+            loading="lazy"
+          />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -57,6 +105,22 @@ const pageSchema = createWebPageSchema({
             tourism development of the eco-hamlet is essential for the territory.”,  Community of Communes of the
             Saint-Affricain Roquefort - 7 Vallons.
           </p>
+        </div>
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          <img
+            src="/images/laom/financement-participatif/logo-cooperative-oasis-partenaire.webp"
+            alt="Coopérative Oasis"
+            title="Cooperative Oasis logo, LAOM partner"
+            class="h-40 w-full rounded-sm object-contain border border-black/10 bg-white p-4"
+            loading="lazy"
+          />
+          <img
+            src="/images/laom/financement-participatif/photo-groupe-laom-1502d4dc.webp"
+            alt="LAOM collective"
+            title="Group photo of the LAOM collective"
+            class="h-40 w-full rounded-sm object-cover border border-black/10"
+            loading="lazy"
+          />
         </div>
       </div>
 
@@ -142,6 +206,23 @@ const pageSchema = createWebPageSchema({
         <p class="mt-6 text-lg font-light text-black/70 leading-relaxed">
           Thank you in advance for your support and trust. With all our gratitude.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-[#faf9f6]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <h2 class="text-3xl md:text-4xl font-light text-black mb-10">Gallery</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {galleryImages.map((src, index) => (
+          <img
+            src={src}
+            alt={`Community financing Gallery ${index + 1}`}
+            title={`LAOM Community financing - photo ${index + 1}`}
+            class="h-56 w-full rounded-sm object-cover border border-black/10 bg-white"
+            loading="lazy"
+          />
+        ))}
       </div>
     </div>
   </section>

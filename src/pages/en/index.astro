@@ -82,7 +82,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </style>
 
   <!-- 1. Hero Split -->
-  <section class="min-h-screen -mt-24 md:-mt-28 pt-24 md:pt-28">
+  <section class="min-h-screen -mt-24 md:-mt-28 pt-24 md:pt-28 bg-[#FAF8F5]">
     <div class="grid lg:grid-cols-2 min-h-[calc(100vh-6rem)]">
       <div class="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 py-16 lg:py-20 bg-[#FAF8F5] order-2 lg:order-1">
         <div class="max-w-lg">
@@ -222,17 +222,19 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
             {t.home.enMouvementCard.date}
           </p>
         </a>
-        <a href={getLocalizedPath('/clarte/', lang)} class="group block opacity-0" animate-fade-in-up style="animation-delay: 100ms">
-          <div class="aspect-[4/5] bg-[#1a1a1a] overflow-hidden rounded-sm mb-6 flex items-center justify-center relative">
-            <div class="absolute inset-0 bg-gradient-to-br from-[#2C2824] via-[#1a1a1a] to-[#0a0a0a]"></div>
-            <div class="absolute inset-0 opacity-40" style="background-image: radial-gradient(circle at 30% 40%, rgba(196,168,85,0.2) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(196,168,85,0.15) 0%, transparent 40%);"></div>
-            <div class="relative z-10 text-center px-8">
-              <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C4A855]/10 border border-[#C4A855]/20 mb-4">
-                <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <p class="font-playfair text-3xl font-medium text-white tracking-tight">{t.home.clarteCard.title}</p>
+        <a href="/clarte/" class="group block opacity-0" animate-fade-in-up style="animation-delay: 100ms">
+          <div class="aspect-[4/5] overflow-hidden rounded-sm mb-6 relative">
+            <img
+              src="/images/en-mouvement/charly-aubert.webp"
+              alt="Charly Aubert, LAOM founder, Clarte vision and life system retreat"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="800"
+              height="1000"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-0 right-0 text-center">
+              <p class="font-playfair text-3xl font-medium text-white tracking-tight drop-shadow-lg">{t.home.clarteCard.title}</p>
             </div>
           </div>
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">{t.home.clarteTag}</p>
@@ -326,6 +328,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
+{/* SECTION DISABLED - photos to update
   <!-- 6. Our Spaces -->
   <section id="spaces" class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
@@ -404,6 +407,158 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       })
     })()
   </script>
+
+*/}
+
+  <!-- Testimonials -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Testimonials</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">What they say about the place</h2>
+      </div>
+
+      <!-- 3 featured testimonials -->
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-[#FAF8F5] p-6 rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-sm font-light text-[#2C2824]/80 italic leading-relaxed mb-4">
+            "A magical place, perched high up and surrounded by the majesty of the mountains. The dance hall is a perfect space for introspection: minimalist, zen, aesthetic, harmonious. A unique place where the relationship to oneself, to others and to nature is at the centre of everything."
+          </blockquote>
+          <div class="flex items-center gap-3 mt-4">
+            <img src="/images/clemence-martin.jpg" alt="Clemence Martin" class="w-8 h-8 rounded-full object-cover" loading="lazy" width="32" height="32" />
+            <p class="text-xs font-medium text-[#2C2824]/50">Clemence Martin</p>
+          </div>
+        </div>
+        <div class="bg-[#FAF8F5] p-6 rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-sm font-light text-[#2C2824]/80 italic leading-relaxed mb-4">
+            "The place allows you to truly disconnect, to connect with nature and with yourself. The hall is incredible — the light, the space, the view... I loved this retreat and the place contributed at least 50% to the experience."
+          </blockquote>
+          <div class="flex items-center gap-3 mt-4">
+            <img src="/images/temoignages-lieu/caroline-taris.webp" alt="Caroline Taris" class="w-8 h-8 rounded-full object-cover" loading="lazy" width="32" height="32" />
+            <p class="text-xs font-medium text-[#2C2824]/50">Caroline Taris</p>
+          </div>
+        </div>
+        <div class="bg-[#FAF8F5] p-6 rounded-sm border-l-4 border-[#C4A855]">
+          <blockquote class="text-sm font-light text-[#2C2824]/80 italic leading-relaxed mb-4">
+            "It's amazing: the meals and the dining hall are truly warm and welcoming. The dance hall is extraordinary. The setting is calm and spacious. The welcome is extraordinary in terms of the quality of presence."
+          </blockquote>
+          <div class="flex items-center gap-3 mt-4">
+            <img src="/images/temoignages-lieu/francois-durnez.webp" alt="Francois Durnez" class="w-8 h-8 rounded-full object-cover" loading="lazy" width="32" height="32" />
+            <p class="text-xs font-medium text-[#2C2824]/50">Francois Durnez</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15 compact testimonials -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/henri-duran.webp" alt="Henri Duran" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">The hall is very pleasant and the facilities are lovely. The food was top-notch. A restful and pleasant place!</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Henri Duran</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/florence-pechot.webp" alt="Florence Pechot" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">A natural setting perfectly suited for inner exploration, body work and research. A place for human and nature encounters.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Florence Pechot</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/krystel-gilberton.webp" alt="Krystel Gilberton" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">LAOM is a timeless, beautiful place for an immersion. The hall is pleasant and filled with light.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Krystel Gilberton</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/bruno-bernasconi.webp" alt="Bruno Bernasconi" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Comfortable eco-friendly buildings where it's a pleasure to spend time.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Bruno Bernasconi</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/melea.webp" alt="Melea" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Wonderful setting for moments of nature and tranquillity, with people of great warmth and humanity. A beautiful experience that disconnects you from daily life.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Melea</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/gregoire-hilon.webp" alt="Gregoire Hilon" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">A magical place, close to nature and full of inspiring people. Can't wait to come back soon.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Gregoire Hilon</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/yann-bourrel.webp" alt="Yann Bourrel" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">An enchanting place to reconnect with nature and a way of living.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Yann Bourrel</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/camille-flex.webp" alt="Camille Flex" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">A stimulating place in the heart of nature, conducive to calm, focus and inspiring conversations. You leave feeling productive on what matters most, with clearer ideas.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Camille Flex</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/david-lin.webp" alt="David Lin" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">The place is set in the heart of nature with hills all around and a lovely river. What a place!</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">David Lin</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/damien-chambon.webp" alt="Damien Chambon" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">A calm, restorative, restful place with a stream running below. Beautiful, aesthetic communal spaces.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Damien Chambon</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/perrine-benard.webp" alt="Perrine Benard" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">This place invites connection and high vibrations. Nature draws you into self-reflection. The dance hall is amazing!</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Perrine Benard</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/henri-beaumont.webp" alt="Henri Beaumont" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">LAOM is a magical place nestled in the heart of nature. The residents are very welcoming and caring.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Henri Beaumont</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/flavien.webp" alt="Flavien" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">A unique ecolieu with a magnificent landscape, a palpable cultural depth, and a restorative energy.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Flavien</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/patricia-tinti.webp" alt="Patricia Tinti" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Wonderful welcome. A calm and restorative place.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Patricia Tinti</p>
+          </div>
+        </div>
+        <div class="flex gap-3 items-start">
+          <img src="/images/temoignages-lieu/caroline-taris.webp" alt="Caroline Taris" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
+          <div>
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">An incredible, restorative place with a deep connection to nature. The dance hall offers extraordinary experiences — dance, meditation, hikes in the mountains.</p>
+            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Caroline Taris</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- 7. Upcoming events (preview) - same design as FR -->
   <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
