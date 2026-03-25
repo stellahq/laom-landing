@@ -81,12 +81,7 @@ export const translations = {
           description: 'Exploration du corps et de sa sensualité dans un cadre bienveillant avec Colette Williams.',
           href: 'https://www.coletteseconfesse.fr/',
         },
-        {
-          title: 'Au cœur de tes désirs',
-          date: '13 mai – 17 mai 2026',
-          description: 'Une retraite pour ceux qui veulent explorer en profondeur leur sensualité avec Colette Williams.',
-          href: 'https://www.coletteseconfesse.fr/',
-        },
+
         {
           title: 'Frères d\'Âme',
           date: '21 mai – 24 mai 2026',
@@ -119,12 +114,7 @@ export const translations = {
           description: 'Le rassemblement annuel de la communauté Amawé. Un mini-festival intimiste avec 4 jours d\'échanges, de pratiques et de célébration.',
           href: 'https://amawe.com/',
         },
-        {
-          title: 'Énergie Illimitée #2',
-          date: '17 juil. – 20 juil. 2026',
-          description: 'Rencontre clients Accompagnement Énergie Illimitée (Amawé) avec Claire Orriols.',
-          href: 'https://amawe.com/',
-        },
+
         {
           title: 'Aime-Être',
           date: '23 juil. – 26 juil. 2026',
