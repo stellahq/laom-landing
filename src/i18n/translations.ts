@@ -54,34 +54,25 @@ export const translations = {
       comingSoon: 'Bientôt disponible',
       cta: 'Découvrir',
       items: [
-        // FÉVRIER
+        // AVRIL
         {
-          title: 'Danse & Silence #3',
-          date: '25 févr. – 28 févr. 2026',
-          description: 'Retraite immersive mêlant mouvement libre, danse et silence. Un voyage intérieur guidé par Claire Orriols.',
-          href: 'https://amawe.com/',
+          title: 'Clarté',
+          date: '17 avr. – 19 avr. 2026',
+          description: 'Un week-end pour créer ton système de vie : vision, PARA, et Claude Code comme agent IA personnel.',
+          href: '/clarte/',
         },
-        // MARS
-        {
-          title: 'Rencontre Perspective #4',
-          date: '5 mars – 8 mars 2026',
-          description: 'Rencontre clients Académie Perspectives avec Eliott Meunier et Jean-Charles Kurdali.',
-          href: 'https://perspectives.ac/',
-        },
-        {
-          title: 'Énergie Illimitée #1',
-          date: '11 mars – 15 mars 2026',
-          description: 'Rencontre clients Accompagnement Énergie Illimitée (Amawé) avec Claire Orriols.',
-          href: 'https://amawe.com/',
-        },
-        // AVRIL - MAI
         {
           title: 'Désir d\'Aventure #1',
           date: '30 avr. – 3 mai 2026',
           description: 'Exploration du corps et de sa sensualité dans un cadre bienveillant avec Colette Williams.',
           href: 'https://www.coletteseconfesse.fr/',
         },
-
+        {
+          title: 'LAOM School',
+          date: '8 mai – 10 mai 2026',
+          description: '3 jours pour structurer ton projet d\'écolieu et repartir avec un plan d\'action.',
+          href: '/school/',
+        },
         {
           title: 'Frères d\'Âme',
           date: '21 mai – 24 mai 2026',
@@ -841,27 +832,13 @@ export const translations = {
       comingSoon: 'Coming soon',
       cta: 'Discover',
       items: [
-        // FEBRUARY
+        // APRIL
         {
-          title: 'Dance & Silence #3',
-          date: 'Feb 25 – Feb 28, 2026',
-          description: 'Immersive retreat combining free movement, dance and silence. An inner journey guided by Claire Orriols.',
-          href: 'https://amawe.com/',
+          title: 'Clarity',
+          date: 'Apr 17 – Apr 19, 2026',
+          description: 'A weekend to create your life system: vision, PARA, and Claude Code as your personal AI agent.',
+          href: '/clarte/',
         },
-        // MARCH
-        {
-          title: 'Perspective Meeting #4',
-          date: 'Mar 5 – Mar 8, 2026',
-          description: 'Académie Perspectives client meeting with Eliott Meunier and Jean-Charles Kurdali.',
-          href: 'https://perspectives.ac/',
-        },
-        {
-          title: 'Unlimited Energy #1',
-          date: 'Mar 11 – Mar 15, 2026',
-          description: 'Client gathering for Unlimited Energy (Amawé) coaching with Claire Orriols.',
-          href: 'https://amawe.com/',
-        },
-        // APRIL - MAY
         {
           title: 'Adventure Desires #1',
           date: 'Apr 30 – May 3, 2026',
@@ -869,10 +846,10 @@ export const translations = {
           href: 'https://www.coletteseconfesse.fr/',
         },
         {
-          title: 'At the Heart of Your Desires',
-          date: 'May 13 – May 17, 2026',
-          description: 'A retreat for those who want to explore their sensuality in depth with Colette Williams.',
-          href: 'https://www.coletteseconfesse.fr/',
+          title: 'LAOM School',
+          date: 'May 8 – May 10, 2026',
+          description: '3 days to structure your ecovillage project and leave with an action plan.',
+          href: '/en/school/',
         },
         {
           title: 'Soul Brothers',
@@ -906,12 +883,7 @@ export const translations = {
           description: 'The annual gathering of the Amawé community. An intimate mini-festival with 4 days of exchange, practice and celebration.',
           href: 'https://amawe.com/',
         },
-        {
-          title: 'Unlimited Energy #2',
-          date: 'Jul 17 – Jul 20, 2026',
-          description: 'Client gathering for Unlimited Energy (Amawé) coaching with Claire Orriols.',
-          href: 'https://amawe.com/',
-        },
+
         {
           title: 'Love-Being',
           date: 'Jul 23 – Jul 26, 2026',
