@@ -548,7 +548,7 @@ export const translations = {
           weekends: [
             { label: 'Weekend 1', date: 'Juin 2026, Projet & Financement' },
             { label: 'Weekend 2', date: 'Juillet 2026, Business Model' },
-            { label: 'Weekend 3', date: 'Octobre 2026, Culture Regenerative' },
+            { label: 'Weekend 3', date: 'Octobre 2026, Culture Régénérative' },
             { label: 'Weekend 4', date: 'Mai 2027, Culture Communautaire' },
           ],
           cta: 'Découvrir LAOM School',

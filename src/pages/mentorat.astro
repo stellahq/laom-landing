@@ -5,47 +5,47 @@ import { createWebPageSchema } from '~/utils/schema'
 const pageSchema = createWebPageSchema({
   name: 'Mentorat Duo — Charly & Amandine | LAOM',
   url: Astro.url.toString(),
-  description: 'Un accompagnement a deux pour creer la vie que tu veux. Vision, systemes, action. Charly (terrain, construction, ecolieux) + Amandine (business en ligne, acquisition, communautes).',
+  description: 'Un accompagnement à deux pour créer la vie que tu veux. Vision, systèmes, action. Charly (terrain, construction, écolieux) + Amandine (business en ligne, acquisition, communautés).',
 })
 
 const expertiseCharly = [
   'Tech & startup (ex-Epitech, IA depuis 2012)',
-  'Levees de fonds et investissement immobilier',
-  'Construction terrain et ecoconstruction (850m2 paille porteuse)',
+  'Levées de fonds et investissement immobilier',
+  'Construction terrain et écoconstruction (850m² paille porteuse)',
   'Gestion de projet, budget, financement agricole',
-  'Creation et pilotage d\'ecolieu (LAOM, 21 hectares)',
+  'Création et pilotage d\'écolieu (LAOM, 21 hectares)',
 ]
 
 const expertiseAmandine = [
-  'Business en ligne et monetisation',
-  'Construction de communautes (50 000 emails)',
+  'Business en ligne et monétisation',
+  'Construction de communautés (50 000 emails)',
   'Challenges et lancement (100 000 participants)',
   'Acquisition et tunnels de vente',
-  'Systemes marketing et automatisation',
+  'Systèmes marketing et automatisation',
 ]
 
 const pourQui = [
   {
     num: '01',
-    titre: 'Tu veux materialiser une vision de vie',
-    desc: 'Tu as une vision claire de ce que tu veux vivre, mais tu restes bloque au moment de passer a l\'action. Tu as besoin d\'un cadre, d\'un regard exterieur, et de quelqu\'un qui t\'aide a avancer concretement.',
+    titre: 'Tu veux matérialiser une vision de vie',
+    desc: 'Tu as une vision claire de ce que tu veux vivre, mais tu restes bloqué au moment de passer à l\'action. Tu as besoin d\'un cadre, d\'un regard extérieur, et de quelqu\'un qui t\'aide à avancer concrètement.',
   },
   {
     num: '02',
-    titre: 'Tu veux creer un lieu collectif',
-    desc: 'Ecolieu, coliving, tiers-lieu, habitat partage. Tu veux monter un projet de A a Z : terrain, groupe, gouvernance, financement, construction. Tu cherches quelqu\'un qui l\'a fait et peut t\'eviter les erreurs classiques.',
+    titre: 'Tu veux créer un lieu collectif',
+    desc: 'Écolieu, coliving, tiers-lieu, habitat partagé. Tu veux monter un projet de A à Z : terrain, groupe, gouvernance, financement, construction. Tu cherches quelqu\'un qui l\'a fait et peut t\'éviter les erreurs classiques.',
   },
   {
     num: '03',
-    titre: 'Tu veux developper ton activite en ligne',
-    desc: 'Tu as une expertise, un message, une offre. Tu veux construire une audience, une communaute, un systeme d\'acquisition qui tourne. Tu cherches quelqu\'un qui a deja construit ca et peut te montrer comment.',
+    titre: 'Tu veux développer ton activité en ligne',
+    desc: 'Tu as une expertise, un message, une offre. Tu veux construire une audience, une communauté, un système d\'acquisition qui tourne. Tu cherches quelqu\'un qui a déjà construit ça et peut te montrer comment.',
   },
 ]
 ---
 
 <Layout
   title="Mentorat Duo — Charly & Amandine | LAOM"
-  description="Un accompagnement a deux pour creer la vie que tu veux. Vision, systemes, action."
+  description="Un accompagnement à deux pour créer la vie que tu veux. Vision, systèmes, action."
   seo={{ ldJSON: pageSchema }}
 >
   <!-- Hero -->
@@ -55,15 +55,15 @@ const pourQui = [
       <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 25% 40%, rgba(196,168,85,0.2) 0%, transparent 50%), radial-gradient(circle at 75% 60%, rgba(74,124,89,0.15) 0%, transparent 40%);"></div>
     </div>
     <div class="relative z-10 max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center py-32 lg:py-40">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Accompagnement personnalise</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Accompagnement personnalisé</p>
       <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight">
         Mentorat Duo
       </h1>
       <p class="text-xl md:text-2xl font-light text-white/80 max-w-3xl mx-auto leading-relaxed mb-4">
-        Deux expertises complementaires. Un accompagnement sur mesure.
+        Deux expertises complémentaires. Un accompagnement sur mesure.
       </p>
       <p class="text-lg font-light text-white/50 max-w-2xl mx-auto">
-        Pour creer la vie que tu veux avec une vision claire et des systemes qui soutiennent.
+        Pour créer la vie que tu veux avec une vision claire et des systèmes qui soutiennent.
       </p>
     </div>
   </section>
@@ -72,13 +72,13 @@ const pourQui = [
   <section class="py-20 md:py-24 bg-white">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Tu as une vision. Tu sais ce que tu veux vivre. Mais tu te heurtes a la realite : par ou commencer ? Comment structurer ? Comment avancer sans t'epuiser ?
+        Tu as une vision. Tu sais ce que tu veux vivre. Mais tu te heurtes à la réalité : par où commencer ? Comment structurer ? Comment avancer sans t'épuiser ?
       </p>
       <p class="text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed mb-6">
-        Avec Charly et Amandine, tu beneficies de deux regards complementaires : l'un ancre dans le terrain, la construction, les projets collectifs. L'autre dans le digital, l'acquisition, la construction de communautes.
+        Avec Charly et Amandine, tu bénéficies de deux regards complémentaires : l'un ancré dans le terrain, la construction, les projets collectifs. L'autre dans le digital, l'acquisition, la construction de communautés.
       </p>
       <p class="text-lg md:text-xl font-medium text-[#2C2824] leading-relaxed">
-        Ensemble, ils t'accompagnent pour transformer ta vision en realite — avec des systemes concrets, pas des theories.
+        Ensemble, ils t'accompagnent pour transformer ta vision en réalité — avec des systèmes concrets, pas des théories.
       </p>
     </div>
   </section>
@@ -107,9 +107,9 @@ const pourQui = [
           </div>
           <div class="p-8">
             <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Charly Aubert</h3>
-            <p class="text-sm font-light text-[#C4A855] mb-6 uppercase tracking-wider">Terrain · Construction · Ecolieux</p>
+            <p class="text-sm font-light text-[#C4A855] mb-6 uppercase tracking-wider">Terrain · Construction · Écolieux</p>
             <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-6">
-              33 ans. Autodidacte. Ex-Epitech. Co-fondateur de LAOM et de l'Oasis La Margue (21 hectares, 15 foyers). A construit le plus grand batiment en paille porteuse au monde (850 m2). Fait de l'IA depuis 2012 (algorithmes d'aide a la decision medicale).
+              33 ans. Autodidacte. Ex-Epitech. Co-fondateur de LAOM et de l'Oasis La Margue (21 hectares, 15 foyers). A construit le plus grand bâtiment en paille porteuse au monde (850 m²). Fait de l'IA depuis 2012 (algorithmes d'aide à la décision médicale).
             </p>
             <div class="space-y-2">
               {expertiseCharly.map((e) => (
@@ -127,7 +127,7 @@ const pourQui = [
           <div class="aspect-[4/3] overflow-hidden">
             <img
               src="/images/amandine-orriols.webp"
-              alt="Amandine Orriols, co-fondatrice LAOM, experte acquisition digitale et communautes"
+              alt="Amandine Orriols, co-fondatrice LAOM, experte acquisition digitale et communautés"
               class="w-full h-full object-cover"
               loading="lazy"
               width="634"
@@ -136,9 +136,9 @@ const pourQui = [
           </div>
           <div class="p-8">
             <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Amandine Orriols</h3>
-            <p class="text-sm font-light text-[#4A7C59] mb-6 uppercase tracking-wider">Digital · Acquisition · Communautes</p>
+            <p class="text-sm font-light text-[#4A7C59] mb-6 uppercase tracking-wider">Digital · Acquisition · Communautés</p>
             <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-6">
-              Entrepreneure digitale. A construit plusieurs business en ligne rentables. A cree une communaute de 50 000 emails et organise des challenges avec plus de 100 000 participants. Experte en acquisition, tunnels de vente et systemes marketing.
+              Entrepreneure digitale. A construit plusieurs business en ligne rentables. A créé une communauté de 50 000 emails et organisé des challenges avec plus de 100 000 participants. Experte en acquisition, tunnels de vente et systèmes marketing.
             </p>
             <div class="space-y-2">
               {expertiseAmandine.map((e) => (
@@ -160,7 +160,7 @@ const pourQui = [
       <div class="text-center mb-16">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Pour qui</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
-          Trois profils, un meme elan
+          Trois profils, un même élan
         </h2>
       </div>
 
@@ -181,17 +181,17 @@ const pourQui = [
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">L'approche</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">
-        Du concret, pas de la theorie
+        Du concret, pas de la théorie
       </h2>
       <div class="space-y-6 text-lg font-light text-[#2C2824]/85 leading-relaxed">
         <p>
-          Le mentorat est personnalise. On part de ta situation, de ta vision, de tes contraintes. On avance a ton rythme.
+          Le mentorat est personnalisé. On part de ta situation, de ta vision, de tes contraintes. On avance à ton rythme.
         </p>
         <p>
-          Selon tes besoins, tu travailles avec Charly, avec Amandine, ou avec les deux. Le format s'adapte : sessions regulieres, points ponctuels, accompagnement intensif sur une periode.
+          Selon tes besoins, tu travailles avec Charly, avec Amandine, ou avec les deux. Le format s'adapte : sessions régulières, points ponctuels, accompagnement intensif sur une période.
         </p>
         <p>
-          Ce n'est pas du coaching generique. C'est un accompagnement nourri par des annees de terrain — construction d'ecolieu, montage de business, creation de communautes, gestion de projets complexes.
+          Ce n'est pas du coaching générique. C'est un accompagnement nourri par des années de terrain — construction d'écolieu, montage de business, création de communautés, gestion de projets complexes.
         </p>
       </div>
 
@@ -200,11 +200,11 @@ const pourQui = [
         <div class="grid sm:grid-cols-2 gap-3 text-sm font-light text-[#2C2824]/60">
           <div class="flex items-start gap-3">
             <span class="text-red-400 mt-0.5">&#10005;</span>
-            <span>Des methodes toutes faites</span>
+            <span>Des méthodes toutes faites</span>
           </div>
           <div class="flex items-start gap-3">
             <span class="text-red-400 mt-0.5">&#10005;</span>
-            <span>Des promesses de resultats magiques</span>
+            <span>Des promesses de résultats magiques</span>
           </div>
           <div class="flex items-start gap-3">
             <span class="text-red-400 mt-0.5">&#10005;</span>
@@ -212,47 +212,47 @@ const pourQui = [
           </div>
           <div class="flex items-start gap-3">
             <span class="text-red-400 mt-0.5">&#10005;</span>
-            <span>De la theorie deconnectee du reel</span>
+            <span>De la théorie déconnectée du réel</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Temoignages -->
+  <!-- Témoignages -->
   <section class="py-20 md:py-24 bg-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="text-center mb-16">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Temoignages</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Témoignages</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
           Ce qu'ils en disent
         </h2>
       </div>
 
-      <!-- Temoignage vedette — JF Gignac -->
+      <!-- Témoignage vedette — JF Gignac -->
       <div class="mb-12 p-8 md:p-12 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
         <blockquote class="text-base md:text-lg font-light text-[#2C2824]/80 italic leading-relaxed space-y-4">
-          <p>"Ancien prof reconverti comme therapeute et coach, j'ai voulu passer au niveau superieur trop vite : tunnels de vente, formation en ligne. J'ai arrete ce qui marchait pour tout miser la-dessus. Ca n'a pas marche. Je me suis retrouve a zero euro sur le compte, sans dormir la nuit.</p>
-          <p>Charly m'a fait comprendre que j'agissais depuis le stress et l'urgence. Les gens le sentent. Ca ne convertit pas. Il fallait que je revienne a un espace de confiance et de valeur donnee — pas 'donnez-moi votre argent', mais 'j'ai quelque chose de puissant a vous apporter'.</p>
-          <p>Ce qui m'a le plus marque, c'est sa finesse psychologique. Il a su diagnostiquer mes blocages, me donner des conseils concrets et vecus — parce qu'il avait traverse des situations bien pires que la mienne. Quelques jours apres avoir change de posture, j'ai lance un tunnel de vente qui a explose. 3 euros de retour pour chaque euro investi. Je suis passe de la survie a la serenite financiere.</p>
-          <p>Mais au-dela des resultats business, Charly m'a aide a comprendre quelque chose de plus profond : quand tu agis aligne avec ce qui compte vraiment pour toi, les choses se debloquent. Cette lecon, je la porte encore aujourd'hui."</p>
+          <p>"Ancien prof reconverti comme thérapeute et coach, j'ai voulu passer au niveau supérieur trop vite : tunnels de vente, formation en ligne. J'ai arrêté ce qui marchait pour tout miser là-dessus. Ça n'a pas marché. Je me suis retrouvé à zéro euro sur le compte, sans dormir la nuit.</p>
+          <p>Charly m'a fait comprendre que j'agissais depuis le stress et l'urgence. Les gens le sentent. Ça ne convertit pas. Il fallait que je revienne à un espace de confiance et de valeur donnée — pas 'donnez-moi votre argent', mais 'j'ai quelque chose de puissant à vous apporter'.</p>
+          <p>Ce qui m'a le plus marqué, c'est sa finesse psychologique. Il a su diagnostiquer mes blocages, me donner des conseils concrets et vécus — parce qu'il avait traversé des situations bien pires que la mienne. Quelques jours après avoir changé de posture, j'ai lancé un tunnel de vente qui a explosé. 3 euros de retour pour chaque euro investi. Je suis passé de la survie à la sérénité financière.</p>
+          <p>Mais au-delà des résultats business, Charly m'a aidé à comprendre quelque chose de plus profond : quand tu agis aligné avec ce qui compte vraiment pour toi, les choses se débloquent. Cette leçon, je la porte encore aujourd'hui."</p>
         </blockquote>
         <div class="flex items-center gap-4 mt-8">
           <img src="/images/jf-gignac.webp" alt="JF Gignac" class="w-14 h-14 rounded-full object-cover" loading="lazy" />
           <div>
             <p class="font-medium text-[#2C2824]">JF Gignac</p>
-            <p class="text-sm text-[#2C2824]/50">Therapeute & Coach</p>
+            <p class="text-sm text-[#2C2824]/50">Thérapeute & Coach</p>
           </div>
         </div>
       </div>
 
-      <!-- Grille temoignages -->
+      <!-- Grille témoignages -->
       <div class="grid md:grid-cols-2 gap-8">
 
         <!-- Henri Beaumont -->
         <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
           <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-            "L'accompagnement de Charly est riche. Il est multi-casquettes. Il sait aussi bien parler humain, business, IA, technique informatique que marketing. C'est un plaisir d'echanger avec lui. Ce qui est certain, c'est qu'il aide a passer a l'action !"
+            "L'accompagnement de Charly est riche. Il est multi-casquettes. Il sait aussi bien parler humain, business, IA, technique informatique que marketing. C'est un plaisir d'échanger avec lui. Ce qui est certain, c'est qu'il aide à passer à l'action !"
           </blockquote>
           <div class="flex items-center gap-4">
             <img src="/images/henri-beaumont.webp" alt="Henri Beaumont" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
@@ -266,7 +266,7 @@ const pourQui = [
         <!-- Agathe Chapalain -->
         <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
           <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-            "J'ai eu un appel strategique avec Charly de 1h30. Je venais avec l'objectif de repartir avec un plan pour mon business. Finalement, je suis repartie avec une vision differente et de nouvelles idees pour entreprendre de maniere plus alignee et pertinente. C'est un appel qui peut vous faire changer d'orientation, voir au-dela de vos oeilleres et vous faire gagner un temps precieux."
+            "J'ai eu un appel stratégique avec Charly de 1h30. Je venais avec l'objectif de repartir avec un plan pour mon business. Finalement, je suis repartie avec une vision différente et de nouvelles idées pour entreprendre de manière plus alignée et pertinente. C'est un appel qui peut vous faire changer d'orientation, voir au-delà de vos œillères et vous faire gagner un temps précieux."
           </blockquote>
           <div class="flex items-center gap-4">
             <img src="/images/agathe-chapalain.webp" alt="Agathe Chapalain" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
@@ -280,7 +280,7 @@ const pourQui = [
         <!-- Caroline Toussaint -->
         <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
           <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-            "Que ce soit sur des blocages dans mes projets, la creation de contenu, la creation de mon offre, ma page de vente — a chaque fois, Charly m'a apporte une clarte qui me permettait d'avancer sereinement. Je savais exactement quoi faire, ou aller, quelles erreurs eviter. Je n'ai jamais autant avance qu'en etant accompagnee par Charly. Au-dela de l'aspect technique, il y a cette dimension humaine : beaucoup de bienveillance, des echanges spontanes, tout en disant les choses quand il faut les dire."
+            "Que ce soit sur des blocages dans mes projets, la création de contenu, la création de mon offre, ma page de vente — à chaque fois, Charly m'a apporté une clarté qui me permettait d'avancer sereinement. Je savais exactement quoi faire, où aller, quelles erreurs éviter. Je n'ai jamais autant avancé qu'en étant accompagnée par Charly. Au-delà de l'aspect technique, il y a cette dimension humaine : beaucoup de bienveillance, des échanges spontanés, tout en disant les choses quand il faut les dire."
           </blockquote>
           <div class="flex items-center gap-4">
             <img src="/images/caroline-toussaint.webp" alt="Caroline Toussaint" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
@@ -294,7 +294,7 @@ const pourQui = [
         <!-- Thomas Gillet -->
         <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
           <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-            "Depuis que Charly m'accompagne, j'ai enfin reconcilie ma vision avec l'accompagnement business. Sa bienveillance et son professionnalisme font toute la difference. Ses conseils sont toujours eclaires, et le passage a l'action devient simple, fluide, et surtout aligne avec ma vie. Sortir de ma zone de confort est indispensable, mais grace a lui, cela se fait dans le bon sens et avec bien plus de facilite."
+            "Depuis que Charly m'accompagne, j'ai enfin réconcilié ma vision avec l'accompagnement business. Sa bienveillance et son professionnalisme font toute la différence. Ses conseils sont toujours éclairés, et le passage à l'action devient simple, fluide, et surtout aligné avec ma vie. Sortir de ma zone de confort est indispensable, mais grâce à lui, cela se fait dans le bon sens et avec bien plus de facilité."
           </blockquote>
           <div class="flex items-center gap-4">
             <img src="/images/thomas-gillet.webp" alt="Thomas Gillet" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
@@ -305,15 +305,15 @@ const pourQui = [
           </div>
         </div>
 
-        <!-- Clemence Martin -->
+        <!-- Clémence Martin -->
         <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
           <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-            "Charly m'a rapidement aide a identifier ce qui me passionne vraiment et ce qui ne correspondait pas a mes aspirations. En une session, j'ai clarifie mon axe : l'intelligence emotionnelle avec une pedagogie ludique autour de la comedie musicale improvisee. Avant, je me dispersais sur trois axes distincts sans savoir comment avancer. Apres, j'avais une direction nette. Charly est sensible, empathique, et percutant — un coaching laser en 1h30. Il aide a reveler l'essence meme de la personne, comme un alchimiste."
+            "Charly m'a rapidement aidé à identifier ce qui me passionne vraiment et ce qui ne correspondait pas à mes aspirations. En une session, j'ai clarifié mon axe : l'intelligence émotionnelle avec une pédagogie ludique autour de la comédie musicale improvisée. Avant, je me dispersais sur trois axes distincts sans savoir comment avancer. Après, j'avais une direction nette. Charly est sensible, empathique, et percutant — un coaching laser en 1h30. Il aide à révéler l'essence même de la personne, comme un alchimiste."
           </blockquote>
           <div class="flex items-center gap-4">
-            <img src="/images/clemence-martin.jpg" alt="Clemence Martin" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
+            <img src="/images/clemence-martin.jpg" alt="Clémence Martin" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
             <div>
-              <p class="font-medium text-[#2C2824]">Clemence Martin</p>
+              <p class="font-medium text-[#2C2824]">Clémence Martin</p>
               <p class="text-sm text-[#2C2824]/50">Fondatrice de The Positive Place</p>
             </div>
           </div>
@@ -322,7 +322,7 @@ const pourQui = [
         <!-- Guillaume Steinmetz -->
         <div class="p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
           <blockquote class="text-base font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-            "A la difference de beaucoup de coachs business, Charly n'est pas la pour t'inculquer une methodologie unique qu'il pense universelle. Il t'aide a trouver la bonne methode pour toi, tenable sur la duree. Apres notre session, je me suis senti compris et considere — j'ai particulierement apprecie son acceptation de ma reticence a la strategisation extreme. Present, focalise, attentionne."
+            "À la différence de beaucoup de coachs business, Charly n'est pas là pour t'inculquer une méthodologie unique qu'il pense universelle. Il t'aide à trouver la bonne méthode pour toi, tenable sur la durée. Après notre session, je me suis senti compris et considéré — j'ai particulièrement apprécié son acceptation de ma réticence à la stratégisation extrême. Présent, focalisé, attentionné."
           </blockquote>
           <div class="flex items-center gap-4">
             <img src="/images/guillaume-steinmetz.jpeg" alt="Guillaume Steinmetz" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
@@ -337,7 +337,7 @@ const pourQui = [
       <!-- Nicolas Zanuttini — pleine largeur, fermeture -->
       <div class="mt-8 p-8 bg-[#FAF8F5] rounded-sm border-l-4 border-[#C4A855]">
         <blockquote class="text-base md:text-lg font-light text-[#2C2824]/80 italic leading-relaxed mb-6">
-          "J'ai ete tres inspire par ta facon de penser et de resoudre des problemes. Ton mode de vie, ton engagement dans cet ecolieu avec tout ton background de startuper, et cette energie joyeuse avec laquelle tu fais les choses. Jusque-la je n'avais croise que des alternatifs sans le sou et des entrepreneurs qui n'ont rien a faire des questions ecologiques, et tu m'as montre que cette intersection existe. Ca me donne de la force et l'envie de developper mon cote entrepreneur, pour pouvoir moi aussi un jour batir des projets d'envergure allant dans le sens de mes valeurs."
+          "J'ai été très inspiré par ta façon de penser et de résoudre des problèmes. Ton mode de vie, ton engagement dans cet écolieu avec tout ton background de startuper, et cette énergie joyeuse avec laquelle tu fais les choses. Jusque-là je n'avais croisé que des alternatifs sans le sou et des entrepreneurs qui n'ont rien à faire des questions écologiques, et tu m'as montré que cette intersection existe. Ça me donne de la force et l'envie de développer mon côté entrepreneur, pour pouvoir moi aussi un jour bâtir des projets d'envergure allant dans le sens de mes valeurs."
         </blockquote>
         <div class="flex items-center gap-4">
           <img src="/images/nicolas-zanuttini.webp" alt="Nicolas Zanuttini" class="w-12 h-12 rounded-full object-cover" loading="lazy" />
@@ -353,12 +353,12 @@ const pourQui = [
   <!-- CTA -->
   <section class="py-20 md:py-24 bg-[#2C2824]">
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Premier echange</p>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Premier échange</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
         On en parle ?
       </h2>
       <p class="text-base font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
-        30 minutes, en visio, sans engagement. On fait le point sur ta situation, on voit si le mentorat peut t'aider, et on decide ensemble du format adapte.
+        30 minutes, en visio, sans engagement. On fait le point sur ta situation, on voit si le mentorat peut t'aider, et on décide ensemble du format adapté.
       </p>
       <a
         href="https://cal.atomik.world/charly/30min"
@@ -366,10 +366,10 @@ const pourQui = [
         rel="noopener noreferrer"
         class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
       >
-        Reserver un appel decouverte
+        Réserver un appel découverte
       </a>
       <p class="text-sm font-light text-white/40 mt-6">
-        Tarif sur devis, adapte a ta situation et tes objectifs
+        Tarif sur devis, adapté à ta situation et tes objectifs
       </p>
     </div>
   </section>

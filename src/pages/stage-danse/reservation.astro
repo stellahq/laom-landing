@@ -5,30 +5,30 @@ import { createWebPageSchema } from '~/utils/schema'
 export const prerender = true
 
 const pageSchema = createWebPageSchema({
-  name: 'Reserver En Mouvement — Immersion danse | LAOM',
+  name: 'Réserver En Mouvement — Immersion danse | LAOM',
   url: Astro.url.toString(),
-  description: 'Reserve ta place pour En Mouvement. 5 jours d\'immersion par la danse et le mouvement. 1100€ tout inclus.',
+  description: 'Réserve ta place pour En Mouvement. 5 jours d\'immersion par la danse et le mouvement. 1100€ tout inclus.',
 })
 
 const inclus = [
   { text: '5 jours de pratique intensive avec Samuel Planas' },
-  { text: 'Hebergement sur place (tipi ou chambre)' },
+  { text: 'Hébergement sur place (tipi ou chambre)' },
   { text: 'Tous les repas (cuisine maison, produits locaux)' },
   { text: 'Accompagnement par Charly Aubert' },
-  { text: 'Acces au domaine et aux espaces de detente' },
+  { text: 'Accès au domaine et aux espaces de détente' },
 ]
 
 const reassurance = [
   { icon: 'users', title: '15 places max', desc: 'Groupe intime' },
-  { icon: 'heart', title: 'Tous niveaux', desc: 'Aucun prerequis' },
-  { icon: 'lock', title: 'Reservation simple', desc: 'Par email' },
-  { icon: 'calendar', title: 'Annulation -14j', desc: 'Remboursement integral' },
+  { icon: 'heart', title: 'Tous niveaux', desc: 'Aucun prérequis' },
+  { icon: 'lock', title: 'Réservation simple', desc: 'Par email' },
+  { icon: 'calendar', title: 'Annulation -14j', desc: 'Remboursement intégral' },
 ]
 ---
 
 <Layout
-  title="Reserver En Mouvement — Immersion danse | LAOM"
-  description="Reserve ta place pour En Mouvement. 5 jours d'immersion par la danse et le mouvement. 1100€ tout inclus."
+  title="Réserver En Mouvement — Immersion danse | LAOM"
+  description="Réserve ta place pour En Mouvement. 5 jours d'immersion par la danse et le mouvement. 1100€ tout inclus."
   seo={{ ldJSON: pageSchema, noindex: true }}
 >
   <!-- Hero minimaliste -->
@@ -38,14 +38,14 @@ const reassurance = [
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
         </svg>
-        Retour a En Mouvement
+        Retour à En Mouvement
       </a>
-      <p class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855] mb-4">Reservation</p>
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855] mb-4">Réservation</p>
       <h1 class="font-playfair text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
         En Mouvement
       </h1>
       <p class="text-lg font-light text-white/70 max-w-xl mx-auto">
-        3 sessions en aout 2026 · 5 jours d'immersion par la danse
+        3 sessions en août 2026 · 5 jours d'immersion par la danse
       </p>
     </div>
   </section>
@@ -63,7 +63,7 @@ const reassurance = [
             <input type="radio" name="session" value="session1" class="sr-only peer" checked />
             <div class="p-6 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white transition-colors">
               <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Session 1</p>
-              <p class="font-playfair text-lg font-medium text-[#2C2824]">5 – 9 aout 2026</p>
+              <p class="font-playfair text-lg font-medium text-[#2C2824]">5 – 9 août 2026</p>
               <p class="text-sm font-light text-[#2C2824]/50 mt-1">5 jours / 4 nuits</p>
             </div>
           </label>
@@ -71,7 +71,7 @@ const reassurance = [
             <input type="radio" name="session" value="session2" class="sr-only peer" />
             <div class="p-6 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white transition-colors">
               <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Session 2</p>
-              <p class="font-playfair text-lg font-medium text-[#2C2824]">11 – 15 aout 2026</p>
+              <p class="font-playfair text-lg font-medium text-[#2C2824]">11 – 15 août 2026</p>
               <p class="text-sm font-light text-[#2C2824]/50 mt-1">5 jours / 4 nuits</p>
             </div>
           </label>
@@ -79,7 +79,7 @@ const reassurance = [
             <input type="radio" name="session" value="session3" class="sr-only peer" />
             <div class="p-6 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white transition-colors">
               <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Session 3</p>
-              <p class="font-playfair text-lg font-medium text-[#2C2824]">16 – 20 aout 2026</p>
+              <p class="font-playfair text-lg font-medium text-[#2C2824]">16 – 20 août 2026</p>
               <p class="text-sm font-light text-[#2C2824]/50 mt-1">5 jours / 4 nuits</p>
             </div>
           </label>
@@ -102,12 +102,12 @@ const reassurance = [
         <div class="grid md:grid-cols-2 gap-6">
           <div class="p-6 border border-black/5 rounded-sm">
             <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Le matin</p>
-            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">Pratique guidee</h3>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">Pratique guidée</h3>
             <p class="text-sm font-light text-[#2C2824]/60">Mise en corps, flux continu, exploration du mouvement avec Samuel.</p>
           </div>
           <div class="p-6 border border-black/5 rounded-sm">
-            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">L'apres-midi</p>
-            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">Ateliers & integration</h3>
+            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">L'après-midi</p>
+            <h3 class="font-playfair text-lg font-medium text-[#2C2824] mb-2">Ateliers & intégration</h3>
             <p class="text-sm font-light text-[#2C2824]/60">Travail relationnel, danse contact, temps de repos et partage.</p>
           </div>
         </div>
@@ -122,7 +122,7 @@ const reassurance = [
               <span class="font-playfair text-5xl font-medium text-[#2C2824]">1 100</span>
               <span class="text-xl font-light text-[#2C2824]/50">€</span>
             </div>
-            <p class="text-sm font-light text-[#2C2824]/50 mt-2">Paiement unique · Hebergement et repas inclus</p>
+            <p class="text-sm font-light text-[#2C2824]/50 mt-2">Paiement unique · Hébergement et repas inclus</p>
           </div>
           <div class="flex-shrink-0">
             <a 
@@ -186,16 +186,16 @@ const reassurance = [
       <!-- Citation -->
       <div class="mb-12 p-8 bg-[#2C2824] rounded-sm text-center">
         <blockquote class="font-playfair text-xl md:text-2xl font-normal text-white/90 italic leading-relaxed">
-          "Le corps garde la trace de ce qui n'a pas ete digere. La danse permet de remettre ces informations en circulation."
+          "Le corps garde la trace de ce qui n'a pas été digéré. La danse permet de remettre ces informations en circulation."
         </blockquote>
         <p class="text-sm font-light text-white/50 mt-4">— Samuel Planas</p>
       </div>
 
       <!-- Contact -->
       <div class="text-center p-8 bg-[#FAF8F5] rounded-sm">
-        <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Une question avant de reserver ?</h3>
+        <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Une question avant de réserver ?</h3>
         <p class="text-base font-light text-[#2C2824]/60 mb-6">
-          Echange directement avec Charly pour voir si En Mouvement est fait pour toi.
+          Échange directement avec Charly pour voir si En Mouvement est fait pour toi.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
