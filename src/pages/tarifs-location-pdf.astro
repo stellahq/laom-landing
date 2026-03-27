@@ -1,0 +1,227 @@
+---
+/**
+ * Version imprimable des conditions de réservation.
+ * Ouvrir cette page dans le navigateur et Cmd+P > Enregistrer en PDF.
+ */
+---
+
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conditions de réservation — LAOM</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #2C2824;
+      line-height: 1.6;
+      padding: 48px;
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 13px;
+    }
+
+    h1, h2 { font-family: 'Playfair Display', serif; }
+
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #C4A855;
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+    }
+
+    .header img { height: 48px; margin-bottom: 16px; }
+    .header h1 { font-size: 28px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .header p { font-size: 12px; color: #2C2824aa; font-weight: 300; }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      color: #2C2824;
+    }
+
+    .tarif-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid #2C282410;
+    }
+
+    .tarif-label { font-weight: 400; }
+    .tarif-detail { font-size: 11px; color: #2C282480; font-weight: 300; }
+    .tarif-price { text-align: right; font-weight: 500; }
+    .tarif-price-detail { font-size: 11px; color: #2C282480; font-weight: 300; }
+
+    .note {
+      font-size: 11px;
+      color: #2C282480;
+      font-style: italic;
+      margin-top: 12px;
+    }
+
+    .section { margin-bottom: 24px; }
+
+    .bullet { padding-left: 16px; }
+    .bullet li { margin-bottom: 6px; font-weight: 300; }
+    .bullet li strong { font-weight: 500; }
+
+    .highlight-box {
+      background: #FAF8F5;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 8px 0;
+      font-size: 12px;
+    }
+
+    .highlight-box p:first-child { font-weight: 500; margin-bottom: 4px; }
+    .highlight-box p:last-child { font-weight: 300; color: #2C2824bb; }
+
+    .final-note {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 500;
+      margin: 32px 0;
+      padding: 24px 0;
+      border-top: 1px solid #2C282415;
+      border-bottom: 1px solid #2C282415;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #2C282480;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid #2C282410;
+    }
+
+    .footer a { color: #C4A855; text-decoration: none; }
+
+    @media print {
+      body { padding: 24px; }
+      @page { margin: 1.5cm; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="/images/laom/presentation/logo-laom.webp" alt="LAOM" />
+    <h1>Conditions de réservation</h1>
+    <p>SAS La Ferme du Verseau — 867 Route de Montagnol, 12400 Saint-Félix-de-Sorgues</p>
+    <p>hello@laom.fr — 06 72 54 69 47</p>
+  </div>
+
+  <div class="section">
+    <h2>Tarifs</h2>
+
+    <div class="tarif-row">
+      <div>
+        <div class="tarif-label">Location salle Shala</div>
+        <div class="tarif-detail">Par jour</div>
+      </div>
+      <div>
+        <div class="tarif-price">150 € HT</div>
+        <div class="tarif-price-detail">180 € TTC (TVA 20 %)</div>
+      </div>
+    </div>
+
+    <div class="tarif-row">
+      <div>
+        <div class="tarif-label">Hébergement tipis</div>
+        <div class="tarif-detail">Par personne / nuit — 12 pers. max (possibilité de s'arranger pour plus)</div>
+      </div>
+      <div>
+        <div class="tarif-price">18,18 € HT</div>
+        <div class="tarif-price-detail">20 € TTC (TVA 10 %)</div>
+      </div>
+    </div>
+
+    <div class="tarif-row">
+      <div>
+        <div class="tarif-label">Hébergements autonomes</div>
+        <div class="tarif-detail">Vans, tentes personnelles — par nuit</div>
+      </div>
+      <div>
+        <div class="tarif-price">8 €</div>
+      </div>
+    </div>
+
+    <div class="tarif-row">
+      <div>
+        <div class="tarif-label">Ménage</div>
+        <div class="tarif-detail">Forfait par événement</div>
+      </div>
+      <div>
+        <div class="tarif-price">125 € HT</div>
+        <div class="tarif-price-detail">150 € TTC (TVA 20 %)</div>
+      </div>
+    </div>
+
+    <p class="note">Pour les stages, la location à l'heure de la salle n'est pas proposée, les tarifs s'appliquent à la journée.</p>
+  </div>
+
+  <div class="section">
+    <h2>Repas — Guinguette</h2>
+
+    <div class="tarif-row">
+      <div>
+        <div class="tarif-label">Repas (hors petit-déjeuner)</div>
+        <div class="tarif-detail">Produits locaux et biologiques (80 %)</div>
+      </div>
+      <div>
+        <div class="tarif-price">18 € / personne</div>
+      </div>
+    </div>
+
+    <p class="note">Menus proposés 15 jours avant le stage. Petit-déjeuner possible sur demande, habituellement les participants apportent le leur.</p>
+  </div>
+
+  <div class="section">
+    <h2>Règlement</h2>
+    <p style="font-weight: 300;">Acompte de <strong>30 % du montant total</strong> dû à la réservation pour confirmer les dates. Devis valable <strong>15 jours</strong>, passé ce délai, les dates peuvent être proposées à d'autres organisateurs.</p>
+  </div>
+
+  <div class="section">
+    <h2>Annulation par l'organisateur</h2>
+    <ul class="bullet">
+      <li><strong>≥ 30 jours</strong> avant l'événement : acompte remboursable</li>
+      <li><strong>< 30 jours</strong> ou non-présentation : 100 % du montant total dû</li>
+      <li>Cession du créneau possible à un autre organisateur sous réserve de validation par LAOM</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p>Cas de force majeure de l'organisateur</p>
+      <p>Accident, hospitalisation, décès d'un proche, maladie grave soudaine, catastrophe naturelle — sur justificatif écrit transmis dans les meilleurs délais : acompte converti en avoir valable 12 mois sur une prochaine réservation à LAOM.</p>
+    </div>
+
+    <div class="highlight-box">
+      <p>Ne constitue pas un cas de force majeure</p>
+      <p>Nombre insuffisant de participants, problème financier, changement de planning, désistement d'un intervenant.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Annulation par LAOM</h2>
+    <p style="font-weight: 300;">En cas de <strong>force majeure</strong> (sinistre, restriction administrative, catastrophe naturelle) : remboursement intégral de l'acompte et report à une date convenue entre les parties. Hors force majeure, LAOM s'engage à maintenir les dates confirmées.</p>
+  </div>
+
+  <div class="final-note">
+    Tout événement commencé est dû dans sa totalité.
+  </div>
+
+  <div class="footer">
+    <p><a href="https://laom.fr">laom.fr</a> — hello@laom.fr — 06 72 54 69 47</p>
+    <p style="margin-top: 4px;">SAS La Ferme du Verseau — 867 Route de Montagnol, 12400 Saint-Félix-de-Sorgues</p>
+  </div>
+
+</body>
+</html>

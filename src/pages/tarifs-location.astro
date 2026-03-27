@@ -1,0 +1,186 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageSchema = createWebPageSchema({
+  name: 'Conditions de réservation — LAOM',
+  url: Astro.url.toString(),
+  description: 'Tarifs de location de la salle, hébergement tipis, repas guinguette et conditions de réservation à LAOM.',
+})
+---
+
+<Layout
+  title="Conditions de réservation — LAOM"
+  description="Tarifs de location de la salle, hébergement tipis, repas guinguette et conditions de réservation à LAOM."
+  seo={{ ldJSON: pageSchema }}
+>
+  <section class="py-32 lg:py-40 -mt-24 md:-mt-28 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <!-- Entête -->
+      <div class="text-center mb-16">
+        <img
+          src="/images/laom/presentation/logo-laom.webp"
+          alt="Logo LAOM"
+          class="h-16 mx-auto mb-8"
+        />
+        <h1 class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-4">
+          Conditions de réservation
+        </h1>
+        <p class="text-lg font-light text-[#2C2824]/60">
+          SAS La Ferme du Verseau — 867 Route de Montagnol, 12400 Saint-Félix-de-Sorgues
+        </p>
+      </div>
+
+      <!-- Tarifs -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Tarifs</h2>
+
+        <div class="space-y-4">
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Location salle Shala</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Par jour</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">150 € HT</p>
+              <p class="text-sm font-light text-[#2C2824]/50">180 € TTC (TVA 20 %)</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Hébergement tipis</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Par personne / nuit — 12 pers. max (possibilité de s'arranger pour plus)</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">18,18 € HT</p>
+              <p class="text-sm font-light text-[#2C2824]/50">20 € TTC (TVA 10 %)</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Hébergements autonomes</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Vans, tentes personnelles — par nuit</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">8 €</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Ménage</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Forfait par événement</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">125 € HT</p>
+              <p class="text-sm font-light text-[#2C2824]/50">150 € TTC (TVA 20 %)</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-sm font-light text-[#2C2824]/50 mt-6 italic">
+          Pour les stages, la location à l'heure de la salle n'est pas proposée, les tarifs s'appliquent à la journée.
+        </p>
+      </div>
+
+      <!-- Repas -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Repas — Guinguette</h2>
+        <div class="flex justify-between items-start py-3 border-b border-black/5 mb-4">
+          <p class="text-base font-normal text-[#2C2824]">Repas (hors petit-déjeuner)</p>
+          <p class="text-base font-medium text-[#2C2824]">18 € / personne</p>
+        </div>
+        <div class="space-y-2 text-sm font-light text-[#2C2824]/70 leading-relaxed">
+          <p>Produits locaux et biologiques (80 %).</p>
+          <p>Menus proposés 15 jours avant le stage.</p>
+          <p>Petit-déjeuner possible sur demande, habituellement les participants apportent le leur.</p>
+        </div>
+      </div>
+
+      <!-- Règlement -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Règlement</h2>
+        <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+          <p>
+            Acompte de <strong class="font-medium">30 % du montant total</strong> dû à la réservation pour confirmer les dates.
+          </p>
+          <p>
+            Devis valable <strong class="font-medium">15 jours</strong>, passé ce délai, les dates peuvent être proposées à d'autres organisateurs.
+          </p>
+        </div>
+      </div>
+
+      <!-- Annulation organisateur -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Annulation par l'organisateur</h2>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3 text-base font-light text-[#2C2824]/80">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#8226;</span>
+            <span><strong class="font-medium">≥ 30 jours</strong> avant l'événement : acompte remboursable</span>
+          </div>
+          <div class="flex items-start gap-3 text-base font-light text-[#2C2824]/80">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#8226;</span>
+            <span><strong class="font-medium">< 30 jours</strong> ou non-présentation : 100 % du montant total dû</span>
+          </div>
+          <div class="flex items-start gap-3 text-base font-light text-[#2C2824]/80">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#8226;</span>
+            <span>Cession du créneau possible à un autre organisateur sous réserve de validation par LAOM</span>
+          </div>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm p-6 mb-4">
+          <p class="text-sm font-medium text-[#2C2824] mb-2">Cas de force majeure de l'organisateur</p>
+          <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed">
+            Accident, hospitalisation, décès d'un proche, maladie grave soudaine, catastrophe naturelle — sur justificatif écrit transmis dans les meilleurs délais : acompte converti en <strong class="font-medium">avoir valable 12 mois</strong> sur une prochaine réservation à LAOM.
+          </p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm p-6">
+          <p class="text-sm font-medium text-[#2C2824] mb-2">Ne constitue pas un cas de force majeure</p>
+          <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed">
+            Nombre insuffisant de participants, problème financier, changement de planning, désistement d'un intervenant.
+          </p>
+        </div>
+      </div>
+
+      <!-- Annulation LAOM -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Annulation par LAOM</h2>
+        <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+          <p>
+            En cas de <strong class="font-medium">force majeure</strong> (sinistre, restriction administrative, catastrophe naturelle) : remboursement intégral de l'acompte et report à une date convenue entre les parties.
+          </p>
+          <p>
+            Hors force majeure, LAOM s'engage à maintenir les dates confirmées.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mention finale -->
+      <div class="text-center py-8">
+        <p class="font-playfair text-xl font-medium text-[#2C2824] italic">
+          Tout événement commencé est dû dans sa totalité.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-[#2C2824] rounded-sm p-8 md:p-10 text-center">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Intéressé ?</p>
+        <h3 class="font-playfair text-2xl font-medium text-white mb-4">Organiser un événement à LAOM</h3>
+        <p class="text-base font-light text-white/60 mb-8 max-w-lg mx-auto">
+          Écrivez-nous pour discuter de votre projet, vérifier les disponibilités et recevoir un devis personnalisé.
+        </p>
+        <a
+          href="mailto:hello@laom.fr?subject=Demande%20de%20r%C3%A9servation%20LAOM"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Contacter LAOM
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>
