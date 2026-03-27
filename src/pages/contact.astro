@@ -37,11 +37,17 @@ const pageSchema = createWebPageSchema({
   <section class="py-24 bg-[#faf9f6]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <h2 class="text-3xl md:text-4xl font-light text-black mb-6">{t.pages.contactPage.introTitle}</h2>
-      <p class="text-lg font-light text-black/70 leading-relaxed">
+      <p class="text-lg font-light text-black/70 leading-relaxed mb-10">
         {t.pages.contactPage.introDescriptionBefore}
         <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-black/80 transition-colors">hello@laom.fr</a>
         {t.pages.contactPage.introDescriptionAfter}
       </p>
+      <a
+        href="/location/"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+      >
+        Organiser un événement à LAOM — Voir les tarifs
+      </a>
     </div>
   </section>
 
