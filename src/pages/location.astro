@@ -43,11 +43,13 @@ const pageSchema = createWebPageSchema({
           </p>
         </div>
 
-        <!-- Formulaire Kit — form dédié location -->
+        <!-- Formulaire Kit — form dédié location (soumis via iframe caché) -->
+        <iframe name="kit-iframe" id="kit-iframe" style="display:none"></iframe>
         <form
           id="location-form"
           action="https://laom.kit.com/b4557c3936"
           method="post"
+          target="kit-iframe"
           class="space-y-4"
         >
           <div>
@@ -74,6 +76,7 @@ const pageSchema = createWebPageSchema({
           </div>
           <button
             type="submit"
+            id="submit-btn"
             class="w-full rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
           >
             J'accède aux conditions et dates disponibles
@@ -83,6 +86,17 @@ const pageSchema = createWebPageSchema({
         <p class="text-xs font-light text-[#2C2824]/40 text-center mt-4">
           Vous serez également inscrit à la LAOM Letter, notre newsletter mensuelle.
         </p>
+
+        <script is:inline>
+          document.getElementById('location-form').addEventListener('submit', function() {
+            var btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Envoi en cours...';
+            setTimeout(function() {
+              window.location.href = '/tarifs-location/';
+            }, 2000);
+          });
+        </script>
       </div>
     </div>
   </section>
