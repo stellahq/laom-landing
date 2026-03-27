@@ -605,8 +605,9 @@ export const translations = {
             href: '/resources/',
           },
           {
-            title: 'Les tarifs de location de nos espaces sont ici.',
-            href: 'https://drive.google.com/file/d/1qfl7IQG1LKvjJLyDkv2KXct5iayeV80Q/view?usp=sharing',
+            title: 'Je souhaite organiser une immersion, un stage ou une retraite à LAOM',
+            description: 'voir les tarifs de location',
+            href: '/location/',
           },
         ],
         responseTitle: 'Délai de réponse',
