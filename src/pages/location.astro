@@ -108,26 +108,14 @@ const pageSchema = createWebPageSchema({
       errorDiv.classList.add('hidden');
 
       try {
-        // Submit to Kit form via FormData
+        // Submit ONLY to the dedicated location form
         const formData = new FormData();
         formData.append('email_address', email);
         formData.append('fields[first_name]', firstName);
-        formData.append('tags[]', 'prospect-location');
 
-        await fetch('https://app.kit.com/forms/8987350/subscriptions', {
+        await fetch('https://app.kit.com/landing_pages/b4557c3936/subscribe', {
           method: 'POST',
           body: formData,
-          mode: 'no-cors'
-        });
-
-        // Also submit to the dedicated location form
-        const formData2 = new FormData();
-        formData2.append('email_address', email);
-        formData2.append('fields[first_name]', firstName);
-
-        await fetch('https://laom.kit.com/b4557c3936', {
-          method: 'POST',
-          body: formData2,
           mode: 'no-cors'
         });
 
