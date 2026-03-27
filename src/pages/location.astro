@@ -43,14 +43,18 @@ const pageSchema = createWebPageSchema({
           </p>
         </div>
 
-        <!-- Formulaire -->
-        <form id="location-form" class="space-y-4">
-          <div id="form-error" class="hidden bg-red-50 border border-red-200 text-red-700 rounded-sm px-4 py-3 text-sm"></div>
+        <!-- Formulaire Kit — form dédié location -->
+        <form
+          id="location-form"
+          action="https://laom.kit.com/b4557c3936"
+          method="post"
+          class="space-y-4"
+        >
           <div>
             <label class="block text-sm font-medium text-[#2C2824] mb-1.5">Prénom</label>
             <input
-              id="first-name"
               class="w-full rounded-sm border border-[#2C2824]/15 px-4 py-3 text-sm text-[#2C2824] placeholder-[#2C2824]/40 focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-colors"
+              name="fields[first_name]"
               type="text"
               required
               placeholder="Votre prénom"
@@ -60,8 +64,8 @@ const pageSchema = createWebPageSchema({
           <div>
             <label class="block text-sm font-medium text-[#2C2824] mb-1.5">Email</label>
             <input
-              id="email"
               class="w-full rounded-sm border border-[#2C2824]/15 px-4 py-3 text-sm text-[#2C2824] placeholder-[#2C2824]/40 focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-colors"
+              name="email_address"
               type="email"
               required
               placeholder="votre@email.com"
@@ -70,7 +74,6 @@ const pageSchema = createWebPageSchema({
           </div>
           <button
             type="submit"
-            id="submit-btn"
             class="w-full rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
           >
             J'accède aux conditions et dates disponibles
@@ -85,48 +88,3 @@ const pageSchema = createWebPageSchema({
   </section>
 </Layout>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('location-form');
-    const btn = document.getElementById('submit-btn');
-    const errorDiv = document.getElementById('form-error');
-
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const firstName = document.getElementById('first-name').value.trim();
-      const email = document.getElementById('email').value.trim();
-
-      if (!firstName || !email) {
-        errorDiv.textContent = 'Merci de remplir tous les champs.';
-        errorDiv.classList.remove('hidden');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Envoi en cours...';
-      errorDiv.classList.add('hidden');
-
-      try {
-        // Submit ONLY to the dedicated location form
-        const formData = new FormData();
-        formData.append('email_address', email);
-        formData.append('fields[first_name]', firstName);
-
-        await fetch('https://app.kit.com/landing_pages/b4557c3936/subscribe', {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors'
-        });
-
-        // Redirect to tarifs page
-        window.location.href = '/tarifs-location/';
-
-      } catch (err) {
-        // Even if fetch fails with no-cors, the subscription likely went through
-        // Redirect anyway
-        window.location.href = '/tarifs-location/';
-      }
-    });
-  });
-</script>
