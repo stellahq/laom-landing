@@ -43,15 +43,16 @@ const pageSchema = createWebPageSchema({
           </p>
         </div>
 
-        <!-- Formulaire Kit — form dédié location (soumis via iframe caché) -->
+        <!-- Formulaire Kit — via form 8987350 avec source=location -->
         <iframe name="kit-iframe" id="kit-iframe" style="display:none"></iframe>
         <form
           id="location-form"
-          action="https://laom.kit.com/b4557c3936"
+          action="https://app.kit.com/forms/8987350/subscriptions"
           method="post"
           target="kit-iframe"
           class="space-y-4"
         >
+          <input type="hidden" name="fields[source]" value="location" />
           <div>
             <label class="block text-sm font-medium text-[#2C2824] mb-1.5">Prénom</label>
             <input
