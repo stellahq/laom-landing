@@ -98,7 +98,25 @@ export const translations = {
           description: 'Rencontre du réseau CGP / CIF en finance responsable avec David Lin.',
           href: 'https://fyneo.org/',
         },
+        {
+          title: 'LAOM Coliving 1',
+          date: '15 juin – 28 juin 2026',
+          description: 'Une immersion à LAOM entre entrepreneurs, porteurs de projets et/ou artistes. Chaque matin, tu bouges. La journée, tu bosses, tu chill ou un mix des deux. 0 charge mentale, 100% focus. Durée flexible : 1 à 2 semaines (minimum 5 nuits).',
+          href: 'mailto:hello@laom.fr',
+        },
         // JUILLET
+        {
+          title: 'Rencontre Forum Éco-construction',
+          date: '3 juil. – 5 juil. 2026',
+          description: 'Un week-end pour discuter et échanger avec des professionnels de l\'éco-construction : pour les porteurs de projets de construction écologique (auto-constructeurs, projets de lieux d\'accueil innovants, habitats collectifs, etc).',
+          href: 'mailto:hello@laom.fr',
+        },
+        {
+          title: 'Family Camp — Coliving 1',
+          date: '8 juil. – 22 juil. 2026',
+          description: '2 semaines de vie collective entre familles au cœur de la nature. Ateliers nature pour les enfants le matin, activités partagées et soirées entre familles (ou temps libre).',
+          href: 'mailto:hello@laom.fr',
+        },
         {
           title: 'Summer Camp Amawé',
           date: '11 juil. – 14 juil. 2026',
@@ -113,6 +131,18 @@ export const translations = {
           href: 'mailto:hello@laom.fr',
         },
         // AOÛT
+        {
+          title: 'LAOM Coliving 2',
+          date: '6 août – 20 août 2026',
+          description: 'Une immersion à LAOM entre entrepreneurs, porteurs de projets et/ou artistes. Chaque matin, tu bouges. La journée, tu bosses, tu chill ou un mix des deux. 0 charge mentale, 100% focus. Durée flexible : 1 à 2 semaines (minimum 5 nuits).',
+          href: 'mailto:hello@laom.fr',
+        },
+        {
+          title: 'Family Camp — Coliving 2',
+          date: '8 août – 22 août 2026',
+          description: '2 semaines de vie collective entre familles au cœur de la nature. Ateliers nature pour les enfants le matin, activités partagées et soirées entre familles (ou temps libre).',
+          href: 'mailto:hello@laom.fr',
+        },
         {
           title: 'Guérison des Blessures',
           date: '22 août – 28 août 2026',
