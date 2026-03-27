@@ -99,7 +99,7 @@ export const translations = {
           href: 'https://fyneo.org/',
         },
         {
-          title: 'LAOM Coliving 1',
+          title: 'LAOM Coliving Entrepreneurs & Créatifs 1',
           date: '15 juin – 28 juin 2026',
           description: 'Une immersion à LAOM entre entrepreneurs, porteurs de projets et/ou artistes. Chaque matin, tu bouges. La journée, tu bosses, tu chill ou un mix des deux. 0 charge mentale, 100% focus. Durée flexible : 1 à 2 semaines (minimum 5 nuits).',
           href: 'mailto:hello@laom.fr',
@@ -112,7 +112,7 @@ export const translations = {
           href: 'mailto:hello@laom.fr',
         },
         {
-          title: 'Family Camp — Coliving 1',
+          title: 'Family Camp 1',
           date: '8 juil. – 22 juil. 2026',
           description: '2 semaines de vie collective entre familles au cœur de la nature. Ateliers nature pour les enfants le matin, activités partagées et soirées entre familles (ou temps libre).',
           href: 'mailto:hello@laom.fr',
@@ -132,13 +132,19 @@ export const translations = {
         },
         // AOÛT
         {
-          title: 'LAOM Coliving 2',
+          title: 'En Mouvement',
+          date: '5 août – 9 août 2026',
+          description: '5 jours d\'immersion par la danse et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Ouvert à tous, aucune expérience requise.',
+          href: '/stage-danse/',
+        },
+        {
+          title: 'LAOM Coliving Entrepreneurs & Créatifs 2',
           date: '6 août – 20 août 2026',
           description: 'Une immersion à LAOM entre entrepreneurs, porteurs de projets et/ou artistes. Chaque matin, tu bouges. La journée, tu bosses, tu chill ou un mix des deux. 0 charge mentale, 100% focus. Durée flexible : 1 à 2 semaines (minimum 5 nuits).',
           href: 'mailto:hello@laom.fr',
         },
         {
-          title: 'Family Camp — Coliving 2',
+          title: 'Family Camp 2',
           date: '8 août – 22 août 2026',
           description: '2 semaines de vie collective entre familles au cœur de la nature. Ateliers nature pour les enfants le matin, activités partagées et soirées entre familles (ou temps libre).',
           href: 'mailto:hello@laom.fr',
@@ -521,8 +527,8 @@ export const translations = {
         heroSubtitle: 'Des rencontres pour créer, se ressourcer, partager.',
         agendaLabel: 'Agenda',
         signatureSectionTitle: 'Événements et Immersions signature',
-        partnersSectionTitle: 'Tous les événements partenaires qui ont lieu à LAOM',
-        partnersLabel: 'Partenaires',
+        partnersSectionTitle: 'Tous les événements qui ont lieu à LAOM',
+        partnersLabel: 'Calendrier',
         ctaLabel: 'Accueil',
         enMouvementBlock: {
           label: 'Immersion signature',
@@ -530,17 +536,13 @@ export const translations = {
           description: '5 jours d\'immersion centrés sur la danse et le mouvement. Guidé par Samuel Planas, danseur professionnel formé au Conservatoire National Supérieur de Paris, et Charly Aubert, coach et co-fondateur LAOM. Ouvert à tous, aucune expérience de danse requise.',
           sessions: [
             { label: 'Session 1', date: '5 à 9 août' },
-            { label: 'Session 2', date: '11 à 15 août' },
-            { label: 'Session 3', date: '16 à 20 août' },
           ],
           cta: 'Découvrir le stage',
         },
         enMouvement: {
           sectionTitle: 'Stages « En Mouvement »',
           sessions: [
-            { date: '5 à 9 août 2026', title: 'En Mouvement, Session 1', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
-            { date: '11 à 15 août 2026', title: 'En Mouvement, Session 2', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
-            { date: '16 à 20 août 2026', title: 'En Mouvement, Session 3', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
+            { date: '5 à 9 août 2026', title: 'En Mouvement', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
           ],
         },
         laomfest: {

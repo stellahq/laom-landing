@@ -14,21 +14,22 @@ const pageSchema = createWebPageSchema({
 
 // Images pour les événements partenaires (Photos partenaires - LAOM)
 const eventImages = [
-  '/images/laom/laomfest/vanlifest-IMG_1373.webp',                            // Clarté
-  '/images/colette.webp',                                                      // Désir d'Aventure #1
-  '/images/laom/preparation-terre-laom.webp',                                // LAOM School
-  '/images/laom/partenaires/freres-d-ame-retraite-partenaire-LAOM.webp',      // Frères d'Âme
-  '/images/colette.webp',                                                      // Désir d'Aventure #2
-  '/images/event-rencontre-perspective.webp',                                  // Festival Perspective
-  '/images/laom/partenaires/fyneo-logo-F-vert-texte-vert-copie.webp',          // Rencontre Fyneo #1
-  '/images/laom/tipis.webp',                                                   // LAOM Coliving 1
-  '/images/laom/petit-shambala-exterieur.webp',                                // Rencontre Forum Éco-construction
-  '/images/laom/oasis-la-margue-1.webp',                                       // Family Camp — Co-living 1
-  '/images/laom/partenaires/summer-camp-amawe-partenaire-LAOM.webp',           // Summer Camp Amawé
-  '/images/laom/partenaires/Aime-Etre-retraite-partenaire-LAOM.webp',         // Aime-Être
-  '/images/laom/tipis.webp',                                                   // LAOM Coliving 2
-  '/images/laom/oasis-la-margue-1.webp',                                       // Family Camp — Coliving 2
-  '/images/laom/partenaires/Stage-guerison-blessures-partenaire-LAOM.webp',    // Guérison des Blessures
+  '/images/laom/laomfest/vanlifest-IMG_1373.webp',                            // 0  Clarté
+  '/images/colette.webp',                                                      // 1  Désir d'Aventure #1
+  '/images/laom/preparation-terre-laom.webp',                                  // 2  LAOM School
+  '/images/laom/partenaires/freres-d-ame-retraite-partenaire-LAOM.webp',      // 3  Frères d'Âme
+  '/images/colette.webp',                                                      // 4  Désir d'Aventure #2
+  '/images/event-rencontre-perspective.webp',                                  // 5  Festival Perspective
+  '/images/laom/partenaires/fyneo-logo-F-vert-texte-vert-copie.webp',         // 6  Rencontre Fyneo #1
+  '/images/laom/tipis.webp',                                                   // 7  LAOM Coliving E&C 1
+  '/images/laom/petit-shambala-exterieur.webp',                                // 8  Rencontre Forum Éco-construction
+  '/images/laom/oasis-la-margue-1.webp',                                       // 9  Family Camp 1
+  '/images/laom/partenaires/summer-camp-amawe-partenaire-LAOM.webp',          // 10 Summer Camp Amawé
+  '/images/laom/partenaires/Aime-Etre-retraite-partenaire-LAOM.webp',        // 11 Aime-Être
+  '/images/laom/samuel-planas.webp',                                           // 12 En Mouvement
+  '/images/laom/tipis.webp',                                                   // 13 LAOM Coliving E&C 2
+  '/images/laom/oasis-la-margue-1.webp',                                       // 14 Family Camp 2
+  '/images/laom/partenaires/Stage-guerison-blessures-partenaire-LAOM.webp',   // 15 Guérison des Blessures
 ]
 const events = t.events.items.map((item, index) => ({
   ...item,
@@ -41,7 +42,7 @@ const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
 // Immersions LAOM
 const weekendsLaom = [
   {
-    title: 'Clarté #1',
+    title: 'Clarté',
     date: '17-19 avril 2026',
     description: 'Un week-end pour créer le système qui libère ta tête. Vision, PARA, Claude Code.',
     price: '1 000 €',
@@ -67,6 +68,33 @@ const weekendsLaom = [
     animateur: 'Charly Aubert',
     href: '/school',
     image: '/images/laom/preparation-terre-laom.webp',
+  },
+  {
+    title: 'LAOM Coliving Entrepreneurs & Créatifs',
+    date: '2 sessions : 15-28 juin & 6-20 août 2026',
+    description: 'Une immersion entre entrepreneurs, porteurs de projets et artistes. Mouvement le matin, focus projet la journée, 0 charge mentale. Durée flexible (min. 5 nuits).',
+    price: '1 500 € / 7j · 2 500 € / 14j',
+    animateur: 'Équipe LAOM',
+    href: 'mailto:hello@laom.fr',
+    image: '/images/laom/tipis.webp',
+  },
+  {
+    title: 'Rencontre Forum Éco-construction',
+    date: '3-5 juillet 2026',
+    description: 'Un week-end pour échanger avec des professionnels de l\'éco-construction : auto-constructeurs, projets de lieux d\'accueil innovants, habitats collectifs.',
+    price: 'Sur demande',
+    animateur: 'Charly Aubert',
+    href: 'mailto:hello@laom.fr',
+    image: '/images/laom/petit-shambala-exterieur.webp',
+  },
+  {
+    title: 'En Mouvement',
+    date: '5-9 août 2026',
+    description: '5 jours d\'immersion par la danse et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Ouvert à tous, aucune expérience requise.',
+    price: '1 100 €',
+    animateur: 'Samuel Planas & Charly Aubert',
+    href: '/stage-danse',
+    image: '/images/laom/samuel-planas.webp',
   },
 ]
 
@@ -110,54 +138,6 @@ const laomfestImages = [
     </div>
   </section>
 
-  <!-- En Mouvement — Immersions -->
-  <section class="py-24 md:py-32 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
-        <!-- Image Samuel -->
-        <div class="w-full lg:w-[400px] flex-shrink-0">
-          <a href="/stage-danse/" class="block group">
-            <div class="aspect-[3/4] overflow-hidden rounded-sm">
-              <img
-                src="/images/laom/samuel-planas.webp"
-                alt="Samuel Planas, En Mouvement"
-                title="Samuel Planas, danseur et guide de l'immersion En Mouvement"
-                class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
-              />
-            </div>
-          </a>
-        </div>
-
-        <!-- Contenu -->
-        <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.enMouvementBlock.label}</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.enMouvementBlock.title}</h2>
-          <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-8">
-            {t.pages.eventsPage.enMouvementBlock.description}
-          </p>
-
-          <!-- Sessions -->
-          <div class="space-y-3 mb-10">
-            {emSessions.map((s) => (
-              <div class="flex justify-between items-center py-3 border-b border-black/5">
-                <span class="text-sm font-light text-[#2C2824]/50">{s.label}</span>
-                <span class="font-playfair text-base text-[#2C2824]">{s.date} 2026</span>
-              </div>
-            ))}
-          </div>
-
-          <a
-            href="/stage-danse/"
-            class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
-          >
-            {t.pages.eventsPage.enMouvementBlock.cta}
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Immersions LAOM -->
   <section class="py-24 md:py-32 bg-[#FAF8F5]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
@@ -180,14 +160,13 @@ const laomfestImages = [
                   src={w.image}
                   alt={w.title}
                   title={w.title}
-                  class="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500 {(w.title.startsWith('Clarté') ? 'scale-105' : '')}"
+                  class={`w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 ${w.title.startsWith('Clarté') ? 'scale-105 object-center' : w.title === 'En Mouvement' ? 'object-[center_20%]' : 'object-center'}`}
                   loading="lazy"
                 />
               </div>
               <div class="p-6">
-                <div class="flex items-center justify-between mb-3">
+                <div class="mb-3">
                   <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855]">{w.date}</p>
-                  <p class="text-sm font-medium text-[#2C2824]">{w.price}</p>
                 </div>
                 <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2 group-hover:text-[#C4A855] transition-colors">
                   {w.title}
