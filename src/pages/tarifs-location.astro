@@ -1,12 +1,67 @@
 ---
 import Layout from '~/layouts/Layout.astro'
 import { createWebPageSchema } from '~/utils/schema'
+import { getTranslations as getI18nTranslations } from '~/i18n/utils'
+
+const t = getI18nTranslations('fr')
 
 const pageSchema = createWebPageSchema({
   name: 'Conditions de réservation — LAOM',
   url: Astro.url.toString(),
   description: 'Tarifs de location de la salle, hébergement tipis, repas guinguette et conditions de réservation à LAOM.',
 })
+
+// Booked date ranges (from events) — [startDay, endDay, monthIndex(0-based), label]
+// monthIndex: 4=mai, 5=juin, 6=juillet, 7=août, 8=septembre
+const bookedRanges: { start: [number, number]; end: [number, number]; label: string }[] = [
+  { start: [4, 30], end: [5, 3],  label: 'Désir d\'Aventure #1' },    // 30 avr – 3 mai
+  { start: [5, 8],  end: [5, 10], label: 'LAOM School' },              // 8-10 mai
+  { start: [5, 21], end: [5, 24], label: 'Frères d\'Âme' },            // 21-24 mai
+  { start: [5, 28], end: [5, 31], label: 'Désir d\'Aventure #2' },     // 28-31 mai
+  { start: [6, 5],  end: [6, 8],  label: 'Festival Perspective' },     // 5-8 juin
+  { start: [6, 11], end: [6, 13], label: 'Rencontre Fyneo' },          // 11-13 juin
+  { start: [6, 15], end: [6, 28], label: 'LAOM Coliving 1' },          // 15-28 juin
+  { start: [7, 3],  end: [7, 5],  label: 'Forum Éco-construction' },   // 3-5 juillet
+  { start: [7, 8],  end: [7, 22], label: 'Family Camp 1' },            // 8-22 juillet
+  { start: [7, 11], end: [7, 14], label: 'Summer Camp Amawé' },        // 11-14 juillet
+  { start: [7, 23], end: [7, 26], label: 'Aime-Être' },                // 23-26 juillet
+  { start: [8, 5],  end: [8, 9],  label: 'En Mouvement' },             // 5-9 août
+  { start: [8, 6],  end: [8, 20], label: 'LAOM Coliving 2' },          // 6-20 août
+  { start: [8, 8],  end: [8, 22], label: 'Family Camp 2' },            // 8-22 août
+  { start: [8, 22], end: [8, 28], label: 'Guérison des Blessures' },   // 22-28 août
+]
+
+// Build a set of booked dates for quick lookup
+const bookedDates = new Set<string>()
+const bookedLabels = new Map<string, string[]>()
+
+for (const range of bookedRanges) {
+  const startDate = new Date(2026, range.start[0] - 1, range.start[1])
+  const endDate = new Date(2026, range.end[0] - 1, range.end[1])
+  for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+    const key = `${d.getMonth()}-${d.getDate()}`
+    bookedDates.add(key)
+    if (!bookedLabels.has(key)) bookedLabels.set(key, [])
+    bookedLabels.get(key)!.push(range.label)
+  }
+}
+
+// Generate calendar months (Mai to Septembre 2026)
+const months = [
+  { name: 'Mai', month: 4, year: 2026 },
+  { name: 'Juin', month: 5, year: 2026 },
+  { name: 'Juillet', month: 6, year: 2026 },
+  { name: 'Août', month: 7, year: 2026 },
+  { name: 'Septembre', month: 8, year: 2026 },
+]
+
+function getMonthDays(month: number, year: number) {
+  const firstDay = new Date(year, month, 1)
+  const lastDay = new Date(year, month + 1, 0)
+  const startDayOfWeek = (firstDay.getDay() + 6) % 7 // Monday = 0
+  const totalDays = lastDay.getDate()
+  return { startDayOfWeek, totalDays }
+}
 ---
 
 <Layout
@@ -43,8 +98,8 @@ const pageSchema = createWebPageSchema({
               <p class="text-sm font-light text-[#2C2824]/50">Par jour</p>
             </div>
             <div class="text-right">
-              <p class="text-base font-medium text-[#2C2824]">150 € HT</p>
-              <p class="text-sm font-light text-[#2C2824]/50">180 € TTC (TVA 20 %)</p>
+              <p class="text-base font-medium text-[#2C2824]">180 € TTC</p>
+              <p class="text-sm font-light text-[#2C2824]/50">150 € HT · TVA 20 %</p>
             </div>
           </div>
 
@@ -54,8 +109,8 @@ const pageSchema = createWebPageSchema({
               <p class="text-sm font-light text-[#2C2824]/50">Par personne / nuit — 12 pers. max (possibilité de s'arranger pour plus)</p>
             </div>
             <div class="text-right">
-              <p class="text-base font-medium text-[#2C2824]">18,18 € HT</p>
-              <p class="text-sm font-light text-[#2C2824]/50">20 € TTC (TVA 10 %)</p>
+              <p class="text-base font-medium text-[#2C2824]">20 € TTC</p>
+              <p class="text-sm font-light text-[#2C2824]/50">18,18 € HT · TVA 10 %</p>
             </div>
           </div>
 
@@ -75,8 +130,8 @@ const pageSchema = createWebPageSchema({
               <p class="text-sm font-light text-[#2C2824]/50">Forfait par événement</p>
             </div>
             <div class="text-right">
-              <p class="text-base font-medium text-[#2C2824]">125 € HT</p>
-              <p class="text-sm font-light text-[#2C2824]/50">150 € TTC (TVA 20 %)</p>
+              <p class="text-base font-medium text-[#2C2824]">150 € TTC</p>
+              <p class="text-sm font-light text-[#2C2824]/50">125 € HT · TVA 20 %</p>
             </div>
           </div>
         </div>
@@ -90,14 +145,77 @@ const pageSchema = createWebPageSchema({
       <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
         <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Repas — Guinguette</h2>
         <div class="flex justify-between items-start py-3 border-b border-black/5 mb-4">
-          <p class="text-base font-normal text-[#2C2824]">Repas (hors petit-déjeuner)</p>
-          <p class="text-base font-medium text-[#2C2824]">18 € / personne</p>
+          <div>
+            <p class="text-base font-normal text-[#2C2824]">Repas (hors petit-déjeuner)</p>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-medium text-[#2C2824]">18 € TTC / personne</p>
+            <p class="text-sm font-light text-[#2C2824]/50">16,36 € HT · TVA 10 %</p>
+          </div>
         </div>
         <div class="space-y-2 text-sm font-light text-[#2C2824]/70 leading-relaxed">
           <p>Produits locaux et biologiques (80 %).</p>
           <p>Menus proposés 15 jours avant le stage.</p>
           <p>Petit-déjeuner possible sur demande, habituellement les participants apportent le leur.</p>
         </div>
+      </div>
+
+      <!-- Calendrier disponibilités -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Dates disponibles</h2>
+        <p class="text-sm font-light text-[#2C2824]/50 mb-6">Saison mai — septembre 2026</p>
+
+        <div class="flex items-center gap-6 mb-6 text-xs font-light text-[#2C2824]/60">
+          <div class="flex items-center gap-2">
+            <span class="w-4 h-4 rounded-sm bg-[#4A7C59]/20 border border-[#4A7C59]/30"></span>
+            <span>Disponible</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-4 h-4 rounded-sm bg-[#B91C1C]/15 border border-[#B91C1C]/25"></span>
+            <span>Réservé</span>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          {months.map(({ name, month, year }) => {
+            const { startDayOfWeek, totalDays } = getMonthDays(month, year)
+            return (
+              <div>
+                <p class="text-sm font-medium text-[#2C2824] mb-3">{name} {year}</p>
+                <div class="grid grid-cols-7 gap-1 text-center">
+                  {['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'].map((d) => (
+                    <div class="text-[10px] font-light text-[#2C2824]/40 pb-1">{d}</div>
+                  ))}
+                  {Array.from({ length: startDayOfWeek }).map(() => (
+                    <div></div>
+                  ))}
+                  {Array.from({ length: totalDays }).map((_, i) => {
+                    const day = i + 1
+                    const key = `${month}-${day}`
+                    const isBooked = bookedDates.has(key)
+                    const labels = bookedLabels.get(key) || []
+                    return (
+                      <div
+                        class={`aspect-square flex items-center justify-center rounded-sm text-xs transition-colors ${
+                          isBooked
+                            ? 'bg-[#B91C1C]/15 text-[#B91C1C]/70 font-medium'
+                            : 'bg-[#4A7C59]/10 text-[#4A7C59]/70'
+                        }`}
+                        title={isBooked ? labels.join(' + ') : 'Disponible'}
+                      >
+                        {day}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <p class="text-xs font-light text-[#2C2824]/40 mt-6 italic">
+          Survolez une date réservée pour voir l'événement. Calendrier mis à jour régulièrement.
+        </p>
       </div>
 
       <!-- Règlement -->
