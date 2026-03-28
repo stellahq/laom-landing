@@ -1,95 +1,99 @@
 ---
 title: "LaomLetter #3"
-description: "Des murs, des arbres, et une question : le chantier avance, on lance Les Enfants Sauvages, et on parle du besoin vital de reconnecter les enfants à la nature."
-pubDate: 2026-03-02
+description: "Pourquoi on a dit non aux panneaux solaires, on lance Les Enfants Sauvages, et on parle du besoin vital de reconnecter les enfants a la nature."
+pubDate: 2026-03-01
 heroImage: "/images/laom/newsletter/vue%20aeriene%20laom2.webp"
 author: "Amandine & Charly"
 locale: "fr"
-tags: ["newsletter", "chantier", "enfants", "nature", "Les Enfants Sauvages", "LAOM"]
-draft: true
+tags: ["newsletter", "chantier", "enfants", "nature", "Les Enfants Sauvages", "panneaux solaires", "LAOM"]
+draft: false
 ---
 
-# Des murs, des arbres, et une question
+# Pourquoi on a dit non aux panneaux solaires
 
-Hello hello,
+Hello,
 
-Le chantier reprend doucement. Le printemps arrive. Et ici, entre les murs qu'on monte et les arbres qu'on habite, une question revient sans cesse : qu'est-ce qu'on veut transmettre aux enfants qui grandissent dans ce monde ?
+Le chantier reprend doucement. Le printemps arrive. Et ici, entre les murs qu'on monte et la nature qu'on habite, une question revient sans cesse : dans quel monde on veut vivre ? Et qu'est-ce qu'on veut transmettre à nos enfants ?
 
-Voici ce qui nous occupe en ce moment, et dont on vous parle dans la newsletter du jour :
+Au menu de cette newsletter :
 
-## En numéro 1 : le chantier avance (dans l'ombre)
-
-## En numéro 2 : on a oublié comment sentir
-
-## En numéro 3 : on lance Les Enfants Sauvages
-
----
-
-## Le chantier avance (dans l'ombre)
-
-En surface, on dirait que rien ne bouge. En réalité, c'est tout l'inverse.
-
-Ces dernières semaines, Pascal — un bénévole fidèle — et Khaldoun ont fait un travail de titan : nettoyer et ranger l'intégralité du chantier du Grand Shambala. Trier, dégager, organiser. Le genre de travail que personne ne filme et qui change tout.
-
-Pourquoi c'est important ? Parce que le Grand Shambala entre dans une nouvelle phase. Le bâtiment est désormais hors d'eau, hors d'air. Chaque lot peut maintenant avancer individuellement : certains copropriétaires avancent en auto-construction, d'autres font appel à Charly comme maître d'œuvre pour coordonner les artisans et les travaux.
-
-Autre avancée concrète : on a tiré un gros câble électrique pour remplacer le petit sous-compteur qui alimentait juste la maison. On est en triphasé sur le hameau de La Margue, et ce nouveau câble est dimensionné pour alimenter l'ensemble : le Grand Shambala, le Shala (notre salle de pratique), la cuisine d'été. C'est de l'infrastructure invisible, mais sans elle, rien ne tourne.
-
-Le travail invisible qui rend le visible possible. C'est aussi ça, construire un lieu.
+- Au chantier : ce que personne ne filme
+- Pourquoi on fait tout ça
+- Nouveauté : on lance Les Enfants Sauvages
 
 ---
 
-## On a oublié comment sentir
+## Au chantier : ce que personne ne filme
 
-Et maintenant, on change complètement de registre.
+Cette semaine, Khaldoun et Pascal (un bénévole) ont fait un gros travail de fond : **nettoyer et ranger l'intégralité du chantier du Grand Shambala.** Trier, dégager, organiser. Dedans comme dehors. Le genre de travail que personne ne filme et qui change tout.
 
-On vit dans un monde où tout nous active en permanence. Écrans, notifications, rythmes imposés, bruit de fond constant. Pas seulement pour nous, adultes — pour les enfants aussi. Surtout pour les enfants.
+Pourquoi c'est important ? Parce que **le Grand Shambala entre dans une nouvelle phase.** Le bâtiment est hors d'eau, et quasi hors d'air (il manque certaines fenêtres dont les vitres ont été cassées à la pose). Chaque lot peut maintenant avancer : certains copropriétaires avancent en auto-construction, d'autres font appel à Charly pour coordonner les artisans.
 
-L'OMS recommande, pour un enfant de 3-4 ans : minimum 3 heures d'activité physique par jour, et maximum 1 heure d'écran. Zéro écran avant 2 ans. En France, la réalité est loin du compte : selon l'ANSES, 66% des jeunes de 11-17 ans dépassent les seuils de risque sanitaire — plus de 2 heures d'écran et moins d'1 heure d'activité physique par jour. Et les habitudes se prennent dès l'enfance.
+Autre avancée : **nous avons remplacé le câble électrique** qui relie LAOM au compteur du hameau. L'ancien était trop petit. Le nouveau alimente tout : le Grand Shambala, le Shala, la cuisine d'été, le Petit Shambala, les tinys. De l'infrastructure invisible, mais sans elle, rien ne tourne.
 
-Mais au-delà des chiffres, il y a quelque chose de plus profond.
+**Le travail invisible qui rend le visible possible.** C'est aussi ça, construire un lieu !
 
-Quand un enfant passe ses journées stimulé de toutes parts — écrans, bruit, lumière artificielle, rythmes qui ne sont pas les siens — il perd quelque chose d'essentiel : sa capacité à sentir. À écouter ce qui monte de l'intérieur. À être guidé par autre chose que la prochaine notification.
+Enfin, les copropriétaires ont validé **le projet de récupération d'eau de pluie.** L'idée : un deuxième circuit pour les eaux grises (chasses d'eau). C'était prévu depuis le début. Maintenant que le bâtiment est complet, on chiffre. À terme, ce système pourra aussi servir à **potabiliser l'eau** si besoin.
 
-Ce qu'on observe ici, dans la vallée, c'est l'inverse. Les enfants qui grandissent au contact de la forêt, de la terre, du silence — leur attention est longue, leur corps est engagé, leur créativité est libre. Ils n'ont pas besoin qu'on leur apprenne à "se reconnecter à la nature". Ils n'en sont jamais sortis.
+**Côté énergie, nous avons tranché sur le solaire.** La toiture du Grand Shambala est plein sud, parfaite pour produire. Mais nous avons décidé de **ne pas y poser de panneaux** : le bâtiment est en auto-construction, la charpente isolée en paille soufflée, et les risques d'assurance et d'infiltration étaient trop importants.
 
-Et la paix intérieure — cette chose qu'on cherche tous à retrouver, nous, adultes — eux, ils l'ont encore. C'est censé être notre boussole. Mais quand tout crie en même temps, on n'entend plus rien.
+La meilleure option était juste à côté. Nous allons rénover notre serre agricole et créer un espace de restauration attenant (déjà prévu dans le plan initial). Ça formera **un grand pan de toiture sud en bac acier**, avec une belle inclinaison. C'est cette toiture-là qui portera les panneaux, pour alimenter le restaurant, les lots des résidents et les espaces d'accueil. Et au passage, **les tuiles en terre cuite du Grand Shambala sont préservées**, celles qui rappellent les toitures du hameau, fondé au XVe siècle par les Templiers.
 
-En 2023, le Sénat français a publié un rapport intitulé "Une éducation à ciel ouvert : grandir et apprendre avec la nature". Il pointe le retard massif de la France par rapport aux pays nordiques en matière d'éducation en plein air. Et recommande de soutenir les structures d'éducation à l'environnement en milieu rural.
+Des câbles, de la pluie, du soleil, des tuiles. Beaucoup de tuyaux et de toitures dans cette newsletter. Mais derrière chaque choix, il y a une question plus profonde : **pourquoi on fait tout ça ?**
 
-Exactement là où on se trouve.
+![Pascal et Khaldoun au chantier du Grand Shambala](/images/laom/laomletter/laomletter3.webp)
 
 ---
 
-## On lance Les Enfants Sauvages
+## Pourquoi on fait tout ça
 
-Alors on passe à l'action.
+Nous vivons dans un monde qui nous a **coupés de quelque chose d'essentiel.** De notre paix intérieure, du rythme de notre corps, de celui des saisons. De notre capacité à **sentir avant de réagir, à écouter avant de courir.**
 
-On crée une association d'éducation par la nature, ici, à LAOM. Elle s'appelle **Les Enfants Sauvages**.
+Nous sommes devenus des humains suractifs, surinformés, mais **déconnectés de notre propre rythme.**
 
-L'idée est simple : offrir aux enfants un espace où ils peuvent grandir les pieds dans la terre, explorer la forêt, jardiner, créer avec leurs mains, bouger librement. Retrouver leur attention, leur créativité, leur autonomie. Dans un cadre bienveillant, en pleine nature, sur les 21 hectares de LAOM.
+Écrans, bruit, rythmes imposés, sollicitations sans fin... ça fabrique des enfants et des adultes **en agitation constante.** Difficile de voir clair dans tout ce bruit. Difficile de décider depuis un endroit centré. La majorité d'entre nous fonctionne en **mode réactif**, tout le temps. Et le corps encaisse : **sommeil dégradé, tensions chroniques, système nerveux en surchauffe.**
+
+C'est pas un hasard si **les burn-out et les dépressions explosent.** Si autant de gens parlent de perte de sens. Quand tu vis emballé dans ton mental, ça se cristallise. Dans le corps. Dans les émotions. Dans les relations. Et bad news : **ce chaos ne ralentit pas. Il s'intensifie.**
+
+La seule issue, selon nous ? **Se reconnecter.** Au vivant. À la terre. Au silence. Au corps en mouvement. À des connexions profondes avec d'autres êtres humains. Revenir à cette fréquence-là. Bref, revenir à ce pour quoi les humains sont faits : rire ensemble, bouger, danser, chanter et partager.
+
+**Et c'est pour ça que LAOM existe.**
+
+---
+
+## Nouveauté à LAOM : on lance Les Enfants Sauvages
+
+Si nous croyons vraiment à ça, on ne peut pas attendre que nos enfants aient besoin d'être réparés ! **On peut leur offrir autre chose dès le départ.**
+
+Parce que cette déconnexion, elle commence dès l'enfance.
+
+Le rapport **UNICEF Innocenti (2021)** classe la France parmi les **derniers pays de l'OCDE pour le bien-être mental des enfants.** Un enfant de 3 ans passe en moyenne **1h22 par jour devant un écran** en France. À 11 ans, c'est **2h33.** Pourtant l'OMS est claire pour les moins de 5 ans : **3 heures d'activité physique par jour** minimum, dont 1 heure intense. Zéro écran avant 2 ans. **Pas plus d'1 heure assis d'affilée.**
+
+**3 heures de mouvement par jour pour être en bonne santé, c'est la prescription. Ce qu'on leur donne ? Des chaises et des écrans** (je caricature un peu mais ce n'est pas si loin...)
+
+Et quand on regarde de l'autre côté ? Les enfants qui grandissent **au contact de la nature, de la terre, du silence** ont une attention plus longue, un corps engagé, et une créativité libre. Ils n'ont pas besoin qu'on leur apprenne à "se reconnecter à la nature". **Ils n'en sont jamais sortis !**
+
+Alors nous passons à l'action !
+
+Je (Amandine) viens de créer **une association** pour offrir ça à tous les enfants, ici, à LAOM. Elle s'appelle **Les Enfants Sauvages.**
+
+Pourquoi "sauvages" ? Pas au sens de livrés à eux-mêmes ! Sauvages au sens de **"encore connectés".** Connectés à leurs sensations, à leur corps, à leurs élans. Un enfant sauvage, c'est un enfant qui a encore **son compas interne intact** : la capacité à sentir ce qui est juste, à écouter son corps, à être guidé par quelque chose de plus profond que le bruit ambiant.
+
+Dans un monde de plus en plus chaotique, c'est **cette boussole intérieure** qui fera la différence. Pas les diplômes. Pas les écrans. Pas la performance. **La capacité à rester connecté. À soi, aux autres, à la terre.**
 
 Concrètement, voilà ce qu'on construit :
 
-- **Des ateliers réguliers** — mercredi et samedi matin, hors vacances scolaires. Land art, construction en forêt, jardinage, musique sauvage, mouvement naturel. Capé à 8 enfants (réglementation pour les moins de 6 ans).
-- **Des mini-stages pendant les vacances** — "Parenthèses Sauvages enfants", 5 matins par semaine, pour des immersions plus longues.
-- **Des weekends familles** — 4 weekends de 3 jours par an, "Parenthèse Sauvage", où parents et enfants vivent ensemble au contact de la nature.
-- **Un coliving familles l'été** — 2 sessions de 2 semaines, hébergement en tipis, Forest School pour les enfants le matin.
-- **Une formation adultes** — 4 jours intensifs pour les éducateurs, animateurs, parents qui veulent se former à la pédagogie par la nature.
+- **Des ateliers nature réguliers**
+- **Des weekends Parenthèse Sauvage** à vivre en famille
+- **Un coliving familles l'été**
+- **L'accueil des écoles du territoire** pour faire la classe dehors de temps en temps
+- Et plus tard : **une formation adultes** pour ceux qui veulent se former à la pédagogie par la nature
 
-Et surtout — et c'est ça qui nous tient à cœur :
+Parce qu'un écolieu sans ancrage territorial, c'est une bulle. **Et nous ne voulons pas d'une bulle.**
 
-**L'accueil gratuit des écoles du territoire.**
+Nous voulons un lieu qui rend service. Qui fait partie du tissu local. Qui tisse du **lien réel** avec les gens d'ici, en plus de ceux qui viennent de loin.
 
-On a identifié 4 écoles autour de chez nous : Saint-Félix-de-Sorgues, Versols-et-Lapeyre, Fondamente, Cornus. Des petites écoles rurales. On va les accueillir gratuitement, environ 12 journées par an, pour des journées de pédagogie par la nature — jardin potager, exploration forêt, observation faune et flore, land art.
-
-Environ 180 enfants par an, gratuitement. Financé par les subventions.
-
-Parce qu'un écolieu sans ancrage territorial, c'est une bulle. Et on ne veut pas d'une bulle.
-
-On veut un lieu qui rend service. Qui fait partie du tissu local. Qui tisse du lien réel avec les gens qui vivent ici, pas seulement avec ceux qui viennent de loin.
-
-C'est notre manière de dire : on est là. Et on est là pour de bon.
+**C'est notre manière de dire : nous sommes là. Et nous sommes là pour de bon.**
 
 ---
 
@@ -100,8 +104,6 @@ LAOM
 
 ---
 
-**PS**
+**PS** : RDV en août pour **En Mouvement** : 5 jours pour explorer ce qui émerge quand tu te mets en mouvement avec un groupe qui te porte. Danse, mouvement libre, flux continu. Une pratique intensive de la danse et du mouvement. Guidé par **Samuel Planas** (danseur pro, chorégraphe, interprète pour Boris Charmatz) et **Charly**. Pas besoin de savoir danser. **Juste l'envie de bouger et de te laisser surprendre !** 3 sessions en août. [Je rejoins En Mouvement](/stage-danse/)
 
-- **Immersion Clarté** — du 17 au 19 avril : [Découvrir Clarté](/clarte/) — pour les entrepreneurs, les leaders, les créatifs ou les personnes qui ont une charge mentale importante et des complexités à gérer au quotidien
-- L'article de Charly pour aller plus loin sur l'IA : [Comment je pilote un écolieu de 21 hectares, un chantier de 800m², une équipe et ma vie entière — avec une IA](/blog/piloter-sa-vie-avec-une-ia/)
-- **Immersions En Mouvement** — plusieurs dates en août : [En Mouvement](/stage-danse/)
+**PS2** : On a une histoire de dingue à raconter. 5 ans de rêves, de chantier, de galères et de magie ! Bientôt, on vous raconte toute l'histoire de LAOM en vidéo : une web série, épisode par épisode, sur notre Instagram. Suivre LAOM sur Instagram : [@laom.coliving](https://instagram.com/laom.coliving)

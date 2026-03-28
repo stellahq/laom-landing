@@ -1,7 +1,7 @@
 ---
 title: "LaomLetter #1"
 description: "LaomLetter #1 : nouvelles du chantier, du collectif, et une petite pause à Madère. Amandine rejoint l'aventure pour vous raconter LAOM."
-pubDate: 2026-01-19
+pubDate: 2026-02-12
 heroImage: "/images/laom/newsletter/vue%20aeriene%20laom2.webp"
 author: "Amandine & Charly"
 locale: "fr"
@@ -18,10 +18,6 @@ Notre fils dort encore. Le chantier, lui, est en pause. Et nous aussi… en quel
 - Charly (et la team) ont bien charbonné sur le chantier ces derniers mois (on vous raconte un peu plus bas). Qui dit charbonner, dit aussi moins de temps pour raconter ce qui avance, mais ça, on va y remédier !
 - À partir de maintenant, tu recevras des nouvelles de LAOM **chaque dimanche matin** (et bien sûr, tu pourras te désinscrire à tout moment) : nos réflexions pour une vie « anti-fragile » dans le contexte actuel et futur, les coulisses du chantier, nos choix d'éco-construction et leurs raisons, nos actus, et tout ce qu'on apprend en créant ce lieu hors normes !
 - Amandine (la femme de Charly) rejoint l'aventure LAOM de beaucoup plus près : c'est elle qui racontera l'histoire de LAOM à travers cette newsletter — la **LAOM Letter** — et d'autres formats qui verront le jour très bientôt (websérie, vidéos, articles, etc.) : on va parler enjeux d'un lieu et collectif en construction, et choix non négociables pour une vie saine et souveraine.
-
-<div class="not-prose my-10 aspect-[21/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
-  <p class="text-sm font-light text-[#2C2824]/50 px-8 text-center max-w-md">Placeholder : lever de soleil sur la mer (Madère), ou vue depuis le lieu de pause.</p>
-</div>
 
 ---
 
@@ -40,15 +36,13 @@ LAOM, c'est un lieu de vie et d'accueil niché dans une vallée sauvage du sud d
 - Des habitats sains et écologiques pour des résidents à l'année.
 - Et une rivière magique !
 
+![LAOM, un lieu de vie niché dans une vallée sauvage du sud de l'Aveyron](/images/laom/laomletter/laomletter1-1.webp)
+
 *Un endroit pour habiter autrement, travailler autrement, et se relier autrement.*
 
 Nous expérimentons ici des techniques d'éco-construction, avec notamment la création d'un énorme bâtiment en paille porteuse (probablement le plus grand du monde !) qui accueillera le futur coliving, une salle commune, et des habitats permanents ou semi-permanents (tous déjà réservés !). Pour les intimes du lieu, ce bâtiment s'appelle le [**Grand Shambala**](/grand-shambala-v2/).
 
 Aujourd'hui, LAOM c'est donc à la fois : un chantier, un lieu qui accueille déjà du public avec des événements, des stages et retraites, et une aventure humaine, avec ses élans et ses frottements.
-
-<div class="not-prose my-10 aspect-[16/10] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
-  <p class="text-sm font-light text-[#2C2824]/50 px-8 text-center max-w-md">Placeholder : vue du lieu LAOM (vallée, bâtiments, tipis) ou Grand Shambala depuis l'extérieur.</p>
-</div>
 
 ---
 
@@ -65,9 +59,7 @@ Depuis notre dernière newsletter, le chantier a énormément avancé. Sur le Gr
 
 On n'a pas chômé !
 
-<div class="not-prose my-10 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
-  <p class="text-sm font-light text-[#2C2824]/50 px-8 text-center max-w-md">Placeholder : façade Grand Shambala avec enduits chaux, ou fenêtres posées, ou cloisons à l'étage.</p>
-</div>
+![Le chantier du Grand Shambala avance](/images/laom/laomletter/laomletter1-2.webp)
 
 ### La suite du chantier prévue en février / mars
 
@@ -106,13 +98,9 @@ Nous avons réussi à trouver un modèle qui respecte à la fois notre besoin d'
 
 Bises de Madère, une île au climat doux toute l'année. On est ici pour fêter l'anniversaire de Charly car l'un de ses meilleurs amis vit ici depuis 4 ans. On visite (un peu), on passe du temps de qualité avec les amis (bcp), on bosse sur LAOM et sur la meilleure manière de vous partager tout ce qui s'y vit, et on s'inspire en respirant l'air de la mer (d'ailleurs on s'est dit que le site [laom.fr](https://laom.fr) avait besoin d'un coup de fresh alors on a tout refait, allez y jeter un œil 😉).
 
-<div class="not-prose my-10 aspect-[4/3] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
-  <p class="text-sm font-light text-[#2C2824]/50 px-8 text-center max-w-md">Placeholder : photo Madère (mer, falaises ou lever de soleil) ou Amandine & Charly en pause.</p>
-</div>
+![Amandine, Charly et Livio à Madère](/images/laom/laomletter/laomletter1-3.webp)
 
-On est contents d'être de retour par ici :)
-
-À dimanche prochain pour la suite 🌿
+À dimanche pour la suite
 
 **Amandine & Charly**  
 [laom.fr](https://laom.fr)

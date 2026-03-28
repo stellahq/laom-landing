@@ -1,7 +1,7 @@
 ---
 title: "LaomLetter #2"
 description: "IA, souveraineté & feu de camp : charge mentale, NILA, documentation, collectif et Clarté (17-19 avril)."
-pubDate: 2026-02-16
+pubDate: 2026-02-18
 heroImage: "/images/laom/newsletter/vue%20aeriene%20laom2.webp"
 author: "Amandine & Charly"
 locale: "fr"
