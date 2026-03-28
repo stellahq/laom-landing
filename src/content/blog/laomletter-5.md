@@ -133,4 +133,4 @@ LAOM
 
 ---
 
-**PS** : Une question avant de réserver ? [Je réserve un appel avec Charly](/appel/)
+**PS** : Une question avant de réserver ? [Je réserve un appel avec Charly](https://cal.atomik.world/charly/30min)
