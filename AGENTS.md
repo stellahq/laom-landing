@@ -347,6 +347,16 @@ The LAOM landing page is designed with a **luxury wellness aesthetic** inspired 
 - You can test if the project is working or building (`bun run build`), but do not start the dev server
 - The user manages the server lifecycle themselves
 
+### 9. Newsletter / LAOM Letter Content Rule
+- **LAOM Letters (newsletters) must NEVER appear on the homepage** — neither FR (`/`) nor EN (`/en`).
+- On the homepage, always filter out posts tagged `"newsletter"` from the blog query: `.filter(post => !post.data.tags?.includes('newsletter'))`.
+- LAOM Letters are **only visible on the `/blog/` page**, in the dedicated "Newsletters passées" archive section (rendered from the `newsletters` YAML data collection).
+- When creating a new LAOM Letter:
+  1. Add the `.md` file in `src/content/blog/` with `tags: ["newsletter", ...]` in frontmatter.
+  2. Add the corresponding `.yaml` metadata in `src/content/newsletters/`.
+  3. **Verify** the letter does NOT appear on the homepage.
+- This rule applies to both FR and EN versions of the site.
+
 ## Project Structure
 
 ```

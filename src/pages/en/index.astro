@@ -5,7 +5,7 @@ import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n
 import { getCollection } from 'astro:content'
 
 const allPosts = (await getCollection('blog'))
-  .filter(post => post.data.locale === 'en' && !post.data.draft)
+  .filter(post => post.data.locale === 'en' && !post.data.draft && !post.data.tags?.includes('newsletter'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
 
