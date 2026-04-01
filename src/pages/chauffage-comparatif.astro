@@ -1,0 +1,1217 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import MobileNav from '~/components/MobileNav.astro'
+
+export const prerender = true
+
+// ==========================================
+// ETUDE COMPARATIVE CHAUFFAGE — LA MARGUE
+// 3 lots, 3 scenarios, simulateur dynamique
+// Avril 2026
+// ==========================================
+
+// --- LOTS ---
+const lots = [
+  {
+    id: 'petit-shambhala',
+    nom: 'Petit Shambhala',
+    destinataire: 'Charly & Amandine',
+    surface: 73,
+    occupants: 3,
+    dimensionnement: 4,
+    devisRef: 'D-260266',
+    construction: 'Ossature bois',
+    murs: { type: 'Laine de bois', epaisseur: 35, lambda: 0.04, R: 8.75, detail: 'Ossature bois 35 cm laine de bois' },
+    toiture: { type: 'Bois', epaisseur: 40, lambda: 0.04, R: 10, detail: 'Isolation bois 40 cm' },
+    soubassement: 'Cailloux ronds + 8-10 cm liege',
+    vitrage: { type: 'Double vitrage', Uw: 1.4, facadeSudPct: 45, surfaceVitreeSud: 16, surfaceVitreeAutre: 4, voletsSud: false, voletsAutre: true },
+    zones: 'Salon-cuisine + petit salon (forme en L). Chambres nord non chauffees.',
+    nbPointsChauffe: 2,
+    consoReelle: 1125,
+    deperditionTotale: 1200,
+    devis: {
+      pac: [
+        { ref: '1.1.1', desc: 'NIBE S735-7 1x230V', qty: 1, pu: 12555, total: 12555 },
+        { ref: '1.1.2', desc: 'NIBE RMU S40', qty: 1, pu: 305.10, total: 305.10 },
+        { ref: '1.1.3', desc: 'Ensemble accessoire aeraulique', qty: 1, pu: 2098.50, total: 2098.50 },
+        { ref: '1.1.4', desc: 'Accessoires divers de pose', qty: 1, pu: 1000, total: 1000 },
+        { ref: '1.1.5', desc: 'Mise en service', qty: 1, pu: 500, total: 500 },
+        { ref: '1.1.6', desc: 'Garantie 7 ans', qty: 1, pu: 800, total: 800 },
+      ],
+      pacSousTotal: 17258.60,
+      hydraulique: [
+        { ref: '1.2.1', desc: 'Ensemble accessoires hydraulique', qty: 1, pu: 776, total: 776 },
+      ],
+      hydrauliqueSousTotal: 776,
+      moPac: 2500,
+      pacTotal: 20534.60,
+      plancher: {
+        options: [
+          {
+            nom: 'Plancher chauffant classique',
+            postes: [
+              { ref: '2.1.1', desc: 'Ensemble plancher chauffant', qty: 1, pu: 5519.50, total: 5519.50 },
+            ],
+            sousTotal: 5519.50,
+          },
+        ],
+      },
+      regulation: [
+        { ref: '2.2.1', desc: 'Thermostat digital HCT', qty: 4, pu: 98.01, total: 392.04 },
+        { ref: '2.2.2', desc: 'Moteur thermique 230V', qty: 4, pu: 39.10, total: 156.40 },
+        { ref: '2.2.3', desc: 'Boitier Nea smart 230V', qty: 1, pu: 117.78, total: 117.78 },
+      ],
+      regulationSousTotal: 666.22,
+      moPlancher: 1900,
+      plancherTotal: 8085.72,
+      totalHT: 28620.32,
+      tva: 5724.06,
+      totalTTC: 34344.38,
+    },
+  },
+  {
+    id: 'claire-baptiste',
+    nom: 'Claire & Baptiste',
+    destinataire: 'Claire Orriols & Baptiste',
+    surface: 125,
+    occupants: 2,
+    dimensionnement: 4,
+    devisRef: 'D-260267',
+    construction: 'Paille porteuse',
+    murs: { type: 'Paille', epaisseur: 70, lambda: 0.04, R: 17.5, detail: 'Paille 70 cm + enduit terre 3 cm int. + enduit chaux 4 cm ext.' },
+    toiture: { type: 'Paille', epaisseur: 70, lambda: 0.04, R: 17.5, detail: 'Paille 70 cm — toiture perspirante' },
+    soubassement: null,
+    vitrage: { type: 'Double vitrage Minco (alu ext. / bambou int.)', Uw: 1.4, facadeSudPct: 85, surfaceVitreeSud: 40, surfaceVitreeAutre: 10, voletsSud: false, voletsAutre: true },
+    zones: '2 chambres + piece a vivre. Piece sud passive, pas besoin de chauffage.',
+    nbPointsChauffe: 2,
+    consoReelle: null,
+    deperditionTotale: 1450,
+    devis: {
+      pac: [
+        { ref: '1.1.1', desc: 'NIBE S735-7 1x230V', qty: 1, pu: 12555, total: 12555 },
+        { ref: '1.1.2', desc: 'NIBE RMU S40', qty: 1, pu: 305.10, total: 305.10 },
+        { ref: '1.1.3', desc: 'Ensemble accessoires aeraulique', qty: 1, pu: 2098.50, total: 2098.50 },
+        { ref: '1.1.4', desc: 'Accessoires divers de pose', qty: 1, pu: 1000, total: 1000 },
+        { ref: '1.1.5', desc: 'Mise en service', qty: 1, pu: 500, total: 500 },
+        { ref: '1.1.6', desc: 'Garantie 7 ans', qty: 1, pu: 800, total: 800 },
+      ],
+      pacSousTotal: 17258.60,
+      hydraulique: [
+        { ref: '1.2.1', desc: 'Ensemble accessoires hydraulique', qty: 1, pu: 926, total: 926 },
+      ],
+      hydrauliqueSousTotal: 926,
+      moPac: 2500,
+      pacTotal: 20684.60,
+      plancher: {
+        options: [
+          {
+            nom: 'Option 1 : Plancher Caleosol',
+            postes: [
+              { ref: '2.1.1', desc: 'Ensemble plancher Caleosol', qty: 1, pu: 7554, total: 7554 },
+              { ref: '2.1.2', desc: 'Main d\'oeuvre pose et raccordement', qty: 1, pu: 2500, total: 2500 },
+            ],
+            sousTotal: 10054,
+          },
+          {
+            nom: 'Option 2 : Plancher chauffant classique',
+            postes: [
+              { ref: '2.2.1', desc: 'Ensemble plancher chauffant', qty: 1, pu: 5480.02, total: 5480.02 },
+              { ref: '2.2.2', desc: 'Main d\'oeuvre pose et raccordement', qty: 1, pu: 1900, total: 1900 },
+            ],
+            sousTotal: 7380.02,
+          },
+        ],
+      },
+      regulation: [
+        { ref: '2.2.3.1', desc: 'Thermostat digital HCT', qty: 6, pu: 98.01, total: 588.06 },
+        { ref: '2.2.3.2', desc: 'Moteur thermique 230V', qty: 11, pu: 39.10, total: 430.10 },
+        { ref: '2.2.3.3', desc: 'Boitier Nea smart 230V', qty: 2, pu: 117.78, total: 235.56 },
+      ],
+      regulationSousTotal: 1253.72,
+      moPlancher: null,
+      plancherTotal: null,
+      totalHTCaleosol: 32192.32,
+      totalHTClassique: 29318.34,
+      totalHT: 39372.34,
+      tva: 7874.47,
+      totalTTC: 47246.81,
+      totalTTCCaleosol: 38630.78,
+      totalTTCClassique: 35181.01,
+    },
+  },
+  {
+    id: 'laetitia',
+    nom: 'Laetitia',
+    destinataire: 'Laetitia Brene',
+    surface: 88,
+    occupants: 1,
+    dimensionnement: 4,
+    devisRef: 'D-260268',
+    construction: 'Paille porteuse',
+    murs: { type: 'Paille', epaisseur: 70, lambda: 0.04, R: 17.5, detail: 'Paille 70 cm + enduit terre 3 cm int. + enduit chaux 4 cm ext.' },
+    toiture: { type: 'Paille', epaisseur: 70, lambda: 0.04, R: 17.5, detail: 'Paille 70 cm — toiture perspirante' },
+    soubassement: null,
+    vitrage: { type: 'Double vitrage Minco (alu ext. / bambou int.)', Uw: 1.4, facadeSudPct: 85, surfaceVitreeSud: 28, surfaceVitreeAutre: 6, voletsSud: true, voletsAutre: true },
+    zones: '3 chambres + piece a vivre + 2 pieces d\'eau. Chauffage principalement piece a vivre.',
+    nbPointsChauffe: 2,
+    consoReelle: null,
+    deperditionTotale: 1015,
+    devis: {
+      pac: [
+        { ref: '1.1.1', desc: 'NIBE S735-7 1x230V', qty: 1, pu: 12555, total: 12555 },
+        { ref: '1.1.2', desc: 'NIBE RMU S40', qty: 1, pu: 305.10, total: 305.10 },
+        { ref: '1.1.3', desc: 'Ensemble accessoires aeraulique', qty: 1, pu: 2098.50, total: 2098.50 },
+        { ref: '1.1.4', desc: 'Accessoires divers de pose', qty: 1, pu: 1000, total: 1000 },
+        { ref: '1.1.5', desc: 'Mise en service', qty: 1, pu: 500, total: 500 },
+        { ref: '1.1.6', desc: 'Garantie 7 ans', qty: 1, pu: 800, total: 800 },
+      ],
+      pacSousTotal: 17258.60,
+      hydraulique: [
+        { ref: '1.2.1', desc: 'Ensemble accessoires hydraulique', qty: 1, pu: 926, total: 926 },
+      ],
+      hydrauliqueSousTotal: 926,
+      moPac: 2500,
+      pacTotal: 20684.60,
+      plancher: {
+        options: [
+          {
+            nom: 'Option 1 : Plancher Caleosol',
+            postes: [
+              { ref: '2.1.1', desc: 'Ensemble plancher Caleosol', qty: 1, pu: 5613, total: 5613 },
+              { ref: '2.1.2', desc: 'Ensemble main d\'oeuvre', qty: 1, pu: 2500, total: 2500 },
+            ],
+            sousTotal: 8113,
+          },
+          {
+            nom: 'Option 2 : Plancher chauffant classique',
+            postes: [
+              { ref: '2.2.1', desc: 'Ensemble plancher chauffant', qty: 1, pu: 4426, total: 4426 },
+              { ref: '2.2.2', desc: 'Ensemble main d\'oeuvre', qty: 1, pu: 1900, total: 1900 },
+            ],
+            sousTotal: 6326,
+          },
+        ],
+      },
+      regulation: [
+        { ref: '2.3.1', desc: 'Thermostat digital HCT', qty: 2, pu: 98.01, total: 196.02 },
+        { ref: '2.3.2', desc: 'Moteur thermique 230V', qty: 2, pu: 39.10, total: 78.20 },
+        { ref: '2.3.3', desc: 'Boitier Nea smart 230V', qty: 1, pu: 117.78, total: 117.78 },
+      ],
+      regulationSousTotal: 392,
+      moPlancher: null,
+      plancherTotal: null,
+      totalHTCaleosol: 29189.60,
+      totalHTClassique: 27402.60,
+      totalHT: 35515.60,
+      tva: 7103.12,
+      totalTTC: 42618.72,
+      totalTTCCaleosol: 35027.52,
+      totalTTCClassique: 32883.12,
+    },
+  },
+]
+
+// --- SCENARIOS ---
+const scenarios = [
+  {
+    id: 'nibe',
+    nom: 'NIBE S735-7',
+    badge: 'Devis Voda',
+    badgeColor: 'bg-[#285230]/10 text-[#285230]',
+    description: 'PAC air/eau + ECS + VMC integree. Machine premium suedoise tout-en-un. Plancher chauffant hydraulique.',
+    machines: [
+      { nom: 'NIBE S735-7', type: 'PAC + ECS + VMC', prix: '12 555 EUR HT' },
+    ],
+    cop: 3.5,
+    copECS: 2.5,
+    avantages: ['Tout-en-un : chauffage, eau chaude, ventilation', 'Confort plancher chauffant', 'Garantie 7 ans', 'Marque premium suedoise'],
+    inconvenients: ['Prix eleve', 'Reparation complexe (appareil unique)', 'VMC integree non necessaire en maison perspirante', 'Duree de vie ~15-20 ans'],
+  },
+  {
+    id: 'pac-classique',
+    nom: 'PAC air-eau + ballon thermo + extracteur',
+    badge: 'Alternative',
+    badgeColor: 'bg-[#285230]/10 text-[#285230]',
+    description: '3 appareils separes : PAC air-eau pour le chauffage, ballon thermodynamique pour l\'eau chaude, extracteur hygroreglable pour la ventilation.',
+    machines: [
+      { nom: 'Daikin Altherma 3 R 8kW ou Atlantic Alfea Extensa Duo', type: 'PAC air-eau', prix: '5 000 - 8 000 EUR' },
+      { nom: 'Atlantic Calypso 250L ou Thermor Aeromax 5', type: 'Ballon thermodynamique', prix: '2 000 - 2 500 EUR' },
+      { nom: 'Aldes ou Unelvent hygroreglable', type: 'Extracteur salle de bain', prix: '80 - 250 EUR' },
+    ],
+    cop: 3,
+    copECS: 2.5,
+    avantages: ['Modulaire : chaque appareil se remplace independamment', 'Moins cher a l\'achat', 'Pas de VMC inutile', 'Marques courantes, SAV facile'],
+    inconvenients: ['3 appareils a gerer', 'Pas de plancher chauffant inclus (radiateurs)', 'Installation a coordonner soi-meme'],
+  },
+  {
+    id: 'full-electrique',
+    nom: 'Full electrique',
+    badge: 'Minimum',
+    badgeColor: 'bg-[#C4A855]/10 text-[#C4A855]',
+    description: 'Radiateurs electriques (bain d\'huile ou convecteur mural 2000W), cumulus electrique classique, extracteur hygroreglable.',
+    machines: [
+      { nom: 'Radiateur bain d\'huile ou convecteur 2000W x2-3', type: 'Chauffage electrique', prix: '100 - 400 EUR' },
+      { nom: 'Atlantic Zeneo 200L ou Thermor Duralis', type: 'Cumulus electrique', prix: '300 - 500 EUR' },
+      { nom: 'Aldes ou Unelvent hygroreglable', type: 'Extracteur salle de bain', prix: '80 - 250 EUR' },
+    ],
+    cop: 1,
+    copECS: 1,
+    avantages: ['Investissement minimal', 'Zero maintenance', 'Remplacement immediat et peu couteux', 'Simplicite totale'],
+    inconvenients: ['Cout d\'exploitation plus eleve (COP 1)', 'Pas de plancher chauffant (confort different)', 'Pas d\'inertie thermique'],
+  },
+]
+
+// --- INVESTISSEMENTS PAR LOT / SCENARIO ---
+const investissements = {
+  'petit-shambhala': {
+    nibe: { min: 34344, max: 34344, label: '34 344' },
+    'pac-classique': { min: 10000, max: 16000, label: '10 000 - 16 000' },
+    'full-electrique': { min: 600, max: 1200, label: '600 - 1 200' },
+  },
+  'claire-baptiste': {
+    nibe: { min: 35181, max: 38631, label: '35 181 - 38 631' },
+    'pac-classique': { min: 12000, max: 20000, label: '12 000 - 20 000' },
+    'full-electrique': { min: 600, max: 1200, label: '600 - 1 200' },
+  },
+  'laetitia': {
+    nibe: { min: 32883, max: 35028, label: '32 883 - 35 028' },
+    'pac-classique': { min: 10000, max: 16000, label: '10 000 - 16 000' },
+    'full-electrique': { min: 600, max: 1200, label: '600 - 1 200' },
+  },
+}
+
+function fmt(n: number): string {
+  return n.toLocaleString('fr-FR', { maximumFractionDigits: 0 })
+}
+function fmtDec(n: number): string {
+  return n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+}
+---
+
+<Layout
+  title="Chauffage La Margue — Etude comparative | LAOM"
+  description="Etude comparative chauffage 3 lots La Margue — Devis VodaEnergies + scenarios alternatifs"
+  seo={{ noindex: true, nofollow: true }}
+>
+  <style is:global>
+    .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 2px; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-container table { min-width: 100%; }
+    @media (max-width: 640px) {
+      .table-container table { font-size: 0.75rem; }
+      .table-container th, .table-container td { padding: 0.4rem 0.3rem; }
+    }
+    .tab-btn { cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { color: #285230; border-bottom: 2px solid #285230; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .slider-container input[type="range"] { width: 100%; height: 6px; -webkit-appearance: none; appearance: none; background: #e5e5e5; border-radius: 3px; outline: none; }
+    .slider-container input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #285230; cursor: pointer; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .slider-container input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #285230; cursor: pointer; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .wall-layer { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.5rem; font-size: 0.75rem; border-left: 3px solid; }
+    .result-highlight { font-size: 1.5rem; font-weight: 600; line-height: 1.2; }
+    @media (max-width: 640px) {
+      .result-highlight { font-size: 1.15rem; }
+    }
+  </style>
+
+  <!-- Password Protection -->
+  <div id="password-overlay" class="fixed inset-0 z-[100] bg-[#1a1a1a] flex items-center justify-center" style="display: flex;">
+    <div class="max-w-md w-full mx-4 text-center">
+      <div class="mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#285230]/10 border border-[#285230]/20 mb-6">
+          <svg class="w-8 h-8 text-[#285230]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+          </svg>
+        </div>
+        <h2 class="font-playfair text-2xl font-medium text-white mb-2">Chauffage La Margue</h2>
+        <p class="text-white/50 text-sm">Etude comparative — Document de travail</p>
+      </div>
+      <form id="password-form" class="space-y-4">
+        <input type="password" id="password-input" placeholder="Mot de passe" class="w-full px-5 py-4 rounded-sm bg-white/5 border border-white/10 text-white placeholder-white/30 text-center text-lg tracking-widest focus:outline-none focus:border-[#285230]/50 focus:ring-1 focus:ring-[#285230]/30 transition-all" autocomplete="off" />
+        <button type="submit" class="w-full px-6 py-4 rounded-sm bg-[#285230] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#1e3f24] transition-colors">Acceder</button>
+        <p id="password-error" class="text-red-400 text-sm hidden">Mot de passe incorrect</p>
+      </form>
+    </div>
+  </div>
+
+  <MobileNav currentPage="/chauffage-comparatif/" />
+
+  <!-- ========== HEADER ========== -->
+  <section class="bg-[#1a1a1a] pt-20 sm:pt-24 pb-8 sm:pb-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#285230] mb-2">Etude comparative</p>
+          <h1 class="font-playfair text-2xl sm:text-3xl md:text-4xl font-medium text-white tracking-tight">Chauffage La Margue</h1>
+          <p class="font-playfair text-lg sm:text-xl text-white/60 mt-1">3 lots — 3 scenarios</p>
+        </div>
+        <div class="text-left sm:text-right">
+          <p class="text-xs text-white/40">Avril 2026</p>
+          <p class="text-sm text-white/70">Validite devis Voda : 30/04/2026</p>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm text-white/50 mt-4 pt-4 border-t border-white/10">
+        <div>
+          <p class="text-white/30 text-xs uppercase tracking-wider mb-1">Prestataire devis</p>
+          <p class="text-white/70">Voda Energies — Saint-Maurice-de-Sorgues</p>
+        </div>
+        <div>
+          <p class="text-white/30 text-xs uppercase tracking-wider mb-1">Lots concernes</p>
+          <p class="text-white/70">Petit Shambhala · Claire & Baptiste · Laetitia</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NAVIGATION STICKY ========== -->
+  <nav class="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5 py-2">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="flex gap-4 sm:gap-6 overflow-x-auto text-xs sm:text-sm pb-1">
+        <a href="#devis" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap font-medium">Devis Voda</a>
+        <a href="#thermique" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Contexte thermique</a>
+        <a href="#scenarios" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Scenarios</a>
+        <a href="#simulateur" class="text-[#2C2824]/60 hover:text-[#285230] transition-colors whitespace-nowrap">Simulateur</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== DEVIS VODAENERGIES ========== -->
+  <section id="devis" class="py-8 sm:py-12 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Devis VodaEnergies</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">3 devis recus le 31/03/2026 — NIBE S735-7 pour chaque lot</p>
+      </div>
+
+      <!-- Explication machine NIBE -->
+      <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6 mb-6">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+          <div class="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-sm bg-[#285230]/5 flex items-center justify-center">
+            <svg class="w-10 h-10 text-[#285230]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-medium text-[#2C2824] mb-1">NIBE S735-7 — Machine tout-en-un</h3>
+            <p class="text-sm text-[#2C2824]/60 leading-relaxed mb-3">Pompe a chaleur geothermique/air avec production d'eau chaude sanitaire et VMC integree. Marque suedoise haut de gamme. Une seule machine pour le chauffage, l'eau chaude et la ventilation.</p>
+            <div class="flex flex-wrap gap-3 text-xs">
+              <span class="px-2 py-1 bg-[#285230]/5 rounded-sm text-[#285230]">PAC air/eau</span>
+              <span class="px-2 py-1 bg-[#285230]/5 rounded-sm text-[#285230]">ECS integree</span>
+              <span class="px-2 py-1 bg-[#285230]/5 rounded-sm text-[#285230]">VMC integree</span>
+              <span class="px-2 py-1 bg-[#285230]/5 rounded-sm text-[#285230]">Garantie 7 ans</span>
+              <span class="px-2 py-1 bg-[#C4A855]/10 rounded-sm text-[#C4A855]">12 555 EUR HT / unite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs lots -->
+      <div class="flex gap-1 sm:gap-2 mb-4 border-b border-black/10">
+        {lots.map((lot, i) => (
+          <button class={`tab-btn px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-medium text-[#2C2824]/50 hover:text-[#285230] whitespace-nowrap ${i === 0 ? 'active' : ''}`} data-tab={lot.id}>{lot.nom}</button>
+        ))}
+      </div>
+
+      <!-- Tab contents -->
+      {lots.map((lot, i) => (
+        <div class={`tab-content ${i === 0 ? 'active' : ''}`} id={`tab-${lot.id}`}>
+          <div class="bg-white rounded-sm border border-black/5 p-4 sm:p-6">
+            <!-- En-tete devis -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4 pb-4 border-b border-black/5">
+              <div>
+                <p class="text-sm font-medium text-[#2C2824]">{lot.nom}</p>
+                <p class="text-xs text-[#2C2824]/50">{lot.destinataire} — {lot.surface} m2 — {lot.construction}</p>
+              </div>
+              <p class="text-xs text-[#2C2824]/40">Devis n° {lot.devisRef} du 31/03/2026</p>
+            </div>
+
+            <!-- Tableau PAC -->
+            <h4 class="text-xs font-medium text-[#285230] uppercase tracking-wider mb-2">Pompe a chaleur NIBE S735-7</h4>
+            <div class="table-container mb-4">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-black/10">
+                    <th class="text-left py-2 text-xs text-[#2C2824]/50 font-medium">Designation</th>
+                    <th class="text-center py-2 text-xs text-[#2C2824]/50 font-medium w-12">Qte</th>
+                    <th class="text-right py-2 text-xs text-[#2C2824]/50 font-medium">PU HT</th>
+                    <th class="text-right py-2 text-xs text-[#2C2824]/50 font-medium">Total HT</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lot.devis.pac.map(p => (
+                    <tr class="border-b border-black/5">
+                      <td class="py-1.5 text-[#2C2824]/70">{p.desc}</td>
+                      <td class="py-1.5 text-center text-[#2C2824]/50">{p.qty}</td>
+                      <td class="py-1.5 text-right text-[#2C2824]/50">{fmtDec(p.pu)}</td>
+                      <td class="py-1.5 text-right text-[#2C2824]">{fmtDec(p.total)}</td>
+                    </tr>
+                  ))}
+                  <tr class="border-b border-black/10 bg-[#FAF8F5]">
+                    <td class="py-1.5 text-xs font-medium text-[#2C2824]/50" colspan="3">Sous-total PAC</td>
+                    <td class="py-1.5 text-right font-medium text-[#2C2824]">{fmtDec(lot.devis.pacSousTotal)}</td>
+                  </tr>
+                  {lot.devis.hydraulique.map(p => (
+                    <tr class="border-b border-black/5">
+                      <td class="py-1.5 text-[#2C2824]/70">{p.desc}</td>
+                      <td class="py-1.5 text-center text-[#2C2824]/50">{p.qty}</td>
+                      <td class="py-1.5 text-right text-[#2C2824]/50">{fmtDec(p.pu)}</td>
+                      <td class="py-1.5 text-right text-[#2C2824]">{fmtDec(p.total)}</td>
+                    </tr>
+                  ))}
+                  <tr class="border-b border-black/5">
+                    <td class="py-1.5 text-[#2C2824]/70">Main d'oeuvre PAC</td>
+                    <td class="py-1.5 text-center text-[#2C2824]/50">1</td>
+                    <td class="py-1.5 text-right text-[#2C2824]/50">{fmtDec(lot.devis.moPac)}</td>
+                    <td class="py-1.5 text-right text-[#2C2824]">{fmtDec(lot.devis.moPac)}</td>
+                  </tr>
+                  <tr class="bg-[#285230]/5">
+                    <td class="py-2 text-sm font-medium text-[#285230]" colspan="3">Total PAC installee</td>
+                    <td class="py-2 text-right font-medium text-[#285230]">{fmtDec(lot.devis.pacTotal)} EUR</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Tableau plancher -->
+            <h4 class="text-xs font-medium text-[#285230] uppercase tracking-wider mb-2 mt-6">Plancher chauffant</h4>
+            {lot.devis.plancher.options.map((opt, oi) => (
+              <div class={`mb-4 ${lot.devis.plancher.options.length > 1 ? 'p-3 rounded-sm border border-black/5 bg-[#FAF8F5]' : ''}`}>
+                {lot.devis.plancher.options.length > 1 && (
+                  <p class="text-xs font-medium text-[#2C2824]/70 mb-2">{opt.nom}</p>
+                )}
+                <div class="table-container">
+                  <table class="w-full text-sm">
+                    <tbody>
+                      {opt.postes.map(p => (
+                        <tr class="border-b border-black/5">
+                          <td class="py-1.5 text-[#2C2824]/70">{p.desc}</td>
+                          <td class="py-1.5 text-center text-[#2C2824]/50 w-12">{p.qty}</td>
+                          <td class="py-1.5 text-right text-[#2C2824]/50">{fmtDec(p.pu)}</td>
+                          <td class="py-1.5 text-right text-[#2C2824]">{fmtDec(p.total)}</td>
+                        </tr>
+                      ))}
+                      <tr class="bg-[#FAF8F5]">
+                        <td class="py-1.5 text-xs font-medium text-[#2C2824]/60" colspan="3">Sous-total</td>
+                        <td class="py-1.5 text-right font-medium text-[#2C2824]">{fmtDec(opt.sousTotal)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
+
+            <!-- Regulation -->
+            {lot.devis.regulation.length > 0 && (
+              <div class="mb-4">
+                <p class="text-xs font-medium text-[#2C2824]/70 mb-2">Regulation zone nuit</p>
+                <div class="table-container">
+                  <table class="w-full text-sm">
+                    <tbody>
+                      {lot.devis.regulation.map(p => (
+                        <tr class="border-b border-black/5">
+                          <td class="py-1.5 text-[#2C2824]/70">{p.desc}</td>
+                          <td class="py-1.5 text-center text-[#2C2824]/50 w-12">{p.qty}</td>
+                          <td class="py-1.5 text-right text-[#2C2824]/50">{fmtDec(p.pu)}</td>
+                          <td class="py-1.5 text-right text-[#2C2824]">{fmtDec(p.total)}</td>
+                        </tr>
+                      ))}
+                      <tr class="bg-[#FAF8F5]">
+                        <td class="py-1.5 text-xs font-medium text-[#2C2824]/60" colspan="3">Sous-total regulation</td>
+                        <td class="py-1.5 text-right font-medium text-[#2C2824]">{fmtDec(lot.devis.regulationSousTotal)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            <!-- MO plancher si applicable -->
+            {lot.devis.moPlancher && (
+              <div class="table-container mb-4">
+                <table class="w-full text-sm">
+                  <tbody>
+                    <tr class="border-b border-black/5">
+                      <td class="py-1.5 text-[#2C2824]/70">Main d'oeuvre plancher chauffant</td>
+                      <td class="py-1.5 text-right text-[#2C2824]">{fmtDec(lot.devis.moPlancher)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <!-- Total -->
+            <div class="mt-6 pt-4 border-t-2 border-[#285230]/20">
+              {(lot.devis.totalTTCCaleosol && lot.devis.totalTTCClassique) ? (
+                <div class="space-y-3">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 p-3 bg-[#FAF8F5] rounded-sm">
+                    <p class="text-sm text-[#2C2824]/70">Avec plancher Caleosol</p>
+                    <div class="text-right">
+                      <p class="text-xs text-[#2C2824]/40">{fmtDec(lot.devis.totalHTCaleosol!)} EUR HT + TVA 20%</p>
+                      <p class="text-lg font-medium text-[#2C2824]">{fmt(lot.devis.totalTTCCaleosol!)} EUR TTC</p>
+                    </div>
+                  </div>
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 p-3 bg-[#FAF8F5] rounded-sm">
+                    <p class="text-sm text-[#2C2824]/70">Avec plancher classique</p>
+                    <div class="text-right">
+                      <p class="text-xs text-[#2C2824]/40">{fmtDec(lot.devis.totalHTClassique!)} EUR HT + TVA 20%</p>
+                      <p class="text-lg font-medium text-[#2C2824]">{fmt(lot.devis.totalTTCClassique!)} EUR TTC</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <p class="text-sm text-[#2C2824]/50">Total TTC (TVA 20%)</p>
+                  <div class="text-right">
+                    <p class="text-xs text-[#2C2824]/40">{fmtDec(lot.devis.totalHT)} EUR HT</p>
+                    <p class="text-xl font-medium text-[#2C2824]">{fmt(lot.devis.totalTTC)} EUR TTC</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ========== CONTEXTE THERMIQUE ========== -->
+  <section id="thermique" class="py-8 sm:py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Contexte thermique</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Performance des enveloppes — Ou partent les calories ?</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        {lots.map(lot => (
+          <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-medium text-[#2C2824]">{lot.nom}</h3>
+              <span class="text-xs text-[#2C2824]/40">{lot.surface} m2</span>
+            </div>
+
+            <!-- Composition parois -->
+            <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-2">Composition des murs</p>
+            {lot.construction === 'Paille porteuse' ? (
+              <div class="space-y-0.5 mb-3">
+                <div class="wall-layer bg-[#C4A855]/10 border-[#C4A855]"><span class="font-medium">Chaux</span><span class="text-[#2C2824]/40">4 cm</span></div>
+                <div class="wall-layer bg-[#285230]/10 border-[#285230]"><span class="font-medium">Paille</span><span class="text-[#2C2824]/40">70 cm — R = 17.5</span></div>
+                <div class="wall-layer bg-amber-100 border-amber-600"><span class="font-medium">Terre</span><span class="text-[#2C2824]/40">3 cm</span></div>
+              </div>
+            ) : (
+              <div class="space-y-0.5 mb-3">
+                <div class="wall-layer bg-amber-50 border-amber-700"><span class="font-medium">Bardage bois</span></div>
+                <div class="wall-layer bg-[#285230]/10 border-[#285230]"><span class="font-medium">Laine de bois</span><span class="text-[#2C2824]/40">35 cm — R = 8.75</span></div>
+                <div class="wall-layer bg-gray-100 border-gray-400"><span class="font-medium">Finition int.</span></div>
+              </div>
+            )}
+
+            <!-- Toiture -->
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="text-[#2C2824]/50">Toiture</span>
+              <span class="text-[#2C2824]/70">{lot.toiture.detail} — R = {lot.toiture.R}</span>
+            </div>
+
+            <!-- Vitrages -->
+            <div class="mt-3 pt-3 border-t border-black/5">
+              <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-2">Vitrages</p>
+              <div class="space-y-1 text-xs">
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Facade sud vitree</span>
+                  <span class="text-[#2C2824]/70">{lot.vitrage.facadeSudPct}% — {lot.vitrage.surfaceVitreeSud} m2</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Type</span>
+                  <span class="text-[#2C2824]/70">{lot.vitrage.type}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Uw</span>
+                  <span class="text-[#2C2824]/70">{lot.vitrage.Uw} W/m2.K</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Volets facade sud</span>
+                  <span class={lot.vitrage.voletsSud ? 'text-[#285230] font-medium' : 'text-[#C4A855] font-medium'}>
+                    {lot.vitrage.voletsSud ? 'Oui' : 'Non'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deperditions -->
+            <div class="mt-3 pt-3 border-t border-black/5">
+              <p class="text-xs text-[#2C2824]/50 uppercase tracking-wider mb-2">Deperditions estimees</p>
+              <div class="space-y-1 text-xs">
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Par les vitrages (nuit, -3°C)</span>
+                  <span class="font-medium text-[#C4A855]">~{fmt(Math.round(lot.vitrage.surfaceVitreeSud * (lot.vitrage.voletsSud ? 0.9 : 1.4) * 23 + lot.vitrage.surfaceVitreeAutre * 0.9 * 23))} W</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#2C2824]/50">Par les murs + toiture</span>
+                  <span class="font-medium text-[#285230]">~{fmt(Math.round(lot.deperditionTotale - lot.vitrage.surfaceVitreeSud * (lot.vitrage.voletsSud ? 0.9 : 1.4) * 23 / 17 * 10))} W</span>
+                </div>
+              </div>
+              <div class="mt-2 p-2 bg-white rounded-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs text-[#2C2824]/50">Deperdition totale estimee</span>
+                  <span class="text-sm font-medium text-[#2C2824]">~{fmt(lot.deperditionTotale)} W</span>
+                </div>
+              </div>
+              {lot.consoReelle && (
+                <div class="mt-2 p-2 bg-[#285230]/5 rounded-sm">
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs text-[#285230]">Conso reelle mesuree</span>
+                    <span class="text-sm font-medium text-[#285230]">{fmt(lot.consoReelle)} kWh/an</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Encadre deperditions vitrages -->
+      <div class="bg-[#2C2824] rounded-sm p-4 sm:p-6 text-white">
+        <h3 class="text-sm font-medium mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
+          Les vitrages, principal poste de deperdition
+        </h3>
+        <p class="text-sm text-white/70 leading-relaxed mb-4">Dans une maison en paille (R=17.5), les murs sont quasiment invisibles dans le bilan thermique. Un metre carre de double vitrage (Uw=1.4) deperdite <strong class="text-white">25 fois plus vite</strong> qu'un metre carre de mur paille. Les nuits froides d'Aveyron (decembre a mars, -5°C a 1°C), ce sont les vitrages qui comptent.</p>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="bg-white/5 rounded-sm p-3">
+            <p class="text-xs text-white/40 mb-1">Petit Shambhala</p>
+            <p class="text-white/70 text-sm">~20 m2 vitrage, pas de volets sud. Deperditions nocturnes moderees.</p>
+          </div>
+          <div class="bg-white/5 rounded-sm p-3">
+            <p class="text-xs text-white/40 mb-1">Claire & Baptiste</p>
+            <p class="text-white/70 text-sm"><strong class="text-[#C4A855]">~50 m2 vitrage sans volets sud.</strong> Plus fort poste de deperdition nocturne des 3 lots (~1 600 W par nuit froide).</p>
+          </div>
+          <div class="bg-white/5 rounded-sm p-3">
+            <p class="text-xs text-white/40 mb-1">Laetitia</p>
+            <p class="text-white/70 text-sm">~34 m2 vitrage, <strong class="text-[#285230]">volets fermes la nuit</strong> → deperditions reduites de ~35%. Lot le plus econome.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SCENARIOS ========== -->
+  <section id="scenarios" class="py-8 sm:py-12 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">3 scenarios</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Meme besoin, approches differentes</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        {scenarios.map((sc, si) => (
+          <div class={`rounded-sm p-5 sm:p-6 ${si === 0 ? 'bg-[#1a1a1a] text-white' : 'bg-white border border-black/5'}`}>
+            <span class={`badge mb-3 ${si === 0 ? 'bg-white/10 text-white/70' : sc.badgeColor}`}>{sc.badge}</span>
+            <h3 class={`font-playfair text-lg font-medium mb-2 ${si === 0 ? 'text-white' : 'text-[#2C2824]'}`}>{sc.nom}</h3>
+            <p class={`text-sm leading-relaxed mb-4 ${si === 0 ? 'text-white/60' : 'text-[#2C2824]/60'}`}>{sc.description}</p>
+
+            <!-- Machines -->
+            <div class="space-y-2 mb-4">
+              {sc.machines.map(m => (
+                <div class={`flex items-start gap-2 text-xs ${si === 0 ? 'text-white/50' : 'text-[#2C2824]/50'}`}>
+                  <svg class={`w-3.5 h-3.5 mt-0.5 flex-shrink-0 ${si === 0 ? 'text-[#285230]' : 'text-[#285230]'}`} fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  <div>
+                    <span class={`font-medium ${si === 0 ? 'text-white/80' : 'text-[#2C2824]/70'}`}>{m.nom}</span>
+                    <span class={si === 0 ? 'text-white/40' : 'text-[#2C2824]/40'}> — {m.prix}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <!-- Investissement par lot -->
+            <div class={`rounded-sm p-3 mb-4 ${si === 0 ? 'bg-white/5' : 'bg-[#FAF8F5]'}`}>
+              <p class={`text-xs uppercase tracking-wider mb-2 ${si === 0 ? 'text-white/30' : 'text-[#2C2824]/40'}`}>Investissement TTC par lot</p>
+              {lots.map(lot => (
+                <div class={`flex justify-between text-xs py-0.5 ${si === 0 ? 'text-white/60' : 'text-[#2C2824]/60'}`}>
+                  <span>{lot.nom}</span>
+                  <span class={`font-medium ${si === 0 ? 'text-white' : 'text-[#2C2824]'}`}>{(investissements as any)[lot.id]?.[sc.id]?.label ?? '—'} EUR</span>
+                </div>
+              ))}
+            </div>
+
+            <!-- COP -->
+            <div class={`flex items-center gap-2 text-xs mb-4 ${si === 0 ? 'text-white/40' : 'text-[#2C2824]/40'}`}>
+              <span>COP chauffage : {sc.cop}</span>
+              <span>·</span>
+              <span>COP ECS : {sc.copECS}</span>
+            </div>
+
+            <!-- Avantages / Inconvenients -->
+            <div class="space-y-1.5">
+              {sc.avantages.map(a => (
+                <div class={`flex items-start gap-1.5 text-xs ${si === 0 ? 'text-white/50' : 'text-[#2C2824]/50'}`}>
+                  <span class="text-[#285230] mt-0.5">+</span>
+                  <span>{a}</span>
+                </div>
+              ))}
+              {sc.inconvenients.map(ic => (
+                <div class={`flex items-start gap-1.5 text-xs ${si === 0 ? 'text-white/50' : 'text-[#2C2824]/50'}`}>
+                  <span class="text-[#C4A855] mt-0.5">-</span>
+                  <span>{ic}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SIMULATEUR DYNAMIQUE ========== -->
+  <section id="simulateur" class="py-8 sm:py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <div class="mb-6">
+        <h2 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Simulateur</h2>
+        <p class="text-sm text-[#2C2824]/50 mt-1">Ajustez les parametres pour estimer les couts reels sur la duree</p>
+      </div>
+
+      <!-- Hypotheses globales -->
+      <div class="bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6 mb-8">
+        <h3 class="text-xs font-medium text-[#285230] uppercase tracking-wider mb-4">Hypotheses ajustables</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5 slider-container">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="prix-kwh" class="text-[#2C2824]/60">Prix du kWh</label>
+              <span id="prix-kwh-val" class="font-medium text-[#2C2824]">0.25 EUR</span>
+            </div>
+            <input type="range" id="prix-kwh" min="0.15" max="0.50" step="0.01" value="0.25" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="t-int" class="text-[#2C2824]/60">Temperature interieure</label>
+              <span id="t-int-val" class="font-medium text-[#2C2824]">20°C</span>
+            </div>
+            <input type="range" id="t-int" min="18" max="23" step="0.5" value="20" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="t-ext-nuit" class="text-[#2C2824]/60">T° nocturne moyenne hiver</label>
+              <span id="t-ext-nuit-val" class="font-medium text-[#2C2824]">-2°C</span>
+            </div>
+            <input type="range" id="t-ext-nuit" min="-8" max="5" step="0.5" value="-2" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="heures-chauffe" class="text-[#2C2824]/60">Heures de chauffe / jour</label>
+              <span id="heures-chauffe-val" class="font-medium text-[#2C2824]">6h</span>
+            </div>
+            <input type="range" id="heures-chauffe" min="3" max="16" step="1" value="6" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="mois-chauffe" class="text-[#2C2824]/60">Mois de chauffe</label>
+              <span id="mois-chauffe-val" class="font-medium text-[#2C2824]">5 mois</span>
+            </div>
+            <input type="range" id="mois-chauffe" min="3" max="7" step="1" value="5" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="jours-soleil" class="text-[#2C2824]/60">Jours d'ensoleillement hivernal</label>
+              <span id="jours-soleil-val" class="font-medium text-[#2C2824]">40 jours</span>
+            </div>
+            <input type="range" id="jours-soleil" min="10" max="90" step="5" value="40" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="duree-projection" class="text-[#2C2824]/60">Duree de projection</label>
+              <span id="duree-projection-val" class="font-medium text-[#2C2824]">15 ans</span>
+            </div>
+            <input type="range" id="duree-projection" min="5" max="30" step="1" value="15" />
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <label for="hausse-elec" class="text-[#2C2824]/60">Hausse annuelle elec.</label>
+              <span id="hausse-elec-val" class="font-medium text-[#2C2824]">3%</span>
+            </div>
+            <input type="range" id="hausse-elec" min="0" max="8" step="0.5" value="3" />
+          </div>
+        </div>
+
+        <!-- Presets rapides -->
+        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-black/5">
+          <span class="text-xs text-[#2C2824]/40 mr-2 self-center">Presets :</span>
+          <button class="preset-btn text-xs px-3 py-1.5 rounded-sm bg-white border border-black/10 text-[#2C2824]/60 hover:border-[#285230]/30 hover:text-[#285230] transition-colors" data-preset="optimiste">Hiver doux &amp; ensoleille</button>
+          <button class="preset-btn text-xs px-3 py-1.5 rounded-sm bg-white border border-black/10 text-[#2C2824]/60 hover:border-[#285230]/30 hover:text-[#285230] transition-colors" data-preset="normal">Hiver normal Aveyron</button>
+          <button class="preset-btn text-xs px-3 py-1.5 rounded-sm bg-white border border-black/10 text-[#2C2824]/60 hover:border-[#285230]/30 hover:text-[#285230] transition-colors" data-preset="rude">Hiver rude 2025-2026</button>
+        </div>
+      </div>
+
+      <!-- Resultats par lot -->
+      {lots.map(lot => (
+        <div class="mb-8 bg-[#FAF8F5] rounded-sm border border-black/5 p-4 sm:p-6" data-lot-result={lot.id}>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-black/5">
+            <div>
+              <h3 class="text-sm font-medium text-[#2C2824]">{lot.nom}</h3>
+              <p class="text-xs text-[#2C2824]/40">{lot.surface} m2 — {lot.construction} — Deperdition ~{fmt(lot.deperditionTotale)} W</p>
+            </div>
+            {lot.vitrage.voletsSud ? (
+              <span class="text-xs px-2 py-1 bg-[#285230]/10 text-[#285230] rounded-sm">Volets sud fermes la nuit</span>
+            ) : (
+              <span class="text-xs px-2 py-1 bg-[#C4A855]/10 text-[#C4A855] rounded-sm">Pas de volets sud</span>
+            )}
+          </div>
+
+          <!-- Besoins calcules -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            <div class="bg-white rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/40 mb-1">Besoins chauffage</p>
+              <p class="result-highlight text-[#2C2824]" data-result={`${lot.id}-besoin-chauffe`}>—</p>
+              <p class="text-xs text-[#2C2824]/40">kWh/an</p>
+            </div>
+            <div class="bg-white rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/40 mb-1">Apports solaires</p>
+              <p class="result-highlight text-[#285230]" data-result={`${lot.id}-apports-solaires`}>—</p>
+              <p class="text-xs text-[#2C2824]/40">kWh/an</p>
+            </div>
+            <div class="bg-white rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/40 mb-1">Besoins nets</p>
+              <p class="result-highlight text-[#2C2824]" data-result={`${lot.id}-besoin-net`}>—</p>
+              <p class="text-xs text-[#2C2824]/40">kWh/an</p>
+            </div>
+            <div class="bg-white rounded-sm p-3">
+              <p class="text-xs text-[#2C2824]/40 mb-1">ECS estimee</p>
+              <p class="result-highlight text-[#2C2824]" data-result={`${lot.id}-ecs`}>—</p>
+              <p class="text-xs text-[#2C2824]/40">kWh/an</p>
+            </div>
+          </div>
+
+          <!-- Comparaison 3 scenarios -->
+          <div class="table-container">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-black/10">
+                  <th class="text-left py-2 text-xs text-[#2C2824]/50 font-medium"></th>
+                  <th class="text-center py-2 text-xs text-[#2C2824]/50 font-medium">NIBE S735-7</th>
+                  <th class="text-center py-2 text-xs text-[#2C2824]/50 font-medium">PAC classique</th>
+                  <th class="text-center py-2 text-xs text-[#2C2824]/50 font-medium">Full electrique</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-black/5">
+                  <td class="py-2 text-xs text-[#2C2824]/60">Investissement TTC</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-invest-nibe`}>—</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-invest-pac`}>—</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-invest-elec`}>—</td>
+                </tr>
+                <tr class="border-b border-black/5">
+                  <td class="py-2 text-xs text-[#2C2824]/60">Cout elec. an 1</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-cout1-nibe`}>—</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-cout1-pac`}>—</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-cout1-elec`}>—</td>
+                </tr>
+                <tr class="border-b border-black/5">
+                  <td class="py-2 text-xs text-[#2C2824]/60">Cout elec. cumule</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-cumul-nibe`}>—</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-cumul-pac`}>—</td>
+                  <td class="py-2 text-center text-sm" data-result={`${lot.id}-cumul-elec`}>—</td>
+                </tr>
+                <tr class="bg-[#285230]/5 font-medium">
+                  <td class="py-2.5 text-xs text-[#285230]">Total sur <span data-result="duree-label">15</span> ans</td>
+                  <td class="py-2.5 text-center text-sm text-[#2C2824]" data-result={`${lot.id}-total-nibe`}>—</td>
+                  <td class="py-2.5 text-center text-sm text-[#2C2824]" data-result={`${lot.id}-total-pac`}>—</td>
+                  <td class="py-2.5 text-center text-sm text-[#2C2824]" data-result={`${lot.id}-total-elec`}>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ========== NOTES ========== -->
+  <section class="py-8 sm:py-10 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <h2 class="font-playfair text-lg md:text-xl font-medium text-[#2C2824] mb-4">Notes et hypotheses</h2>
+      <div class="grid sm:grid-cols-2 gap-6 text-xs text-[#2C2824]/60 leading-relaxed">
+        <div>
+          <h3 class="text-xs font-medium text-[#2C2824]/80 uppercase tracking-wider mb-2">Calculs thermiques</h3>
+          <ul class="space-y-1.5 list-disc list-inside">
+            <li>Deperditions = Surface deperditive / R × (T_int - T_ext)</li>
+            <li>Besoins annuels = Deperditions × heures × jours, avec facteur d'intermittence 0.75</li>
+            <li>Apports solaires = surface vitree sud × 3.5 kWh/m2/jour × jours ensoleillement × 0.5 (facteur transmission)</li>
+            <li>ECS = 40L/jour/personne × (T_puisage 55°C - T_eau froide 12°C) × 1.16 Wh/L.K × 365 jours</li>
+            <li>Volets : Uw effectif reduit a 0.9 W/m2.K (lame d'air isolante)</li>
+            <li>Le Petit Shambhala est calibre sur une consommation reelle mesuree de 1 125 kWh/an</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs font-medium text-[#2C2824]/80 uppercase tracking-wider mb-2">Limites</h3>
+          <ul class="space-y-1.5 list-disc list-inside">
+            <li>Estimation simplifiee, pas une etude thermique normative (RT2012/RE2020)</li>
+            <li>Les apports internes (electromenager, corps humains, cuisson) ne sont pas comptes</li>
+            <li>Les prix des machines alternatives sont des fourchettes marche, pas des devis</li>
+            <li>Le scenario PAC classique n'inclut pas le plancher chauffant hydraulique (radiateurs)</li>
+            <li>Le scenario full electrique utilise des radiateurs d'appoint, pas de plancher chauffant</li>
+            <li>Duree de vie PAC estimee 15-20 ans, cumulus 10-15 ans, radiateur electrique 20+ ans</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-black/10 text-center">
+        <p class="text-xs text-[#2C2824]/40">Document de travail — La Margue, avril 2026 — Pour toute question : Charly Aubert</p>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script is:inline>
+// Password protection
+(function() {
+  const KEY = 'chauffage_comparatif_auth'
+  const PWD = 'laom2026'
+  const overlay = document.getElementById('password-overlay')
+  const form = document.getElementById('password-form')
+  const input = document.getElementById('password-input')
+  const error = document.getElementById('password-error')
+
+  if (localStorage.getItem(KEY) === PWD) {
+    overlay.style.display = 'none'
+  } else {
+    setTimeout(() => input.focus(), 100)
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault()
+    if (input.value === PWD) {
+      localStorage.setItem(KEY, PWD)
+      overlay.style.display = 'none'
+    } else {
+      error.classList.remove('hidden')
+      input.value = ''
+      input.focus()
+    }
+  })
+})();
+
+// Tab switching
+(function() {
+  const btns = document.querySelectorAll('.tab-btn')
+  const contents = document.querySelectorAll('.tab-content')
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const tab = this.getAttribute('data-tab')
+      btns.forEach(b => b.classList.remove('active'))
+      contents.forEach(c => c.classList.remove('active'))
+      this.classList.add('active')
+      document.getElementById('tab-' + tab).classList.add('active')
+    })
+  })
+})();
+
+// Simulateur dynamique
+(function() {
+  // Lot data
+  const lotsData = [
+    {
+      id: 'petit-shambhala',
+      surface: 73,
+      deperdition: 1200,
+      surfaceVitreeSud: 16,
+      surfaceVitreeAutre: 4,
+      voletsSud: false,
+      Uw: 1.4,
+      UwVolet: 0.9,
+      Rmurs: 8.75,
+      Rtoiture: 10,
+      occupants: 4,
+      consoReelle: 1125,
+      investNibe: 34344,
+      investPacMin: 10000, investPacMax: 16000,
+      investElecMin: 600, investElecMax: 1200,
+    },
+    {
+      id: 'claire-baptiste',
+      surface: 125,
+      deperdition: 1450,
+      surfaceVitreeSud: 40,
+      surfaceVitreeAutre: 10,
+      voletsSud: false,
+      Uw: 1.4,
+      UwVolet: 0.9,
+      Rmurs: 17.5,
+      Rtoiture: 17.5,
+      occupants: 4,
+      consoReelle: null,
+      investNibe: 36906,
+      investPacMin: 12000, investPacMax: 20000,
+      investElecMin: 600, investElecMax: 1200,
+    },
+    {
+      id: 'laetitia',
+      surface: 88,
+      deperdition: 1015,
+      surfaceVitreeSud: 28,
+      surfaceVitreeAutre: 6,
+      voletsSud: true,
+      Uw: 1.4,
+      UwVolet: 0.9,
+      Rmurs: 17.5,
+      Rtoiture: 17.5,
+      occupants: 4,
+      consoReelle: null,
+      investNibe: 33956,
+      investPacMin: 10000, investPacMax: 16000,
+      investElecMin: 600, investElecMax: 1200,
+    },
+  ]
+
+  const COP_NIBE = 3.5
+  const COP_PAC = 3
+  const COP_ELEC = 1
+  const COP_ECS_THERMO = 2.5
+  const COP_ECS_ELEC = 1
+
+  // Slider refs
+  const sl = {
+    prixKwh: document.getElementById('prix-kwh'),
+    tInt: document.getElementById('t-int'),
+    tExtNuit: document.getElementById('t-ext-nuit'),
+    heuresChauffe: document.getElementById('heures-chauffe'),
+    moisChauffe: document.getElementById('mois-chauffe'),
+    joursSoleil: document.getElementById('jours-soleil'),
+    dureeProjection: document.getElementById('duree-projection'),
+    hausseElec: document.getElementById('hausse-elec'),
+  }
+
+  const presets = {
+    optimiste: { tExtNuit: 2, joursSoleil: 70, heuresChauffe: 4, moisChauffe: 4 },
+    normal: { tExtNuit: -2, joursSoleil: 40, heuresChauffe: 6, moisChauffe: 5 },
+    rude: { tExtNuit: -4, joursSoleil: 20, heuresChauffe: 8, moisChauffe: 6 },
+  }
+
+  function fmt(n) { return Math.round(n).toLocaleString('fr-FR') }
+
+  function updateLabels() {
+    document.getElementById('prix-kwh-val').textContent = parseFloat(sl.prixKwh.value).toFixed(2) + ' EUR'
+    document.getElementById('t-int-val').textContent = sl.tInt.value + '°C'
+    document.getElementById('t-ext-nuit-val').textContent = sl.tExtNuit.value + '°C'
+    document.getElementById('heures-chauffe-val').textContent = sl.heuresChauffe.value + 'h'
+    document.getElementById('mois-chauffe-val').textContent = sl.moisChauffe.value + ' mois'
+    document.getElementById('jours-soleil-val').textContent = sl.joursSoleil.value + ' jours'
+    document.getElementById('duree-projection-val').textContent = sl.dureeProjection.value + ' ans'
+    document.getElementById('hausse-elec-val').textContent = sl.hausseElec.value + '%'
+  }
+
+  function setResult(key, val) {
+    const els = document.querySelectorAll('[data-result="' + key + '"]')
+    els.forEach(el => { el.textContent = val })
+  }
+
+  function calculate() {
+    const prixKwh = parseFloat(sl.prixKwh.value)
+    const tInt = parseFloat(sl.tInt.value)
+    const tExtNuit = parseFloat(sl.tExtNuit.value)
+    const heuresChauffe = parseInt(sl.heuresChauffe.value)
+    const moisChauffe = parseInt(sl.moisChauffe.value)
+    const joursSoleil = parseInt(sl.joursSoleil.value)
+    const duree = parseInt(sl.dureeProjection.value)
+    const hausse = parseFloat(sl.hausseElec.value) / 100
+
+    const joursChauffe = moisChauffe * 30
+    const dT = tInt - tExtNuit
+
+    setResult('duree-label', duree)
+
+    lotsData.forEach(lot => {
+      // Deperditions nocturnes
+      const UwSud = lot.voletsSud ? lot.UwVolet : lot.Uw
+      const depVitrageSud = lot.surfaceVitreeSud * UwSud * dT
+      const depVitrageAutre = lot.surfaceVitreeAutre * lot.UwVolet * dT
+      const depTotale = lot.deperdition // utiliser la valeur calibree
+
+      // Besoins bruts chauffage
+      const besoinBrut = depTotale * heuresChauffe * joursChauffe * 0.75 / 1000
+
+      // Apports solaires (3.5 kWh/m2/jour en Aveyron, facteur 0.5 transmission)
+      const apportsSolaires = lot.surfaceVitreeSud * 3.5 * joursSoleil * 0.5
+
+      // Besoins nets
+      const besoinNet = Math.max(0, besoinBrut - apportsSolaires)
+
+      // ECS : 40L/jour/pers x (55-12) x 1.16 Wh/L.K x 365
+      const ecsKwh = lot.occupants * 40 * (55 - 12) * 1.16 * 365 / 1000
+
+      setResult(lot.id + '-besoin-chauffe', fmt(besoinBrut))
+      setResult(lot.id + '-apports-solaires', fmt(apportsSolaires))
+      setResult(lot.id + '-besoin-net', fmt(besoinNet))
+      setResult(lot.id + '-ecs', fmt(Math.round(ecsKwh)))
+
+      // Couts annuels an 1
+      const coutNibe1 = (besoinNet / COP_NIBE + ecsKwh / COP_ECS_THERMO) * prixKwh
+      const coutPac1 = (besoinNet / COP_PAC + ecsKwh / COP_ECS_THERMO) * prixKwh
+      const coutElec1 = (besoinNet / COP_ELEC + ecsKwh / COP_ECS_ELEC) * prixKwh
+
+      setResult(lot.id + '-cout1-nibe', fmt(coutNibe1) + ' EUR')
+      setResult(lot.id + '-cout1-pac', fmt(coutPac1) + ' EUR')
+      setResult(lot.id + '-cout1-elec', fmt(coutElec1) + ' EUR')
+
+      // Cout cumule avec hausse annuelle
+      let cumulNibe = 0, cumulPac = 0, cumulElec = 0
+      for (let y = 0; y < duree; y++) {
+        const mult = Math.pow(1 + hausse, y)
+        cumulNibe += coutNibe1 * mult
+        cumulPac += coutPac1 * mult
+        cumulElec += coutElec1 * mult
+      }
+
+      setResult(lot.id + '-cumul-nibe', fmt(cumulNibe) + ' EUR')
+      setResult(lot.id + '-cumul-pac', fmt(cumulPac) + ' EUR')
+      setResult(lot.id + '-cumul-elec', fmt(cumulElec) + ' EUR')
+
+      // Investissements
+      const investPacMoy = (lot.investPacMin + lot.investPacMax) / 2
+      const investElecMoy = (lot.investElecMin + lot.investElecMax) / 2
+
+      setResult(lot.id + '-invest-nibe', fmt(lot.investNibe) + ' EUR')
+      setResult(lot.id + '-invest-pac', fmt(investPacMoy) + ' EUR')
+      setResult(lot.id + '-invest-elec', fmt(investElecMoy) + ' EUR')
+
+      // Total
+      const totalNibe = lot.investNibe + cumulNibe
+      const totalPac = investPacMoy + cumulPac
+      const totalElec = investElecMoy + cumulElec
+
+      setResult(lot.id + '-total-nibe', fmt(totalNibe) + ' EUR')
+      setResult(lot.id + '-total-pac', fmt(totalPac) + ' EUR')
+      setResult(lot.id + '-total-elec', fmt(totalElec) + ' EUR')
+    })
+  }
+
+  // Event listeners
+  Object.values(sl).forEach(slider => {
+    slider.addEventListener('input', function() {
+      updateLabels()
+      calculate()
+    })
+  })
+
+  // Presets
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const p = presets[this.getAttribute('data-preset')]
+      if (!p) return
+      sl.tExtNuit.value = p.tExtNuit
+      sl.joursSoleil.value = p.joursSoleil
+      sl.heuresChauffe.value = p.heuresChauffe
+      sl.moisChauffe.value = p.moisChauffe
+      updateLabels()
+      calculate()
+    })
+  })
+
+  // Init
+  updateLabels()
+  calculate()
+})();
+</script>
