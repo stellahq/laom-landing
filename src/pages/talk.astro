@@ -5,35 +5,21 @@ import { createWebPageSchema } from '~/utils/schema'
 export const prerender = true
 
 const pageSchema = createWebPageSchema({
-  name: 'Conférence gratuite — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM',
+  name: 'Conférence gratuite — Comment on a quitté la ville pour créer un écolieu / coliving rentable en pleine nature | LAOM',
   url: Astro.url.toString(),
   description: '5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Conférence gratuite le 21 avril à 20h30.',
 })
-
-// Kit form options
-const formKitOptions = {
-  settings: {
-    after_subscribe: {
-      action: 'message',
-      success_message: 'Inscription confirmée ! Vous recevrez le lien de connexion par email avant la conférence.',
-      redirect_url: '',
-    },
-    powered_by: { show: false },
-    recaptcha: { enabled: false },
-  },
-  version: '5',
-}
 
 // Ce que vous apprendrez
 const learnings = [
   {
     title: 'Acheter en collectif',
-    description: 'Comment on a acheté 21 hectares à 8 sans se connaître — et ce qu\'on aurait dû faire autrement.',
+    description: 'Comment on a acheté 21 hectares à 8 sans se connaître, et ce qu\'on aurait dû faire autrement.',
     icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
   },
   {
     title: 'Structurer juridiquement',
-    description: 'Les 4 structures qu\'on a testées en 5 ans — et laquelle marche vraiment.',
+    description: 'Les 4 structures qu\'on a testées en 5 ans, et laquelle marche vraiment.',
     icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
   },
   {
@@ -71,7 +57,7 @@ const testimonials = [
     context: "Cofondateurs de Naturopia, Madère",
   },
   {
-    quote: "Jusque-là je n'avais croisé que des alternatifs sans le sou et des entrepreneurs qui n'ont rien à faire des questions écologiques. Charly m'a montré que cette intersection existe. Ça me donne de la force et l'envie de bâtir des projets d'envergure allant dans le sens de mes valeurs.",
+    quote: "Jusque-là je n'avais croisé que des alternatifs sans le sou ou des entrepreneurs qui n'ont rien à faire des questions écologiques. Charly m'a montré que cette intersection existe. Ça me donne de la force et l'envie de bâtir des projets d'envergure allant dans le sens de mes valeurs.",
     author: "Nicolas Zanuttini",
     context: "Auto-entrepreneur",
     image: "/images/nicolas-zanuttini.webp",
@@ -80,7 +66,7 @@ const testimonials = [
 ---
 
 <Layout
-  title="Conférence gratuite — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM"
+  title="Conférence gratuite — Comment on a quitté la ville pour créer un écolieu / coliving rentable en pleine nature | LAOM"
   description="5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Conférence gratuite le 21 avril à 20h30."
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
@@ -196,7 +182,7 @@ const testimonials = [
 
       <!-- /typeset — titre avec leading plus généreux sur fond sombre -->
       <h1 class="hero-title font-playfair text-4xl sm:text-5xl md:text-6xl font-medium text-white mb-8 tracking-tight leading-[1.15] md:leading-[1.12]">
-        Comment on a quitté la ville pour créer un coliving rentable en pleine nature
+        Comment on a quitté la ville pour créer un écolieu / coliving rentable en pleine nature
       </h1>
 
       <!-- /distill + /clarify — sous-titre condensé, une seule phrase d'impact + détails -->
@@ -206,7 +192,7 @@ const testimonials = [
         </p>
         <!-- /colorize — text-white/70 au lieu de /60 pour passer WCAG sur fond sombre -->
         <p class="text-base md:text-lg font-light text-white/70 leading-relaxed">
-          800&nbsp;m² en paille porteuse, une ferme, un restaurant, plus de 3M&nbsp;€ levés — et un business model qui tourne entre 200 et 500K&nbsp;€/an sans nous enfermer.
+          800&nbsp;m² en paille porteuse, une ferme, un restaurant, plus de 3M&nbsp;€ levés, et un business model qui tourne entre 200 et 500K&nbsp;€/an sans nous enfermer.
         </p>
       </div>
 
@@ -220,46 +206,41 @@ const testimonials = [
 
       <!-- /harden — formulaire avec focus-visible, aria-labels explicites -->
       <div class="hero-form">
+        <iframe name="kit-iframe-hero" id="kit-iframe-hero" style="display:none"></iframe>
         <form
+          id="talk-form-hero"
           action="https://app.kit.com/forms/8987350/subscriptions"
-          class="seva-form formkit-form"
           method="post"
-          data-sv-form="8987350"
-          data-uid="af2e0fc1e5"
-          data-format="inline"
-          data-version="5"
-          data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+          target="kit-iframe-hero"
         >
-          <div data-style="clean">
-            <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite" style="color: #fecaca; background: rgba(254,226,226,0.15); border-color: rgba(248,113,113,0.5);"></ul>
-            <div data-element="fields" data-stacked="false" class="flex flex-col gap-3 max-w-lg mx-auto">
-              <div class="flex flex-col sm:flex-row gap-3">
-                <input
-                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out backdrop-blur-sm focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
-                  name="fields[first_name]"
-                  type="text"
-                  placeholder="Prénom"
-                  aria-label="Votre prénom"
-                  autocomplete="given-name"
-                />
-                <input
-                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out backdrop-blur-sm focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
-                  name="email_address"
-                  type="email"
-                  required
-                  aria-label="Votre adresse e-mail"
-                  placeholder="votre@email.com"
-                  autocomplete="email"
-                />
-              </div>
-              <button
-                type="submit"
-                data-element="submit"
-                class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
-              >
-                Réserver ma place gratuitement
-              </button>
+          <input type="hidden" name="tags[]" value="18610902" />
+          <div class="flex flex-col gap-3 max-w-lg mx-auto">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out backdrop-blur-sm focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                name="fields[first_name]"
+                type="text"
+                placeholder="Prénom"
+                aria-label="Votre prénom"
+                autocomplete="given-name"
+              />
+              <input
+                class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out backdrop-blur-sm focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                name="email_address"
+                type="email"
+                required
+                aria-label="Votre adresse e-mail"
+                placeholder="votre@email.com"
+                autocomplete="email"
+              />
             </div>
+            <button
+              type="submit"
+              id="submit-btn-hero"
+              class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
+            >
+              Réserver ma place gratuitement
+            </button>
           </div>
         </form>
       </div>
@@ -487,50 +468,45 @@ const testimonials = [
       </p>
       <!-- /colorize — text-white/60 au lieu de /50 pour meilleur contraste -->
       <p class="text-base font-light text-white/60 mb-10 max-w-[45ch] mx-auto leading-relaxed animate-enter">
-        5 ans de recul condensés en 45 minutes. Tout ce qu'on a appris — pour que vous alliez plus vite que nous.
+        5 ans de recul condensés en 45 minutes. Tout ce qu'on a appris, pour que vous alliez plus vite que nous.
       </p>
 
       <div class="animate-enter">
+        <iframe name="kit-iframe-footer" id="kit-iframe-footer" style="display:none"></iframe>
         <form
+          id="talk-form-footer"
           action="https://app.kit.com/forms/8987350/subscriptions"
-          class="seva-form formkit-form"
           method="post"
-          data-sv-form="8987350"
-          data-uid="af2e0fc1e5"
-          data-format="inline"
-          data-version="5"
-          data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
+          target="kit-iframe-footer"
         >
-          <div data-style="clean">
-            <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite" style="color: #fecaca; background: rgba(254,226,226,0.15); border-color: rgba(248,113,113,0.5);"></ul>
-            <div data-element="fields" data-stacked="false" class="flex flex-col gap-3 max-w-lg mx-auto">
-              <div class="flex flex-col sm:flex-row gap-3">
-                <input
-                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
-                  name="fields[first_name]"
-                  type="text"
-                  placeholder="Prénom"
-                  aria-label="Votre prénom"
-                  autocomplete="given-name"
-                />
-                <input
-                  class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
-                  name="email_address"
-                  type="email"
-                  required
-                  aria-label="Votre adresse e-mail"
-                  placeholder="votre@email.com"
-                  autocomplete="email"
-                />
-              </div>
-              <button
-                type="submit"
-                data-element="submit"
-                class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
-              >
-                Réserver ma place gratuitement
-              </button>
+          <input type="hidden" name="tags[]" value="18610902" />
+          <div class="flex flex-col gap-3 max-w-lg mx-auto">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                name="fields[first_name]"
+                type="text"
+                placeholder="Prénom"
+                aria-label="Votre prénom"
+                autocomplete="given-name"
+              />
+              <input
+                class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base transition-all duration-200 ease-out focus:border-[#C4A855] focus:bg-white/15 focus:outline-none"
+                name="email_address"
+                type="email"
+                required
+                aria-label="Votre adresse e-mail"
+                placeholder="votre@email.com"
+                autocomplete="email"
+              />
             </div>
+            <button
+              type="submit"
+              id="submit-btn-footer"
+              class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
+            >
+              Réserver ma place gratuitement
+            </button>
           </div>
         </form>
       </div>
@@ -562,6 +538,26 @@ const testimonials = [
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     )
     document.querySelectorAll('.animate-enter, .learning-card').forEach((el) => observer.observe(el))
+  </script>
+
+  <!-- Formulaire : tag Kit + redirect vers /school/merci/ -->
+  <script is:inline>
+    function handleTalkForm(formId, btnId) {
+      var form = document.getElementById(formId);
+      if (!form) return;
+      form.addEventListener('submit', function() {
+        var btn = document.getElementById(btnId);
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = 'Inscription en cours...';
+        }
+        setTimeout(function() {
+          window.location.href = '/school/merci/';
+        }, 2000);
+      });
+    }
+    handleTalkForm('talk-form-hero', 'submit-btn-hero');
+    handleTalkForm('talk-form-footer', 'submit-btn-footer');
   </script>
 
 </Layout>
