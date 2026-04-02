@@ -131,7 +131,7 @@ const chiffres = [
   { valeur: '21', unite: 'hectares', desc: 'achetés en collectif, à 8, sans se connaître' },
   { valeur: '850', unite: 'm²', desc: 'de construction écologique en paille porteuse, record mondial' },
   { valeur: '3M', unite: 'EUR', desc: 'levés sans prêt bancaire traditionnel' },
-  { valeur: '15', unite: 'familles', desc: 'qui vivent aujourd\'hui sur le domaine' },
+  { valeur: '15', unite: 'foyers', desc: 'qui vivent aujourd\'hui sur le domaine' },
   { valeur: '49K', unite: 'EUR', desc: 'en avocats et frais juridiques, à cause de simples erreurs' },
   { valeur: '5', unite: 'ans', desc: 'de terrain, d\'erreurs et de réussites' },
 ]
@@ -195,6 +195,45 @@ const faq = [
   seo={{ ldJSON: pageSchema, noIndex: true }}
   hideChrome={true}
 >
+
+  <!-- Bandeau timer sticky -->
+  <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
+    <!-- Desktop -->
+    <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-base font-medium text-white">Offre réservée aux inscrits</span>
+      </div>
+      <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
+        <span class="font-playfair text-3xl font-bold text-red-400" id="top-minutes">60</span>
+        <span class="text-xs text-red-400/70">min</span>
+        <span class="text-red-400/50 text-xl mx-0.5">:</span>
+        <span class="font-playfair text-3xl font-bold text-red-400" id="top-seconds">00</span>
+        <span class="text-xs text-red-400/70">sec</span>
+      </div>
+      <a
+        href="#offre"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-5 py-2 text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors flex-shrink-0"
+      >
+        J'en profite
+      </a>
+    </div>
+    <!-- Mobile -->
+    <a href="#offre" class="sm:hidden flex items-center justify-between px-4 py-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-xs font-medium text-white">Offre inscrits</span>
+      </div>
+      <div class="flex items-center gap-1 bg-red-600/20 px-3 py-1 rounded-sm">
+        <span class="font-playfair text-lg font-bold text-red-400" id="top-minutes-mobile">60</span>
+        <span class="text-[10px] text-red-400/70">min</span>
+        <span class="text-red-400/50 mx-0.5">:</span>
+        <span class="font-playfair text-lg font-bold text-red-400" id="top-seconds-mobile">00</span>
+        <span class="text-[10px] text-red-400/70">sec</span>
+      </div>
+      <span class="text-xs text-[#C4A855] font-medium uppercase tracking-wider">J'en profite</span>
+    </a>
+  </div>
 
   <!-- ============================================ -->
   <!-- BLOC 1 — Confirmation + Calendrier (compact) -->
@@ -261,21 +300,7 @@ const faq = [
   <!-- ============================================ -->
   <section class="pt-8 pb-4 md:pt-10 md:pb-6 bg-[#FAF8F5]">
     <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center">
-      <!-- Timer 1h -->
-      <div class="inline-flex flex-col items-center gap-2 px-6 py-4 bg-red-50 border border-red-200 rounded-sm mb-4">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-          <span class="text-sm font-medium text-red-700">Offre réservée aux inscrits, visible uniquement sur cette page</span>
-        </div>
-        <div id="countdown-top" class="flex items-center gap-2 text-red-700 mt-1">
-          <span class="font-playfair text-2xl font-medium" id="top-minutes">60</span>
-          <span class="text-xs text-red-400">min</span>
-          <span class="text-red-300">:</span>
-          <span class="font-playfair text-2xl font-medium" id="top-seconds">00</span>
-          <span class="text-xs text-red-400">sec</span>
-        </div>
-        <p class="text-[10px] text-red-400">pour profiter de ce prix</p>
-      </div>
+
 
       <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-4">
         Tu n'as pas besoin d'attendre le 21 avril pour bosser sur ton projet.
@@ -311,7 +336,7 @@ const faq = [
           href={ctaUrl}
           class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-2 text-base">2 000 EUR</span>
+          J'accède à la formation · 127 EUR
         </a>
         <p class="text-xs font-light text-[#2C2824]/30 mt-3">Offre exclusive inscrits · accès immédiat après paiement</p>
       </div>
@@ -517,7 +542,7 @@ const faq = [
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10">
         <p class="text-sm font-light text-[#2C2824]/40 mb-2">Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.</p>
         <div class="mb-1">
-          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">2 000 EUR</span>
+          <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOM School = 2 000 EUR</span>
         </div>
         <div class="mb-4">
           <span class="font-playfair text-5xl font-medium text-[#2C2824]">127</span>
@@ -528,7 +553,7 @@ const faq = [
           href={ctaUrl}
           class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-2 text-base">2 000 EUR</span>
+          J'accède à la formation · 127 EUR
         </a>
       </div>
     </div>
@@ -668,7 +693,7 @@ const faq = [
   <!-- ============================================ -->
   <!-- BLOC 9 — Carte de prix finale + CTA #3       -->
   <!-- ============================================ -->
-  <section class="py-20 md:py-24 bg-white">
+  <section id="offre" class="py-20 md:py-24 bg-white scroll-mt-16">
     <div class="max-w-3xl mx-auto px-8 sm:px-12">
       <div class="text-center mb-12">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">L'offre</p>
@@ -716,7 +741,7 @@ const faq = [
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Offre exclusive inscrits</p>
 
         <div class="mb-1">
-          <span class="font-playfair text-5xl font-light text-[#2C2824]/35 line-through">2 000 EUR</span>
+          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOM School = 2 000 EUR</span>
         </div>
 
         <div class="mb-4">
@@ -728,7 +753,7 @@ const faq = [
           href={ctaUrl}
           class="block w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors mb-4"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-2 text-base">2 000 EUR</span>
+          J'accède à la formation · 127 EUR
         </a>
 
         <p class="text-xs font-light text-[#2C2824]/30 leading-relaxed">
@@ -777,16 +802,22 @@ const faq = [
     function updateTopTimer() {
       var now = new Date().getTime();
       var diff = topDeadline - now;
+      var pad = function(n) { return n < 10 ? '0' + n : n; };
       if (diff <= 0) {
-        document.getElementById('top-minutes').textContent = '00';
-        document.getElementById('top-seconds').textContent = '00';
+        ['top-minutes','top-seconds','top-minutes-mobile','top-seconds-mobile'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = '00';
+        });
         return;
       }
       var m = Math.floor(diff / (1000 * 60));
       var s = Math.floor((diff % (1000 * 60)) / 1000);
-      var pad = function(n) { return n < 10 ? '0' + n : n; };
       document.getElementById('top-minutes').textContent = pad(m);
       document.getElementById('top-seconds').textContent = pad(s);
+      var mm = document.getElementById('top-minutes-mobile');
+      var sm = document.getElementById('top-seconds-mobile');
+      if (mm) mm.textContent = pad(m);
+      if (sm) sm.textContent = pad(s);
     }
     updateTopTimer();
     setInterval(updateTopTimer, 1000);
