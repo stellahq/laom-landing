@@ -196,55 +196,16 @@ const faq = [
   hideChrome={true}
 >
 
-  <!-- Bandeau timer sticky -->
-  <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
-    <!-- Desktop -->
-    <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
-      <div class="flex items-center gap-2.5">
-        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
-        <span class="text-base font-medium text-white">Offre réservée aux inscrits</span>
-      </div>
-      <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
-        <span class="font-playfair text-3xl font-bold text-red-400" id="top-minutes">60</span>
-        <span class="text-xs text-red-400/70">min</span>
-        <span class="text-red-400/50 text-xl mx-0.5">:</span>
-        <span class="font-playfair text-3xl font-bold text-red-400" id="top-seconds">00</span>
-        <span class="text-xs text-red-400/70">sec</span>
-      </div>
-      <a
-        href="#offre"
-        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-5 py-2 text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors flex-shrink-0"
-      >
-        J'en profite
-      </a>
-    </div>
-    <!-- Mobile -->
-    <a href="#offre" class="sm:hidden flex items-center justify-between px-4 py-2.5">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
-        <span class="text-xs font-medium text-white">Offre inscrits</span>
-      </div>
-      <div class="flex items-center gap-1 bg-red-600/20 px-3 py-1 rounded-sm">
-        <span class="font-playfair text-lg font-bold text-red-400" id="top-minutes-mobile">60</span>
-        <span class="text-[10px] text-red-400/70">min</span>
-        <span class="text-red-400/50 mx-0.5">:</span>
-        <span class="font-playfair text-lg font-bold text-red-400" id="top-seconds-mobile">00</span>
-        <span class="text-[10px] text-red-400/70">sec</span>
-      </div>
-      <span class="text-xs text-[#C4A855] font-medium uppercase tracking-wider">J'en profite</span>
-    </a>
-  </div>
-
   <!-- ============================================ -->
-  <!-- BLOC 1 — Confirmation + Calendrier (compact) -->
+  <!-- BLOC 1 — Confirmation + Calendrier (vert/doré) -->
   <!-- ============================================ -->
-  <section class="bg-[#2C2824] py-6 md:py-8">
+  <section class="bg-[#1a2e1a] py-6 md:py-8 border-b border-[#C4A855]/20">
     <div class="max-w-4xl mx-auto px-8 sm:px-12">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <!-- Texte compact -->
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-full border-2 border-[#C4A855] flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-10 h-10 rounded-full border-2 border-[#4A7C59] bg-[#4A7C59]/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-[#6BBF7B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -292,8 +253,44 @@ const faq = [
     </div>
   </section>
 
-  <!-- Séparateur doré -->
-  <div class="bg-[#C4A855] h-[2px]"></div>
+  <!-- Bandeau timer sticky (passe sous la confirmation puis reste collé) -->
+  <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
+    <!-- Desktop -->
+    <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-base font-medium text-white">Offre réservée aux inscrits</span>
+      </div>
+      <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
+        <span class="font-playfair text-3xl font-bold text-red-400" id="top-minutes">60</span>
+        <span class="text-xs text-red-400/70">min</span>
+        <span class="text-red-400/50 text-xl mx-0.5">:</span>
+        <span class="font-playfair text-3xl font-bold text-red-400" id="top-seconds">00</span>
+        <span class="text-xs text-red-400/70">sec</span>
+      </div>
+      <a
+        href="#offre"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-5 py-2 text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors flex-shrink-0"
+      >
+        J'en profite
+      </a>
+    </div>
+    <!-- Mobile -->
+    <a href="#offre" class="sm:hidden flex items-center justify-between px-4 py-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-xs font-medium text-white">Offre inscrits</span>
+      </div>
+      <div class="flex items-center gap-1 bg-red-600/20 px-3 py-1 rounded-sm">
+        <span class="font-playfair text-lg font-bold text-red-400" id="top-minutes-mobile">60</span>
+        <span class="text-[10px] text-red-400/70">min</span>
+        <span class="text-red-400/50 mx-0.5">:</span>
+        <span class="font-playfair text-lg font-bold text-red-400" id="top-seconds-mobile">00</span>
+        <span class="text-[10px] text-red-400/70">sec</span>
+      </div>
+      <span class="text-xs text-[#C4A855] font-medium uppercase tracking-wider">J'en profite</span>
+    </a>
+  </div>
 
   <!-- ============================================ -->
   <!-- BLOC 2 — Accroche + VSL + CTA #1             -->
