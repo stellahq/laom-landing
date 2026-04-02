@@ -199,56 +199,60 @@ const faq = [
   <!-- ============================================ -->
   <!-- BLOC 1 — Confirmation + Calendrier (vert/doré) -->
   <!-- ============================================ -->
-  <section class="bg-[#1a2e1a] py-6 md:py-8 border-b border-[#C4A855]/20">
-    <div class="max-w-4xl mx-auto px-8 sm:px-12">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <!-- Texte compact -->
-        <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-full border-2 border-[#4A7C59] bg-[#4A7C59]/20 flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-[#6BBF7B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <div>
-            <h1 class="font-playfair text-lg md:text-xl font-medium text-white tracking-tight">
-              Inscription confirmée. On se retrouve le 21 avril.
-            </h1>
-            <p class="text-xs font-light text-white/50">Mardi 21 avril 2026, 20h30. Ajoute à ton calendrier :</p>
-          </div>
-        </div>
+  <section class="bg-[#1a2e1a] py-8 md:py-10 border-b border-[#C4A855]/20">
+    <div class="max-w-2xl mx-auto px-8 sm:px-12 text-center">
+      <!-- Checkmark -->
+      <div class="w-12 h-12 rounded-full border-2 border-[#4A7C59] bg-[#4A7C59]/20 flex items-center justify-center mx-auto mb-5">
+        <svg class="w-6 h-6 text-[#6BBF7B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
 
-        <!-- Calendar buttons inline -->
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <a
-            href={googleCalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 rounded-sm bg-white text-[#2C2824] px-4 py-2 text-[10px] tracking-[0.1em] uppercase hover:bg-white/90 transition-colors"
-            aria-label="Ajouter au Google Calendar (ouvre dans un nouvel onglet)"
-          >
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V8.25h15V19.5z"/></svg>
-            Google
-          </a>
-          <a
-            href={outlookCalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 rounded-sm border border-white/30 text-white px-4 py-2 text-[10px] tracking-[0.1em] uppercase hover:bg-white/10 transition-colors"
-            aria-label="Ajouter au Outlook Calendar (ouvre dans un nouvel onglet)"
-          >
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V8.25h15V19.5z"/></svg>
-            Outlook
-          </a>
-          <a
-            href={`data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`}
-            download="conference-laom-school.ics"
-            class="inline-flex items-center gap-1.5 rounded-sm border border-white/30 text-white px-4 py-2 text-[10px] tracking-[0.1em] uppercase hover:bg-white/10 transition-colors"
-            aria-label="Télécharger le fichier .ics pour Apple Calendar"
-          >
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V8.25h15V19.5z"/></svg>
-            iCal
-          </a>
-        </div>
+      <h1 class="font-playfair text-xl md:text-2xl font-medium text-white tracking-tight mb-3">
+        Inscription confirmée. On se retrouve le 21 avril !
+      </h1>
+
+      <p class="text-sm font-light text-white/60 leading-relaxed mb-2">
+        Tu vas recevoir un email avec toutes les infos. Si tu ne le vois pas d'ici quelques minutes, vérifie tes spams ou ton onglet Promotions (ça arrive plus souvent qu'on ne croit).
+      </p>
+
+      <p class="text-sm font-light text-white/50 mb-5">
+        Hâte d'échanger avec toi !<br />
+        <span class="text-white/70 font-normal">Charly</span>
+      </p>
+
+      <!-- Calendrier -->
+      <p class="text-xs font-light text-white/40 mb-3">Mardi 21 avril 2026, 20h30. Ajoute à ton calendrier :</p>
+      <div class="flex items-center justify-center gap-2">
+        <a
+          href={googleCalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 rounded-sm bg-white text-[#2C2824] px-4 py-2 text-[10px] tracking-[0.1em] uppercase hover:bg-white/90 transition-colors"
+          aria-label="Ajouter au Google Calendar (ouvre dans un nouvel onglet)"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V8.25h15V19.5z"/></svg>
+          Google
+        </a>
+        <a
+          href={outlookCalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 rounded-sm border border-white/30 text-white px-4 py-2 text-[10px] tracking-[0.1em] uppercase hover:bg-white/10 transition-colors"
+          aria-label="Ajouter au Outlook Calendar (ouvre dans un nouvel onglet)"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V8.25h15V19.5z"/></svg>
+          Outlook
+        </a>
+        <a
+          href={`data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`}
+          download="conference-laom-school.ics"
+          class="inline-flex items-center gap-1.5 rounded-sm border border-white/30 text-white px-4 py-2 text-[10px] tracking-[0.1em] uppercase hover:bg-white/10 transition-colors"
+          aria-label="Télécharger le fichier .ics pour Apple Calendar"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V8.25h15V19.5z"/></svg>
+          iCal
+        </a>
       </div>
     </div>
   </section>
