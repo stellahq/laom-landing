@@ -168,6 +168,7 @@ const faq = [
   title="LAOM School Online — Crée ton lieu sans perdre 5 ans et 49 000 EUR en erreurs | LAOM"
   description="Formation en ligne : 8 modules + 12 lives avec Charly pendant 6 mois. La feuille de route complète pour créer un lieu qui tourne. 147 EUR."
   seo={{ ldJSON: pageSchema }}
+  hideChrome={true}
 >
   <!-- Hero + VSL -->
   <section class="relative py-32 lg:py-40 flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
@@ -256,34 +257,36 @@ const faq = [
   </section>
 
   <!-- La preuve (chiffres) -->
-  <section class="py-20 md:py-24 bg-[#2C2824] text-white">
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="text-center mb-16">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">5 ans de terrain</p>
+      <div class="text-center mb-20">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">5 ans de terrain</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight">
           21 hectares. 3M EUR levés. Un business model qui tourne.
         </h2>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-12 mb-20">
         {chiffres.map((c) => (
           <div class="text-center">
-            <div class="mb-2">
-              <span class="font-playfair text-4xl md:text-5xl font-medium text-[#C4A855]">{c.valeur}</span>
+            <div class="mb-3">
+              <span class="font-playfair text-5xl md:text-6xl font-medium text-[#C4A855]">{c.valeur}</span>
               <span class="text-lg font-light text-[#C4A855]/70 ml-1">{c.unite}</span>
             </div>
-            <p class="text-sm font-light text-white/50">{c.desc}</p>
+            <p class="text-sm font-light text-white/60 leading-relaxed max-w-[20ch] mx-auto">{c.desc}</p>
           </div>
         ))}
       </div>
 
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-base font-light text-white/60 leading-relaxed mb-4">
+      <div class="max-w-2xl mx-auto text-center border-t border-white/10 pt-16">
+        <p class="text-lg font-light text-white/70 leading-relaxed mb-6">
           On s'appelle Charly et Amandine. On a co-fondé <strong class="text-white font-normal">LAOM</strong>, un coliving sur 21 hectares dans le sud de l'Aveyron.
         </p>
-        <p class="text-base font-light text-white/60 leading-relaxed">
+        <p class="text-lg font-light text-white/70 leading-relaxed">
           On n'avait aucun diplôme en BTP, en droit, ni en agriculture. On avait 5% du budget nécessaire. Pas de réseau. Pas de modèle à suivre.
-          <strong class="text-white font-normal"> On a tout appris en faisant. Les erreurs, les galères, mais aussi les solutions pour créer un lieu attrayant et qui perdure durablement.</strong>
+        </p>
+        <p class="text-lg font-light text-white/90 leading-relaxed mt-6">
+          On a tout appris en faisant. Les erreurs, les galères, mais aussi les solutions pour créer un lieu attrayant et qui perdure durablement.
         </p>
       </div>
     </div>

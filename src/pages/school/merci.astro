@@ -261,10 +261,20 @@ const faq = [
   <!-- ============================================ -->
   <section class="pt-8 pb-4 md:pt-10 md:pb-6 bg-[#FAF8F5]">
     <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center">
-      <!-- Urgence badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-200 rounded-sm mb-4">
-        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-        <span class="text-sm font-medium text-red-700">Offre réservée aux inscrits, visible uniquement sur cette page</span>
+      <!-- Timer 1h -->
+      <div class="inline-flex flex-col items-center gap-2 px-6 py-4 bg-red-50 border border-red-200 rounded-sm mb-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+          <span class="text-sm font-medium text-red-700">Offre réservée aux inscrits, visible uniquement sur cette page</span>
+        </div>
+        <div id="countdown-top" class="flex items-center gap-2 text-red-700 mt-1">
+          <span class="font-playfair text-2xl font-medium" id="top-minutes">60</span>
+          <span class="text-xs text-red-400">min</span>
+          <span class="text-red-300">:</span>
+          <span class="font-playfair text-2xl font-medium" id="top-seconds">00</span>
+          <span class="text-xs text-red-400">sec</span>
+        </div>
+        <p class="text-[10px] text-red-400">pour profiter de ce prix</p>
       </div>
 
       <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-4">
@@ -301,7 +311,7 @@ const faq = [
           href={ctaUrl}
           class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/40 ml-2 text-sm">2 000 EUR</span>
+          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-2 text-base">2 000 EUR</span>
         </a>
         <p class="text-xs font-light text-[#2C2824]/30 mt-3">Offre exclusive inscrits · accès immédiat après paiement</p>
       </div>
@@ -350,34 +360,36 @@ const faq = [
   <!-- ============================================ -->
   <!-- BLOC 4 — La preuve (chiffres)                -->
   <!-- ============================================ -->
-  <section class="py-20 md:py-24 bg-[#2C2824] text-white">
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
     <div class="max-w-5xl mx-auto px-8 sm:px-12">
-      <div class="text-center mb-16">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">5 ans de terrain</p>
+      <div class="text-center mb-20">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">5 ans de terrain</p>
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight">
           21 hectares. 3M EUR levés. Un business model qui tourne.
         </h2>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-8 mb-16">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-12 mb-20">
         {chiffres.map((c) => (
           <div class="text-center">
-            <div class="mb-2">
-              <span class="font-playfair text-4xl md:text-5xl font-medium text-[#C4A855]">{c.valeur}</span>
+            <div class="mb-3">
+              <span class="font-playfair text-5xl md:text-6xl font-medium text-[#C4A855]">{c.valeur}</span>
               <span class="text-lg font-light text-[#C4A855]/70 ml-1">{c.unite}</span>
             </div>
-            <p class="text-sm font-light text-white/50">{c.desc}</p>
+            <p class="text-sm font-light text-white/60 leading-relaxed max-w-[20ch] mx-auto">{c.desc}</p>
           </div>
         ))}
       </div>
 
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-base font-light text-white/60 leading-relaxed mb-4">
+      <div class="max-w-2xl mx-auto text-center border-t border-white/10 pt-16">
+        <p class="text-lg font-light text-white/70 leading-relaxed mb-6">
           On s'appelle Charly et Amandine. On a co-fondé <strong class="text-white font-normal">LAOM</strong>, un coliving sur 21 hectares dans le sud de l'Aveyron.
         </p>
-        <p class="text-base font-light text-white/60 leading-relaxed">
+        <p class="text-lg font-light text-white/70 leading-relaxed">
           On n'avait aucun diplôme en BTP, en droit, ni en agriculture. On avait 5% du budget nécessaire. Pas de réseau. Pas de modèle à suivre.
-          <strong class="text-white font-normal"> On a tout appris en faisant. Les erreurs, les galères, mais aussi les solutions pour créer un lieu attrayant et qui perdure durablement.</strong>
+        </p>
+        <p class="text-lg font-light text-white/90 leading-relaxed mt-6">
+          On a tout appris en faisant. Les erreurs, les galères, mais aussi les solutions pour créer un lieu attrayant et qui perdure durablement.
         </p>
       </div>
     </div>
@@ -505,7 +517,7 @@ const faq = [
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10">
         <p class="text-sm font-light text-[#2C2824]/40 mb-2">Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.</p>
         <div class="mb-1">
-          <span class="font-playfair text-3xl font-light text-[#2C2824]/20 line-through">2 000 EUR</span>
+          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">2 000 EUR</span>
         </div>
         <div class="mb-4">
           <span class="font-playfair text-5xl font-medium text-[#2C2824]">127</span>
@@ -516,7 +528,7 @@ const faq = [
           href={ctaUrl}
           class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/40 ml-2 text-sm">2 000 EUR</span>
+          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-2 text-base">2 000 EUR</span>
         </a>
       </div>
     </div>
@@ -704,7 +716,7 @@ const faq = [
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Offre exclusive inscrits</p>
 
         <div class="mb-1">
-          <span class="font-playfair text-4xl font-light text-[#2C2824]/20 line-through">2 000 EUR</span>
+          <span class="font-playfair text-5xl font-light text-[#2C2824]/35 line-through">2 000 EUR</span>
         </div>
 
         <div class="mb-4">
@@ -712,38 +724,11 @@ const faq = [
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
 
-        <!-- Countdown -->
-        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-sm">
-          <p class="text-xs font-light text-red-600 uppercase tracking-[0.15em] mb-2">Cette offre expire dans</p>
-          <div id="countdown-main" class="flex items-center justify-center gap-3 text-red-700">
-            <div class="text-center">
-              <span class="font-playfair text-2xl font-medium" id="days-main">--</span>
-              <span class="text-[10px] block uppercase tracking-wider text-red-500">jours</span>
-            </div>
-            <span class="text-red-300 text-lg">:</span>
-            <div class="text-center">
-              <span class="font-playfair text-2xl font-medium" id="hours-main">--</span>
-              <span class="text-[10px] block uppercase tracking-wider text-red-500">heures</span>
-            </div>
-            <span class="text-red-300 text-lg">:</span>
-            <div class="text-center">
-              <span class="font-playfair text-2xl font-medium" id="minutes-main">--</span>
-              <span class="text-[10px] block uppercase tracking-wider text-red-500">min</span>
-            </div>
-            <span class="text-red-300 text-lg">:</span>
-            <div class="text-center">
-              <span class="font-playfair text-2xl font-medium" id="seconds-main">--</span>
-              <span class="text-[10px] block uppercase tracking-wider text-red-500">sec</span>
-            </div>
-          </div>
-          <p class="text-[10px] font-light text-red-400 mt-2">Dimanche 26 avril, 23h. Après, le prix remonte.</p>
-        </div>
-
         <a
           href={ctaUrl}
           class="block w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors mb-4"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/40 ml-2 text-sm">2 000 EUR</span>
+          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-2 text-base">2 000 EUR</span>
         </a>
 
         <p class="text-xs font-light text-[#2C2824]/30 leading-relaxed">
@@ -786,41 +771,24 @@ const faq = [
     </div>
   </section>
 
-  <!-- Countdown script -->
+  <!-- Timer 1h script -->
   <script is:inline>
-    function updateCountdown() {
-      // Dimanche 26 avril 2026, 23h heure de Paris (UTC+2)
-      var deadline = new Date('2026-04-26T21:00:00Z').getTime();
+    var topDeadline = new Date().getTime() + (60 * 60 * 1000);
+    function updateTopTimer() {
       var now = new Date().getTime();
-      var diff = deadline - now;
-
+      var diff = topDeadline - now;
       if (diff <= 0) {
-        document.querySelectorAll('[id^="days-"], [id^="hours-"], [id^="minutes-"], [id^="seconds-"]').forEach(function(el) {
-          el.textContent = '00';
-        });
+        document.getElementById('top-minutes').textContent = '00';
+        document.getElementById('top-seconds').textContent = '00';
         return;
       }
-
-      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
+      var m = Math.floor(diff / (1000 * 60));
+      var s = Math.floor((diff % (1000 * 60)) / 1000);
       var pad = function(n) { return n < 10 ? '0' + n : n; };
-
-      var ids = ['main'];
-      ids.forEach(function(id) {
-        var d = document.getElementById('days-' + id);
-        var h = document.getElementById('hours-' + id);
-        var m = document.getElementById('minutes-' + id);
-        var s = document.getElementById('seconds-' + id);
-        if (d) d.textContent = pad(days);
-        if (h) h.textContent = pad(hours);
-        if (m) m.textContent = pad(minutes);
-        if (s) s.textContent = pad(seconds);
-      });
+      document.getElementById('top-minutes').textContent = pad(m);
+      document.getElementById('top-seconds').textContent = pad(s);
     }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    updateTopTimer();
+    setInterval(updateTopTimer, 1000);
   </script>
 </Layout>
