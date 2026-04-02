@@ -184,7 +184,7 @@ const faq = [
   },
   {
     question: '127 EUR, c\'est vraiment le prix ?',
-    reponse: 'C\'est le prix exclusif pour les inscrits à la conférence du 21 avril, et sur cette page uniquement. Le prix normal de la formation est de 800 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.',
+    reponse: 'C\'est le prix exclusif pour les inscrits à la conférence du 21 avril, et sur cette page uniquement. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.',
   },
 ]
 ---
@@ -301,7 +301,7 @@ const faq = [
           href={ctaUrl}
           class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-1">800 EUR</span>
+          J'accède à la formation · 127 EUR <span class="line-through text-white/40 ml-2 text-sm">2 000 EUR</span>
         </a>
         <p class="text-xs font-light text-[#2C2824]/30 mt-3">Offre exclusive inscrits · accès immédiat après paiement</p>
       </div>
@@ -504,8 +504,8 @@ const faq = [
     <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center">
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10">
         <p class="text-sm font-light text-[#2C2824]/40 mb-2">Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.</p>
-        <div class="mb-2">
-          <span class="text-sm font-light text-[#2C2824]/25 line-through">800 EUR</span>
+        <div class="mb-1">
+          <span class="font-playfair text-3xl font-light text-[#2C2824]/20 line-through">2 000 EUR</span>
         </div>
         <div class="mb-4">
           <span class="font-playfair text-5xl font-medium text-[#2C2824]">127</span>
@@ -516,7 +516,7 @@ const faq = [
           href={ctaUrl}
           class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-1">800 EUR</span>
+          J'accède à la formation · 127 EUR <span class="line-through text-white/40 ml-2 text-sm">2 000 EUR</span>
         </a>
       </div>
     </div>
@@ -703,22 +703,47 @@ const faq = [
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-10 text-center">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Offre exclusive inscrits</p>
 
-        <div class="mb-2">
-          <span class="text-sm font-light text-[#2C2824]/25 line-through">800 EUR</span>
+        <div class="mb-1">
+          <span class="font-playfair text-4xl font-light text-[#2C2824]/20 line-through">2 000 EUR</span>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
           <span class="font-playfair text-6xl font-medium text-[#2C2824]">127</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
 
-
+        <!-- Countdown -->
+        <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-sm">
+          <p class="text-xs font-light text-red-600 uppercase tracking-[0.15em] mb-2">Cette offre expire dans</p>
+          <div id="countdown-main" class="flex items-center justify-center gap-3 text-red-700">
+            <div class="text-center">
+              <span class="font-playfair text-2xl font-medium" id="days-main">--</span>
+              <span class="text-[10px] block uppercase tracking-wider text-red-500">jours</span>
+            </div>
+            <span class="text-red-300 text-lg">:</span>
+            <div class="text-center">
+              <span class="font-playfair text-2xl font-medium" id="hours-main">--</span>
+              <span class="text-[10px] block uppercase tracking-wider text-red-500">heures</span>
+            </div>
+            <span class="text-red-300 text-lg">:</span>
+            <div class="text-center">
+              <span class="font-playfair text-2xl font-medium" id="minutes-main">--</span>
+              <span class="text-[10px] block uppercase tracking-wider text-red-500">min</span>
+            </div>
+            <span class="text-red-300 text-lg">:</span>
+            <div class="text-center">
+              <span class="font-playfair text-2xl font-medium" id="seconds-main">--</span>
+              <span class="text-[10px] block uppercase tracking-wider text-red-500">sec</span>
+            </div>
+          </div>
+          <p class="text-[10px] font-light text-red-400 mt-2">Dimanche 26 avril, 23h. Après, le prix remonte.</p>
+        </div>
 
         <a
           href={ctaUrl}
           class="block w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors mb-4"
         >
-          J'accède à la formation · 127 EUR <span class="line-through text-white/50 ml-1">800 EUR</span>
+          J'accède à la formation · 127 EUR <span class="line-through text-white/40 ml-2 text-sm">2 000 EUR</span>
         </a>
 
         <p class="text-xs font-light text-[#2C2824]/30 leading-relaxed">
@@ -760,4 +785,42 @@ const faq = [
       </p>
     </div>
   </section>
+
+  <!-- Countdown script -->
+  <script is:inline>
+    function updateCountdown() {
+      // Dimanche 26 avril 2026, 23h heure de Paris (UTC+2)
+      var deadline = new Date('2026-04-26T21:00:00Z').getTime();
+      var now = new Date().getTime();
+      var diff = deadline - now;
+
+      if (diff <= 0) {
+        document.querySelectorAll('[id^="days-"], [id^="hours-"], [id^="minutes-"], [id^="seconds-"]').forEach(function(el) {
+          el.textContent = '00';
+        });
+        return;
+      }
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      var pad = function(n) { return n < 10 ? '0' + n : n; };
+
+      var ids = ['main'];
+      ids.forEach(function(id) {
+        var d = document.getElementById('days-' + id);
+        var h = document.getElementById('hours-' + id);
+        var m = document.getElementById('minutes-' + id);
+        var s = document.getElementById('seconds-' + id);
+        if (d) d.textContent = pad(days);
+        if (h) h.textContent = pad(hours);
+        if (m) m.textContent = pad(minutes);
+        if (s) s.textContent = pad(seconds);
+      });
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </Layout>
