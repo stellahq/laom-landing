@@ -170,36 +170,82 @@ const faq = [
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
-  <!-- Hero + VSL -->
-  <section class="relative py-32 lg:py-40 flex items-center justify-center overflow-hidden -mt-24 md:-mt-28">
+  <!-- Bandeau timer sticky 26 avril -->
+  <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
+    <!-- Desktop -->
+    <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-base font-medium text-white">Offre de lancement</span>
+      </div>
+      <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-days">--</span>
+          <span class="text-[10px] block text-red-400/70">j</span>
+        </div>
+        <span class="text-red-400/50 text-lg">:</span>
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-hours">--</span>
+          <span class="text-[10px] block text-red-400/70">h</span>
+        </div>
+        <span class="text-red-400/50 text-lg">:</span>
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-minutes">--</span>
+          <span class="text-[10px] block text-red-400/70">min</span>
+        </div>
+        <span class="text-red-400/50 text-lg">:</span>
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-seconds">--</span>
+          <span class="text-[10px] block text-red-400/70">sec</span>
+        </div>
+      </div>
+      <a
+        href="#offre"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-5 py-2 text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors flex-shrink-0"
+      >
+        J'en profite
+      </a>
+    </div>
+    <!-- Mobile -->
+    <a href="#offre" class="sm:hidden flex items-center justify-between px-4 py-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-xs font-medium text-white">Offre de lancement</span>
+      </div>
+      <div class="flex items-center gap-1 bg-red-600/20 px-3 py-1 rounded-sm">
+        <span class="font-playfair text-base font-bold text-red-400" id="cd-days-m">--</span>
+        <span class="text-[10px] text-red-400/70">j</span>
+        <span class="text-red-400/50 mx-0.5">:</span>
+        <span class="font-playfair text-base font-bold text-red-400" id="cd-hours-m">--</span>
+        <span class="text-[10px] text-red-400/70">h</span>
+        <span class="text-red-400/50 mx-0.5">:</span>
+        <span class="font-playfair text-base font-bold text-red-400" id="cd-minutes-m">--</span>
+        <span class="text-[10px] text-red-400/70">min</span>
+      </div>
+      <span class="text-xs text-[#C4A855] font-medium uppercase tracking-wider">J'en profite</span>
+    </a>
+  </div>
+
+  <!-- Hero -->
+  <section class="relative py-28 lg:py-36 flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
       <img
-        src="/images/laom/festival-laom-ambiance-nature-aveyron.webp"
-        alt="Vue de LAOM, écolieu en Aveyron"
+        src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
+        alt="Vue aérienne du Grand Shambala, LAOM, Aveyron"
         class="absolute inset-0 w-full h-full object-cover object-center"
         loading="eager"
         fetchpriority="high"
       />
-      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="absolute inset-0 bg-black/55"></div>
     </div>
     <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <p class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855] mb-6">Formation en ligne</p>
       <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-6 tracking-tight drop-shadow-lg leading-tight">
         Crée ton lieu sans perdre 5 ans et 49&nbsp;000&nbsp;EUR en erreurs
       </h1>
-      <p class="text-lg md:text-xl font-light text-white/80 max-w-2xl mx-auto leading-relaxed mb-12">
+      <p class="text-lg md:text-xl font-light text-white/80 max-w-2xl mx-auto leading-relaxed">
         La feuille de route complète pour passer de l'idée au lieu qui tourne, par ceux qui l'ont fait.
       </p>
-      <a
-        href="#vsl"
-        class="inline-flex items-center justify-center text-white/70 hover:text-white transition-colors group"
-        aria-label="Voir la vidéo"
-      >
-        <span class="text-xs tracking-[0.2em] uppercase mr-3">Voir la vidéo</span>
-        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </a>
     </div>
   </section>
 
@@ -600,4 +646,37 @@ const faq = [
       Questions ? <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-white/40 transition-colors">hello@laom.fr</a>
     </p>
   </section>
+
+  <!-- Countdown 26 avril script -->
+  <script is:inline>
+    function updateCountdown() {
+      var deadline = new Date('2026-04-26T21:00:00Z').getTime();
+      var now = new Date().getTime();
+      var diff = deadline - now;
+      var pad = function(n) { return n < 10 ? '0' + n : n; };
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-minutes','cd-seconds','cd-days-m','cd-hours-m','cd-minutes-m'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = '00';
+        });
+        return;
+      }
+      var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var s = Math.floor((diff % (1000 * 60)) / 1000);
+      document.getElementById('cd-days').textContent = pad(d);
+      document.getElementById('cd-hours').textContent = pad(h);
+      document.getElementById('cd-minutes').textContent = pad(m);
+      document.getElementById('cd-seconds').textContent = pad(s);
+      var dm = document.getElementById('cd-days-m');
+      var hm = document.getElementById('cd-hours-m');
+      var mm = document.getElementById('cd-minutes-m');
+      if (dm) dm.textContent = pad(d);
+      if (hm) hm.textContent = pad(h);
+      if (mm) mm.textContent = pad(m);
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </Layout>
