@@ -1,0 +1,102 @@
+---
+// Meta Pixel — dual tracking (browser pixel + server-side CAPI)
+// 
+// Usage: include once in Layout.astro <head>
+// 
+// Client-side: fbevents.js fires PageView + standard events
+// Server-side: each event is also sent to /api/meta-capi for
+//   better match rates and adblock resistance
+//
+// Deduplication: same event_id is sent to both, Meta dedupes automatically
+---
+
+<!-- Meta Pixel Code -->
+<script is:inline>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '25994721960205947');
+
+// --- LAOM dual-tracking helper ---
+(function() {
+  // Read Meta cookies
+  function getCookie(name) {
+    var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  // Generate a unique event ID for deduplication
+  function eventId() {
+    return 'eid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  }
+
+  // Send event to both browser pixel and server CAPI
+  window.__laomTrack = function(eventName, customData, userData) {
+    var eid = eventId();
+
+    // 1. Browser pixel (with eventID for dedup)
+    if (typeof fbq === 'function') {
+      fbq('track', eventName, customData || {}, { eventID: eid });
+    }
+
+    // 2. Server-side CAPI (fire and forget)
+    var payload = {
+      events: [{
+        event_name: eventName,
+        event_id: eid,
+        event_source_url: window.location.href,
+        custom_data: customData || undefined,
+        user_data: userData || undefined
+      }],
+      fbp: getCookie('_fbp'),
+      fbc: getCookie('_fbc')
+    };
+
+    // Use sendBeacon for reliability (works even on page unload)
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/meta-capi', JSON.stringify(payload));
+    } else {
+      fetch('/api/meta-capi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function() {});
+    }
+  };
+
+  // Auto-track PageView on load
+  var pvId = eventId();
+  fbq('track', 'PageView', {}, { eventID: pvId });
+
+  // CAPI PageView
+  var pvPayload = {
+    events: [{
+      event_name: 'PageView',
+      event_id: pvId,
+      event_source_url: window.location.href
+    }],
+    fbp: getCookie('_fbp'),
+    fbc: getCookie('_fbc')
+  };
+
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon('/api/meta-capi', JSON.stringify(pvPayload));
+  } else {
+    fetch('/api/meta-capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pvPayload),
+      keepalive: true
+    }).catch(function() {});
+  }
+})();
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=25994721960205947&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Meta Pixel Code -->

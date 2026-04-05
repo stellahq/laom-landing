@@ -38,6 +38,7 @@ import SEO from '~/components/SEO.astro'
 import Header from '~/components/Header.astro'
 import Footer from '~/components/Footer.astro'
 import DevImageManagerBridge from '~/components/DevImageManagerBridge.astro'
+import MetaPixel from '~/components/MetaPixel.astro'
 
 // Merge SEO props with defaults
 const seoProps = {
@@ -60,6 +61,7 @@ const seoProps = {
       gtag('js', new Date());
       gtag('config', 'G-RB6J5QX8TD');
     </script>
+    <MetaPixel />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
