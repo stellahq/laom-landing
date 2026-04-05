@@ -547,7 +547,7 @@ const testimonials = [
     document.querySelectorAll('.animate-enter, .learning-card').forEach((el) => observer.observe(el))
   </script>
 
-  <!-- Formulaire : tag Kit + redirect vers /school/merci/ -->
+  <!-- Formulaire : tag Kit + redirect vers /school/merci/ + conversion tracking -->
   <script is:inline>
     function handleTalkForm(formId, btnId) {
       var form = document.getElementById(formId);
@@ -557,6 +557,26 @@ const testimonials = [
         if (btn) {
           btn.disabled = true;
           btn.textContent = 'Inscription en cours...';
+        }
+        // Track Lead event (Meta Pixel + CAPI + GA4)
+        if (typeof window.__laomTrack === 'function') {
+          var emailField = form.querySelector('input[name="email_address"]');
+          var nameField = form.querySelector('input[name="fields[first_name]"]');
+          window.__laomTrack('Lead', {
+            content_name: 'webinar-laom-talk-21-avril',
+            content_category: 'webinar_registration'
+          }, {
+            em: emailField ? emailField.value : undefined,
+            fn: nameField ? nameField.value : undefined
+          });
+        }
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            event_category: 'webinar',
+            event_label: 'laom-talk-21-avril',
+            value: 0,
+            currency: 'EUR'
+          });
         }
         setTimeout(function() {
           window.location.href = '/school/merci/';

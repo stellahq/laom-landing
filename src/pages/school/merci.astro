@@ -797,6 +797,46 @@ const faq = [
     </div>
   </section>
 
+  <!-- Conversion tracking: Lead (inscription confirmée) + InitiateCheckout (CTA 127 EUR) -->
+  <script is:inline>
+    // Fire Lead event on page load (user just registered for webinar)
+    if (typeof window.__laomTrack === 'function') {
+      window.__laomTrack('Lead', {
+        content_name: 'webinar-laom-talk-21-avril',
+        content_category: 'webinar_registration'
+      });
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        event_category: 'webinar',
+        event_label: 'laom-talk-21-avril',
+        value: 0,
+        currency: 'EUR'
+      });
+    }
+    // Track InitiateCheckout on all OTO CTA clicks (127 EUR offer)
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href*="127"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (typeof window.__laomTrack === 'function') {
+            window.__laomTrack('InitiateCheckout', {
+              value: 127,
+              currency: 'EUR',
+              content_name: 'laom-school-oto-127'
+            });
+          }
+          if (typeof gtag === 'function') {
+            gtag('event', 'begin_checkout', {
+              value: 127,
+              currency: 'EUR',
+              items: [{ item_name: 'LAOM School Online OTO', price: 127 }]
+            });
+          }
+        });
+      });
+    });
+  </script>
+
   <!-- Timer 1h script -->
   <script is:inline>
     var topDeadline = new Date().getTime() + (60 * 60 * 1000);
