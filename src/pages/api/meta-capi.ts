@@ -118,7 +118,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }
     )
 
-    const result = await response.json()
+    const result = await response.json() as { events_received?: number; fbtrace_id?: string }
 
     if (!response.ok) {
       console.error('[CAPI] Meta API error:', JSON.stringify(result))
