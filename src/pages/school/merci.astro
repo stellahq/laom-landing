@@ -33,8 +33,8 @@ STATUS:CONFIRMED
 END:VEVENT
 END:VCALENDAR`
 
-// Lien CTA — remplacer par le lien Stripe à 127 EUR quand prêt
-const ctaUrl = 'mailto:hello@laom.fr?subject=LAOM%20School%20Online%20—%20Offre%20inscrits%20127%20EUR'
+// Paiement Mollie — checkout dynamique à 147 EUR (offre inscrits webinar)
+const ctaProductId = 'school-merci'
 
 const modules = [
   {
@@ -183,7 +183,7 @@ const faq = [
     reponse: 'Oui, c\'est fait pour. Chaque live est un Q&A / coaching collectif. Tu peux passer en "hot seat" pour avoir un retour personnalisé sur ton projet.',
   },
   {
-    question: '127 EUR, c\'est vraiment le prix ?',
+    question: '147 EUR, c\'est vraiment le prix ?',
     reponse: 'C\'est le prix exclusif pour les inscrits à la conférence du 21 avril, et sur cette page uniquement. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.',
   },
 ]
@@ -333,12 +333,13 @@ const faq = [
 
       <!-- CTA #1 — Sous la VSL -->
       <div class="text-center mt-10">
-        <a
-          href={ctaUrl}
-          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        <button
+          type="button"
+          data-mollie-product="school-merci"
+          class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
         >
-          J'accède à la formation + l'accompagnement · 127 EUR
-        </a>
+          J'accède à la formation + l'accompagnement · 147 EUR
+        </button>
         <p class="text-xs font-light text-[#2C2824]/30 mt-3">Offre exclusive inscrits · accès immédiat après paiement</p>
       </div>
     </div>
@@ -546,16 +547,17 @@ const faq = [
           <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOM School = 2 000 EUR</span>
         </div>
         <div class="mb-4">
-          <span class="font-playfair text-5xl font-medium text-[#2C2824]">127</span>
+          <span class="font-playfair text-5xl font-medium text-[#2C2824]">147</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
         <p class="text-xs font-light text-[#2C2824]/40 mb-6">Offre exclusive inscrits · uniquement sur cette page</p>
-        <a
-          href={ctaUrl}
-          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        <button
+          type="button"
+          data-mollie-product="school-merci"
+          class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
         >
-          J'accède à la formation + l'accompagnement · 127 EUR
-        </a>
+          J'accède à la formation + l'accompagnement · 147 EUR
+        </button>
       </div>
     </div>
   </section>
@@ -746,16 +748,17 @@ const faq = [
         </div>
 
         <div class="mb-4">
-          <span class="font-playfair text-6xl font-medium text-[#2C2824]">127</span>
+          <span class="font-playfair text-6xl font-medium text-[#2C2824]">147</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
 
-        <a
-          href={ctaUrl}
-          class="block w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors mb-4"
+        <button
+          type="button"
+          data-mollie-product="school-merci"
+          class="mollie-cta block w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors mb-4 cursor-pointer"
         >
-          J'accède à la formation + l'accompagnement · 127 EUR
-        </a>
+          J'accède à la formation + l'accompagnement · 147 EUR
+        </button>
 
         <p class="text-xs font-light text-[#2C2824]/30 leading-relaxed">
           Cette offre n'apparaît que sur cette page. Elle ne sera pas proposée pendant la conférence du 21 avril.
@@ -780,14 +783,15 @@ const faq = [
         On se retrouve dans tous les cas le 21 avril à 20h30 pour la conférence, où je répondrai également à toutes tes questions.
       </p>
       <p class="text-sm font-light text-white/35 mb-8">
-        (Cependant, cette offre à 127 EUR ne sera pas disponible.)
+        (Cependant, cette offre à 147 EUR ne sera pas disponible.)
       </p>
-      <a
-        href={ctaUrl}
-        class="inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors"
+      <button
+        type="button"
+        data-mollie-product="school-merci"
+        class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
       >
-        J'accède à la formation + l'accompagnement · 127 EUR
-      </a>
+        J'accède à la formation + l'accompagnement · 147 EUR
+      </button>
       <p class="text-sm font-light text-white/40 mt-10">
         Charly
       </p>
@@ -797,7 +801,7 @@ const faq = [
     </div>
   </section>
 
-  <!-- Conversion tracking: Lead (inscription confirmée) + InitiateCheckout (CTA 127 EUR) -->
+  <!-- Conversion tracking: Lead (inscription confirmée) + InitiateCheckout (CTA 147 EUR) -->
   <script is:inline>
     // Fire Lead event on page load (user just registered for webinar)
     if (typeof window.__laomTrack === 'function') {
@@ -814,25 +818,64 @@ const faq = [
         currency: 'EUR'
       });
     }
-    // Track InitiateCheckout on all OTO CTA clicks (127 EUR offer)
+    // Track InitiateCheckout on all Mollie CTA clicks (147 EUR offer)
     document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('a[href*="127"]').forEach(function(link) {
-        link.addEventListener('click', function() {
+      document.querySelectorAll('.mollie-cta').forEach(function(btn) {
+        btn.addEventListener('click', function() {
           if (typeof window.__laomTrack === 'function') {
             window.__laomTrack('InitiateCheckout', {
-              value: 127,
+              value: 147,
               currency: 'EUR',
-              content_name: 'laom-school-oto-127'
+              content_name: 'laom-school-oto-147'
             });
           }
           if (typeof gtag === 'function') {
             gtag('event', 'begin_checkout', {
-              value: 127,
+              value: 147,
               currency: 'EUR',
-              items: [{ item_name: 'LAOM School Online OTO', price: 127 }]
+              items: [{ item_name: 'LAOM School Online OTO', price: 147 }]
             });
           }
         });
+      });
+    });
+  </script>
+
+  <!-- Mollie checkout script -->
+  <script is:inline>
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.mollie-cta');
+      if (!btn) return;
+      e.preventDefault();
+      var product = btn.getAttribute('data-mollie-product');
+      if (!product) return;
+
+      var originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Redirection en cours...';
+      btn.style.opacity = '0.7';
+
+      fetch('/api/mollie/create-payment/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: product })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+        } else {
+          alert('Erreur lors de la création du paiement. Contacte-nous à hello@laom.fr');
+          btn.disabled = false;
+          btn.textContent = originalText;
+          btn.style.opacity = '1';
+        }
+      })
+      .catch(function() {
+        alert('Erreur de connexion. Réessaie ou contacte-nous à hello@laom.fr');
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.opacity = '1';
       });
     });
   </script>

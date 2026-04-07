@@ -1,0 +1,104 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageSchema = createWebPageSchema({
+  name: 'Paiement confirmé — LAOM School Online',
+  url: Astro.url.toString(),
+  description: 'Merci pour ton achat. Tu as désormais accès à LAOM School Online.',
+})
+
+const product = Astro.url.searchParams.get('product') || 'school-online'
+const isMerci = product === 'school-merci'
+const is2x = product === 'school-online-2x'
+---
+
+<Layout
+  title="Bienvenue dans LAOM School Online"
+  description="Ton accès à la formation est confirmé. Bienvenue !"
+  seo={{ ldJSON: pageSchema, noIndex: true }}
+  hideChrome={true}
+>
+
+  <!-- Confirmation -->
+  <section class="min-h-screen flex items-center justify-center bg-[#FAF8F5]">
+    <div class="max-w-2xl mx-auto px-8 sm:px-12 text-center py-24">
+
+      <!-- Checkmark -->
+      <div class="w-20 h-20 rounded-full border-2 border-[#4A7C59] bg-[#4A7C59]/20 flex items-center justify-center mx-auto mb-8">
+        <svg class="w-10 h-10 text-[#6BBF7B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+
+      <h1 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+        Bienvenue dans LAOM School.
+      </h1>
+
+      <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-4">
+        Ton paiement est en cours de traitement. Tu vas recevoir un email de confirmation à l'adresse que tu as utilisée pour le paiement.
+      </p>
+
+      <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-8">
+        Si tu ne vois rien d'ici quelques minutes, vérifie tes spams ou ton onglet Promotions.
+      </p>
+
+      <!-- Récap -->
+      <div class="bg-white border border-black/5 rounded-sm p-8 mb-10 text-left">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Ce que tu as obtenu</p>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+            <span><strong class="font-medium text-[#2C2824]">8 modules de formation</strong> — accès à vie</span>
+          </li>
+          <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+            <span><strong class="font-medium text-[#2C2824]">12 lives collectifs avec Charly</strong> — 6 mois</span>
+          </li>
+          <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+            <span><strong class="font-medium text-[#2C2824]">Communauté de porteurs de projet</strong></span>
+          </li>
+        </ul>
+        <div class="mt-6 pt-4 border-t border-black/5 text-center">
+          <span class="font-playfair text-2xl font-medium text-[#2C2824]">{isMerci ? '147' : is2x ? '2 x 248,50' : '497'}</span>
+          <span class="text-sm font-light text-[#2C2824]/50 ml-1">EUR</span>
+        </div>
+      </div>
+
+      <!-- Prochaines étapes -->
+      <div class="bg-[#2C2824] rounded-sm p-8 text-left">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Prochaines étapes</p>
+        <ol class="space-y-4">
+          <li class="flex items-start gap-4">
+            <span class="w-7 h-7 rounded-full bg-[#C4A855] text-white text-sm flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <p class="text-white font-medium text-sm">Vérifie ta boîte mail</p>
+              <p class="text-white/50 font-light text-sm">Tu vas recevoir un email avec tes accès à la formation.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-7 h-7 rounded-full bg-[#C4A855] text-white text-sm flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <p class="text-white font-medium text-sm">Commence le Module 1</p>
+              <p class="text-white/50 font-light text-sm">Définir ton groupe — c'est la base de tout.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-7 h-7 rounded-full bg-[#C4A855] text-white text-sm flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <div>
+              <p class="text-white font-medium text-sm">Rejoins le premier live</p>
+              <p class="text-white/50 font-light text-sm">Semaine du 27 avril. Le lien sera dans ton email.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Contact -->
+      <p class="text-sm font-light text-[#2C2824]/40 mt-10">
+        Une question ? <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-[#2C2824]/60 transition-colors">hello@laom.fr</a>
+      </p>
+    </div>
+  </section>
+
+</Layout>

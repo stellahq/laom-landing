@@ -5,11 +5,11 @@ import { createWebPageSchema } from '~/utils/schema'
 const pageSchema = createWebPageSchema({
   name: 'LAOM School Online — La feuille de route pour créer ton lieu',
   url: Astro.url.toString(),
-  description: 'Formation en ligne : 8 modules + 12 lives avec Charly pendant 6 mois. Tout ce qu\'on a appris en 5 ans pour créer un lieu qui tourne. 147 EUR.',
+  description: 'Formation en ligne : 8 modules + 12 lives avec Charly pendant 6 mois. Tout ce qu\'on a appris en 5 ans pour créer un lieu qui tourne. 497 EUR.',
 })
 
-// Lien CTA — remplacer par le lien Stripe à 147 EUR quand prêt
-const ctaUrl = 'mailto:hello@laom.fr?subject=LAOM%20School%20Online%20—%20Je%20veux%20rejoindre'
+// Paiement Mollie — checkout dynamique à 497 EUR (ou 2 x 248,50 EUR)
+const ctaProductId = 'school-online'
 
 const modules = [
   {
@@ -158,15 +158,15 @@ const faq = [
     reponse: 'Oui, c\'est fait pour. Chaque live est une session de Q&A collectif. Tu peux obtenir un retour personnalisé de Charly sur ta situation.',
   },
   {
-    question: '147 EUR, c\'est vraiment le prix ?',
-    reponse: 'Oui. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.',
+    question: '497 EUR, c\'est vraiment le prix ?',
+    reponse: 'Oui. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois. Et tu peux payer en 2 fois (2 x 248,50 EUR).',
   },
 ]
 ---
 
 <Layout
   title="LAOM School Online — Crée ton lieu sans perdre 5 ans et 49 000 EUR en erreurs | LAOM"
-  description="Formation en ligne : 8 modules + 12 lives avec Charly pendant 6 mois. La feuille de route complète pour créer un lieu qui tourne. 147 EUR."
+  description="Formation en ligne : 8 modules + 12 lives avec Charly pendant 6 mois. La feuille de route complète pour créer un lieu qui tourne. 497 EUR."
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
@@ -457,15 +457,25 @@ const faq = [
           <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOM School = 2 000 EUR</span>
         </div>
         <div class="mb-4">
-          <span class="font-playfair text-5xl font-medium text-[#2C2824]">147</span>
+          <span class="font-playfair text-5xl font-medium text-[#2C2824]">497</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
-        <a
-          href={ctaUrl}
-          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
-        >
-          J'accède à la formation + l'accompagnement · 147 EUR
-        </a>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button
+            type="button"
+            data-mollie-product="school-online"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+          >
+            Paiement unique · 497 EUR
+          </button>
+          <button
+            type="button"
+            data-mollie-product="school-online-2x"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
+          >
+            2 x 248,50 EUR
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -615,18 +625,28 @@ const faq = [
           <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOM School = 2 000 EUR</span>
         </div>
         <div class="mb-4">
-          <span class="font-playfair text-6xl font-medium text-[#2C2824]">147</span>
+          <span class="font-playfair text-6xl font-medium text-[#2C2824]">497</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
         <p class="text-sm font-light text-[#2C2824]/50 mb-8 max-w-md mx-auto">
           Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.
         </p>
-        <a
-          href={ctaUrl}
-          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
-        >
-          J'accède à la formation + l'accompagnement · 147 EUR
-        </a>
+        <div class="flex flex-col gap-3">
+          <button
+            type="button"
+            data-mollie-product="school-online"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+          >
+            J'accède à la formation + l'accompagnement · 497 EUR
+          </button>
+          <button
+            type="button"
+            data-mollie-product="school-online-2x"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
+          >
+            ou en 2 fois : 2 x 248,50 EUR
+          </button>
+        </div>
         <p class="text-xs font-light text-[#2C2824]/30 mt-4">Ce prix ne sera pas maintenu.</p>
       </div>
     </div>
@@ -637,19 +657,27 @@ const faq = [
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Tu as un projet de lieu. On a 5 ans de réponses.</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
-        8 modules. 12 lives. 147&nbsp;EUR.
+        8 modules. 12 lives. 497&nbsp;EUR.
       </h2>
       <p class="text-lg font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
         Tout ce qu'on a appris en 5 ans, structuré pour que tu ailles plus vite que nous.
       </p>
 
-      <div class="flex flex-wrap justify-center gap-4">
-        <a
-          href={ctaUrl}
-          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+      <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
+        <button
+          type="button"
+          data-mollie-product="school-online"
+          class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
         >
-          J'accède à la formation + l'accompagnement · 147 EUR
-        </a>
+          Paiement unique · 497 EUR
+        </button>
+        <button
+          type="button"
+          data-mollie-product="school-online-2x"
+          class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
+        >
+          2 x 248,50 EUR
+        </button>
       </div>
 
       <p class="text-xs font-light text-white/30 mt-8">
@@ -668,6 +696,46 @@ const faq = [
       Questions ? <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-white/40 transition-colors">hello@laom.fr</a>
     </p>
   </section>
+
+  <!-- Mollie checkout script -->
+  <script is:inline>
+    document.addEventListener('click', function(e) {
+      var btn = e.target.closest('.mollie-cta');
+      if (!btn) return;
+      e.preventDefault();
+      var product = btn.getAttribute('data-mollie-product');
+      if (!product) return;
+
+      // Désactiver le bouton pendant le chargement
+      var originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Redirection en cours...';
+      btn.style.opacity = '0.7';
+
+      fetch('/api/mollie/create-payment/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: product })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
+        } else {
+          alert('Erreur lors de la création du paiement. Contacte-nous à hello@laom.fr');
+          btn.disabled = false;
+          btn.textContent = originalText;
+          btn.style.opacity = '1';
+        }
+      })
+      .catch(function() {
+        alert('Erreur de connexion. Réessaie ou contacte-nous à hello@laom.fr');
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.opacity = '1';
+      });
+    });
+  </script>
 
   <!-- Countdown 26 avril script -->
   <script is:inline>
