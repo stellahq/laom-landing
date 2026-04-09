@@ -85,7 +85,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       value: productConfig.amount,
     },
     description: productConfig.description,
-    method: ['creditcard', 'applepay'],
+    method: 'creditcard',
     redirectUrl: `${origin}/school/confirmation/?product=${product}`,
     webhookUrl: `${origin}/api/mollie/webhook/`,
     metadata: {
