@@ -1010,6 +1010,14 @@ const faq = [
         if (e.clientY <= 0) showPopup();
       });
 
+      // Changement d'onglet / alt-tab (après 10s minimum sur la page)
+      var pageLoadTime = Date.now();
+      document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden' && (Date.now() - pageLoadTime) > 10000) {
+          showPopup();
+        }
+      });
+
       // Mobile : après 45s d'inactivité
       var mobileTimer = setTimeout(function() {
         if (window.innerWidth < 768) showPopup();
