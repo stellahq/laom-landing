@@ -184,7 +184,7 @@ const faq = [
   },
   {
     question: '147 EUR, c\'est vraiment le prix ?',
-    reponse: 'C\'est le prix exclusif pour les inscrits à la conférence du 21 avril, et sur cette page uniquement. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.',
+    reponse: 'Oui. Le prix normal est de 2 000 EUR, le prix inscrits conférence est de 497 EUR. En tant qu\'inscrit à la conférence du 21 avril, tu bénéficies du prix de 147 EUR, uniquement sur cette page. C\'est -93% par rapport au prix normal.',
   },
 ]
 ---
@@ -333,6 +333,7 @@ const faq = [
 
       <!-- CTA #1 — Sous la VSL -->
       <div class="text-center mt-10">
+        <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855] mb-3">Offre exclusive inscrits conférence</p>
         <div class="mb-3">
           <span class="text-sm font-light text-[#2C2824]/25 line-through mr-2">2 000 EUR</span>
           <span class="text-sm font-light text-[#2C2824]/25 line-through mr-2">497 EUR</span>
@@ -346,7 +347,7 @@ const faq = [
         >
           J'accède à la formation · 147 EUR
         </button>
-        <p class="text-xs font-light text-[#2C2824]/30 mt-3">Offre exclusive inscrits · uniquement sur cette page</p>
+        <p class="text-xs font-light text-[#2C2824]/30 mt-3">Uniquement sur cette page</p>
       </div>
     </div>
   </section>
@@ -547,36 +548,49 @@ const faq = [
   <!-- ============================================ -->
   <section class="py-12 bg-[#FAF8F5]">
     <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center">
-      <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10">
-        <!-- Escalier de prix -->
-        <div class="space-y-2 mb-6">
-          <div class="flex items-center justify-center gap-3">
-            <span class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/30">Prix normal</span>
-            <span class="font-playfair text-2xl font-light text-[#2C2824]/25 line-through">2 000 EUR</span>
-          </div>
-          <div class="flex items-center justify-center gap-3">
-            <span class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/30">Prix site</span>
-            <span class="font-playfair text-2xl font-light text-[#2C2824]/30 line-through">497 EUR</span>
-          </div>
+      <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10 text-center relative overflow-hidden">
+
+        <!-- Badge coin supérieur droit -->
+        <div class="absolute top-0 right-0 bg-[#C4A855] text-white text-sm font-medium pl-4 pr-4 py-2" style="clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);">
+          -93%
         </div>
 
-        <!-- Prix final avec badge -->
-        <div class="relative inline-block mb-2">
-          <div class="absolute -top-3 -right-14 bg-[#C4A855] text-white text-xs font-medium px-2.5 py-1 rounded-full">
-            -93%
-          </div>
-          <span class="font-playfair text-6xl font-medium text-[#2C2824]">147</span>
-          <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-8">Offre exclusive inscrits conférence</p>
+
+        <!-- Ligne 1 : Prix normal barré -->
+        <div class="flex items-center justify-center gap-4 mb-3">
+          <span class="text-sm font-light tracking-[0.1em] uppercase text-[#2C2824]/30 w-44 text-right">Prix normal</span>
+          <span class="font-playfair text-2xl text-[#2C2824]/20 line-through decoration-[#2C2824]/30 decoration-2">2 000 EUR</span>
         </div>
-        <p class="text-xs font-light text-[#C4A855] mb-6 tracking-wide">Uniquement sur cette page</p>
+
+        <!-- Ligne 2 : Prix inscrits conférence barré -->
+        <div class="flex items-center justify-center gap-4 mb-6">
+          <span class="text-sm font-light tracking-[0.1em] uppercase text-[#2C2824]/30 w-44 text-right">Prix inscrits conférence</span>
+          <span class="font-playfair text-2xl text-[#2C2824]/25 line-through decoration-[#2C2824]/25 decoration-2">497 EUR</span>
+        </div>
+
+        <!-- Séparateur doré -->
+        <div class="w-16 h-px bg-[#C4A855] mx-auto mb-6"></div>
+
+        <!-- Prix final -->
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855]/70 mb-2">Ton prix aujourd'hui</p>
+        <div class="mb-2">
+          <span class="font-playfair text-7xl md:text-8xl font-medium text-[#2C2824]">147</span>
+          <span class="text-2xl font-light text-[#2C2824]/40 ml-1">EUR</span>
+        </div>
+        <p class="text-sm font-light text-[#2C2824]/40 mb-8">au lieu de <span class="line-through">2 000 EUR</span> — uniquement sur cette page</p>
 
         <button
           type="button"
           data-mollie-product="school-merci"
-          class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+          class="mollie-cta block w-full rounded-sm bg-[#C4A855] text-white px-8 py-5 text-sm tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium"
         >
           J'accède à la formation · 147 EUR
         </button>
+
+        <p class="text-xs font-light text-[#2C2824]/30 leading-relaxed mt-4">
+          Cette offre n'apparaît que sur cette page.
+        </p>
       </div>
     </div>
   </section>
@@ -766,24 +780,24 @@ const faq = [
           -93%
         </div>
 
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-8">Offre exclusive inscrits</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-8">Offre exclusive inscrits conférence</p>
 
         <!-- Ligne 1 : Prix normal barré -->
         <div class="flex items-center justify-center gap-4 mb-3">
-          <span class="text-sm font-light tracking-[0.1em] uppercase text-[#2C2824]/30 w-32 text-right">Prix normal</span>
+          <span class="text-sm font-light tracking-[0.1em] uppercase text-[#2C2824]/30 w-44 text-right">Prix normal</span>
           <span class="font-playfair text-2xl text-[#2C2824]/20 line-through decoration-[#2C2824]/30 decoration-2">2 000 EUR</span>
         </div>
 
-        <!-- Ligne 2 : Prix préférentiel barré -->
+        <!-- Ligne 2 : Prix inscrits conférence barré -->
         <div class="flex items-center justify-center gap-4 mb-6">
-          <span class="text-sm font-light tracking-[0.1em] uppercase text-[#2C2824]/30 w-32 text-right">Prix site</span>
+          <span class="text-sm font-light tracking-[0.1em] uppercase text-[#2C2824]/30 w-44 text-right">Prix inscrits conférence</span>
           <span class="font-playfair text-2xl text-[#2C2824]/25 line-through decoration-[#2C2824]/25 decoration-2">497 EUR</span>
         </div>
 
         <!-- Séparateur doré -->
         <div class="w-16 h-px bg-[#C4A855] mx-auto mb-6"></div>
 
-        <!-- Ligne 3 : Prix final — gros, doré, punchline -->
+        <!-- Prix final -->
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855]/70 mb-2">Ton prix aujourd'hui</p>
         <div class="mb-2">
           <span class="font-playfair text-7xl md:text-8xl font-medium text-[#2C2824]">147</span>
@@ -794,25 +808,14 @@ const faq = [
         <button
           type="button"
           data-mollie-product="school-merci"
-          class="mollie-cta block w-full rounded-sm bg-[#C4A855] text-white px-8 py-5 text-sm tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors mb-4 cursor-pointer font-medium"
+          class="mollie-cta block w-full rounded-sm bg-[#C4A855] text-white px-8 py-5 text-sm tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium"
         >
           J'accède à la formation · 147 EUR
         </button>
 
-        <p class="text-xs font-light text-[#2C2824]/30 leading-relaxed">
-          Cette offre n'apparaît que sur cette page. Elle ne sera pas proposée pendant la conférence du 21 avril.
+        <p class="text-xs font-light text-[#2C2824]/30 leading-relaxed mt-4">
+          Cette offre n'apparaît que sur cette page.
         </p>
-
-        <div class="mt-6 pt-6 border-t border-black/5 flex items-center justify-center gap-6">
-          <p class="text-xs font-light text-[#2C2824]/40 flex items-center gap-2">
-            <span class="text-[#4A7C59]">&#10003;</span>
-            Accès immédiat
-          </p>
-          <p class="text-xs font-light text-[#2C2824]/40 flex items-center gap-2">
-            <span class="text-[#4A7C59]">&#10003;</span>
-            Paiement sécurisé
-          </p>
-        </div>
       </div>
     </div>
   </section>
