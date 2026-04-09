@@ -333,7 +333,8 @@ const faq = [
 
       <!-- CTA #1 — Sous la VSL -->
       <div class="text-center mt-10">
-        <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855] mb-3">Offre exclusive inscrits conférence</p>
+        <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855] mb-1">Offre exclusive inscrits conférence</p>
+        <p class="text-xs font-light text-[#2C2824]/40 mb-4">Proposée uniquement sur cette page</p>
         <div class="mb-3">
           <span class="font-playfair text-xl font-light text-[#2C2824]/50 line-through mr-3">2 000 EUR</span>
           <span class="font-playfair text-xl font-light text-[#2C2824]/50 line-through mr-3">497 EUR</span>
@@ -347,7 +348,6 @@ const faq = [
         >
           J'accède à la formation · 147 EUR
         </button>
-        <p class="text-xs font-light text-[#2C2824]/30 mt-3">Uniquement sur cette page</p>
       </div>
     </div>
   </section>
@@ -933,6 +933,99 @@ const faq = [
         btn.style.opacity = '1';
       });
     });
+  </script>
+
+  <!-- ============================================ -->
+  <!-- EXIT-INTENT POPUP                            -->
+  <!-- ============================================ -->
+  <div id="exit-popup" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);">
+    <div class="relative bg-white rounded-sm max-w-md w-full p-8 md:p-10 text-center shadow-2xl" style="animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+
+      <!-- Bouton fermer -->
+      <button id="exit-popup-close" class="absolute top-4 right-4 text-[#2C2824]/30 hover:text-[#2C2824]/60 transition-colors" aria-label="Fermer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Avant de partir</p>
+
+      <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-4">
+        Tu veux créer un lieu de vie ?
+      </h3>
+
+      <p class="text-base font-light text-[#2C2824]/65 leading-relaxed mb-6">
+        Cette offre à <span class="font-medium text-[#2C2824]">147&nbsp;EUR au lieu de 2&nbsp;000&nbsp;EUR</span> n'est disponible que sur cette page. Si tu la fermes, elle disparaît.
+      </p>
+
+      <p class="text-sm font-light text-[#2C2824]/50 mb-6">
+        5 ans d'erreurs, de galères et de victoires condensés pour que tu ailles plus vite que nous.
+      </p>
+
+      <button
+        type="button"
+        data-mollie-product="school-merci"
+        class="mollie-cta w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium"
+      >
+        J'accède à la formation · 147 EUR
+      </button>
+
+      <p class="text-xs font-light text-[#2C2824]/30 mt-4">Paiement sécurisé · Accès immédiat</p>
+    </div>
+  </div>
+
+  <!-- Exit-intent script -->
+  <script is:inline>
+    (function() {
+      var shown = false;
+      var clicked = false;
+
+      // Ne pas afficher si déjà vu dans cette session
+      if (sessionStorage.getItem('exit-popup-shown')) return;
+
+      // Marquer si l'utilisateur clique sur un CTA Mollie
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('.mollie-cta')) clicked = true;
+      });
+
+      function showPopup() {
+        if (shown || clicked) return;
+        shown = true;
+        sessionStorage.setItem('exit-popup-shown', '1');
+        var popup = document.getElementById('exit-popup');
+        if (popup) {
+          popup.classList.remove('hidden');
+          popup.classList.add('flex');
+        }
+      }
+
+      function closePopup() {
+        var popup = document.getElementById('exit-popup');
+        if (popup) {
+          popup.classList.add('hidden');
+          popup.classList.remove('flex');
+        }
+      }
+
+      // Desktop : exit-intent (souris quitte le viewport par le haut)
+      document.addEventListener('mouseout', function(e) {
+        if (e.clientY <= 0) showPopup();
+      });
+
+      // Mobile : après 45s d'inactivité
+      var mobileTimer = setTimeout(function() {
+        if (window.innerWidth < 768) showPopup();
+      }, 45000);
+
+      // Fermer le popup
+      document.getElementById('exit-popup-close').addEventListener('click', closePopup);
+      document.getElementById('exit-popup').addEventListener('click', function(e) {
+        if (e.target === this) closePopup();
+      });
+
+      // Fermer avec Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closePopup();
+      });
+    })();
   </script>
 
   <!-- Timer 1h script -->
