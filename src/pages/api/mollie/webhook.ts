@@ -1,7 +1,5 @@
 import type { APIRoute } from 'astro'
 
-const PROFILE_ID = 'pfl_DoeNCSihBU'
-
 /**
  * POST /api/mollie/webhook/
  *
@@ -100,7 +98,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
               sequenceType: 'recurring',
               customerId,
               mandateId,
-              profileId: PROFILE_ID,
               webhookUrl: `${origin}/api/mollie/webhook/`,
               metadata: {
                 product: 'school-online-2x',

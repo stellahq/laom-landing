@@ -15,8 +15,6 @@ import type { APIRoute } from 'astro'
  *   - school-merci    : LAOM School Online — 147 EUR (offre inscrits webinar)
  */
 
-const PROFILE_ID = 'pfl_DoeNCSihBU'
-
 interface ProductConfig {
   amount: string
   description: string
@@ -89,7 +87,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     description: productConfig.description,
     redirectUrl: `${origin}/school/confirmation/?product=${product}`,
     webhookUrl: `${origin}/api/mollie/webhook/`,
-    profileId: PROFILE_ID,
     metadata: {
       product,
       email: email || null,
