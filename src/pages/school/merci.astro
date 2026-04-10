@@ -319,16 +319,16 @@ const faq = [
   <!-- VSL -->
   <section class="py-0 pb-10 md:pb-12 bg-[#FAF8F5]">
     <div class="max-w-4xl mx-auto px-8 sm:px-12">
-      <div class="aspect-video bg-[#2C2824] rounded-sm border border-black/10 flex items-center justify-center overflow-hidden">
-        <!-- Remplacer ce bloc par l'embed de la VSL (Vimeo / YouTube) -->
-        <div class="text-center">
-          <div class="w-20 h-20 rounded-full border-2 border-[#C4A855] flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-[#C4A855] ml-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-          <p class="text-sm font-light text-white/40 tracking-wide uppercase">VSL : vidéo à intégrer</p>
-        </div>
+      <div class="aspect-video bg-[#2C2824] rounded-sm border border-black/10 overflow-hidden">
+        <iframe
+          id="vsl-player"
+          src="https://customer-gkc27wxykzxme7de.cloudflarestream.com/951dd904a9db9f7e3008e167d924dd28/iframe?autoplay=true&muted=true&preload=auto&controls=true"
+          loading="lazy"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          allowfullscreen
+          class="w-full h-full border-0"
+          title="LAOM School Online — Présentation vidéo"
+        ></iframe>
       </div>
 
       <!-- CTA #1 — Sous la VSL -->
@@ -1033,6 +1033,69 @@ const faq = [
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closePopup();
       });
+    })();
+  </script>
+
+  <!-- VSL tracking: ViewContent events on milestones (0/25/50/75/100) -->
+  <script is:inline>
+    (function initVslTracking() {
+      var sdkScript = document.createElement('script');
+      sdkScript.src = 'https://embed.videodelivery.net/embed/sdk.latest.js';
+      sdkScript.async = true;
+      sdkScript.onload = function() {
+        var iframe = document.getElementById('vsl-player');
+        if (!iframe || !window.Stream) return;
+
+        var player = window.Stream(iframe);
+        var milestones = { 25: false, 50: false, 75: false };
+        var started = false;
+        var completed = false;
+
+        function fire(milestone, label) {
+          var contentName = 'vsl-merci-' + label;
+          if (typeof window.__laomTrack === 'function') {
+            window.__laomTrack('ViewContent', {
+              content_name: contentName,
+              content_category: 'vsl_video',
+              content_ids: ['vsl-merci'],
+              value: milestone
+            });
+          }
+          if (typeof gtag === 'function') {
+            gtag('event', 'video_' + label, {
+              video_title: 'vsl-merci',
+              video_provider: 'cloudflare-stream',
+              milestone: milestone
+            });
+          }
+        }
+
+        player.addEventListener('play', function() {
+          if (started) return;
+          started = true;
+          fire(0, 'start');
+        });
+
+        player.addEventListener('timeupdate', function() {
+          var duration = player.duration;
+          var current = player.currentTime;
+          if (!duration) return;
+          var percent = (current / duration) * 100;
+          [25, 50, 75].forEach(function(m) {
+            if (!milestones[m] && percent >= m) {
+              milestones[m] = true;
+              fire(m, String(m));
+            }
+          });
+        });
+
+        player.addEventListener('ended', function() {
+          if (completed) return;
+          completed = true;
+          fire(100, 'complete');
+        });
+      };
+      document.head.appendChild(sdkScript);
     })();
   </script>
 
