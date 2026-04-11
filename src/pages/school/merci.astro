@@ -177,7 +177,7 @@ const faq = [
   },
   {
     question: '147 EUR, c\'est vraiment le prix ?',
-    reponse: 'Oui. Le prix normal est de 2 000 EUR, le prix inscrits conférence est de 497 EUR. En tant qu\'inscrit à la conférence du 28 avril, tu bénéficies du prix de 147 EUR, uniquement sur cette page. C\'est -93% par rapport au prix normal.',
+    reponse: 'Oui. Le prix normal est de 2 000 EUR, le prix inscrits conférence est de 497 EUR. En tant qu\'inscrit à la conférence du 28 avril, tu bénéficies du prix de 147 EUR, uniquement sur cette page. Tu économises 1 853 EUR par rapport au prix normal.',
   },
 ]
 ---
@@ -188,6 +188,21 @@ const faq = [
   seo={{ ldJSON: pageSchema, noIndex: true }}
   hideChrome={true}
 >
+
+  <!-- Reset admin : ?reset-merci=1 purge les localStorage et reload -->
+  <script is:inline>
+    (function() {
+      try {
+        var params = new URL(window.location.href).searchParams;
+        if (params.get('reset-merci') === '1') {
+          localStorage.removeItem('laom-merci-deadline');
+          localStorage.removeItem('laom-merci-exit-count');
+          localStorage.removeItem('laom-merci-expired-modal-shown');
+          window.location.replace('/school/merci/');
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- ============================================ -->
   <!-- BLOC 1 — Confirmation + Calendrier (vert/doré) -->
@@ -332,7 +347,7 @@ const faq = [
           <span class="font-playfair text-xl font-light text-[#2C2824]/50 line-through mr-3">2 000 EUR</span>
           <span class="font-playfair text-xl font-light text-[#2C2824]/50 line-through mr-3">497 EUR</span>
           <span class="font-playfair text-2xl font-medium text-[#2C2824]">147 EUR</span>
-          <span class="ml-1.5 bg-[#C4A855] text-white text-[10px] font-medium px-2 py-0.5 rounded-full align-top">-93%</span>
+          <span class="ml-1.5 bg-[#C4A855] text-white text-[10px] font-medium px-2 py-0.5 rounded-full align-top">-1 853 €</span>
         </div>
         <button
           type="button"
@@ -545,7 +560,7 @@ const faq = [
 
         <!-- Badge coin supérieur droit -->
         <div class="absolute top-0 right-0 bg-[#C4A855] text-white text-sm font-medium pl-4 pr-4 py-2" style="clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);">
-          -93%
+          -1 853 €
         </div>
 
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-8">Offre exclusive inscrits conférence</p>
@@ -770,7 +785,7 @@ const faq = [
 
         <!-- Badge coin supérieur droit -->
         <div class="absolute top-0 right-0 bg-[#C4A855] text-white text-sm font-medium pl-4 pr-4 py-2" style="clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);">
-          -93%
+          -1 853 €
         </div>
 
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-8">Offre exclusive inscrits conférence</p>
@@ -824,7 +839,7 @@ const faq = [
         <span class="font-playfair text-xl font-light text-white/45 line-through mr-3">2 000 EUR</span>
         <span class="font-playfair text-xl font-light text-white/45 line-through mr-3">497 EUR</span>
         <span class="font-playfair text-3xl font-medium text-[#C4A855]">147 EUR</span>
-        <span class="ml-2 bg-[#C4A855] text-white text-xs font-medium px-2 py-0.5 rounded-full align-top">-93%</span>
+        <span class="ml-2 bg-[#C4A855] text-white text-xs font-medium px-2 py-0.5 rounded-full align-top">-1 853 €</span>
       </div>
 
       <p class="text-base font-light text-white/60 mb-3">
@@ -929,7 +944,7 @@ const faq = [
   </script>
 
   <!-- ============================================ -->
-  <!-- EXIT-INTENT POPUP                            -->
+  <!-- EXIT-INTENT POPUP (slots dynamiques)         -->
   <!-- ============================================ -->
   <div id="exit-popup" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);">
     <div class="relative bg-white rounded-sm max-w-md w-full p-8 md:p-10 text-center shadow-2xl" style="animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
@@ -939,50 +954,141 @@ const faq = [
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Avant de partir</p>
+      <p id="exit-popup-eyebrow" class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4"></p>
 
-      <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-4">
-        Tu veux créer un lieu de vie ?
-      </h3>
+      <h3 id="exit-popup-title" class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-4"></h3>
 
-      <p class="text-base font-light text-[#2C2824]/65 leading-relaxed mb-6">
-        Cette offre à <span class="font-medium text-[#2C2824]">147&nbsp;EUR (-93&nbsp;%)</span> n'est disponible que sur cette page. Si tu la fermes, elle disparaît.
-      </p>
+      <!-- Zone média GIF (slot, caché par défaut en v1) -->
+      <div id="exit-popup-media" class="mb-6 hidden">
+        <img id="exit-popup-gif" src="" alt="" class="w-full max-h-56 object-contain rounded-sm mx-auto" loading="lazy" />
+      </div>
 
-      <p class="text-sm font-light text-[#2C2824]/50 mb-6">
-        5 ans d'erreurs, de galères et de victoires condensés pour que tu ailles plus vite que nous.
-      </p>
+      <p id="exit-popup-body" class="text-base font-light text-[#2C2824]/65 leading-relaxed mb-6"></p>
 
       <button
         type="button"
+        id="exit-popup-cta"
         data-mollie-product="school-merci"
         class="mollie-cta w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium"
-      >
-        J'accède à la formation · 147 EUR
-      </button>
+      ></button>
 
       <p class="text-xs font-light text-[#2C2824]/30 mt-4">Paiement sécurisé · Accès immédiat</p>
     </div>
   </div>
 
-  <!-- Exit-intent script -->
+  <!-- ============================================ -->
+  <!-- MODAL "OFFRE EXPIRÉE"                        -->
+  <!-- ============================================ -->
+  <div id="expired-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center p-4" style="background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);">
+    <div class="relative bg-white rounded-sm max-w-md w-full p-8 md:p-10 text-center shadow-2xl" style="animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+
+      <button id="expired-modal-close" class="absolute top-4 right-4 text-[#2C2824]/30 hover:text-[#2C2824]/60 transition-colors" aria-label="Fermer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-red-600 mb-4">Offre expirée</p>
+
+      <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-4">
+        Cette offre est terminée
+      </h3>
+
+      <p class="text-base font-light text-[#2C2824]/65 leading-relaxed mb-6">
+        L'offre à <strong>147 EUR</strong> n'est plus disponible.<br />
+        La formation reste accessible à <strong>497 EUR</strong> jusqu'à la conférence du 28 avril.
+      </p>
+
+      <a
+        href="/school/online/"
+        class="block w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors font-medium"
+      >
+        J'accède à la formation · 497 EUR
+      </a>
+
+      <p class="text-xs font-light text-[#2C2824]/30 mt-4">On se retrouve le 28 avril à 20h30 pour la conférence.</p>
+    </div>
+  </div>
+
+  <!-- Exit-intent script — multi-popups avec escalade sérieux → humour -->
   <script is:inline>
     (function() {
-      var shown = false;
+      var LS_KEY_EXIT = 'laom-merci-exit-count';
+      var LS_KEY_DEADLINE = 'laom-merci-deadline';
+      var COOLDOWN_MS = 3000;
+
+      // Catalogue des 4 popups (gif=null en v1, URLs Giphy ajoutées en v2)
+      var POPUPS = [
+        {
+          eyebrow: 'Avant de partir',
+          title: 'Tu veux vraiment créer un lieu de vie ?',
+          body: 'Cette offre à <strong>147&nbsp;EUR</strong> (tu économises <strong>1&nbsp;853&nbsp;EUR</strong>) n\'existe que sur cette page. Si tu la fermes, elle disparaît.<br /><br />5 ans d\'erreurs condensés pour que tu ailles plus vite que nous.',
+          cta: 'J\'accède à la formation · 147 EUR',
+          gif: null
+        },
+        {
+          eyebrow: 'Hey, tu es sûr ?',
+          title: 'Je te refais le calcul.',
+          body: '<strong>2&nbsp;000&nbsp;EUR</strong> le prix normal. <strong>497&nbsp;EUR</strong> après le 28 avril. Là, <strong>147&nbsp;EUR</strong> pendant 60 minutes.<br /><br />Tu économises <strong>1&nbsp;853&nbsp;EUR</strong>. C\'est un dîner à deux.',
+          cta: 'OK, je regarde encore · 147 EUR',
+          gif: null
+        },
+        {
+          eyebrow: 'Bon, 3ᵉ tentative...',
+          title: 'T\'as peur de quoi exactement ?',
+          body: 'De pas avoir le temps ? C\'est 12 lives de 90 min sur 6 mois, à ton rythme.<br /><br />De pas être prêt ? C\'est fait pour les gens qui ne le sont pas encore.',
+          cta: 'Une dernière chance · 147 EUR',
+          gif: null
+        },
+        {
+          eyebrow: 'OK écoute.',
+          title: 'Je promets que c\'est la dernière fois.',
+          body: 'Si tu pars maintenant, tu pars. Mais sache que <strong>Charly va être déçu</strong>.<br /><br />Et un Charly déçu, c\'est triste. Pense à Charly.',
+          cta: 'Bon allez, go · 147 EUR',
+          gif: null
+        }
+      ];
+
+      // Skip tout si l'offre est déjà expirée
+      var deadline = parseInt(localStorage.getItem(LS_KEY_DEADLINE) || '0', 10);
+      if (deadline && deadline - Date.now() <= 0) return;
+
+      var popupIndex = parseInt(localStorage.getItem(LS_KEY_EXIT) || '0', 10);
+      var lastShownAt = 0;
+      var popupShowing = false;
       var clicked = false;
 
-      // Ne pas afficher si déjà vu dans cette session
-      if (sessionStorage.getItem('exit-popup-shown')) return;
-
-      // Marquer si l'utilisateur clique sur un CTA Mollie
+      // Marquer si l'utilisateur clique sur un CTA Mollie (on stop d'afficher les popups)
       document.addEventListener('click', function(e) {
         if (e.target.closest('.mollie-cta')) clicked = true;
       });
 
-      function showPopup() {
-        if (shown || clicked) return;
-        shown = true;
-        sessionStorage.setItem('exit-popup-shown', '1');
+      function renderPopup(p) {
+        var eyebrowEl = document.getElementById('exit-popup-eyebrow');
+        var titleEl = document.getElementById('exit-popup-title');
+        var bodyEl = document.getElementById('exit-popup-body');
+        var ctaEl = document.getElementById('exit-popup-cta');
+        var mediaWrapper = document.getElementById('exit-popup-media');
+        var gifEl = document.getElementById('exit-popup-gif');
+
+        if (eyebrowEl) eyebrowEl.textContent = p.eyebrow;
+        if (titleEl) titleEl.textContent = p.title;
+        if (bodyEl) bodyEl.innerHTML = p.body;
+        if (ctaEl) ctaEl.textContent = p.cta;
+
+        // Gestion GIF : affiche si URL, sinon cache
+        if (mediaWrapper && gifEl) {
+          if (p.gif) {
+            gifEl.src = p.gif;
+            gifEl.alt = p.title;
+            mediaWrapper.classList.remove('hidden');
+          } else {
+            gifEl.src = '';
+            gifEl.alt = '';
+            mediaWrapper.classList.add('hidden');
+          }
+        }
+      }
+
+      function openPopup() {
         var popup = document.getElementById('exit-popup');
         if (popup) {
           popup.classList.remove('hidden');
@@ -996,33 +1102,66 @@ const faq = [
           popup.classList.add('hidden');
           popup.classList.remove('flex');
         }
+        popupShowing = false;
+      }
+
+      function showNextPopup() {
+        if (popupShowing || clicked) return;
+        if (Date.now() - lastShownAt < COOLDOWN_MS) return;
+        if (popupIndex >= POPUPS.length) return; // Plus de popups, on arrête
+
+        var p = POPUPS[popupIndex];
+        renderPopup(p);
+        openPopup();
+        popupShowing = true;
+        lastShownAt = Date.now();
+        popupIndex++;
+        localStorage.setItem(LS_KEY_EXIT, popupIndex.toString());
+
+        // Tracking GA4
+        if (typeof gtag === 'function') {
+          gtag('event', 'exit_intent_popup_shown', {
+            event_category: 'engagement',
+            popup_index: popupIndex,
+            popup_title: p.title
+          });
+        }
+        // Tracking Meta Pixel
+        if (typeof window.__laomTrack === 'function') {
+          window.__laomTrack('ViewContent', {
+            content_name: 'exit-intent-popup-' + popupIndex,
+            content_category: 'exit_intent'
+          });
+        }
       }
 
       // Desktop : exit-intent (souris quitte le viewport par le haut)
       document.addEventListener('mouseout', function(e) {
-        if (e.clientY <= 0) showPopup();
+        if (e.clientY <= 0) showNextPopup();
       });
 
       // Changement d'onglet / alt-tab (après 10s minimum sur la page)
       var pageLoadTime = Date.now();
       document.addEventListener('visibilitychange', function() {
         if (document.visibilityState === 'hidden' && (Date.now() - pageLoadTime) > 10000) {
-          showPopup();
+          showNextPopup();
         }
       });
 
       // Mobile : après 45s d'inactivité
-      var mobileTimer = setTimeout(function() {
-        if (window.innerWidth < 768) showPopup();
+      setTimeout(function() {
+        if (window.innerWidth < 768) showNextPopup();
       }, 45000);
 
       // Fermer le popup
-      document.getElementById('exit-popup-close').addEventListener('click', closePopup);
-      document.getElementById('exit-popup').addEventListener('click', function(e) {
-        if (e.target === this) closePopup();
-      });
-
-      // Fermer avec Escape
+      var closeBtn = document.getElementById('exit-popup-close');
+      if (closeBtn) closeBtn.addEventListener('click', closePopup);
+      var popupBackdrop = document.getElementById('exit-popup');
+      if (popupBackdrop) {
+        popupBackdrop.addEventListener('click', function(e) {
+          if (e.target === this) closePopup();
+        });
+      }
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closePopup();
       });
@@ -1092,30 +1231,151 @@ const faq = [
     })();
   </script>
 
-  <!-- Timer 1h script -->
+  <!-- Timer 1h script — persistance localStorage + état expiré -->
   <script is:inline>
-    var topDeadline = new Date().getTime() + (60 * 60 * 1000);
-    function updateTopTimer() {
-      var now = new Date().getTime();
-      var diff = topDeadline - now;
-      var pad = function(n) { return n < 10 ? '0' + n : n; };
-      if (diff <= 0) {
-        ['top-minutes','top-seconds','top-minutes-mobile','top-seconds-mobile'].forEach(function(id) {
-          var el = document.getElementById(id);
-          if (el) el.textContent = '00';
-        });
-        return;
+    (function() {
+      var LS_KEY_DEADLINE = 'laom-merci-deadline';
+      var LS_KEY_EXPIRED_MODAL = 'laom-merci-expired-modal-shown';
+      var DURATION_MS = 60 * 60 * 1000; // 60 min cohérent VSL
+
+      // 1. Lire deadline existante ou créer nouvelle (persistance entre reloads/sessions)
+      var stored = localStorage.getItem(LS_KEY_DEADLINE);
+      var topDeadline;
+      if (stored && parseInt(stored, 10) > 0) {
+        topDeadline = parseInt(stored, 10);
+      } else {
+        topDeadline = Date.now() + DURATION_MS;
+        localStorage.setItem(LS_KEY_DEADLINE, topDeadline.toString());
       }
-      var m = Math.floor(diff / (1000 * 60));
-      var s = Math.floor((diff % (1000 * 60)) / 1000);
-      document.getElementById('top-minutes').textContent = pad(m);
-      document.getElementById('top-seconds').textContent = pad(s);
-      var mm = document.getElementById('top-minutes-mobile');
-      var sm = document.getElementById('top-seconds-mobile');
-      if (mm) mm.textContent = pad(m);
-      if (sm) sm.textContent = pad(s);
-    }
-    updateTopTimer();
-    setInterval(updateTopTimer, 1000);
+
+      var expired = topDeadline - Date.now() <= 0;
+      var expiredHandled = false;
+
+      var pad = function(n) { return n < 10 ? '0' + n : n; };
+
+      // 2. État expiré : swap CTA 147 → 497 + redirect + modal
+      function applyExpiredState() {
+        if (expiredHandled) return;
+        expiredHandled = true;
+
+        // 2a. Bandeau sticky : swap contenu
+        var stickyBanner = document.querySelector('.sticky.top-0.z-50.bg-\\[\\#1a0a0a\\]');
+        if (stickyBanner) {
+          stickyBanner.innerHTML = [
+            '<div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">',
+            '  <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>',
+            '  <span class="text-base font-medium text-white">Offre 147 EUR expirée</span>',
+            '  <span class="text-xs text-white/60">—</span>',
+            '  <span class="text-sm text-white/80">Formation disponible à <strong class="text-white">497 EUR</strong></span>',
+            '  <a href="/school/online/" class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-5 py-2 text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors flex-shrink-0">J\'accède</a>',
+            '</div>',
+            '<a href="/school/online/" class="sm:hidden flex items-center justify-between px-4 py-2.5">',
+            '  <div class="flex items-center gap-2">',
+            '    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>',
+            '    <span class="text-xs font-medium text-white">Offre expirée</span>',
+            '  </div>',
+            '  <span class="text-xs text-white/80">497 EUR</span>',
+            '  <span class="text-xs text-[#C4A855] font-medium uppercase tracking-wider">J\'accède</span>',
+            '</a>'
+          ].join('');
+        }
+
+        // 2b. Tous les CTA Mollie 147 EUR → lien /school/online/ 497 EUR
+        var ctas = document.querySelectorAll('.mollie-cta, [data-mollie-product="school-merci"]');
+        ctas.forEach(function(btn) {
+          btn.removeAttribute('data-mollie-product');
+          btn.classList.remove('mollie-cta');
+          // Texte : remplace "147 EUR" par "497 EUR"
+          var original = btn.textContent || '';
+          if (original.indexOf('147') !== -1) {
+            btn.textContent = original.replace(/147\s*EUR/g, '497 EUR');
+          } else {
+            btn.textContent = 'J\'accède à la formation · 497 EUR';
+          }
+          btn.style.cursor = 'pointer';
+          // Redirige vers /school/online/ au clic
+          btn.onclick = function(e) {
+            e.preventDefault();
+            window.location.href = '/school/online/';
+          };
+        });
+
+        // 2c. Modal "Offre expirée" une seule fois (flag localStorage)
+        if (!localStorage.getItem(LS_KEY_EXPIRED_MODAL)) {
+          var modal = document.getElementById('expired-modal');
+          if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            localStorage.setItem(LS_KEY_EXPIRED_MODAL, '1');
+          }
+        }
+
+        // 2d. Tracking GA4 + Meta Pixel
+        if (typeof gtag === 'function') {
+          gtag('event', 'timer_expired', {
+            event_category: 'engagement',
+            value: 0
+          });
+        }
+        if (typeof window.__laomTrack === 'function') {
+          window.__laomTrack('ViewContent', {
+            content_name: 'timer-expired',
+            content_category: 'offer_lifecycle'
+          });
+        }
+      }
+
+      function updateTopTimer() {
+        var now = Date.now();
+        var diff = topDeadline - now;
+        if (diff <= 0) {
+          ['top-minutes','top-seconds','top-minutes-mobile','top-seconds-mobile'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = '00';
+          });
+          if (!expiredHandled) applyExpiredState();
+          return;
+        }
+        var m = Math.floor(diff / (1000 * 60));
+        var s = Math.floor((diff % (1000 * 60)) / 1000);
+        var elMin = document.getElementById('top-minutes');
+        var elSec = document.getElementById('top-seconds');
+        if (elMin) elMin.textContent = pad(m);
+        if (elSec) elSec.textContent = pad(s);
+        var mm = document.getElementById('top-minutes-mobile');
+        var sm = document.getElementById('top-seconds-mobile');
+        if (mm) mm.textContent = pad(m);
+        if (sm) sm.textContent = pad(s);
+      }
+
+      // 3. Si déjà expiré au chargement, appliquer l'état expiré immédiatement
+      if (expired) {
+        applyExpiredState();
+      }
+
+      updateTopTimer();
+      setInterval(updateTopTimer, 1000);
+
+      // 4. Bouton fermer modal expiré
+      var expiredCloseBtn = document.getElementById('expired-modal-close');
+      if (expiredCloseBtn) {
+        expiredCloseBtn.addEventListener('click', function() {
+          var modal = document.getElementById('expired-modal');
+          if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+          }
+        });
+      }
+      var expiredModal = document.getElementById('expired-modal');
+      if (expiredModal) {
+        expiredModal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.classList.add('hidden');
+            this.classList.remove('flex');
+          }
+        });
+      }
+    })();
   </script>
 </Layout>
