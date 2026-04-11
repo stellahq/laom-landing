@@ -5,7 +5,7 @@ import { createWebPageSchema } from '~/utils/schema'
 const pageSchema = createWebPageSchema({
   name: 'LAOM School Online — La feuille de route pour créer ton lieu',
   url: Astro.url.toString(),
-  description: 'Formation en ligne : 8 modules + 12 lives avec Charly pendant 6 mois. Tout ce qu\'on a appris en 5 ans pour créer un lieu qui tourne. 497 EUR.',
+  description: 'Formation en ligne : 12 lives avec Charly pendant 6 mois, couvrant 7 thèmes essentiels. Tout ce qu\'on a appris en 5 ans pour créer un lieu qui tourne. 497 EUR.',
 })
 
 // Paiement Mollie — checkout dynamique à 497 EUR (ou 2 x 248,50 EUR)
@@ -14,52 +14,44 @@ const ctaProductId = 'school-online'
 const modules = [
   {
     num: '01',
-    titre: 'Définir ton groupe',
-    desc: 'Avant le lieu, il y a les gens. C\'est là que tout se joue, et que tout se plante.',
-    points: [
-      'La personne source : c\'est qui et pourquoi c\'est important',
-      'Clarifier les intentions de chacun : vivre sur place, investir, participer de loin ?',
-      'Définir les rôles : porteur de projet, gestionnaire, bâtisseur, investisseur passif, entretien du lieu, contribution au quotidien',
-      'Les red flags : quand un groupe ne tiendra pas',
-    ],
-  },
-  {
-    num: '02',
-    titre: 'Trouver le lieu',
-    desc: 'Où chercher et comment évaluer un terrain selon les critères de ton groupe.',
+    titre: 'Achat et recherche de terrain',
+    desc: 'Où chercher, comment évaluer et acheter à plusieurs, sans tomber dans les pièges classiques.',
     points: [
       'Où chercher selon les critères de ton groupe',
       'Comment lire un PLU : zonage, autorisations, constructibilité',
       'Évaluer la viabilité du projet : Géoportail, cadastre, DVF',
       'Évaluer l\'accessibilité : eau, électricité, route, exposition',
+      'Acheter à plusieurs sans que ça finisse en conflit',
     ],
   },
   {
-    num: '03',
-    titre: 'Structuration juridique',
-    desc: 'Trouver le montage qui fonctionne pour ton groupe.',
+    num: '02',
+    titre: 'Structure juridique',
+    desc: 'Trouver le montage qui fonctionne pour ton groupe, et éviter les erreurs qui nous ont coûté 49 000 EUR.',
     points: [
       'Les 4 structures dans lesquelles on a navigué en 5 ans',
       'Indivision : pourquoi c\'est le piège classique',
       'SAS, SAS Coopérative, SCIA, SCI : avantages et limites',
       'Quand faire appel à un avocat / notaire, et quoi leur demander',
+      'Les erreurs juridiques à éviter absolument',
     ],
   },
   {
-    num: '04',
-    titre: 'Financer le projet',
-    desc: 'Comment on a levé plus de 3M EUR sans prêt bancaire traditionnel.',
+    num: '03',
+    titre: 'Financement et business plan',
+    desc: 'Comment on a levé plus de 3M EUR sans prêt bancaire, et comment construire un business plan solide.',
     points: [
       'Les sources : prêts participatifs, love money, crowdfunding, subventions',
       'Construire ton plan de financement étape par étape',
       'Simulation financière : partir de ta situation réelle',
       'Business plan : les bases qui tiennent la route',
+      'Présenter ton projet à des investisseurs, des prêteurs, la coopérative Oasis',
     ],
   },
   {
-    num: '05',
-    titre: 'Parler aux institutions',
-    desc: 'Mairie, urbanisme, préfecture : comment leur parler et obtenir ce que tu veux.',
+    num: '04',
+    titre: 'Légalité et urbanisme',
+    desc: 'Mairie, DDT, préfecture : comment leur parler et obtenir tes permis.',
     points: [
       'Les interlocuteurs clés : maire, DDT, ABF, CAUE, chambre d\'agriculture',
       'Les erreurs de posture qui bloquent tout',
@@ -68,20 +60,9 @@ const modules = [
     ],
   },
   {
-    num: '06',
-    titre: 'Construire ton business model',
-    desc: 'Le modèle qui génère 200 à 500K EUR/an, sans devenir esclave du lieu.',
-    points: [
-      'Le piège du lieu militant sans modèle économique',
-      'Les revenus possibles : hébergement, restauration, événements, formation, agritourisme',
-      'Combiner les activités pour créer un modèle viable',
-      'Construire et piloter ton prévisionnel',
-    ],
-  },
-  {
-    num: '07',
-    titre: 'Construction écologique',
-    desc: 'Les choix de construction qui ont fait la différence, et ceux qu\'on éviterait.',
+    num: '05',
+    titre: 'Construction',
+    desc: 'Les choix de construction qui ont fait la différence, et ceux qu\'on éviterait aujourd\'hui.',
     points: [
       'Paille porteuse, bois, terre crue : les techniques qu\'on a testées',
       'Comment choisir en fonction de ton budget, ton climat, ton terrain',
@@ -90,14 +71,26 @@ const modules = [
     ],
   },
   {
-    num: '08',
-    titre: 'Éviter nos erreurs',
-    desc: 'Les erreurs qui nous ont coûté 49 000 EUR d\'avocats, à cause de simples choix qu\'on aurait pu éviter.',
+    num: '06',
+    titre: 'Communauté et collectif',
+    desc: 'Avant le lieu, il y a les gens. C\'est là que tout se joue, et que tout se plante.',
     points: [
-      'Les erreurs juridiques : indivision, clauses expirées, structures mal choisies',
-      'Les erreurs humaines : départs, conflits, rôles flous',
-      'Les erreurs financières : ce qu\'on sous-estime toujours',
-      'Ce qu\'on ferait différemment, point par point',
+      'La personne source : c\'est qui et pourquoi c\'est important',
+      'Clarifier les intentions de chacun : vivre sur place, investir, participer de loin ?',
+      'Définir les rôles : porteur de projet, gestionnaire, bâtisseur, investisseur passif',
+      'Les red flags : quand un groupe ne tiendra pas',
+      'Faire tenir une communauté dans le temps',
+    ],
+  },
+  {
+    num: '07',
+    titre: 'Modèle économique',
+    desc: 'Le modèle qui génère 200 à 500K EUR/an, sans devenir esclave du lieu.',
+    points: [
+      'Le piège du lieu militant sans modèle économique',
+      'Les revenus possibles : hébergement, restauration, événements, formation, agritourisme',
+      'Combiner les activités pour créer un modèle viable',
+      'Construire et piloter ton prévisionnel',
     ],
   },
 ]
@@ -135,11 +128,11 @@ const temoignages = [
 const faq = [
   {
     question: 'Je n\'ai pas encore de terrain. C\'est trop tôt pour moi ?',
-    reponse: 'Non, c\'est le meilleur moment. Le Module 2 est justement fait pour t\'aider à chercher et évaluer les terrains. Et les erreurs les plus coûteuses se font AVANT d\'acheter, sur le choix du groupe et de la structure juridique.',
+    reponse: 'Non, c\'est le meilleur moment. Un des 7 thèmes est justement consacré à la recherche et l\'évaluation de terrain. Et les erreurs les plus coûteuses se font AVANT d\'acheter, sur le choix du groupe et de la structure juridique.',
   },
   {
     question: 'Je suis seul(e) pour l\'instant, je n\'ai pas de groupe. C\'est pertinent ?',
-    reponse: 'Oui. Le Module 1 t\'aide à comprendre quel type de groupe tu cherches, quels rôles sont nécessaires, et comment éviter les erreurs de casting. Tu seras bien mieux armé(e) pour constituer ton collectif.',
+    reponse: 'Oui. Un des 7 thèmes est justement consacré à la communauté et au collectif : quel type de groupe tu cherches, quels rôles sont nécessaires, et comment éviter les erreurs de casting. Tu seras bien mieux armé(e) pour constituer ton collectif.',
   },
   {
     question: 'Je ne suis pas en France. Ça marche quand même ?',
@@ -166,11 +159,11 @@ const faq = [
 
 <Layout
   title="LAOM School Online — Crée ton lieu sans perdre 5 ans et 49 000 EUR en erreurs | LAOM"
-  description="Formation en ligne : 8 modules + 12 lives avec Charly pendant 6 mois. La feuille de route complète pour créer un lieu qui tourne. 497 EUR."
+  description="Formation en ligne : 12 lives avec Charly pendant 6 mois, couvrant 7 thèmes essentiels. La feuille de route complète pour créer un lieu qui tourne. 497 EUR."
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
-  <!-- Bandeau timer sticky 26 avril -->
+  <!-- Bandeau timer sticky 3 mai -->
   <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
     <!-- Desktop -->
     <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
@@ -338,7 +331,7 @@ const faq = [
     </div>
   </section>
 
-  <!-- La solution + 8 modules -->
+  <!-- La solution + 7 thèmes -->
   <section class="py-20 md:py-24 bg-[#FAF8F5]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
@@ -349,13 +342,13 @@ const faq = [
           </h2>
           <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
             <p>
-              On a condensé tout ce qu'on a appris en <strong class="font-medium text-[#2C2824]">8 modules</strong> qui suivent le parcours réel d'un projet, de l'idée au lieu qui tourne.
+              On a condensé tout ce qu'on a appris en <strong class="font-medium text-[#2C2824]">7 thèmes essentiels</strong> qui suivent le parcours réel d'un projet, de l'idée au lieu qui tourne.
             </p>
             <p>
               C'est l'algorithme qu'on aurait aimé avoir avant de se lancer.
             </p>
             <p>
-              Et en plus des modules, tu as accès à <strong class="font-medium text-[#2C2824]">1 live collectif tous les 15 jours avec Charly pendant 6 mois</strong>, pour travailler sur TON projet.
+              Ces 7 thèmes sont couverts pendant <strong class="font-medium text-[#2C2824]">12 lives collectifs avec Charly, un tous les 15 jours pendant 6 mois</strong>, pour travailler sur TON projet.
             </p>
           </div>
         </div>
@@ -369,13 +362,13 @@ const faq = [
         </div>
       </div>
 
-      <!-- 8 modules -->
+      <!-- 7 thèmes -->
       <div class="text-center mb-12">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Programme</p>
         <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">
-          8 modules, de l'idée au lieu qui tourne
+          7 thèmes, de l'idée au lieu qui tourne
         </h3>
-        <p class="text-sm font-light text-[#2C2824]/50 mt-3">À suivre en autonomie, à ton rythme</p>
+        <p class="text-sm font-light text-[#2C2824]/50 mt-3">Couverts pendant 12 lives avec Charly, un tous les 15 jours</p>
       </div>
 
       <div class="space-y-4">
@@ -416,9 +409,9 @@ const faq = [
           </h2>
           <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
             <p>
-              En plus des 8 modules, tu as accès à <strong class="font-medium text-[#2C2824]">1 live d'échange collectif tous les 15 jours pendant 6 mois</strong>.
+              Chaque thème est couvert par <strong class="font-medium text-[#2C2824]">1 live d'échange collectif tous les 15 jours pendant 6 mois</strong>.
             </p>
-            <p>Premier live la semaine du 27 avril. Ce sont des sessions de questions-réponses sur ton projet, en groupe :</p>
+            <p>Premier live le mardi 5 mai. Ce sont des sessions de questions-réponses sur ton projet, en groupe :</p>
           </div>
         </div>
         <div class="bg-[#FAF8F5] border border-black/5 rounded-sm p-8">
@@ -590,8 +583,8 @@ const faq = [
           <li class="flex items-start gap-4">
             <span class="text-[#C4A855] text-xl mt-0.5">&#10003;</span>
             <div>
-              <span class="font-medium text-[#2C2824]">8 modules de formation</span>
-              <span class="text-sm font-light text-[#2C2824]/60 block">La feuille de route complète, de l'idée au lieu qui tourne. À suivre en autonomie.</span>
+              <span class="font-medium text-[#2C2824]">7 thèmes essentiels couverts en 12 lives</span>
+              <span class="text-sm font-light text-[#2C2824]/60 block">La feuille de route complète, de l'idée au lieu qui tourne. Travaillée en direct avec Charly.</span>
             </div>
           </li>
           <li class="flex items-start gap-4">
@@ -604,8 +597,8 @@ const faq = [
           <li class="flex items-start gap-4">
             <span class="text-[#C4A855] text-xl mt-0.5">&#10003;</span>
             <div>
-              <span class="font-medium text-[#2C2824]">Accès à vie aux modules</span>
-              <span class="text-sm font-light text-[#2C2824]/60 block">Tu avances à ton rythme</span>
+              <span class="font-medium text-[#2C2824]">Accès à vie aux replays des lives</span>
+              <span class="text-sm font-light text-[#2C2824]/60 block">Tu peux revenir sur chaque live à ton rythme</span>
             </div>
           </li>
           <li class="flex items-start gap-4">
@@ -657,7 +650,7 @@ const faq = [
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Tu as un projet de lieu. On a 5 ans de réponses.</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
-        8 modules. 12 lives. 497&nbsp;EUR.
+        7 thèmes. 12 lives. 497&nbsp;EUR.
       </h2>
       <p class="text-lg font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
         Tout ce qu'on a appris en 5 ans, structuré pour que tu ailles plus vite que nous.
@@ -737,10 +730,10 @@ const faq = [
     });
   </script>
 
-  <!-- Countdown 26 avril script -->
+  <!-- Countdown 3 mai script -->
   <script is:inline>
     function updateCountdown() {
-      var deadline = new Date('2026-04-26T21:00:00Z').getTime();
+      var deadline = new Date('2026-05-03T21:00:00Z').getTime();
       var now = new Date().getTime();
       var diff = deadline - now;
       var pad = function(n) { return n < 10 ? '0' + n : n; };
