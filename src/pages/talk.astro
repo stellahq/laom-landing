@@ -563,7 +563,7 @@ const testimonials = [
           var emailField = form.querySelector('input[name="email_address"]');
           var nameField = form.querySelector('input[name="fields[first_name]"]');
           window.__laomTrack('Lead', {
-            content_name: 'webinar-laom-talk-21-avril',
+            content_name: 'webinar-laom-talk-28-avril',
             content_category: 'webinar_registration'
           }, {
             em: emailField ? emailField.value : undefined,
@@ -573,7 +573,7 @@ const testimonials = [
         if (typeof gtag === 'function') {
           gtag('event', 'generate_lead', {
             event_category: 'webinar',
-            event_label: 'laom-talk-21-avril',
+            event_label: 'laom-talk-28-avril',
             value: 0,
             currency: 'EUR'
           });
