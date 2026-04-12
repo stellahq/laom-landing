@@ -583,9 +583,9 @@ const testimonials = [
             currency: 'EUR'
           });
         }
+        var emailField = form.querySelector('input[name="email_address"]');
+        var email = emailField ? encodeURIComponent(emailField.value) : '';
         setTimeout(function() {
-          var emailField = form.querySelector('input[name="email_address"]');
-          var email = emailField ? encodeURIComponent(emailField.value) : '';
           window.location.href = '/school/merci/' + (email ? '?email=' + email : '');
         }, 2000);
       });
