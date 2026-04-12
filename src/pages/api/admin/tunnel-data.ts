@@ -283,75 +283,60 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const exitClicked = ((exitQuery.results || []) as any[]).find(r => r.event_type === 'exit_intent_clicked')?.count || 0
 
     // 7. Kit stats (si API key dispo)
-    // On remonte : account info, subscribers du form webinar, subscribers du tag talk
+    // Source de verite pour les inscrits webinar : TAG 18610902 ("webinar-laomtalk-21-avril-2026")
+    // Le form 8987350 est la newsletter generale (utilise sur tout le site), PAS le webinar
     let kitStats: any = null
     const kitApiSecret = env?.KIT_API_SECRET
     const KIT_HEADERS = kitApiSecret ? { 'X-Kit-Api-Key': kitApiSecret, Accept: 'application/json' } : null
 
     if (KIT_HEADERS) {
       try {
-        // 7a. Account info
-        const kitAccountRes = await fetch('https://api.kit.com/v4/account', { headers: KIT_HEADERS })
-        let accountData: any = null
-        if (kitAccountRes.ok) {
-          accountData = (await kitAccountRes.json()) as any
-        }
-
-        // 7b. Subscribers du form 8987350 (inscrits webinar) — compter les pages
-        let webinarSubscriberCount = 0
+        // 7a. Subscribers du TAG 18610902 = vrais inscrits webinar
+        // Ce tag est ajoute uniquement via le formulaire sur /talk/
+        const WEBINAR_TAG_ID = '18610902'
         let webinarSubscribers: any[] = []
-        let formCursor: string | null = null
-        let formPageCount = 0
-        const MAX_PAGES = 20 // Safety limit
+        let tagCursor: string | null = null
+        let tagPageCount = 0
+        const MAX_PAGES = 10
 
         do {
-          const formUrl = new URL('https://api.kit.com/v4/forms/8987350/subscribers')
-          formUrl.searchParams.set('per_page', '500')
-          if (formCursor) formUrl.searchParams.set('after', formCursor)
+          const tagUrl = new URL(`https://api.kit.com/v4/tags/${WEBINAR_TAG_ID}/subscribers`)
+          tagUrl.searchParams.set('per_page', '500')
+          if (tagCursor) tagUrl.searchParams.set('after', tagCursor)
 
-          const formRes = await fetch(formUrl.toString(), { headers: KIT_HEADERS })
-          if (!formRes.ok) break
+          const tagRes = await fetch(tagUrl.toString(), { headers: KIT_HEADERS })
+          if (!tagRes.ok) break
 
-          const formData = (await formRes.json()) as any
-          const subs = formData.subscribers || []
-          webinarSubscribers = webinarSubscribers.concat(subs)
-          webinarSubscriberCount += subs.length
-
-          // Kit v4 cursor pagination
-          formCursor = formData.pagination?.has_next_page ? formData.pagination?.end_cursor : null
-          formPageCount++
-        } while (formCursor && formPageCount < MAX_PAGES)
-
-        // 7c. Subscribers du tag 18610902 (tag "talk") — juste le count
-        let talkTagCount = 0
-        const tagRes = await fetch('https://api.kit.com/v4/tags/18610902/subscribers?per_page=1', { headers: KIT_HEADERS })
-        if (tagRes.ok) {
           const tagData = (await tagRes.json()) as any
-          // Kit v4 retourne pagination.total_count ou on compte
-          talkTagCount = tagData.pagination?.total_count || tagData.subscribers?.length || 0
-          // Si pas de total_count, on doit paginer -- mais on a deja le form count, ca devrait etre le meme
-          if (talkTagCount <= 1 && webinarSubscriberCount > 0) {
-            talkTagCount = webinarSubscriberCount // Fallback: meme population
-          }
-        }
+          const subs = tagData.subscribers || []
+          webinarSubscribers = webinarSubscribers.concat(subs)
 
-        // 7d. Inscrits par jour (depuis les dates de creation des subscribers)
+          tagCursor = tagData.pagination?.has_next_page ? tagData.pagination?.end_cursor : null
+          tagPageCount++
+        } while (tagCursor && tagPageCount < MAX_PAGES)
+
+        // 7b. Inscrits par jour (utiliser tagged_at = quand ils se sont inscrits au webinar)
         const subscribersByDay = new Map<string, number>()
         for (const sub of webinarSubscribers) {
-          const date = (sub.created_at || '').split('T')[0]
+          // tagged_at = quand le tag webinar a ete applique (= inscription au webinar)
+          const date = (sub.tagged_at || sub.created_at || '').split('T')[0]
           if (date) {
             subscribersByDay.set(date, (subscribersByDay.get(date) || 0) + 1)
           }
         }
 
         kitStats = {
-          account_name: accountData?.account?.name || accountData?.name || null,
-          total_subscribers: accountData?.account?.total_subscribers || null,
-          webinar_subscribers: webinarSubscriberCount,
-          talk_tag_count: talkTagCount,
+          webinar_subscribers: webinarSubscribers.length,
+          webinar_tag_name: 'webinar-laomtalk-21-avril-2026',
           subscribers_by_day: Object.fromEntries(
             Array.from(subscribersByDay.entries()).sort((a, b) => a[0].localeCompare(b[0]))
           ),
+          // Liste des inscrits pour reference
+          recent_subscribers: webinarSubscribers.slice(0, 10).map((s: any) => ({
+            name: s.first_name || '—',
+            email: s.email_address,
+            tagged_at: s.tagged_at,
+          })),
         }
       } catch (e) {
         console.error('Kit API error (non-blocking):', e)
@@ -424,95 +409,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
       }
     }
 
-    // 9. Cloudflare Web Analytics (page views historiques)
-    let cfPageViews: any = null
-    if (cfApiToken && cfAccountId) {
-      try {
-        const pagesQuery = `
-          query {
-            viewer {
-              zones(filter: { zoneTag_in: [] }) {
-                httpRequestsAdaptiveGroups(
-                  filter: { date_geq: "${fromDate}", clientRequestPath_in: ["/talk/", "/school/merci/", "/school/online/", "/school/confirmation/"] }
-                  limit: 100
-                  orderBy: [date_ASC]
-                ) {
-                  dimensions { date, clientRequestPath }
-                  count
-                }
-              }
-            }
-          }
-        `
-        // Workers Analytics via account-level analytics
-        const analyticsQuery = `
-          query {
-            viewer {
-              accounts(filter: { accountTag: "${cfAccountId}" }) {
-                workersAnalyticsEngineAdaptiveGroups(
-                  filter: { date_geq: "${fromDate}" }
-                  limit: 100
-                ) {
-                  dimensions { date }
-                  count
-                }
-              }
-            }
-          }
-        `
-
-        // Essayer le Workers Invocations analytics (donne les requetes par path)
-        const workerAnalyticsQuery = `
-          query {
-            viewer {
-              accounts(filter: { accountTag: "${cfAccountId}" }) {
-                workersInvocationsAdaptive(
-                  filter: { date_geq: "${fromDate}", scriptName: "laom-landing" }
-                  limit: 1000
-                  orderBy: [date_ASC]
-                ) {
-                  dimensions { date, status }
-                  sum { requests, duration }
-                }
-              }
-            }
-          }
-        `
-
-        const cfRes = await fetch('https://api.cloudflare.com/client/v4/graphql', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${cfApiToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query: workerAnalyticsQuery }),
-        })
-
-        if (cfRes.ok) {
-          const cfData = (await cfRes.json()) as any
-          const workerData = cfData?.data?.viewer?.accounts?.[0]?.workersInvocationsAdaptive || []
-
-          let totalRequests = 0
-          const dailyRequests: { date: string; requests: number }[] = []
-
-          for (const w of workerData) {
-            const reqs = w.sum?.requests || 0
-            totalRequests += reqs
-            dailyRequests.push({
-              date: w.dimensions?.date,
-              requests: reqs,
-            })
-          }
-
-          cfPageViews = {
-            total_requests: totalRequests,
-            daily: dailyRequests,
-          }
-        }
-      } catch (e) {
-        console.error('CF Analytics error (non-blocking):', e)
-      }
-    }
+    // Workers Analytics SUPPRIME -- comptait les requetes HTTP (assets, API, bots),
+    // pas les page views. Inutilisable pour le trafic du tunnel.
+    // Le tracking maison (tunnel_events) est la source de verite pour les page views.
 
     // Total events
     const totalEventsQuery = await db
@@ -526,7 +425,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
       sources,
       vsl_retention: vslRetention,
       stream_analytics: streamAnalytics,
-      cf_page_views: cfPageViews,
       revenue: {
         items: revenue,
         total: Math.round(totalRevenue * 100) / 100,

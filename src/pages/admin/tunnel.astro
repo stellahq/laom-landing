@@ -89,25 +89,25 @@ import Layout from '~/layouts/Layout.astro'
         </div>
       </div>
 
-      <!-- Kit / Webinar inscrits (donnees historiques depuis Kit API) -->
+      <!-- Inscrits Webinar — source: Kit tag "webinar-laomtalk-21-avril-2026" (#18610902) -->
       <section id="kit-section" class="bg-white border border-[#2C2824]/5 rounded-sm p-6 hidden">
-        <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Inscrits Webinar (Kit)</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-playfair text-lg font-medium text-[#2C2824]">Inscrits Webinar</h2>
+          <span class="text-xs text-[#2C2824]/30">Source: Kit tag #18610902</span>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-6">
           <div>
-            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Inscrits webinar</p>
-            <p id="kit-webinar-subs" class="text-2xl font-playfair font-medium text-[#2C2824]">—</p>
+            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Inscrits</p>
+            <p id="kit-webinar-subs" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
           </div>
           <div>
-            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Total subscribers Kit</p>
-            <p id="kit-total-subs" class="text-2xl font-playfair font-medium text-[#2C2824]">—</p>
-          </div>
-          <div>
-            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Compte</p>
-            <p id="kit-account-name" class="text-sm text-[#2C2824]/60">—</p>
+            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Tag</p>
+            <p id="kit-tag-name" class="text-sm text-[#2C2824]/60 mt-1">—</p>
           </div>
         </div>
         <h3 class="text-sm font-medium text-[#2C2824]/60 mb-3">Inscriptions par jour</h3>
         <div id="kit-daily-chart" class="space-y-1"></div>
+        <div id="kit-recent-list" class="mt-4 hidden"></div>
       </section>
 
       <!-- Funnel visuel -->
@@ -221,34 +221,34 @@ import Layout from '~/layouts/Layout.astro'
     }
 
     function renderDashboard(data) {
-      // KPIs — utiliser Kit comme source de verite pour inscrits, D1 tracking pour le trafic
+      // KPIs
       var talkViews = findFunnelStep(data.funnel, 'talk_page_view');
-      var otoPaid = findFunnelStep(data.funnel, 'oto_paid');
-      var onlinePaid = findFunnelStep(data.funnel, 'online_paid');
-
-      // Inscrits : priorite Kit API (donnees historiques), fallback tunnel_events
-      var registrations = findFunnelStep(data.funnel, 'talk_form_submit');
       var kitWebinarSubs = data.kit_stats ? data.kit_stats.webinar_subscribers : 0;
-      var displayRegistrations = kitWebinarSubs > registrations.count ? kitWebinarSubs : registrations.count;
-
-      // Visiteurs : tunnel_events (tracking client) — sera 0 au debut, c'est normal
-      document.getElementById('kpi-visitors').textContent = talkViews.count || (kitWebinarSubs > 0 ? '~' : '0');
-      document.getElementById('kpi-registrations').textContent = displayRegistrations || 0;
-      document.getElementById('kpi-reg-rate').textContent = kitWebinarSubs > 0
-        ? kitWebinarSubs + ' inscrits (Kit API)'
-        : (talkViews.count > 0 ? (Math.round((registrations.count / talkViews.count) * 1000) / 10) + '% conversion' : '');
-      document.getElementById('kpi-sales').textContent = (otoPaid.count || 0) + (onlinePaid.count || 0) + (data.revenue.items.length > 0 ? '' : '');
-
-      // Ventes : si tunnel_events est vide, compter depuis mollie_payments
       var totalSales = data.revenue.items.reduce(function(s, r) { return s + r.count; }, 0);
-      document.getElementById('kpi-sales').textContent = totalSales;
 
+      // Visiteurs /talk/ : tracking client (tunnel_events) — commence a s'accumuler
+      document.getElementById('kpi-visitors').textContent = talkViews.count || '—';
+      // Inscrits : source = Kit tag webinar (donnee fiable)
+      document.getElementById('kpi-registrations').textContent = kitWebinarSubs || 0;
+      document.getElementById('kpi-reg-rate').textContent = kitWebinarSubs > 0
+        ? 'Tag Kit #18610902'
+        : '';
+      // Ventes : source = mollie_payments (produits tunnel uniquement)
+      document.getElementById('kpi-sales').textContent = totalSales;
+      // Revenue
       document.getElementById('kpi-revenue').textContent = data.revenue.total > 0
         ? data.revenue.total.toLocaleString('fr-FR') + ' EUR'
         : '0 EUR';
 
-      // Kit section
+      // Kit section (inscrits webinar)
       renderKitSection(data.kit_stats);
+
+      // Mettre a jour les KPIs si pas de donnees tracking encore
+      if (data.kit_stats && data.kit_stats.webinar_subscribers > 0) {
+        document.getElementById('kpi-visitors').textContent = '—';
+        var regRate = document.getElementById('kpi-reg-rate');
+        if (regRate) regRate.textContent = 'Tracking actif depuis le 12/04';
+      }
 
       // Funnel chart
       renderFunnel(data.funnel);
@@ -262,8 +262,7 @@ import Layout from '~/layouts/Layout.astro'
       // VSL
       renderVSL(data.vsl_retention);
 
-      // CF traffic
-      renderCfTraffic(data.cf_page_views);
+      // CF traffic supprime (comptait requetes HTTP, pas page views)
 
       // Revenue
       renderRevenue(data.revenue);
@@ -425,29 +424,33 @@ import Layout from '~/layouts/Layout.astro'
       document.getElementById('vsl-subtitle').textContent = 'Donnees Cloudflare Stream + retention client';
     }
 
-    function renderCfTraffic(cfData) {
-      if (!cfData || !cfData.total_requests) return;
-
-      // Mettre a jour le KPI visiteurs avec les donnees CF si le tracking client est vide
-      var kpiVisitors = document.getElementById('kpi-visitors');
-      if (kpiVisitors.textContent === '0' || kpiVisitors.textContent === '~') {
-        kpiVisitors.textContent = cfData.total_requests;
-        // Note: c'est le total des requetes Worker, pas les page views /talk/ specifiquement
-        // Mais ca donne une idee du trafic
-      }
-    }
-
     function renderKitSection(kitStats) {
       var section = document.getElementById('kit-section');
-      if (!kitStats || !kitStats.webinar_subscribers) {
+      if (!kitStats) {
         section.classList.add('hidden');
         return;
       }
       section.classList.remove('hidden');
 
-      document.getElementById('kit-webinar-subs').textContent = kitStats.webinar_subscribers;
-      document.getElementById('kit-total-subs').textContent = kitStats.total_subscribers || '—';
-      document.getElementById('kit-account-name').textContent = kitStats.account_name || '—';
+      document.getElementById('kit-webinar-subs').textContent = kitStats.webinar_subscribers || 0;
+      document.getElementById('kit-tag-name').textContent = kitStats.webinar_tag_name || '—';
+
+      // Liste des derniers inscrits
+      if (kitStats.recent_subscribers && kitStats.recent_subscribers.length > 0) {
+        var listEl = document.getElementById('kit-recent-list');
+        listEl.classList.remove('hidden');
+        var html = '<h3 class="text-sm font-medium text-[#2C2824]/60 mb-2">Derniers inscrits</h3>';
+        html += '<div class="space-y-1">';
+        kitStats.recent_subscribers.forEach(function(s) {
+          var date = s.tagged_at ? s.tagged_at.split('T')[0] + ' ' + s.tagged_at.split('T')[1].slice(0, 5) : '';
+          html += '<div class="flex items-center justify-between text-xs py-1 border-b border-[#2C2824]/5">';
+          html += '  <span class="text-[#2C2824]">' + (s.name || '—') + '</span>';
+          html += '  <span class="text-[#2C2824]/40 font-mono">' + date + '</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+        listEl.innerHTML = html;
+      }
 
       // Daily chart
       var container = document.getElementById('kit-daily-chart');
