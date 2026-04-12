@@ -942,6 +942,9 @@ const faq = [
       var emailForm = document.getElementById('email-form');
       var closeBtn = document.getElementById('email-modal-close');
 
+      // Récupérer l'email depuis l'URL (passé depuis la page talk)
+      var urlEmail = new URLSearchParams(window.location.search).get('email') || '';
+
       // Ouvrir la modale au clic sur un CTA
       document.addEventListener('click', function(e) {
         var btn = e.target.closest('.mollie-cta');
@@ -953,8 +956,15 @@ const faq = [
         pendingProduct = product;
         pendingBtn = btn;
         pendingOriginalText = btn.textContent;
+
+        // Si on a l'email de la conférence, pré-remplir
+        if (urlEmail) {
+          emailInput.value = urlEmail;
+        } else {
+          emailInput.value = '';
+        }
+
         modal.classList.remove('hidden');
-        emailInput.value = '';
         emailInput.focus();
       });
 
