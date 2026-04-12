@@ -128,7 +128,9 @@ import Layout from '~/layouts/Layout.astro'
 
         <!-- VSL Retention -->
         <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
-          <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Retention VSL</h2>
+          <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">VSL Video</h2>
+          <div id="stream-kpis" class="grid grid-cols-3 gap-4 mb-4 hidden"></div>
+          <h3 id="vsl-subtitle" class="text-sm font-medium text-[#2C2824]/40 mb-3">Retention (tracking client)</h3>
           <div id="vsl-chart" class="space-y-3"></div>
         </section>
 
@@ -254,8 +256,14 @@ import Layout from '~/layouts/Layout.astro'
       // Sources
       renderSources(data.sources);
 
+      // Stream Analytics (Cloudflare)
+      renderStreamAnalytics(data.stream_analytics);
+
       // VSL
       renderVSL(data.vsl_retention);
+
+      // CF traffic
+      renderCfTraffic(data.cf_page_views);
 
       // Revenue
       renderRevenue(data.revenue);
@@ -398,6 +406,35 @@ import Layout from '~/layouts/Layout.astro'
         '<div class="text-center"><p class="text-2xl font-playfair text-[#2C2824]">' + exitIntents.clicked + '</p><p class="text-xs text-[#2C2824]/40">CTA cliques</p></div>',
         '<div class="text-center"><p class="text-2xl font-playfair text-[#C4A855]">' + exitIntents.click_rate + '%</p><p class="text-xs text-[#2C2824]/40">Taux de clic</p></div>'
       ].join('');
+    }
+
+    function renderStreamAnalytics(streamData) {
+      var container = document.getElementById('stream-kpis');
+      if (!streamData || !streamData.total_views) {
+        container.classList.add('hidden');
+        return;
+      }
+      container.classList.remove('hidden');
+      container.innerHTML = [
+        '<div><p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Vues totales</p><p class="text-xl font-playfair text-[#2C2824]">' + streamData.total_views + '</p></div>',
+        '<div><p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Minutes vues</p><p class="text-xl font-playfair text-[#2C2824]">' + streamData.total_minutes + '</p></div>',
+        '<div><p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">Moy. / vue</p><p class="text-xl font-playfair text-[#C4A855]">' + streamData.avg_minutes_per_view + ' min</p></div>',
+      ].join('');
+
+      // Update subtitle
+      document.getElementById('vsl-subtitle').textContent = 'Donnees Cloudflare Stream + retention client';
+    }
+
+    function renderCfTraffic(cfData) {
+      if (!cfData || !cfData.total_requests) return;
+
+      // Mettre a jour le KPI visiteurs avec les donnees CF si le tracking client est vide
+      var kpiVisitors = document.getElementById('kpi-visitors');
+      if (kpiVisitors.textContent === '0' || kpiVisitors.textContent === '~') {
+        kpiVisitors.textContent = cfData.total_requests;
+        // Note: c'est le total des requetes Worker, pas les page views /talk/ specifiquement
+        // Mais ca donne une idee du trafic
+      }
     }
 
     function renderKitSection(kitStats) {

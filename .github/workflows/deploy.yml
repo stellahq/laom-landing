@@ -25,11 +25,16 @@ jobs:
       - run: bun run build
       - run: bun run seo:check
       - name: Set Cloudflare Worker secrets
-        run: echo "$META_CAPI_TOKEN" | bunx wrangler@latest secret put META_CAPI_TOKEN
+        run: |
+          echo "$META_CAPI_TOKEN" | bunx wrangler@latest secret put META_CAPI_TOKEN
+          echo "$CF_API_TOKEN_RUNTIME" | bunx wrangler@latest secret put CF_API_TOKEN
+          echo "$CF_ACCOUNT_ID_RUNTIME" | bunx wrangler@latest secret put CF_ACCOUNT_ID
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           META_CAPI_TOKEN: ${{ secrets.META_CAPI_TOKEN }}
+          CF_API_TOKEN_RUNTIME: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID_RUNTIME: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       - name: Deploy to Production
         id: prod_deploy
         run: |

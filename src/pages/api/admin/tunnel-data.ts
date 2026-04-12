@@ -358,6 +358,162 @@ export const GET: APIRoute = async ({ request, locals }) => {
       }
     }
 
+    // 8. Cloudflare Stream Analytics (donnees video historiques)
+    let streamAnalytics: any = null
+    const cfApiToken = env?.CF_API_TOKEN
+    const cfAccountId = env?.CF_ACCOUNT_ID
+    const STREAM_VIDEO_ID = 'be148f8016e2b02ad6e8dff65bf84afe'
+
+    if (cfApiToken && cfAccountId) {
+      try {
+        // GraphQL Analytics API pour Stream
+        const streamQuery = `
+          query {
+            viewer {
+              accounts(filter: { accountTag: "${cfAccountId}" }) {
+                streamMinutesViewedAdaptiveGroups(
+                  filter: { date_geq: "${fromDate}", uid: "${STREAM_VIDEO_ID}" }
+                  limit: 1000
+                  orderBy: [date_ASC]
+                ) {
+                  dimensions { date }
+                  sum { minutesViewed }
+                  count
+                }
+              }
+            }
+          }
+        `
+        const streamRes = await fetch('https://api.cloudflare.com/client/v4/graphql', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${cfApiToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ query: streamQuery }),
+        })
+
+        if (streamRes.ok) {
+          const streamData = (await streamRes.json()) as any
+          const groups = streamData?.data?.viewer?.accounts?.[0]?.streamMinutesViewedAdaptiveGroups || []
+
+          let totalViews = 0
+          let totalMinutes = 0
+          const dailyViews: { date: string; views: number; minutes: number }[] = []
+
+          for (const g of groups) {
+            totalViews += g.count || 0
+            totalMinutes += g.sum?.minutesViewed || 0
+            dailyViews.push({
+              date: g.dimensions?.date,
+              views: g.count || 0,
+              minutes: Math.round((g.sum?.minutesViewed || 0) * 10) / 10,
+            })
+          }
+
+          streamAnalytics = {
+            video_id: STREAM_VIDEO_ID,
+            total_views: totalViews,
+            total_minutes: Math.round(totalMinutes * 10) / 10,
+            avg_minutes_per_view: totalViews > 0 ? Math.round((totalMinutes / totalViews) * 10) / 10 : 0,
+            daily: dailyViews,
+          }
+        }
+      } catch (e) {
+        console.error('Stream Analytics error (non-blocking):', e)
+      }
+    }
+
+    // 9. Cloudflare Web Analytics (page views historiques)
+    let cfPageViews: any = null
+    if (cfApiToken && cfAccountId) {
+      try {
+        const pagesQuery = `
+          query {
+            viewer {
+              zones(filter: { zoneTag_in: [] }) {
+                httpRequestsAdaptiveGroups(
+                  filter: { date_geq: "${fromDate}", clientRequestPath_in: ["/talk/", "/school/merci/", "/school/online/", "/school/confirmation/"] }
+                  limit: 100
+                  orderBy: [date_ASC]
+                ) {
+                  dimensions { date, clientRequestPath }
+                  count
+                }
+              }
+            }
+          }
+        `
+        // Workers Analytics via account-level analytics
+        const analyticsQuery = `
+          query {
+            viewer {
+              accounts(filter: { accountTag: "${cfAccountId}" }) {
+                workersAnalyticsEngineAdaptiveGroups(
+                  filter: { date_geq: "${fromDate}" }
+                  limit: 100
+                ) {
+                  dimensions { date }
+                  count
+                }
+              }
+            }
+          }
+        `
+
+        // Essayer le Workers Invocations analytics (donne les requetes par path)
+        const workerAnalyticsQuery = `
+          query {
+            viewer {
+              accounts(filter: { accountTag: "${cfAccountId}" }) {
+                workersInvocationsAdaptive(
+                  filter: { date_geq: "${fromDate}", scriptName: "laom-landing" }
+                  limit: 1000
+                  orderBy: [date_ASC]
+                ) {
+                  dimensions { date, status }
+                  sum { requests, duration }
+                }
+              }
+            }
+          }
+        `
+
+        const cfRes = await fetch('https://api.cloudflare.com/client/v4/graphql', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${cfApiToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ query: workerAnalyticsQuery }),
+        })
+
+        if (cfRes.ok) {
+          const cfData = (await cfRes.json()) as any
+          const workerData = cfData?.data?.viewer?.accounts?.[0]?.workersInvocationsAdaptive || []
+
+          let totalRequests = 0
+          const dailyRequests: { date: string; requests: number }[] = []
+
+          for (const w of workerData) {
+            const reqs = w.sum?.requests || 0
+            totalRequests += reqs
+            dailyRequests.push({
+              date: w.dimensions?.date,
+              requests: reqs,
+            })
+          }
+
+          cfPageViews = {
+            total_requests: totalRequests,
+            daily: dailyRequests,
+          }
+        }
+      } catch (e) {
+        console.error('CF Analytics error (non-blocking):', e)
+      }
+    }
+
     // Total events
     const totalEventsQuery = await db
       .prepare(`SELECT COUNT(*) as total FROM tunnel_events WHERE created_at >= ?`)
@@ -369,6 +525,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
       funnel,
       sources,
       vsl_retention: vslRetention,
+      stream_analytics: streamAnalytics,
+      cf_page_views: cfPageViews,
       revenue: {
         items: revenue,
         total: Math.round(totalRevenue * 100) / 100,
