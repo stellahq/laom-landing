@@ -33,6 +33,9 @@ const pageLastModDates = getPageLastModDates()
 
 export default defineConfig({
   output: 'server',
+  security: {
+    checkOrigin: false,
+  },
   i18n: {
     defaultLocale: 'fr',
     locales: ['fr', 'en'],
