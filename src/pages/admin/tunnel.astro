@@ -1,0 +1,369 @@
+---
+import Layout from '~/layouts/Layout.astro'
+
+// SSR — pas de prerender, donnees live
+// Protection par password dans l'endpoint API
+---
+
+<Layout
+  title="Tunnel Performance — LAOM Admin"
+  description="Dashboard de performance du tunnel webinar LAOM"
+  seo={{ noIndex: true }}
+  hideChrome={true}
+>
+  <style is:global>
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'SF Mono', 'Fira Code', 'Fira Mono', monospace; }
+  </style>
+
+  <!-- Password gate -->
+  <div id="auth-gate" class="min-h-screen bg-[#FAF8F5] flex items-center justify-center">
+    <div class="max-w-sm mx-auto px-6 text-center">
+      <h1 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Tunnel LAOM</h1>
+      <input
+        type="password"
+        id="admin-password"
+        placeholder="Mot de passe"
+        class="w-full px-4 py-3 rounded-sm border border-[#2C2824]/10 bg-white text-[#2C2824] text-center text-lg focus:border-[#C4A855] focus:outline-none"
+      />
+      <button
+        id="admin-login"
+        class="w-full mt-4 px-6 py-3 rounded-sm bg-[#2C2824] text-white text-sm tracking-[0.15em] uppercase hover:bg-[#1a1a1a] transition-colors"
+      >
+        Acceder
+      </button>
+      <p id="auth-error" class="text-red-600 text-sm mt-3 hidden">Mot de passe incorrect</p>
+    </div>
+  </div>
+
+  <!-- Dashboard (hidden until authenticated) -->
+  <div id="dashboard" class="hidden">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#2C2824] border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="/" class="font-playfair text-xl text-white tracking-tight">LAOM</a>
+          <span class="text-white/30">/</span>
+          <span class="text-sm text-white/60">Tunnel Performance</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <select id="period-select" class="bg-[#2C2824] border border-white/10 text-white text-sm rounded-sm px-3 py-1.5 focus:border-[#C4A855] focus:outline-none">
+            <option value="today">Aujourd'hui</option>
+            <option value="7d" selected>7 derniers jours</option>
+            <option value="30d">30 derniers jours</option>
+            <option value="all">Tout</option>
+          </select>
+          <button id="refresh-btn" class="text-white/40 hover:text-white transition-colors" title="Rafraichir">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Loading state -->
+    <div id="loading" class="py-24 text-center">
+      <p class="text-[#2C2824]/40 text-sm">Chargement des donnees...</p>
+    </div>
+
+    <!-- Dashboard content -->
+    <main id="dashboard-content" class="hidden max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+      <!-- KPIs row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Visiteurs /talk/</p>
+          <p id="kpi-visitors" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
+        </div>
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Inscrits</p>
+          <p id="kpi-registrations" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
+          <p id="kpi-reg-rate" class="text-xs text-[#4A7C59] mt-1"></p>
+        </div>
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Ventes</p>
+          <p id="kpi-sales" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
+        </div>
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855]/80 mb-1">Revenue</p>
+          <p id="kpi-revenue" class="text-3xl font-playfair font-medium text-[#C4A855]">—</p>
+        </div>
+      </div>
+
+      <!-- Funnel visuel -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+        <h2 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">Funnel de conversion</h2>
+        <div id="funnel-chart" class="space-y-2"></div>
+      </section>
+
+      <!-- Grid 2 colonnes -->
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Sources de trafic -->
+        <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+          <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Sources de trafic</h2>
+          <div id="sources-chart" class="space-y-3"></div>
+        </section>
+
+        <!-- VSL Retention -->
+        <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+          <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Retention VSL</h2>
+          <div id="vsl-chart" class="space-y-3"></div>
+        </section>
+
+      </div>
+
+      <!-- Revenue breakdown -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+        <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Revenue par produit</h2>
+        <div id="revenue-table"></div>
+      </section>
+
+      <!-- Exit intent stats -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+        <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Exit Intent Popups</h2>
+        <div id="exit-intent-stats" class="flex items-center gap-8"></div>
+      </section>
+
+      <!-- Meta -->
+      <footer class="text-center py-6">
+        <p id="meta-info" class="text-xs text-[#2C2824]/30"></p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Dashboard logic -->
+  <script is:inline>
+  (function() {
+    var password = '';
+    var authGate = document.getElementById('auth-gate');
+    var dashboard = document.getElementById('dashboard');
+    var loading = document.getElementById('loading');
+    var content = document.getElementById('dashboard-content');
+    var authError = document.getElementById('auth-error');
+
+    // Check saved password
+    var saved = sessionStorage.getItem('laom-admin-pwd');
+    if (saved) {
+      password = saved;
+      authGate.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      loadData();
+    }
+
+    // Login
+    document.getElementById('admin-login').addEventListener('click', function() {
+      password = document.getElementById('admin-password').value;
+      sessionStorage.setItem('laom-admin-pwd', password);
+      authGate.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      loadData();
+    });
+    document.getElementById('admin-password').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') document.getElementById('admin-login').click();
+    });
+
+    // Period change
+    document.getElementById('period-select').addEventListener('change', loadData);
+    document.getElementById('refresh-btn').addEventListener('click', loadData);
+
+    function loadData() {
+      var period = document.getElementById('period-select').value;
+      loading.classList.remove('hidden');
+      content.classList.add('hidden');
+      authError.classList.add('hidden');
+
+      fetch('/api/admin/tunnel-data/?password=' + encodeURIComponent(password) + '&period=' + period)
+        .then(function(res) {
+          if (res.status === 401) {
+            authError.classList.remove('hidden');
+            authError.textContent = 'Mot de passe incorrect';
+            authGate.classList.remove('hidden');
+            dashboard.classList.add('hidden');
+            sessionStorage.removeItem('laom-admin-pwd');
+            throw new Error('unauthorized');
+          }
+          return res.json();
+        })
+        .then(function(data) {
+          loading.classList.add('hidden');
+          content.classList.remove('hidden');
+          renderDashboard(data);
+        })
+        .catch(function(err) {
+          if (err.message !== 'unauthorized') {
+            loading.innerHTML = '<p class="text-red-600 text-sm">Erreur de chargement</p>';
+          }
+        });
+    }
+
+    function renderDashboard(data) {
+      // KPIs
+      var talkViews = findFunnelStep(data.funnel, 'talk_page_view');
+      var registrations = findFunnelStep(data.funnel, 'talk_form_submit');
+      var otoPaid = findFunnelStep(data.funnel, 'oto_paid');
+      var onlinePaid = findFunnelStep(data.funnel, 'online_paid');
+
+      document.getElementById('kpi-visitors').textContent = talkViews.count || 0;
+      document.getElementById('kpi-registrations').textContent = registrations.count || 0;
+      document.getElementById('kpi-reg-rate').textContent = talkViews.count > 0
+        ? (Math.round((registrations.count / talkViews.count) * 1000) / 10) + '% de conversion'
+        : '';
+      document.getElementById('kpi-sales').textContent = (otoPaid.count || 0) + (onlinePaid.count || 0);
+      document.getElementById('kpi-revenue').textContent = data.revenue.total > 0
+        ? data.revenue.total.toLocaleString('fr-FR') + ' EUR'
+        : '0 EUR';
+
+      // Funnel chart
+      renderFunnel(data.funnel);
+
+      // Sources
+      renderSources(data.sources);
+
+      // VSL
+      renderVSL(data.vsl_retention);
+
+      // Revenue
+      renderRevenue(data.revenue);
+
+      // Exit intents
+      renderExitIntents(data.exit_intents);
+
+      // Meta
+      document.getElementById('meta-info').textContent =
+        'Periode: ' + data.meta.from + ' a ' + data.meta.to.split('T')[0] +
+        ' | ' + data.meta.total_events + ' events';
+    }
+
+    function findFunnelStep(funnel, step) {
+      return funnel.find(function(f) { return f.step === step; }) || { count: 0, unique_sessions: 0, conversion_rate: 0, leak_rate: 0 };
+    }
+
+    // Funnel steps labels
+    var STEP_LABELS = {
+      'talk_page_view': 'Page /talk/ vue',
+      'talk_form_submit': 'Formulaire soumis',
+      'merci_page_view': 'Page OTO vue',
+      'vsl_start': 'VSL demarree',
+      'vsl_complete': 'VSL terminee',
+      'oto_cta_click': 'CTA OTO clique',
+      'oto_checkout': 'Checkout OTO initie',
+      'oto_paid': 'OTO 147 EUR paye',
+      'online_page_view': 'Page 497 EUR vue',
+      'online_checkout': 'Checkout 497 EUR initie',
+      'online_paid': '497 EUR paye',
+      'confirmation_view': 'Confirmation vue'
+    };
+
+    function renderFunnel(funnel) {
+      var container = document.getElementById('funnel-chart');
+      var maxCount = Math.max.apply(null, funnel.map(function(f) { return f.count; })) || 1;
+      var html = '';
+
+      funnel.forEach(function(step, i) {
+        var barWidth = Math.max(2, (step.count / maxCount) * 100);
+        var isLeak = step.leak_rate > 30;
+        var leakColor = step.leak_rate > 50 ? '#dc2626' : step.leak_rate > 30 ? '#f59e0b' : '#4A7C59';
+        var barColor = step.step.indexOf('paid') !== -1 ? '#C4A855' : '#2C2824';
+        var label = STEP_LABELS[step.step] || step.step;
+
+        html += '<div class="flex items-center gap-4">';
+        html += '  <div class="w-40 text-right text-xs text-[#2C2824]/60 flex-shrink-0 truncate">' + label + '</div>';
+        html += '  <div class="flex-1 bg-[#FAF8F5] rounded-sm overflow-hidden h-7 relative">';
+        html += '    <div style="width:' + barWidth + '%;background:' + barColor + '" class="h-full rounded-sm transition-all duration-500"></div>';
+        html += '    <span class="absolute inset-y-0 left-2 flex items-center text-xs font-medium ' + (barWidth > 15 ? 'text-white' : 'text-[#2C2824]') + '">' + step.count + '</span>';
+        html += '  </div>';
+        html += '  <div class="w-20 text-right flex-shrink-0">';
+        if (i > 0) {
+          html += '    <span class="text-xs font-mono" style="color:' + leakColor + '">' + step.conversion_rate + '%</span>';
+          if (isLeak) {
+            html += '    <span class="text-xs text-red-500 ml-1" title="Fuite: ' + step.leak_rate + '% perdu">&#9888;</span>';
+          }
+        }
+        html += '  </div>';
+        html += '</div>';
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderSources(sources) {
+      var container = document.getElementById('sources-chart');
+      if (!sources.length) {
+        container.innerHTML = '<p class="text-xs text-[#2C2824]/30">Pas encore de donnees</p>';
+        return;
+      }
+      var html = '';
+      var colors = { facebook: '#1877F2', kit: '#FB6970', google: '#34A853', instagram: '#E4405F', linkedin: '#0077B5', direct: '#2C2824', referral: '#8B5CF6', organic: '#34A853', unknown: '#9CA3AF' };
+
+      sources.forEach(function(s) {
+        var color = colors[s.source] || '#9CA3AF';
+        html += '<div class="flex items-center gap-3">';
+        html += '  <div class="w-2 h-2 rounded-full flex-shrink-0" style="background:' + color + '"></div>';
+        html += '  <span class="text-sm text-[#2C2824] w-20">' + (s.source || 'unknown') + '</span>';
+        html += '  <div class="flex-1 bg-[#FAF8F5] rounded-sm overflow-hidden h-4">';
+        html += '    <div style="width:' + s.percentage + '%;background:' + color + '" class="h-full rounded-sm"></div>';
+        html += '  </div>';
+        html += '  <span class="text-xs font-mono text-[#2C2824]/60 w-16 text-right">' + s.count + ' (' + s.percentage + '%)</span>';
+        html += '</div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function renderVSL(vslRetention) {
+      var container = document.getElementById('vsl-chart');
+      if (!vslRetention.length || vslRetention[0].count === 0) {
+        container.innerHTML = '<p class="text-xs text-[#2C2824]/30">Pas encore de donnees video</p>';
+        return;
+      }
+      var html = '';
+      vslRetention.forEach(function(m) {
+        var barColor = m.rate > 50 ? '#4A7C59' : m.rate > 25 ? '#C4A855' : '#dc2626';
+        html += '<div class="flex items-center gap-3">';
+        html += '  <span class="text-sm text-[#2C2824]/60 w-16">' + m.milestone + '</span>';
+        html += '  <div class="flex-1 bg-[#FAF8F5] rounded-sm overflow-hidden h-5">';
+        html += '    <div style="width:' + m.rate + '%;background:' + barColor + '" class="h-full rounded-sm transition-all"></div>';
+        html += '  </div>';
+        html += '  <span class="text-xs font-mono text-[#2C2824]/60 w-20 text-right">' + m.count + ' (' + m.rate + '%)</span>';
+        html += '</div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function renderRevenue(revenue) {
+      var container = document.getElementById('revenue-table');
+      if (!revenue.items.length) {
+        container.innerHTML = '<p class="text-xs text-[#2C2824]/30">Pas encore de ventes</p>';
+        return;
+      }
+      var productLabels = {
+        'school-merci': 'OTO 147 EUR',
+        'school-online': 'School 497 EUR',
+        'school-online-2x': 'School 2x248 EUR'
+      };
+      var html = '<table class="w-full text-sm"><thead><tr class="text-left text-xs text-[#2C2824]/40 uppercase tracking-wider">';
+      html += '<th class="pb-3">Produit</th><th class="pb-3 text-right">Ventes</th><th class="pb-3 text-right">Total</th></tr></thead><tbody>';
+      revenue.items.forEach(function(r) {
+        html += '<tr class="border-t border-[#2C2824]/5">';
+        html += '<td class="py-3 text-[#2C2824]">' + (productLabels[r.product] || r.product) + '</td>';
+        html += '<td class="py-3 text-right font-mono text-[#2C2824]/70">' + r.count + '</td>';
+        html += '<td class="py-3 text-right font-mono text-[#C4A855] font-medium">' + (r.total || 0).toLocaleString('fr-FR') + ' EUR</td>';
+        html += '</tr>';
+      });
+      html += '<tr class="border-t-2 border-[#2C2824]/10"><td class="py-3 font-medium text-[#2C2824]">Total</td>';
+      html += '<td class="py-3 text-right font-mono text-[#2C2824]/70">' + revenue.items.reduce(function(s, r) { return s + r.count; }, 0) + '</td>';
+      html += '<td class="py-3 text-right font-mono text-[#C4A855] font-medium text-lg">' + revenue.total.toLocaleString('fr-FR') + ' EUR</td></tr>';
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function renderExitIntents(exitIntents) {
+      var container = document.getElementById('exit-intent-stats');
+      container.innerHTML = [
+        '<div class="text-center"><p class="text-2xl font-playfair text-[#2C2824]">' + exitIntents.shown + '</p><p class="text-xs text-[#2C2824]/40">Popups affiches</p></div>',
+        '<div class="text-center"><p class="text-2xl font-playfair text-[#2C2824]">' + exitIntents.clicked + '</p><p class="text-xs text-[#2C2824]/40">CTA cliques</p></div>',
+        '<div class="text-center"><p class="text-2xl font-playfair text-[#C4A855]">' + exitIntents.click_rate + '%</p><p class="text-xs text-[#2C2824]/40">Taux de clic</p></div>'
+      ].join('');
+    }
+  })();
+  </script>
+</Layout>

@@ -1,0 +1,132 @@
+---
+/**
+ * TunnelTracker — Tracking maison first-party pour le tunnel LAOM
+ *
+ * Usage : inclure dans chaque page du tunnel
+ *   <TunnelTracker page="/talk/" />
+ *
+ * Ce composant :
+ * 1. Genere un session_id anonyme persistant (localStorage)
+ * 2. Lit les UTM params de l'URL et les persiste pour la session
+ * 3. Envoie un page_view automatiquement
+ * 4. Expose window.__tunnelTrack(eventType, meta?) pour les events manuels
+ *
+ * Les donnees sont envoyees a POST /api/tunnel/track/ (D1 storage)
+ * Independant de Meta Pixel et GA4 -- pas bloque par adblockers
+ */
+
+interface Props {
+  page: string
+}
+
+const { page } = Astro.props
+---
+
+<script is:inline define:vars={{ page }}>
+(function() {
+  'use strict';
+
+  // 1. Session ID (persiste dans localStorage, expire apres 30 min d'inactivite)
+  var SESSION_KEY = 'laom-tunnel-sid';
+  var SESSION_TS_KEY = 'laom-tunnel-ts';
+  var SESSION_TTL = 30 * 60 * 1000; // 30 minutes
+
+  function getSessionId() {
+    var stored = localStorage.getItem(SESSION_KEY);
+    var ts = parseInt(localStorage.getItem(SESSION_TS_KEY) || '0', 10);
+    var now = Date.now();
+
+    // Nouvelle session si absent ou expire
+    if (!stored || (now - ts) > SESSION_TTL) {
+      stored = 'ts_' + now + '_' + Math.random().toString(36).substr(2, 8);
+      localStorage.setItem(SESSION_KEY, stored);
+    }
+    // Rafraichir le timestamp
+    localStorage.setItem(SESSION_TS_KEY, now.toString());
+    return stored;
+  }
+
+  // 2. UTM params — lire de l'URL et persister pour la session
+  var UTM_KEY = 'laom-tunnel-utm';
+  function getUtmParams() {
+    var params = new URLSearchParams(window.location.search);
+    var source = params.get('utm_source');
+    var medium = params.get('utm_medium');
+    var campaign = params.get('utm_campaign');
+
+    // Si UTMs dans l'URL, les sauvegarder
+    if (source || medium || campaign) {
+      var utm = { source: source, medium: medium, campaign: campaign };
+      sessionStorage.setItem(UTM_KEY, JSON.stringify(utm));
+      return utm;
+    }
+
+    // Sinon lire du sessionStorage
+    var stored = sessionStorage.getItem(UTM_KEY);
+    if (stored) {
+      try { return JSON.parse(stored); } catch(e) { /* ignore */ }
+    }
+
+    // Detection source par referrer
+    var ref = document.referrer || '';
+    if (ref.indexOf('facebook.com') !== -1 || ref.indexOf('fb.com') !== -1) {
+      return { source: 'facebook', medium: 'social', campaign: null };
+    }
+    if (ref.indexOf('instagram.com') !== -1) {
+      return { source: 'instagram', medium: 'social', campaign: null };
+    }
+    if (ref.indexOf('google.') !== -1) {
+      return { source: 'google', medium: 'organic', campaign: null };
+    }
+    if (ref.indexOf('linkedin.com') !== -1) {
+      return { source: 'linkedin', medium: 'social', campaign: null };
+    }
+    if (ref && ref.indexOf(window.location.hostname) === -1) {
+      return { source: 'referral', medium: 'referral', campaign: null };
+    }
+
+    return { source: 'direct', medium: null, campaign: null };
+  }
+
+  var sessionId = getSessionId();
+  var utm = getUtmParams();
+
+  // 3. Fonction de tracking exposee globalement
+  window.__tunnelTrack = function(eventType, meta, extraFields) {
+    var payload = {
+      event_type: eventType,
+      page: page,
+      session_id: sessionId,
+      source: utm.source || null,
+      medium: utm.medium || null,
+      campaign: utm.campaign || null,
+      referrer: document.referrer || null,
+      meta: meta || null
+    };
+
+    // Merge extra fields (email, product)
+    if (extraFields) {
+      for (var key in extraFields) {
+        if (extraFields.hasOwnProperty(key)) {
+          payload[key] = extraFields[key];
+        }
+      }
+    }
+
+    // Envoyer via sendBeacon (fiable meme sur page unload)
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/tunnel/track/', JSON.stringify(payload));
+    } else {
+      fetch('/api/tunnel/track/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function() {});
+    }
+  };
+
+  // 4. Page view automatique (une seule fois par page load)
+  window.__tunnelTrack('page_view');
+})();
+</script>

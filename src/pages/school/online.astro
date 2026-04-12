@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import TunnelTracker from '~/components/TunnelTracker.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
@@ -830,5 +831,52 @@ const faq = [
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
+  </script>
+
+  <!-- Tunnel Tracker — tracking maison first-party -->
+  <TunnelTracker page="/school/online/" />
+
+  <!-- Tunnel tracking hooks : CTA clicks, scroll depth, checkout -->
+  <script is:inline>
+  (function() {
+    if (typeof window.__tunnelTrack !== 'function') return;
+
+    // 1. CTA clicks
+    document.querySelectorAll('.mollie-cta').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        window.__tunnelTrack('cta_click', {
+          product: btn.getAttribute('data-mollie-product') || 'unknown',
+          button_text: (btn.textContent || '').trim().slice(0, 60)
+        });
+        window.__tunnelTrack('checkout_initiated', {
+          product: btn.getAttribute('data-mollie-product') || 'school-online',
+          page: '/school/online/'
+        });
+      });
+    });
+
+    // 2. Scroll depth tracking (25%, 50%, 75%, 100%)
+    var scrollTracked = {};
+    var scrollMilestones = [25, 50, 75, 100];
+    function checkScroll() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (docHeight <= 0) return;
+      var pct = Math.floor((scrollTop / docHeight) * 100);
+      scrollMilestones.forEach(function(m) {
+        if (pct >= m && !scrollTracked[m]) {
+          scrollTracked[m] = true;
+          window.__tunnelTrack('scroll_depth', { percent: m });
+        }
+      });
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true });
+
+    // 3. Detect source : came from timer expiry vs email vs direct
+    var ref = document.referrer || '';
+    if (ref.indexOf('/school/merci') !== -1) {
+      window.__tunnelTrack('page_view', { arrival_source: 'timer_expired_redirect' });
+    }
+  })();
   </script>
 </Layout>

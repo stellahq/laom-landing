@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import TunnelTracker from '~/components/TunnelTracker.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 export const prerender = true
@@ -536,6 +537,9 @@ const testimonials = [
     </div>
   </section>
 
+  <!-- Tunnel Tracker — tracking maison first-party -->
+  <TunnelTracker page="/talk/" />
+
   <!-- /animate — Intersection Observer pour les animations au scroll -->
   <script>
     const observer = new IntersectionObserver(
@@ -573,6 +577,13 @@ const testimonials = [
           }, {
             em: emailField ? emailField.value : undefined,
             fn: nameField ? nameField.value : undefined
+          });
+        }
+        // Tunnel tracker — form_submit (tracking maison D1)
+        if (typeof window.__tunnelTrack === 'function') {
+          var emailField2 = form.querySelector('input[name="email_address"]');
+          window.__tunnelTrack('form_submit', { form_id: formId }, {
+            email: emailField2 ? emailField2.value : undefined
           });
         }
         if (typeof gtag === 'function') {

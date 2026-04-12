@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import TunnelTracker from '~/components/TunnelTracker.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
@@ -1455,5 +1456,111 @@ const faq = [
         });
       }
     })();
+  </script>
+
+  <!-- Tunnel Tracker — tracking maison first-party -->
+  <TunnelTracker page="/school/merci/" />
+
+  <!-- Tunnel tracking hooks : VSL milestones, CTA clicks, exit intents, timer -->
+  <script is:inline>
+  (function() {
+    if (typeof window.__tunnelTrack !== 'function') return;
+
+    // 1. VSL video milestones — hook into existing Cloudflare Stream player
+    var streamEl = document.querySelector('stream');
+    if (streamEl) {
+      var vslTracked = {};
+      var milestones = [0, 25, 50, 75, 100];
+
+      function checkMilestones() {
+        if (!streamEl.duration || streamEl.duration === 0) return;
+        var pct = Math.floor((streamEl.currentTime / streamEl.duration) * 100);
+        milestones.forEach(function(m) {
+          if (pct >= m && !vslTracked[m]) {
+            vslTracked[m] = true;
+            var eventType = m === 0 ? 'vsl_start' : 'vsl_' + m;
+            window.__tunnelTrack(eventType, {
+              video_percent: m,
+              current_time: Math.floor(streamEl.currentTime),
+              duration: Math.floor(streamEl.duration)
+            });
+          }
+        });
+      }
+
+      streamEl.addEventListener('play', function() {
+        if (!vslTracked[0]) {
+          vslTracked[0] = true;
+          window.__tunnelTrack('vsl_start', {
+            duration: Math.floor(streamEl.duration || 0)
+          });
+        }
+      });
+      streamEl.addEventListener('timeupdate', checkMilestones);
+    }
+
+    // 2. CTA clicks (Mollie buttons)
+    document.querySelectorAll('.mollie-cta').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        window.__tunnelTrack('cta_click', {
+          product: btn.getAttribute('data-mollie-product') || 'unknown',
+          button_text: (btn.textContent || '').trim().slice(0, 60)
+        });
+      });
+    });
+
+    // 3. Exit intent popups — hook into existing POPUPS system
+    // Le tracking est fait via un MutationObserver sur le popup container
+    var exitPopup = document.getElementById('exit-popup');
+    if (exitPopup) {
+      var popupObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+          if (m.type === 'attributes' && m.attributeName === 'class') {
+            if (!exitPopup.classList.contains('hidden')) {
+              var idx = parseInt(localStorage.getItem('laom-merci-exit-count') || '0', 10);
+              window.__tunnelTrack('exit_intent_shown', { popup_index: Math.max(0, idx - 1) });
+            }
+          }
+        });
+      });
+      popupObserver.observe(exitPopup, { attributes: true });
+
+      // Track CTA click dans le popup
+      var popupCta = exitPopup.querySelector('[data-mollie-product], a[href*="school"]');
+      if (popupCta) {
+        popupCta.addEventListener('click', function() {
+          window.__tunnelTrack('exit_intent_clicked', {
+            popup_index: parseInt(localStorage.getItem('laom-merci-exit-count') || '0', 10)
+          });
+        });
+      }
+    }
+
+    // 4. Timer expired — already tracked via GA4/Meta, add D1 tracking
+    // On ecoute le changement du bandeau sticky
+    var stickyBanner = document.querySelector('.sticky.top-0.z-50');
+    if (stickyBanner) {
+      var bannerObserver = new MutationObserver(function() {
+        if (stickyBanner.innerHTML.indexOf('expir') !== -1) {
+          window.__tunnelTrack('timer_expired', {
+            duration_ms: 60 * 60 * 1000
+          });
+          bannerObserver.disconnect();
+        }
+      });
+      bannerObserver.observe(stickyBanner, { childList: true, subtree: true });
+    }
+
+    // 5. Checkout initiated — fire when email modal opens (before Mollie redirect)
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      if (target && target.classList && target.classList.contains('mollie-cta')) {
+        window.__tunnelTrack('checkout_initiated', {
+          product: target.getAttribute('data-mollie-product') || 'school-merci',
+          page: '/school/merci/'
+        });
+      }
+    });
+  })();
   </script>
 </Layout>

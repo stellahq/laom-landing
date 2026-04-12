@@ -4,11 +4,22 @@ import type { APIRoute } from 'astro'
  * POST /api/mollie/webhook/
  *
  * Mollie envoie un POST avec { id: 'tr_xxx' } quand le statut d'un paiement change.
- * On récupère le paiement via l'API Mollie pour vérifier le statut réel.
+ * On recupere le paiement via l'API Mollie pour verifier le statut reel.
  *
- * Si le paiement est un 1er versement (installment 1of2) et qu'il est payé,
- * on programme automatiquement le 2ème versement via un paiement récurrent.
+ * Si le paiement est un 1er versement (installment 1of2) et qu'il est paye,
+ * on programme automatiquement le 2eme versement via un paiement recurrent.
+ *
+ * Post-paiement :
+ * - Stocke l'event dans tunnel_events (D1) pour le dashboard
+ * - Tag le subscriber dans Kit (API v4) avec un tag specifique au produit
  */
+
+// Mapping produit -> tag Kit
+const PRODUCT_TAG_MAP: Record<string, string> = {
+  'school-merci': 'oto-147-achete',
+  'school-online': 'school-497-achete',
+  'school-online-2x': 'school-497-achete', // Meme tag pour les 2 modes de paiement
+}
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env
@@ -24,7 +35,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const formData = await request.formData()
     paymentId = formData.get('id') as string
   } catch {
-    // Fallback JSON (au cas où)
+    // Fallback JSON (au cas ou)
     try {
       const json = (await request.json()) as any
       paymentId = json.id
@@ -37,7 +48,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response('Missing payment id', { status: 400 })
   }
 
-  // Construire l'URL de base pour le webhook du 2ème versement
+  // Construire l'URL de base pour le webhook du 2eme versement
   const origin = new URL(request.url).origin
 
   try {
@@ -63,8 +74,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       installment: metadata.installment,
     })
 
-    // Mettre à jour en D1
     const db = env?.DB
+
+    // Mettre a jour en D1 (mollie_payments)
     if (db) {
       try {
         await db
@@ -78,8 +90,45 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }
     }
 
-    // Si c'est le 1er versement d'un paiement en 2x et qu'il est payé,
-    // créer le 2ème versement récurrent (prélevé automatiquement dans 30 jours)
+    // Ecrire dans tunnel_events pour le dashboard
+    if (db) {
+      const eventType = status === 'paid' ? 'payment_completed'
+        : status === 'failed' ? 'payment_failed'
+        : status === 'canceled' ? 'payment_failed'
+        : status === 'expired' ? 'payment_failed'
+        : null
+
+      if (eventType) {
+        try {
+          await db
+            .prepare(
+              `INSERT INTO tunnel_events (event_type, page, source, session_id, email, product, amount, meta, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            )
+            .bind(
+              eventType,
+              '/api/mollie/webhook/',
+              'mollie',
+              `mollie_${paymentId}`,
+              metadata.email || null,
+              metadata.product || null,
+              payment.amount?.value || null,
+              JSON.stringify({
+                payment_id: paymentId,
+                installment: metadata.installment || null,
+                mollie_status: status,
+              }),
+              new Date().toISOString(),
+            )
+            .run()
+        } catch (err) {
+          console.error('tunnel_events insert error (non-blocking):', err)
+        }
+      }
+    }
+
+    // Si c'est le 1er versement d'un paiement en 2x et qu'il est paye,
+    // creer le 2eme versement recurrent (preleve automatiquement dans 30 jours)
     if (status === 'paid' && metadata.installment === '1of2') {
       const customerId = payment.customerId
       const mandateId = payment.mandateId
@@ -106,7 +155,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
                 total_amount: '497.00',
                 created_at: new Date().toISOString(),
               },
-              // Programmer le prélèvement dans 30 jours
+              // Programmer le prelevement dans 30 jours
               dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
                 .toISOString()
                 .split('T')[0],
@@ -119,7 +168,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
               `Mollie: 2nd installment created: ${secondData.id} (due ${secondData.dueDate})`,
             )
 
-            // Stocker le 2ème versement en D1
+            // Stocker le 2eme versement en D1
             if (db) {
               try {
                 await db
@@ -154,37 +203,43 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }
     }
 
-    // Quand un paiement est confirmé, tagger le subscriber dans Kit (ex-ConvertKit)
-    // pour déclencher l'automation d'email de bienvenue
+    // Quand un paiement est confirme, tagger le subscriber dans Kit (API v4)
+    // Tag specifique au produit pour segmentation fine
     if (status === 'paid' && metadata.email && metadata.installment !== '2of2') {
       const kitApiSecret = env?.KIT_API_SECRET
       if (kitApiSecret) {
+        const tagName = PRODUCT_TAG_MAP[metadata.product] || 'laom-school-online'
+
         try {
-          // 1. Trouver ou créer le tag "laom-school-online"
-          const tagsRes = await fetch(`https://api.convertkit.com/v3/tags?api_secret=${kitApiSecret}`, {
-            headers: { 'Content-Type': 'application/json' },
+          // Kit API v4 : lister les tags
+          const tagsRes = await fetch('https://api.kit.com/v4/tags', {
+            headers: {
+              'X-Kit-Api-Key': kitApiSecret,
+              Accept: 'application/json',
+            },
           })
           let tagId: number | null = null
 
           if (tagsRes.ok) {
             const tagsData = (await tagsRes.json()) as any
-            const existingTag = tagsData.tags?.find(
-              (t: any) => t.name === 'laom-school-online',
+            const existingTag = (tagsData.tags || []).find(
+              (t: any) => t.name === tagName,
             )
             if (existingTag) {
               tagId = existingTag.id
             }
           }
 
-          // Si le tag n'existe pas encore, le créer
+          // Si le tag n'existe pas encore, le creer
           if (!tagId) {
-            const createTagRes = await fetch('https://api.convertkit.com/v3/tags', {
+            const createTagRes = await fetch('https://api.kit.com/v4/tags', {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                api_secret: kitApiSecret,
-                tag: { name: 'laom-school-online' },
-              }),
+              headers: {
+                'X-Kit-Api-Key': kitApiSecret,
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+              },
+              body: JSON.stringify({ name: tagName }),
             })
             if (createTagRes.ok) {
               const created = (await createTagRes.json()) as any
@@ -192,33 +247,81 @@ export const POST: APIRoute = async ({ request, locals }) => {
             }
           }
 
-          // 2. Tagger le subscriber
+          // Tagger le subscriber par email
           if (tagId) {
             const tagSubRes = await fetch(
-              `https://api.convertkit.com/v3/tags/${tagId}/subscribe`,
+              `https://api.kit.com/v4/tags/${tagId}/subscribers`,
               {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                  'X-Kit-Api-Key': kitApiSecret,
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
                 body: JSON.stringify({
-                  api_secret: kitApiSecret,
-                  email: metadata.email,
+                  email_address: metadata.email,
                 }),
               },
             )
 
             if (tagSubRes.ok) {
               console.log(
-                `Kit: tagged ${metadata.email} with "laom-school-online" (tag ${tagId})`,
+                `Kit v4: tagged ${metadata.email} with "${tagName}" (tag ${tagId})`,
               )
             } else {
               const errData = (await tagSubRes.json()) as any
-              console.error('Kit: failed to tag subscriber:', errData)
+              console.error('Kit v4: failed to tag subscriber:', errData)
             }
           } else {
-            console.error('Kit: could not find or create tag "laom-school-online"')
+            console.error(`Kit v4: could not find or create tag "${tagName}"`)
+          }
+
+          // Aussi tagger avec le tag generique "laom-school-online" pour compatibilite
+          if (tagName !== 'laom-school-online') {
+            try {
+              // Chercher ou creer le tag generique
+              let genericTagId: number | null = null
+              if (tagsRes.ok) {
+                const tagsData = (await tagsRes.json()) as any
+                const genericTag = (tagsData.tags || []).find(
+                  (t: any) => t.name === 'laom-school-online',
+                )
+                if (genericTag) genericTagId = genericTag.id
+              }
+
+              if (!genericTagId) {
+                const createRes = await fetch('https://api.kit.com/v4/tags', {
+                  method: 'POST',
+                  headers: {
+                    'X-Kit-Api-Key': kitApiSecret,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                  },
+                  body: JSON.stringify({ name: 'laom-school-online' }),
+                })
+                if (createRes.ok) {
+                  const data = (await createRes.json()) as any
+                  genericTagId = data.tag?.id || data.id
+                }
+              }
+
+              if (genericTagId) {
+                await fetch(`https://api.kit.com/v4/tags/${genericTagId}/subscribers`, {
+                  method: 'POST',
+                  headers: {
+                    'X-Kit-Api-Key': kitApiSecret,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                  },
+                  body: JSON.stringify({ email_address: metadata.email }),
+                })
+              }
+            } catch (e) {
+              console.error('Kit v4: error tagging generic (non-blocking):', e)
+            }
           }
         } catch (kitErr) {
-          console.error('Kit: error tagging subscriber (non-blocking):', kitErr)
+          console.error('Kit v4: error tagging subscriber (non-blocking):', kitErr)
         }
       } else {
         console.warn('Kit: KIT_API_SECRET not configured, skipping tag')
