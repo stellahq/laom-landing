@@ -154,8 +154,76 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }
     }
 
-    // TODO: si status === 'paid', déclencher un email de bienvenue
-    // (via Kit / ConvertKit API ou autre service)
+    // Quand un paiement est confirmé, tagger le subscriber dans Kit (ex-ConvertKit)
+    // pour déclencher l'automation d'email de bienvenue
+    if (status === 'paid' && metadata.email && metadata.installment !== '2of2') {
+      const kitApiSecret = env?.KIT_API_SECRET
+      if (kitApiSecret) {
+        try {
+          // 1. Trouver ou créer le tag "laom-school-online"
+          const tagsRes = await fetch('https://api.convertkit.com/v3/tags', {
+            headers: { 'Content-Type': 'application/json' },
+          })
+          let tagId: number | null = null
+
+          if (tagsRes.ok) {
+            const tagsData = (await tagsRes.json()) as any
+            const existingTag = tagsData.tags?.find(
+              (t: any) => t.name === 'laom-school-online',
+            )
+            if (existingTag) {
+              tagId = existingTag.id
+            }
+          }
+
+          // Si le tag n'existe pas encore, le créer
+          if (!tagId) {
+            const createTagRes = await fetch('https://api.convertkit.com/v3/tags', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                api_secret: kitApiSecret,
+                tag: { name: 'laom-school-online' },
+              }),
+            })
+            if (createTagRes.ok) {
+              const created = (await createTagRes.json()) as any
+              tagId = created.tag?.id || created.id
+            }
+          }
+
+          // 2. Tagger le subscriber
+          if (tagId) {
+            const tagSubRes = await fetch(
+              `https://api.convertkit.com/v3/tags/${tagId}/subscribe`,
+              {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  api_secret: kitApiSecret,
+                  email: metadata.email,
+                }),
+              },
+            )
+
+            if (tagSubRes.ok) {
+              console.log(
+                `Kit: tagged ${metadata.email} with "laom-school-online" (tag ${tagId})`,
+              )
+            } else {
+              const errData = (await tagSubRes.json()) as any
+              console.error('Kit: failed to tag subscriber:', errData)
+            }
+          } else {
+            console.error('Kit: could not find or create tag "laom-school-online"')
+          }
+        } catch (kitErr) {
+          console.error('Kit: error tagging subscriber (non-blocking):', kitErr)
+        }
+      } else {
+        console.warn('Kit: KIT_API_SECRET not configured, skipping tag')
+      }
+    }
 
     return new Response('OK', { status: 200 })
   } catch (err) {
