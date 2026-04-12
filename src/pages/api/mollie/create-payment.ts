@@ -97,10 +97,41 @@ export const POST: APIRoute = async ({ request, locals }) => {
     },
   }
 
-  // Pour le paiement en 2x, on ajoute sequenceType pour pouvoir créer
-  // le 2ème paiement automatiquement plus tard
+  // Pour le paiement en 2x, on crée d'abord un customer Mollie
+  // puis on ajoute sequenceType pour pouvoir créer le 2ème paiement automatiquement
   if (isInstallment) {
-    molliePayload.sequenceType = 'first'
+    try {
+      const customerRes = await fetch('https://api.mollie.com/v2/customers', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: email || 'Client LAOM School',
+          email: email || undefined,
+        }),
+      })
+
+      if (customerRes.ok) {
+        const customer = (await customerRes.json()) as any
+        molliePayload.customerId = customer.id
+        molliePayload.sequenceType = 'first'
+      } else {
+        const errData = (await customerRes.json()) as any
+        console.error('Mollie: failed to create customer for 2x payment:', errData)
+        return new Response(
+          JSON.stringify({ error: 'Failed to set up installment payment' }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+    } catch (err) {
+      console.error('Mollie: error creating customer:', err)
+      return new Response(
+        JSON.stringify({ error: 'Payment service unavailable' }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
   }
 
   try {
