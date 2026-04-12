@@ -8,9 +8,7 @@ const pageSchema = createWebPageSchema({
   description: 'Merci pour ton achat. Tu as désormais accès à LAOM School Online.',
 })
 
-const product = Astro.url.searchParams.get('product') || 'school-online'
-const isMerci = product === 'school-merci'
-const is2x = product === 'school-online-2x'
+
 ---
 
 <Layout
@@ -49,10 +47,6 @@ const is2x = product === 'school-online-2x'
         <ul class="space-y-3">
           <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
             <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
-            <span><strong class="font-medium text-[#2C2824]">8 modules de formation</strong> — accès à vie</span>
-          </li>
-          <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
-            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
             <span><strong class="font-medium text-[#2C2824]">12 lives collectifs avec Charly</strong> — 6 mois</span>
           </li>
           <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
@@ -60,10 +54,7 @@ const is2x = product === 'school-online-2x'
             <span><strong class="font-medium text-[#2C2824]">Communauté de porteurs de projet</strong></span>
           </li>
         </ul>
-        <div class="mt-6 pt-4 border-t border-black/5 text-center">
-          <span class="font-playfair text-2xl font-medium text-[#2C2824]">{isMerci ? '147' : is2x ? '2 x 248,50' : '497'}</span>
-          <span class="text-sm font-light text-[#2C2824]/50 ml-1">EUR</span>
-        </div>
+
       </div>
 
       <!-- Prochaines étapes -->
@@ -80,15 +71,16 @@ const is2x = product === 'school-online-2x'
           <li class="flex items-start gap-4">
             <span class="w-7 h-7 rounded-full bg-[#C4A855] text-white text-sm flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
             <div>
-              <p class="text-white font-medium text-sm">Commence le Module 1</p>
-              <p class="text-white/50 font-light text-sm">Définir ton groupe — c'est la base de tout.</p>
+              <p class="text-white font-medium text-sm">Rejoins le groupe Telegram LAOM School</p>
+              <p class="text-white/50 font-light text-sm">C'est là que tout se passe : lien des lives, replays, échanges.</p>
+              <a href="https://t.me/+rGDBs7utcoE2ZDE0" target="_blank" rel="noopener noreferrer" aria-label="Rejoindre le groupe Telegram LAOM School (ouvre dans un nouvel onglet)" class="inline-block mt-2 text-sm font-medium text-[#C4A855] underline underline-offset-4 hover:text-[#d4bf6a] transition-colors">Rejoindre le groupe Telegram</a>
             </div>
           </li>
           <li class="flex items-start gap-4">
             <span class="w-7 h-7 rounded-full bg-[#C4A855] text-white text-sm flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
             <div>
               <p class="text-white font-medium text-sm">Rejoins le premier live</p>
-              <p class="text-white/50 font-light text-sm">Mardi 5 mai. Le lien sera dans ton email.</p>
+              <p class="text-white/50 font-light text-sm">Mardi 5 mai. Le lien sera dans le groupe Telegram.</p>
             </div>
           </li>
         </ol>
