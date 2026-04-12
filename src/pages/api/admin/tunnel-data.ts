@@ -217,12 +217,14 @@ export const GET: APIRoute = async ({ request, locals }) => {
       { milestone: 'complete', count: vslMap.get('vsl_complete') || 0, rate: vslStart > 0 ? Math.round(((vslMap.get('vsl_complete') || 0) / vslStart) * 100) : 0 },
     ]
 
-    // 4. Revenue (from mollie_payments)
+    // 4. Revenue (from mollie_payments — TUNNEL PRODUCTS ONLY)
+    const TUNNEL_PRODUCTS = ['school-merci', 'school-online', 'school-online-2x']
     const revenueQuery = await db
       .prepare(
         `SELECT product, COUNT(*) as count, SUM(CAST(amount AS REAL)) as total
          FROM mollie_payments
          WHERE status = 'paid' AND created_at >= ?
+           AND product IN ('school-merci', 'school-online', 'school-online-2x')
          GROUP BY product`,
       )
       .bind(fromDate)
@@ -281,22 +283,75 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const exitClicked = ((exitQuery.results || []) as any[]).find(r => r.event_type === 'exit_intent_clicked')?.count || 0
 
     // 7. Kit stats (si API key dispo)
-    let kitStats = null
+    // On remonte : account info, subscribers du form webinar, subscribers du tag talk
+    let kitStats: any = null
     const kitApiSecret = env?.KIT_API_SECRET
-    if (kitApiSecret) {
+    const KIT_HEADERS = kitApiSecret ? { 'X-Kit-Api-Key': kitApiSecret, Accept: 'application/json' } : null
+
+    if (KIT_HEADERS) {
       try {
-        const kitRes = await fetch('https://api.kit.com/v4/account', {
-          headers: {
-            'X-Kit-Api-Key': kitApiSecret,
-            Accept: 'application/json',
-          },
-        })
-        if (kitRes.ok) {
-          const kitData = (await kitRes.json()) as any
-          kitStats = {
-            name: kitData.account?.name || kitData.name,
-            subscribers: kitData.account?.total_subscribers || null,
+        // 7a. Account info
+        const kitAccountRes = await fetch('https://api.kit.com/v4/account', { headers: KIT_HEADERS })
+        let accountData: any = null
+        if (kitAccountRes.ok) {
+          accountData = (await kitAccountRes.json()) as any
+        }
+
+        // 7b. Subscribers du form 8987350 (inscrits webinar) — compter les pages
+        let webinarSubscriberCount = 0
+        let webinarSubscribers: any[] = []
+        let formCursor: string | null = null
+        let formPageCount = 0
+        const MAX_PAGES = 20 // Safety limit
+
+        do {
+          const formUrl = new URL('https://api.kit.com/v4/forms/8987350/subscribers')
+          formUrl.searchParams.set('per_page', '500')
+          if (formCursor) formUrl.searchParams.set('after', formCursor)
+
+          const formRes = await fetch(formUrl.toString(), { headers: KIT_HEADERS })
+          if (!formRes.ok) break
+
+          const formData = (await formRes.json()) as any
+          const subs = formData.subscribers || []
+          webinarSubscribers = webinarSubscribers.concat(subs)
+          webinarSubscriberCount += subs.length
+
+          // Kit v4 cursor pagination
+          formCursor = formData.pagination?.has_next_page ? formData.pagination?.end_cursor : null
+          formPageCount++
+        } while (formCursor && formPageCount < MAX_PAGES)
+
+        // 7c. Subscribers du tag 18610902 (tag "talk") — juste le count
+        let talkTagCount = 0
+        const tagRes = await fetch('https://api.kit.com/v4/tags/18610902/subscribers?per_page=1', { headers: KIT_HEADERS })
+        if (tagRes.ok) {
+          const tagData = (await tagRes.json()) as any
+          // Kit v4 retourne pagination.total_count ou on compte
+          talkTagCount = tagData.pagination?.total_count || tagData.subscribers?.length || 0
+          // Si pas de total_count, on doit paginer -- mais on a deja le form count, ca devrait etre le meme
+          if (talkTagCount <= 1 && webinarSubscriberCount > 0) {
+            talkTagCount = webinarSubscriberCount // Fallback: meme population
           }
+        }
+
+        // 7d. Inscrits par jour (depuis les dates de creation des subscribers)
+        const subscribersByDay = new Map<string, number>()
+        for (const sub of webinarSubscribers) {
+          const date = (sub.created_at || '').split('T')[0]
+          if (date) {
+            subscribersByDay.set(date, (subscribersByDay.get(date) || 0) + 1)
+          }
+        }
+
+        kitStats = {
+          account_name: accountData?.account?.name || accountData?.name || null,
+          total_subscribers: accountData?.account?.total_subscribers || null,
+          webinar_subscribers: webinarSubscriberCount,
+          talk_tag_count: talkTagCount,
+          subscribers_by_day: Object.fromEntries(
+            Array.from(subscribersByDay.entries()).sort((a, b) => a[0].localeCompare(b[0]))
+          ),
         }
       } catch (e) {
         console.error('Kit API error (non-blocking):', e)

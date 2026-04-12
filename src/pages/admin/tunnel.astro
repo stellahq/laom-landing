@@ -89,9 +89,31 @@ import Layout from '~/layouts/Layout.astro'
         </div>
       </div>
 
+      <!-- Kit / Webinar inscrits (donnees historiques depuis Kit API) -->
+      <section id="kit-section" class="bg-white border border-[#2C2824]/5 rounded-sm p-6 hidden">
+        <h2 class="font-playfair text-lg font-medium text-[#2C2824] mb-4">Inscrits Webinar (Kit)</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+          <div>
+            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Inscrits webinar</p>
+            <p id="kit-webinar-subs" class="text-2xl font-playfair font-medium text-[#2C2824]">—</p>
+          </div>
+          <div>
+            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Total subscribers Kit</p>
+            <p id="kit-total-subs" class="text-2xl font-playfair font-medium text-[#2C2824]">—</p>
+          </div>
+          <div>
+            <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Compte</p>
+            <p id="kit-account-name" class="text-sm text-[#2C2824]/60">—</p>
+          </div>
+        </div>
+        <h3 class="text-sm font-medium text-[#2C2824]/60 mb-3">Inscriptions par jour</h3>
+        <div id="kit-daily-chart" class="space-y-1"></div>
+      </section>
+
       <!-- Funnel visuel -->
       <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
         <h2 class="font-playfair text-xl font-medium text-[#2C2824] mb-6">Funnel de conversion</h2>
+        <p class="text-xs text-[#2C2824]/40 mb-4">Tracking client-side (depuis le deploy du 12 avril). Les donnees s'accumulent avec le trafic.</p>
         <div id="funnel-chart" class="space-y-2"></div>
       </section>
 
@@ -197,21 +219,34 @@ import Layout from '~/layouts/Layout.astro'
     }
 
     function renderDashboard(data) {
-      // KPIs
+      // KPIs — utiliser Kit comme source de verite pour inscrits, D1 tracking pour le trafic
       var talkViews = findFunnelStep(data.funnel, 'talk_page_view');
-      var registrations = findFunnelStep(data.funnel, 'talk_form_submit');
       var otoPaid = findFunnelStep(data.funnel, 'oto_paid');
       var onlinePaid = findFunnelStep(data.funnel, 'online_paid');
 
-      document.getElementById('kpi-visitors').textContent = talkViews.count || 0;
-      document.getElementById('kpi-registrations').textContent = registrations.count || 0;
-      document.getElementById('kpi-reg-rate').textContent = talkViews.count > 0
-        ? (Math.round((registrations.count / talkViews.count) * 1000) / 10) + '% de conversion'
-        : '';
-      document.getElementById('kpi-sales').textContent = (otoPaid.count || 0) + (onlinePaid.count || 0);
+      // Inscrits : priorite Kit API (donnees historiques), fallback tunnel_events
+      var registrations = findFunnelStep(data.funnel, 'talk_form_submit');
+      var kitWebinarSubs = data.kit_stats ? data.kit_stats.webinar_subscribers : 0;
+      var displayRegistrations = kitWebinarSubs > registrations.count ? kitWebinarSubs : registrations.count;
+
+      // Visiteurs : tunnel_events (tracking client) — sera 0 au debut, c'est normal
+      document.getElementById('kpi-visitors').textContent = talkViews.count || (kitWebinarSubs > 0 ? '~' : '0');
+      document.getElementById('kpi-registrations').textContent = displayRegistrations || 0;
+      document.getElementById('kpi-reg-rate').textContent = kitWebinarSubs > 0
+        ? kitWebinarSubs + ' inscrits (Kit API)'
+        : (talkViews.count > 0 ? (Math.round((registrations.count / talkViews.count) * 1000) / 10) + '% conversion' : '');
+      document.getElementById('kpi-sales').textContent = (otoPaid.count || 0) + (onlinePaid.count || 0) + (data.revenue.items.length > 0 ? '' : '');
+
+      // Ventes : si tunnel_events est vide, compter depuis mollie_payments
+      var totalSales = data.revenue.items.reduce(function(s, r) { return s + r.count; }, 0);
+      document.getElementById('kpi-sales').textContent = totalSales;
+
       document.getElementById('kpi-revenue').textContent = data.revenue.total > 0
         ? data.revenue.total.toLocaleString('fr-FR') + ' EUR'
         : '0 EUR';
+
+      // Kit section
+      renderKitSection(data.kit_stats);
 
       // Funnel chart
       renderFunnel(data.funnel);
@@ -363,6 +398,48 @@ import Layout from '~/layouts/Layout.astro'
         '<div class="text-center"><p class="text-2xl font-playfair text-[#2C2824]">' + exitIntents.clicked + '</p><p class="text-xs text-[#2C2824]/40">CTA cliques</p></div>',
         '<div class="text-center"><p class="text-2xl font-playfair text-[#C4A855]">' + exitIntents.click_rate + '%</p><p class="text-xs text-[#2C2824]/40">Taux de clic</p></div>'
       ].join('');
+    }
+
+    function renderKitSection(kitStats) {
+      var section = document.getElementById('kit-section');
+      if (!kitStats || !kitStats.webinar_subscribers) {
+        section.classList.add('hidden');
+        return;
+      }
+      section.classList.remove('hidden');
+
+      document.getElementById('kit-webinar-subs').textContent = kitStats.webinar_subscribers;
+      document.getElementById('kit-total-subs').textContent = kitStats.total_subscribers || '—';
+      document.getElementById('kit-account-name').textContent = kitStats.account_name || '—';
+
+      // Daily chart
+      var container = document.getElementById('kit-daily-chart');
+      var days = kitStats.subscribers_by_day || {};
+      var dayKeys = Object.keys(days);
+
+      if (!dayKeys.length) {
+        container.innerHTML = '<p class="text-xs text-[#2C2824]/30">Pas de donnees par jour</p>';
+        return;
+      }
+
+      var maxDay = Math.max.apply(null, dayKeys.map(function(k) { return days[k]; })) || 1;
+      var html = '';
+
+      // Show last 14 days max
+      var recentDays = dayKeys.slice(-14);
+      recentDays.forEach(function(day) {
+        var count = days[day];
+        var barWidth = Math.max(2, (count / maxDay) * 100);
+        var label = day.slice(5); // MM-DD
+        html += '<div class="flex items-center gap-3">';
+        html += '  <span class="text-xs text-[#2C2824]/40 w-12 font-mono">' + label + '</span>';
+        html += '  <div class="flex-1 bg-[#FAF8F5] rounded-sm overflow-hidden h-5">';
+        html += '    <div style="width:' + barWidth + '%;background:#C4A855" class="h-full rounded-sm"></div>';
+        html += '  </div>';
+        html += '  <span class="text-xs font-mono text-[#2C2824]/60 w-8 text-right">' + count + '</span>';
+        html += '</div>';
+      });
+      container.innerHTML = html;
     }
   })();
   </script>
