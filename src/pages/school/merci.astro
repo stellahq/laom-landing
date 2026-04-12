@@ -904,43 +904,111 @@ const faq = [
     });
   </script>
 
+  <!-- Modale email -->
+  <div id="email-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden">
+    <div class="bg-[#FAF8F5] rounded-sm p-8 max-w-md w-full mx-4 relative">
+      <button id="email-modal-close" type="button" class="absolute top-4 right-4 text-[#2C2824]/40 hover:text-[#2C2824] transition-colors" aria-label="Fermer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Derniere etape</p>
+      <p class="text-base font-light text-[#2C2824]/70 mb-6">Entre ton email pour recevoir ta confirmation et tes acces.</p>
+      <form id="email-form">
+        <input
+          type="email"
+          id="email-input"
+          required
+          placeholder="ton@email.com"
+          class="w-full border border-black/10 rounded-sm px-4 py-3 text-base font-light text-[#2C2824] bg-white focus:outline-none focus:ring-1 focus:ring-[#C4A855] mb-4"
+        />
+        <button
+          type="submit"
+          id="email-submit"
+          class="w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium"
+        >
+          Continuer vers le paiement
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Mollie checkout script -->
   <script is:inline>
-    document.addEventListener('click', function(e) {
-      var btn = e.target.closest('.mollie-cta');
-      if (!btn) return;
-      e.preventDefault();
-      var product = btn.getAttribute('data-mollie-product');
-      if (!product) return;
+    (function() {
+      var pendingProduct = null;
+      var pendingBtn = null;
+      var pendingOriginalText = null;
+      var modal = document.getElementById('email-modal');
+      var emailInput = document.getElementById('email-input');
+      var emailForm = document.getElementById('email-form');
+      var closeBtn = document.getElementById('email-modal-close');
 
-      var originalText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = 'Redirection en cours...';
-      btn.style.opacity = '0.7';
+      // Ouvrir la modale au clic sur un CTA
+      document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.mollie-cta');
+        if (!btn) return;
+        e.preventDefault();
+        var product = btn.getAttribute('data-mollie-product');
+        if (!product) return;
 
-      fetch('/api/mollie/create-payment/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ product: product })
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.checkoutUrl) {
-          window.location.href = data.checkoutUrl;
-        } else {
-          alert('Erreur lors de la création du paiement. Contacte-nous à hello@laom.fr');
-          btn.disabled = false;
-          btn.textContent = originalText;
-          btn.style.opacity = '1';
-        }
-      })
-      .catch(function() {
-        alert('Erreur de connexion. Réessaie ou contacte-nous à hello@laom.fr');
-        btn.disabled = false;
-        btn.textContent = originalText;
-        btn.style.opacity = '1';
+        pendingProduct = product;
+        pendingBtn = btn;
+        pendingOriginalText = btn.textContent;
+        modal.classList.remove('hidden');
+        emailInput.value = '';
+        emailInput.focus();
       });
-    });
+
+      // Fermer la modale
+      closeBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+        pendingProduct = null;
+        pendingBtn = null;
+      });
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          pendingProduct = null;
+          pendingBtn = null;
+        }
+      });
+
+      // Soumettre l'email et lancer le paiement
+      emailForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = emailInput.value.trim();
+        if (!email || !pendingProduct) return;
+
+        // Fermer la modale et désactiver le bouton
+        modal.classList.add('hidden');
+        if (pendingBtn) {
+          pendingBtn.disabled = true;
+          pendingBtn.textContent = 'Redirection en cours...';
+          pendingBtn.style.opacity = '0.7';
+        }
+
+        var btn = pendingBtn;
+        var originalText = pendingOriginalText;
+
+        fetch('/api/mollie/create-payment/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ product: pendingProduct, email: email })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.checkoutUrl) {
+            window.location.href = data.checkoutUrl;
+          } else {
+            alert('Erreur lors de la création du paiement. Contacte-nous à hello@laom.fr');
+            if (btn) { btn.disabled = false; btn.textContent = originalText; btn.style.opacity = '1'; }
+          }
+        })
+        .catch(function() {
+          alert('Erreur de connexion. Réessaie ou contacte-nous à hello@laom.fr');
+          if (btn) { btn.disabled = false; btn.textContent = originalText; btn.style.opacity = '1'; }
+        });
+      });
+    })();
   </script>
 
   <!-- ============================================ -->
