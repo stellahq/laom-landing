@@ -161,7 +161,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       if (kitApiSecret) {
         try {
           // 1. Trouver ou créer le tag "laom-school-online"
-          const tagsRes = await fetch('https://api.convertkit.com/v3/tags', {
+          const tagsRes = await fetch(`https://api.convertkit.com/v3/tags?api_secret=${kitApiSecret}`, {
             headers: { 'Content-Type': 'application/json' },
           })
           let tagId: number | null = null
