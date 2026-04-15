@@ -1,0 +1,186 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageTitle = 'Mentions legales'
+const pageDescription = 'Mentions legales du site laom.fr — informations sur l\'editeur, l\'hebergeur, la protection des donnees personnelles et les cookies.'
+
+const pageSchema = createWebPageSchema({
+  name: pageTitle,
+  url: Astro.url.toString(),
+  description: pageDescription,
+})
+---
+
+<Layout
+  title={`${pageTitle} – LAOM`}
+  description={pageDescription}
+  seo={{
+    ldJSON: pageSchema,
+    noIndex: true,
+  }}
+>
+  <!-- Hero -->
+  <section class="-mt-24 md:-mt-28 py-32 lg:py-40 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
+        Informations legales
+      </span>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-black mb-6 tracking-tight">
+        Mentions legales
+      </h1>
+    </div>
+  </section>
+
+  <!-- Contenu -->
+  <section class="py-24 bg-[#faf9f6]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <!-- 1. Editeur -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">1. Editeur du site</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-2">
+          <p>Le site <strong class="text-black">laom.fr</strong> est edite par :</p>
+          <p><strong class="text-black">LAOM</strong> (anciennement La Ferme du Verseau)</p>
+          <p>Societe par actions simplifiee (SAS) a capital variable</p>
+          <p>Capital social : 1 000 EUR (variable)</p>
+          <p>Siege social : La Margue, 12400 Saint-Felix-de-Sorgues, France</p>
+          <p>SIREN : 898 814 405</p>
+          <p>RCS Rodez B 898 814 405</p>
+          <p>President et directeur de la publication : Charly Aubert</p>
+          <p>
+            Contact :
+            <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-black transition-colors">hello@laom.fr</a>
+            — 06 73 68 35 73
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. Hebergeur -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">2. Hebergement</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-2">
+          <p>Le site est heberge par :</p>
+          <p><strong class="text-black">Cloudflare, Inc.</strong></p>
+          <p>101 Townsend Street, San Francisco, CA 94107, Etats-Unis</p>
+          <p>
+            Site :
+            <a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer" aria-label="Cloudflare (opens in new tab)" class="underline underline-offset-4 hover:text-black transition-colors">www.cloudflare.com</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- 3. Propriete intellectuelle -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">3. Propriete intellectuelle</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            L'ensemble du contenu du site laom.fr (textes, images, photographies, videos, logos, illustrations, mise en page) est la propriete exclusive de LAOM ou de ses partenaires et est protege par les lois francaises et internationales relatives a la propriete intellectuelle.
+          </p>
+          <p>
+            Toute reproduction, representation, modification, publication, adaptation ou exploitation de tout ou partie du contenu du site, quel que soit le moyen ou le procede utilise, est interdite sans l'autorisation ecrite prealable de LAOM.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4. Donnees personnelles -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">4. Protection des donnees personnelles</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            Conformement au Reglement General sur la Protection des Donnees (RGPD — Reglement UE 2016/679) et a la loi Informatique et Libertes du 6 janvier 1978 modifiee, vous disposez d'un droit d'acces, de rectification, de suppression, de limitation du traitement, de portabilite et d'opposition concernant vos donnees personnelles.
+          </p>
+          <p>
+            <strong class="text-black">Responsable du traitement :</strong> LAOM, representee par Charly Aubert.
+          </p>
+          <p>
+            <strong class="text-black">Donnees collectees :</strong> les donnees personnelles susceptibles d'etre collectees sur ce site sont les suivantes :
+          </p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li>Adresse e-mail (inscription a la newsletter, formulaire de contact)</li>
+            <li>Nom et prenom (formulaire de contact)</li>
+            <li>Donnees de navigation (cookies, adresse IP — voir section Cookies)</li>
+          </ul>
+          <p>
+            <strong class="text-black">Finalites :</strong> les donnees collectees sont utilisees pour repondre a vos demandes de contact, vous envoyer la newsletter si vous y etes inscrit, et ameliorer l'experience utilisateur du site.
+          </p>
+          <p>
+            <strong class="text-black">Duree de conservation :</strong> les donnees sont conservees pour la duree necessaire a la finalite du traitement, et au maximum 3 ans apres le dernier contact.
+          </p>
+          <p>
+            <strong class="text-black">Sous-traitants :</strong> les donnees peuvent etre transmises aux prestataires suivants dans le cadre du fonctionnement du site :
+          </p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li>Cloudflare (hebergement)</li>
+            <li>Kit (ex-ConvertKit) (gestion de la newsletter)</li>
+            <li>Google Analytics (mesure d'audience)</li>
+            <li>Meta Platforms (pixel publicitaire)</li>
+          </ul>
+          <p>
+            Pour exercer vos droits, vous pouvez nous contacter a l'adresse :
+            <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-black transition-colors">hello@laom.fr</a>.
+          </p>
+          <p>
+            Vous disposez egalement du droit d'introduire une reclamation aupres de la CNIL :
+            <a href="https://www.cnil.fr/" target="_blank" rel="noopener noreferrer" aria-label="CNIL (opens in new tab)" class="underline underline-offset-4 hover:text-black transition-colors">www.cnil.fr</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5. Cookies -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">5. Cookies</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            Le site laom.fr utilise des cookies et technologies similaires pour les finalites suivantes :
+          </p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li><strong class="text-black">Cookies d'analyse (Google Analytics)</strong> : mesure d'audience, analyse du trafic et du comportement des visiteurs afin d'ameliorer le site.</li>
+            <li><strong class="text-black">Cookies publicitaires (Meta Pixel)</strong> : suivi des conversions et ciblage publicitaire sur les plateformes Meta (Facebook, Instagram).</li>
+            <li><strong class="text-black">Cookies fonctionnels (Cloudflare)</strong> : securite, performances et protection contre les attaques.</li>
+          </ul>
+          <p>
+            Vous pouvez a tout moment gerer vos preferences en matiere de cookies via les parametres de votre navigateur. La desactivation de certains cookies peut affecter votre experience de navigation.
+          </p>
+        </div>
+      </div>
+
+      <!-- 6. Responsabilite -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">6. Limitation de responsabilite</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            LAOM s'efforce d'assurer au mieux l'exactitude et la mise a jour des informations diffusees sur le site. Toutefois, LAOM ne peut garantir l'exactitude, la precision ou l'exhaustivite des informations mises a disposition.
+          </p>
+          <p>
+            LAOM decline toute responsabilite pour toute imprecision, inexactitude ou omission portant sur des informations disponibles sur le site.
+          </p>
+          <p>
+            Le site peut contenir des liens vers d'autres sites. LAOM n'exerce aucun controle sur ces sites et decline toute responsabilite quant a leur contenu.
+          </p>
+        </div>
+      </div>
+
+      <!-- 7. Droit applicable -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">7. Droit applicable</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            Les presentes mentions legales sont soumises au droit francais. En cas de litige, et apres tentative de resolution amiable, competence est attribuee au Tribunal de commerce de Millau.
+          </p>
+        </div>
+      </div>
+
+      <!-- 8. Credits -->
+      <div>
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">8. Credits</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-2">
+          <p>Conception et developpement : LAOM</p>
+          <p>Photographies : LAOM et contributeurs</p>
+          <p>Framework : Astro</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
