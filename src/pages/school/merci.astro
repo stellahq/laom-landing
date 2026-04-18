@@ -874,6 +874,14 @@ const faq = [
         content_category: 'webinar_registration'
       });
     }
+    // Fire CompleteRegistration event (inscription confirmée)
+    if (typeof window.__laomTrack === 'function') {
+      window.__laomTrack('CompleteRegistration', {
+        content_name: 'webinar-laom-talk-28-avril',
+        content_category: 'webinar_registration',
+        status: true
+      });
+    }
     if (typeof gtag === 'function') {
       gtag('event', 'generate_lead', {
         event_category: 'webinar',

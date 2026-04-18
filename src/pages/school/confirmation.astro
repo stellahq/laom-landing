@@ -97,6 +97,25 @@ const pageSchema = createWebPageSchema({
   <!-- Tunnel Tracker — tracking maison first-party -->
   <TunnelTracker page="/school/confirmation/" />
 
+  <!-- Meta Pixel: Purchase event -->
+  <script is:inline>
+  (function() {
+    if (typeof window.__laomTrack !== 'function') return;
+
+    // Detect product/value from URL params (?product=oto-147&amount=147)
+    var params = new URLSearchParams(window.location.search);
+    var product = params.get('product') || 'laom-school';
+    var amount = parseFloat(params.get('amount')) || 147;
+
+    window.__laomTrack('Purchase', {
+      value: amount,
+      currency: 'EUR',
+      content_name: product,
+      content_type: 'product'
+    });
+  })();
+  </script>
+
   <!-- Tunnel tracking hooks : Telegram click -->
   <script is:inline>
   (function() {
