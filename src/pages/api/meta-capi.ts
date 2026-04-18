@@ -5,7 +5,7 @@ import { createHash, randomUUID } from 'node:crypto'
 // Receives events from the client-side pixel helper and forwards them server-side
 // This gives better match rates and survives adblockers
 
-const PIXEL_ID = '25994721960205947'
+const PIXEL_ID = '1274109067570116'
 const API_VERSION = 'v25.0'
 
 // Access token is injected via Cloudflare Worker secret (META_CAPI_TOKEN)
