@@ -260,7 +260,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       'dim-dej': { price: 20, label: 'Dimanche 5 — Déjeuner' },
     }
 
-    const { firstName, lastName, meals } = body
+    const { firstName, lastName, phone, meals } = body
     if (!email) {
       return new Response(
         JSON.stringify({ error: 'Email requis.' }),
@@ -304,6 +304,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         email,
         firstName: firstName || null,
         lastName: lastName || null,
+        phone: phone || null,
         base: FORUM_BASE,
         mealsTotal,
         total,

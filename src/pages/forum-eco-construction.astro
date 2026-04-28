@@ -570,6 +570,10 @@ const galleryImages = [
             <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Email <span class="text-[#2C2824]/50">*</span></label>
             <input type="email" name="email" required placeholder="ton@email.com" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#8B7A3A]" />
           </div>
+          <div>
+            <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Téléphone</label>
+            <input type="tel" name="phone" placeholder="06 12 34 56 78" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#8B7A3A]" />
+          </div>
           <p class="text-xs text-red-600 hidden" data-error></p>
           <button type="submit" class="block w-full text-center px-8 py-4 bg-[#2C2824] text-white text-sm font-medium tracking-wide uppercase hover:bg-[#2C2824]/90 transition-colors mt-6 disabled:opacity-60 disabled:cursor-not-allowed" data-cta>
             Je réserve ma place — 60 €
@@ -641,6 +645,7 @@ const galleryImages = [
           const email = String(data.get('email') || '').trim()
           const firstName = String(data.get('firstname') || '').trim()
           const lastName = String(data.get('lastname') || '').trim()
+          const phone = String(data.get('phone') || '').trim()
           if (!email) { showError('Email obligatoire.'); return }
 
           const selectedMeals = Array.from(meals)
@@ -662,6 +667,7 @@ const galleryImages = [
                 email,
                 firstName,
                 lastName,
+                phone,
                 meals: selectedMeals,
               }),
             })
