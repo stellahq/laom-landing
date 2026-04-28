@@ -13,23 +13,24 @@ const pageSchema = createWebPageSchema({
 })
 
 // Images pour les événements partenaires (Photos partenaires - LAOM)
+// Les indices doivent suivre l'ordre de t.events.items (translations.ts).
+// Si Clarté est réactivé, remettre son image en index 0 et décaler le reste.
 const eventImages = [
-  '/images/laom/laomfest/vanlifest-IMG_1373.webp',                            // 0  Clarté
-  '/images/colette.webp',                                                      // 1  Désir d'Aventure #1
-  '/images/laom/preparation-terre-laom.webp',                                  // 2  LAOM School
-  '/images/laom/partenaires/freres-d-ame-retraite-partenaire-LAOM.webp',      // 3  Frères d'Âme
-  '/images/colette.webp',                                                      // 4  Désir d'Aventure #2
-  '/images/event-rencontre-perspective.webp',                                  // 5  Festival Perspective
-  '/images/laom/partenaires/fyneo-logo-F-vert-texte-vert-copie.webp',         // 6  Rencontre Fyneo #1
-  '/images/laom/tipis.webp',                                                   // 7  LAOM Coliving E&C 1
-  '/images/laom/petit-shambala-exterieur.webp',                                // 8  Rencontre Forum Éco-construction
-  '/images/laom/les-enfants-sauvages-15.webp',                                   // 9  Family Camp 1
-  '/images/laom/partenaires/summer-camp-amawe-partenaire-LAOM.webp',          // 10 Summer Camp Amawé
-  '/images/laom/partenaires/Aime-Etre-retraite-partenaire-LAOM.webp',        // 11 Aime-Être
-  '/images/laom/samuel-planas.webp',                                           // 12 En Mouvement
-  '/images/laom/tipis.webp',                                                   // 13 LAOM Coliving E&C 2
-  '/images/laom/les-enfants-sauvages-15.webp',                                   // 14 Family Camp 2
-  '/images/laom/partenaires/Stage-guerison-blessures-partenaire-LAOM.webp',   // 15 Guérison des Blessures
+  '/images/colette.webp',                                                      // 0  Désir d'Aventure #1
+  '/images/laom/preparation-terre-laom.webp',                                  // 1  LAOM School
+  '/images/laom/partenaires/freres-d-ame-retraite-partenaire-LAOM.webp',      // 2  Frères d'Âme
+  '/images/colette.webp',                                                      // 3  Désir d'Aventure #2
+  '/images/event-rencontre-perspective.webp',                                  // 4  Festival Perspective
+  '/images/laom/partenaires/fyneo-logo-F-vert-texte-vert-copie.webp',         // 5  Rencontre Fyneo #1
+  '/images/laom/tipis.webp',                                                   // 6  LAOM Coliving E&C 1
+  '/images/laom/petit-shambala-exterieur.webp',                                // 7  Rencontre Forum Éco-construction
+  '/images/laom/les-enfants-sauvages-15.webp',                                 // 8  Family Camp 1
+  '/images/laom/partenaires/summer-camp-amawe-partenaire-LAOM.webp',          // 9  Summer Camp Amawé
+  '/images/laom/partenaires/Aime-Etre-retraite-partenaire-LAOM.webp',        // 10 Aime-Être
+  '/images/laom/samuel-planas.webp',                                           // 11 En Mouvement
+  '/images/laom/tipis.webp',                                                   // 12 LAOM Coliving E&C 2
+  '/images/laom/les-enfants-sauvages-15.webp',                                 // 13 Family Camp 2
+  '/images/laom/partenaires/Stage-guerison-blessures-partenaire-LAOM.webp',   // 14 Guérison des Blessures
 ]
 const events = t.events.items.map((item, index) => ({
   ...item,

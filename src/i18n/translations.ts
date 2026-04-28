@@ -54,13 +54,15 @@ export const translations = {
       comingSoon: 'Bientôt disponible',
       cta: 'Découvrir',
       items: [
+        // ARCHIVÉ — Week-end Clarté (passé)
+        // À réactiver quand une nouvelle session est programmée : décommente le bloc.
+        // {
+        //   title: 'Clarté',
+        //   date: 'JJ MOIS – JJ MOIS 2026',
+        //   description: 'Un week-end pour créer ton système de vie : vision, PARA, et Claude Code comme agent IA personnel.',
+        //   href: '/clarte/',
+        // },
         // AVRIL
-        {
-          title: 'Clarté',
-          date: '17 avr. – 19 avr. 2026',
-          description: 'Un week-end pour créer ton système de vie : vision, PARA, et Claude Code comme agent IA personnel.',
-          href: '/clarte/',
-        },
         {
           title: 'Désir d\'Aventure #1',
           date: '30 avr. – 3 mai 2026',
@@ -865,13 +867,15 @@ export const translations = {
       comingSoon: 'Coming soon',
       cta: 'Discover',
       items: [
+        // ARCHIVED — Clarity weekend (past)
+        // Reactivate when a new session is scheduled: uncomment the block.
+        // {
+        //   title: 'Clarity',
+        //   date: 'MMM DD – MMM DD, 2026',
+        //   description: 'A weekend to create your life system: vision, PARA, and Claude Code as your personal AI agent.',
+        //   href: '/clarte/',
+        // },
         // APRIL
-        {
-          title: 'Clarity',
-          date: 'Apr 17 – Apr 19, 2026',
-          description: 'A weekend to create your life system: vision, PARA, and Claude Code as your personal AI agent.',
-          href: '/clarte/',
-        },
         {
           title: 'Adventure Desires #1',
           date: 'Apr 30 – May 3, 2026',
