@@ -58,7 +58,7 @@ const galleryImages = [
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="#reserver" class="inline-block px-8 py-3 bg-white text-[#2C2824] text-sm font-medium tracking-wide uppercase hover:bg-white/90 transition-colors">
-          Réserver ma place
+          Je réserve ma place
         </a>
         <a href="#programme" class="inline-block px-8 py-3 border border-white/60 text-white text-sm font-medium tracking-wide uppercase hover:bg-white/10 transition-colors">
           Voir le programme
@@ -170,6 +170,12 @@ const galleryImages = [
             <strong class="font-medium text-[#2C2824]">Atelier enduit terre</strong> le dimanche matin, encadré par des pailleux et terreux expérimentés. On met les mains dedans, on apprend les bons gestes, on repart avec du concret.
           </p>
         </div>
+      </div>
+
+      <div class="mt-16 text-center">
+        <a href="#reserver" class="inline-block px-10 py-4 bg-[#2C2824] text-white text-sm font-medium tracking-wide uppercase hover:bg-[#2C2824]/90 transition-colors">
+          Composer mon séjour
+        </a>
       </div>
     </div>
   </section>
@@ -287,6 +293,12 @@ const galleryImages = [
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="mt-16 text-center">
+        <a href="#reserver" class="inline-block px-10 py-4 bg-[#2C2824] text-white text-sm font-medium tracking-wide uppercase hover:bg-[#2C2824]/90 transition-colors">
+          Je réserve ma place
+        </a>
       </div>
     </div>
   </section>
@@ -409,6 +421,12 @@ const galleryImages = [
         <img src="/images/laom/grand-shambala/grand-shambala-vue-drone-tipis-arbres-laom.webp" alt="Vue drone LAOM" class="w-full h-64 object-cover rounded-sm border border-black/10" loading="lazy" />
         <img src="/images/laom/grand-shambala/facade-sud-grand-shambala-ouvertures-2025.webp" alt="Façade sud Grand Shambala" class="w-full h-64 object-cover rounded-sm border border-black/10" loading="lazy" />
         <img src="/images/laom/petit-shambala-interieur.webp" alt="Intérieur Petit Shambala" class="w-full h-64 object-cover rounded-sm border border-black/10" loading="lazy" />
+      </div>
+
+      <div class="mt-16 text-center">
+        <a href="#reserver" class="inline-block px-10 py-4 bg-[#2C2824] text-white text-sm font-medium tracking-wide uppercase hover:bg-[#2C2824]/90 transition-colors">
+          Venir au forum
+        </a>
       </div>
     </div>
   </section>
@@ -537,9 +555,15 @@ const galleryImages = [
         </div>
 
         <form id="forum-reservation" class="space-y-4">
-          <div>
-            <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Prénom</label>
-            <input type="text" name="firstname" placeholder="Ton prénom" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#8B7A3A]" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Prénom</label>
+              <input type="text" name="firstname" placeholder="Ton prénom" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#8B7A3A]" />
+            </div>
+            <div>
+              <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Nom</label>
+              <input type="text" name="lastname" placeholder="Ton nom" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#8B7A3A]" />
+            </div>
           </div>
           <div>
             <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Email <span class="text-[#2C2824]/50">*</span></label>
@@ -547,7 +571,7 @@ const galleryImages = [
           </div>
           <p class="text-xs text-red-600 hidden" data-error></p>
           <button type="submit" class="block w-full text-center px-8 py-4 bg-[#2C2824] text-white text-sm font-medium tracking-wide uppercase hover:bg-[#2C2824]/90 transition-colors mt-6 disabled:opacity-60 disabled:cursor-not-allowed" data-cta>
-            Réserver ma place — 60 €
+            Je réserve ma place — 60 €
           </button>
         </form>
       </div>
@@ -592,7 +616,7 @@ const galleryImages = [
           const total = BASE + mealsTotal
           if (recapEl) recapEl.textContent = 'Accès (60 €) + ' + count + ' repas (' + mealsTotal + ' €)'
           if (totalEl) totalEl.textContent = total + ' €'
-          if (ctaEl) ctaEl.textContent = 'Réserver ma place — ' + total + ' €'
+          if (ctaEl) ctaEl.textContent = 'Je réserve ma place — ' + total + ' €'
         }
         meals.forEach((m) => m.addEventListener('change', recompute))
         if (allBtn) allBtn.addEventListener('click', () => { meals.forEach((m) => (m.checked = true)); recompute() })
@@ -615,6 +639,7 @@ const galleryImages = [
           const data = new FormData(form)
           const email = String(data.get('email') || '').trim()
           const firstName = String(data.get('firstname') || '').trim()
+          const lastName = String(data.get('lastname') || '').trim()
           if (!email) { showError('Email obligatoire.'); return }
 
           const selectedMeals = Array.from(meals)
@@ -635,6 +660,7 @@ const galleryImages = [
                 product: 'forum-eco-construction',
                 email,
                 firstName,
+                lastName,
                 meals: selectedMeals,
               }),
             })
@@ -756,8 +782,8 @@ const galleryImages = [
       <p class="text-lg font-light text-white/80 max-w-xl mx-auto mb-10 leading-relaxed">
         Le rendez-vous des bâtisseurs et des passionnés de l'habitat naturel.
       </p>
-      <a href="mailto:contact@laom.org?subject=Réservation Forum Éco-Construction 3-5 juillet 2026" class="inline-block px-10 py-4 bg-white text-[#2C2824] text-sm font-medium tracking-wide uppercase hover:bg-white/90 transition-colors">
-        Réserver ma place
+      <a href="#reserver" class="inline-block px-10 py-4 bg-white text-[#2C2824] text-sm font-medium tracking-wide uppercase hover:bg-white/90 transition-colors">
+        Je réserve ma place
       </a>
     </div>
   </section>
