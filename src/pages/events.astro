@@ -40,30 +40,24 @@ const events = t.events.items.map((item, index) => ({
 const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
 
 // Immersions LAOM
+//
+// ARCHIVÉ — Week-end Clarté
+// À réactiver quand une nouvelle session est programmée : décommente le bloc
+// ci-dessous et mets à jour la date.
+// {
+//   title: 'Clarté',
+//   date: 'JJ-JJ MOIS 2026',
+//   description: 'Un week-end pour créer le système qui libère ta tête. Vision, PARA, Claude Code.',
+//   price: '1 000 €',
+//   animateur: 'Charly Aubert',
+//   href: '/clarte',
+//   image: '/images/laom/laomfest/vanlifest-IMG_1373.webp',
+// },
 const weekendsLaom = [
   {
-    title: 'Clarté',
-    date: '17-19 avril 2026',
-    description: 'Un week-end pour créer le système qui libère ta tête. Vision, PARA, Claude Code.',
-    price: '1 000 €',
-    animateur: 'Charly Aubert',
-    href: '/clarte',
-    image: '/images/laom/laomfest/vanlifest-IMG_1373.webp',
-  },
-  // ARCHIVÉ — Décommenter et ajouter ci-dessus quand session 1 (17-19 avril) est pleine :
-  // {
-  //   title: 'Clarté #2',
-  //   date: '25-27 avril 2026',
-  //   description: 'Un week-end pour créer le système qui libère ta tête. Vision, PARA, Claude Code.',
-  //   price: '1 000 €',
-  //   animateur: 'Charly Aubert',
-  //   href: '/clarte',
-  //   image: '/images/laom/laomfest/vanlifest-IMG_1373.webp',
-  // },
-  {
     title: 'LAOMSCHOOL',
-    date: 'Formation en ligne · accès immédiat',
-    description: 'La feuille de route pour créer ton lieu : modules à ton rythme + 12 lives collectifs sur 6 mois.',
+    date: 'Accompagnement · 12 lives sur 6 mois',
+    description: 'La feuille de route pour créer ton lieu : 12 lives collectifs sur 6 mois pour t\'accompagner pas à pas, animés par Charly.',
     price: '497 €',
     animateur: 'Charly Aubert',
     href: '/school/online',
