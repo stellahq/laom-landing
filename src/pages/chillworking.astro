@@ -1,0 +1,814 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Séjour Chillworking | LAOM',
+  url: Astro.url.toString(),
+  description:
+    'Un séjour vacances-travail à LAOM, en Aveyron. Sessions de mouvement chaque matin, coworking en pleine nature, rencontres entre entrepreneurs, dirigeants et créatifs.',
+})
+
+const sessions = [
+  { date: '15 — 28 juin 2026', label: 'Session 1' },
+  { date: '6 — 20 août 2026', label: 'Session 2' },
+]
+---
+
+<Layout
+  title="Séjour Chillworking | LAOM"
+  description="Un séjour vacances-travail à LAOM, en Aveyron. Sessions de mouvement chaque matin, coworking en pleine nature, rencontres entre entrepreneurs, dirigeants et créatifs."
+  seo={{ ldJSON: pageSchema }}
+  hideChrome={true}
+>
+
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/laom/laom-accueil-chillworking.webp"
+        alt="LAOM, lieu d'accueil en Aveyron, cadre de la Séjour Chillworking"
+        title="LAOM, accueil dans la vallée sauvage de l'Aveyron"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-32 pb-16">
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">LAOM présente · en juin 2026 ou en août 2026</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
+        Séjour Chillworking
+      </h1>
+      <p class="text-lg md:text-xl font-light text-white/85 max-w-2xl mx-auto leading-relaxed">
+        Un format <strong class="font-medium text-white">vacances-travail</strong> pour entrepreneurs, dirigeants, freelances, créatifs et salariés en remote. <strong class="font-medium text-white">Séances de mouvement le matin</strong>, <strong class="font-medium text-white">2 sessions de travail possibles dans la journée</strong>, <strong class="font-medium text-white">ressourcement en journée ou le soir</strong>. Dans une nature et une tribu qui rechargent.
+      </p>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <a href="#invitation" class="block text-white/50 hover:text-white transition-colors" aria-label="Défiler">
+        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- L'invitation -->
+  <section id="invitation" class="py-24 md:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">L'invitation</p>
+      <div class="space-y-6 text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        <p>
+          Il n'y a parfois pas besoin d'aller très loin pour se <strong class="font-medium text-[#2C2824]">déconnecter d'une routine contre-productive</strong> et redonner de l'élan à tes idées.
+        </p>
+        <p>
+          <strong class="font-medium text-[#2C2824]">Chillworking</strong>, c'est la combinaison de "chill" + "work", détente et travail. Un format imaginé par et pour <strong class="font-medium text-[#2C2824]">entrepreneurs, dirigeants, freelances, créatifs et salariés en remote</strong>.
+        </p>
+        <p>
+          Pendant ton séjour à LAOM, tu alternes <strong class="font-medium text-[#2C2824]">sessions de mouvement le matin</strong>, sessions de travail dans la journée (tu choisis le temps de travail dont tu as besoin), <strong class="font-medium text-[#2C2824]">repas faits maison avec les légumes du jardin</strong>, et soirées de partage.
+        </p>
+        <div class="aspect-[3/4] overflow-hidden rounded-sm max-w-xs mx-auto">
+          <img
+            src="/images/laom/chillworking-salle-pratique.webp"
+            alt="La salle de pratique de LAOM, espace de coworking et de mouvement pour la Séjour Chillworking"
+            title="Le Shala, salle de pratique et coworking à LAOM"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            width="600"
+            height="800"
+          />
+        </div>
+        <p>
+          <strong class="font-medium text-[#2C2824]">On dort en tipi</strong> (douche extérieure et toilettes sèches, sobriété assumée), on mange dehors sous une tente chapiteau ouverte, on vit avec la nature — avec accès à une <strong class="font-medium text-[#2C2824]">salle de pratique / coworking équipée wifi fibre et plafond acoustique</strong>. C'est pour celles et ceux qui ont envie de simplicité, tout en ayant accès à des infrastructures de travail confort et soutenantes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Triptyque -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6 text-center">Le format</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16 text-center">Trois piliers, un séjour</h2>
+
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <div class="bg-white border border-black/10 p-8 lg:p-10">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">01</p>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4">Mouvement</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Chaque matin, une session de mouvement guidée</strong> pour réveiller le corps et clarifier le mental. Yoga, danse libre, mobilité, respiration. Une pratique complète pour entrer dans la journée pleinement disponible.
+          </p>
+        </div>
+
+        <div class="bg-white border border-black/10 p-8 lg:p-10">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">02</p>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4">Nature & ressourcement</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">21 hectares de forêt, prairies et rivière</strong> au cœur du Parc Naturel des Grands Causses. Repas faits maison à partir du jardin, baignade, randonnée. Le système nerveux respire.
+          </p>
+        </div>
+
+        <div class="bg-white border border-black/10 p-8 lg:p-10">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">03</p>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4">Work & rencontres</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Le Shala, notre salle de pratique, se transforme en espace de travail</strong> dans la journée. La fibre est calée. Et le soir, des temps de partage entre entrepreneurs, dirigeants, créatifs et salariés en remote venus avancer chacun sur leurs projets.
+          </p>
+        </div>
+      </div>
+
+      <!-- Trio illustration des 3 piliers -->
+      <div class="grid md:grid-cols-3 gap-4 lg:gap-6 mt-12">
+        <div class="aspect-[4/5] overflow-hidden rounded-sm">
+          <img src="/images/laom/mouvement-laom.webp" alt="Séance de mouvement matinale dans Le Shala à LAOM" title="Mouvement à LAOM" class="w-full h-full object-cover" loading="lazy" width="600" height="750" />
+        </div>
+        <div class="aspect-[4/5] overflow-hidden rounded-sm">
+          <img src="/images/laom/oasis-la-margue-1.webp" alt="La nature et la rivière de la vallée de La Margue à LAOM" title="Nature et ressourcement à LAOM" class="w-full h-full object-cover" loading="lazy" width="600" height="750" />
+        </div>
+        <div class="aspect-[4/5] overflow-hidden rounded-sm">
+          <img src="/images/laom/salle-de-pratique.webp" alt="Le Shala transformé en espace de travail pour la Séjour Chillworking" title="Coworking dans Le Shala" class="w-full h-full object-cover" loading="lazy" width="600" height="750" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C'est pour toi si... -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">À qui c'est destiné</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">C'est pour toi si…</h2>
+      <ul class="grid gap-4 md:grid-cols-2 text-lg font-light text-[#2C2824]/80 leading-relaxed [&_li]:text-pretty">
+        <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">↠</span><span>Tu es <strong class="font-medium text-[#2C2824]">entrepreneur·e, dirigeant·e, freelance, créatif·ve ou salarié·e en remote</strong>, et tu cherches un cadre qui te recharge.</span></li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span> Tu veux te déconnecter du quotidien sans mettre ton activité en pause.</li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span> Tu veux retrouver un équilibre entre temps de travail et temps pour toi.</li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span> Tu veux créer des liens authentiques avec d'autres bâtisseurs de projets.</li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span> Tu veux remettre du corps et du mouvement dans tes journées.</li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span> Tu veux vivre une expérience pleine de sens, dans un cadre rare.</li>
+      </ul>
+
+      <div class="mt-16 text-center">
+        <button
+          type="button"
+          data-open-reservation
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Je réserve ma place
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programme - journée type -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Le programme</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16">Une journée type</h2>
+
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-12">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">8h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Session de mouvement</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Yoga, danse, mobilité ou méditation guidée</strong> dans Le Shala, notre salle de pratique. Une heure pour ouvrir le corps, calmer le mental, entrer dans la journée.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">9h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Petit-déjeuner</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Pain bio au levain, œufs de la ferme d'à côté, café, fruits, beurre, confitures…</strong> Sucré-salé, fait maison, partagé sur la terrasse de la guinguette.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">10h00 — 13h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Première session de travail (possible)</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Le Shala se transforme en <strong class="font-medium text-[#2C2824]">espace de travail</strong>. Vue sur la rivière et la vallée, ambiance studieuse mais détendue. Tu avances sur tes projets pro, ton activité, ou ce <strong class="font-medium text-[#2C2824]">projet de fond que tu n'as jamais le temps de creuser</strong> (un livre, une formation, une stratégie). Ou tu chilles. Au choix.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">13h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Déjeuner</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Cuisine maison, généreuse, avec les <strong class="font-medium text-[#2C2824]">légumes du jardin et les produits locaux</strong> (moins de 50 km).
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">14h30 — 17h30</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Deuxième session de travail (possible)</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Tu prolonges ta session de travail, ou tu pars marcher, te baigner dans la rivière, faire une sieste. <strong class="font-medium text-[#2C2824]">Travail ou nature, au choix.</strong>
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">19h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Dîner & soirée</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed mb-6">
+            Repas partagé, puis soirée libre — feu, musique, ou simplement une <strong class="font-medium text-[#2C2824]">nuit étoilée loin des néons</strong>. Les conversations qui dépassent le small talk arrivent souvent ici.
+          </p>
+          <div class="aspect-[16/10] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/laomfest/vanlifest-IMG_1021.webp"
+              alt="Soirée conviviale autour du feu à LAOM"
+              title="Soirée à LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="1200"
+              height="750"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-black/10">
+        <p class="text-sm font-light text-[#2C2824]/50 italic">
+          Le programme reste souple. Selon le groupe et la météo, des ateliers, randonnées ou interventions peuvent s'ajouter ou se déplacer pendant le séjour.
+        </p>
+      </div>
+
+      <div class="mt-12 text-center">
+        <button
+          type="button"
+          data-open-reservation
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Je réserve ma place
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le lieu -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le lieu</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">LAOM, coliving et tiers-lieu rural</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+        <div>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">21 hectares pour respirer</h3>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <p>
+              LAOM est un <strong class="font-medium text-[#2C2824]">lieu d'accueil niché dans une vallée sauvage du sud de l'Aveyron</strong>, au cœur du Parc Naturel des Grands Causses.
+            </p>
+            <p>
+              Une rivière, des prairies, une forêt, un potager. Un hameau en pierre où l'on vit, travaille et reçoit. Le tout pensé pour que <strong class="font-medium text-[#2C2824]">le système nerveux puisse enfin se déposer</strong>.
+            </p>
+            <p>
+              Tu travailles dans <strong class="font-medium text-[#2C2824]">Le Shala</strong> (fibre internet), salle de pratique avec plafond acoustique et baies vitrées sur la vallée et la rivière. Tu dors en <strong class="font-medium text-[#2C2824]">tipi</strong>. Tu manges <strong class="font-medium text-[#2C2824]">les légumes du jardin</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/riviere-laom.webp"
+              alt="La rivière qui traverse LAOM, dans la vallée de La Margue en Aveyron"
+              title="La rivière de LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/tipis.webp"
+              alt="Tipis avec vue sur la vallée à LAOM"
+              title="Hébergement en tipi à LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/jardin-laom.webp"
+              alt="Le jardin potager de LAOM, source des repas faits maison"
+              title="Jardin potager LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/diner-golden-hour-laom.webp"
+              alt="Dîner à LAOM à l'heure dorée, grande tablée en plein air"
+              title="Dîner golden hour à LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-[#2C2824]/10 pt-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8 text-center">Ce qu'ils disent du lieu</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">"Un lieu d'accueil singulier, avec un paysage magnifique, un fond culturel palpable, une énergie ressourçante."</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">"Un lieu magique, proche de la nature et plein de gens inspirants."</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">"Un endroit hors du temps qui contraste avec les endroits plus agités du quotidien."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Citation -->
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="font-playfair text-2xl md:text-3xl font-light italic leading-relaxed text-white/90">
+        "Dans 20 ans, tu seras plus déçu par les choses que tu n'auras pas faites que par celles que tu auras accomplies. Alors, largue les amarres, sors du port, attrape les alizés par les voiles. Explore. Rêve. Découvre."
+      </p>
+      <p class="mt-8 text-xs tracking-[0.2em] uppercase text-white/40">Mark Twain</p>
+    </div>
+  </section>
+
+  <!-- Infos pratiques -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Pratique</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Infos pratiques</h2>
+
+      <div class="mb-12">
+        <p class="text-sm font-light text-[#2C2824]/50 mb-4 uppercase tracking-widest">Deux sessions en 2026</p>
+        <div class="space-y-3">
+          {sessions.map((s) => (
+            <div class="flex justify-between items-center py-3 border-b border-black/5">
+              <span class="text-sm font-light text-[#2C2824]/50">{s.label}</span>
+              <span class="font-playfair text-lg text-[#2C2824]">{s.date}</span>
+            </div>
+          ))}
+        </div>
+        <p class="mt-4 text-sm font-light text-[#2C2824]/60 italic leading-relaxed">
+          Durée flexible : tu choisis ton créneau, à partir de 5 nuits minimum, sur tout ou partie des 15 jours proposés.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Durée</span>
+          <span class="text-base font-light text-[#2C2824] text-right">5 nuits min, jusqu'à 15 jours</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Lieu</span>
+          <span class="text-base font-light text-[#2C2824] text-right">LAOM, La Margue · Aveyron</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Places</span>
+          <span class="text-base font-light text-[#2C2824] text-right">8–12 personnes</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5 gap-6">
+          <span class="text-base font-light text-[#2C2824]/50">Prix</span>
+          <div class="text-right">
+            <p class="text-base font-medium text-[#2C2824]">180 € / journée sur place, tout compris <span class="font-light text-[#2C2824]/60">(5 jours min)</span></p>
+            <p class="text-sm font-light text-[#2C2824]/60 mt-1">2 000 € pour 14 jours <span class="text-[#C4A855]">(soit 142 € / jour)</span></p>
+          </div>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5 gap-6">
+          <span class="text-base font-light text-[#2C2824]/50">Hébergement</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Tipi (2 lits simples / 2 pers. par tipi)</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Inclus</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Hébergement, pension complète, sessions de mouvement, accès coworking, ateliers</span>
+        </div>
+        <div class="flex justify-between items-start py-3 border-b border-black/5">
+          <span class="text-base font-light text-[#2C2824]/50">Non inclus</span>
+          <span class="text-base font-light text-[#2C2824] text-right">Transport jusqu'à LAOM</span>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <button
+          type="button"
+          data-open-reservation
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Je réserve ma place
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">FAQ</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Questions fréquentes</h2>
+
+      <div class="space-y-6">
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Faut-il un niveau particulier en yoga, danse ou mouvement ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Non. Les sessions du matin sont accessibles à tous, y compris si tu n'as jamais pratiqué. L'objectif n'est pas la performance mais d'arriver dans la journée détendu, ancré, disponible.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Le wifi est-il vraiment fiable ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Oui. La fibre est installée et tient pour les visios et le travail à distance.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Combien de temps de travail effectif puis-je espérer ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Deux plages de travail sont possibles chaque jour (matin et après-midi). Tu travailles autant que tu en as besoin — et si tu as besoin de temps off, tu prends du temps off. Le format reste flexible.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Comment se passent l'hébergement et les repas ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Hébergement sur place inclus en tipi (2 lits simples par tipi, jusqu'à 2 personnes). Pension complète : trois repas par jour, faits maison, à partir des produits du jardin ou locaux (moins de 50 km). Préférences alimentaires et allergies prises en compte.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Puis-je venir en van ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Oui, c'est possible. Tu peux te garer sur place et dormir dans ton van, avec accès aux espaces communs. Préviens-nous à la réservation pour qu'on s'organise.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Comment venir à LAOM ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            En train : gare de Montpaon, à 15 min en voiture (on peut venir te chercher).<br />
+            En voiture : Montpellier 1h30, Toulouse 2h, Lyon 3h30. Du covoiturage est souvent organisé entre participants.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Mon entreprise peut-elle financer le séjour ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Oui. Beaucoup de participants font passer le séjour en frais professionnels (séminaire, retraite, formation). Une facture détaillée est fournie sur demande.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Places limitées</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Prêt·e à vivre l'expérience Chillworking à LAOM ?</h2>
+      <p class="text-base font-light text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
+        Un séjour pour avancer sur ce qui compte vraiment, dans un cadre qui te ramène à toi.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <button
+          type="button"
+          data-open-reservation
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Je réserve ma place
+        </button>
+        <a
+          href="https://cal.atomik.world/charly/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center rounded-sm border border-white/30 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#2C2824] transition-colors"
+        >
+          Poser une question
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal de réservation -->
+  <dialog id="reservation-dialog" class="bg-transparent backdrop:bg-black/60 backdrop:backdrop-blur-sm p-0 max-w-2xl w-full mx-auto rounded-sm">
+    <div class="bg-white rounded-sm shadow-2xl">
+      <div class="flex items-start justify-between p-6 md:p-8 border-b border-black/10">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-2">Réservation</p>
+          <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824]">Séjour Chillworking</h2>
+        </div>
+        <button type="button" id="close-reservation" aria-label="Fermer" class="text-[#2C2824]/40 hover:text-[#2C2824] transition-colors p-1 cursor-pointer">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="reservation-form" class="p-6 md:p-8 space-y-6">
+        <!-- Session -->
+        <div>
+          <label class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Session</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="cursor-pointer">
+              <input type="radio" name="session" value="juin" class="sr-only peer" checked />
+              <div class="p-4 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-[#FAF8F5] transition-colors text-center">
+                <p class="font-playfair text-base font-medium text-[#2C2824]">Juin 2026</p>
+                <p class="text-xs font-light text-[#2C2824]/50 mt-1">15 — 28 juin</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="session" value="aout" class="sr-only peer" />
+              <div class="p-4 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-[#FAF8F5] transition-colors text-center">
+                <p class="font-playfair text-base font-medium text-[#2C2824]">Août 2026</p>
+                <p class="text-xs font-light text-[#2C2824]/50 mt-1">6 — 20 août</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Date d'arrivée -->
+        <div>
+          <label for="arrivalDate" class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Date d'arrivée</label>
+          <input
+            type="date"
+            id="arrivalDate"
+            name="arrivalDate"
+            required
+            class="w-full px-4 py-3 border border-[#2C2824]/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-[#2C2824]"
+          />
+        </div>
+
+        <!-- Nombre de nuits -->
+        <div>
+          <label for="nights" class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Nombre de nuits (5 min, 14 max)</label>
+          <input
+            type="number"
+            id="nights"
+            name="nights"
+            min="5"
+            max="14"
+            value="7"
+            required
+            class="w-full px-4 py-3 border border-[#2C2824]/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-[#2C2824]"
+          />
+        </div>
+
+        <!-- Coupon -->
+        <div>
+          <label for="coupon" class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Code promo (optionnel)</label>
+          <input
+            type="text"
+            id="coupon"
+            name="coupon"
+            placeholder=""
+            class="w-full px-4 py-3 border border-[#2C2824]/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-[#2C2824] uppercase"
+          />
+        </div>
+
+        <!-- Prénom + Nom -->
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label for="firstName" class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Prénom</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              required
+              class="w-full px-4 py-3 border border-[#2C2824]/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-[#2C2824]"
+            />
+          </div>
+          <div>
+            <label for="lastName" class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Nom</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              required
+              class="w-full px-4 py-3 border border-[#2C2824]/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-[#2C2824]"
+            />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 border border-[#2C2824]/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-[#2C2824]"
+          />
+        </div>
+
+        <!-- Téléphone -->
+        <div>
+          <label for="phone" class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Téléphone</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            placeholder="+33 6 ..."
+            class="w-full px-4 py-3 border border-[#2C2824]/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-[#2C2824]"
+          />
+        </div>
+
+        <!-- Récap prix -->
+        <div id="price-summary" class="p-5 bg-[#FAF8F5] rounded-sm space-y-2">
+          <div class="flex justify-between text-sm font-light text-[#2C2824]/70">
+            <span id="price-base-label">Tarif de base</span>
+            <span id="price-base">— €</span>
+          </div>
+          <div id="price-discount-row" class="flex justify-between text-sm font-light text-[#C4A855]" hidden>
+            <span id="price-discount-label">Coupon</span>
+            <span id="price-discount">— €</span>
+          </div>
+          <div class="flex justify-between text-lg font-medium text-[#2C2824] pt-2 border-t border-black/10">
+            <span>Total à régler</span>
+            <span id="price-total">— €</span>
+          </div>
+        </div>
+
+        <p id="form-error" class="text-sm text-red-600" hidden></p>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+        >
+          <span id="submit-label">Procéder au paiement sécurisé</span>
+        </button>
+
+        <p class="text-xs text-center font-light text-[#2C2824]/50">
+          Paiement sécurisé via Mollie. Carte bancaire.
+        </p>
+      </form>
+    </div>
+  </dialog>
+
+  <script>
+    const dialog = document.getElementById('reservation-dialog') as HTMLDialogElement
+    const closeBtn = document.getElementById('close-reservation')
+    const form = document.getElementById('reservation-form') as HTMLFormElement
+    const arrivalInput = document.getElementById('arrivalDate') as HTMLInputElement
+    const nightsInput = document.getElementById('nights') as HTMLInputElement
+    const couponInput = document.getElementById('coupon') as HTMLInputElement
+    const sessionInputs = document.querySelectorAll('input[name="session"]') as NodeListOf<HTMLInputElement>
+    const errorEl = document.getElementById('form-error') as HTMLParagraphElement
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement
+    const submitLabel = document.getElementById('submit-label') as HTMLSpanElement
+    const priceBaseEl = document.getElementById('price-base') as HTMLSpanElement
+    const priceBaseLabelEl = document.getElementById('price-base-label') as HTMLSpanElement
+    const priceDiscountRow = document.getElementById('price-discount-row') as HTMLDivElement
+    const priceDiscountEl = document.getElementById('price-discount') as HTMLSpanElement
+    const priceTotalEl = document.getElementById('price-total') as HTMLSpanElement
+
+    const SESSIONS = {
+      juin: { start: '2026-06-15', end: '2026-06-28', label: 'Juin' },
+      aout: { start: '2026-08-06', end: '2026-08-20', label: 'Août' },
+    }
+
+    function getSelectedSession(): 'juin' | 'aout' {
+      const checked = Array.from(sessionInputs).find((i) => i.checked)
+      return (checked?.value as 'juin' | 'aout') || 'juin'
+    }
+
+    function updateArrivalConstraints() {
+      const sess = SESSIONS[getSelectedSession()]
+      arrivalInput.min = sess.start
+      // Max d'arrivée = end - nights jours (si départ < end)
+      arrivalInput.max = sess.end
+      if (!arrivalInput.value || arrivalInput.value < sess.start || arrivalInput.value > sess.end) {
+        arrivalInput.value = sess.start
+      }
+    }
+
+    function fmtEur(n: number) {
+      return n.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' €'
+    }
+
+    function recalc() {
+      const nights = parseInt(nightsInput.value || '0', 10)
+      const couponRaw = (couponInput.value || '').trim().toUpperCase()
+      if (!nights || nights < 5 || nights > 14) {
+        priceBaseEl.textContent = '—'
+        priceTotalEl.textContent = '—'
+        priceDiscountRow.hidden = true
+        return
+      }
+      const base = nights >= 12 ? 2000 : nights * 180
+      priceBaseLabelEl.textContent = nights >= 12 ? `Forfait ${nights} nuits` : `${nights} nuits × 180 €`
+      priceBaseEl.textContent = fmtEur(base)
+
+      let discount = 0
+      if (couponRaw === 'TRIBULAOM') {
+        discount = Math.round(base * 0.2 * 100) / 100
+        priceDiscountRow.hidden = false
+        priceDiscountEl.textContent = '− ' + fmtEur(discount)
+      } else {
+        priceDiscountRow.hidden = true
+      }
+      const total = base - discount
+      priceTotalEl.textContent = fmtEur(total)
+    }
+
+    document.querySelectorAll('[data-open-reservation]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        updateArrivalConstraints()
+        recalc()
+        errorEl.hidden = true
+        dialog.showModal()
+      })
+    })
+
+    closeBtn?.addEventListener('click', () => dialog.close())
+    dialog?.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close()
+    })
+
+    sessionInputs.forEach((i) =>
+      i.addEventListener('change', () => {
+        updateArrivalConstraints()
+        recalc()
+      }),
+    )
+    nightsInput.addEventListener('input', recalc)
+    couponInput.addEventListener('input', recalc)
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      errorEl.hidden = true
+      submitBtn.disabled = true
+      submitLabel.textContent = 'Redirection vers le paiement…'
+
+      const firstName = (document.getElementById('firstName') as HTMLInputElement).value.trim()
+      const lastName = (document.getElementById('lastName') as HTMLInputElement).value.trim()
+      const data = {
+        product: 'chillworking',
+        session: getSelectedSession(),
+        nights: parseInt(nightsInput.value, 10),
+        arrivalDate: arrivalInput.value,
+        coupon: (couponInput.value || '').trim().toUpperCase() || undefined,
+        firstName,
+        lastName,
+        name: `${firstName} ${lastName}`.trim(),
+        email: (document.getElementById('email') as HTMLInputElement).value.trim(),
+        phone: (document.getElementById('phone') as HTMLInputElement).value.trim(),
+      }
+
+      try {
+        const res = await fetch('/api/mollie/create-payment/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        const json = (await res.json()) as { checkoutUrl?: string; error?: string }
+        if (!res.ok || !json.checkoutUrl) {
+          throw new Error(json.error || 'Erreur inconnue')
+        }
+        window.location.href = json.checkoutUrl
+      } catch (err: any) {
+        errorEl.textContent = err?.message || 'Une erreur est survenue. Réessaie ou écris-nous.'
+        errorEl.hidden = false
+        submitBtn.disabled = false
+        submitLabel.textContent = 'Procéder au paiement sécurisé'
+      }
+    })
+  </script>
+
+</Layout>

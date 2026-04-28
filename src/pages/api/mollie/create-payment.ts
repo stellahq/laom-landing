@@ -4,22 +4,22 @@ import type { APIRoute } from 'astro'
  * POST /api/mollie/create-payment/
  *
  * Body JSON :
- *   - product: 'school-online' | 'school-online-2x' | 'school-merci'
+ *   - product: 'school-online' | 'school-online-2x' | 'school-merci' | 'chillworking'
  *   - email?: string (optionnel, pour metadata)
  *
- * Crée un paiement Mollie et renvoie l'URL de checkout.
- *
- * Produits :
- *   - school-online   : LAOM School Online — 497 EUR (paiement unique)
- *   - school-online-2x: LAOM School Online — 2 x 248.50 EUR (paiement en 2 fois)
- *   - school-merci    : LAOM School Online — 147 EUR (offre inscrits webinar)
+ *   Pour 'chillworking', ajouter :
+ *   - session: 'juin' | 'aout'
+ *   - nights: number (5..14)
+ *   - arrivalDate: 'YYYY-MM-DD'
+ *   - coupon?: string (ex: 'TRIBULAOM' pour -20%)
+ *   - name: string
  */
 
 interface ProductConfig {
   amount: string
   description: string
-  installments?: number // nombre de versements (pour paiement en plusieurs fois)
-  installmentAmount?: string // montant de chaque versement
+  installments?: number
+  installmentAmount?: string
 }
 
 const PRODUCTS: Record<string, ProductConfig> = {
@@ -37,6 +37,76 @@ const PRODUCTS: Record<string, ProductConfig> = {
     amount: '147.00',
     description: 'LAOM School Online — Offre inscrits (147 EUR)',
   },
+}
+
+// Sessions Chillworking 2026
+const CHILLWORKING_SESSIONS: Record<string, { start: string; end: string; label: string }> = {
+  juin: { start: '2026-06-15', end: '2026-06-28', label: 'Juin 2026' },
+  aout: { start: '2026-08-06', end: '2026-08-20', label: 'Août 2026' },
+}
+
+const CHILLWORKING_COUPONS: Record<string, number> = {
+  TRIBULAOM: 0.2, // -20%
+}
+
+interface ChillworkingPricing {
+  base: number
+  discount: number
+  total: number
+  description: string
+  coupon: string | null
+}
+
+function computeChillworkingPrice(
+  nights: number,
+  session: string,
+  arrivalDate: string,
+  coupon: string | undefined,
+): ChillworkingPricing | { error: string } {
+  if (!Number.isInteger(nights) || nights < 5 || nights > 14) {
+    return { error: 'Le nombre de nuits doit être entre 5 et 14.' }
+  }
+
+  const sess = CHILLWORKING_SESSIONS[session]
+  if (!sess) return { error: 'Session invalide. Choisis "juin" ou "aout".' }
+
+  const arrival = new Date(arrivalDate + 'T00:00:00Z')
+  const sessionStart = new Date(sess.start + 'T00:00:00Z')
+  const sessionEnd = new Date(sess.end + 'T00:00:00Z')
+
+  if (Number.isNaN(arrival.getTime())) return { error: 'Date d\'arrivée invalide.' }
+  if (arrival < sessionStart) {
+    return { error: `Date d'arrivée trop tôt. La session ${sess.label} commence le ${sess.start}.` }
+  }
+  const departure = new Date(arrival.getTime() + nights * 86400000)
+  if (departure > sessionEnd) {
+    return { error: `Avec ${nights} nuits, le départ dépasse la fin de la session (${sess.end}).` }
+  }
+
+  // Pricing : à partir de 12 nuits, on bascule auto au forfait 2000€
+  const base = nights >= 12 ? 2000 : nights * 180
+
+  // Coupon
+  let discount = 0
+  let couponApplied: string | null = null
+  if (coupon) {
+    const couponKey = coupon.trim().toUpperCase()
+    const rate = CHILLWORKING_COUPONS[couponKey]
+    if (rate) {
+      discount = Math.round(base * rate * 100) / 100
+      couponApplied = couponKey
+    } else {
+      return { error: 'Code promo invalide.' }
+    }
+  }
+
+  const total = base - discount
+  const departureStr = departure.toISOString().slice(0, 10)
+  const description = `Chillworking LAOM — ${nights} nuits du ${arrivalDate} au ${departureStr} (session ${sess.label})${
+    couponApplied ? ` — coupon ${couponApplied} -20%` : ''
+  }`
+
+  return { base, discount, total, description, coupon: couponApplied }
 }
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -61,19 +131,125 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   const { product, email } = body
+  const origin = new URL(request.url).origin
+
+  // ---- Cas spécial : Chillworking (prix dynamique server-side) ----
+  if (product === 'chillworking') {
+    const { session, nights, arrivalDate, coupon, name, firstName, lastName, phone } = body
+    if (!email || !name) {
+      return new Response(
+        JSON.stringify({ error: 'Email et nom requis.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+    const pricing = computeChillworkingPrice(Number(nights), String(session), String(arrivalDate), coupon)
+    if ('error' in pricing) {
+      return new Response(
+        JSON.stringify({ error: pricing.error }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+
+    const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)/i.test(origin)
+    const molliePayload: Record<string, any> = {
+      amount: {
+        currency: 'EUR',
+        value: pricing.total.toFixed(2),
+      },
+      description: pricing.description,
+      method: 'creditcard',
+      redirectUrl: `${origin}/chillworking/merci/`,
+      ...(isLocalhost ? {} : { webhookUrl: `${origin}/api/mollie/webhook/` }),
+      metadata: {
+        product: 'chillworking',
+        session,
+        nights,
+        arrivalDate,
+        coupon: pricing.coupon,
+        base: pricing.base,
+        discount: pricing.discount,
+        total: pricing.total,
+        email,
+        name,
+        firstName: firstName || null,
+        lastName: lastName || null,
+        phone: phone || null,
+        created_at: new Date().toISOString(),
+      },
+    }
+
+    try {
+      const response = await fetch('https://api.mollie.com/v2/payments', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(molliePayload),
+      })
+      if (!response.ok) {
+        const errorData = (await response.json()) as any
+        console.error('Mollie API error (chillworking):', errorData)
+        return new Response(
+          JSON.stringify({ error: 'Payment creation failed', detail: errorData?.detail }),
+          { status: response.status, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+      const payment = (await response.json()) as any
+      const checkoutUrl = payment._links?.checkout?.href
+      if (!checkoutUrl) {
+        return new Response(
+          JSON.stringify({ error: 'No checkout URL returned' }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+
+      const db = env?.DB
+      if (db) {
+        try {
+          await db
+            .prepare(
+              `INSERT INTO mollie_payments (payment_id, product, email, amount, status, created_at)
+               VALUES (?, ?, ?, ?, ?, ?)`,
+            )
+            .bind(
+              payment.id,
+              `chillworking-${session}-${nights}n${pricing.coupon ? '-' + pricing.coupon : ''}`,
+              email,
+              pricing.total.toFixed(2),
+              payment.status,
+              new Date().toISOString(),
+            )
+            .run()
+        } catch (dbError) {
+          console.error('D1 insert error (non-blocking):', dbError)
+        }
+      }
+
+      return new Response(
+        JSON.stringify({ checkoutUrl, paymentId: payment.id, total: pricing.total }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      )
+    } catch (err) {
+      console.error('Mollie fetch error (chillworking):', err)
+      return new Response(
+        JSON.stringify({ error: 'Payment service unavailable' }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+  }
+  // ---- Fin Chillworking ----
+
   const productConfig = PRODUCTS[product]
 
   if (!productConfig) {
     return new Response(
       JSON.stringify({
-        error: 'Invalid product. Use: school-online, school-online-2x, or school-merci',
+        error: 'Invalid product. Use: school-online, school-online-2x, school-merci, or chillworking',
       }),
       { status: 400, headers: { 'Content-Type': 'application/json' } },
     )
   }
-
-  // Construire l'URL de base pour les redirections
-  const origin = new URL(request.url).origin
 
   // Pour le paiement en 2 fois, on crée d'abord le 1er paiement
   // Le 2ème sera créé manuellement ou via webhook quand le 1er est payé
