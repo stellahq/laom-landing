@@ -193,7 +193,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              from: 'LAOM Chillworking <onboarding@resend.dev>',
+              from: 'LAOM Chillworking <hello@laom.fr>',
               to: [metadata.email],
               bcc: ['laomcoliving@gmail.com'],
               subject: 'Ta réservation Chillworking est confirmée — LAOM',
