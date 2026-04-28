@@ -24,8 +24,9 @@ const PRODUCT_TAG_MAP: Record<string, string> = {
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env
   const apiKey = env?.MOLLIE_API_KEY
+  const apiKeyTest = env?.MOLLIE_API_KEY_TEST
 
-  if (!apiKey) {
+  if (!apiKey && !apiKeyTest) {
     return new Response('Not configured', { status: 500 })
   }
 
@@ -52,14 +53,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const origin = new URL(request.url).origin
 
   try {
-    const response = await fetch(`https://api.mollie.com/v2/payments/${paymentId}`, {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-      },
-    })
-
-    if (!response.ok) {
-      console.error(`Mollie webhook: failed to fetch payment ${paymentId}`, response.status)
+    // Essayer la clé live d'abord. Si 401/404 (paiement créé en test), retomber sur la clé test.
+    const tryFetch = async (key: string) =>
+      fetch(`https://api.mollie.com/v2/payments/${paymentId}`, {
+        headers: { Authorization: `Bearer ${key}` },
+      })
+    let response: Response | null = null
+    let activeApiKey: string | null = null
+    if (apiKey) {
+      response = await tryFetch(apiKey)
+      if (response.ok) activeApiKey = apiKey
+    }
+    if ((!response || !response.ok) && apiKeyTest) {
+      response = await tryFetch(apiKeyTest)
+      if (response.ok) activeApiKey = apiKeyTest
+    }
+    if (!response || !response.ok || !activeApiKey) {
+      console.error(`Mollie webhook: failed to fetch payment ${paymentId}`, response?.status)
       return new Response('Failed to verify payment', { status: 502 })
     }
 
@@ -218,6 +228,95 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
     // ----- Fin email Chillworking -----
 
+    // ----- Email confirmation Forum Éco-Construction via Resend -----
+    if (status === 'paid' && metadata.product === 'forum-eco-construction' && metadata.email) {
+      const resendKey = env?.RESEND_API_KEY
+      if (resendKey) {
+        try {
+          const total = metadata.total ?? payment.amount?.value
+          const base = metadata.base ?? 60
+          const mealsTotal = metadata.mealsTotal ?? 0
+          const mealsLabels: string[] = Array.isArray(metadata.mealsLabels) ? metadata.mealsLabels : []
+          const firstName = metadata.firstName || ''
+          const greeting = firstName ? `Bonjour ${firstName},` : 'Bonjour,'
+          const mealsRows = mealsLabels.length
+            ? mealsLabels
+                .map(
+                  (label) =>
+                    `<tr><td style="padding:4px 0;color:#666">${label}</td><td style="padding:4px 0;text-align:right;color:#2C2824">✓</td></tr>`,
+                )
+                .join('')
+            : `<tr><td style="padding:6px 0;color:#666" colspan="2"><em>Aucun repas sélectionné</em></td></tr>`
+
+          const html = `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="utf-8"><title>Réservation Forum Éco-Construction confirmée</title></head>
+<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;background:#FAF8F5;color:#2C2824">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FAF8F5;padding:40px 20px">
+<tr><td align="center">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px;background:#fff;border-radius:4px;padding:40px">
+<tr><td>
+  <p style="margin:0 0 8px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#8B7A3A">Réservation confirmée</p>
+  <h1 style="margin:0 0 24px;font-size:28px;font-weight:500;color:#2C2824">On t'attend à LAOM.</h1>
+
+  <p style="font-size:16px;line-height:1.6;color:#2C2824">${greeting}</p>
+  <p style="font-size:16px;line-height:1.6;color:#2C2824">Ton paiement vient d'être validé. Voici le récap de ta réservation pour le <strong>Forum Éco-Construction</strong> à LAOM, du 3 au 5 juillet 2026 :</p>
+
+  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FAF8F5;border-radius:4px;padding:20px;margin:24px 0;font-size:14px">
+    <tr><td style="padding:6px 0;color:#666">Pass forum (3 jours)</td><td style="padding:6px 0;text-align:right"><strong>${base} €</strong></td></tr>
+    ${mealsRows}
+    <tr><td style="padding:6px 0;color:#666">Total repas</td><td style="padding:6px 0;text-align:right"><strong>${mealsTotal} €</strong></td></tr>
+    <tr><td style="padding:12px 0 0;border-top:1px solid #ddd;color:#2C2824;font-weight:600">Total payé</td><td style="padding:12px 0 0;border-top:1px solid #ddd;text-align:right;color:#2C2824;font-weight:600">${total} €</td></tr>
+  </table>
+
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">Et maintenant ?</h2>
+  <ul style="font-size:15px;line-height:1.7;color:#2C2824;padding-left:20px">
+    <li>On revient vers toi avec les <strong>infos pratiques</strong> avant le forum : accès au domaine, programme détaillé, ce qu'il faut emporter.</li>
+    <li>Si tu as une <strong>allergie</strong> ou un <strong>régime particulier</strong>, réponds à cet email pour qu'on s'organise.</li>
+    <li>Pour toute question : <a href="mailto:hello@laom.fr" style="color:#C4A855">hello@laom.fr</a></li>
+  </ul>
+
+  <p style="font-size:14px;line-height:1.6;color:#666;margin-top:32px">Hâte de t'accueillir à LAOM,<br>Charly & Amandine</p>
+</td></tr>
+</table>
+<p style="font-size:11px;color:#999;margin-top:20px">LAOM · La Margue · 12400 Saint-Félix-de-Sorgues · Aveyron</p>
+</td></tr>
+</table>
+</body></html>`
+
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${resendKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: 'LAOM Forum <hello@laom.fr>',
+              to: [metadata.email],
+              bcc: ['laomcoliving@gmail.com'],
+              subject: 'Ta réservation Forum Éco-Construction est confirmée — LAOM',
+              html,
+            }),
+          })
+            .then(async (r) => {
+              if (!r.ok) {
+                const err = await r.json().catch(() => ({}))
+                console.error('Resend send error (forum):', err)
+              } else {
+                console.log(`Resend: forum confirmation email sent to ${metadata.email}`)
+              }
+            })
+            .catch((e) => console.error('Resend fetch error (forum, non-blocking):', e))
+        } catch (mailErr) {
+          console.error('Forum email confirmation error (non-blocking):', mailErr)
+        }
+      } else {
+        console.warn('RESEND_API_KEY not configured, skipping forum confirmation email')
+      }
+    }
+    // ----- Fin email Forum Éco-Construction -----
+
     // Si c'est le 1er versement d'un paiement en 2x et qu'il est paye,
     // creer le 2eme versement recurrent (preleve automatiquement dans 30 jours)
     if (status === 'paid' && metadata.installment === '1of2') {
@@ -229,7 +328,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           const secondPayment = await fetch('https://api.mollie.com/v2/payments', {
             method: 'POST',
             headers: {
-              Authorization: `Bearer ${apiKey}`,
+              Authorization: `Bearer ${activeApiKey}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({

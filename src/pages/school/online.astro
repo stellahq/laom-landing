@@ -4,7 +4,7 @@ import TunnelTracker from '~/components/TunnelTracker.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
-  name: 'LAOM School Online — La feuille de route pour créer ton lieu',
+  name: 'LAOMSCHOOL — La feuille de route pour créer ton lieu',
   url: Astro.url.toString(),
   description: 'Formation en ligne : 12 lives avec Charly pendant 6 mois, couvrant 7 thèmes essentiels. Tout ce qu\'on a appris en 5 ans pour créer un lieu qui tourne. 497 EUR.',
 })
@@ -140,10 +140,6 @@ const faq = [
     reponse: 'Les principes fondamentaux (groupe, financement, business model, erreurs à éviter) sont universels. La partie juridique et urbanisme est spécifique à la France, mais les grilles de lecture sont adaptables.',
   },
   {
-    question: 'C\'est quoi la différence avec LAOM School Weekend ?',
-    reponse: 'LAOM School Online, c\'est la formation + les lives en distanciel. LAOM School Weekend, c\'est une immersion de 2-3 jours à LAOM en présentiel avec Charly : visite du lieu, ateliers, rencontres avec la communauté.',
-  },
-  {
     question: 'Combien de temps j\'ai accès à la formation ?',
     reponse: 'Accès à vie aux modules. Les lives durent 6 mois (12 sessions).',
   },
@@ -159,7 +155,7 @@ const faq = [
 ---
 
 <Layout
-  title="LAOM School Online — Crée ton lieu sans perdre 5 ans et 49 000 EUR en erreurs | LAOM"
+  title="LAOMSCHOOL — Crée ton lieu sans perdre 5 ans et 49 000 EUR en erreurs | LAOM"
   description="Formation en ligne : 12 lives avec Charly pendant 6 mois, couvrant 7 thèmes essentiels. La feuille de route complète pour créer un lieu qui tourne. 497 EUR."
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
@@ -341,7 +337,7 @@ const faq = [
         <div>
           <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">La solution</p>
           <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
-            LAOM School Online
+            LAOMSCHOOL
           </h2>
           <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
             <p>
@@ -450,7 +446,7 @@ const faq = [
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10">
         <p class="text-lg font-light text-[#2C2824]/40 mb-2">Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.</p>
         <div class="mb-1">
-          <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOM School = 2 000 EUR</span>
+          <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
         </div>
         <div class="mb-4">
           <span class="font-playfair text-5xl font-medium text-[#2C2824]">497</span>
@@ -541,7 +537,7 @@ const faq = [
           <div class="space-y-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
             <p>Co-fondateur de LAOM. 33 ans, ex-Epitech (formation ingénieur informatique) et formé en maîtrise d'œuvre de bâtiment bioclimatique. C'est lui qui porte la vision du lieu et du coliving depuis le début.</p>
             <p>Il a assuré le montage juridique du collectif et pilote la maîtrise d'œuvre de l'ensemble des constructions écologiques du domaine, dont le plus grand bâtiment en paille porteuse au monde (850 m²). 4 ans de travail main dans la main avec les administrations pour obtenir les autorisations.</p>
-            <p>Entrepreneur depuis 10 ans. Il accompagne des porteurs de projet dans leur structuration et anime les lives collectifs de LAOM School.</p>
+            <p>Entrepreneur depuis 10 ans. Il accompagne des porteurs de projet dans leur structuration et anime les lives collectifs de LAOMSCHOOL.</p>
             <p class="text-[#2C2824] font-normal">Son approche : pragmatique, directe, sans détour.</p>
           </div>
         </div>
@@ -618,7 +614,7 @@ const faq = [
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-10 text-center">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Offre de lancement</p>
         <div class="mb-1">
-          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOM School = 2 000 EUR</span>
+          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
         </div>
         <div class="mb-4">
           <span class="font-playfair text-6xl font-medium text-[#2C2824]">497</span>
@@ -676,17 +672,13 @@ const faq = [
         </button>
       </div>
 
-      <p class="text-xs font-light text-white/30 mt-8">
-        LAOM School Weekend (présentiel à LAOM) également disponible pour aller plus loin.
-        <a href="/school/" class="underline underline-offset-4 hover:text-white/50 transition-colors">En savoir plus</a>
-      </p>
     </div>
   </section>
 
   <!-- Footer mini -->
   <section class="py-10 bg-[#1E1B18] text-center">
     <p class="text-xs font-light text-white/30">
-      <strong class="text-white/50 font-normal">LAOM School</strong> est une formation créée par Charly & Amandine, co-fondateurs de LAOM, coliving sur 21 hectares dans le sud de l'Aveyron.
+      <strong class="text-white/50 font-normal">LAOMSCHOOL</strong> est une formation créée par Charly & Amandine, co-fondateurs de LAOM, coliving sur 21 hectares dans le sud de l'Aveyron.
     </p>
     <p class="text-xs font-light text-white/20 mt-2">
       Questions ? <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-white/40 transition-colors">hello@laom.fr</a>
