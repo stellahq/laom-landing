@@ -1,0 +1,525 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Week-end Porte Ouverte | LAOM',
+  url: Astro.url.toString(),
+  description:
+    'Un week-end pour visiter LAOM, écolieu en Aveyron. Visites des bâtiments en paille porteuse et terre, échanges avec les cofondateurs, repas faits maison à la guinguette, nuit en tipi possible.',
+})
+
+const dateEvent = {
+  full: 'Samedi 16 — dimanche 17 mai 2026',
+  short: '16 — 17 mai 2026',
+}
+
+const tarifs = [
+  {
+    label: 'Sans nuit',
+    price: '60 €',
+    detail: 'Visites · ateliers · dîner samedi · déjeuner dimanche',
+  },
+  {
+    label: 'Avec nuit en tipi',
+    price: '95 €',
+    detail: 'Tout ce qui précède + petit-déjeuner dimanche + nuit en tipi (lit simple)',
+  },
+]
+---
+
+<Layout
+  title="Week-end Porte Ouverte | LAOM"
+  description="Un week-end pour visiter LAOM, écolieu en Aveyron. Visites des bâtiments en paille porteuse et terre, échanges avec les cofondateurs, repas faits maison, nuit en tipi possible."
+  seo={{ ldJSON: pageSchema }}
+  hideChrome={true}
+>
+
+  <!-- Hero -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/laom/laom-accueil.webp"
+        alt="LAOM, écolieu en Aveyron, accueil pour le Week-end Porte Ouverte"
+        title="LAOM — Week-end Porte Ouverte"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-32 pb-16">
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">{dateEvent.full} · LAOM, Aveyron</p>
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
+        Week-end Porte Ouverte
+      </h1>
+      <p class="text-lg md:text-xl font-light text-white/85 max-w-2xl mx-auto leading-relaxed">
+        <strong class="font-medium text-white">Viens visiter LAOM</strong>, poser tes questions, mettre les mains dans la terre, partager nos repas. Un week-end pour <strong class="font-medium text-white">sentir le lieu</strong>, comprendre le projet, et repartir avec du concret.
+      </p>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <a href="#invitation" class="block text-white/50 hover:text-white transition-colors" aria-label="Défiler">
+        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- L'invitation -->
+  <section id="invitation" class="py-24 md:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8">L'invitation</p>
+      <div class="space-y-6 text-lg md:text-xl font-light text-[#2C2824]/85 leading-relaxed">
+        <p>
+          On reçoit beaucoup de questions. <em>Comment vous avez commencé ? C'est quoi la paille porteuse ? Vous vivez vraiment toute l'année ici ? Comment ça tient économiquement ? Et la vie collective, ça passe ?</em>
+        </p>
+        <p>
+          Plutôt que d'y répondre une par une au téléphone, on a décidé d'<strong class="font-medium text-[#2C2824]">ouvrir nos portes le week-end du 16 — 17 mai 2026</strong>. Tu arrives samedi à 14h, tu repars dimanche après le déjeuner. Au milieu, il y a des visites, des échanges, un dîner, une nuit en tipi (si tu veux), et un déjeuner à la guinguette.
+        </p>
+        <p>
+          C'est pour les <strong class="font-medium text-[#2C2824]">curieux, les futurs porteurs de projet, ceux qui rêvent d'écolieu, ceux qui hésitent à se lancer dans l'autoconstruction</strong>, ou simplement ceux qui veulent comprendre comment on vit ici. Pas de discours marketing : on te montre les murs, le potager, la cuisine, les comptes si tu veux. On te dit ce qui marche et ce qui rame.
+        </p>
+        <div class="aspect-[3/4] overflow-hidden rounded-sm max-w-xs mx-auto">
+          <img
+            src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
+            alt="Le Grand Shambala à LAOM, 800 m² de paille porteuse, vu en drone"
+            title="Le Grand Shambala — paille porteuse"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            width="600"
+            height="800"
+          />
+        </div>
+        <p>
+          On vit en <strong class="font-medium text-[#2C2824]">21 hectares de prairies, forêt et rivière</strong>, dans un hameau en pierre du sud de l'Aveyron. On bâtit en paille, en terre et en bois. On mange ce que le jardin donne. On est <strong class="font-medium text-[#2C2824]">11 copropriétaires, plusieurs familles, des enfants déscolarisés, et une guinguette qui tourne</strong>. C'est tout ça qu'on te montre.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Triptyque -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6 text-center">Le format</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-16 text-center">Trois temps, un week-end</h2>
+
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <div class="bg-white border border-black/10 p-8 lg:p-10">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">01</p>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4">Visiter</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Visite guidée du lieu</strong> par les cofondateurs. Le Grand Shambala (800 m² paille porteuse), le Petit Shambala, les tipis, la salle de pratique, le potager, la guinguette, la rivière. On rentre dans les bâtiments, on touche les murs, on raconte les choix techniques.
+          </p>
+        </div>
+
+        <div class="bg-white border border-black/10 p-8 lg:p-10">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">02</p>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4">Échanger</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Temps de questions sans filtre.</strong> Modèle économique, gouvernance, vie collective, instruction en famille, autonomie, les coups durs et les pivots. On répond franchement — ce qu'on aurait aimé entendre quand on a démarré.
+          </p>
+        </div>
+
+        <div class="bg-white border border-black/10 p-8 lg:p-10">
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">03</p>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4">Vivre</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Atelier participatif</strong> selon la saison (enduit terre, jardin, cuisine, bois). <strong class="font-medium text-[#2C2824]">Repas partagés à la guinguette</strong>, soirée au feu sous les étoiles, et une nuit en tipi pour ceux qui veulent prolonger.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 lg:gap-6 mt-12">
+        <div class="aspect-[4/5] overflow-hidden rounded-sm">
+          <img src="/images/laom/grand-shambala/application-enduit-chaux-murs-paille-grand-shambala.webp" alt="Application d'enduit chaux sur murs paille au Grand Shambala — atelier participatif LAOM" title="Atelier enduit terre et chaux à LAOM" class="w-full h-full object-cover" loading="lazy" width="600" height="750" />
+        </div>
+        <div class="aspect-[4/5] overflow-hidden rounded-sm">
+          <img src="/images/laom/diner-golden-hour-laom.webp" alt="Dîner partagé à la guinguette de LAOM, golden hour" title="Dîner à la guinguette LAOM" class="w-full h-full object-cover" loading="lazy" width="600" height="750" />
+        </div>
+        <div class="aspect-[4/5] overflow-hidden rounded-sm">
+          <img src="/images/laom/tipis.webp" alt="Tipis avec vue sur la vallée à LAOM, hébergement Week-end Porte Ouverte" title="Hébergement en tipi à LAOM" class="w-full h-full object-cover" loading="lazy" width="600" height="750" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C'est pour toi si... -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">À qui c'est destiné</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">C'est pour toi si…</h2>
+      <ul class="grid gap-4 md:grid-cols-2 text-lg font-light text-[#2C2824]/80 leading-relaxed [&_li]:text-pretty">
+        <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">↠</span><span>Tu rêves d'<strong class="font-medium text-[#2C2824]">écolieu, de coliving rural, ou de vie collective</strong> et tu veux voir une réalité, pas une promesse.</span></li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span><span>Tu envisages <strong class="font-medium text-[#2C2824]">l'autoconstruction</strong> et tu veux toucher la paille, la terre, le bois.</span></li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span><span>Tu veux comprendre <strong class="font-medium text-[#2C2824]">comment un projet comme LAOM tient économiquement</strong> — sans langue de bois.</span></li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span><span>Tu es <strong class="font-medium text-[#2C2824]">en famille</strong>, curieux de l'IEF et de la vie d'enfants en pleine nature.</span></li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span><span>Tu hésites à <strong class="font-medium text-[#2C2824]">venir en Chillworking, en stage, ou en immersion</strong> et tu veux d'abord goûter le lieu.</span></li>
+        <li class="flex gap-3"><span class="text-[#C4A855]">↠</span><span>Tu es simplement <strong class="font-medium text-[#2C2824]">curieux</strong>, et un week-end dans une vallée sauvage te fait du bien.</span></li>
+      </ul>
+
+      <div class="mt-16 text-center">
+        <a
+          href="#tarifs"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Voir les tarifs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programme -->
+  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Le programme</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">Samedi 16 → dimanche 17 mai</h2>
+      <p class="text-base font-light text-[#2C2824]/70 mb-16 leading-relaxed">
+        Programme indicatif, ajusté à la saison, à la météo et au groupe.
+      </p>
+
+      <!-- Samedi -->
+      <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-6">Samedi 16 mai</p>
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-10 mb-16">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">14h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Accueil café & présentations</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Arrivée à LAOM, café-thé sur la terrasse de la guinguette. Tour de table : qui tu es, ce qui t'amène, ce que tu cherches.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">15h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Visite guidée du lieu</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            On parcourt les <strong class="font-medium text-[#2C2824]">21 hectares</strong> et les bâtiments. Le <strong class="font-medium text-[#2C2824]">Grand Shambala (800 m² paille porteuse)</strong>, le Petit Shambala, la maison principale, Le Shala (salle de pratique), les tipis, le potager, la guinguette, la rivière. On raconte la genèse, les choix techniques, les budgets, les délais réels.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">17h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Atelier participatif</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            On met les mains. <strong class="font-medium text-[#2C2824]">Selon la saison</strong> : enduit terre, semis ou récolte au potager, prep des légumes pour le dîner, petit chantier bois. Pas une démo : une vraie tâche utile au lieu, qu'on fait ensemble.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">19h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Apéro & dîner à la guinguette</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Repas <strong class="font-medium text-[#2C2824]">fait maison à partir du jardin et des produits locaux</strong> (moins de 50 km), partagé en grande tablée à la guinguette. Vin de la région.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">21h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Soirée libre</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed mb-6">
+            Feu, musique, échanges qui s'étirent. <strong class="font-medium text-[#2C2824]">Nuit étoilée loin des néons.</strong> Pour ceux qui ont réservé une nuit, installation en tipi.
+          </p>
+          <div class="aspect-[16/10] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/laomfest/vanlifest-IMG_1021.webp"
+              alt="Soirée au feu à LAOM, ambiance Week-end Porte Ouverte"
+              title="Soirée au feu à LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="1200"
+              height="750"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Dimanche -->
+      <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-6">Dimanche 17 mai</p>
+      <div class="border-l-2 border-[#C4A855] pl-8 space-y-10">
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">8h30 — 10h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Petit-déjeuner <span class="text-sm font-light text-[#2C2824]/50">(pour ceux qui ont dormi)</span></h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Pain bio au levain, œufs de la ferme d'à côté, café, fruits, beurre, confitures…</strong> Sucré-salé, sur la terrasse de la guinguette.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">10h00</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Café d'accueil pour les externes</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Ceux qui ne dormaient pas sur place rejoignent le groupe. Café-thé, retrouvailles.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">10h30</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Cercle d'échanges</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">Le temps fort du week-end.</strong> Questions plus profondes, sans filtre : modèle économique, gouvernance des 11 copropriétaires, vie collective, IEF, autonomie alimentaire, énergie, les pivots qu'on a faits, ce qu'on referait, ce qu'on ne referait plus.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">12h30</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Apéro & déjeuner à la guinguette</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Dernière table partagée. <strong class="font-medium text-[#2C2824]">Cuisine maison, légumes du jardin.</strong>
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">14h30</p>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Clôture & départ</h3>
+          <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
+            Mot de fin, échange de contacts, et la route. Ceux qui veulent rester l'après-midi pour marcher dans la vallée ou se baigner sont les bienvenus.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le lieu -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le lieu</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">LAOM, écolieu rural en Aveyron</h2>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+        <div>
+          <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">21 hectares, 11 copropriétaires, plusieurs familles</h3>
+          <div class="space-y-4 text-base font-light text-[#2C2824]/75 leading-relaxed">
+            <p>
+              LAOM est <strong class="font-medium text-[#2C2824]">un lieu de vie collectif et un tiers-lieu rural</strong>, niché dans une vallée sauvage du sud de l'Aveyron, au cœur du Parc Naturel des Grands Causses.
+            </p>
+            <p>
+              Une rivière, des prairies, une forêt, un potager. Un hameau en pierre où l'on vit, travaille et reçoit. Plusieurs familles, des enfants déscolarisés, une <strong class="font-medium text-[#2C2824]">guinguette qui tourne</strong>, une salle de pratique, des bâtiments en paille porteuse et terre.
+            </p>
+            <p>
+              Tu dors en <strong class="font-medium text-[#2C2824]">tipi</strong> (2 lits simples par tipi, douche extérieure, toilettes sèches — sobriété assumée). Tu manges <strong class="font-medium text-[#2C2824]">les légumes du jardin</strong>. Tu visites avec ceux qui ont construit.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/grand-shambala/facade-sud-grand-shambala-ouvertures-2025.webp"
+              alt="Façade sud du Grand Shambala — paille porteuse à LAOM"
+              title="Grand Shambala — façade sud"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/tipis.webp"
+              alt="Tipis avec vue sur la vallée à LAOM"
+              title="Tipis à LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/jardin-laom.webp"
+              alt="Le jardin potager de LAOM"
+              title="Jardin potager LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src="/images/laom/riviere-laom.webp"
+              alt="La rivière qui traverse LAOM, vallée de La Margue en Aveyron"
+              title="La rivière de LAOM"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width="600"
+              height="800"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-[#2C2824]/10 pt-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-8 text-center">Ce qu'ils disent du lieu</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">"Un lieu d'accueil singulier, avec un paysage magnifique, un fond culturel palpable, une énergie ressourçante."</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">"Un lieu magique, proche de la nature et plein de gens inspirants."</p>
+          </div>
+          <div class="px-6 py-5 bg-[#FAF8F5] rounded-sm">
+            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">"Un endroit hors du temps qui contraste avec les endroits plus agités du quotidien."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifs -->
+  <section id="tarifs" class="py-24 md:py-32 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6 text-center">Tarifs</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4 text-center">Deux formules</h2>
+      <p class="text-base font-light text-[#2C2824]/70 text-center max-w-xl mx-auto mb-16 leading-relaxed">
+        Tu choisis selon ton temps et ton envie de prolonger la nuit en tipi sous les étoiles.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {tarifs.map((t) => (
+          <div class="bg-white border border-black/10 p-8 lg:p-10 flex flex-col">
+            <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">{t.label}</p>
+            <p class="font-playfair text-5xl font-medium text-[#2C2824] mb-4">{t.price}</p>
+            <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed mb-6">{t.detail}</p>
+            <p class="mt-auto text-xs font-light text-[#2C2824]/50">par personne · TTC</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-12 p-6 bg-white border border-black/10 rounded-sm">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Inclus dans les deux formules</p>
+        <ul class="space-y-2 text-sm font-light text-[#2C2824]/75 leading-relaxed">
+          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Visite guidée du lieu et des bâtiments par les cofondateurs</span></li>
+          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Atelier participatif (selon saison)</span></li>
+          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Cercle d'échanges du dimanche</span></li>
+          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Dîner du samedi soir à la guinguette</span></li>
+          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Déjeuner du dimanche midi à la guinguette</span></li>
+        </ul>
+      </div>
+
+      <div class="mt-6 p-6 bg-white border border-black/10 rounded-sm">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">En plus avec la nuit en tipi</p>
+        <ul class="space-y-2 text-sm font-light text-[#2C2824]/75 leading-relaxed">
+          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Nuit en tipi (lit simple, jusqu'à 2 personnes par tipi)</span></li>
+          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Petit-déjeuner du dimanche matin</span></li>
+        </ul>
+        <p class="mt-4 text-xs font-light text-[#2C2824]/50 italic">Douche extérieure et toilettes sèches. Apporte ton sac de couchage et une lampe frontale.</p>
+      </div>
+
+      <div class="mt-12 text-center">
+        <a
+          href="#reserver"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Je m'inscris
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-24 md:py-32 bg-white">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">FAQ</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Questions fréquentes</h2>
+
+      <div class="space-y-6">
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Je peux venir en famille avec des enfants ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Oui, c'est même une bonne idée. Il y a des enfants à LAOM, ils joueront ensemble. Préviens-nous du nombre d'enfants et de leurs âges à l'inscription pour qu'on adapte. Tarif enfant : <strong class="font-medium text-[#2C2824]">moitié prix jusqu'à 12 ans, gratuit en dessous de 4 ans</strong>.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Je peux venir en van ou en tente ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Oui. Tu peux te garer sur place et dormir dans ton van, ou planter ta tente. <strong class="font-medium text-[#2C2824]">Tarif identique à la formule sans nuit (60 €)</strong> — tu profites des espaces communs et des repas. Préviens-nous à l'inscription.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Régimes alimentaires, allergies ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            Préviens-nous à l'inscription : végétarien, végan, sans gluten, allergies. On adapte. La cuisine est faite maison, on travaille avec ce qu'on a.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Comment venir à LAOM ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            En train : gare de Montpaon, à 15 min en voiture (on peut venir te chercher).<br />
+            En voiture : Montpellier 1h30, Toulouse 2h, Lyon 3h30. Du covoiturage est souvent organisé entre participants — on relaie sur demande.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">À quoi ressemble vraiment l'hébergement en tipi ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            <strong class="font-medium text-[#2C2824]">2 lits simples par tipi</strong>, jusqu'à 2 personnes. Matelas, draps et couvertures fournis. Douche extérieure (eau chauffée par le solaire), toilettes sèches dans la nature. C'est sobre, c'est dehors, c'est beau. Apporte une lampe frontale et un sac de couchage si tu as froid facilement.
+          </p>
+        </details>
+
+        <details class="group border-b border-black/10 pb-6">
+          <summary class="flex justify-between items-center cursor-pointer list-none">
+            <h3 class="font-medium text-[#2C2824] pr-8">Et si je veux prolonger après le week-end ?</h3>
+            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+          </summary>
+          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            On peut en parler sur place. Selon les disponibilités, tu peux ajouter une ou deux nuits, ou regarder du côté du <strong class="font-medium text-[#2C2824]">Séjour Chillworking</strong>, des stages partenaires, ou d'une immersion plus longue.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="reserver" class="py-24 md:py-32 bg-[#2C2824] text-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">16 — 17 mai 2026 · 12 places max</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Prêt·e à venir voir LAOM de tes propres yeux ?</h2>
+      <p class="text-base font-light text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
+        Un week-end pour visiter, échanger, vivre — et repartir avec du concret.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="mailto:laomcoliving@gmail.com?subject=Inscription%20Week-end%20Porte%20Ouverte%2016-17%20mai&body=Bonjour%2C%0A%0AJe%20souhaite%20m%27inscrire%20au%20Week-end%20Porte%20Ouverte%20de%20LAOM%20du%2016-17%20mai%202026.%0A%0AFormule%20%3A%20avec%20nuit%20en%20tipi%20%2F%20sans%20nuit%0ANombre%20de%20personnes%20%3A%20%0AEnfants%20%28nombre%20et%20%C3%A2ges%29%20%3A%20%0AR%C3%A9gimes%20alimentaires%20%2F%20allergies%20%3A%20%0A%0AMerci%20%21"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Je m'inscris par mail
+        </a>
+        <a
+          href="https://cal.atomik.world/charly/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center rounded-sm border border-white/30 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#2C2824] transition-colors"
+        >
+          Poser une question
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,50 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Réservation confirmée — En Mouvement | LAOM',
+  url: Astro.url.toString(),
+  description: 'Ta réservation pour En Mouvement est en cours de validation.',
+})
+---
+
+<Layout
+  title="Réservation confirmée — En Mouvement | LAOM"
+  description="Ta réservation pour En Mouvement est en cours de validation."
+  seo={{ ldJSON: pageSchema, noIndex: true }}
+  hideChrome={true}
+>
+  <section class="min-h-screen flex items-center justify-center bg-[#FAF8F5] py-24">
+    <div class="max-w-2xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <div class="w-16 h-16 mx-auto mb-8 rounded-full bg-[#C4A855]/15 flex items-center justify-center">
+        <svg class="w-8 h-8 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-[#8B7A3A] mb-6">Réservation reçue</p>
+      <h1 class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] mb-6 tracking-tight">
+        On t'attend à LAOM.
+      </h1>
+
+      <div class="space-y-5 text-base md:text-lg font-light text-[#2C2824]/80 leading-relaxed mb-12">
+        <p>
+          Ton paiement vient d'être traité par Mollie. Tu vas recevoir une <strong class="font-medium text-[#2C2824]">confirmation par email</strong> dans les prochaines minutes (vérifie tes spams).
+        </p>
+        <p>
+          On reviendra vers toi avec les <strong class="font-medium text-[#2C2824]">infos pratiques</strong> avant la session : arrivée, accès au domaine, ce qu'il faut emporter, préférences alimentaires.
+        </p>
+        <p class="text-sm text-[#2C2824]/60 italic">
+          En Mouvement · Août 2026 · LAOM, Aveyron
+        </p>
+      </div>
+
+      <a href="/stage-danse" class="inline-block px-8 py-3 border border-[#2C2824]/30 text-[#2C2824] text-sm font-medium tracking-wide uppercase hover:bg-[#2C2824] hover:text-white transition-colors">
+        Retour à la page En Mouvement
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -115,41 +115,163 @@ const reassurance = [
 
       <!-- Prix et paiement -->
       <div class="mb-12 p-8 border-2 border-[#C4A855] rounded-sm bg-white">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
-          <div>
-            <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Tarif tout inclus</p>
-            <div class="flex items-baseline gap-2">
-              <span class="font-playfair text-5xl font-medium text-[#2C2824]">1 100</span>
-              <span class="text-xl font-light text-[#2C2824]/50">€</span>
-            </div>
-            <p class="text-sm font-light text-[#2C2824]/50 mt-2">Paiement unique · Hébergement et repas inclus</p>
+        <div class="mb-8">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-2">Tarif tout inclus</p>
+          <div class="flex items-baseline gap-3">
+            <span class="font-playfair text-5xl font-medium text-[#2C2824]" data-em-total>1 100</span>
+            <span class="text-xl font-light text-[#2C2824]/50">€</span>
+            <span class="font-playfair text-2xl font-light text-[#2C2824]/35 line-through hidden" data-em-base>1 100 €</span>
           </div>
-          <div class="flex-shrink-0">
-            <a 
-              href="mailto:hello@laom.fr?subject=R%C3%A9servation%20En%20Mouvement"
-              class="inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full md:w-auto"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Réserver par email
-            </a>
-          </div>
+          <p class="text-sm font-light text-[#2C2824]/50 mt-2">Paiement unique · Hébergement et repas inclus</p>
         </div>
-        
-        <div class="flex flex-wrap items-center justify-center gap-4 pt-6 border-t border-black/5 text-xs font-light text-[#2C2824]/50">
-          <span class="flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Écris-nous à hello@laom.fr
-          </span>
+
+        <form id="em-form" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Prénom <span class="text-[#2C2824]/50">*</span></label>
+              <input type="text" name="firstname" required placeholder="Ton prénom" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#C4A855]" />
+            </div>
+            <div>
+              <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Nom <span class="text-[#2C2824]/50">*</span></label>
+              <input type="text" name="lastname" required placeholder="Ton nom" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#C4A855]" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Email <span class="text-[#2C2824]/50">*</span></label>
+            <input type="email" name="email" required placeholder="ton@email.com" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#C4A855]" />
+          </div>
+          <div>
+            <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Téléphone</label>
+            <input type="tel" name="phone" placeholder="06 12 34 56 78" class="w-full bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#C4A855]" />
+          </div>
+          <div>
+            <label class="block text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">Code promo</label>
+            <div class="flex gap-2">
+              <input type="text" name="coupon" placeholder="Entrer un code" class="flex-1 bg-[#FAF8F5] border border-black/10 px-4 py-3 text-sm text-[#2C2824] focus:outline-none focus:border-[#C4A855]" />
+              <button type="button" data-em-apply class="px-5 py-3 border border-[#2C2824]/30 text-[#2C2824] text-xs tracking-wide uppercase hover:bg-[#2C2824] hover:text-white transition-colors">Appliquer</button>
+            </div>
+            <p class="text-xs font-light text-[#2C2824]/50 mt-2 hidden" data-em-coupon-msg></p>
+          </div>
+
+          <p class="text-xs text-red-600 hidden" data-em-error></p>
+
+          <button type="submit" data-em-cta class="inline-flex items-center justify-center gap-3 rounded-sm bg-[#C4A855] text-white px-10 py-4 text-sm tracking-[0.1em] uppercase hover:bg-[#B09A4A] transition-colors w-full disabled:opacity-60 disabled:cursor-not-allowed">
+            Je réserve En Mouvement — 1 100 €
+          </button>
+        </form>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-6 mt-6 border-t border-black/5 text-xs font-light text-[#2C2824]/50">
+          <span>Paiement sécurisé Mollie</span>
           <span>|</span>
-          <span>On te répond sous 24h</span>
+          <span>Confirmation par email</span>
           <span>|</span>
-          <span>Facture envoyée par email</span>
+          <span>Annulation -14j : remboursement intégral</span>
         </div>
       </div>
+
+      <script is:inline>
+        (function () {
+          const BASE = 1100
+          const form = document.getElementById('em-form')
+          if (!form) return
+          const totalEl = document.querySelector('[data-em-total]')
+          const baseEl = document.querySelector('[data-em-base]')
+          const ctaEl = document.querySelector('[data-em-cta]')
+          const couponMsg = document.querySelector('[data-em-coupon-msg]')
+          const errorEl = document.querySelector('[data-em-error]')
+          const applyBtn = document.querySelector('[data-em-apply]')
+          let currentTotal = BASE
+          let appliedCoupon = null
+
+          function fmt(n) { return n.toLocaleString('fr-FR') }
+
+          function setTotal(total, coupon) {
+            currentTotal = total
+            appliedCoupon = coupon || null
+            if (totalEl) totalEl.textContent = fmt(total)
+            if (baseEl) {
+              if (total !== BASE) {
+                baseEl.textContent = fmt(BASE) + ' €'
+                baseEl.classList.remove('hidden')
+              } else baseEl.classList.add('hidden')
+            }
+            if (ctaEl) ctaEl.textContent = 'Je réserve En Mouvement — ' + fmt(total) + ' €'
+          }
+
+          function showError(msg) {
+            if (!errorEl) return
+            errorEl.textContent = msg
+            errorEl.classList.remove('hidden')
+          }
+          function clearError() {
+            if (!errorEl) return
+            errorEl.textContent = ''
+            errorEl.classList.add('hidden')
+          }
+          function showCouponMsg(msg, ok) {
+            if (!couponMsg) return
+            couponMsg.textContent = msg
+            couponMsg.classList.remove('hidden')
+            couponMsg.style.color = ok ? '#4A7C59' : '#dc2626'
+          }
+
+          if (applyBtn) applyBtn.addEventListener('click', () => {
+            const couponInput = form.querySelector('input[name="coupon"]')
+            const code = (couponInput && couponInput.value || '').trim().toUpperCase()
+            if (!code) { setTotal(BASE, null); showCouponMsg('', true); couponMsg && couponMsg.classList.add('hidden'); return }
+            if (code === 'TRIBULAOM') {
+              setTotal(BASE * 0.8, code)
+              showCouponMsg('Code TRIBULAOM appliqué : -20 %', true)
+            } else {
+              setTotal(BASE, null)
+              showCouponMsg('Code promo invalide.', false)
+            }
+          })
+
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            clearError()
+            const data = new FormData(form)
+            const sessionInput = document.querySelector('input[name="session"]:checked')
+            const session = sessionInput ? sessionInput.value : null
+            const firstName = String(data.get('firstname') || '').trim()
+            const lastName = String(data.get('lastname') || '').trim()
+            const email = String(data.get('email') || '').trim()
+            const phone = String(data.get('phone') || '').trim()
+            const coupon = String(data.get('coupon') || '').trim()
+            if (!firstName || !lastName || !email) { showError('Prénom, nom et email obligatoires.'); return }
+            if (!session) { showError('Choisis une session.'); return }
+
+            if (!ctaEl) return
+            const originalLabel = ctaEl.textContent
+            ctaEl.disabled = true
+            ctaEl.textContent = 'Redirection vers le paiement…'
+
+            try {
+              const res = await fetch('/api/mollie/create-payment/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  product: 'en-mouvement',
+                  firstName, lastName, email, phone, session, coupon,
+                }),
+              })
+              const json = await res.json()
+              if (!res.ok || !json.checkoutUrl) {
+                showError(json.error || 'Erreur lors de la création du paiement.')
+                ctaEl.disabled = false
+                ctaEl.textContent = originalLabel
+                return
+              }
+              window.location.href = json.checkoutUrl
+            } catch (err) {
+              showError('Service de paiement indisponible. Réessaie dans un instant.')
+              ctaEl.disabled = false
+              ctaEl.textContent = originalLabel
+            }
+          })
+        })()
+      </script>
 
       <!-- Elements de reassurance -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">

@@ -245,6 +245,131 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
   // ---- Fin Chillworking ----
 
+  // ---- En Mouvement (août 2026) ----
+  if (product === 'en-mouvement') {
+    const EM_BASE = 1100
+    const EM_SESSIONS: Record<string, { dates: string; label: string }> = {
+      session1: { dates: '5 — 9 août 2026', label: 'Session 1' },
+      session2: { dates: '11 — 15 août 2026', label: 'Session 2' },
+      session3: { dates: '16 — 20 août 2026', label: 'Session 3' },
+    }
+    const EM_COUPONS: Record<string, number> = { TRIBULAOM: 0.2 }
+
+    const { firstName, lastName, phone, session, coupon } = body
+    if (!email || !firstName || !lastName) {
+      return new Response(
+        JSON.stringify({ error: 'Prénom, nom et email requis.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+    const sess = EM_SESSIONS[String(session)]
+    if (!sess) {
+      return new Response(
+        JSON.stringify({ error: 'Session invalide.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+
+    let discount = 0
+    let couponApplied: string | null = null
+    if (coupon) {
+      const couponKey = String(coupon).trim().toUpperCase()
+      const rate = EM_COUPONS[couponKey]
+      if (!rate) {
+        return new Response(
+          JSON.stringify({ error: 'Code promo invalide.' }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+      discount = Math.round(EM_BASE * rate * 100) / 100
+      couponApplied = couponKey
+    }
+    const total = EM_BASE - discount
+    const description = `En Mouvement LAOM — ${sess.label} (${sess.dates})${couponApplied ? ` — coupon ${couponApplied} -20%` : ''}`
+
+    const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)/i.test(origin)
+    const molliePayload: Record<string, any> = {
+      amount: { currency: 'EUR', value: total.toFixed(2) },
+      description,
+      method: 'creditcard',
+      redirectUrl: `${origin}/stage-danse/merci/`,
+      ...(isLocalhost ? {} : { webhookUrl: `${origin}/api/mollie/webhook/` }),
+      metadata: {
+        product: 'en-mouvement',
+        email,
+        firstName,
+        lastName,
+        phone: phone || null,
+        session: String(session),
+        sessionLabel: sess.label,
+        sessionDates: sess.dates,
+        base: EM_BASE,
+        discount,
+        coupon: couponApplied,
+        total,
+        created_at: new Date().toISOString(),
+      },
+    }
+
+    try {
+      const response = await fetch('https://api.mollie.com/v2/payments', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(molliePayload),
+      })
+      if (!response.ok) {
+        const errorData = (await response.json()) as any
+        console.error('Mollie API error (en-mouvement):', errorData)
+        return new Response(
+          JSON.stringify({ error: 'Payment creation failed', detail: errorData?.detail }),
+          { status: response.status, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+      const payment = (await response.json()) as any
+      const checkoutUrl = payment._links?.checkout?.href
+      if (!checkoutUrl) {
+        return new Response(
+          JSON.stringify({ error: 'No checkout URL returned' }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+
+      const db = env?.DB
+      if (db) {
+        try {
+          await db
+            .prepare(
+              `INSERT INTO mollie_payments (payment_id, product, email, amount, status, created_at)
+               VALUES (?, ?, ?, ?, ?, ?)`,
+            )
+            .bind(
+              payment.id,
+              `en-mouvement-${session}${couponApplied ? '-' + couponApplied : ''}`,
+              email,
+              total.toFixed(2),
+              payment.status,
+              new Date().toISOString(),
+            )
+            .run()
+        } catch (dbError) {
+          console.error('D1 insert error (non-blocking):', dbError)
+        }
+      }
+
+      return new Response(
+        JSON.stringify({ checkoutUrl, paymentId: payment.id, total }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      )
+    } catch (err) {
+      console.error('Mollie fetch error (en-mouvement):', err)
+      return new Response(
+        JSON.stringify({ error: 'Payment service unavailable' }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+  }
+  // ---- Fin En Mouvement ----
+
   // ---- Forum Éco-Construction (3-5 juillet 2026) ----
   if (product === 'forum-eco-construction') {
     // Cette page tourne en mode test pendant la phase de validation :
