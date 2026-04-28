@@ -157,15 +157,15 @@ const faq = [
     reponse: 'Oui, c\'est fait pour. Chaque live est une session de Q&A collectif. Tu peux obtenir un retour personnalisé de Charly sur ta situation.',
   },
   {
-    question: '497 EUR, c\'est vraiment le prix ?',
-    reponse: 'Oui. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois. Et tu peux payer en 2 fois (2 x 248,50 EUR).',
+    question: '297 EUR, c\'est vraiment le prix ?',
+    reponse: 'Oui — c\'est une offre exclusive pour les inscrits live, valable uniquement jusqu\'à 23h ce soir. Le prix normal est 497 EUR (et 2 000 EUR à la valeur du contenu). Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois. Tu peux aussi payer en 2 fois (2 x 148,50 EUR).',
   },
 ]
 ---
 
 <Layout
-  title="LAOMSCHOOL — Crée ton lieu sans perdre 5 ans et 49 000 EUR en erreurs | LAOM"
-  description="Formation en ligne : 12 lives avec Charly pendant 6 mois, couvrant 7 thèmes essentiels. La feuille de route complète pour créer un lieu qui tourne. 497 EUR."
+  title="LAOMSCHOOL — Offre live exclusive 297 EUR (jusqu'à 23h ce soir) | LAOM"
+  description="Offre live exclusive jusqu'à 23h ce soir : LAOMSCHOOL à 297 EUR au lieu de 497 EUR. 12 lives avec Charly pendant 6 mois pour créer ton lieu."
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
@@ -175,7 +175,7 @@ const faq = [
     <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
       <div class="flex items-center gap-2.5">
         <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
-        <span class="text-base font-medium text-white">Offre de lancement</span>
+        <span class="text-base font-medium text-white">Offre live · 297 EUR jusqu'à 23h</span>
       </div>
       <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
         <div class="text-center">
@@ -344,12 +344,12 @@ const faq = [
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <button
         type="button"
-        data-mollie-product="school-online"
+        data-mollie-product="school-live"
         class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
       >
-        Je rejoins l'accompagnement · 497 EUR
+        Je rejoins l'accompagnement · 297 EUR
       </button>
-      <p class="text-xs font-light text-[#2C2824]/40 mt-3">ou paiement en 2 fois (2 x 248,50 EUR) au checkout</p>
+      <p class="text-xs font-light text-[#2C2824]/40 mt-3">ou paiement en 2 fois (2 x 148,50 EUR) au checkout</p>
     </div>
   </section>
 
@@ -472,23 +472,23 @@ const faq = [
           <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
         </div>
         <div class="mb-4">
-          <span class="font-playfair text-5xl font-medium text-[#2C2824]">497</span>
+          <span class="font-playfair text-5xl font-medium text-[#2C2824]">297</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             type="button"
-            data-mollie-product="school-online"
+            data-mollie-product="school-live"
             class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
           >
-            Paiement unique · 497 EUR
+            Paiement unique · 297 EUR
           </button>
           <button
             type="button"
-            data-mollie-product="school-online-2x"
+            data-mollie-product="school-live-2x"
             class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
           >
-            2 x 248,50 EUR
+            2 x 148,50 EUR
           </button>
         </div>
       </div>
@@ -532,10 +532,10 @@ const faq = [
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <button
         type="button"
-        data-mollie-product="school-online"
+        data-mollie-product="school-live"
         class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
       >
-        Je rejoins l'accompagnement · 497 EUR
+        Je rejoins l'accompagnement · 297 EUR
       </button>
     </div>
   </section>
@@ -586,10 +586,10 @@ const faq = [
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <button
         type="button"
-        data-mollie-product="school-online"
+        data-mollie-product="school-live"
         class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
       >
-        Je rejoins l'accompagnement · 497 EUR
+        Je rejoins l'accompagnement · 297 EUR
       </button>
     </div>
   </section>
@@ -666,7 +666,7 @@ const faq = [
           <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
         </div>
         <div class="mb-4">
-          <span class="font-playfair text-6xl font-medium text-[#2C2824]">497</span>
+          <span class="font-playfair text-6xl font-medium text-[#2C2824]">297</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
         <p class="text-sm font-light text-[#2C2824]/50 mb-8 max-w-md mx-auto">
@@ -675,17 +675,17 @@ const faq = [
         <div class="flex flex-col gap-3">
           <button
             type="button"
-            data-mollie-product="school-online"
+            data-mollie-product="school-live"
             class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
           >
-            J'accède à l'accompagnement · 497 EUR
+            J'accède à l'accompagnement · 297 EUR
           </button>
           <button
             type="button"
-            data-mollie-product="school-online-2x"
+            data-mollie-product="school-live-2x"
             class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
           >
-            ou en 2 fois : 2 x 248,50 EUR
+            ou en 2 fois : 2 x 148,50 EUR
           </button>
         </div>
         <p class="text-xs font-light text-[#2C2824]/30 mt-4">Ce prix ne sera pas maintenu.</p>
@@ -698,7 +698,7 @@ const faq = [
     <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Tu as un projet de lieu. On a 5 ans de réponses.</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
-        7 thèmes. 12 lives. 497&nbsp;EUR.
+        7 thèmes. 12 lives. 297&nbsp;EUR.
       </h2>
       <p class="text-lg font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
         Tout ce qu'on a appris en 5 ans, structuré pour que tu ailles plus vite que nous.
@@ -707,17 +707,17 @@ const faq = [
       <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
         <button
           type="button"
-          data-mollie-product="school-online"
+          data-mollie-product="school-live"
           class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
         >
-          Paiement unique · 497 EUR
+          Paiement unique · 297 EUR
         </button>
         <button
           type="button"
-          data-mollie-product="school-online-2x"
+          data-mollie-product="school-live-2x"
           class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
         >
-          2 x 248,50 EUR
+          2 x 148,50 EUR
         </button>
       </div>
 
@@ -844,7 +844,7 @@ const faq = [
   <!-- Countdown 3 mai script -->
   <script is:inline>
     function updateCountdown() {
-      var deadline = new Date('2026-05-03T21:00:00Z').getTime();
+      var deadline = new Date('2026-04-28T21:00:00Z').getTime();
       var now = new Date().getTime();
       var diff = deadline - now;
       var pad = function(n) { return n < 10 ? '0' + n : n; };
@@ -890,7 +890,7 @@ const faq = [
           button_text: (btn.textContent || '').trim().slice(0, 60)
         });
         window.__tunnelTrack('checkout_initiated', {
-          product: btn.getAttribute('data-mollie-product') || 'school-online',
+          product: btn.getAttribute('data-mollie-product') || 'school-live',
           page: '/school/online/'
         });
       });
