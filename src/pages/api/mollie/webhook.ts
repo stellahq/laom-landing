@@ -178,7 +178,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     <li>Pour toute question : <a href="mailto:hello@laom.fr" style="color:#C4A855">hello@laom.fr</a></li>
   </ul>
 
-  <p style="font-size:14px;line-height:1.6;color:#666;margin-top:32px">Hâte de t'accueillir à La Margue,<br>L'équipe LAOM</p>
+  <p style="font-size:14px;line-height:1.6;color:#666;margin-top:32px">Hâte de t'accueillir à LAOM,<br>Charly & Amandine</p>
 </td></tr>
 </table>
 <p style="font-size:11px;color:#999;margin-top:20px">LAOM · La Margue · 12400 Saint-Félix-de-Sorgues · Aveyron</p>
