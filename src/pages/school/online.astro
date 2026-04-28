@@ -732,19 +732,46 @@ const faq = [
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Dernière étape</p>
-      <p class="text-base font-light text-[#2C2824]/70 mb-6">Entre ton email pour recevoir ta confirmation et tes accès.</p>
-      <form id="email-form">
+      <p class="text-base font-light text-[#2C2824]/70 mb-6">Tes coordonnées pour recevoir ta confirmation et tes accès.</p>
+      <form id="email-form" class="space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <input
+            type="text"
+            id="firstname-input"
+            name="firstname"
+            required
+            placeholder="Prénom"
+            class="w-full border border-black/10 rounded-sm px-4 py-3 text-sm font-light text-[#2C2824] bg-white focus:outline-none focus:ring-1 focus:ring-[#C4A855]"
+          />
+          <input
+            type="text"
+            id="lastname-input"
+            name="lastname"
+            required
+            placeholder="Nom"
+            class="w-full border border-black/10 rounded-sm px-4 py-3 text-sm font-light text-[#2C2824] bg-white focus:outline-none focus:ring-1 focus:ring-[#C4A855]"
+          />
+        </div>
         <input
           type="email"
           id="email-input"
+          name="email"
           required
           placeholder="ton@email.com"
-          class="w-full border border-black/10 rounded-sm px-4 py-3 text-base font-light text-[#2C2824] bg-white focus:outline-none focus:ring-1 focus:ring-[#C4A855] mb-4"
+          class="w-full border border-black/10 rounded-sm px-4 py-3 text-sm font-light text-[#2C2824] bg-white focus:outline-none focus:ring-1 focus:ring-[#C4A855]"
         />
+        <input
+          type="tel"
+          id="phone-input"
+          name="phone"
+          placeholder="Téléphone (optionnel)"
+          class="w-full border border-black/10 rounded-sm px-4 py-3 text-sm font-light text-[#2C2824] bg-white focus:outline-none focus:ring-1 focus:ring-[#C4A855]"
+        />
+        <p class="text-xs text-red-600 hidden" id="email-form-error"></p>
         <button
           type="submit"
           id="email-submit"
-          class="w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium"
+          class="w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium mt-2"
         >
           Continuer vers le paiement
         </button>
@@ -759,9 +786,24 @@ const faq = [
       var pendingBtn = null;
       var pendingOriginalText = null;
       var modal = document.getElementById('email-modal');
+      var firstnameInput = document.getElementById('firstname-input');
+      var lastnameInput = document.getElementById('lastname-input');
       var emailInput = document.getElementById('email-input');
+      var phoneInput = document.getElementById('phone-input');
       var emailForm = document.getElementById('email-form');
+      var formError = document.getElementById('email-form-error');
       var closeBtn = document.getElementById('email-modal-close');
+
+      function showFormError(msg) {
+        if (!formError) return;
+        formError.textContent = msg;
+        formError.classList.remove('hidden');
+      }
+      function clearFormError() {
+        if (!formError) return;
+        formError.textContent = '';
+        formError.classList.add('hidden');
+      }
 
       // Ouvrir la modale au clic sur un CTA
       document.addEventListener('click', function(e) {
@@ -774,9 +816,9 @@ const faq = [
         pendingProduct = product;
         pendingBtn = btn;
         pendingOriginalText = btn.textContent;
+        clearFormError();
         modal.classList.remove('hidden');
-        emailInput.value = '';
-        emailInput.focus();
+        firstnameInput.focus();
       });
 
       // Fermer la modale
@@ -793,11 +835,16 @@ const faq = [
         }
       });
 
-      // Soumettre l'email et lancer le paiement
+      // Soumettre le formulaire et lancer le paiement
       emailForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        clearFormError();
+        var firstName = firstnameInput.value.trim();
+        var lastName = lastnameInput.value.trim();
         var email = emailInput.value.trim();
-        if (!email || !pendingProduct) return;
+        var phone = phoneInput.value.trim();
+        if (!firstName || !lastName || !email) { showFormError('Prénom, nom et email obligatoires.'); return; }
+        if (!pendingProduct) return;
 
         // Fermer la modale et désactiver le bouton
         modal.classList.add('hidden');
@@ -813,7 +860,13 @@ const faq = [
         fetch('/api/mollie/create-payment/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ product: pendingProduct, email: email })
+          body: JSON.stringify({
+            product: pendingProduct,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            phone: phone,
+          })
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {

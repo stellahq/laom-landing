@@ -434,6 +434,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
               metadata: {
                 product: secondProduct,
                 email: metadata.email || null,
+                firstName: metadata.firstName || null,
+                lastName: metadata.lastName || null,
+                phone: metadata.phone || null,
                 installment: '2of2',
                 total_amount: secondTotal,
                 created_at: new Date().toISOString(),

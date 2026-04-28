@@ -530,6 +530,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       ? '297.00'
       : productConfig.amount
 
+  // Coordonnées contact (optionnelles selon les produits historiques)
+  const { firstName: ctFirstName, lastName: ctLastName, phone: ctPhone } = body
+
   const molliePayload: Record<string, any> = {
     amount: {
       currency: 'EUR',
@@ -542,6 +545,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     metadata: {
       product,
       email: email || null,
+      firstName: ctFirstName || null,
+      lastName: ctLastName || null,
+      phone: ctPhone || null,
       installment: isInstallment ? '1of2' : null,
       total_amount: isInstallment ? installmentTotalAmount : productConfig.amount,
       created_at: new Date().toISOString(),
@@ -559,7 +565,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: email || 'Client LAOM School',
+          name: [ctFirstName, ctLastName].filter(Boolean).join(' ') || email || 'Client LAOM School',
           email: email || undefined,
         }),
       })
