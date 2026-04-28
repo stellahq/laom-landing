@@ -1,0 +1,258 @@
+---
+import Layout from '~/layouts/Layout.astro'
+---
+
+<Layout
+  title="Réservations — LAOM Admin"
+  description="Dashboard des réservations LAOM (Chillworking, School, etc.)"
+  seo={{ noIndex: true }}
+  hideChrome={true}
+>
+  <style is:global>
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'SF Mono', 'Fira Code', 'Fira Mono', monospace; }
+  </style>
+
+  <!-- Password gate -->
+  <div id="auth-gate" class="min-h-screen bg-[#FAF8F5] flex items-center justify-center">
+    <div class="max-w-sm mx-auto px-6 text-center">
+      <h1 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Réservations LAOM</h1>
+      <input
+        type="password"
+        id="admin-password"
+        placeholder="Mot de passe"
+        class="w-full px-4 py-3 rounded-sm border border-[#2C2824]/10 bg-white text-[#2C2824] text-center text-lg focus:border-[#C4A855] focus:outline-none"
+      />
+      <button
+        id="admin-login"
+        class="w-full mt-4 px-6 py-3 rounded-sm bg-[#2C2824] text-white text-sm tracking-[0.15em] uppercase hover:bg-[#1a1a1a] transition-colors"
+      >
+        Accéder
+      </button>
+      <p id="auth-error" class="text-red-600 text-sm mt-3 hidden">Mot de passe incorrect</p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden min-h-screen bg-[#FAF8F5]">
+    <header class="sticky top-0 z-50 bg-[#2C2824] border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4 min-w-0">
+          <a href="/" class="font-playfair text-xl text-white tracking-tight">LAOM</a>
+          <span class="text-white/30">/</span>
+          <span class="text-sm text-white/60 truncate">Réservations</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <select id="product-filter" class="bg-[#2C2824] border border-white/10 text-white text-sm rounded-sm px-3 py-1.5 focus:border-[#C4A855] focus:outline-none">
+            <option value="">Tous les événements</option>
+            <option value="chillworking">Chillworking</option>
+            <option value="school">School</option>
+          </select>
+          <button id="refresh-btn" class="text-white/40 hover:text-white transition-colors" title="Rafraîchir" aria-label="Rafraîchir">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="loading" class="py-24 text-center">
+      <p class="text-[#2C2824]/40 text-sm">Chargement…</p>
+    </div>
+
+    <main id="dashboard-content" class="hidden max-w-7xl mx-auto px-6 py-8 space-y-8">
+      <!-- KPIs -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Réservations payées</p>
+          <p id="kpi-count" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
+        </div>
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">CA total</p>
+          <p id="kpi-revenue" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
+        </div>
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">Chillworking</p>
+          <p id="kpi-chillworking" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
+        </div>
+        <div class="bg-white border border-[#2C2824]/5 rounded-sm p-5">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40 mb-1">School</p>
+          <p id="kpi-school" class="text-3xl font-playfair font-medium text-[#2C2824]">—</p>
+        </div>
+      </div>
+
+      <!-- Tableau résa -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-[#2C2824]/5 flex items-center justify-between">
+          <h2 class="font-playfair text-lg font-medium text-[#2C2824]">Détails des réservations</h2>
+          <button id="export-csv" class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855] hover:text-[#B09A4A] transition-colors">Exporter CSV</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-[#FAF8F5] text-[#2C2824]/60">
+              <tr>
+                <th class="text-left px-4 py-3 font-light tracking-wider uppercase text-xs">Date</th>
+                <th class="text-left px-4 py-3 font-light tracking-wider uppercase text-xs">Événement</th>
+                <th class="text-left px-4 py-3 font-light tracking-wider uppercase text-xs">Prénom</th>
+                <th class="text-left px-4 py-3 font-light tracking-wider uppercase text-xs">Nom</th>
+                <th class="text-left px-4 py-3 font-light tracking-wider uppercase text-xs">Email</th>
+                <th class="text-left px-4 py-3 font-light tracking-wider uppercase text-xs">Téléphone</th>
+                <th class="text-left px-4 py-3 font-light tracking-wider uppercase text-xs">Détails</th>
+                <th class="text-right px-4 py-3 font-light tracking-wider uppercase text-xs">Montant</th>
+              </tr>
+            </thead>
+            <tbody id="reservations-tbody" class="divide-y divide-[#2C2824]/5"></tbody>
+          </table>
+          <p id="no-data" class="hidden p-12 text-center text-[#2C2824]/40 text-sm">Aucune réservation pour ce filtre.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script is:inline>
+    let reservationsData = []
+
+    function login() {
+      const pwd = document.getElementById('admin-password').value
+      sessionStorage.setItem('admin_pwd', pwd)
+      loadData()
+    }
+
+    function showError() {
+      document.getElementById('auth-error').classList.remove('hidden')
+    }
+
+    function fmtDate(iso) {
+      if (!iso) return '—'
+      const d = new Date(iso)
+      return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+    }
+
+    function fmtEur(n) {
+      return n.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' €'
+    }
+
+    function shortProduct(p) {
+      if (!p) return ''
+      if (p.startsWith('chillworking')) return 'Chillworking'
+      if (p === 'school-online' || p === 'school-online-2x') return 'School'
+      if (p === 'school-merci') return 'School (merci)'
+      return p
+    }
+
+    function detailLine(r) {
+      if (r.product && r.product.startsWith('chillworking')) {
+        const sess = r.session === 'aout' ? 'Août' : r.session === 'juin' ? 'Juin' : ''
+        const parts = []
+        if (sess) parts.push(sess)
+        if (r.nights) parts.push(`${r.nights} nuits`)
+        if (r.arrivalDate) parts.push(`arr. ${r.arrivalDate}`)
+        if (r.coupon) parts.push(`<span class="text-[#C4A855]">${r.coupon}</span>`)
+        return parts.join(' · ')
+      }
+      return r.description || ''
+    }
+
+    async function loadData() {
+      const pwd = sessionStorage.getItem('admin_pwd')
+      if (!pwd) return
+      const filter = document.getElementById('product-filter').value
+      const url = `/api/admin/reservations/?password=${encodeURIComponent(pwd)}${filter ? `&product=${filter}` : ''}`
+      document.getElementById('loading').classList.remove('hidden')
+      document.getElementById('dashboard-content').classList.add('hidden')
+      try {
+        const res = await fetch(url)
+        if (res.status === 401) {
+          sessionStorage.removeItem('admin_pwd')
+          document.getElementById('auth-gate').classList.remove('hidden')
+          document.getElementById('dashboard').classList.add('hidden')
+          showError()
+          return
+        }
+        const data = await res.json()
+        reservationsData = data.reservations || []
+        document.getElementById('auth-gate').classList.add('hidden')
+        document.getElementById('dashboard').classList.remove('hidden')
+        renderData(data)
+      } catch (e) {
+        console.error(e)
+        document.getElementById('loading').textContent = 'Erreur de chargement'
+      }
+    }
+
+    function renderData(data) {
+      document.getElementById('kpi-count').textContent = data.summary.total_count
+      document.getElementById('kpi-revenue').textContent = fmtEur(data.summary.total_revenue || 0)
+      const cw = data.summary.by_product.chillworking || { count: 0, total: 0 }
+      const sc = data.summary.by_product.school || { count: 0, total: 0 }
+      const scm = data.summary.by_product['school-merci'] || { count: 0, total: 0 }
+      document.getElementById('kpi-chillworking').textContent = `${cw.count} · ${fmtEur(cw.total)}`
+      document.getElementById('kpi-school').textContent = `${sc.count + scm.count} · ${fmtEur(sc.total + scm.total)}`
+
+      const tbody = document.getElementById('reservations-tbody')
+      const noData = document.getElementById('no-data')
+      tbody.innerHTML = ''
+      if (!data.reservations.length) {
+        noData.classList.remove('hidden')
+      } else {
+        noData.classList.add('hidden')
+        data.reservations.forEach((r) => {
+          const tr = document.createElement('tr')
+          tr.className = 'hover:bg-[#FAF8F5]/50'
+          tr.innerHTML = `
+            <td class="px-4 py-3 text-[#2C2824]/60 text-xs whitespace-nowrap">${fmtDate(r.created_at)}</td>
+            <td class="px-4 py-3 font-medium text-[#2C2824]">${shortProduct(r.product)}</td>
+            <td class="px-4 py-3 text-[#2C2824]">${r.firstName || '—'}</td>
+            <td class="px-4 py-3 text-[#2C2824]">${r.lastName || '—'}</td>
+            <td class="px-4 py-3 text-[#2C2824]"><a href="mailto:${r.email || ''}" class="text-[#2C2824] hover:text-[#C4A855]">${r.email || '—'}</a></td>
+            <td class="px-4 py-3 text-[#2C2824]">${r.phone ? `<a href="tel:${r.phone}" class="text-[#2C2824] hover:text-[#C4A855]">${r.phone}</a>` : '—'}</td>
+            <td class="px-4 py-3 text-[#2C2824]/60 text-xs">${detailLine(r) || '—'}</td>
+            <td class="px-4 py-3 text-right font-mono text-[#2C2824]">${fmtEur(parseFloat(r.amount || '0'))}</td>
+          `
+          tbody.appendChild(tr)
+        })
+      }
+
+      document.getElementById('loading').classList.add('hidden')
+      document.getElementById('dashboard-content').classList.remove('hidden')
+    }
+
+    function exportCSV() {
+      if (!reservationsData.length) return
+      const headers = ['Date', 'Événement', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Session', 'Date arrivée', 'Nuits', 'Coupon', 'Montant', 'Payment ID']
+      const rows = reservationsData.map((r) => [
+        r.created_at,
+        shortProduct(r.product),
+        r.firstName || '',
+        r.lastName || '',
+        r.email || '',
+        r.phone || '',
+        r.session || '',
+        r.arrivalDate || '',
+        r.nights || '',
+        r.coupon || '',
+        r.amount || '',
+        r.payment_id,
+      ])
+      const csv = [headers, ...rows]
+        .map((row) => row.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(','))
+        .join('\n')
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
+      const link = document.createElement('a')
+      link.href = URL.createObjectURL(blob)
+      link.download = `reservations-laom-${new Date().toISOString().slice(0, 10)}.csv`
+      link.click()
+    }
+
+    document.getElementById('admin-login').addEventListener('click', login)
+    document.getElementById('admin-password').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') login()
+    })
+    document.getElementById('refresh-btn').addEventListener('click', loadData)
+    document.getElementById('product-filter').addEventListener('change', loadData)
+    document.getElementById('export-csv').addEventListener('click', exportCSV)
+
+    if (sessionStorage.getItem('admin_pwd')) {
+      loadData()
+    }
+  </script>
+</Layout>
