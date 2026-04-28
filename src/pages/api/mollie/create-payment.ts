@@ -4,7 +4,7 @@ import type { APIRoute } from 'astro'
  * POST /api/mollie/create-payment/
  *
  * Body JSON :
- *   - product: 'school-online' | 'school-online-2x' | 'school-merci' | 'chillworking'
+ *   - product: 'school-online' | 'school-online-2x' | 'school-merci' | 'chillworking' | 'forum-eco-construction'
  *   - email?: string (optionnel, pour metadata)
  *
  *   Pour 'chillworking', ajouter :
@@ -13,6 +13,11 @@ import type { APIRoute } from 'astro'
  *   - arrivalDate: 'YYYY-MM-DD'
  *   - coupon?: string (ex: 'TRIBULAOM' pour -20%)
  *   - name: string
+ *
+ *   Pour 'forum-eco-construction', ajouter :
+ *   - email: string
+ *   - firstName?: string
+ *   - meals: string[]  (IDs parmi : ven-diner, sam-pdej, sam-dej, sam-diner, dim-pdej, dim-dej)
  */
 
 interface ProductConfig {
@@ -239,6 +244,135 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
   }
   // ---- Fin Chillworking ----
+
+  // ---- Forum Éco-Construction (3-5 juillet 2026) ----
+  if (product === 'forum-eco-construction') {
+    // Cette page tourne en mode test pendant la phase de validation :
+    // utiliser MOLLIE_API_KEY_TEST si défini, sinon retomber sur la clé principale.
+    const forumApiKey = env?.MOLLIE_API_KEY_TEST || apiKey
+    const FORUM_BASE = 60
+    const MEALS: Record<string, { price: number; label: string }> = {
+      'ven-diner': { price: 20, label: 'Vendredi 3 — Dîner' },
+      'sam-pdej': { price: 15, label: 'Samedi 4 — Petit-déj' },
+      'sam-dej': { price: 20, label: 'Samedi 4 — Déjeuner' },
+      'sam-diner': { price: 20, label: 'Samedi 4 — Dîner' },
+      'dim-pdej': { price: 15, label: 'Dimanche 5 — Petit-déj' },
+      'dim-dej': { price: 20, label: 'Dimanche 5 — Déjeuner' },
+    }
+
+    const { firstName, meals } = body
+    if (!email) {
+      return new Response(
+        JSON.stringify({ error: 'Email requis.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+    if (!Array.isArray(meals)) {
+      return new Response(
+        JSON.stringify({ error: 'meals doit être un tableau.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+
+    const selected = Array.from(new Set(meals.map(String)))
+    let mealsTotal = 0
+    const selectedLabels: string[] = []
+    for (const id of selected) {
+      const meal = MEALS[id]
+      if (!meal) {
+        return new Response(
+          JSON.stringify({ error: `Repas inconnu : ${id}` }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+      mealsTotal += meal.price
+      selectedLabels.push(meal.label)
+    }
+
+    const total = FORUM_BASE + mealsTotal
+    const description = `Forum Éco-Construction LAOM — Pass 60 € + ${selected.length} repas (${mealsTotal} €) — Total ${total} €`
+
+    const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)/i.test(origin)
+    const molliePayload: Record<string, any> = {
+      amount: { currency: 'EUR', value: total.toFixed(2) },
+      description,
+      method: 'creditcard',
+      redirectUrl: `${origin}/forum-eco-construction/merci/`,
+      ...(isLocalhost ? {} : { webhookUrl: `${origin}/api/mollie/webhook/` }),
+      metadata: {
+        product: 'forum-eco-construction',
+        email,
+        firstName: firstName || null,
+        base: FORUM_BASE,
+        mealsTotal,
+        total,
+        meals: selected,
+        mealsLabels: selectedLabels,
+        created_at: new Date().toISOString(),
+      },
+    }
+
+    try {
+      const response = await fetch('https://api.mollie.com/v2/payments', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${forumApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(molliePayload),
+      })
+      if (!response.ok) {
+        const errorData = (await response.json()) as any
+        console.error('Mollie API error (forum-eco-construction):', errorData)
+        return new Response(
+          JSON.stringify({ error: 'Payment creation failed', detail: errorData?.detail }),
+          { status: response.status, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+      const payment = (await response.json()) as any
+      const checkoutUrl = payment._links?.checkout?.href
+      if (!checkoutUrl) {
+        return new Response(
+          JSON.stringify({ error: 'No checkout URL returned' }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } },
+        )
+      }
+
+      const db = env?.DB
+      if (db) {
+        try {
+          await db
+            .prepare(
+              `INSERT INTO mollie_payments (payment_id, product, email, amount, status, created_at)
+               VALUES (?, ?, ?, ?, ?, ?)`,
+            )
+            .bind(
+              payment.id,
+              `forum-eco-construction-${selected.length}meals`,
+              email,
+              total.toFixed(2),
+              payment.status,
+              new Date().toISOString(),
+            )
+            .run()
+        } catch (dbError) {
+          console.error('D1 insert error (non-blocking):', dbError)
+        }
+      }
+
+      return new Response(
+        JSON.stringify({ checkoutUrl, paymentId: payment.id, total }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      )
+    } catch (err) {
+      console.error('Mollie fetch error (forum-eco-construction):', err)
+      return new Response(
+        JSON.stringify({ error: 'Payment service unavailable' }),
+        { status: 502, headers: { 'Content-Type': 'application/json' } },
+      )
+    }
+  }
+  // ---- Fin Forum Éco-Construction ----
 
   const productConfig = PRODUCTS[product]
 
