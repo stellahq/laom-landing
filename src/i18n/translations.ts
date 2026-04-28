@@ -71,9 +71,9 @@ export const translations = {
         },
         {
           title: 'LAOM School',
-          date: '8 mai – 10 mai 2026',
-          description: '3 jours pour structurer ton projet d\'écolieu et repartir avec un plan d\'action.',
-          href: '/school/',
+          date: 'Accompagnement · 12 lives sur 6 mois',
+          description: 'La feuille de route pour créer ton lieu : 12 lives collectifs sur 6 mois pour t\'accompagner pas à pas, animés par Charly.',
+          href: '/school/online/',
         },
         {
           title: 'Frères d\'Âme',
@@ -101,10 +101,10 @@ export const translations = {
           href: 'https://fyneo.org/',
         },
         {
-          title: 'LAOM Coliving Entrepreneurs & Créatifs 1',
+          title: 'Séjour Chillworking #1',
           date: '15 juin – 28 juin 2026',
-          description: 'Une immersion à LAOM entre entrepreneurs, porteurs de projets et/ou artistes. Chaque matin, tu bouges. La journée, tu bosses, tu chill ou un mix des deux. 0 charge mentale, 100% focus. Durée flexible : 1 à 2 semaines (minimum 5 nuits).',
-          href: 'mailto:hello@laom.fr',
+          description: 'Format vacances-travail à LAOM pour entrepreneurs, dirigeants, freelances, créatifs et salariés en remote. Mouvement le matin, sessions de travail dans la journée à ton rythme, ressourcement et soirées de partage. Durée flexible (5 nuits min.).',
+          href: '/chillworking/',
         },
         // JUILLET
         {
@@ -140,10 +140,10 @@ export const translations = {
           href: '/stage-danse/',
         },
         {
-          title: 'LAOM Coliving Entrepreneurs & Créatifs 2',
+          title: 'Séjour Chillworking #2',
           date: '6 août – 20 août 2026',
-          description: 'Une immersion à LAOM entre entrepreneurs, porteurs de projets et/ou artistes. Chaque matin, tu bouges. La journée, tu bosses, tu chill ou un mix des deux. 0 charge mentale, 100% focus. Durée flexible : 1 à 2 semaines (minimum 5 nuits).',
-          href: 'mailto:hello@laom.fr',
+          description: 'Format vacances-travail à LAOM pour entrepreneurs, dirigeants, freelances, créatifs et salariés en remote. Mouvement le matin, sessions de travail dans la journée à ton rythme, ressourcement et soirées de partage. Durée flexible (5 nuits min.).',
+          href: '/chillworking/',
         },
         {
           title: 'Family Camp 2',
@@ -884,9 +884,9 @@ export const translations = {
         },
         {
           title: 'LAOM School',
-          date: 'May 8 – May 10, 2026',
-          description: '3 days to structure your ecovillage project and leave with an action plan.',
-          href: '/en/school/',
+          date: 'Coaching · 12 live sessions over 6 months',
+          description: 'The roadmap to create your place: 12 group live sessions over 6 months to walk you through it step by step, hosted by Charly.',
+          href: '/en/school/online/',
         },
         {
           title: 'Soul Brothers',
