@@ -1,0 +1,131 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+export const prerender = true
+
+const pageSchema = createWebPageSchema({
+  name: 'Replay — Comment on a bâti LAOM',
+  url: Astro.url.toString(),
+  description: 'Le replay de la conférence du 28 avril 2026 : 21 hectares, 800 m² en paille porteuse, 15 foyers, sans prêt bancaire, en 5 ans.',
+})
+
+// Cloudflare Stream — vidéo replay (durée ~1h11, 8 premières min retirées)
+const streamCustomer = 'customer-gkc27wxykzxme7de.cloudflarestream.com'
+const streamVideoId = '7e00080c38807bb0967a6d5e2547fc0d'
+const streamIframe = `https://${streamCustomer}/${streamVideoId}/iframe?preload=auto&controls=true`
+const streamPoster = `https://${streamCustomer}/${streamVideoId}/thumbnails/thumbnail.jpg?time=5s&height=720`
+---
+
+<Layout
+  title="Replay — Comment on a bâti LAOM"
+  description="Le replay de la conférence du 28 avril : 21 hectares, 800 m² en paille porteuse, 15 foyers, sans prêt bancaire, en 5 ans."
+  seo={{
+    title: 'Replay — Comment on a bâti LAOM',
+    description: 'Le replay de la conférence du 28 avril 2026 avec Charly Aubert.',
+    image: streamPoster,
+    canonical: 'https://laom.fr/replay/',
+    noIndex: true,
+    ldJSON: pageSchema,
+  }}
+>
+
+  <main class="bg-[#F3EEDC] min-h-screen">
+
+    <!-- Hero -->
+    <section class="pt-16 pb-8 md:pt-24 md:pb-10 bg-[#F3EEDC]">
+      <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">
+          Conférence du 28 avril 2026 · Replay
+        </p>
+        <h1 class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-6 leading-tight">
+          Comment on a bâti <span class="text-[#C4A855]">LAOM</span>
+        </h1>
+        <p class="text-base md:text-lg font-light text-[#2C2824]/75 leading-relaxed max-w-2xl mx-auto">
+          21 hectares · 800 m² en paille porteuse · 15 foyers · sans prêt bancaire · en 5 ans.
+        </p>
+        <p class="text-sm font-light text-[#2C2824]/55 mt-3">
+          Avec Charly Aubert, co-fondateur de LAOM · 1h11
+        </p>
+      </div>
+    </section>
+
+    <!-- Player vidéo Cloudflare Stream -->
+    <section class="pb-12 md:pb-16 bg-[#F3EEDC]">
+      <div class="max-w-5xl mx-auto px-6 sm:px-12">
+        <div class="aspect-video bg-[#2C2824] rounded-sm border border-black/10 overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.15)]">
+          <iframe
+            id="replay-player"
+            src={streamIframe}
+            loading="lazy"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allowfullscreen
+            class="w-full h-full border-0"
+            title="Replay — Comment on a bâti LAOM"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA séparateur -->
+    <section class="py-2 bg-[#FAF8F5]">
+      <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center pt-12 pb-6">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">
+          Pour aller plus loin
+        </p>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">
+          Deux portes d'entrée pour la suite
+        </h2>
+      </div>
+    </section>
+
+    <!-- Deux CTA cards -->
+    <section class="pb-20 md:pb-24 bg-[#FAF8F5]">
+      <div class="max-w-5xl mx-auto px-6 sm:px-12 grid md:grid-cols-2 gap-6">
+
+        <!-- LAOM School -->
+        <div class="bg-white rounded-sm border border-black/5 p-8 md:p-10 flex flex-col">
+          <p class="text-[10px] font-medium tracking-[0.2em] uppercase text-[#C4A855] mb-3">
+            LAOM School · Démarrage 5 mai
+          </p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-5 leading-tight">
+            Tu veux qu'on construise ton lieu ensemble ?
+          </h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-8 flex-1">
+            12 lives en groupe avec moi, accompagnement personnel, communauté privée, accès à toutes mes ressources.<br />
+            Pour ne pas faire seul ce qu'on a mis 5 ans à apprendre.
+          </p>
+          <a
+            href="/school/"
+            class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors font-medium"
+          >
+            Découvrir LAOM School
+          </a>
+        </div>
+
+        <!-- Tribu LAOM -->
+        <div class="bg-white rounded-sm border border-black/5 p-8 md:p-10 flex flex-col">
+          <p class="text-[10px] font-medium tracking-[0.2em] uppercase text-[#4A7C59] mb-3">
+            Tribu LAOM · −20 % avec TRIBULAOM
+          </p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-5 leading-tight">
+            Viens vivre le lieu
+          </h3>
+          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-8 flex-1">
+            Chill Working, Stage Danse en mouvement, Festival Perspective, Festival éco-construction.<br />
+            Plusieurs formats pour expérimenter LAOM avant de t'engager.
+          </p>
+          <a
+            href="/events/"
+            class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#1a1714] transition-colors font-medium"
+          >
+            Voir les événements
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+</Layout>
