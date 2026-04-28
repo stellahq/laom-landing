@@ -18,9 +18,9 @@ const dateEvent = {
 
 const tarifs = [
   {
-    label: 'Sans nuit',
+    label: 'Sans nuit sur place',
     price: '60 €',
-    detail: 'Visites · ateliers · dîner samedi · déjeuner dimanche',
+    detail: 'Visites · échanges · dîner samedi · déjeuner dimanche',
   },
   {
     label: 'Avec nuit en tipi',
@@ -213,9 +213,9 @@ const tarifs = [
 
         <div>
           <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-2">17h00</p>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Atelier participatif adultes</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Temps libre & rivière</h3>
           <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
-            On met les mains. <strong class="font-medium text-[#2C2824]">Selon la saison</strong> : enduit terre, semis ou récolte au potager, prep des légumes pour le dîner, petit chantier bois. Pas une démo : une vraie tâche utile au lieu, qu'on fait ensemble.
+            Pause après les visites. Tu peux marcher dans la vallée, aller à la rivière, te poser à la guinguette ou continuer les échanges en petit comité.
           </p>
         </div>
 
@@ -407,7 +407,6 @@ const tarifs = [
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Inclus dans les deux formules</p>
         <ul class="space-y-2 text-sm font-light text-[#2C2824]/75 leading-relaxed">
           <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Visite guidée du lieu et des bâtiments par les cofondateurs</span></li>
-          <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Atelier participatif (selon saison)</span></li>
           <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Cercle d'échanges du dimanche</span></li>
           <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Dîner du samedi soir à la guinguette</span></li>
           <li class="flex gap-3"><span class="text-[#C4A855] flex-shrink-0">✓</span><span>Déjeuner du dimanche midi à la guinguette</span></li>
@@ -535,7 +534,7 @@ const tarifs = [
             <label class="cursor-pointer">
               <input type="radio" name="formule" value="sans-nuit" class="sr-only peer" checked />
               <div class="p-4 border-2 border-white/15 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white/10 transition-colors">
-                <p class="font-playfair text-base font-medium text-white">Sans nuit · 60 €</p>
+                <p class="font-playfair text-base font-medium text-white">Sans nuit sur place · 60 €</p>
                 <p class="text-xs font-light text-white/50 mt-1">Sam 14h → dim 14h30</p>
               </div>
             </label>
@@ -646,7 +645,7 @@ const tarifs = [
     form?.addEventListener('submit', (e) => {
       e.preventDefault()
       const data = new FormData(form)
-      const formuleLabel = data.get('formule') === 'avec-nuit' ? 'Avec nuit en tipi (95 €)' : 'Sans nuit (60 €)'
+      const formuleLabel = data.get('formule') === 'avec-nuit' ? 'Avec nuit en tipi (95 €)' : 'Sans nuit sur place (60 €)'
       const atelier = (document.getElementById('atelier-enfants') as HTMLInputElement).checked
       const plus5 = data.get('enfants-plus-5') || '0'
       const moins5 = data.get('enfants-moins-5') || '0'
