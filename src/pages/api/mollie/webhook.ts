@@ -413,8 +413,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const secondTotal = isLiveOffer ? '297.00' : '497.00'
       const secondProduct = isLiveOffer ? 'school-live-2x' : 'school-online-2x'
       const secondDescription = isLiveOffer
-        ? 'LAOM School Online — Offre live, paiement 2/2 (148,50 EUR)'
-        : 'LAOM School Online — Paiement 2/2 (248,50 EUR)'
+        ? 'LAOMSCHOOL — Offre live, paiement 2/2 (148,50 EUR)'
+        : 'LAOMSCHOOL — Paiement 2/2 (248,50 EUR)'
 
       if (customerId && mandateId) {
         try {

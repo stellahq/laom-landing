@@ -30,25 +30,25 @@ interface ProductConfig {
 const PRODUCTS: Record<string, ProductConfig> = {
   'school-online': {
     amount: '497.00',
-    description: 'LAOM School Online — Formation + 12 lives (497 EUR)',
+    description: 'LAOMSCHOOL — Accompagnement + 12 lives (497 EUR)',
   },
   'school-online-2x': {
     amount: '248.50',
-    description: 'LAOM School Online — Paiement 1/2 (248,50 EUR)',
+    description: 'LAOMSCHOOL — Paiement 1/2 (248,50 EUR)',
     installments: 2,
     installmentAmount: '248.50',
   },
   'school-merci': {
     amount: '147.00',
-    description: 'LAOM School Online — Offre inscrits (147 EUR)',
+    description: 'LAOMSCHOOL — Offre inscrits (147 EUR)',
   },
   'school-live': {
     amount: '297.00',
-    description: 'LAOM School Online — Offre live exclusive (297 EUR)',
+    description: 'LAOMSCHOOL — Offre live exclusive (297 EUR)',
   },
   'school-live-2x': {
     amount: '148.50',
-    description: 'LAOM School Online — Offre live, paiement 1/2 (148,50 EUR)',
+    description: 'LAOMSCHOOL — Offre live, paiement 1/2 (148,50 EUR)',
     installments: 2,
     installmentAmount: '148.50',
   },
