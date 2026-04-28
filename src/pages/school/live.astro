@@ -6,8 +6,8 @@ import { createWebPageSchema } from '~/utils/schema'
 // Page SSR — pas de prerender pour pouvoir rediriger après la deadline
 export const prerender = false
 
-// Deadline offre live : 28 avril 2026 à 23:00 heure de Paris (CEST = UTC+2)
-const OFFER_DEADLINE = new Date('2026-04-28T21:00:00Z')
+// Deadline offre live : 29 avril 2026 à 12:00 (midi) heure de Paris (CEST = UTC+2)
+const OFFER_DEADLINE = new Date('2026-04-29T10:00:00Z')
 if (new Date() > OFFER_DEADLINE) {
   return Astro.redirect('/school/online/', 302)
 }
@@ -15,7 +15,7 @@ if (new Date() > OFFER_DEADLINE) {
 const pageSchema = createWebPageSchema({
   name: 'LAOMSCHOOL — Offre live exclusive',
   url: Astro.url.toString(),
-  description: 'Offre live exclusive jusqu\'à 23h ce soir : LAOMSCHOOL à 297 EUR (au lieu de 497 EUR). 12 lives + Q&A avec Charly pendant 6 mois pour créer ton lieu.',
+  description: 'Offre live exclusive jusqu\'à demain midi (29 avril) : LAOMSCHOOL à 297 EUR (au lieu de 497 EUR). 12 lives + Q&A avec Charly pendant 6 mois pour créer ton lieu.',
 })
 
 // Paiement Mollie — checkout offre live à 297 EUR (ou 2 x 148,50 EUR)
@@ -158,14 +158,14 @@ const faq = [
   },
   {
     question: '297 EUR, c\'est vraiment le prix ?',
-    reponse: 'Oui — c\'est une offre exclusive pour les inscrits live, valable uniquement jusqu\'à 23h ce soir. Le prix normal est 497 EUR (et 2 000 EUR à la valeur du contenu). Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois. Tu peux aussi payer en 2 fois (2 x 148,50 EUR).',
+    reponse: 'Oui — c\'est une offre exclusive pour les inscrits live, valable uniquement jusqu\'à demain midi (29 avril). Le prix normal est 497 EUR (et 2 000 EUR à la valeur du contenu). Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois. Tu peux aussi payer en 2 fois (2 x 148,50 EUR).',
   },
 ]
 ---
 
 <Layout
-  title="LAOMSCHOOL — Offre live exclusive 297 EUR (jusqu'à 23h ce soir) | LAOM"
-  description="Offre live exclusive jusqu'à 23h ce soir : LAOMSCHOOL à 297 EUR au lieu de 497 EUR. 12 lives avec Charly pendant 6 mois pour créer ton lieu."
+  title="LAOMSCHOOL — Offre live exclusive 297 EUR (jusqu'à demain midi · 29 avril) | LAOM"
+  description="Offre live exclusive jusqu'à demain midi (29 avril) : LAOMSCHOOL à 297 EUR au lieu de 497 EUR. 12 lives avec Charly pendant 6 mois pour créer ton lieu."
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
@@ -175,7 +175,7 @@ const faq = [
     <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
       <div class="flex items-center gap-2.5">
         <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
-        <span class="text-base font-medium text-white">Offre live · 297 EUR jusqu'à 23h</span>
+        <span class="text-base font-medium text-white">Offre live · 297 EUR jusqu'à demain midi</span>
       </div>
       <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
         <div class="text-center">
@@ -477,7 +477,7 @@ const faq = [
           <span class="font-playfair text-3xl font-light text-[#2C2824]/40 line-through">497 EUR</span>
         </div>
         <div class="mt-4 mb-4">
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855] mb-1">Offre live exclusive · jusqu'à 23h ce soir</p>
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855] mb-1">Offre live exclusive · jusqu'à demain midi (29 avril)</p>
           <span class="font-playfair text-5xl font-medium text-[#2C2824]">297</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
@@ -667,7 +667,7 @@ const faq = [
 
       <!-- Prix -->
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-10 text-center">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Offre live exclusive · jusqu'à 23h ce soir</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Offre live exclusive · jusqu'à demain midi (29 avril)</p>
         <div class="mb-1 flex flex-wrap items-baseline justify-center gap-x-3">
           <span class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/30">Valeur</span>
           <span class="font-playfair text-2xl font-light text-[#2C2824]/30 line-through">2 000 EUR</span>
@@ -908,7 +908,7 @@ const faq = [
   <!-- Countdown 3 mai script -->
   <script is:inline>
     function updateCountdown() {
-      var deadline = new Date('2026-04-28T21:00:00Z').getTime();
+      var deadline = new Date('2026-04-29T10:00:00Z').getTime();
       var now = new Date().getTime();
       var diff = deadline - now;
       var pad = function(n) { return n < 10 ? '0' + n : n; };
