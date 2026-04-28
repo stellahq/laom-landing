@@ -19,6 +19,8 @@ const PRODUCT_TAG_MAP: Record<string, string> = {
   'school-merci': 'oto-147-achete',
   'school-online': 'school-497-achete',
   'school-online-2x': 'school-497-achete', // Meme tag pour les 2 modes de paiement
+  'school-live': 'school-live-297-achete',
+  'school-live-2x': 'school-live-297-achete',
 }
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -405,6 +407,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const customerId = payment.customerId
       const mandateId = payment.mandateId
 
+      // Determine 2nd installment amount + product based on the 1st one
+      const isLiveOffer = metadata.product === 'school-live-2x'
+      const secondAmount = isLiveOffer ? '148.50' : '248.50'
+      const secondTotal = isLiveOffer ? '297.00' : '497.00'
+      const secondProduct = isLiveOffer ? 'school-live-2x' : 'school-online-2x'
+      const secondDescription = isLiveOffer
+        ? 'LAOM School Online — Offre live, paiement 2/2 (148,50 EUR)'
+        : 'LAOM School Online — Paiement 2/2 (248,50 EUR)'
+
       if (customerId && mandateId) {
         try {
           const secondPayment = await fetch('https://api.mollie.com/v2/payments', {
@@ -414,17 +425,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              amount: { currency: 'EUR', value: '248.50' },
-              description: 'LAOM School Online — Paiement 2/2 (248,50 EUR)',
+              amount: { currency: 'EUR', value: secondAmount },
+              description: secondDescription,
               sequenceType: 'recurring',
               customerId,
               mandateId,
               webhookUrl: `${origin}/api/mollie/webhook/`,
               metadata: {
-                product: 'school-online-2x',
+                product: secondProduct,
                 email: metadata.email || null,
                 installment: '2of2',
-                total_amount: '497.00',
+                total_amount: secondTotal,
                 created_at: new Date().toISOString(),
               },
               // Programmer le prelevement dans 30 jours
@@ -450,9 +461,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
                   )
                   .bind(
                     secondData.id,
-                    'school-online-2x',
+                    secondProduct,
                     metadata.email || null,
-                    '248.50',
+                    secondAmount,
                     secondData.status,
                     new Date().toISOString(),
                   )

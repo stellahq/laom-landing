@@ -128,7 +128,7 @@ const tarifs = [
           <p class="text-xs font-mono tracking-[0.15em] uppercase text-[#8B7A3A] mb-4">03</p>
           <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-4">Vivre</h3>
           <p class="text-base font-light text-[#2C2824]/75 leading-relaxed">
-            <strong class="font-medium text-[#2C2824]">Atelier participatif</strong> selon la saison (enduit terre, jardin, cuisine, bois). <strong class="font-medium text-[#2C2824]">Repas partagés à la guinguette</strong>, soirée au feu sous les étoiles, et une nuit en tipi pour ceux qui veulent prolonger.
+            <strong class="font-medium text-[#2C2824]">Repas partagés à la guinguette</strong> avec les légumes du jardin, soirée au feu sous les étoiles, et une nuit en tipi pour ceux qui veulent prolonger l'expérience.
           </p>
         </div>
       </div>
@@ -515,32 +515,162 @@ const tarifs = [
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- Inscription -->
   <section id="reserver" class="py-24 md:py-32 bg-[#2C2824] text-white">
-    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">16 — 17 mai 2026 · 12 places max</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Prêt·e à venir voir LAOM de tes propres yeux ?</h2>
-      <p class="text-base font-light text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
-        Un week-end pour visiter, échanger, vivre — et repartir avec du concret.
-      </p>
+    <div class="max-w-2xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">16 — 17 mai 2026 · 12 places max</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-normal mb-4 tracking-tight">Je m'inscris</h2>
+        <p class="text-base font-light text-white/60 max-w-xl mx-auto leading-relaxed">
+          Remplis le formulaire — on t'envoie la confirmation et les infos pratiques par retour de mail.
+        </p>
+      </div>
 
-      <div class="flex flex-wrap justify-center gap-4">
-        <a
-          href="mailto:laomcoliving@gmail.com?subject=Inscription%20Week-end%20Porte%20Ouverte%2016-17%20mai&body=Bonjour%2C%0A%0AJe%20souhaite%20m%27inscrire%20au%20Week-end%20Porte%20Ouverte%20de%20LAOM%20du%2016-17%20mai%202026.%0A%0AFormule%20%3A%20avec%20nuit%20en%20tipi%20%2F%20sans%20nuit%0ANombre%20de%20personnes%20%3A%20%0AEnfants%20%28nombre%20et%20%C3%A2ges%29%20%3A%20%0AR%C3%A9gimes%20alimentaires%20%2F%20allergies%20%3A%20%0A%0AMerci%20%21"
-          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
-        >
-          Je m'inscris par mail
-        </a>
-        <a
-          href="https://cal.atomik.world/charly/30min"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center rounded-sm border border-white/30 text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#2C2824] transition-colors"
-        >
-          Poser une question
+      <form id="inscription-form" class="space-y-6 bg-white/5 border border-white/10 rounded-sm p-6 md:p-10">
+
+        <!-- Formule -->
+        <div>
+          <label class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Formule</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="cursor-pointer">
+              <input type="radio" name="formule" value="sans-nuit" class="sr-only peer" checked />
+              <div class="p-4 border-2 border-white/15 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white/10 transition-colors">
+                <p class="font-playfair text-base font-medium text-white">Sans nuit · 60 €</p>
+                <p class="text-xs font-light text-white/50 mt-1">Sam 14h → dim 14h30</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="formule" value="avec-nuit" class="sr-only peer" />
+              <div class="p-4 border-2 border-white/15 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-white/10 transition-colors">
+                <p class="font-playfair text-base font-medium text-white">Avec nuit tipi · 95 €</p>
+                <p class="text-xs font-light text-white/50 mt-1">+ petit-déj dimanche</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Prénom + Nom -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="firstName" class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Prénom</label>
+            <input type="text" id="firstName" name="firstName" required class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+          </div>
+          <div>
+            <label for="lastName" class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Nom</label>
+            <input type="text" id="lastName" name="lastName" required class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+          </div>
+        </div>
+
+        <!-- Email + Téléphone -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label for="email" class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Email</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+          </div>
+          <div>
+            <label for="phone" class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Téléphone</label>
+            <input type="tel" id="phone" name="phone" required placeholder="+33 6 ..." class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+          </div>
+        </div>
+
+        <!-- Nombre de personnes -->
+        <div>
+          <label for="adultes" class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Nombre d'adultes</label>
+          <input type="number" id="adultes" name="adultes" min="1" max="12" value="1" required class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+        </div>
+
+        <!-- Atelier nature enfants -->
+        <div class="border-t border-white/10 pt-6">
+          <label class="flex items-start gap-3 cursor-pointer mb-4">
+            <input type="checkbox" id="atelier-enfants" name="atelier-enfants" class="mt-1 w-4 h-4 accent-[#C4A855]" />
+            <span>
+              <span class="block font-medium text-white">J'inscris mes enfants à l'atelier nature</span>
+              <span class="block text-sm font-light text-white/60 mt-1">Samedi 14h–17h · Les Enfants Sauvages · 10 €/enfant à régler sur place</span>
+            </span>
+          </label>
+
+          <div id="enfants-detail" class="space-y-4 pl-7" hidden>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="enfants-plus-5" class="block text-xs font-light tracking-[0.15em] uppercase text-white/60 mb-2">Enfants + de 5 ans</label>
+                <input type="number" id="enfants-plus-5" name="enfants-plus-5" min="0" max="10" value="0" class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+                <p class="text-xs text-white/40 mt-1">Peuvent être laissés sur les 3h</p>
+              </div>
+              <div>
+                <label for="enfants-moins-5" class="block text-xs font-light tracking-[0.15em] uppercase text-white/60 mb-2">Enfants – de 5 ans</label>
+                <input type="number" id="enfants-moins-5" name="enfants-moins-5" min="0" max="10" value="0" class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+                <p class="text-xs text-white/40 mt-1">Accompagnés d'un parent</p>
+              </div>
+            </div>
+            <p class="text-xs font-light text-[#C4A855]/80 italic">Réservation obligatoire — places limitées. Le règlement (10 €/enfant) se fait sur place.</p>
+          </div>
+        </div>
+
+        <!-- Régimes -->
+        <div>
+          <label for="regimes" class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Régimes alimentaires / allergies</label>
+          <input type="text" id="regimes" name="regimes" placeholder="Végétarien, sans gluten, allergies…" class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white" />
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label for="message" class="block text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Message (optionnel)</label>
+          <textarea id="message" name="message" rows="3" class="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-sm focus:border-[#C4A855] focus:outline-none text-base text-white resize-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer">
+          Envoyer ma demande d'inscription
+        </button>
+
+        <p class="text-xs text-center font-light text-white/40">
+          On revient vers toi sous 48h avec la confirmation et les modalités de paiement.
+        </p>
+      </form>
+
+      <div class="mt-8 text-center">
+        <a href="https://cal.atomik.world/charly/30min" target="_blank" rel="noopener noreferrer" class="text-xs tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors underline underline-offset-4">
+          Plutôt poser une question d'abord
         </a>
       </div>
     </div>
   </section>
+
+  <script>
+    const checkbox = document.getElementById('atelier-enfants') as HTMLInputElement
+    const detail = document.getElementById('enfants-detail') as HTMLDivElement
+    checkbox?.addEventListener('change', () => {
+      detail.hidden = !checkbox.checked
+    })
+
+    const form = document.getElementById('inscription-form') as HTMLFormElement
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const data = new FormData(form)
+      const formuleLabel = data.get('formule') === 'avec-nuit' ? 'Avec nuit en tipi (95 €)' : 'Sans nuit (60 €)'
+      const atelier = (document.getElementById('atelier-enfants') as HTMLInputElement).checked
+      const plus5 = data.get('enfants-plus-5') || '0'
+      const moins5 = data.get('enfants-moins-5') || '0'
+      const lines = [
+        `Bonjour,`,
+        ``,
+        `Je souhaite m'inscrire au Week-end Porte Ouverte de LAOM (16-17 mai 2026).`,
+        ``,
+        `Prénom : ${data.get('firstName')}`,
+        `Nom : ${data.get('lastName')}`,
+        `Email : ${data.get('email')}`,
+        `Téléphone : ${data.get('phone')}`,
+        `Formule : ${formuleLabel}`,
+        `Nombre d'adultes : ${data.get('adultes')}`,
+        `Atelier nature enfants : ${atelier ? `Oui — ${plus5} enfant(s) + de 5 ans, ${moins5} enfant(s) – de 5 ans (10 €/enfant à régler sur place)` : 'Non'}`,
+        `Régimes / allergies : ${data.get('regimes') || '—'}`,
+        `Message : ${data.get('message') || '—'}`,
+        ``,
+        `Merci !`,
+      ]
+      const subject = encodeURIComponent('Inscription Week-end Porte Ouverte 16-17 mai')
+      const body = encodeURIComponent(lines.join('\n'))
+      window.location.href = `mailto:laomcoliving@gmail.com?subject=${subject}&body=${body}`
+    })
+  </script>
 
 </Layout>

@@ -42,6 +42,16 @@ const PRODUCTS: Record<string, ProductConfig> = {
     amount: '147.00',
     description: 'LAOM School Online — Offre inscrits (147 EUR)',
   },
+  'school-live': {
+    amount: '297.00',
+    description: 'LAOM School Online — Offre live exclusive (297 EUR)',
+  },
+  'school-live-2x': {
+    amount: '148.50',
+    description: 'LAOM School Online — Offre live, paiement 1/2 (148,50 EUR)',
+    installments: 2,
+    installmentAmount: '148.50',
+  },
 }
 
 // Sessions Chillworking 2026
@@ -249,9 +259,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   if (product === 'en-mouvement') {
     const EM_BASE = 1100
     const EM_SESSIONS: Record<string, { dates: string; label: string }> = {
-      session1: { dates: '5 — 9 août 2026', label: 'Session 1' },
-      session2: { dates: '11 — 15 août 2026', label: 'Session 2' },
-      session3: { dates: '16 — 20 août 2026', label: 'Session 3' },
+      session1: { dates: '5 — 9 août 2026', label: 'En Mouvement' },
     }
     const EM_COUPONS: Record<string, number> = { TRIBULAOM: 0.2 }
 
@@ -514,7 +522,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   // Pour le paiement en 2 fois, on crée d'abord le 1er paiement
   // Le 2ème sera créé manuellement ou via webhook quand le 1er est payé
-  const isInstallment = product === 'school-online-2x'
+  const isInstallment = product === 'school-online-2x' || product === 'school-live-2x'
+  const installmentTotalAmount =
+    product === 'school-online-2x'
+      ? '497.00'
+      : product === 'school-live-2x'
+      ? '297.00'
+      : productConfig.amount
 
   const molliePayload: Record<string, any> = {
     amount: {
@@ -529,7 +543,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       product,
       email: email || null,
       installment: isInstallment ? '1of2' : null,
-      total_amount: isInstallment ? '497.00' : productConfig.amount,
+      total_amount: isInstallment ? installmentTotalAmount : productConfig.amount,
       created_at: new Date().toISOString(),
     },
   }

@@ -1,0 +1,923 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import TunnelTracker from '~/components/TunnelTracker.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+// Page SSR — pas de prerender pour pouvoir rediriger après la deadline
+export const prerender = false
+
+// Deadline offre live : 28 avril 2026 à 23:00 heure de Paris (CEST = UTC+2)
+const OFFER_DEADLINE = new Date('2026-04-28T21:00:00Z')
+if (new Date() > OFFER_DEADLINE) {
+  return Astro.redirect('/school/online/', 302)
+}
+
+const pageSchema = createWebPageSchema({
+  name: 'LAOMSCHOOL — Offre live exclusive',
+  url: Astro.url.toString(),
+  description: 'Offre live exclusive jusqu\'à 23h ce soir : LAOMSCHOOL à 297 EUR (au lieu de 497 EUR). 12 lives + Q&A avec Charly pendant 6 mois pour créer ton lieu.',
+})
+
+// Paiement Mollie — checkout offre live à 297 EUR (ou 2 x 148,50 EUR)
+const ctaProductId = 'school-live'
+
+const modules = [
+  {
+    num: '01',
+    titre: 'Achat et recherche de terrain',
+    desc: 'Où chercher, comment évaluer et acheter à plusieurs, sans tomber dans les pièges classiques.',
+    points: [
+      'Où chercher selon les critères de ton groupe',
+      'Comment lire un PLU : zonage, autorisations, constructibilité',
+      'Évaluer la viabilité du projet : Géoportail, cadastre, DVF',
+      'Évaluer l\'accessibilité : eau, électricité, route, exposition',
+      'Acheter à plusieurs sans que ça finisse en conflit',
+    ],
+  },
+  {
+    num: '02',
+    titre: 'Structure juridique',
+    desc: 'Trouver le montage qui fonctionne pour ton groupe, et éviter les erreurs qui nous ont coûté 49 000 EUR.',
+    points: [
+      'Les 4 structures dans lesquelles on a navigué en 5 ans',
+      'Indivision : pourquoi c\'est le piège classique',
+      'SAS, SAS Coopérative, SCIA, SCI : avantages et limites',
+      'Quand faire appel à un avocat / notaire, et quoi leur demander',
+      'Les erreurs juridiques à éviter absolument',
+    ],
+  },
+  {
+    num: '03',
+    titre: 'Financement et business plan',
+    desc: 'Comment on a levé plus de 3M EUR sans prêt bancaire, et comment construire un business plan solide.',
+    points: [
+      'Les sources : prêts participatifs, love money, crowdfunding, subventions',
+      'Construire ton plan de financement étape par étape',
+      'Simulation financière : partir de ta situation réelle',
+      'Business plan : les bases qui tiennent la route',
+      'Présenter ton projet à des investisseurs, des prêteurs, la coopérative Oasis',
+    ],
+  },
+  {
+    num: '04',
+    titre: 'Légalité et urbanisme',
+    desc: 'Mairie, DDT, préfecture : comment leur parler et obtenir tes permis.',
+    points: [
+      'Les interlocuteurs clés : maire, DDT, ABF, CAUE, chambre d\'agriculture',
+      'Les erreurs de posture qui bloquent tout',
+      'DP, PC, permis d\'aménager : les démarches d\'urbanisme',
+      'Gérer les refus (on en a eu 3) et rebondir',
+    ],
+  },
+  {
+    num: '05',
+    titre: 'Construction',
+    desc: 'Les choix de construction qui ont fait la différence, et ceux qu\'on éviterait aujourd\'hui.',
+    points: [
+      'Paille porteuse, bois, terre crue : les techniques qu\'on a testées',
+      'Comment choisir en fonction de ton budget, ton climat, ton terrain',
+      'Autoconstruction vs. faire appel à des pros : quand et pourquoi',
+      'Les erreurs de construction : permis, dimensionnement, timing',
+    ],
+  },
+  {
+    num: '06',
+    titre: 'Communauté et collectif',
+    desc: 'Avant le lieu, il y a les gens. C\'est là que tout se joue, et que tout se plante.',
+    points: [
+      'La personne source : c\'est qui et pourquoi c\'est important',
+      'Clarifier les intentions de chacun : vivre sur place, investir, participer de loin ?',
+      'Définir les rôles : porteur de projet, gestionnaire, bâtisseur, investisseur passif',
+      'Les red flags : quand un groupe ne tiendra pas',
+      'Faire tenir une communauté dans le temps',
+    ],
+  },
+  {
+    num: '07',
+    titre: 'Modèle économique',
+    desc: 'Le modèle qui génère 200 à 500K EUR/an, sans devenir esclave du lieu.',
+    points: [
+      'Le piège du lieu militant sans modèle économique',
+      'Les revenus possibles : hébergement, restauration, événements, formation, agritourisme',
+      'Combiner les activités pour créer un modèle viable',
+      'Construire et piloter ton prévisionnel',
+    ],
+  },
+]
+
+const chiffres = [
+  { valeur: '21', unite: 'hectares', desc: 'achetés en collectif, à 8, sans se connaître' },
+  { valeur: '850', unite: 'm²', desc: 'de construction écologique en paille porteuse, record mondial' },
+  { valeur: '3M', unite: 'EUR', desc: 'levés sans prêt bancaire traditionnel' },
+  { valeur: '15', unite: 'foyers', desc: 'qui vivent aujourd\'hui sur le domaine' },
+  { valeur: '49K', unite: 'EUR', desc: 'en avocats et frais juridiques, à cause de simples erreurs' },
+  { valeur: '5', unite: 'ans', desc: 'de terrain, d\'erreurs et de réussites' },
+]
+
+const temoignages = [
+  {
+    texte: 'Une heure. Il m\'a fallu une heure avec Charly pour avoir les réponses que je cherchais depuis des mois. Il a immédiatement vu les angles morts de mon plan de financement. Quand je fais le calcul des erreurs que j\'aurais commises sans cet échange, c\'est au moins 30 000 euros que je n\'aurai pas à perdre.',
+    nom: 'Nicolas',
+    role: 'Porteur de projet écolieu',
+    initiales: 'N',
+  },
+  {
+    texte: 'Échanger avec Charly, c\'est avoir accès à quelqu\'un qui a déjà porté un lieu pendant cinq ans et qui te dit les choses telles qu\'elles sont. Il nous a ouvert les yeux sur des pistes de financement qu\'on n\'avait pas envisagées. Ce qui a le plus de valeur, c\'est la relation de pair : quelqu\'un qui comprend exactement ce que tu traverses.',
+    nom: 'Rico & Martin',
+    role: 'Cofondateurs de Naturopia, Madère',
+    initiales: 'R&M',
+  },
+  {
+    texte: 'Jusque-là je n\'avais croisé que des alternatifs sans le sou ou des entrepreneurs qui n\'ont rien à faire des questions écologiques. Charly m\'a montré que cette intersection existe. Ça me donne de la force et l\'envie de bâtir des projets d\'envergure allant dans le sens de mes valeurs.',
+    nom: 'Nicolas Zanuttini',
+    role: 'Auto-entrepreneur',
+    initiales: 'NZ',
+  },
+]
+
+const faq = [
+  {
+    question: 'Je n\'ai pas encore de terrain. C\'est trop tôt pour moi ?',
+    reponse: 'Non, c\'est le meilleur moment. Un des 7 thèmes est justement consacré à la recherche et l\'évaluation de terrain. Et les erreurs les plus coûteuses se font AVANT d\'acheter, sur le choix du groupe et de la structure juridique.',
+  },
+  {
+    question: 'Je suis seul(e) pour l\'instant, je n\'ai pas de groupe. C\'est pertinent ?',
+    reponse: 'Oui. Un des 7 thèmes est justement consacré à la communauté et au collectif : quel type de groupe tu cherches, quels rôles sont nécessaires, et comment éviter les erreurs de casting. Tu seras bien mieux armé(e) pour constituer ton collectif.',
+  },
+  {
+    question: 'Je ne suis pas en France. Ça marche quand même ?',
+    reponse: 'Les principes fondamentaux (groupe, financement, business model, erreurs à éviter) sont universels. La partie juridique et urbanisme est spécifique à la France, mais les grilles de lecture sont adaptables.',
+  },
+  {
+    question: 'Combien de temps j\'ai accès à la formation ?',
+    reponse: 'Accès à vie aux modules. Les lives durent 6 mois (12 sessions).',
+  },
+  {
+    question: 'Je peux poser mes questions pendant les lives ?',
+    reponse: 'Oui, c\'est fait pour. Chaque live est une session de Q&A collectif. Tu peux obtenir un retour personnalisé de Charly sur ta situation.',
+  },
+  {
+    question: '497 EUR, c\'est vraiment le prix ?',
+    reponse: 'Oui. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois. Et tu peux payer en 2 fois (2 x 248,50 EUR).',
+  },
+]
+---
+
+<Layout
+  title="LAOMSCHOOL — Crée ton lieu sans perdre 5 ans et 49 000 EUR en erreurs | LAOM"
+  description="Formation en ligne : 12 lives avec Charly pendant 6 mois, couvrant 7 thèmes essentiels. La feuille de route complète pour créer un lieu qui tourne. 497 EUR."
+  seo={{ ldJSON: pageSchema }}
+  hideChrome={true}
+>
+  <!-- Bandeau timer sticky 3 mai -->
+  <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
+    <!-- Desktop -->
+    <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-base font-medium text-white">Offre de lancement</span>
+      </div>
+      <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-days">--</span>
+          <span class="text-[10px] block text-red-400/70">j</span>
+        </div>
+        <span class="text-red-400/50 text-lg">:</span>
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-hours">--</span>
+          <span class="text-[10px] block text-red-400/70">h</span>
+        </div>
+        <span class="text-red-400/50 text-lg">:</span>
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-minutes">--</span>
+          <span class="text-[10px] block text-red-400/70">min</span>
+        </div>
+        <span class="text-red-400/50 text-lg">:</span>
+        <div class="text-center">
+          <span class="font-playfair text-2xl font-bold text-red-400" id="cd-seconds">--</span>
+          <span class="text-[10px] block text-red-400/70">sec</span>
+        </div>
+      </div>
+      <a
+        href="#offre"
+        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-5 py-2 text-xs tracking-[0.15em] uppercase hover:bg-[#B09A4A] transition-colors flex-shrink-0"
+      >
+        J'en profite
+      </a>
+    </div>
+    <!-- Mobile -->
+    <a href="#offre" class="sm:hidden flex items-center justify-between px-4 py-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
+        <span class="text-xs font-medium text-white">Offre de lancement</span>
+      </div>
+      <div class="flex items-center gap-1 bg-red-600/20 px-3 py-1 rounded-sm">
+        <span class="font-playfair text-base font-bold text-red-400" id="cd-days-m">--</span>
+        <span class="text-[10px] text-red-400/70">j</span>
+        <span class="text-red-400/50 mx-0.5">:</span>
+        <span class="font-playfair text-base font-bold text-red-400" id="cd-hours-m">--</span>
+        <span class="text-[10px] text-red-400/70">h</span>
+        <span class="text-red-400/50 mx-0.5">:</span>
+        <span class="font-playfair text-base font-bold text-red-400" id="cd-minutes-m">--</span>
+        <span class="text-[10px] text-red-400/70">min</span>
+      </div>
+      <span class="text-xs text-[#C4A855] font-medium uppercase tracking-wider">J'en profite</span>
+    </a>
+  </div>
+
+  <!-- Hero -->
+  <section class="relative py-28 lg:py-36 flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
+        alt="Vue aérienne du Grand Shambala, LAOM, Aveyron"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-black/55"></div>
+    </div>
+    <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <h1 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-6 tracking-tight drop-shadow-lg leading-tight max-w-3xl mx-auto">
+        Crée un tiers-lieu rentable en pleine nature.
+      </h1>
+      <p class="text-xl md:text-2xl font-normal text-white max-w-2xl mx-auto leading-relaxed mb-4">
+        <span class="underline decoration-[#C4A855] underline-offset-4 decoration-2">Sans des années d'essais-erreurs</span>, et <span class="underline decoration-[#C4A855] underline-offset-4 decoration-2">sans attendre qu'une banque te dise oui</span>.
+      </p>
+      <p class="text-lg md:text-xl font-light text-white/70 max-w-2xl mx-auto leading-relaxed mb-12">
+        5 ans de terrain condensés pour que tu puisses enfin te lancer.<br />On te montre tout !
+      </p>
+
+      <!-- VSL intégrée dans le hero (masquée tant qu'il n'y a pas de vidéo) -->
+      <!--
+      <div id="vsl" class="max-w-3xl mx-auto">
+        <div class="aspect-video bg-black rounded-sm border border-white/10 flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-20 h-20 rounded-full border-2 border-[#C4A855] flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-[#C4A855] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <p class="text-sm font-light text-white/40 tracking-wide uppercase">VSL : vidéo à intégrer</p>
+          </div>
+        </div>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <!-- Le problème -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le constat</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-8">
+        Tu veux créer un lieu de vie alternatif. Mais tu te retrouves face à des questionnements, des doutes, des impasses.
+      </h2>
+      <div class="space-y-6 text-lg font-light text-[#2C2824]/75 leading-relaxed">
+        <p>Un écolieu, un coliving, un tiers-lieu, un habitat partagé en pleine nature. Tu as l'élan. Tu as peut-être même le groupe. Tu te demandes peut-être :</p>
+        <ul class="space-y-4 pl-0">
+          <li class="flex items-start gap-3">
+            <span class="text-[#C4A855] mt-1 flex-shrink-0">&#x2022;</span>
+            <span>Comment acheter un terrain à plusieurs sans que ça finisse en conflit ?</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-[#C4A855] mt-1 flex-shrink-0">&#x2022;</span>
+            <span>Quelle structure juridique choisir en fonction de l'ADN de mon collectif ? (c'est très personnalisé)</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-[#C4A855] mt-1 flex-shrink-0">&#x2022;</span>
+            <span>Comment financer un projet à plusieurs centaines de milliers d'euros quand les banques disent non ?</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-[#C4A855] mt-1 flex-shrink-0">&#x2022;</span>
+            <span>Et surtout : comment créer un lieu qui vit, avec <strong class="font-medium text-[#2C2824]">un collectif solide et qui tourne financièrement</strong> ?</span>
+          </li>
+        </ul>
+        <p>
+          Tu passes des mois à chercher des réponses. Des heures sur des forums, des groupes Facebook, des articles contradictoires. Tu parles à des gens qui ont "un projet" mais personne qui a <strong class="font-medium text-[#2C2824]">un lieu qui fonctionne depuis 5 ans</strong>.
+        </p>
+        <p class="text-[#2C2824] font-normal">
+          On est passés par là. On a payé le prix fort pour certaines de ces réponses. Et pour d'autres, on a eu l'intuition juste, celle qui ne s'apprend pas dans les livres mais qui fait toute la différence sur le terrain.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- La preuve (chiffres) -->
+  <section class="py-24 md:py-32 bg-[#2C2824] text-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-20">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">5 ans de terrain</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight">
+          21 hectares. 3M EUR levés. Un business model qui tourne.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-12 mb-20">
+        {chiffres.map((c) => (
+          <div class="text-center">
+            <div class="mb-3">
+              <span class="font-playfair text-5xl md:text-6xl font-medium text-[#C4A855]">{c.valeur}</span>
+              <span class="text-lg font-light text-[#C4A855]/70 ml-1">{c.unite}</span>
+            </div>
+            <p class="text-sm font-light text-white/60 leading-relaxed max-w-[20ch] mx-auto">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="max-w-2xl mx-auto text-center border-t border-white/10 pt-16">
+        <p class="text-lg font-light text-white/70 leading-relaxed mb-6">
+          On s'appelle Charly et Amandine. On a co-fondé <strong class="text-white font-normal">LAOM</strong>, un coliving sur 21 hectares dans le sud de l'Aveyron.
+        </p>
+        <p class="text-lg font-light text-white/70 leading-relaxed">
+          On n'avait aucun diplôme en BTP, en droit, ni en agriculture. On avait 5% du budget nécessaire. Pas de réseau. Pas de modèle à suivre.
+        </p>
+        <p class="text-lg font-light text-white/90 leading-relaxed mt-6">
+          On a tout appris en faisant. Les erreurs, les galères, mais aussi les solutions pour créer un lieu attrayant et qui perdure durablement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA léger après la preuve -->
+  <section class="py-12 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <button
+        type="button"
+        data-mollie-product="school-online"
+        class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+      >
+        Je rejoins l'accompagnement · 497 EUR
+      </button>
+      <p class="text-xs font-light text-[#2C2824]/40 mt-3">ou paiement en 2 fois (2 x 248,50 EUR) au checkout</p>
+    </div>
+  </section>
+
+  <!-- La solution + 7 thèmes -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">La solution</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            LAOMSCHOOL
+          </h2>
+          <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              On a condensé tout ce qu'on a appris en <strong class="font-medium text-[#2C2824]">7 thèmes essentiels</strong> qui suivent le parcours réel d'un projet, de l'idée au lieu qui tourne.
+            </p>
+            <p>
+              C'est l'algorithme qu'on aurait aimé avoir avant de se lancer.
+            </p>
+            <p>
+              Ces 7 thèmes sont couverts pendant <strong class="font-medium text-[#2C2824]">12 lives collectifs avec Charly, un tous les 15 jours pendant 6 mois</strong>, pour travailler sur TON projet.
+            </p>
+          </div>
+        </div>
+        <div class="aspect-[4/3] rounded-sm overflow-hidden">
+          <img
+            src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
+            alt="Le Grand Shambala, plus grand bâtiment en paille porteuse au monde"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- 7 thèmes -->
+      <div class="text-center mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Programme</p>
+        <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight">
+          7 thèmes, de l'idée au lieu qui tourne
+        </h3>
+        <p class="text-sm font-light text-[#2C2824]/50 mt-3">Couverts pendant 12 lives avec Charly, un tous les 15 jours</p>
+      </div>
+
+      <div class="space-y-4">
+        {modules.map((mod) => (
+          <details class="group bg-white rounded-sm overflow-hidden">
+            <summary class="flex items-center gap-6 p-6 md:p-8 cursor-pointer list-none">
+              <span class="text-2xl font-playfair font-medium text-[#C4A855] flex-shrink-0 w-10">{mod.num}</span>
+              <div class="flex-1">
+                <h4 class="font-playfair text-xl font-medium text-[#2C2824] mb-1">{mod.titre}</h4>
+                <p class="text-sm font-light text-[#2C2824]/60">{mod.desc}</p>
+              </div>
+              <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl flex-shrink-0">+</span>
+            </summary>
+            <div class="px-6 md:px-8 pb-6 md:pb-8 ml-16">
+              <ul class="space-y-3">
+                {mod.points.map((point) => (
+                  <li class="flex items-start gap-3 text-sm font-light text-[#2C2824]/70 leading-relaxed">
+                    <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Les lives -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Accompagnement live</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+            12 lives collectifs avec Charly pendant 6 mois
+          </h2>
+          <div class="space-y-4 text-lg font-light text-[#2C2824]/80 leading-relaxed">
+            <p>
+              Chaque thème est couvert par <strong class="font-medium text-[#2C2824]">1 live d'échange collectif tous les 15 jours pendant 6 mois</strong>.
+            </p>
+            <p>Premier live le mardi 5 mai. Ce sont des sessions de questions-réponses sur ton projet, en groupe :</p>
+          </div>
+        </div>
+        <div class="bg-[#FAF8F5] border border-black/5 rounded-sm p-8">
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+              <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+              <span>Poser tes questions sur <strong class="font-medium text-[#2C2824]">TON</strong> projet</span>
+            </li>
+            <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+              <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+              <span>Obtenir un retour personnalisé de Charly sur ta situation</span>
+            </li>
+            <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+              <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+              <span>Avancer concrètement avec quelqu'un qui a déjà fait le chemin</span>
+            </li>
+            <li class="flex items-start gap-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+              <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#10003;</span>
+              <span>Rejoindre une communauté de porteurs de projet qui avancent</span>
+            </li>
+          </ul>
+          <p class="mt-6 text-base font-light text-[#2C2824]/50 italic">
+            Un seul appel avec Charly a permis à Nicolas d'éviter 30 000 EUR d'erreurs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA intermédiaire après les lives -->
+  <section class="py-12 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10">
+        <p class="text-lg font-light text-[#2C2824]/40 mb-2">Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.</p>
+        <div class="mb-1">
+          <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
+        </div>
+        <div class="mb-4">
+          <span class="font-playfair text-5xl font-medium text-[#2C2824]">497</span>
+          <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button
+            type="button"
+            data-mollie-product="school-online"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+          >
+            Paiement unique · 497 EUR
+          </button>
+          <button
+            type="button"
+            data-mollie-product="school-online-2x"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
+          >
+            2 x 248,50 EUR
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Retours d'expérience</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Ils portent des projets similaires
+        </h2>
+      </div>
+
+      <div class="space-y-10">
+        {temoignages.map((t, i) => (
+          <div class="relative">
+            <div class={`absolute top-0 ${i % 2 === 0 ? 'left-0 -translate-x-2' : 'right-0 translate-x-2 rotate-180'} font-playfair text-[100px] md:text-[120px] leading-none text-[#C4A855]/10 -translate-y-4 select-none pointer-events-none`}>"</div>
+            <div class="bg-white p-8 md:p-10 rounded-sm pt-12">
+              <blockquote class="text-base md:text-lg font-light text-[#2C2824]/80 leading-relaxed italic">
+                <p>{t.texte}</p>
+              </blockquote>
+              <div class="flex items-center gap-4 mt-8">
+                <div class="w-10 h-10 rounded-full bg-[#2C2824]/10 flex items-center justify-center text-xs font-medium text-[#2C2824]/50">{t.initiales}</div>
+                <div>
+                  <p class="text-sm font-medium text-[#2C2824]">{t.nom}</p>
+                  <p class="text-xs text-[#2C2824]/40">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA léger après témoignages -->
+  <section class="py-12 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <button
+        type="button"
+        data-mollie-product="school-online"
+        class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+      >
+        Je rejoins l'accompagnement · 497 EUR
+      </button>
+    </div>
+  </section>
+
+  <!-- Qui sommes-nous -->
+  <section class="py-20 md:py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-16">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Qui sommes-nous</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Charly & Amandine
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-40 h-40 rounded-full overflow-hidden mb-6">
+            <img src="/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp" alt="Amandine Orriols, co-fondatrice de LAOM" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Amandine Orriols</h3>
+          <div class="space-y-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            <p>Co-fondatrice de LAOM. 37 ans. Entrepreneure depuis 10 ans, elle a précédemment monté un business en ligne avec une communauté de 50 000 personnes.</p>
+            <p>Modèle d'affaires, stratégie, acquisition, marketing, communication.</p>
+            <p>A créé Les Enfants Sauvages, une association dédiée aux enfants et à la reconnexion à la nature sur le lieu. Organise des événements et des retraites bien-être depuis plusieurs années.</p>
+            <p>Multilingue (français, anglais, espagnol), expérience internationale.</p>
+            <p class="text-[#2C2824] font-normal">Ce qu'elle apporte : rendre le lieu attrayant pour les familles et les entrepreneurs en quête d'inspiration et de ressourcement, et ouvrir LAOM à l'international.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center text-center">
+          <div class="w-40 h-40 rounded-full overflow-hidden mb-6">
+            <img src="/images/laom/qui-sommes-nous/charly-rond-f60f6ff8.webp" alt="Charly Aubert, co-fondateur de LAOM" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Charly Aubert</h3>
+          <div class="space-y-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
+            <p>Co-fondateur de LAOM. 33 ans, ex-Epitech (formation ingénieur informatique) et formé en maîtrise d'œuvre de bâtiment bioclimatique. C'est lui qui porte la vision du lieu et du coliving depuis le début.</p>
+            <p>Il a assuré le montage juridique du collectif et pilote la maîtrise d'œuvre de l'ensemble des constructions écologiques du domaine, dont le plus grand bâtiment en paille porteuse au monde (850 m²). 4 ans de travail main dans la main avec les administrations pour obtenir les autorisations.</p>
+            <p>Entrepreneur depuis 10 ans. Il accompagne des porteurs de projet dans leur structuration et anime les lives collectifs de LAOMSCHOOL.</p>
+            <p class="text-[#2C2824] font-normal">Son approche : pragmatique, directe, sans détour.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA léger après qui sommes-nous -->
+  <section class="py-12 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <button
+        type="button"
+        data-mollie-product="school-online"
+        class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+      >
+        Je rejoins l'accompagnement · 497 EUR
+      </button>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">FAQ</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Questions fréquentes</h2>
+
+      <div class="space-y-6">
+        {faq.map((item) => (
+          <details class="group border-b border-black/10 pb-6">
+            <summary class="flex justify-between items-center cursor-pointer list-none">
+              <h3 class="font-medium text-[#2C2824] pr-8">{item.question}</h3>
+              <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
+            </summary>
+            <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
+              {item.reponse}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Récap offre + Prix -->
+  <section id="offre" class="py-20 md:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-12">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">L'offre</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          Ce que tu obtiens
+        </h2>
+      </div>
+
+      <div class="bg-[#FAF8F5] rounded-sm p-8 md:p-10 mb-10">
+        <ul class="space-y-4">
+          <li class="flex items-start gap-4">
+            <span class="text-[#C4A855] text-xl mt-0.5">&#10003;</span>
+            <div>
+              <span class="font-medium text-[#2C2824]">7 thèmes essentiels couverts en 12 lives</span>
+              <span class="text-sm font-light text-[#2C2824]/60 block">La feuille de route complète, de l'idée au lieu qui tourne. Travaillée en direct avec Charly.</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-[#C4A855] text-xl mt-0.5">&#10003;</span>
+            <div>
+              <span class="font-medium text-[#2C2824]">12 lives collectifs avec Charly</span>
+              <span class="text-sm font-light text-[#2C2824]/60 block">1 live d'échange et Q&A / 15 jours pendant 6 mois sur ton projet</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-[#C4A855] text-xl mt-0.5">&#10003;</span>
+            <div>
+              <span class="font-medium text-[#2C2824]">Accès à vie aux replays des lives</span>
+              <span class="text-sm font-light text-[#2C2824]/60 block">Tu peux revenir sur chaque live à ton rythme</span>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="text-[#C4A855] text-xl mt-0.5">&#10003;</span>
+            <div>
+              <span class="font-medium text-[#2C2824]">Communauté de porteurs de projet</span>
+              <span class="text-sm font-light text-[#2C2824]/60 block">Tu n'es plus seul avec ton projet</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Prix -->
+      <div class="bg-white border-2 border-[#C4A855] rounded-sm p-10 text-center">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Offre de lancement</p>
+        <div class="mb-1">
+          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
+        </div>
+        <div class="mb-4">
+          <span class="font-playfair text-6xl font-medium text-[#2C2824]">497</span>
+          <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
+        </div>
+        <p class="text-sm font-light text-[#2C2824]/50 mb-8 max-w-md mx-auto">
+          Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.
+        </p>
+        <div class="flex flex-col gap-3">
+          <button
+            type="button"
+            data-mollie-product="school-online"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+          >
+            J'accède à l'accompagnement · 497 EUR
+          </button>
+          <button
+            type="button"
+            data-mollie-product="school-online-2x"
+            class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
+          >
+            ou en 2 fois : 2 x 248,50 EUR
+          </button>
+        </div>
+        <p class="text-xs font-light text-[#2C2824]/30 mt-4">Ce prix ne sera pas maintenu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dernier CTA -->
+  <section class="py-20 md:py-24 bg-[#2C2824]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-6">Tu as un projet de lieu. On a 5 ans de réponses.</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-medium text-white tracking-tight mb-6">
+        7 thèmes. 12 lives. 497&nbsp;EUR.
+      </h2>
+      <p class="text-lg font-light text-white/60 leading-relaxed mb-10 max-w-xl mx-auto">
+        Tout ce qu'on a appris en 5 ans, structuré pour que tu ailles plus vite que nous.
+      </p>
+
+      <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
+        <button
+          type="button"
+          data-mollie-product="school-online"
+          class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
+        >
+          Paiement unique · 497 EUR
+        </button>
+        <button
+          type="button"
+          data-mollie-product="school-online-2x"
+          class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
+        >
+          2 x 248,50 EUR
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer mini -->
+  <section class="py-10 bg-[#1E1B18] text-center">
+    <p class="text-xs font-light text-white/30">
+      <strong class="text-white/50 font-normal">LAOMSCHOOL</strong> est une formation créée par Charly & Amandine, co-fondateurs de LAOM, coliving sur 21 hectares dans le sud de l'Aveyron.
+    </p>
+    <p class="text-xs font-light text-white/20 mt-2">
+      Questions ? <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-white/40 transition-colors">hello@laom.fr</a>
+    </p>
+  </section>
+
+  <!-- Modale email -->
+  <div id="email-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden">
+    <div class="bg-[#FAF8F5] rounded-sm p-8 max-w-md w-full mx-4 relative">
+      <button id="email-modal-close" type="button" class="absolute top-4 right-4 text-[#2C2824]/40 hover:text-[#2C2824] transition-colors" aria-label="Fermer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Dernière étape</p>
+      <p class="text-base font-light text-[#2C2824]/70 mb-6">Entre ton email pour recevoir ta confirmation et tes accès.</p>
+      <form id="email-form">
+        <input
+          type="email"
+          id="email-input"
+          required
+          placeholder="ton@email.com"
+          class="w-full border border-black/10 rounded-sm px-4 py-3 text-base font-light text-[#2C2824] bg-white focus:outline-none focus:ring-1 focus:ring-[#C4A855] mb-4"
+        />
+        <button
+          type="submit"
+          id="email-submit"
+          class="w-full rounded-sm bg-[#C4A855] text-white px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer font-medium"
+        >
+          Continuer vers le paiement
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mollie checkout script -->
+  <script is:inline>
+    (function() {
+      var pendingProduct = null;
+      var pendingBtn = null;
+      var pendingOriginalText = null;
+      var modal = document.getElementById('email-modal');
+      var emailInput = document.getElementById('email-input');
+      var emailForm = document.getElementById('email-form');
+      var closeBtn = document.getElementById('email-modal-close');
+
+      // Ouvrir la modale au clic sur un CTA
+      document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.mollie-cta');
+        if (!btn) return;
+        e.preventDefault();
+        var product = btn.getAttribute('data-mollie-product');
+        if (!product) return;
+
+        pendingProduct = product;
+        pendingBtn = btn;
+        pendingOriginalText = btn.textContent;
+        modal.classList.remove('hidden');
+        emailInput.value = '';
+        emailInput.focus();
+      });
+
+      // Fermer la modale
+      closeBtn.addEventListener('click', function() {
+        modal.classList.add('hidden');
+        pendingProduct = null;
+        pendingBtn = null;
+      });
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          pendingProduct = null;
+          pendingBtn = null;
+        }
+      });
+
+      // Soumettre l'email et lancer le paiement
+      emailForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = emailInput.value.trim();
+        if (!email || !pendingProduct) return;
+
+        // Fermer la modale et désactiver le bouton
+        modal.classList.add('hidden');
+        if (pendingBtn) {
+          pendingBtn.disabled = true;
+          pendingBtn.textContent = 'Redirection en cours...';
+          pendingBtn.style.opacity = '0.7';
+        }
+
+        var btn = pendingBtn;
+        var originalText = pendingOriginalText;
+
+        fetch('/api/mollie/create-payment/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ product: pendingProduct, email: email })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.checkoutUrl) {
+            window.location.href = data.checkoutUrl;
+          } else {
+            alert('Erreur lors de la création du paiement. Contacte-nous à hello@laom.fr');
+            if (btn) { btn.disabled = false; btn.textContent = originalText; btn.style.opacity = '1'; }
+          }
+        })
+        .catch(function() {
+          alert('Erreur de connexion. Réessaie ou contacte-nous à hello@laom.fr');
+          if (btn) { btn.disabled = false; btn.textContent = originalText; btn.style.opacity = '1'; }
+        });
+      });
+    })();
+  </script>
+
+  <!-- Countdown 3 mai script -->
+  <script is:inline>
+    function updateCountdown() {
+      var deadline = new Date('2026-05-03T21:00:00Z').getTime();
+      var now = new Date().getTime();
+      var diff = deadline - now;
+      var pad = function(n) { return n < 10 ? '0' + n : n; };
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-minutes','cd-seconds','cd-days-m','cd-hours-m','cd-minutes-m'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = '00';
+        });
+        return;
+      }
+      var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var s = Math.floor((diff % (1000 * 60)) / 1000);
+      document.getElementById('cd-days').textContent = pad(d);
+      document.getElementById('cd-hours').textContent = pad(h);
+      document.getElementById('cd-minutes').textContent = pad(m);
+      document.getElementById('cd-seconds').textContent = pad(s);
+      var dm = document.getElementById('cd-days-m');
+      var hm = document.getElementById('cd-hours-m');
+      var mm = document.getElementById('cd-minutes-m');
+      if (dm) dm.textContent = pad(d);
+      if (hm) hm.textContent = pad(h);
+      if (mm) mm.textContent = pad(m);
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+
+  <!-- Tunnel Tracker — tracking maison first-party -->
+  <TunnelTracker page="/school/online/" />
+
+  <!-- Tunnel tracking hooks : CTA clicks, scroll depth, checkout -->
+  <script is:inline>
+  (function() {
+    if (typeof window.__tunnelTrack !== 'function') return;
+
+    // 1. CTA clicks
+    document.querySelectorAll('.mollie-cta').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        window.__tunnelTrack('cta_click', {
+          product: btn.getAttribute('data-mollie-product') || 'unknown',
+          button_text: (btn.textContent || '').trim().slice(0, 60)
+        });
+        window.__tunnelTrack('checkout_initiated', {
+          product: btn.getAttribute('data-mollie-product') || 'school-online',
+          page: '/school/online/'
+        });
+      });
+    });
+
+    // 2. Scroll depth tracking (25%, 50%, 75%, 100%)
+    var scrollTracked = {};
+    var scrollMilestones = [25, 50, 75, 100];
+    function checkScroll() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (docHeight <= 0) return;
+      var pct = Math.floor((scrollTop / docHeight) * 100);
+      scrollMilestones.forEach(function(m) {
+        if (pct >= m && !scrollTracked[m]) {
+          scrollTracked[m] = true;
+          window.__tunnelTrack('scroll_depth', { percent: m });
+        }
+      });
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true });
+
+    // 3. Detect source : came from timer expiry vs email vs direct
+    var ref = document.referrer || '';
+    if (ref.indexOf('/school/merci') !== -1) {
+      window.__tunnelTrack('page_view', { arrival_source: 'timer_expired_redirect' });
+    }
+  })();
+  </script>
+</Layout>

@@ -12,9 +12,7 @@ const pageSchema = createWebPageSchema({
 })
 
 const sessions = [
-  { date: '5 à 9 août 2026', label: 'Session 1' },
-  { date: '11 à 15 août 2026', label: 'Session 2' },
-  { date: '16 à 20 août 2026', label: 'Session 3' },
+  { date: '5 à 9 août 2026', label: 'Dates' },
 ]
 ---
 
@@ -545,9 +543,9 @@ const sessions = [
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">Pratique</p>
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Infos pratiques</h2>
 
-      <!-- Sessions -->
+      <!-- Session -->
       <div class="mb-12">
-        <p class="text-sm font-light text-[#2C2824]/50 mb-4 uppercase tracking-widest">3 sessions cet été</p>
+        <p class="text-sm font-light text-[#2C2824]/50 mb-4 uppercase tracking-widest">Session</p>
         <div class="space-y-3">
           {sessions.map((s) => (
             <div class="flex justify-between items-center py-3 border-b border-black/5">
@@ -611,16 +609,6 @@ const sessions = [
           </summary>
           <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
             Pas besoin d'être sportif. Les pratiques sont adaptables à chaque corps. On alterne mouvements dynamiques et temps de repos. Signale-nous toute limitation physique à l'inscription pour qu'on adapte l'accompagnement.
-          </p>
-        </details>
-
-        <details class="group border-b border-black/10 pb-6">
-          <summary class="flex justify-between items-center cursor-pointer list-none">
-            <h3 class="font-medium text-[#2C2824] pr-8">Quelle est la différence entre les 3 sessions ?</h3>
-            <span class="text-[#C4A855] group-open:rotate-45 transition-transform text-2xl">+</span>
-          </summary>
-          <p class="mt-4 text-base font-light text-[#2C2824]/70 leading-relaxed">
-            Le contenu est identique. Les 3 sessions permettent de choisir les dates qui te conviennent et de limiter la taille du groupe (15 max par session). L'énergie de chaque groupe est unique, mais la progression reste la même.
           </p>
         </details>
 

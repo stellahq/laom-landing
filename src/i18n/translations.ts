@@ -745,7 +745,7 @@ export const translations = {
       enMouvementCard: {
         title: 'En Mouvement',
         description: '5 jours d\'immersion par la danse et le mouvement. Guidé par Samuel Planas et Charly Aubert. Ouvert à tous.',
-        date: 'Août 2026 · 3 sessions',
+        date: '5 — 9 août 2026',
       },
       clarteCard: {
         title: 'Clarté',
@@ -1523,7 +1523,7 @@ export const translations = {
       enMouvementCard: {
         title: 'En Mouvement',
         description: '5-day immersion through dance and movement. Led by Samuel Planas and Charly Aubert. Open to all.',
-        date: 'August 2026 · 3 sessions',
+        date: 'August 5 — 9, 2026',
       },
       clarteCard: {
         title: 'Clarté',
