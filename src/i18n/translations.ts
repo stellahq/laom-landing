@@ -1,5 +1,5 @@
 /** Official LAOM Instagram profile – use this URL for all Instagram links. */
-export const INSTAGRAM_URL = 'https://www.instagram.com/laom.coliving/'
+export const INSTAGRAM_URL = 'https://www.instagram.com/laomcoliving/'
 
 /** Official LAOM YouTube channel – use this URL for all YouTube links. */
 export const YOUTUBE_URL = 'https://www.youtube.com/@charlyaubert'
