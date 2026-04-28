@@ -490,51 +490,54 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Quand un paiement est confirme, tagger le subscriber dans Kit (API v4)
-    // Tag specifique au produit pour segmentation fine
+    // Tag specifique au produit (segmentation fine) + tag generique "laom-school-online"
     if (status === 'paid' && metadata.email && metadata.installment !== '2of2') {
       const kitApiSecret = env?.KIT_API_SECRET
       if (kitApiSecret) {
-        const tagName = PRODUCT_TAG_MAP[metadata.product] || 'laom-school-online'
+        const productTag = PRODUCT_TAG_MAP[metadata.product] || 'laom-school-online'
+
+        // Tags à appliquer : produit-spécifique + générique pour compat (dédoublonné)
+        const tagsToApply = Array.from(new Set([productTag, 'laom-school-online']))
 
         try {
-          // Kit API v4 : lister les tags
+          // Lister tous les tags Kit une seule fois
           const tagsRes = await fetch('https://api.kit.com/v4/tags', {
             headers: {
               'X-Kit-Api-Key': kitApiSecret,
               Accept: 'application/json',
             },
           })
-          let tagId: number | null = null
+          const existingTags: Array<{ id: number; name: string }> = tagsRes.ok
+            ? ((await tagsRes.json()) as any).tags || []
+            : []
 
-          if (tagsRes.ok) {
-            const tagsData = (await tagsRes.json()) as any
-            const existingTag = (tagsData.tags || []).find(
-              (t: any) => t.name === tagName,
-            )
+          for (const tagName of tagsToApply) {
+            let tagId: number | null = null
+            const existingTag = existingTags.find((t) => t.name === tagName)
             if (existingTag) {
               tagId = existingTag.id
+            } else {
+              // Créer le tag s'il n'existe pas
+              const createTagRes = await fetch('https://api.kit.com/v4/tags', {
+                method: 'POST',
+                headers: {
+                  'X-Kit-Api-Key': kitApiSecret,
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
+                body: JSON.stringify({ name: tagName }),
+              })
+              if (createTagRes.ok) {
+                const created = (await createTagRes.json()) as any
+                tagId = created.tag?.id || created.id
+              }
             }
-          }
 
-          // Si le tag n'existe pas encore, le creer
-          if (!tagId) {
-            const createTagRes = await fetch('https://api.kit.com/v4/tags', {
-              method: 'POST',
-              headers: {
-                'X-Kit-Api-Key': kitApiSecret,
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-              },
-              body: JSON.stringify({ name: tagName }),
-            })
-            if (createTagRes.ok) {
-              const created = (await createTagRes.json()) as any
-              tagId = created.tag?.id || created.id
+            if (!tagId) {
+              console.error(`Kit v4: could not find or create tag "${tagName}"`)
+              continue
             }
-          }
 
-          // Tagger le subscriber par email
-          if (tagId) {
             const tagSubRes = await fetch(
               `https://api.kit.com/v4/tags/${tagId}/subscribers`,
               {
@@ -544,66 +547,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
                   'Content-Type': 'application/json',
                   Accept: 'application/json',
                 },
-                body: JSON.stringify({
-                  email_address: metadata.email,
-                }),
+                body: JSON.stringify({ email_address: metadata.email }),
               },
             )
 
             if (tagSubRes.ok) {
-              console.log(
-                `Kit v4: tagged ${metadata.email} with "${tagName}" (tag ${tagId})`,
-              )
+              console.log(`Kit v4: tagged ${metadata.email} with "${tagName}" (tag ${tagId})`)
             } else {
-              const errData = (await tagSubRes.json()) as any
-              console.error('Kit v4: failed to tag subscriber:', errData)
-            }
-          } else {
-            console.error(`Kit v4: could not find or create tag "${tagName}"`)
-          }
-
-          // Aussi tagger avec le tag generique "laom-school-online" pour compatibilite
-          if (tagName !== 'laom-school-online') {
-            try {
-              // Chercher ou creer le tag generique
-              let genericTagId: number | null = null
-              if (tagsRes.ok) {
-                const tagsData = (await tagsRes.json()) as any
-                const genericTag = (tagsData.tags || []).find(
-                  (t: any) => t.name === 'laom-school-online',
-                )
-                if (genericTag) genericTagId = genericTag.id
-              }
-
-              if (!genericTagId) {
-                const createRes = await fetch('https://api.kit.com/v4/tags', {
-                  method: 'POST',
-                  headers: {
-                    'X-Kit-Api-Key': kitApiSecret,
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                  },
-                  body: JSON.stringify({ name: 'laom-school-online' }),
-                })
-                if (createRes.ok) {
-                  const data = (await createRes.json()) as any
-                  genericTagId = data.tag?.id || data.id
-                }
-              }
-
-              if (genericTagId) {
-                await fetch(`https://api.kit.com/v4/tags/${genericTagId}/subscribers`, {
-                  method: 'POST',
-                  headers: {
-                    'X-Kit-Api-Key': kitApiSecret,
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                  },
-                  body: JSON.stringify({ email_address: metadata.email }),
-                })
-              }
-            } catch (e) {
-              console.error('Kit v4: error tagging generic (non-blocking):', e)
+              const errData = await tagSubRes.json().catch(() => ({}))
+              console.error(`Kit v4: failed to tag with "${tagName}":`, errData)
             }
           }
         } catch (kitErr) {
