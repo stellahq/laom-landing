@@ -5,7 +5,7 @@ import { createWebPageSchema } from '~/utils/schema'
 const pageSchema = createWebPageSchema({
   name: 'Rejoignez l\'aventure LAOM',
   url: Astro.url.toString(),
-  description: 'Recevez les coulisses du chantier chaque dimanche.',
+  description: 'Chaque dimanche, ce qui se passe à LAOM : chantiers, événements, coulisses, rencontres improbables — et comment venir.',
 })
 
 // Kit form options
@@ -47,7 +47,7 @@ const testimonials = [
 
 <Layout
   title="Rejoignez l'aventure LAOM"
-  description="Recevez les coulisses du chantier chaque dimanche."
+  description="Chaque dimanche, ce qui se passe à LAOM : chantiers, événements, coulisses, rencontres improbables — et comment venir."
   seo={{ ldJSON: pageSchema }}
 >
   <style is:global>
@@ -87,8 +87,8 @@ const testimonials = [
           Rejoignez<br/>l'aventure
         </h1>
 
-        <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed max-w-md">
-          Recevez les coulisses du chantier chaque dimanche.
+        <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed max-w-lg">
+          Chaque dimanche, je raconte ce qui se passe ici dans une newsletter : chantiers, événements, coulisses, rencontres improbables (et comment tu peux toi aussi venir à LAOM).
         </p>
 
         <!-- Formulaire Kit #1 -->
@@ -173,35 +173,49 @@ const testimonials = [
 
   <!-- CE QUE VOUS RECEVEZ -->
   <section class="py-20 md:py-24 bg-[#FAF8F5]">
-    <div class="max-w-4xl mx-auto px-6 md:px-10">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] mb-14 text-center tracking-tight">
         Ce que vous recevez
       </h2>
 
-      <div class="grid md:grid-cols-2 gap-10 md:gap-12">
-        <!-- Bullet 1 : Coulisses -->
+      <div class="grid md:grid-cols-3 gap-10 md:gap-8">
+        <!-- Bullet 1 : Chantiers & coulisses -->
         <div class="text-center">
           <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
             <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Coulisses du chantier</h3>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Chantiers & coulisses</h3>
           <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
             Avancées, décisions, erreurs et apprentissages. Sans filtre.
           </p>
         </div>
 
-        <!-- Bullet 2 : Avant-première -->
+        <!-- Bullet 2 : Événements & rencontres -->
         <div class="text-center">
           <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
             <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Avant-première</h3>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Événements & rencontres</h3>
           <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
-            Nouvelles dates, places disponibles — vous êtes prévenus en premier.
+            Ce qui se passe à LAOM, et les rencontres improbables qu'on y fait.
+          </p>
+        </div>
+
+        <!-- Bullet 3 : Venir à LAOM -->
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
+            <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Comment venir à LAOM</h3>
+          <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
+            Stages, retraites, ouverture du coliving — tu es prévenu·e en premier.
           </p>
         </div>
       </div>
@@ -281,9 +295,9 @@ const testimonials = [
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
         <div class="aspect-[4/3] overflow-hidden rounded-sm">
           <img
-            src="/images/laom/laomletter/collectif-la-margue-laomletter.webp"
-            alt="Le collectif à La Margue"
-            title="Le collectif LAOM réuni à La Margue"
+            src="/images/laom/newsletter/Oasis-La-Margue-1.webp"
+            alt="L'oasis de La Margue, LAOM"
+            title="L'oasis de La Margue, LAOM"
             class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
