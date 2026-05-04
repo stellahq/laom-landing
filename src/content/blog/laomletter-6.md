@@ -90,7 +90,7 @@ Pour qui ? Tous ceux qui veulent créer un lieu alternatif, un coliving, un éco
 
 C'est gratuit et on a été cash. On n'a pas vendu un rêve. On a raconté ce que ça coûte, en argent, en énergie, en relations humaines, et pourquoi on le referait sans hésiter.
 
-[Je regarde le replay de la conférence ❤️](/replay/)
+[Je regarde le replay de la conférence ❤️](https://laom.fr/talk/)
 
 - **Acheter en collectif** : Comment on a acheté 21 hectares à 8 sans se connaître, et ce qu'on aurait dû faire autrement.
 - **Bâtir résilient** : Construire en matériaux naturels — pourquoi on a choisi la paille porteuse, et comment on a bâti 850 m² peu coûteux à entretenir, avec des matériaux locaux.
@@ -100,7 +100,7 @@ C'est gratuit et on a été cash. On n'a pas vendu un rêve. On a raconté ce qu
 - **Éviter nos erreurs** : Les 7 erreurs qui nous ont coûté 49 000 € d'avocats/conseil et 5 ans de chaos.
 - **Passer à l'action** : Ce qu'on ferait différemment si c'était à refaire.
 
-[Je regarde le replay](/replay/)
+[Je regarde le replay](https://laom.fr/talk/)
 
 ---
 
