@@ -160,7 +160,7 @@ const faq = [
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
-  <!-- Bandeau timer sticky 3 mai -->
+  <!-- Bandeau timer sticky 4 mai 20h Paris -->
   <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
     <!-- Desktop -->
     <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
@@ -882,10 +882,10 @@ const faq = [
     })();
   </script>
 
-  <!-- Countdown 3 mai script -->
+  <!-- Countdown 4 mai 20h Paris script -->
   <script is:inline>
     function updateCountdown() {
-      var deadline = new Date('2026-05-03T21:00:00Z').getTime();
+      var deadline = new Date('2026-05-04T18:00:00Z').getTime();
       var now = new Date().getTime();
       var diff = deadline - now;
       var pad = function(n) { return n < 10 ? '0' + n : n; };
