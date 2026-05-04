@@ -39,6 +39,8 @@ Façade nord en terre, principes bioclimatiques, esprit Mike Reynolds adapté à
 
 ![Croquis bâtiment ossature bois inspiré de l'Earthship à LAOM](/images/laom/laomletter/croquis-batiment-earthship-laom.webp)
 
+*le croquis bâtiment ossature bois inspiré de l'Earthship*
+
 En pratique, deux choses nous ont fait évoluer.
 
 **D'abord, le territoire.**
@@ -74,7 +76,11 @@ La paille porteuse + ferme maraîchère externalisée nous y emmène mieux que l
 
 ![LAOM avant les travaux en 2021](/images/laom/laomletter/laom-avant.webp)
 
+*LAOM avant*
+
 ![LAOM 5 ans après : 1200 m² de bâti en plus, vue aérienne](/images/laom/newsletter/vue%20aeriene%20laom2.webp)
+
+*LAOM 5 ans après ! 1200m² de bâti en plus*
 
 ---
 
