@@ -1,6 +1,6 @@
 ---
 title: "LaomLetter #6"
-description: "Un filet geant suspendu dans le vide, un Shala en bois brule qui prend forme, un pianiste a velo qui debarque. Et le replay de la conference creer un lieu."
+description: "Un filet géant suspendu dans le vide, un Shala en bois brûlé qui prend forme, un pianiste à vélo qui débarque. Et le replay de la conférence créer un lieu."
 pubDate: 2026-04-12
 heroImage: "/images/laom/laomletter/inspiration-filet-salle-shala-laom.webp"
 author: "Amandine & Charly"
@@ -38,9 +38,9 @@ C'est exactement ce qui nous fait vibrer dans ce projet. Les idées qui débarqu
 
 Voici le croquis dessin technique du filet en cours de création, & une photo moodboard de ce qu'on imagine.
 
-![Croquis technique du filet 6x6 suspendu a la salle Shala de LAOM](/images/laom/laomletter/croquis-filet-salle-shala-laom.webp)
+![Croquis technique du filet 6x6 suspendu à la salle Shala de LAOM](/images/laom/laomletter/croquis-filet-salle-shala-laom.webp)
 
-![Inspiration pour notre filet 6x6 suspendu (il y aura une barriere securite!)](/images/laom/laomletter/inspiration-filet-salle-shala-laom.webp)
+![Inspiration pour notre filet 6x6 suspendu (il y aura une barrière sécurité !)](/images/laom/laomletter/inspiration-filet-salle-shala-laom.webp)
 
 ---
 
@@ -56,9 +56,9 @@ On est aussi en train de poser les parties de façades manquantes en bois brûl�
 
 Quand tu arrives à LAOM et que tu vois ce bâtiment, tu sens que quelque chose se passe ici. Et c'est exactement l'effet recherché !
 
-![Salle Shala LAOM technique bois brule Shou Sugi Ban](/images/laom/laomletter/salle-shala-laom-technique-bois-brule.webp)
+![Salle Shala LAOM technique bois brûlé Shou Sugi Ban](/images/laom/laomletter/salle-shala-laom-technique-bois-brule.webp)
 
-![Salle Shala LAOM technique bois brule Shou Sugi Ban detail](/images/laom/laomletter/salle-shala-laom-technique-bois-brule-2.webp)
+![Salle Shala LAOM technique bois brûlé Shou Sugi Ban détail](/images/laom/laomletter/salle-shala-laom-technique-bois-brule-2.webp)
 
 ---
 
@@ -70,9 +70,9 @@ Il a pédalé à travers le monde avec un piano, joué dans des villages, des pl
 
 Il nous a raconté ses aventures. Et on a eu droit à quelques morceaux sous les cèdres. Le genre de moment qui ne s'organise pas, mais qui arrive parce que le lieu attire ce genre de rencontres improbables.
 
-![Djivann tour du monde piano a velo](/images/laom/laomletter/djivann-tour-du-monde-velo-piano.webp)
+![Djivann tour du monde piano à vélo](/images/laom/laomletter/djivann-tour-du-monde-velo-piano.webp)
 
-![Charly, Amandine et Djivann a LAOM](/images/laom/laomletter/djivann-a-laom.webp)
+![Charly, Amandine et Djivann à LAOM](/images/laom/laomletter/djivann-a-laom.webp)
 
 C'est aussi ça, un écolieu : un endroit où les gens de passage déposent un bout de leur histoire, et repartent avec un bout de la nôtre.
 

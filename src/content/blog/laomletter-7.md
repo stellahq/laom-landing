@@ -1,11 +1,11 @@
 ---
 title: "LaomLetter #7"
-description: "Pourquoi on est passes de l'Earthship a la paille porteuse, comment on a tisse business et collectif, et la lecon transversale de 5 ans de LAOM."
+description: "Pourquoi on est passés de l'Earthship à la paille porteuse, comment on a tissé business et collectif, et la leçon transversale de 5 ans de LAOM."
 pubDate: 2026-04-26
 heroImage: "/images/laom/newsletter/vue%20aeriene%20laom2.webp"
 author: "Amandine & Charly"
 locale: "fr"
-tags: ["newsletter", "ecolieu", "paille porteuse", "Earthship", "modele economique", "LAOM"]
+tags: ["newsletter", "écolieu", "paille porteuse", "Earthship", "modèle économique", "LAOM"]
 draft: false
 ---
 
@@ -37,7 +37,7 @@ En 2021, on visait un Earthship compact sur 2 niveaux.
 L'idée était maline : concentrer habitat et accueil du public dans un seul grand bâtiment, avec une double verrière en façade sud pour la production alimentaire et l'inertie thermique.
 Façade nord en terre, principes bioclimatiques, esprit Mike Reynolds adapté à notre échelle.
 
-![Croquis batiment ossature bois inspire de l'Earthship a LAOM](/images/laom/laomletter/croquis-batiment-earthship-laom.webp)
+![Croquis bâtiment ossature bois inspiré de l'Earthship à LAOM](/images/laom/laomletter/croquis-batiment-earthship-laom.webp)
 
 En pratique, deux choses nous ont fait évoluer.
 
@@ -74,7 +74,7 @@ La paille porteuse + ferme maraîchère externalisée nous y emmène mieux que l
 
 ![LAOM avant les travaux en 2021](/images/laom/laomletter/laom-avant.webp)
 
-![LAOM 5 ans apres : 1200m2 de bati en plus, vue aerienne](/images/laom/newsletter/vue%20aeriene%20laom2.webp)
+![LAOM 5 ans après : 1200 m² de bâti en plus, vue aérienne](/images/laom/newsletter/vue%20aeriene%20laom2.webp)
 
 ---
 
