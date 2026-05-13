@@ -777,6 +777,9 @@ const faq = [
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Dernière étape</p>
+      <div id="test-mode-modal-badge" class="mb-4 px-3 py-2 border border-red-500/40 bg-red-500/10 rounded-sm">
+        <p class="text-xs font-medium tracking-[0.15em] uppercase text-red-600">⚠ Mode TEST Mollie · aucun débit réel</p>
+      </div>
       <div id="ovivant-modal-badge" class="mb-4 px-3 py-2 border border-[#C4A855]/40 bg-[#C4A855]/5 rounded-sm" style="display:none">
         <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855]">Code OVIVANT appliqué · 2 000 EUR → 497 EUR</p>
       </div>
@@ -1015,6 +1018,7 @@ const faq = [
       var modalBadge = document.getElementById('ovivant-modal-badge');
       if (modalBadge) modalBadge.style.display = '';
     }
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', activateOvivantBadges);
     } else {

@@ -533,12 +533,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // Coordonnées contact (optionnelles selon les produits historiques)
   const { firstName: ctFirstName, lastName: ctLastName, phone: ctPhone } = body
 
-  // Affiliate ref (ex: 'marie') — capturé via cookie laom_ref côté client
+  // Affiliate ref (ex: 'ovivant') — capturé via cookie laom_ref côté client
   const refRaw = body.ref
   const ref =
     typeof refRaw === 'string'
       ? refRaw.toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40) || null
       : null
+
+  // PHASE DE VALIDATION : school-online utilise MOLLIE_API_KEY_TEST par defaut.
+  // Pour basculer en LIVE, retirer le secret MOLLIE_API_KEY_TEST de Cloudflare
+  // (ou modifier cette ligne pour forcer apiKey).
+  const schoolApiKey = env?.MOLLIE_API_KEY_TEST || apiKey
 
   const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)/i.test(origin)
   const molliePayload: Record<string, any> = {
@@ -570,7 +575,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const customerRes = await fetch('https://api.mollie.com/v2/customers', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
+          'Authorization': `Bearer ${schoolApiKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -604,7 +609,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const response = await fetch('https://api.mollie.com/v2/payments', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${schoolApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(molliePayload),
