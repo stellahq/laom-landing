@@ -401,6 +401,96 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
     // ----- Fin email En Mouvement -----
 
+    // ----- Email confirmation LAOMSCHOOL Online via Resend -----
+    if (status === 'paid' && metadata.product === 'school-online' && metadata.email) {
+      const resendKey = env?.RESEND_API_KEY
+      if (resendKey) {
+        try {
+          const firstName = metadata.firstName || ''
+          const greeting = firstName ? `Bonjour ${firstName},` : 'Bonjour,'
+          const total = payment.amount?.value || '497.00'
+          const ovivantBlock = metadata.ref === 'ovivant'
+            ? `<tr><td colspan="2" style="padding:10px 0"><div style="display:inline-block;padding:8px 14px;border:1px solid rgba(196,168,85,0.4);background:rgba(196,168,85,0.06);border-radius:4px"><span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C4A855;font-weight:300">Code OVIVANT appliqué · 2 000 EUR → 497 EUR</span></div></td></tr>`
+            : ''
+
+          const html = `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="utf-8"><title>Bienvenue dans LAOMSCHOOL</title></head>
+<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;background:#FAF8F5;color:#2C2824">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FAF8F5;padding:40px 20px">
+<tr><td align="center">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px;background:#fff;border-radius:4px;padding:40px">
+<tr><td>
+  <p style="margin:0 0 8px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#8B7A3A">Inscription confirmée</p>
+  <h1 style="margin:0 0 24px;font-size:28px;font-weight:500;color:#2C2824">Bienvenue dans LAOMSCHOOL.</h1>
+
+  <p style="font-size:16px;line-height:1.6;color:#2C2824">${greeting}</p>
+  <p style="font-size:16px;line-height:1.6;color:#2C2824">Ton paiement vient d'être validé. Tu fais maintenant partie du groupe pilote de <strong>LAOMSCHOOL</strong>.</p>
+
+  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FAF8F5;border-radius:4px;padding:20px;margin:24px 0;font-size:14px">
+    ${ovivantBlock}
+    <tr><td style="padding:6px 0;color:#666">Formation</td><td style="padding:6px 0;text-align:right"><strong>LAOMSCHOOL — 12 lives sur 6 mois</strong></td></tr>
+    <tr><td style="padding:6px 0;color:#666">Prochaine session</td><td style="padding:6px 0;text-align:right"><strong>Mardi 19 mai 2026 · 20h</strong></td></tr>
+    <tr><td style="padding:12px 0 0;border-top:1px solid #ddd;color:#2C2824;font-weight:600">Total payé</td><td style="padding:12px 0 0;border-top:1px solid #ddd;text-align:right;color:#2C2824;font-weight:600">${total} €</td></tr>
+  </table>
+
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">La feuille de route des 4 prochaines sessions</h2>
+  <p style="font-size:14px;line-height:1.6;color:#666;margin:0 0 16px">Les 4 premières sessions ont été construites avec le groupe, à partir des questions concrètes des projets en cours. La suite (sessions 5 à 12) se posera au fil des 6 mois.</p>
+  <ul style="font-size:14px;line-height:1.7;color:#2C2824;padding-left:20px;margin:0 0 24px">
+    <li><strong>19/05/26 — Session 1 :</strong> Stratégie politique et permis (DDT, STECAL).</li>
+    <li><strong>02/06/26 — Session 2 :</strong> Financement intergénérationnel et structures coopératives.</li>
+    <li><strong>19/06/26 — Session 3 :</strong> Financements publics et subventions (UE, Région).</li>
+    <li><strong>30/06/26 — Session 4 :</strong> Viabilité économique et modèles d'affaires.</li>
+  </ul>
+
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">Et maintenant ?</h2>
+  <ul style="font-size:15px;line-height:1.7;color:#2C2824;padding-left:20px">
+    <li>On revient vers toi sous <strong>quelques jours</strong> avec le <strong>lien des lives</strong> et l'accès à l'espace groupe.</li>
+    <li>Tu reçois aussi un <strong>rappel calendrier</strong> 48h avant chaque session.</li>
+    <li>Pour toute question : <a href="mailto:hello@laom.fr" style="color:#C4A855">hello@laom.fr</a></li>
+  </ul>
+
+  <p style="font-size:14px;line-height:1.6;color:#666;margin-top:32px">Hâte de te voir mardi,<br>Charly & Amandine</p>
+</td></tr>
+</table>
+<p style="font-size:11px;color:#999;margin-top:20px">LAOM · La Margue · 12400 Saint-Félix-de-Sorgues · Aveyron</p>
+</td></tr>
+</table>
+</body></html>`
+
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${resendKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: 'LAOMSCHOOL <hello@laom.fr>',
+              to: [metadata.email],
+              bcc: ['laomcoliving@gmail.com'],
+              subject: 'Bienvenue dans LAOMSCHOOL — Ta place est confirmée',
+              html,
+            }),
+          })
+            .then(async (r) => {
+              if (!r.ok) {
+                const err = await r.json().catch(() => ({}))
+                console.error('Resend send error (school-online):', err)
+              } else {
+                console.log(`Resend: school-online confirmation sent to ${metadata.email}${metadata.ref ? ` (ref=${metadata.ref})` : ''}`)
+              }
+            })
+            .catch((e) => console.error('Resend fetch error school-online (non-blocking):', e))
+        } catch (mailErr) {
+          console.error('school-online email confirmation error (non-blocking):', mailErr)
+        }
+      } else {
+        console.warn('RESEND_API_KEY not configured, skipping school-online confirmation email')
+      }
+    }
+    // ----- Fin email LAOMSCHOOL Online -----
+
     // Si c'est le 1er versement d'un paiement en 2x et qu'il est paye,
     // creer le 2eme versement recurrent (preleve automatiquement dans 30 jours)
     if (status === 'paid' && metadata.installment === '1of2') {

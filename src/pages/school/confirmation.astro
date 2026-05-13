@@ -65,9 +65,9 @@ const pageSchema = createWebPageSchema({
           <li class="flex items-start gap-4">
             <span class="w-7 h-7 rounded-full bg-[#C4A855] text-white text-sm flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
             <div>
-              <p class="text-white font-medium text-sm">Rejoins le groupe Telegram LAOM School</p>
+              <p class="text-white font-medium text-sm">Rejoins le groupe WhatsApp LAOM School</p>
               <p class="text-white/50 font-light text-sm">C'est là que tout se passe : lien des lives, replays, échanges.</p>
-              <a href="https://t.me/+rGDBs7utcoE2ZDE0" target="_blank" rel="noopener noreferrer" aria-label="Rejoindre le groupe Telegram LAOM School (ouvre dans un nouvel onglet)" class="inline-block mt-2 text-sm font-medium text-[#C4A855] underline underline-offset-4 hover:text-[#d4bf6a] transition-colors">Rejoindre le groupe Telegram</a>
+              <a href="https://chat.whatsapp.com/G48sMmPvWZV1Nc6d5inYBr?mode=gi_t" target="_blank" rel="noopener noreferrer" aria-label="Rejoindre le groupe WhatsApp LAOM School (ouvre dans un nouvel onglet)" class="inline-block mt-2 text-sm font-medium text-[#C4A855] underline underline-offset-4 hover:text-[#d4bf6a] transition-colors">Rejoindre le groupe WhatsApp</a>
             </div>
           </li>
           <li class="flex items-start gap-4">
@@ -80,8 +80,8 @@ const pageSchema = createWebPageSchema({
           <li class="flex items-start gap-4">
             <span class="w-7 h-7 rounded-full bg-[#C4A855] text-white text-sm flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
             <div>
-              <p class="text-white font-medium text-sm">Rejoins le premier live</p>
-              <p class="text-white/50 font-light text-sm">Mardi 5 mai. Le lien sera dans le groupe Telegram.</p>
+              <p class="text-white font-medium text-sm">Rejoins la prochaine session</p>
+              <p class="text-white/50 font-light text-sm">Mardi 19 mai à 20h. Le lien sera dans le groupe WhatsApp.</p>
             </div>
           </li>
         </ol>
@@ -116,15 +116,15 @@ const pageSchema = createWebPageSchema({
   })();
   </script>
 
-  <!-- Tunnel tracking hooks : Telegram click -->
+  <!-- Tunnel tracking hooks : WhatsApp click -->
   <script is:inline>
   (function() {
     if (typeof window.__tunnelTrack !== 'function') return;
 
-    // Track Telegram group link clicks
-    document.querySelectorAll('a[href*="t.me"]').forEach(function(link) {
+    // Track WhatsApp group link clicks
+    document.querySelectorAll('a[href*="chat.whatsapp.com"]').forEach(function(link) {
       link.addEventListener('click', function() {
-        window.__tunnelTrack('telegram_click', {
+        window.__tunnelTrack('whatsapp_click', {
           href: link.href
         });
       });

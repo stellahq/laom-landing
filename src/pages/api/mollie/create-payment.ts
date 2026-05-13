@@ -533,6 +533,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // Coordonnées contact (optionnelles selon les produits historiques)
   const { firstName: ctFirstName, lastName: ctLastName, phone: ctPhone } = body
 
+  // Affiliate ref (ex: 'marie') — capturé via cookie laom_ref côté client
+  const refRaw = body.ref
+  const ref =
+    typeof refRaw === 'string'
+      ? refRaw.toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40) || null
+      : null
+
+  const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)/i.test(origin)
   const molliePayload: Record<string, any> = {
     amount: {
       currency: 'EUR',
@@ -541,13 +549,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
     description: productConfig.description,
     method: 'creditcard',
     redirectUrl: `${origin}/school/confirmation/?product=${product}`,
-    webhookUrl: `${origin}/api/mollie/webhook/`,
+    ...(isLocalhost ? {} : { webhookUrl: `${origin}/api/mollie/webhook/` }),
     metadata: {
       product,
       email: email || null,
       firstName: ctFirstName || null,
       lastName: ctLastName || null,
       phone: ctPhone || null,
+      ref,
       installment: isInstallment ? '1of2' : null,
       total_amount: isInstallment ? installmentTotalAmount : productConfig.amount,
       created_at: new Date().toISOString(),
@@ -626,8 +635,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       try {
         await db
           .prepare(
-            `INSERT INTO mollie_payments (payment_id, product, email, amount, status, created_at)
-           VALUES (?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO mollie_payments (payment_id, product, email, amount, status, ref, created_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?)`,
           )
           .bind(
             payment.id,
@@ -635,6 +644,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
             email || null,
             productConfig.amount,
             payment.status,
+            ref,
             new Date().toISOString(),
           )
           .run()
