@@ -440,7 +440,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   <ul style="font-size:14px;line-height:1.7;color:#2C2824;padding-left:20px;margin:0 0 24px">
     <li><strong>19/05/26 — Session 1 :</strong> Stratégie politique et permis (DDT, STECAL).</li>
     <li><strong>02/06/26 — Session 2 :</strong> Financement intergénérationnel et structures coopératives.</li>
-    <li><strong>19/06/26 — Session 3 :</strong> Financements publics et subventions (UE, Région).</li>
+    <li><strong>16/06/26 — Session 3 :</strong> Financements publics et subventions (UE, Région).</li>
     <li><strong>30/06/26 — Session 4 :</strong> Viabilité économique et modèles d'affaires.</li>
   </ul>
 
