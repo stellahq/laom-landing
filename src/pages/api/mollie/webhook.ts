@@ -426,7 +426,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   <h1 style="margin:0 0 24px;font-size:28px;font-weight:500;color:#2C2824">Bienvenue dans LAOMSCHOOL.</h1>
 
   <p style="font-size:16px;line-height:1.6;color:#2C2824">${greeting}</p>
-  <p style="font-size:16px;line-height:1.6;color:#2C2824">Ton paiement vient d'être validé. Tu fais maintenant partie du groupe pilote de <strong>LAOMSCHOOL</strong>.</p>
+  <p style="font-size:16px;line-height:1.6;color:#2C2824">Ton paiement vient d'être validé. Tu fais maintenant partie du groupe <strong>LAOMSCHOOL</strong>.</p>
 
   <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FAF8F5;border-radius:4px;padding:20px;margin:24px 0;font-size:14px">
     ${ovivantBlock}
