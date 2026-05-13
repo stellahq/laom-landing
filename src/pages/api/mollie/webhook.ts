@@ -435,6 +435,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
     <tr><td style="padding:12px 0 0;border-top:1px solid #ddd;color:#2C2824;font-weight:600">Total payé</td><td style="padding:12px 0 0;border-top:1px solid #ddd;text-align:right;color:#2C2824;font-weight:600">${total} €</td></tr>
   </table>
 
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">Première étape : rejoins le groupe WhatsApp</h2>
+  <p style="font-size:15px;line-height:1.6;color:#2C2824;margin:0 0 16px">C'est là que tout se passe : lien des lives, replays, échanges entre porteurs de projet.</p>
+  <p style="margin:0 0 8px"><a href="https://chat.whatsapp.com/G48sMmPvWZV1Nc6d5inYBr?mode=gi_t" style="display:inline-block;padding:12px 24px;background:#25D366;color:#fff;text-decoration:none;border-radius:4px;font-size:14px;font-weight:500;letter-spacing:0.5px">Rejoindre le groupe WhatsApp →</a></p>
+  <p style="font-size:13px;line-height:1.5;color:#999;margin:0 0 24px">Si le bouton ne fonctionne pas : <a href="https://chat.whatsapp.com/G48sMmPvWZV1Nc6d5inYBr?mode=gi_t" style="color:#C4A855;word-break:break-all">https://chat.whatsapp.com/G48sMmPvWZV1Nc6d5inYBr?mode=gi_t</a></p>
+
   <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">La feuille de route des 4 prochaines sessions</h2>
   <p style="font-size:14px;line-height:1.6;color:#666;margin:0 0 16px">Les 4 premières sessions ont été construites avec le groupe, à partir des questions concrètes des projets en cours. La suite (sessions 5 à 12) se posera au fil des 6 mois.</p>
   <ul style="font-size:14px;line-height:1.7;color:#2C2824;padding-left:20px;margin:0 0 24px">
@@ -444,10 +449,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     <li><strong>30/06/26 — Session 4 :</strong> Viabilité économique et modèles d'affaires.</li>
   </ul>
 
-  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">Et maintenant ?</h2>
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">Et ensuite ?</h2>
   <ul style="font-size:15px;line-height:1.7;color:#2C2824;padding-left:20px">
-    <li>On revient vers toi sous <strong>quelques jours</strong> avec le <strong>lien des lives</strong> et l'accès à l'espace groupe.</li>
-    <li>Tu reçois aussi un <strong>rappel calendrier</strong> 48h avant chaque session.</li>
+    <li>Le <strong>lien des lives</strong> et les replays sont partagés directement dans le groupe WhatsApp.</li>
+    <li>Tu reçois un <strong>rappel calendrier</strong> 48h avant chaque session.</li>
     <li>Pour toute question : <a href="mailto:hello@laom.fr" style="color:#C4A855">hello@laom.fr</a></li>
   </ul>
 
