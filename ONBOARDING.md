@@ -86,6 +86,17 @@ git push -u origin feature/nom-court-du-sujet
 - Quand c'est prêt à partir en prod, **Charly** fait la PR `staging → main` et
   merge. C'est le seul à toucher `main`.
 
+### Comment Charly et Amandine voient ton travail
+Dès que tu pousses sur la branche `staging` (directement, ou via le merge de ta
+branche feature dans `staging`), un déploiement automatique met en ligne le site
+sur **https://staging.laom.fr**. C'est une URL **fixe** qui reflète toujours le
+dernier état de `staging`. Tu envoies juste ce lien à Charly/Amandine : ils
+regardent le rendu réel dans leur navigateur, sans rien installer.
+
+- `staging.laom.fr` = vitrine de revue (non indexée par Google, sans impact SEO).
+- `laom.fr` = la vraie prod, mise à jour seulement quand Charly merge sur `main`.
+- Pousser sur `staging` ne touche **jamais** la prod.
+
 ## 7. Règles absolues (à ne jamais enfreindre)
 
 - **Bun uniquement** — jamais `npm`/`yarn`/`pnpm`.

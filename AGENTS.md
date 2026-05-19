@@ -356,7 +356,12 @@ The LAOM landing page is designed with a **luxury wellness aesthetic** inspired 
   (`laom.fr`) via GitHub Actions. Never push directly to `main`.
 - **`staging` is the working branch.** Eduardo and other collaborators commit
   to `staging` (or a feature branch off `staging`), then open a Pull Request.
-  Pushing to `staging` does **not** deploy anything — it is a safe sandbox.
+  Pushing to `staging` auto-deploys a **separate** worker (`laom-staging`) to
+  **https://staging.laom.fr** for review. It never touches production.
+  Staging is served with `X-Robots-Tag: noindex` (see `src/middleware.ts`) so
+  it is not indexed by search engines.
+  Config: `wrangler.staging.jsonc` + `.github/workflows/deploy-staging.yml`.
+  Caveat: staging shares the prod D1 database (`laom-team`).
 - **Charly reviews and merges** the PR into `main`. Merging into `main` is the
   single act that ships to production.
 - Branch model: `feature/* → staging → (PR) → main → auto-deploy`.
