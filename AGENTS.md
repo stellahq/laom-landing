@@ -5,8 +5,15 @@
 LAOM is a beautiful, multilingual landing page for a rural coliving space located in the south of Aveyron, France. The project is inspired by luxury wellness brands like Our Habitas (Tulum) and The House of AïA, featuring a minimal, elegant aesthetic with a focus on nature, wellness, and mindful living.
 
 ### Content Source
-For context, inspiration, and content assets, refer to the local folder:
-`/Users/amandineorriols/Documents/PARA/3 - CASQUETTES/LAOM`
+For context, inspiration, and content assets, ask Charly for the relevant
+LAOM material. Content assets (photos, copy, brand) live in the LAOM "casquette"
+vault, not in this repo. Do not hardcode anyone's local machine path here.
+
+### New here? Read ONBOARDING.md first
+If you are a new collaborator (e.g. Eduardo), start with `ONBOARDING.md` at the
+repo root. It walks you through setup, the git workflow, and how to ship safely
+without breaking production. This file (`AGENTS.md`) is the deep technical
+reference you come back to once you're set up.
 
 ### What is LAOM?
 
@@ -342,6 +349,21 @@ The LAOM landing page is designed with a **luxury wellness aesthetic** inspired 
 - Never commit sensitive data (use GitHub Secrets)
 - Always run SEO check before deployment
 
+### 7b. Git Workflow & Team Access (READ THIS)
+
+- **Repo**: `github.com/amandineorriols/laom-landing` (owner: Amandine)
+- **`main` is production.** Any push to `main` auto-deploys to production
+  (`laom.fr`) via GitHub Actions. Never push directly to `main`.
+- **`staging` is the working branch.** Eduardo and other collaborators commit
+  to `staging` (or a feature branch off `staging`), then open a Pull Request.
+  Pushing to `staging` does **not** deploy anything — it is a safe sandbox.
+- **Charly reviews and merges** the PR into `main`. Merging into `main` is the
+  single act that ships to production.
+- Branch model: `feature/* → staging → (PR) → main → auto-deploy`.
+- Before every PR: `bun run build` **and** `bun run seo:check` must pass.
+- Note: `main` should be protected on GitHub (no direct push, no force-push).
+  Only Amandine (repo admin) can enable that — ask her if it's not yet set.
+
 ### 8. Development Server
 - **NEVER run the development server** (`bun run dev`) - The server is already running when the project starts
 - You can test if the project is working or building (`bun run build`), but do not start the dev server
@@ -608,5 +630,5 @@ For questions about LAOM:
 
 ---
 
-**Last Updated**: 2025
+**Last Updated**: 2026-05-19
 **Project Status**: Active Development
