@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config'
 import { glob } from 'glob'
 import { statSync } from 'node:fs'
 
-const site = process.env.SITE_URL ?? 'https://laom.com'
+const site = process.env.SITE_URL ?? 'https://laom.fr'
 
 // Build a map of page paths to their lastmod dates for sitemap
 function getPageLastModDates() {
