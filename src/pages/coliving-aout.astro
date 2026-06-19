@@ -1,0 +1,292 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+import { getLocalizedPath } from '~/i18n/utils'
+import { translations, INSTAGRAM_URL } from '~/i18n/translations'
+
+const lang = 'fr' as const
+const a = translations.fr.pages.pdvAoutPage
+
+const home = getLocalizedPath('/', lang)
+// TODO: pointer "Postuler" vers le formulaire Tally dédié quand il existera
+const postuler = getLocalizedPath('/candidater/', lang)
+// TODO: lien réel du quiz Tally/Typeform
+const quiz = postuler
+
+const heroTitle = `${a.heroTitlePre}${a.heroTitleAccent}${a.heroTitlePost}`
+const pageSchema = createWebPageSchema({
+  name: 'Coliving entrepreneurs LAOM — Août 2026',
+  url: Astro.url.toString(),
+  description: heroTitle,
+})
+
+const lieuImages = [
+  { src: '/images/vue-aeriene-laom2-hero.webp', alt: 'Vue aérienne du domaine LAOM en sud Aveyron' },
+  { src: '/images/laom/diner-golden-hour-laom.webp', alt: 'Dîner en communauté à LAOM, lumière dorée' },
+  { src: '/images/laom/festival-laom-ambiance-nature-aveyron.webp', alt: 'Ambiance nature et communauté à LAOM' },
+  { src: '/images/laom/Oasis-La-Margue-1.webp', alt: 'Le domaine de La Margue, espaces extérieurs de LAOM' },
+  { src: '/images/laom/LAOM-journee-cohesion.webp', alt: 'Journée de cohésion à LAOM' },
+]
+---
+
+<Layout
+  title="Coliving entrepreneurs LAOM — Août 2026, sud Aveyron"
+  description={heroTitle}
+  hideChrome={true}
+  seo={{ ldJSON: pageSchema, noIndex: true }}
+>
+  <div class="pdv bg-[#F2EBDB] text-[#2A1E14] selection:bg-[#9A3922] selection:text-[#F2EBDB]">
+    <!-- HEADER -->
+    <header class="absolute top-0 left-0 right-0 z-30">
+      <nav class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14 h-24 flex items-center justify-between">
+        <a href={home} class="inline-block hover:opacity-80 transition-opacity">
+          <img src="/images/brand/logo-laom-wordmark-beige.svg" alt="LAOM" width="128" height="28" class="h-7 w-auto" />
+        </a>
+        <a href={postuler} class="group inline-flex items-center gap-2.5 rounded-full bg-[#9A3922] px-6 py-2.5 text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-[#F2EBDB] hover:bg-[#822f1c] transition-colors">
+          {a.navCta}
+          <span class="w-1.5 h-1.5 rounded-full bg-[#F2EBDB]/70"></span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- 1. HERO -->
+    <section class="relative min-h-screen w-full overflow-hidden flex items-center">
+      <video autoplay muted loop playsinline poster="/images/vue-aeriene-laom2-hero.webp" class="absolute inset-0 w-full h-full object-cover">
+        <source src="/videos/aveyron_hero.webm" type="video/webm" />
+      </video>
+      <div class="absolute inset-0 bg-gradient-to-b from-[#1c130c]/75 via-[#1c130c]/45 to-[#1c130c]/85"></div>
+      <div class="relative z-10 max-w-[1240px] w-full mx-auto px-6 sm:px-10 lg:px-14 pt-28">
+        <span class="flex items-center gap-4 text-[#F2EBDB]/75 text-[0.72rem] font-semibold tracking-[0.32em] uppercase mb-8">
+          <span class="w-10 h-px bg-[#F2EBDB]/40"></span>{a.heroEyebrow}
+        </span>
+        <h1 class="font-display text-[#F2EBDB] max-w-4xl text-[clamp(2.7rem,6.5vw,5.5rem)] leading-[1.0] tracking-[-0.02em]">
+          {a.heroTitlePre}<em class="italic text-[#E7C89A]">{a.heroTitleAccent}</em>{a.heroTitlePost}
+        </h1>
+        <a href={postuler} class="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] pl-9 pr-6 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-[#822f1c] transition-colors">
+          {a.heroCta}
+          <span class="grid place-items-center w-7 h-7 rounded-full bg-[#F2EBDB]/15 group-hover:translate-x-0.5 transition-transform">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. ACCROCHE -->
+    <section class="py-28 md:py-40 bg-[#2A1E14] text-[#F2EBDB]">
+      <div class="max-w-3xl mx-auto px-6 sm:px-10 space-y-8">
+        <p class="font-display text-[clamp(1.7rem,3vw,2.6rem)] leading-[1.25]">{a.accroche[0]}</p>
+        <p class="text-lg md:text-xl font-light text-[#F2EBDB]/70 leading-[1.7]">{a.accroche[1]}</p>
+        <p class="text-lg md:text-xl font-light text-[#E7C89A] leading-[1.7] italic">{a.accroche[2]}</p>
+      </div>
+    </section>
+
+    <!-- 3. LA RUPTURE -->
+    <section class="relative">
+      <div class="h-[42vh] min-h-[300px] w-full">
+        <img src="/images/laom/diner-golden-hour-laom.webp" alt="Soirée entre entrepreneurs à LAOM, lumière dorée" width="1600" height="700" class="w-full h-full object-cover" />
+      </div>
+      <div class="py-24 md:py-36 bg-[#1c130c] text-[#F2EBDB]">
+        <div class="max-w-4xl mx-auto px-6 sm:px-10 text-center">
+          <h2 class="font-display text-[clamp(2.2rem,5vw,4rem)] leading-[1.05] tracking-[-0.02em] mb-12">
+            {a.ruptureTitlePre}<em class="italic text-[#E7C89A]">{a.ruptureTitleAccent}</em>{a.ruptureTitlePost}
+          </h2>
+          <p class="text-lg md:text-xl font-light text-[#F2EBDB]/80 leading-[1.8] mb-7 max-w-2xl mx-auto">{a.ruptureText1}</p>
+          <p class="text-lg md:text-xl font-light text-[#F2EBDB]/80 leading-[1.8] max-w-2xl mx-auto">{a.ruptureText2}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. LE LIEU — galerie immersive -->
+    <section class="py-28 md:py-40 bg-[#2A1E14] text-[#F2EBDB]">
+      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14">
+        <span class="flex items-center gap-4 text-[#E7C89A] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-10">
+          <span class="w-10 h-px bg-[#E7C89A]/40"></span>{a.lieuEyebrow}
+        </span>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <img src={lieuImages[0].src} alt={lieuImages[0].alt} loading="lazy" class="col-span-2 row-span-2 w-full h-full aspect-square md:aspect-auto object-cover rounded-[2px]" />
+          <img src={lieuImages[1].src} alt={lieuImages[1].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
+          <img src={lieuImages[2].src} alt={lieuImages[2].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
+          <img src={lieuImages[3].src} alt={lieuImages[3].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
+          <img src={lieuImages[4].src} alt={lieuImages[4].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
+        </div>
+        <p class="font-display italic text-[clamp(1.5rem,3vw,2.4rem)] leading-snug text-[#F2EBDB]/90 mt-12 max-w-3xl">{a.lieuCaption}</p>
+      </div>
+    </section>
+
+    <!-- 5. LA PROMESSE + PRIX -->
+    <section class="py-28 md:py-40">
+      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14 grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
+        <div>
+          <span class="flex items-center gap-4 text-[#9A3922] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
+            <span class="w-10 h-px bg-[#9A3922]/50"></span>{a.promesseEyebrow}
+          </span>
+          <h2 class="font-display text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.04] tracking-[-0.02em] mb-8">
+            {a.promesseTitlePre}<em class="italic text-[#9A3922]">{a.promesseTitleAccent}</em>
+          </h2>
+          <p class="text-lg font-light text-[#2A1E14]/75 leading-[1.7] mb-5 max-w-xl">{a.promesseText1}</p>
+          <p class="text-lg font-light text-[#2A1E14]/75 leading-[1.7] max-w-xl">{a.promesseText2}</p>
+        </div>
+        <div class="bg-[#9A3922] text-[#F2EBDB] rounded-[3px] p-10 sm:p-12 text-center">
+          <p class="text-[0.72rem] font-semibold tracking-[0.24em] uppercase text-[#F2EBDB]/70 mb-4">{a.promessePrixLabel}</p>
+          <p class="font-display text-[clamp(3rem,7vw,5rem)] leading-none mb-2">{a.promessePrix}</p>
+          <p class="text-sm font-light text-[#F2EBDB]/80 mb-8">{a.promessePrixSuffix}</p>
+          <a href={postuler} class="inline-flex items-center justify-center w-full rounded-full bg-[#F2EBDB] text-[#9A3922] px-8 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-white transition-colors">{a.promesseCta}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. PREUVE SOCIALE -->
+    <section class="py-28 md:py-40 bg-[#73673E] text-[#F2EBDB]">
+      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14">
+        <div class="max-w-2xl mb-14">
+          <span class="flex items-center gap-4 text-[#F2EBDB]/70 text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
+            <span class="w-10 h-px bg-[#F2EBDB]/50"></span>{a.preuveEyebrow}
+          </span>
+          <h2 class="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.05] tracking-[-0.02em] mb-6">{a.preuveTitle}</h2>
+          <p class="text-lg font-light text-[#F2EBDB]/80 leading-[1.7] mb-4">{a.preuveText1}</p>
+          <p class="text-lg font-light text-[#F2EBDB]/80 leading-[1.7]">{a.preuveText2}</p>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-px bg-[#F2EBDB]/15 border border-[#F2EBDB]/15 rounded-[2px] overflow-hidden mb-10">
+          {a.preuveFacts.map((f) => (
+            <div class="bg-[#73673E] px-7 py-9">
+              <p class="font-display text-2xl md:text-3xl mb-2">{f.value}</p>
+              <p class="text-sm font-light text-[#F2EBDB]/70 leading-relaxed">{f.label}</p>
+            </div>
+          ))}
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {[0, 1].map(() => (
+            <div class="border border-dashed border-[#F2EBDB]/25 rounded-[2px] px-7 py-10 flex items-center gap-4">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="text-[#F2EBDB]/40 shrink-0"><path d="M10 11H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6c0 2-1 3.5-3 4M19 11h-4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6c0 2-1 3.5-3 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-sm font-light italic text-[#F2EBDB]/55">{a.temoignagesPlaceholder}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FONDATEURS -->
+    <section class="py-28 md:py-40">
+      <div class="max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-14 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="grid grid-cols-2 gap-5">
+          <img src="/images/charly-aubert.webp" alt="Charly Aubert, cofondateur de LAOM" width="420" height="540" loading="lazy" class="w-full aspect-[4/5] object-cover rounded-[2px]" />
+          <img src="/images/amandine-orriols.webp" alt="Amandine Orriols, cofondatrice de LAOM" width="420" height="540" loading="lazy" class="w-full aspect-[4/5] object-cover rounded-[2px] mt-12" />
+        </div>
+        <div>
+          <span class="flex items-center gap-4 text-[#9A3922] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
+            <span class="w-10 h-px bg-[#9A3922]/50"></span>{a.fondateursEyebrow}
+          </span>
+          <h2 class="font-display text-[clamp(2.2rem,4vw,3.4rem)] leading-[1.04] mb-8">{a.fondateursTitle}</h2>
+          <p class="text-lg font-light text-[#2A1E14]/80 leading-[1.7] mb-5">{a.fondateursText1}</p>
+          <p class="text-lg font-light text-[#2A1E14]/80 leading-[1.7]">{a.fondateursText2}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. QUALIFICATION DOUCE -->
+    <section class="py-28 md:py-40 bg-[#2A1E14] text-[#F2EBDB]">
+      <div class="max-w-3xl mx-auto px-6 sm:px-10">
+        <span class="flex items-center gap-4 text-[#E7C89A] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
+          <span class="w-10 h-px bg-[#E7C89A]/40"></span>{a.qualifEyebrow}
+        </span>
+        <h2 class="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[1.04] mb-12">{a.qualifTitle}</h2>
+        <ul class="divide-y divide-[#F2EBDB]/15 border-y border-[#F2EBDB]/15 mb-10">
+          {a.qualifItems.map((item) => (
+            <li class="flex items-center gap-5 py-6">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-[#E7C89A] shrink-0"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-lg md:text-xl font-light">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="text-base font-light text-[#F2EBDB]/65 leading-relaxed mb-10 max-w-xl">{a.qualifNote}</p>
+        <a href={postuler} class="group inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] pl-9 pr-6 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-[#822f1c] transition-colors">
+          {a.qualifCta}
+          <span class="grid place-items-center w-7 h-7 rounded-full bg-[#F2EBDB]/15 group-hover:translate-x-0.5 transition-transform">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 9. LE PROCESS -->
+    <section class="py-28 md:py-40">
+      <div class="max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-14">
+        <div class="max-w-2xl mb-16">
+          <span class="flex items-center gap-4 text-[#9A3922] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
+            <span class="w-10 h-px bg-[#9A3922]/50"></span>{a.processEyebrow}
+          </span>
+          <h2 class="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.04] tracking-[-0.02em]">{a.processTitle}</h2>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-10">
+          {a.processSteps.map((s) => (
+            <div class="border-t border-[#2A1E14]/15 pt-7">
+              <p class="font-display text-5xl text-[#9A3922] mb-5">{s.n}</p>
+              <p class="text-lg font-light text-[#2A1E14]/80 leading-relaxed">{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. URGENCE -->
+    <section class="py-28 md:py-40 bg-[#1c130c] text-[#F2EBDB] text-center">
+      <div class="max-w-3xl mx-auto px-6 sm:px-10">
+        <h2 class="font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.04] tracking-[-0.02em] mb-12">
+          {a.urgenceTitlePre}<em class="italic text-[#E7C89A]">{a.urgenceTitleAccent}</em>
+        </h2>
+        <a href={postuler} class="group inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] pl-9 pr-6 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-[#822f1c] transition-colors">
+          {a.urgenceCta}
+          <span class="grid place-items-center w-7 h-7 rounded-full bg-[#F2EBDB]/15 group-hover:translate-x-0.5 transition-transform">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 11. SORTIE DOUCE -->
+    <section class="py-16 bg-[#2A1E14] text-[#F2EBDB]/70 border-t border-[#F2EBDB]/10">
+      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14 flex flex-col sm:flex-row items-center justify-between gap-5 text-sm">
+        <p class="font-light">{a.sortieText}</p>
+        <div class="flex items-center gap-8">
+          <a href={quiz} class="hover:text-white transition-colors underline underline-offset-4 decoration-[#F2EBDB]/30">{a.sortieQuiz}</a>
+          <a href={home} class="hover:text-white transition-colors">{a.sortieRetour}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA sticky mobile -->
+    <a href={postuler} class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#9A3922] text-[#F2EBDB] text-center py-4 text-[0.85rem] font-semibold tracking-[0.16em] uppercase shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.4)]">
+      {a.navCta} — Août 2026
+    </a>
+    <div class="lg:hidden h-14"></div>
+  </div>
+</Layout>
+
+<style>
+  @font-face {
+    font-family: 'Host Grotesk';
+    src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Host Grotesk';
+    src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  .pdv {
+    font-family: 'Host Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .pdv .font-display {
+    font-family: 'Host Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  .pdv .font-display.italic {
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+</style>
