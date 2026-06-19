@@ -1,0 +1,289 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+import {
+  getTranslations as getI18nTranslations,
+  getLocalizedPath,
+} from '~/i18n/utils'
+import { INSTAGRAM_URL } from '~/i18n/translations'
+
+const lang = (Astro.currentLocale || 'fr') as 'fr' | 'en'
+const t = getI18nTranslations(lang)
+const a = t.pages.accueilColivingPage
+
+const home = getLocalizedPath('/', lang)
+const candidater = getLocalizedPath('/candidater/', lang)
+// TODO: pointer "Découvrir le programme" vers /coliving-aout/ quand la PDV existera
+const coliving = getLocalizedPath('/coliving/', lang)
+// TODO: pointer "Voir le lieu" vers /le-lieu/ et "Lire notre histoire" vers /notre-histoire/ une fois ces pages créées
+const lieuLink = getLocalizedPath('/coliving/', lang)
+const histoireLink = getLocalizedPath('/coliving/', lang)
+// TODO: remplacer par le lien réel du quiz Tally/Typeform
+const quizLink = candidater
+
+const pageSchema = createWebPageSchema({
+  name: 'LAOM – Coliving pour entrepreneurs',
+  url: Astro.url.toString(),
+  description: a.heroOverlay,
+})
+---
+
+<Layout
+  title="LAOM – Coliving pour entrepreneurs en pleine nature, sud Aveyron"
+  description={a.heroOverlay}
+  hideChrome={true}
+  seo={{ ldJSON: pageSchema }}
+>
+  <div class="accueil-brand bg-[#F2EBDB] text-[#412F1F]">
+    <!-- Header transparent par-dessus le hero -->
+    <header class="absolute top-0 left-0 right-0 z-30">
+      <nav class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-20 py-6 flex items-center justify-between">
+        <a href={home} class="inline-block hover:opacity-80 transition-opacity">
+          <img
+            src="/images/brand/logo-laom-wordmark-beige.svg"
+            alt="LAOM"
+            width="120"
+            height="26"
+            class="h-6 w-auto"
+          />
+        </a>
+        <div class="flex items-center gap-8">
+          <a href={coliving} class="hidden sm:inline text-sm font-medium text-[#F2EBDB]/90 hover:text-white transition-colors">
+            {a.nav.coliving}
+          </a>
+          <a
+            href={candidater}
+            class="inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-5 py-2.5 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-[#82301d] transition-colors"
+          >
+            {a.nav.cta}
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- 1. Hero vidéo plein écran -->
+    <section class="relative h-screen min-h-[600px] w-full overflow-hidden">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="/images/vue-aeriene-laom2-hero.webp"
+        class="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/aveyron_hero.webm" type="video/webm" />
+      </video>
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
+        <h1 class="max-w-4xl text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight">
+          {a.heroOverlay}
+        </h1>
+        <p class="mt-6 text-lg md:text-xl font-medium text-white/85 tracking-wide">
+          {a.heroSub}
+        </p>
+        <a
+          href={candidater}
+          class="mt-10 inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-10 py-4 text-sm font-semibold tracking-[0.2em] uppercase hover:bg-[#82301d] transition-colors"
+        >
+          {a.heroCta}
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. Manifeste -->
+    <section class="py-28 md:py-36 bg-[#F2EBDB]">
+      <div class="max-w-3xl mx-auto px-8 sm:px-12">
+        <p class="text-2xl md:text-3xl font-extrabold text-[#412F1F] leading-snug mb-8">
+          {a.manifesto1}
+        </p>
+        <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed mb-6">
+          {a.manifesto2}
+        </p>
+        <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed">
+          {a.manifesto3}
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. Teaser coliving août 2026 -->
+    <section class="bg-[#412F1F] text-[#F2EBDB]">
+      <div class="grid md:grid-cols-2">
+        <div class="aspect-[4/3] md:aspect-auto md:min-h-[480px]">
+          <img
+            src="/images/laom/diner-golden-hour-laom.webp"
+            alt="Entrepreneurs réunis autour d'un dîner à LAOM, lumière dorée"
+            width="800"
+            height="600"
+            loading="lazy"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 md:py-0">
+          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/60 mb-4">
+            {a.teaserEyebrow}
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold leading-tight mb-6">{a.teaserTitle}</h2>
+          <p class="text-lg font-normal text-[#F2EBDB]/85 leading-relaxed mb-4">{a.teaserText1}</p>
+          <p class="text-lg font-normal text-[#F2EBDB]/85 leading-relaxed mb-8">{a.teaserText2}</p>
+          <a
+            href={coliving}
+            class="inline-flex w-fit items-center rounded-sm border border-[#F2EBDB]/40 text-[#F2EBDB] px-7 py-3 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#F2EBDB] hover:text-[#412F1F] transition-colors"
+          >
+            {a.teaserCta}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Le lieu en aperçu -->
+    <section class="py-28 md:py-36 bg-[#F2EBDB]">
+      <div class="max-w-6xl mx-auto px-8 sm:px-12">
+        <span class="block text-xs font-semibold tracking-[0.2em] uppercase text-[#9A3922] mb-4">
+          {a.lieuEyebrow}
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] mb-12">{a.lieuTitle}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+          <img
+            src="/images/vue-aeriene-laom2-hero.webp"
+            alt="Vue aérienne du domaine LAOM en sud Aveyron"
+            width="600"
+            height="450"
+            loading="lazy"
+            class="w-full aspect-[3/4] object-cover rounded-sm"
+          />
+          <img
+            src="/images/laom/festival-laom-ambiance-nature-aveyron.webp"
+            alt="Ambiance nature et communauté à LAOM"
+            width="600"
+            height="450"
+            loading="lazy"
+            class="w-full aspect-[3/4] object-cover rounded-sm"
+          />
+          <img
+            src="/images/laom/Oasis-La-Margue-1.webp"
+            alt="Le domaine de La Margue, espaces extérieurs de LAOM"
+            width="600"
+            height="450"
+            loading="lazy"
+            class="w-full aspect-[3/4] object-cover rounded-sm"
+          />
+        </div>
+        <div class="max-w-2xl">
+          <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed mb-4">{a.lieuText1}</p>
+          <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed mb-8">{a.lieuText2}</p>
+          <a
+            href={lieuLink}
+            class="inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-7 py-3 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#82301d] transition-colors"
+          >
+            {a.lieuCta}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Les fondateurs -->
+    <section class="py-28 md:py-36 bg-white">
+      <div class="max-w-5xl mx-auto px-8 sm:px-12">
+        <span class="block text-xs font-semibold tracking-[0.2em] uppercase text-[#9A3922] mb-4">
+          {a.foundersEyebrow}
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] mb-12">{a.foundersTitle}</h2>
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div class="grid grid-cols-2 gap-4">
+            <img
+              src="/images/charly-aubert.webp"
+              alt="Charly Aubert, cofondateur de LAOM"
+              width="400"
+              height="500"
+              loading="lazy"
+              class="w-full aspect-[4/5] object-cover rounded-sm"
+            />
+            <img
+              src="/images/amandine-orriols.webp"
+              alt="Amandine Orriols, cofondatrice de LAOM"
+              width="400"
+              height="500"
+              loading="lazy"
+              class="w-full aspect-[4/5] object-cover rounded-sm"
+            />
+          </div>
+          <div>
+            <p class="text-lg md:text-xl font-normal text-[#412F1F]/85 leading-relaxed mb-6">{a.foundersText1}</p>
+            <p class="text-lg md:text-xl font-normal text-[#412F1F]/85 leading-relaxed mb-8">{a.foundersText2}</p>
+            <a
+              href={histoireLink}
+              class="inline-flex items-center rounded-sm border border-[#412F1F]/30 text-[#412F1F] px-7 py-3 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#412F1F] hover:text-[#F2EBDB] transition-colors"
+            >
+              {a.foundersCta}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Quiz (capture principale) -->
+    <section class="py-28 md:py-36 bg-[#73673E] text-[#F2EBDB]">
+      <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center">
+        <h2 class="text-3xl md:text-5xl font-extrabold leading-tight mb-6">{a.quizTitle}</h2>
+        <p class="text-lg font-normal text-[#F2EBDB]/85 leading-relaxed mb-10">{a.quizSub}</p>
+        <a
+          href={quizLink}
+          class="inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-10 py-4 text-sm font-semibold tracking-[0.2em] uppercase hover:bg-[#82301d] transition-colors"
+        >
+          {a.quizCta}
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#412F1F] text-[#F2EBDB]/80">
+      <div class="max-w-6xl mx-auto px-8 sm:px-12 py-16 grid gap-10 md:grid-cols-3">
+        <div>
+          <img
+            src="/images/brand/logo-laom-wordmark-beige.svg"
+            alt="LAOM"
+            width="120"
+            height="26"
+            class="h-6 w-auto mb-4"
+          />
+          <p class="text-sm font-normal text-[#F2EBDB]/60 max-w-xs">{a.footerTagline}</p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/50 mb-4">{a.footerNavTitle}</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href={coliving} class="hover:text-white transition-colors">{a.nav.coliving}</a></li>
+            <li><a href={candidater} class="hover:text-white transition-colors">{a.nav.cta}</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/50 mb-4">{a.footerContactTitle}</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="hover:text-white transition-colors">{a.footerInstagram}</a></li>
+            <li><a href="mailto:hello@laom.fr" class="hover:text-white transition-colors">hello@laom.fr</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  /* Police de marque LAOM — Host Grotesk (self-hostée), scopée à cette page */
+  @font-face {
+    font-family: 'Host Grotesk';
+    src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Host Grotesk';
+    src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  .accueil-brand {
+    font-family: 'Host Grotesk', system-ui, -apple-system, sans-serif;
+  }
+</style>

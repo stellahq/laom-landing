@@ -629,6 +629,46 @@ export const translations = {
           'On te rappelle dans les 48h. Pas de pitch, pas de pression. Juste une conversation pour voir si LAOM est fait pour toi.',
         backToHome: 'Retour à l\'accueil',
       },
+      accueilColivingPage: {
+        nav: { coliving: 'Coliving', cta: 'Candidater' },
+        heroOverlay: 'Vis et travaille autrement, en pleine nature, entre pairs.',
+        heroSub: 'Coliving pour entrepreneurs. Sud Aveyron.',
+        heroCta: 'Candidater',
+        manifesto1:
+          'LAOM, c\'est un ancien domaine agricole de 21 hectares, entre causses et vallées, dans le sud de l\'Aveyron.',
+        manifesto2:
+          'On y a construit un lieu de vie. Pas un hôtel. Pas un centre de formation. Un endroit où l\'on mange ce qui pousse ici, où l\'on travaille dans le calme, et où l\'on partage le quotidien avec des gens qui nous ressemblent.',
+        manifesto3:
+          'On accueille des entrepreneurs qui ont construit quelque chose et qui cherchent un cadre pour continuer, autrement.',
+        teaserEyebrow: 'Coliving entrepreneurs',
+        teaserTitle: 'Coliving entrepreneurs. Août 2026.',
+        teaserText1:
+          '1 semaine. 12 places. Tout est inclus : hébergement, repas faits maison, espace de travail, activités.',
+        teaserText2: 'Un cadre qui change tout, sans mettre ta vie pro en pause.',
+        teaserCta: 'Découvrir le programme',
+        lieuEyebrow: 'Le lieu',
+        lieuTitle: 'Le lieu en aperçu',
+        lieuText1:
+          'Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse.',
+        lieuText2:
+          'Le domaine est à 1h30 de Montpellier, au milieu de nulle part. C\'est exactement le point.',
+        lieuCta: 'Voir le lieu',
+        foundersEyebrow: 'Les fondateurs',
+        foundersTitle: 'Charly et Amandine',
+        foundersText1:
+          'Charly et Amandine ont créé LAOM avec une conviction simple : on vit mieux quand on choisit son cadre.',
+        foundersText2:
+          'Ils ont quitté la ville, acheté 21 hectares, et construit un lieu où le travail, la nature et la communauté cohabitent.',
+        foundersCta: 'Lire notre histoire',
+        quizTitle: 'Vis-tu vraiment le mode de vie que tu veux ?',
+        quizSub:
+          'Un quiz de 2 minutes pour faire le point sur ton équilibre entre travail, cadre de vie, et ce qui compte vraiment pour toi. Tu reçois ton profil personnalisé par email.',
+        quizCta: 'Faire le quiz',
+        footerTagline: 'Coliving pour entrepreneurs. Sud Aveyron.',
+        footerNavTitle: 'Naviguer',
+        footerContactTitle: 'Contact',
+        footerInstagram: 'Instagram',
+      },
       newsletterPage: {
         heroTitle: 'LAOM Letter',
         heroSubtitle: 'Coulisses du projet, décisions clés, actus et événements. Pas de spam.',
@@ -1419,6 +1459,46 @@ export const translations = {
         reassurance:
           'We\'ll call you back within 48 hours. No pitch, no pressure. Just a conversation to see if LAOM is right for you.',
         backToHome: 'Back to home',
+      },
+      accueilColivingPage: {
+        nav: { coliving: 'Coliving', cta: 'Apply' },
+        heroOverlay: 'Live and work differently, surrounded by nature, among peers.',
+        heroSub: 'Coliving for entrepreneurs. South Aveyron.',
+        heroCta: 'Apply',
+        manifesto1:
+          'LAOM is a former 21-hectare farming estate, between limestone plateaus and valleys, in the south of Aveyron.',
+        manifesto2:
+          'We built a place to live here. Not a hotel. Not a training centre. A place where you eat what grows here, where you work in calm, and where you share daily life with people who are like you.',
+        manifesto3:
+          'We welcome entrepreneurs who have built something and who are looking for a setting to keep going, differently.',
+        teaserEyebrow: 'Coliving for entrepreneurs',
+        teaserTitle: 'Coliving for entrepreneurs. August 2026.',
+        teaserText1:
+          '1 week. 12 spots. Everything included: accommodation, home-cooked meals, a workspace, activities.',
+        teaserText2: 'A setting that changes everything, without putting your work life on hold.',
+        teaserCta: 'Discover the programme',
+        lieuEyebrow: 'The place',
+        lieuTitle: 'The place at a glance',
+        lieuText1:
+          'Tipis, a vegetable garden, an open-air café, forest trails. And the Milky Way at night, with zero light pollution.',
+        lieuText2:
+          'The estate is 1h30 from Montpellier, in the middle of nowhere. That is exactly the point.',
+        lieuCta: 'See the place',
+        foundersEyebrow: 'The founders',
+        foundersTitle: 'Charly and Amandine',
+        foundersText1:
+          'Charly and Amandine created LAOM with one simple conviction: you live better when you choose your setting.',
+        foundersText2:
+          'They left the city, bought 21 hectares, and built a place where work, nature and community live together.',
+        foundersCta: 'Read our story',
+        quizTitle: 'Are you really living the life you want?',
+        quizSub:
+          'A 2-minute quiz to take stock of your balance between work, living environment, and what truly matters to you. You receive your personalised profile by email.',
+        quizCta: 'Take the quiz',
+        footerTagline: 'Coliving for entrepreneurs. South Aveyron.',
+        footerNavTitle: 'Navigate',
+        footerContactTitle: 'Contact',
+        footerInstagram: 'Instagram',
       },
       newsletterPage: {
         heroTitle: 'LAOM Letter',
