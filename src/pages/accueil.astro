@@ -13,13 +13,7 @@ const a = t.pages.accueilColivingPage
 
 const home = getLocalizedPath('/', lang)
 const candidater = getLocalizedPath('/candidater/', lang)
-// TODO: pointer "Découvrir le programme" vers /coliving-aout/ quand la PDV existera
 const coliving = getLocalizedPath('/coliving/', lang)
-// TODO: pointer "Voir le lieu" vers /le-lieu/ et "Lire notre histoire" vers /notre-histoire/ une fois ces pages créées
-const lieuLink = getLocalizedPath('/coliving/', lang)
-const histoireLink = getLocalizedPath('/coliving/', lang)
-// TODO: remplacer par le lien réel du quiz Tally/Typeform
-const quizLink = candidater
 
 const pageSchema = createWebPageSchema({
   name: 'LAOM – Coliving pour entrepreneurs',
@@ -34,233 +28,275 @@ const pageSchema = createWebPageSchema({
   hideChrome={true}
   seo={{ ldJSON: pageSchema }}
 >
-  <div class="accueil-brand bg-[#F2EBDB] text-[#412F1F]">
+  <div class="accueil-brand bg-[#F2EBDB] text-[#412F1F] selection:bg-[#9A3922] selection:text-[#F2EBDB]">
     <!-- Header transparent par-dessus le hero -->
     <header class="absolute top-0 left-0 right-0 z-30">
-      <nav class="max-w-7xl mx-auto px-8 sm:px-12 lg:px-20 py-6 flex items-center justify-between">
+      <nav class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-6 flex items-center justify-between">
         <a href={home} class="inline-block hover:opacity-80 transition-opacity">
-          <img
-            src="/images/brand/logo-laom-wordmark-beige.svg"
-            alt="LAOM"
-            width="120"
-            height="26"
-            class="h-6 w-auto"
-          />
+          <img src="/images/brand/logo-laom-wordmark-beige.svg" alt="LAOM" width="116" height="25" class="h-6 w-auto" />
         </a>
-        <div class="flex items-center gap-8">
-          <a href={coliving} class="hidden sm:inline text-sm font-medium text-[#F2EBDB]/90 hover:text-white transition-colors">
-            {a.nav.coliving}
-          </a>
-          <a
-            href={candidater}
-            class="inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-5 py-2.5 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-[#82301d] transition-colors"
-          >
-            {a.nav.cta}
-          </a>
+        <div class="hidden md:flex items-center gap-9 text-sm font-medium text-[#F2EBDB]/85">
+          <a href={coliving} class="hover:text-white transition-colors">{a.nav.coliving}</a>
+          <a href="#lieu" class="hover:text-white transition-colors">{a.espacesEyebrow}</a>
+          <a href="#histoire" class="hover:text-white transition-colors">{a.foundersEyebrow}</a>
         </div>
+        <a
+          href={candidater}
+          class="inline-flex items-center rounded-full bg-[#9A3922] text-[#F2EBDB] px-6 py-2.5 text-xs font-semibold tracking-[0.15em] uppercase hover:bg-[#82301d] transition-colors"
+        >
+          {a.nav.cta}
+        </a>
       </nav>
     </header>
 
-    <!-- 1. Hero vidéo plein écran -->
-    <section class="relative h-screen min-h-[600px] w-full overflow-hidden">
+    <!-- 1. HERO -->
+    <section class="relative min-h-[92vh] w-full overflow-hidden flex flex-col">
       <video
-        autoplay
-        muted
-        loop
-        playsinline
+        autoplay muted loop playsinline
         poster="/images/vue-aeriene-laom2-hero.webp"
         class="absolute inset-0 w-full h-full object-cover"
       >
         <source src="/videos/aveyron_hero.webm" type="video/webm" />
       </video>
-      <div class="absolute inset-0 bg-black/40"></div>
-      <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
-        <h1 class="max-w-4xl text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#2c1c12]/55 via-[#2c1c12]/30 to-[#2c1c12]/75"></div>
+
+      <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pt-24">
+        <span class="inline-flex items-center gap-3 text-[#F2EBDB]/80 text-xs sm:text-sm font-medium tracking-[0.25em] uppercase mb-7">
+          <span class="w-8 h-px bg-[#F2EBDB]/50"></span>{a.heroEyebrow}<span class="w-8 h-px bg-[#F2EBDB]/50"></span>
+        </span>
+        <h1 class="max-w-4xl text-[2.6rem] leading-[1.04] sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight">
           {a.heroOverlay}
         </h1>
-        <p class="mt-6 text-lg md:text-xl font-medium text-white/85 tracking-wide">
-          {a.heroSub}
-        </p>
+        <p class="mt-7 text-lg md:text-xl font-medium text-white/85 tracking-wide">{a.heroSub}</p>
         <a
           href={candidater}
-          class="mt-10 inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-10 py-4 text-sm font-semibold tracking-[0.2em] uppercase hover:bg-[#82301d] transition-colors"
+          class="mt-10 inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] px-10 py-4 text-sm font-semibold tracking-[0.18em] uppercase hover:bg-[#82301d] hover:-translate-y-0.5 transition-all"
         >
           {a.heroCta}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="-mr-1"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
-    </section>
 
-    <!-- 2. Manifeste -->
-    <section class="py-28 md:py-36 bg-[#F2EBDB]">
-      <div class="max-w-3xl mx-auto px-8 sm:px-12">
-        <p class="text-2xl md:text-3xl font-extrabold text-[#412F1F] leading-snug mb-8">
-          {a.manifesto1}
-        </p>
-        <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed mb-6">
-          {a.manifesto2}
-        </p>
-        <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed">
-          {a.manifesto3}
-        </p>
+      <!-- bande de stats -->
+      <div class="relative z-10 pb-10 px-6">
+        <div class="max-w-5xl mx-auto rounded-2xl bg-[#F2EBDB]/95 backdrop-blur-sm border border-white/40 shadow-xl px-6 py-8 sm:px-10">
+          <div class="grid grid-cols-3 divide-x divide-[#412F1F]/10">
+            {a.stats.map((s) => (
+              <div class="px-3 text-center">
+                <p class="text-3xl sm:text-5xl font-extrabold text-[#9A3922] tracking-tight">{s.value}<span class="text-2xl sm:text-3xl">{s.suffix}</span></p>
+                <p class="mt-2 text-xs sm:text-sm font-medium text-[#412F1F]/70 leading-snug">{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <p class="mt-6 text-center text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-[#73673E]">{a.statsTag}</p>
+        </div>
       </div>
     </section>
 
-    <!-- 3. Teaser coliving août 2026 -->
-    <section class="bg-[#412F1F] text-[#F2EBDB]">
-      <div class="grid md:grid-cols-2">
-        <div class="aspect-[4/3] md:aspect-auto md:min-h-[480px]">
+    <!-- 2. MANIFESTE / À PROPOS -->
+    <section class="py-24 md:py-32">
+      <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div class="relative">
+            <img
+              src="/images/laom/festival-laom-ambiance-nature-aveyron.webp"
+              alt="Ambiance nature et communauté au domaine LAOM"
+              width="700" height="850" loading="lazy"
+              class="w-full aspect-[4/5] object-cover rounded-2xl"
+            />
+            <div class="absolute -bottom-6 -right-4 sm:right-6 bg-[#9A3922] text-[#F2EBDB] rounded-xl px-6 py-5 max-w-[230px] shadow-lg">
+              <p class="text-sm font-semibold leading-snug">{a.statsTag}</p>
+            </div>
+          </div>
+          <div>
+            <span class="inline-flex items-center gap-3 text-[#9A3922] text-xs font-semibold tracking-[0.25em] uppercase mb-6">
+              <span class="w-8 h-px bg-[#9A3922]/50"></span>{a.aboutEyebrow}
+            </span>
+            <h2 class="text-3xl md:text-4xl lg:text-[2.7rem] font-extrabold leading-[1.12] tracking-tight mb-6">
+              {a.aboutTitle}<span class="text-[#9A3922]">{a.aboutTitleAccent}</span>
+            </h2>
+            <p class="text-lg font-normal text-[#412F1F]/75 leading-relaxed mb-10">{a.aboutSubtitle}</p>
+            <div class="grid sm:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-base font-extrabold mb-2">{a.aboutBlock1Title}</h3>
+                <p class="text-sm font-normal text-[#412F1F]/70 leading-relaxed">{a.aboutBlock1Text}</p>
+              </div>
+              <div>
+                <h3 class="text-base font-extrabold mb-2">{a.aboutBlock2Title}</h3>
+                <p class="text-sm font-normal text-[#412F1F]/70 leading-relaxed">{a.aboutBlock2Text}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. LE LIEU (grille) -->
+    <section id="lieu" class="py-24 md:py-32 bg-[#412F1F] text-[#F2EBDB]">
+      <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div class="max-w-2xl mb-14">
+          <span class="inline-flex items-center gap-3 text-[#F2EBDB]/60 text-xs font-semibold tracking-[0.25em] uppercase mb-6">
+            <span class="w-8 h-px bg-[#F2EBDB]/40"></span>{a.espacesEyebrow}
+          </span>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight mb-5">{a.espacesTitle}</h2>
+          <p class="text-lg font-normal text-[#F2EBDB]/70 leading-relaxed">{a.espacesSubtitle}</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#F2EBDB]/10 rounded-2xl overflow-hidden">
+          {a.espaces.map((e, i) => (
+            <div class="group bg-[#412F1F] hover:bg-[#4d3826] transition-colors px-7 py-9">
+              <span class="block text-sm font-mono text-[#9A3922] mb-5">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="text-xl font-extrabold mb-2 flex items-center justify-between">
+                {e.title}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-[#F2EBDB]/40 group-hover:text-[#9A3922] group-hover:translate-x-1 transition-all"><path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </h3>
+              <p class="text-sm font-normal text-[#F2EBDB]/65 leading-relaxed">{e.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. BANDE CTA Candidater -->
+    <section class="relative">
+      <div class="grid lg:grid-cols-2">
+        <div class="min-h-[340px] lg:min-h-[460px]">
           <img
             src="/images/laom/diner-golden-hour-laom.webp"
-            alt="Entrepreneurs réunis autour d'un dîner à LAOM, lumière dorée"
-            width="800"
-            height="600"
-            loading="lazy"
+            alt="Dîner en communauté à LAOM, lumière dorée"
+            width="900" height="700" loading="lazy"
             class="w-full h-full object-cover"
           />
         </div>
-        <div class="flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 md:py-0">
-          <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/60 mb-4">
-            {a.teaserEyebrow}
+        <div class="bg-[#9A3922] text-[#F2EBDB] flex flex-col justify-center px-8 sm:px-14 lg:px-20 py-16 lg:py-0">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-[1.08] tracking-tight mb-6">{a.ctaBandTitle}</h2>
+          <p class="text-lg font-normal text-[#F2EBDB]/85 leading-relaxed mb-9 max-w-md">{a.ctaBandText}</p>
+          <a
+            href={candidater}
+            class="inline-flex w-fit items-center gap-3 rounded-full bg-[#F2EBDB] text-[#9A3922] px-9 py-4 text-sm font-semibold tracking-[0.18em] uppercase hover:bg-white hover:-translate-y-0.5 transition-all"
+          >
+            {a.ctaBandButton}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CE QUE TU VIENS VIVRE -->
+    <section class="py-24 md:py-32">
+      <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div class="max-w-2xl mb-14">
+          <span class="inline-flex items-center gap-3 text-[#9A3922] text-xs font-semibold tracking-[0.25em] uppercase mb-6">
+            <span class="w-8 h-px bg-[#9A3922]/50"></span>{a.vivreEyebrow}
           </span>
-          <h2 class="text-3xl md:text-4xl font-extrabold leading-tight mb-6">{a.teaserTitle}</h2>
-          <p class="text-lg font-normal text-[#F2EBDB]/85 leading-relaxed mb-4">{a.teaserText1}</p>
-          <p class="text-lg font-normal text-[#F2EBDB]/85 leading-relaxed mb-8">{a.teaserText2}</p>
-          <a
-            href={coliving}
-            class="inline-flex w-fit items-center rounded-sm border border-[#F2EBDB]/40 text-[#F2EBDB] px-7 py-3 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#F2EBDB] hover:text-[#412F1F] transition-colors"
-          >
-            {a.teaserCta}
-          </a>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight mb-5">{a.vivreTitle}</h2>
+          <p class="text-lg font-normal text-[#412F1F]/75 leading-relaxed">{a.vivreSubtitle}</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {a.vivreItems.map((v) => (
+            <div class="rounded-2xl border border-[#412F1F]/10 bg-white/50 px-7 py-8 hover:-translate-y-1 hover:shadow-lg transition-all">
+              <div class="w-11 h-11 rounded-full bg-[#9A3922]/10 flex items-center justify-center mb-5">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-[#9A3922]"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3 class="text-lg font-extrabold mb-2">{v.title}</h3>
+              <p class="text-sm font-normal text-[#412F1F]/70 leading-relaxed">{v.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
 
-    <!-- 4. Le lieu en aperçu -->
-    <section class="py-28 md:py-36 bg-[#F2EBDB]">
-      <div class="max-w-6xl mx-auto px-8 sm:px-12">
-        <span class="block text-xs font-semibold tracking-[0.2em] uppercase text-[#9A3922] mb-4">
-          {a.lieuEyebrow}
-        </span>
-        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] mb-12">{a.lieuTitle}</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
-          <img
-            src="/images/vue-aeriene-laom2-hero.webp"
-            alt="Vue aérienne du domaine LAOM en sud Aveyron"
-            width="600"
-            height="450"
-            loading="lazy"
-            class="w-full aspect-[3/4] object-cover rounded-sm"
-          />
-          <img
-            src="/images/laom/festival-laom-ambiance-nature-aveyron.webp"
-            alt="Ambiance nature et communauté à LAOM"
-            width="600"
-            height="450"
-            loading="lazy"
-            class="w-full aspect-[3/4] object-cover rounded-sm"
-          />
-          <img
-            src="/images/laom/Oasis-La-Margue-1.webp"
-            alt="Le domaine de La Margue, espaces extérieurs de LAOM"
-            width="600"
-            height="450"
-            loading="lazy"
-            class="w-full aspect-[3/4] object-cover rounded-sm"
-          />
+    <!-- 6. PRIX / TOUT INCLUS -->
+    <section class="py-24 md:py-32 bg-[#73673E] text-[#F2EBDB]">
+      <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 grid lg:grid-cols-2 gap-14 items-center">
+        <div>
+          <span class="inline-flex items-center gap-3 text-[#F2EBDB]/70 text-xs font-semibold tracking-[0.25em] uppercase mb-6">
+            <span class="w-8 h-px bg-[#F2EBDB]/50"></span>{a.prixEyebrow}
+          </span>
+          <h2 class="text-4xl md:text-5xl font-extrabold leading-[1.05] tracking-tight mb-6">{a.prixTitle}</h2>
+          <p class="text-lg font-normal text-[#F2EBDB]/80 leading-relaxed mb-9 max-w-md">{a.prixText}</p>
+          <div class="flex flex-wrap gap-4">
+            <a href={candidater} class="inline-flex items-center rounded-full bg-[#9A3922] text-[#F2EBDB] px-8 py-3.5 text-sm font-semibold tracking-[0.18em] uppercase hover:bg-[#82301d] transition-colors">{a.prixButton}</a>
+            <a href={coliving} class="inline-flex items-center rounded-full border border-[#F2EBDB]/40 text-[#F2EBDB] px-8 py-3.5 text-sm font-semibold tracking-[0.18em] uppercase hover:bg-[#F2EBDB] hover:text-[#412F1F] transition-colors">{a.prixButtonAlt}</a>
+          </div>
         </div>
-        <div class="max-w-2xl">
-          <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed mb-4">{a.lieuText1}</p>
-          <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed mb-8">{a.lieuText2}</p>
-          <a
-            href={lieuLink}
-            class="inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-7 py-3 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#82301d] transition-colors"
-          >
-            {a.lieuCta}
-          </a>
-        </div>
+        <ul class="space-y-px rounded-2xl overflow-hidden bg-[#F2EBDB]/10">
+          {a.inclusItems.map((item) => (
+            <li class="flex items-center gap-4 bg-[#73673E] px-6 py-5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-[#F2EBDB] shrink-0"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="text-base font-medium">{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
-    <!-- 5. Les fondateurs -->
-    <section class="py-28 md:py-36 bg-white">
-      <div class="max-w-5xl mx-auto px-8 sm:px-12">
-        <span class="block text-xs font-semibold tracking-[0.2em] uppercase text-[#9A3922] mb-4">
-          {a.foundersEyebrow}
+    <!-- 7. LES FONDATEURS -->
+    <section id="histoire" class="py-24 md:py-32">
+      <div class="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+        <span class="inline-flex items-center gap-3 text-[#9A3922] text-xs font-semibold tracking-[0.25em] uppercase mb-6">
+          <span class="w-8 h-px bg-[#9A3922]/50"></span>{a.foundersEyebrow}
         </span>
-        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] mb-12">{a.foundersTitle}</h2>
-        <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div class="grid grid-cols-2 gap-4">
-            <img
-              src="/images/charly-aubert.webp"
-              alt="Charly Aubert, cofondateur de LAOM"
-              width="400"
-              height="500"
-              loading="lazy"
-              class="w-full aspect-[4/5] object-cover rounded-sm"
-            />
-            <img
-              src="/images/amandine-orriols.webp"
-              alt="Amandine Orriols, cofondatrice de LAOM"
-              width="400"
-              height="500"
-              loading="lazy"
-              class="w-full aspect-[4/5] object-cover rounded-sm"
-            />
+            <img src="/images/charly-aubert.webp" alt="Charly Aubert, cofondateur de LAOM" width="400" height="500" loading="lazy" class="w-full aspect-[4/5] object-cover rounded-xl" />
+            <img src="/images/amandine-orriols.webp" alt="Amandine Orriols, cofondatrice de LAOM" width="400" height="500" loading="lazy" class="w-full aspect-[4/5] object-cover rounded-xl mt-8" />
           </div>
           <div>
-            <p class="text-lg md:text-xl font-normal text-[#412F1F]/85 leading-relaxed mb-6">{a.foundersText1}</p>
-            <p class="text-lg md:text-xl font-normal text-[#412F1F]/85 leading-relaxed mb-8">{a.foundersText2}</p>
-            <a
-              href={histoireLink}
-              class="inline-flex items-center rounded-sm border border-[#412F1F]/30 text-[#412F1F] px-7 py-3 text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[#412F1F] hover:text-[#F2EBDB] transition-colors"
-            >
+            <h2 class="text-3xl md:text-4xl font-extrabold leading-[1.1] tracking-tight mb-6">{a.foundersTitle}</h2>
+            <p class="text-lg font-normal text-[#412F1F]/80 leading-relaxed mb-5">{a.foundersText1}</p>
+            <p class="text-lg font-normal text-[#412F1F]/80 leading-relaxed mb-9">{a.foundersText2}</p>
+            <a href={coliving} class="inline-flex items-center gap-2 text-[#9A3922] text-sm font-semibold tracking-[0.12em] uppercase hover:gap-3 transition-all">
               {a.foundersCta}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. Quiz (capture principale) -->
-    <section class="py-28 md:py-36 bg-[#73673E] text-[#F2EBDB]">
-      <div class="max-w-3xl mx-auto px-8 sm:px-12 text-center">
-        <h2 class="text-3xl md:text-5xl font-extrabold leading-tight mb-6">{a.quizTitle}</h2>
-        <p class="text-lg font-normal text-[#F2EBDB]/85 leading-relaxed mb-10">{a.quizSub}</p>
-        <a
-          href={quizLink}
-          class="inline-flex items-center rounded-sm bg-[#9A3922] text-[#F2EBDB] px-10 py-4 text-sm font-semibold tracking-[0.2em] uppercase hover:bg-[#82301d] transition-colors"
-        >
+    <!-- 8. QUIZ -->
+    <section class="py-24 md:py-32 bg-[#2c1c12] text-[#F2EBDB]">
+      <div class="max-w-3xl mx-auto px-6 sm:px-10 text-center">
+        <h2 class="text-3xl md:text-5xl font-extrabold leading-[1.08] tracking-tight mb-6">{a.quizTitle}</h2>
+        <p class="text-lg font-normal text-[#F2EBDB]/75 leading-relaxed mb-10">{a.quizSub}</p>
+        <a href={candidater} class="inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] px-10 py-4 text-sm font-semibold tracking-[0.18em] uppercase hover:bg-[#82301d] hover:-translate-y-0.5 transition-all">
           {a.quizCta}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#412F1F] text-[#F2EBDB]/80">
-      <div class="max-w-6xl mx-auto px-8 sm:px-12 py-16 grid gap-10 md:grid-cols-3">
-        <div>
-          <img
-            src="/images/brand/logo-laom-wordmark-beige.svg"
-            alt="LAOM"
-            width="120"
-            height="26"
-            class="h-6 w-auto mb-4"
-          />
-          <p class="text-sm font-normal text-[#F2EBDB]/60 max-w-xs">{a.footerTagline}</p>
+    <!-- FOOTER -->
+    <footer class="bg-[#412F1F] text-[#F2EBDB]/75">
+      <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-16 grid gap-10 md:grid-cols-4">
+        <div class="md:col-span-2 max-w-sm">
+          <img src="/images/brand/logo-laom-wordmark-beige.svg" alt="LAOM" width="120" height="26" class="h-6 w-auto mb-5" />
+          <p class="text-sm font-normal text-[#F2EBDB]/60 leading-relaxed">{a.footerTagline}</p>
         </div>
         <div>
-          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/50 mb-4">{a.footerNavTitle}</p>
-          <ul class="space-y-2 text-sm">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/45 mb-4">{a.footerNavTitle}</p>
+          <ul class="space-y-2.5 text-sm">
             <li><a href={coliving} class="hover:text-white transition-colors">{a.nav.coliving}</a></li>
+            <li><a href="#lieu" class="hover:text-white transition-colors">{a.espacesEyebrow}</a></li>
+            <li><a href="#histoire" class="hover:text-white transition-colors">{a.foundersEyebrow}</a></li>
             <li><a href={candidater} class="hover:text-white transition-colors">{a.nav.cta}</a></li>
           </ul>
         </div>
         <div>
-          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/50 mb-4">{a.footerContactTitle}</p>
-          <ul class="space-y-2 text-sm">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[#F2EBDB]/45 mb-4">{a.footerContactTitle}</p>
+          <ul class="space-y-2.5 text-sm">
             <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="hover:text-white transition-colors">{a.footerInstagram}</a></li>
             <li><a href="mailto:hello@laom.fr" class="hover:text-white transition-colors">hello@laom.fr</a></li>
           </ul>
+        </div>
+      </div>
+      <div class="border-t border-[#F2EBDB]/10">
+        <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#F2EBDB]/50">
+          <p>{a.footerCopyright}</p>
+          <div class="flex gap-6">
+            <a href={candidater} class="hover:text-white transition-colors">{a.footerPrivacy}</a>
+            <a href={candidater} class="hover:text-white transition-colors">{a.footerTerms}</a>
+          </div>
         </div>
       </div>
     </footer>
@@ -285,5 +321,9 @@ const pageSchema = createWebPageSchema({
   }
   .accueil-brand {
     font-family: 'Host Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .accueil-brand html,
+  .accueil-brand :where(a) {
+    scroll-behavior: smooth;
   }
 </style>
