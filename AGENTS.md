@@ -367,6 +367,28 @@ The LAOM landing page is designed with a **luxury wellness aesthetic** inspired 
 - Branch model: `feature/* → staging → (PR) → main → auto-deploy`.
 - Before every PR: `bun run build` **and** `bun run seo:check` must pass.
 - Note: `main` should be protected on GitHub (no direct push, no force-push).
+
+### 7c. Garde-fous obligatoires AVANT tout merge / action prod (NE PAS SAUTER)
+
+Règle de fond : **ne jamais qualifier un merge ou un push de "safe" sur intuition.**
+Lire l'état réel d'abord, annoncer l'impact concret, puis demander le feu vert.
+
+1. **Pré-vol divergence** — avant de proposer/ouvrir une PR `staging → main`, lancer
+   et lire :
+   - `git fetch origin main staging`
+   - `git log --oneline origin/main..origin/staging` (ce que le merge AMÈNE)
+   - `git log --oneline origin/staging..origin/main` (de combien staging est EN RETARD)
+   - `git diff --diff-filter=D --name-only origin/main origin/staging` (ce que ça
+     SUPPRIME/écrase en prod)
+   - `git merge-base origin/main origin/staging` (depuis quand les branches ont divergé)
+   Si staging est en retard de plusieurs commits sur main → **danger de régression
+   prod** : resynchroniser staging sur main AVANT toute PR. Ne pas merger.
+2. **Hygiène staging** — `staging` doit toujours partir d'un `main` à jour. Avant de
+   commencer un chantier : `git checkout staging && git merge origin/main`. Une staging
+   qui dérive de main est une bombe à retard (régression silencieuse en prod au merge).
+3. **Action prod = feu vert humain.** Tout merge sur `main` (= mise en ligne) : annoncer
+   l'impact concret (fichiers/contenu/code touché) et attendre l'accord explicite de
+   Charly. En cas de doute → poser la question AVANT d'agir, jamais après.
   Only Amandine (repo admin) can enable that — ask her if it's not yet set.
 
 ### 8. Development Server
