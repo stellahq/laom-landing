@@ -29,7 +29,8 @@ jobs:
           AHEAD=$(git rev-list --count "$BASE..$HEAD")
           BEHIND=$(git rev-list --count "$HEAD..$BASE")
           git diff --diff-filter=D --name-only "$BASE...$HEAD" > deleted.txt || true
-          DCOUNT=$(grep -c . deleted.txt || echo 0)
+          DCOUNT=$(grep -c . deleted.txt || true)
+          DCOUNT=${DCOUNT:-0}
           {
             echo "ahead=$AHEAD"
             echo "behind=$BEHIND"
