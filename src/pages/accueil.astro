@@ -300,9 +300,7 @@ const pageSchema = createWebPageSchema({
 </Layout>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
-
-  /* Police de marque LAOM — Host Grotesk (self-hostée) pour le corps */
+  /* Police de marque LAOM — Host Grotesk (self-hostée), normale + italique */
   @font-face {
     font-family: 'Host Grotesk';
     src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype-variations');
@@ -310,10 +308,27 @@ const pageSchema = createWebPageSchema({
     font-style: normal;
     font-display: swap;
   }
+  @font-face {
+    font-family: 'Host Grotesk';
+    src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
   .laom-home {
     font-family: 'Host Grotesk', system-ui, -apple-system, sans-serif;
   }
+  /* Les titres gardent la même police que le corps (charte LAOM),
+     mais avec un traitement "display" : graisse forte + interlettrage
+     serré pour conserver la hiérarchie et le côté éditorial. */
   .laom-home .font-display {
-    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-family: 'Host Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+  /* Les accents en italique (mots/citations) restent plus légers. */
+  .laom-home .font-display.italic {
+    font-weight: 500;
+    letter-spacing: -0.015em;
   }
 </style>
