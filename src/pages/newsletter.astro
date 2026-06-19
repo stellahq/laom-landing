@@ -5,7 +5,7 @@ import { createWebPageSchema } from '~/utils/schema'
 const pageSchema = createWebPageSchema({
   name: 'Rejoignez l\'aventure LAOM',
   url: Astro.url.toString(),
-  description: 'Recevez le programme 2026 et les coulisses du chantier chaque dimanche.',
+  description: 'Chaque dimanche, ce qui se passe à LAOM : chantiers, événements, coulisses, rencontres improbables — et comment venir.',
 })
 
 // Kit form options
@@ -27,37 +27,26 @@ const microTestimonials = [
   { quote: "Un lieu magique", author: "Marie" },
   { quote: "On repart transformé", author: "Thomas" },
   { quote: "L'authenticité des échanges", author: "Julie" },
-  { quote: "Sans filtre, sans bullshit", author: "Marc" },
 ]
 
 // Témoignages détaillés
 const testimonials = [
   {
-    quote: "La newsletter de LAOM, c'est le seul mail que j'ouvre le dimanche matin. Les coulisses du chantier, les galères, les victoires — tout est vrai.",
-    author: "Sophie",
-    context: "abonnée depuis 2024"
+    quote: "Merci beaucoup pour ce mail qui est si éclairant donc précieux.",
+    author: "Véro",
+    context: "abonnée à la newsletter"
   },
   {
-    quote: "J'ai découvert LAOM par la newsletter. Six mois plus tard, je suis venue à une retraite. Le mail du dimanche m'avait donné envie de voir ce lieu de mes propres yeux.",
-    author: "Camille",
-    context: "participante En Mouvement"
-  },
-  {
-    quote: "Charly raconte tout sans filtre. Les erreurs de chantier, les choix financiers, les doutes. C'est rare et précieux.",
-    author: "Antoine",
-    context: "porteur de projet écolieu"
-  },
-  {
-    quote: "Un lieu qui te remet en connexion avec l'essentiel. La nature, le collectif, le silence, le mouvement.",
-    author: "Participante",
-    context: "retraite Danse & Silence"
+    quote: "C'est magnifique ce que vous faites ! Merci.",
+    author: "Goulven Bazire",
+    context: "Fondateur, ÔVIVANT"
   },
 ]
 ---
 
 <Layout
   title="Rejoignez l'aventure LAOM"
-  description="Recevez le programme 2026 et les coulisses du chantier chaque dimanche."
+  description="Chaque dimanche, ce qui se passe à LAOM : chantiers, événements, coulisses, rencontres improbables — et comment venir."
   seo={{ ldJSON: pageSchema }}
 >
   <style is:global>
@@ -92,15 +81,15 @@ const testimonials = [
       <!-- Colonne gauche : Texte + Formulaire -->
       <div class="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-20 py-16 lg:py-20 bg-[#FAF8F5] order-2 lg:order-1">
         <p class="text-xs font-light tracking-[0.25em] uppercase text-[#2C2824]/50 mb-6">LAOM · Aveyron</p>
-        
+
         <h1 class="font-playfair text-4xl md:text-5xl xl:text-6xl font-medium text-[#2C2824] mb-6 tracking-tight leading-[1.1]">
           Rejoignez<br/>l'aventure
         </h1>
-        
-        <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed max-w-md">
-          Recevez le programme 2026 et les coulisses du chantier chaque dimanche.
+
+        <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed max-w-lg">
+          Chaque dimanche, je raconte ce qui se passe ici : chantiers, événements, coulisses, rencontres improbables, etc...
         </p>
-        
+
         <!-- Formulaire Kit #1 -->
         <form
           action="https://app.kit.com/forms/8987350/subscriptions"
@@ -112,36 +101,47 @@ const testimonials = [
           data-version="5"
           data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
         >
+          <input type="hidden" name="tags[]" value="18454995" />
           <div data-style="clean">
             <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
-            <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3 max-w-md">
+            <div data-element="fields" data-stacked="true" class="flex flex-col gap-3 max-w-md">
               <input
-                class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
-                name="email_address"
-                type="email"
-                required
-                aria-label="Votre adresse e-mail"
-                placeholder="votre@email.com"
-                autocomplete="email"
+                class="w-full px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+                name="fields[first_name]"
+                type="text"
+                aria-label="Votre prénom"
+                placeholder="Votre prénom"
+                autocomplete="given-name"
               />
-              <button
-                type="submit"
-                data-element="submit"
-                class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
-              >
-                S'inscrire
-              </button>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input
+                  class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+                  name="email_address"
+                  type="email"
+                  required
+                  aria-label="Votre adresse e-mail"
+                  placeholder="votre@email.com"
+                  autocomplete="email"
+                />
+                <button
+                  type="submit"
+                  data-element="submit"
+                  class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
+                >
+                  S'inscrire
+                </button>
+              </div>
             </div>
           </div>
         </form>
-        
-        <p class="text-sm text-[#2C2824]/40 mt-5">Chaque dimanche matin. Pas de spam.</p>
+
+        <p class="text-sm text-[#2C2824]/40 mt-5">Avec du love ❤️. Pas de spam.</p>
       </div>
-      
+
       <!-- Colonne droite : Image -->
       <div class="relative h-[50vh] lg:h-auto order-1 lg:order-2">
-        <img 
-          src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp" 
+        <img
+          src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
           alt="Le Grand Shambala, bâtiment en paille porteuse, LAOM"
           title="Grand Shambala, le plus grand bâtiment en paille porteuse au monde"
           class="absolute inset-0 w-full h-full object-cover"
@@ -173,48 +173,35 @@ const testimonials = [
 
   <!-- CE QUE VOUS RECEVEZ -->
   <section class="py-20 md:py-24 bg-[#FAF8F5]">
-    <div class="max-w-5xl mx-auto px-6 md:px-10">
+    <div class="max-w-4xl mx-auto px-6 md:px-10">
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] mb-14 text-center tracking-tight">
         Ce que vous recevez
       </h2>
-      
-      <div class="grid md:grid-cols-3 gap-10 md:gap-8">
-        <!-- Bullet 1 -->
-        <div class="text-center">
-          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
-            <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Programme 2026</h3>
-          <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
-            En Mouvement, LAOMFEST, stages partenaires, ouverture du coliving — toutes les dates.
-          </p>
-        </div>
-        
-        <!-- Bullet 2 -->
+
+      <div class="grid md:grid-cols-2 gap-10 md:gap-12">
+        <!-- Bullet 1 : Coulisses du projet -->
         <div class="text-center">
           <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
             <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Coulisses du chantier</h3>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Coulisses du projet</h3>
           <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
-            Avancées, décisions, erreurs et apprentissages. Sans filtre.
+            Chantier, décisions, erreurs, apprentissages, doutes et victoires. Sans filtre.
           </p>
         </div>
-        
-        <!-- Bullet 3 -->
+
+        <!-- Bullet 2 : Ce qui se passe sur le lieu -->
         <div class="text-center">
           <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center rounded-full bg-[#C4A855]/10">
             <svg class="w-6 h-6 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Avant-première</h3>
+          <h3 class="text-lg font-medium text-[#2C2824] mb-2">Ce qui se passe sur le lieu</h3>
           <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
-            Nouvelles dates, places disponibles — vous êtes prévenus en premier.
+            Événements, immersions, stages, festivals — et les rencontres improbables qu'on y fait.
           </p>
         </div>
       </div>
@@ -252,58 +239,39 @@ const testimonials = [
         data-version="5"
         data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
       >
+        <input type="hidden" name="tags[]" value="18454995" />
         <div data-style="clean">
           <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
-          <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <div data-element="fields" data-stacked="true" class="flex flex-col gap-3 max-w-md mx-auto">
             <input
-              class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
-              name="email_address"
-              type="email"
-              required
-              aria-label="Votre adresse e-mail"
-              placeholder="votre@email.com"
-              autocomplete="email"
+              class="w-full px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+              name="fields[first_name]"
+              type="text"
+              aria-label="Votre prénom"
+              placeholder="Votre prénom"
+              autocomplete="given-name"
             />
-            <button
-              type="submit"
-              data-element="submit"
-              class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
-            >
-              S'inscrire
-            </button>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+                name="email_address"
+                type="email"
+                required
+                aria-label="Votre adresse e-mail"
+                placeholder="votre@email.com"
+                autocomplete="email"
+              />
+              <button
+                type="submit"
+                data-element="submit"
+                class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
+              >
+                S'inscrire
+              </button>
+            </div>
           </div>
         </div>
       </form>
-    </div>
-  </section>
-
-
-  <!-- TÉMOIGNAGES #2 + #3 (2 colonnes) -->
-  <section class="py-16 md:py-20 bg-white">
-    <div class="max-w-5xl mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-2 gap-10 md:gap-12">
-        <blockquote class="border-l-4 border-[#C4A855]/60 pl-6">
-          <p class="font-playfair text-lg md:text-xl font-normal italic text-[#2C2824]/80 leading-relaxed">
-            "{testimonials[1].quote}"
-          </p>
-          <footer class="mt-4">
-            <p class="text-sm font-light text-[#2C2824]/50">
-              — {testimonials[1].author}, {testimonials[1].context}
-            </p>
-          </footer>
-        </blockquote>
-        
-        <blockquote class="border-l-4 border-[#C4A855]/60 pl-6">
-          <p class="font-playfair text-lg md:text-xl font-normal italic text-[#2C2824]/80 leading-relaxed">
-            "{testimonials[2].quote}"
-          </p>
-          <footer class="mt-4">
-            <p class="text-sm font-light text-[#2C2824]/50">
-              — {testimonials[2].author}, {testimonials[2].context}
-            </p>
-          </footer>
-        </blockquote>
-      </div>
     </div>
   </section>
 
@@ -314,27 +282,54 @@ const testimonials = [
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
         <div class="aspect-[4/3] overflow-hidden rounded-sm">
           <img
-            src="/images/laom/laomfest/vanlifest-IMG_2846.webp"
-            alt="Festival à LAOM"
-            title="Ambiance festive lors du LAOMFEST"
+            src="/images/laom/diner-golden-hour-laom.webp"
+            alt="Dîner à la golden hour à LAOM"
+            title="Dîner à la golden hour à LAOM"
             class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
         </div>
         <div class="aspect-[4/3] overflow-hidden rounded-sm">
           <img
-            src="/images/laom/laomfest/laomfest-groupe-participants.webp"
-            alt="Groupe à LAOM"
-            title="Participants rassembles au LAOMFEST"
+            src="/images/laom/tipis.webp"
+            alt="Les tipis de LAOM"
+            title="Les tipis de LAOM"
             class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
         </div>
-        <div class="aspect-[4/3] overflow-hidden rounded-sm col-span-2 md:col-span-1">
+        <div class="aspect-[4/3] overflow-hidden rounded-sm">
           <img
-            src="/images/laom/financement-participatif/photo-groupe-laom-1502d4dc.webp"
-            alt="Communauté LAOM"
-            title="La communaute LAOM, photo de groupe"
+            src="/images/laom/jardin-laom.webp"
+            alt="Le jardin de LAOM"
+            title="Le jardin de LAOM"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-sm">
+          <img
+            src="/images/laom/riviere-laom.webp"
+            alt="La rivière de LAOM"
+            title="La rivière qui borde LAOM"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-sm">
+          <img
+            src="/images/laom/chillworking-salle-pratique.webp"
+            alt="Salle de pratique à LAOM"
+            title="Salle de pratique pour le yoga et le mouvement"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden rounded-sm">
+          <img
+            src="/images/laom/laomfest/vanlifest-IMG_1021.webp"
+            alt="Vanlifest à LAOM"
+            title="Le festival Vanlifest à LAOM"
             class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             loading="lazy"
           />
@@ -352,11 +347,11 @@ const testimonials = [
     <div class="max-w-3xl mx-auto px-6 md:px-10 text-center">
       <blockquote>
         <p class="font-playfair text-2xl md:text-3xl font-normal italic text-[#2C2824]/90 leading-relaxed">
-          "{testimonials[3].quote}"
+          "{testimonials[1].quote}"
         </p>
         <footer class="mt-6">
           <p class="text-sm font-light text-[#2C2824]/50">
-            — {testimonials[3].author}, {testimonials[3].context}
+            — {testimonials[1].author}, {testimonials[1].context}
           </p>
         </footer>
       </blockquote>
@@ -373,7 +368,7 @@ const testimonials = [
       <p class="text-base font-light text-white/60 mb-10">
         Rejoignez ceux qui suivent l'aventure LAOM.
       </p>
-      
+
       <!-- Formulaire Kit #3 -->
       <form
         action="https://app.kit.com/forms/8987350/subscriptions"
@@ -385,29 +380,40 @@ const testimonials = [
         data-version="5"
         data-options={JSON.stringify(formKitOptions).replace(/"/g, '&quot;').replace(/&/g, '&amp;')}
       >
+        <input type="hidden" name="tags[]" value="18454995" />
         <div data-style="clean">
           <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite" style="color: #fecaca; background: rgba(254,226,226,0.15); border-color: rgba(248,113,113,0.5);"></ul>
-          <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <div data-element="fields" data-stacked="true" class="flex flex-col gap-3 max-w-md mx-auto">
             <input
-              class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
-              name="email_address"
-              type="email"
-              required
-              aria-label="Votre adresse e-mail"
-              placeholder="votre@email.com"
-              autocomplete="email"
+              class="w-full px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
+              name="fields[first_name]"
+              type="text"
+              aria-label="Votre prénom"
+              placeholder="Votre prénom"
+              autocomplete="given-name"
             />
-            <button
-              type="submit"
-              data-element="submit"
-              class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
-            >
-              S'inscrire
-            </button>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input
+                class="flex-1 px-5 py-4 rounded-sm bg-white/10 border border-white/20 text-white placeholder-white/50 text-base focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all"
+                name="email_address"
+                type="email"
+                required
+                aria-label="Votre adresse e-mail"
+                placeholder="votre@email.com"
+                autocomplete="email"
+              />
+              <button
+                type="submit"
+                data-element="submit"
+                class="px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#B09A4A] transition-colors whitespace-nowrap"
+              >
+                S'inscrire
+              </button>
+            </div>
           </div>
         </div>
       </form>
-      
+
       <p class="text-xs text-white/40 mt-6">Désinscription en un clic.</p>
     </div>
   </section>

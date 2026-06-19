@@ -9,7 +9,7 @@ const pageSchema = createWebPageSchema({
   description: 'Formation en ligne : 12 lives avec Charly pendant 6 mois, couvrant 7 thèmes essentiels. Tout ce qu\'on a appris en 5 ans pour créer un lieu qui tourne. 497 EUR.',
 })
 
-// Paiement Mollie — checkout dynamique à 497 EUR (ou 2 x 248,50 EUR)
+// Paiement Mollie — checkout dynamique à 497 EUR (paiement unique)
 const ctaProductId = 'school-online'
 
 const modules = [
@@ -149,7 +149,7 @@ const faq = [
   },
   {
     question: '497 EUR, c\'est vraiment le prix ?',
-    reponse: 'Oui. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois. Et tu peux payer en 2 fois (2 x 248,50 EUR).',
+    reponse: 'Oui. Le prix normal de la formation est de 2 000 EUR. Pour te donner un ordre d\'idée, des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.',
   },
 ]
 ---
@@ -160,13 +160,13 @@ const faq = [
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
-  <!-- Bandeau timer sticky 3 mai -->
+  <!-- Bandeau timer sticky mardi 19 mai 18h Paris -->
   <div class="sticky top-0 z-50 bg-[#1a0a0a] border-b border-red-900/30">
     <!-- Desktop -->
     <div class="hidden sm:flex max-w-5xl mx-auto px-4 py-3 items-center justify-center gap-6">
       <div class="flex items-center gap-2.5">
         <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
-        <span class="text-base font-medium text-white">Offre de lancement</span>
+        <span class="text-base font-medium text-white">Offre OVIVANT</span>
       </div>
       <div class="flex items-center gap-1.5 bg-red-600/20 px-5 py-2 rounded-sm">
         <div class="text-center">
@@ -200,7 +200,7 @@ const faq = [
     <a href="#offre" class="sm:hidden flex items-center justify-between px-4 py-2.5">
       <div class="flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0"></span>
-        <span class="text-xs font-medium text-white">Offre de lancement</span>
+        <span class="text-xs font-medium text-white">Offre OVIVANT</span>
       </div>
       <div class="flex items-center gap-1 bg-red-600/20 px-3 py-1 rounded-sm">
         <span class="font-playfair text-base font-bold text-red-400" id="cd-days-m">--</span>
@@ -340,7 +340,6 @@ const faq = [
       >
         Je rejoins l'accompagnement · 497 EUR
       </button>
-      <p class="text-xs font-light text-[#2C2824]/40 mt-3">ou paiement en 2 fois (2 x 248,50 EUR) au checkout</p>
     </div>
   </section>
 
@@ -424,7 +423,7 @@ const faq = [
             <p>
               Chaque thème est couvert par <strong class="font-medium text-[#2C2824]">1 live d'échange collectif tous les 15 jours pendant 6 mois</strong>.
             </p>
-            <p>Premier live le mardi 5 mai. Ce sont des sessions de questions-réponses sur ton projet, en groupe :</p>
+            <p>Premier live le <strong class="font-medium text-[#2C2824]">mardi 19 mai à 20h</strong>. Ce sont des sessions de questions-réponses sur ton projet, en groupe :</p>
           </div>
         </div>
         <div class="bg-[#FAF8F5] border border-black/5 rounded-sm p-8">
@@ -454,32 +453,87 @@ const faq = [
     </div>
   </section>
 
+  <!-- Calendrier des 4 prochaines sessions -->
+  <section class="py-20 md:py-24 bg-[#FAF8F5]">
+    <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
+      <div class="text-center mb-14">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Le calendrier</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-6">
+          La feuille de route des 4 prochaines sessions
+        </h2>
+        <p class="text-base md:text-lg font-light text-[#2C2824]/70 leading-relaxed max-w-2xl mx-auto">
+          Les 4 premières sessions ont été construites avec le groupe, à partir des questions concrètes des projets en cours. La suite (sessions 5 à 12) se posera au fur et à mesure, en fonction de l'énergie et des besoins qui émergent.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-white border border-black/5 rounded-sm p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
+            <p class="text-sm font-medium tracking-[0.15em] uppercase text-[#C4A855] md:min-w-[140px]">19/05/26</p>
+            <h3 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Session 1 — Stratégie politique et permis</h3>
+          </div>
+          <p class="text-sm font-light text-[#2C2824]/60 mb-1"><strong class="font-medium text-[#2C2824]/80">Focus :</strong> les défis de permis de Bastien.</p>
+          <p class="text-sm font-light text-[#2C2824]/60"><strong class="font-medium text-[#2C2824]/80">Contenu :</strong> l'expérience de Charly avec la DDT et l'obtention d'un STECAL (zone constructible).</p>
+        </div>
+
+        <div class="bg-white border border-black/5 rounded-sm p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
+            <p class="text-sm font-medium tracking-[0.15em] uppercase text-[#C4A855] md:min-w-[140px]">02/06/26</p>
+            <h3 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Session 2 — Financement intergénérationnel et modèles juridiques</h3>
+          </div>
+          <p class="text-sm font-light text-[#2C2824]/60 mb-1"><strong class="font-medium text-[#2C2824]/80">Focus :</strong> les questions de Catherine sur les structures coopératives.</p>
+          <p class="text-sm font-light text-[#2C2824]/60"><strong class="font-medium text-[#2C2824]/80">Contenu :</strong> gestion des apports disparates, questions de succession et entrées/sorties flexibles.</p>
+        </div>
+
+        <div class="bg-white border border-black/5 rounded-sm p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
+            <p class="text-sm font-medium tracking-[0.15em] uppercase text-[#C4A855] md:min-w-[140px]">16/06/26</p>
+            <h3 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Session 3 — Financements publics et subventions</h3>
+          </div>
+          <p class="text-sm font-light text-[#2C2824]/60 mb-1"><strong class="font-medium text-[#2C2824]/80">Focus :</strong> l'expérience de Valérie en montage de subventions.</p>
+          <p class="text-sm font-light text-[#2C2824]/60"><strong class="font-medium text-[#2C2824]/80">Contenu :</strong> stratégies pour obtenir des fonds publics (UE, Région) sans compromettre la vision du projet.</p>
+        </div>
+
+        <div class="bg-white border border-black/5 rounded-sm p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-3">
+            <p class="text-sm font-medium tracking-[0.15em] uppercase text-[#C4A855] md:min-w-[140px]">30/06/26</p>
+            <h3 class="font-playfair text-xl md:text-2xl font-medium text-[#2C2824]">Session 4 — Viabilité économique et modèles économiques</h3>
+          </div>
+          <p class="text-sm font-light text-[#2C2824]/60 mb-1"><strong class="font-medium text-[#2C2824]/80">Focus :</strong> intégrer vie personnelle et professionnelle.</p>
+          <p class="text-sm font-light text-[#2C2824]/60"><strong class="font-medium text-[#2C2824]/80">Contenu :</strong> explorer différents modèles d'affaires pour les écovillages.</p>
+        </div>
+
+        <p class="text-sm font-light text-[#2C2824]/50 italic text-center pt-4">
+          Sessions 5 à 12 : co-construites avec le groupe au fil des 6 mois.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA intermédiaire après les lives -->
   <section class="py-12 bg-[#FAF8F5]">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-8 md:p-10">
         <p class="text-lg font-light text-[#2C2824]/40 mb-2">Des accompagnants de ce genre de projet facturent entre 4 000 et 6 000 EUR pour 6 mois.</p>
+        <div class="ovivant-badge mb-3" style="display:none">
+          <div class="inline-block px-4 py-1.5 border border-[#C4A855]/40 bg-[#C4A855]/5 rounded-sm">
+            <span class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855]">Code OVIVANT activé · -1 503 EUR</span>
+          </div>
+        </div>
         <div class="mb-1">
-          <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
+          <span class="font-playfair text-3xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL = 2 000 EUR</span>
         </div>
         <div class="mb-4">
           <span class="font-playfair text-5xl font-medium text-[#2C2824]">497</span>
           <span class="text-xl font-light text-[#2C2824]/50 ml-1">EUR</span>
         </div>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div class="flex items-center justify-center">
           <button
             type="button"
             data-mollie-product="school-online"
             class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
           >
             Paiement unique · 497 EUR
-          </button>
-          <button
-            type="button"
-            data-mollie-product="school-online-2x"
-            class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
-          >
-            2 x 248,50 EUR
           </button>
         </div>
       </div>
@@ -544,9 +598,9 @@ const faq = [
       <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
         <div class="flex flex-col items-center text-center">
           <div class="w-40 h-40 rounded-full overflow-hidden mb-6">
-            <img src="/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp" alt="Amandine Orriols, co-fondatrice de LAOM" class="w-full h-full object-cover" loading="lazy" />
+            <img src="/images/laom/qui-sommes-nous/amandine-rond-ea111eda.webp" alt="Amandine, co-fondatrice de LAOM" class="w-full h-full object-cover" loading="lazy" />
           </div>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Amandine Orriols</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Amandine</h3>
           <div class="space-y-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
             <p>Co-fondatrice de LAOM. 37 ans. Entrepreneure depuis 10 ans, elle a précédemment monté un business en ligne avec une communauté de 50 000 personnes.</p>
             <p>Modèle d'affaires, stratégie, acquisition, marketing, communication.</p>
@@ -558,9 +612,9 @@ const faq = [
 
         <div class="flex flex-col items-center text-center">
           <div class="w-40 h-40 rounded-full overflow-hidden mb-6">
-            <img src="/images/laom/qui-sommes-nous/charly-rond-f60f6ff8.webp" alt="Charly Aubert, co-fondateur de LAOM" class="w-full h-full object-cover" loading="lazy" />
+            <img src="/images/laom/qui-sommes-nous/charly-rond-f60f6ff8.webp" alt="Charly, co-fondateur de LAOM" class="w-full h-full object-cover" loading="lazy" />
           </div>
-          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Charly Aubert</h3>
+          <h3 class="font-playfair text-xl font-medium text-[#2C2824] mb-3">Charly</h3>
           <div class="space-y-3 text-base font-light text-[#2C2824]/70 leading-relaxed">
             <p>Co-fondateur de LAOM. 33 ans, ex-Epitech (formation ingénieur informatique) et formé en maîtrise d'œuvre de bâtiment bioclimatique. C'est lui qui porte la vision du lieu et du coliving depuis le début.</p>
             <p>Il a assuré le montage juridique du collectif et pilote la maîtrise d'œuvre de l'ensemble des constructions écologiques du domaine, dont le plus grand bâtiment en paille porteuse au monde (850 m²). 4 ans de travail main dans la main avec les administrations pour obtenir les autorisations.</p>
@@ -652,9 +706,14 @@ const faq = [
 
       <!-- Prix -->
       <div class="bg-white border-2 border-[#C4A855] rounded-sm p-10 text-center">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Offre de lancement</p>
+        <p class="default-offer-label text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Offre OVIVANT</p>
+        <div class="ovivant-badge mb-4" style="display:none">
+          <div class="inline-block px-4 py-1.5 border border-[#C4A855]/40 bg-[#C4A855]/5 rounded-sm">
+            <span class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855]">Code OVIVANT activé · -1 503 EUR</span>
+          </div>
+        </div>
         <div class="mb-1">
-          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL Premium = 2 000 EUR</span>
+          <span class="font-playfair text-4xl font-light text-[#2C2824]/35 line-through">LAOMSCHOOL = 2 000 EUR</span>
         </div>
         <div class="mb-4">
           <span class="font-playfair text-6xl font-medium text-[#2C2824]">497</span>
@@ -670,13 +729,6 @@ const faq = [
             class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
           >
             J'accède à l'accompagnement · 497 EUR
-          </button>
-          <button
-            type="button"
-            data-mollie-product="school-online-2x"
-            class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
-          >
-            ou en 2 fois : 2 x 248,50 EUR
           </button>
         </div>
         <p class="text-xs font-light text-[#2C2824]/30 mt-4">Ce prix ne sera pas maintenu.</p>
@@ -695,20 +747,13 @@ const faq = [
         Tout ce qu'on a appris en 5 ans, structuré pour que tu ailles plus vite que nous.
       </p>
 
-      <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
+      <div class="flex justify-center">
         <button
           type="button"
           data-mollie-product="school-online"
           class="mollie-cta inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors cursor-pointer"
         >
           Paiement unique · 497 EUR
-        </button>
-        <button
-          type="button"
-          data-mollie-product="school-online-2x"
-          class="mollie-cta inline-flex items-center justify-center rounded-sm border border-[#C4A855] text-[#C4A855] px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#C4A855] hover:text-white transition-colors cursor-pointer"
-        >
-          2 x 248,50 EUR
         </button>
       </div>
 
@@ -732,6 +777,9 @@ const faq = [
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Dernière étape</p>
+      <div id="ovivant-modal-badge" class="mb-4 px-3 py-2 border border-[#C4A855]/40 bg-[#C4A855]/5 rounded-sm" style="display:none">
+        <p class="text-xs font-light tracking-[0.15em] uppercase text-[#C4A855]">Code OVIVANT appliqué · 2 000 EUR → 497 EUR</p>
+      </div>
       <p class="text-base font-light text-[#2C2824]/70 mb-6">Tes coordonnées pour recevoir ta confirmation et tes accès.</p>
       <form id="email-form" class="space-y-3">
         <div class="grid grid-cols-2 gap-3">
@@ -857,16 +905,20 @@ const faq = [
         var btn = pendingBtn;
         var originalText = pendingOriginalText;
 
+        var refValue = typeof window.__getLaomRef === 'function' ? window.__getLaomRef() : null;
+        var paymentBody = {
+          product: pendingProduct,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+        };
+        if (refValue) paymentBody.ref = refValue;
+
         fetch('/api/mollie/create-payment/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            product: pendingProduct,
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            phone: phone,
-          })
+          body: JSON.stringify(paymentBody)
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
@@ -885,10 +937,10 @@ const faq = [
     })();
   </script>
 
-  <!-- Countdown 3 mai script -->
+  <!-- Countdown mardi 19 mai 18h Paris (16h UTC en heure d'été) -->
   <script is:inline>
     function updateCountdown() {
-      var deadline = new Date('2026-05-03T21:00:00Z').getTime();
+      var deadline = new Date('2026-05-19T16:00:00Z').getTime();
       var now = new Date().getTime();
       var diff = deadline - now;
       var pad = function(n) { return n < 10 ? '0' + n : n; };
@@ -920,6 +972,57 @@ const faq = [
 
   <!-- Tunnel Tracker — tracking maison first-party -->
   <TunnelTracker page="/school/online/" />
+
+  <!-- Affiliate ref capture : ?ref=ovivant persiste 30j en cookie + active le badge OVIVANT -->
+  <script is:inline>
+  (function() {
+    var COOKIE_NAME = 'laom_ref';
+    var TTL_DAYS = 30;
+
+    function setCookie(name, value, days) {
+      var expires = new Date();
+      expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = name + '=' + encodeURIComponent(value) +
+        ';expires=' + expires.toUTCString() +
+        ';path=/;SameSite=Lax';
+    }
+    function getCookie(name) {
+      var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var refFromUrl = params.get('ref');
+    if (refFromUrl) {
+      refFromUrl = refFromUrl.toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40);
+      if (refFromUrl) {
+        setCookie(COOKIE_NAME, refFromUrl, TTL_DAYS);
+        if (typeof window.__tunnelTrack === 'function') {
+          window.__tunnelTrack('affiliate_visit', { ref: refFromUrl });
+        }
+      }
+    }
+
+    window.__getLaomRef = function() { return getCookie(COOKIE_NAME); };
+
+    // Badge OVIVANT (-1 503 EUR) : visible uniquement si l'acheteur vient via le lien OVIVANT
+    function activateOvivantBadges() {
+      var currentRef = getCookie(COOKIE_NAME);
+      if (currentRef !== 'ovivant') return;
+      document.querySelectorAll('.ovivant-badge').forEach(function(el) {
+        el.style.display = '';
+      });
+      var modalBadge = document.getElementById('ovivant-modal-badge');
+      if (modalBadge) modalBadge.style.display = '';
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', activateOvivantBadges);
+    } else {
+      activateOvivantBadges();
+    }
+  })();
+  </script>
 
   <!-- Tunnel tracking hooks : CTA clicks, scroll depth, checkout -->
   <script is:inline>

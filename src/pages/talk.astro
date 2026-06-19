@@ -6,9 +6,9 @@ import { createWebPageSchema } from '~/utils/schema'
 export const prerender = true
 
 const pageSchema = createWebPageSchema({
-  name: 'Conférence gratuite — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM',
+  name: 'Replay gratuit — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM',
   url: Astro.url.toString(),
-  description: '5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Conférence gratuite le 28 avril à 20h30.',
+  description: '5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Replay gratuit, accès immédiat.',
 })
 
 // Ce que vous apprendrez
@@ -72,8 +72,8 @@ const testimonials = [
 ---
 
 <Layout
-  title="Conférence gratuite — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM"
-  description="5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Conférence gratuite le 28 avril à 20h30."
+  title="Replay gratuit — Comment on a quitté la ville pour créer un coliving rentable en pleine nature | LAOM"
+  description="5 ans de recul, partagés sans filtre. Comment on a acheté 21 hectares, construit 800 m² en paille porteuse, et créé un business model qui génère 200 à 500K par an. Replay gratuit, accès immédiat."
   seo={{ ldJSON: pageSchema }}
   hideChrome={true}
 >
@@ -182,8 +182,8 @@ const testimonials = [
 
       <!-- /animate — badge en premier, fade in -->
       <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-sm mb-6 md:mb-4 backdrop-blur-sm">
-        <span class="w-2 h-2 bg-[#C4A855] rounded-full animate-pulse"></span>
-        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/90">Conférence gratuite en ligne</span>
+        <span class="w-2 h-2 bg-[#C4A855] rounded-full"></span>
+        <span class="text-xs font-light tracking-[0.2em] uppercase text-white/90">Replay gratuit · accès immédiat</span>
       </div>
 
       <!-- /typeset — titre avec leading plus généreux sur fond sombre -->
@@ -193,16 +193,8 @@ const testimonials = [
 
       <!-- /distill — sous-titre épuré, une seule phrase d'impact -->
       <p class="hero-subtitle text-xl md:text-2xl font-normal text-white leading-relaxed max-w-2xl mx-auto mb-5 md:mb-4">
-        5 ans d'expérience condensés en 45 minutes.
+        5 ans d'expérience condensés en 1h11 de replay.
       </p>
-
-      <!-- Date — bien visible -->
-      <div class="hero-date mb-5 md:mb-4 mt-2 md:mt-3">
-        <p class="font-playfair text-2xl sm:text-3xl lg:text-4xl font-medium text-white tracking-tight">
-          Mardi 28 avril · 20h30
-        </p>
-        <p class="text-sm md:text-sm font-light text-white/60 mt-1">45 min de conférence + questions en direct</p>
-      </div>
 
       <!-- /harden — formulaire avec focus-visible, aria-labels explicites -->
       <div class="hero-form">
@@ -213,7 +205,7 @@ const testimonials = [
           method="post"
           target="kit-iframe-hero"
         >
-          <input type="hidden" name="tags[]" value="18610902" />
+          <input type="hidden" name="tags[]" value="19314066" />
           <div class="flex flex-col gap-3 max-w-lg mx-auto">
             <div class="flex flex-col sm:flex-row gap-3">
               <input
@@ -239,17 +231,17 @@ const testimonials = [
               id="submit-btn-hero"
               class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
             >
-                Je réserve ma place gratuitement
+                Je regarde le replay gratuitement
             </button>
           </div>
         </form>
       </div>
-      <p class="hero-note text-xs text-white/40 mt-4">Places limitées · Lien envoyé par email après inscription</p>
+      <p class="hero-note text-xs text-white/40 mt-4">Accès au replay envoyé par email immédiatement après inscription</p>
     </div>
 
     <!-- /animate — scroll arrow -->
     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 hidden md:block">
-      <a href="#programme" class="block text-white/30 hover:text-white/60 transition-colors duration-200 ease-out" aria-label="Voir le programme de la conférence">
+      <a href="#programme" class="block text-white/30 hover:text-white/60 transition-colors duration-200 ease-out" aria-label="Voir le programme du replay">
         <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
@@ -313,7 +305,7 @@ const testimonials = [
   <section id="programme" class="py-20 md:py-28 bg-white below-fold">
     <div class="max-w-5xl mx-auto px-6 md:px-10">
       <div class="animate-enter">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6 text-center">Pendant cette conférence</p>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6 text-center">Dans ce replay</p>
         <!-- /typeset — h2 cohérent avec le reste du site -->
         <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] mb-16 text-center tracking-tight">
           Ce que vous apprendrez
@@ -477,11 +469,11 @@ const testimonials = [
     <div class="max-w-xl mx-auto px-6 text-center">
 
       <p class="font-playfair text-3xl md:text-4xl font-medium text-white mb-3 tracking-tight animate-enter">
-        Mardi 28 avril · 20h30
+        Le replay est en ligne
       </p>
       <!-- /colorize — text-white/60 au lieu de /50 pour meilleur contraste -->
       <p class="text-base font-light text-white/60 mb-10 max-w-[45ch] mx-auto leading-relaxed animate-enter">
-        5 ans de recul condensés en 45 minutes. Tout ce qu'on a appris, pour que vous alliez plus vite que nous.
+        5 ans de recul condensés en 1h11. Tout ce qu'on a appris, pour que vous alliez plus vite que nous.
       </p>
 
       <div class="animate-enter">
@@ -492,7 +484,7 @@ const testimonials = [
           method="post"
           target="kit-iframe-footer"
         >
-          <input type="hidden" name="tags[]" value="18610902" />
+          <input type="hidden" name="tags[]" value="19314066" />
           <div class="flex flex-col gap-3 max-w-lg mx-auto">
             <div class="flex flex-col sm:flex-row gap-3">
               <input
@@ -518,14 +510,14 @@ const testimonials = [
               id="submit-btn-footer"
               class="w-full px-8 py-4 rounded-sm bg-[#C4A855] text-white font-medium text-sm tracking-[0.15em] uppercase transition-all duration-200 ease-out hover:bg-[#B09A4A] hover:shadow-lg hover:shadow-[#C4A855]/20 active:scale-[0.98]"
             >
-                Je réserve ma place gratuitement
+                Je regarde le replay gratuitement
             </button>
           </div>
         </form>
       </div>
 
       <!-- /clarify — mention utile et spécifique -->
-      <p class="text-xs text-white/40 mt-6">Vous recevrez le lien de connexion par email le jour de la conférence.</p>
+      <p class="text-xs text-white/40 mt-6">Vous recevrez le lien du replay par email immédiatement après inscription.</p>
     </div>
   </section>
 
@@ -565,15 +557,15 @@ const testimonials = [
         var btn = document.getElementById(btnId);
         if (btn) {
           btn.disabled = true;
-          btn.textContent = 'Inscription en cours...';
+          btn.textContent = 'Accès au replay en cours...';
         }
         // Track Lead event (Meta Pixel + CAPI + GA4)
         if (typeof window.__laomTrack === 'function') {
           var emailField = form.querySelector('input[name="email_address"]');
           var nameField = form.querySelector('input[name="fields[first_name]"]');
           window.__laomTrack('Lead', {
-            content_name: 'webinar-laom-talk-28-avril',
-            content_category: 'webinar_registration'
+            content_name: 'replay-laom-talk',
+            content_category: 'replay_registration'
           }, {
             em: emailField ? emailField.value : undefined,
             fn: nameField ? nameField.value : undefined
@@ -588,16 +580,14 @@ const testimonials = [
         }
         if (typeof gtag === 'function') {
           gtag('event', 'generate_lead', {
-            event_category: 'webinar',
-            event_label: 'laom-talk-28-avril',
+            event_category: 'replay',
+            event_label: 'laom-talk-replay',
             value: 0,
             currency: 'EUR'
           });
         }
-        var emailField = form.querySelector('input[name="email_address"]');
-        var email = emailField ? encodeURIComponent(emailField.value) : '';
         setTimeout(function() {
-          window.location.href = '/school/merci/' + (email ? '?email=' + email : '');
+          window.location.href = '/replay/';
         }, 2000);
       });
     }

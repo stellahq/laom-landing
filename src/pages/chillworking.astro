@@ -12,8 +12,7 @@ const pageSchema = createWebPageSchema({
 })
 
 const sessions = [
-  { date: '15 — 28 juin 2026', label: 'Session 1' },
-  { date: '6 — 20 août 2026', label: 'Session 2' },
+  { date: '6 — 20 août 2026', label: 'Session' },
 ]
 ---
 
@@ -38,7 +37,7 @@ const sessions = [
       <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10"></div>
     </div>
     <div class="relative z-10 max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center pt-32 pb-16">
-      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">LAOM présente · en juin 2026 ou en août 2026</p>
+      <p class="text-xs font-light tracking-[0.25em] uppercase text-white/70 mb-6">LAOM présente · en août 2026</p>
       <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-6 tracking-tight leading-tight drop-shadow-lg">
         Séjour Chillworking
       </h1>
@@ -353,7 +352,7 @@ const sessions = [
       <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-12">Infos pratiques</h2>
 
       <div class="mb-12">
-        <p class="text-sm font-light text-[#2C2824]/50 mb-4 uppercase tracking-widest">Deux sessions en 2026</p>
+        <p class="text-sm font-light text-[#2C2824]/50 mb-4 uppercase tracking-widest">Session 2026</p>
         <div class="space-y-3">
           {sessions.map((s) => (
             <div class="flex justify-between items-center py-3 border-b border-black/5">
@@ -542,16 +541,9 @@ const sessions = [
         <!-- Session -->
         <div>
           <label class="block text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">Session</label>
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 gap-3">
             <label class="cursor-pointer">
-              <input type="radio" name="session" value="juin" class="sr-only peer" checked />
-              <div class="p-4 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-[#FAF8F5] transition-colors text-center">
-                <p class="font-playfair text-base font-medium text-[#2C2824]">Juin 2026</p>
-                <p class="text-xs font-light text-[#2C2824]/50 mt-1">15 — 28 juin</p>
-              </div>
-            </label>
-            <label class="cursor-pointer">
-              <input type="radio" name="session" value="aout" class="sr-only peer" />
+              <input type="radio" name="session" value="aout" class="sr-only peer" checked />
               <div class="p-4 border-2 border-[#2C2824]/10 rounded-sm peer-checked:border-[#C4A855] peer-checked:bg-[#FAF8F5] transition-colors text-center">
                 <p class="font-playfair text-base font-medium text-[#2C2824]">Août 2026</p>
                 <p class="text-xs font-light text-[#2C2824]/50 mt-1">6 — 20 août</p>
@@ -699,13 +691,11 @@ const sessions = [
     const priceTotalEl = document.getElementById('price-total') as HTMLSpanElement
 
     const SESSIONS = {
-      juin: { start: '2026-06-15', end: '2026-06-28', label: 'Juin' },
       aout: { start: '2026-08-06', end: '2026-08-20', label: 'Août' },
     }
 
-    function getSelectedSession(): 'juin' | 'aout' {
-      const checked = Array.from(sessionInputs).find((i) => i.checked)
-      return (checked?.value as 'juin' | 'aout') || 'juin'
+    function getSelectedSession(): 'aout' {
+      return 'aout'
     }
 
     function updateArrivalConstraints() {

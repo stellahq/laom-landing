@@ -401,6 +401,101 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
     // ----- Fin email En Mouvement -----
 
+    // ----- Email confirmation LAOMSCHOOL Online via Resend -----
+    if (status === 'paid' && metadata.product === 'school-online' && metadata.email) {
+      const resendKey = env?.RESEND_API_KEY
+      if (resendKey) {
+        try {
+          const firstName = metadata.firstName || ''
+          const greeting = firstName ? `Bonjour ${firstName},` : 'Bonjour,'
+          const total = payment.amount?.value || '497.00'
+          const ovivantBlock = metadata.ref === 'ovivant'
+            ? `<tr><td colspan="2" style="padding:10px 0"><div style="display:inline-block;padding:8px 14px;border:1px solid rgba(196,168,85,0.4);background:rgba(196,168,85,0.06);border-radius:4px"><span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C4A855;font-weight:300">Code OVIVANT appliqué · 2 000 EUR → 497 EUR</span></div></td></tr>`
+            : ''
+
+          const html = `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="utf-8"><title>Bienvenue dans LAOMSCHOOL</title></head>
+<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;background:#FAF8F5;color:#2C2824">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FAF8F5;padding:40px 20px">
+<tr><td align="center">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px;background:#fff;border-radius:4px;padding:40px">
+<tr><td>
+  <p style="margin:0 0 8px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#8B7A3A">Inscription confirmée</p>
+  <h1 style="margin:0 0 24px;font-size:28px;font-weight:500;color:#2C2824">Bienvenue dans LAOMSCHOOL.</h1>
+
+  <p style="font-size:16px;line-height:1.6;color:#2C2824">${greeting}</p>
+  <p style="font-size:16px;line-height:1.6;color:#2C2824">Ton paiement vient d'être validé. Tu fais maintenant partie du groupe <strong>LAOMSCHOOL</strong>.</p>
+
+  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FAF8F5;border-radius:4px;padding:20px;margin:24px 0;font-size:14px">
+    ${ovivantBlock}
+    <tr><td style="padding:6px 0;color:#666">Formation</td><td style="padding:6px 0;text-align:right"><strong>LAOMSCHOOL — 12 lives sur 6 mois</strong></td></tr>
+    <tr><td style="padding:6px 0;color:#666">Prochaine session</td><td style="padding:6px 0;text-align:right"><strong>Mardi 19 mai 2026 · 20h</strong></td></tr>
+    <tr><td style="padding:12px 0 0;border-top:1px solid #ddd;color:#2C2824;font-weight:600">Total payé</td><td style="padding:12px 0 0;border-top:1px solid #ddd;text-align:right;color:#2C2824;font-weight:600">${total} €</td></tr>
+  </table>
+
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">Première étape : rejoins le groupe WhatsApp</h2>
+  <p style="font-size:15px;line-height:1.6;color:#2C2824;margin:0 0 16px">C'est là que tout se passe : lien des lives, replays, échanges entre porteurs de projet.</p>
+  <p style="margin:0 0 8px"><a href="https://chat.whatsapp.com/G48sMmPvWZV1Nc6d5inYBr?mode=gi_t" style="display:inline-block;padding:12px 24px;background:#25D366;color:#fff;text-decoration:none;border-radius:4px;font-size:14px;font-weight:500;letter-spacing:0.5px">Rejoindre le groupe WhatsApp →</a></p>
+  <p style="font-size:13px;line-height:1.5;color:#999;margin:0 0 24px">Si le bouton ne fonctionne pas : <a href="https://chat.whatsapp.com/G48sMmPvWZV1Nc6d5inYBr?mode=gi_t" style="color:#C4A855;word-break:break-all">https://chat.whatsapp.com/G48sMmPvWZV1Nc6d5inYBr?mode=gi_t</a></p>
+
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">La feuille de route des 4 prochaines sessions</h2>
+  <p style="font-size:14px;line-height:1.6;color:#666;margin:0 0 16px">Les 4 premières sessions ont été construites avec le groupe, à partir des questions concrètes des projets en cours. La suite (sessions 5 à 12) se posera au fil des 6 mois.</p>
+  <ul style="font-size:14px;line-height:1.7;color:#2C2824;padding-left:20px;margin:0 0 24px">
+    <li><strong>19/05/26 — Session 1 :</strong> Stratégie politique et permis (DDT, STECAL).</li>
+    <li><strong>02/06/26 — Session 2 :</strong> Financement intergénérationnel et structures coopératives.</li>
+    <li><strong>16/06/26 — Session 3 :</strong> Financements publics et subventions (UE, Région).</li>
+    <li><strong>30/06/26 — Session 4 :</strong> Viabilité économique et modèles d'affaires.</li>
+  </ul>
+
+  <h2 style="margin:32px 0 12px;font-size:18px;font-weight:500;color:#2C2824">Et ensuite ?</h2>
+  <ul style="font-size:15px;line-height:1.7;color:#2C2824;padding-left:20px">
+    <li>Le <strong>lien des lives</strong> et les replays sont partagés directement dans le groupe WhatsApp.</li>
+    <li>Tu reçois un <strong>rappel calendrier</strong> 48h avant chaque session.</li>
+    <li>Pour toute question : <a href="mailto:hello@laom.fr" style="color:#C4A855">hello@laom.fr</a></li>
+  </ul>
+
+  <p style="font-size:14px;line-height:1.6;color:#666;margin-top:32px">Hâte de te voir mardi,<br>Charly & Amandine</p>
+</td></tr>
+</table>
+<p style="font-size:11px;color:#999;margin-top:20px">LAOM · La Margue · 12400 Saint-Félix-de-Sorgues · Aveyron</p>
+</td></tr>
+</table>
+</body></html>`
+
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${resendKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: 'LAOMSCHOOL <hello@laom.fr>',
+              to: [metadata.email],
+              bcc: ['laomcoliving@gmail.com'],
+              subject: 'Bienvenue dans LAOMSCHOOL — Ta place est confirmée',
+              html,
+            }),
+          })
+            .then(async (r) => {
+              if (!r.ok) {
+                const err = await r.json().catch(() => ({}))
+                console.error('Resend send error (school-online):', err)
+              } else {
+                console.log(`Resend: school-online confirmation sent to ${metadata.email}${metadata.ref ? ` (ref=${metadata.ref})` : ''}`)
+              }
+            })
+            .catch((e) => console.error('Resend fetch error school-online (non-blocking):', e))
+        } catch (mailErr) {
+          console.error('school-online email confirmation error (non-blocking):', mailErr)
+        }
+      } else {
+        console.warn('RESEND_API_KEY not configured, skipping school-online confirmation email')
+      }
+    }
+    // ----- Fin email LAOMSCHOOL Online -----
+
     // Si c'est le 1er versement d'un paiement en 2x et qu'il est paye,
     // creer le 2eme versement recurrent (preleve automatiquement dans 30 jours)
     if (status === 'paid' && metadata.installment === '1of2') {
@@ -490,51 +585,54 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Quand un paiement est confirme, tagger le subscriber dans Kit (API v4)
-    // Tag specifique au produit pour segmentation fine
+    // Tag specifique au produit (segmentation fine) + tag generique "laom-school-online"
     if (status === 'paid' && metadata.email && metadata.installment !== '2of2') {
       const kitApiSecret = env?.KIT_API_SECRET
       if (kitApiSecret) {
-        const tagName = PRODUCT_TAG_MAP[metadata.product] || 'laom-school-online'
+        const productTag = PRODUCT_TAG_MAP[metadata.product] || 'laom-school-online'
+
+        // Tags à appliquer : produit-spécifique + générique pour compat (dédoublonné)
+        const tagsToApply = Array.from(new Set([productTag, 'laom-school-online']))
 
         try {
-          // Kit API v4 : lister les tags
+          // Lister tous les tags Kit une seule fois
           const tagsRes = await fetch('https://api.kit.com/v4/tags', {
             headers: {
               'X-Kit-Api-Key': kitApiSecret,
               Accept: 'application/json',
             },
           })
-          let tagId: number | null = null
+          const existingTags: Array<{ id: number; name: string }> = tagsRes.ok
+            ? ((await tagsRes.json()) as any).tags || []
+            : []
 
-          if (tagsRes.ok) {
-            const tagsData = (await tagsRes.json()) as any
-            const existingTag = (tagsData.tags || []).find(
-              (t: any) => t.name === tagName,
-            )
+          for (const tagName of tagsToApply) {
+            let tagId: number | null = null
+            const existingTag = existingTags.find((t) => t.name === tagName)
             if (existingTag) {
               tagId = existingTag.id
+            } else {
+              // Créer le tag s'il n'existe pas
+              const createTagRes = await fetch('https://api.kit.com/v4/tags', {
+                method: 'POST',
+                headers: {
+                  'X-Kit-Api-Key': kitApiSecret,
+                  'Content-Type': 'application/json',
+                  Accept: 'application/json',
+                },
+                body: JSON.stringify({ name: tagName }),
+              })
+              if (createTagRes.ok) {
+                const created = (await createTagRes.json()) as any
+                tagId = created.tag?.id || created.id
+              }
             }
-          }
 
-          // Si le tag n'existe pas encore, le creer
-          if (!tagId) {
-            const createTagRes = await fetch('https://api.kit.com/v4/tags', {
-              method: 'POST',
-              headers: {
-                'X-Kit-Api-Key': kitApiSecret,
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-              },
-              body: JSON.stringify({ name: tagName }),
-            })
-            if (createTagRes.ok) {
-              const created = (await createTagRes.json()) as any
-              tagId = created.tag?.id || created.id
+            if (!tagId) {
+              console.error(`Kit v4: could not find or create tag "${tagName}"`)
+              continue
             }
-          }
 
-          // Tagger le subscriber par email
-          if (tagId) {
             const tagSubRes = await fetch(
               `https://api.kit.com/v4/tags/${tagId}/subscribers`,
               {
@@ -544,66 +642,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
                   'Content-Type': 'application/json',
                   Accept: 'application/json',
                 },
-                body: JSON.stringify({
-                  email_address: metadata.email,
-                }),
+                body: JSON.stringify({ email_address: metadata.email }),
               },
             )
 
             if (tagSubRes.ok) {
-              console.log(
-                `Kit v4: tagged ${metadata.email} with "${tagName}" (tag ${tagId})`,
-              )
+              console.log(`Kit v4: tagged ${metadata.email} with "${tagName}" (tag ${tagId})`)
             } else {
-              const errData = (await tagSubRes.json()) as any
-              console.error('Kit v4: failed to tag subscriber:', errData)
-            }
-          } else {
-            console.error(`Kit v4: could not find or create tag "${tagName}"`)
-          }
-
-          // Aussi tagger avec le tag generique "laom-school-online" pour compatibilite
-          if (tagName !== 'laom-school-online') {
-            try {
-              // Chercher ou creer le tag generique
-              let genericTagId: number | null = null
-              if (tagsRes.ok) {
-                const tagsData = (await tagsRes.json()) as any
-                const genericTag = (tagsData.tags || []).find(
-                  (t: any) => t.name === 'laom-school-online',
-                )
-                if (genericTag) genericTagId = genericTag.id
-              }
-
-              if (!genericTagId) {
-                const createRes = await fetch('https://api.kit.com/v4/tags', {
-                  method: 'POST',
-                  headers: {
-                    'X-Kit-Api-Key': kitApiSecret,
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                  },
-                  body: JSON.stringify({ name: 'laom-school-online' }),
-                })
-                if (createRes.ok) {
-                  const data = (await createRes.json()) as any
-                  genericTagId = data.tag?.id || data.id
-                }
-              }
-
-              if (genericTagId) {
-                await fetch(`https://api.kit.com/v4/tags/${genericTagId}/subscribers`, {
-                  method: 'POST',
-                  headers: {
-                    'X-Kit-Api-Key': kitApiSecret,
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                  },
-                  body: JSON.stringify({ email_address: metadata.email }),
-                })
-              }
-            } catch (e) {
-              console.error('Kit v4: error tagging generic (non-blocking):', e)
+              const errData = await tagSubRes.json().catch(() => ({}))
+              console.error(`Kit v4: failed to tag with "${tagName}":`, errData)
             }
           }
         } catch (kitErr) {

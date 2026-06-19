@@ -274,7 +274,17 @@ const pageSchema = createWebPageSchema({
     .article-content img {
       width: 100%;
       border-radius: 2px;
-      margin: 2rem 0;
+      margin: 2rem 0 0.5rem;
+    }
+    /* Legendes d'images : un paragraphe qui ne contient qu'un <em> */
+    .article-content p:has(> em:only-child) {
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(44, 40, 36, 0.55);
+      margin-top: 0;
+      margin-bottom: 2rem;
+      line-height: 1.5;
     }
     .article-content a {
       color: #8B7A3A;
