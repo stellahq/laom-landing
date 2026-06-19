@@ -1,0 +1,37 @@
+{
+	// Config Cloudflare Workers pour l'ENVIRONNEMENT STAGING uniquement.
+	// Déployé automatiquement à chaque push sur la branche `staging`
+	// (voir .github/workflows/deploy-staging.yml).
+	// La prod (laom.fr) utilise wrangler.jsonc et n'est PAS affectée par ce fichier.
+	"name": "laom-staging",
+	"main": "dist/_worker.js/index.js",
+	"compatibility_date": "2025-06-17",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": true
+	},
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS"
+	},
+	// ⚠️ Staging partage la MÊME base D1 que la prod (laom-team).
+	// Acceptable pour du travail landing page / contenu. Si Eduardo doit
+	// tester des écritures équipe (tâches/objectifs), créer une D1 dédiée
+	// (`wrangler d1 create laom-team-staging`) — nécessite l'accès Cloudflare.
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "laom-team",
+			"database_id": "fe9eddef-c23a-4aee-b954-8b53014f8fc6"
+		}
+	],
+	"workers_dev": false,
+	"routes": [
+		{
+			"pattern": "staging.laom.fr",
+			"custom_domain": true
+		}
+	]
+}

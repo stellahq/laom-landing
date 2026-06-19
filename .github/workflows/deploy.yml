@@ -44,9 +44,9 @@ jobs:
           set -e
           output=$(bunx wrangler@latest deploy)
           echo "$output"
-          url=$(echo "$output" | grep -Eo 'https://[^[:space:]]*\.laom\.com|https://[^[:space:]]*\.workers\.dev' | head -1)
+          url=$(echo "$output" | grep -Eo 'https://[^[:space:]]*\.laom\.fr|https://[^[:space:]]*\.workers\.dev' | head -1)
           if [ -z "$url" ]; then
-            url="https://laom.com"
+            url="https://laom.fr"
           fi
           echo "deployment_url=$url" >> $GITHUB_OUTPUT
         env:

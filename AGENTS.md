@@ -5,8 +5,15 @@
 LAOM is a beautiful, multilingual landing page for a rural coliving space located in the south of Aveyron, France. The project is inspired by luxury wellness brands like Our Habitas (Tulum) and The House of AïA, featuring a minimal, elegant aesthetic with a focus on nature, wellness, and mindful living.
 
 ### Content Source
-For context, inspiration, and content assets, refer to the local folder:
-`/Users/amandineorriols/Documents/PARA/3 - CASQUETTES/LAOM`
+For context, inspiration, and content assets, ask Charly for the relevant
+LAOM material. Content assets (photos, copy, brand) live in the LAOM "casquette"
+vault, not in this repo. Do not hardcode anyone's local machine path here.
+
+### New here? Read ONBOARDING.md first
+If you are a new collaborator (e.g. Eduardo), start with `ONBOARDING.md` at the
+repo root. It walks you through setup, the git workflow, and how to ship safely
+without breaking production. This file (`AGENTS.md`) is the deep technical
+reference you come back to once you're set up.
 
 ### What is LAOM?
 
@@ -342,6 +349,48 @@ The LAOM landing page is designed with a **luxury wellness aesthetic** inspired 
 - Never commit sensitive data (use GitHub Secrets)
 - Always run SEO check before deployment
 
+### 7b. Git Workflow & Team Access (READ THIS)
+
+- **Repo**: `github.com/stellahq/laom-landing` (org: stellahq)
+- **`main` is production.** Any push to `main` auto-deploys to production
+  (`laom.fr`) via GitHub Actions. Never push directly to `main`.
+- **`staging` is the working branch.** Eduardo and other collaborators commit
+  to `staging` (or a feature branch off `staging`), then open a Pull Request.
+  Pushing to `staging` auto-deploys a **separate** worker (`laom-staging`) to
+  **https://staging.laom.fr** for review. It never touches production.
+  Staging is served with `X-Robots-Tag: noindex` (see `src/middleware.ts`) so
+  it is not indexed by search engines.
+  Config: `wrangler.staging.jsonc` + `.github/workflows/deploy-staging.yml`.
+  Caveat: staging shares the prod D1 database (`laom-team`).
+- **Charly reviews and merges** the PR into `main`. Merging into `main` is the
+  single act that ships to production.
+- Branch model: `feature/* → staging → (PR) → main → auto-deploy`.
+- Before every PR: `bun run build` **and** `bun run seo:check` must pass.
+- Note: `main` should be protected on GitHub (no direct push, no force-push).
+
+### 7c. Garde-fous obligatoires AVANT tout merge / action prod (NE PAS SAUTER)
+
+Règle de fond : **ne jamais qualifier un merge ou un push de "safe" sur intuition.**
+Lire l'état réel d'abord, annoncer l'impact concret, puis demander le feu vert.
+
+1. **Pré-vol divergence** — avant de proposer/ouvrir une PR `staging → main`, lancer
+   et lire :
+   - `git fetch origin main staging`
+   - `git log --oneline origin/main..origin/staging` (ce que le merge AMÈNE)
+   - `git log --oneline origin/staging..origin/main` (de combien staging est EN RETARD)
+   - `git diff --diff-filter=D --name-only origin/main origin/staging` (ce que ça
+     SUPPRIME/écrase en prod)
+   - `git merge-base origin/main origin/staging` (depuis quand les branches ont divergé)
+   Si staging est en retard de plusieurs commits sur main → **danger de régression
+   prod** : resynchroniser staging sur main AVANT toute PR. Ne pas merger.
+2. **Hygiène staging** — `staging` doit toujours partir d'un `main` à jour. Avant de
+   commencer un chantier : `git checkout staging && git merge origin/main`. Une staging
+   qui dérive de main est une bombe à retard (régression silencieuse en prod au merge).
+3. **Action prod = feu vert humain.** Tout merge sur `main` (= mise en ligne) : annoncer
+   l'impact concret (fichiers/contenu/code touché) et attendre l'accord explicite de
+   Charly. En cas de doute → poser la question AVANT d'agir, jamais après.
+  Only Amandine (repo admin) can enable that — ask her if it's not yet set.
+
 ### 8. Development Server
 - **NEVER run the development server** (`bun run dev`) - The server is already running when the project starts
 - You can test if the project is working or building (`bun run build`), but do not start the dev server
@@ -608,5 +657,5 @@ For questions about LAOM:
 
 ---
 
-**Last Updated**: 2025
+**Last Updated**: 2026-05-19
 **Project Status**: Active Development
