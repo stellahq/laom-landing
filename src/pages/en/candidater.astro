@@ -1,0 +1,63 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
+
+const lang = 'en' as const
+const t = getI18nTranslations(lang)
+const c = t.pages.candidaterPage
+const pageSchema = createWebPageSchema({
+  name: c.heroTitle,
+  url: Astro.url.toString(),
+  description: c.intro,
+})
+---
+
+<Layout
+  title={`${c.heroTitle} – LAOM`}
+  description={c.intro}
+  hideChrome={true}
+  seo={{
+    ldJSON: pageSchema,
+  }}
+>
+  <div class="min-h-screen bg-[#F3EEDC]">
+    <!-- Logo only, clickable (clean page, zero distraction) -->
+    <header class="max-w-3xl mx-auto px-10 sm:px-16 pt-8 pb-4">
+      <a
+        href={getLocalizedPath('/', lang)}
+        class="font-playfair text-2xl font-medium tracking-[0.05em] text-black hover:opacity-70 transition-opacity"
+      >
+        LAOM
+      </a>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-10 sm:px-16 pt-12 pb-32">
+      <!-- Title -->
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
+        {c.eyebrow}
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-black mb-8 tracking-tight">
+        {c.heroTitle}
+      </h1>
+
+      <!-- Intro -->
+      <p class="text-lg md:text-xl font-light text-black/70 leading-relaxed mb-12">
+        {c.intro}
+      </p>
+
+      <!-- Form (placeholder until Tally embed is ready) -->
+      <div
+        class="rounded-sm border border-dashed border-black/20 bg-white/40 py-20 px-8 text-center mb-12"
+      >
+        <p class="text-base font-medium text-black/70 mb-2">{c.formPlaceholderTitle}</p>
+        <p class="text-sm font-light text-black/40">{c.formPlaceholderNote}</p>
+      </div>
+
+      <!-- Reassurance -->
+      <p class="text-base font-light text-black/60 leading-relaxed">
+        {c.reassurance}
+      </p>
+    </main>
+  </div>
+</Layout>

@@ -618,6 +618,17 @@ export const translations = {
         ctaDescription: 'Rejoignez la newsletter pour suivre l\'aventure et recevoir nos ressources.',
         ctaButton: 'S\'inscrire à la newsletter',
       },
+      candidaterPage: {
+        eyebrow: 'Candidater',
+        heroTitle: 'Candidate pour le coliving d\'août 2026.',
+        intro:
+          'LAOM accueille 12 entrepreneurs par semaine dans un cadre qui n\'existe nulle part ailleurs. Pour que l\'expérience soit à la hauteur pour chacun, on prend le temps de connaître ceux qui candidatent. Ce formulaire prend 2 minutes.',
+        formPlaceholderTitle: 'Formulaire à venir',
+        formPlaceholderNote: 'Le formulaire de pré-qualification sera intégré ici.',
+        reassurance:
+          'On te rappelle dans les 48h. Pas de pitch, pas de pression. Juste une conversation pour voir si LAOM est fait pour toi.',
+        backToHome: 'Retour à l\'accueil',
+      },
       newsletterPage: {
         heroTitle: 'LAOM Letter',
         heroSubtitle: 'Coulisses du projet, décisions clés, actus et événements. Pas de spam.',
@@ -1397,6 +1408,17 @@ export const translations = {
         ctaTitle: 'Prefer another start?',
         ctaDescription: 'Join the newsletter to follow the adventure and receive resources.',
         ctaButton: 'Join the newsletter',
+      },
+      candidaterPage: {
+        eyebrow: 'Apply',
+        heroTitle: 'Apply for the August 2026 coliving.',
+        intro:
+          'LAOM welcomes 12 entrepreneurs each week in a setting that exists nowhere else. So the experience lives up to its promise for everyone, we take the time to get to know those who apply. This form takes 2 minutes.',
+        formPlaceholderTitle: 'Form coming soon',
+        formPlaceholderNote: 'The pre-qualification form will be embedded here.',
+        reassurance:
+          'We\'ll call you back within 48 hours. No pitch, no pressure. Just a conversation to see if LAOM is right for you.',
+        backToHome: 'Back to home',
       },
       newsletterPage: {
         heroTitle: 'LAOM Letter',
