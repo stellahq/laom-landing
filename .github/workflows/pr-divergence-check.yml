@@ -1,0 +1,80 @@
+name: PR divergence check
+
+# Garde-fou anti-régression prod : à chaque PR vers `main`, commente
+# automatiquement l'écart entre la branche source et `main` (commits en retard,
+# fichiers que le merge SUPPRIMERAIT). Rend impossible de merger à l'aveugle.
+# Voir AGENTS.md §7c.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  divergence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: compute
+        run: |
+          BASE="origin/${{ github.base_ref }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+          git fetch origin "${{ github.base_ref }}" -q
+          AHEAD=$(git rev-list --count "$BASE..$HEAD")
+          BEHIND=$(git rev-list --count "$HEAD..$BASE")
+          git diff --diff-filter=D --name-only "$BASE...$HEAD" > deleted.txt || true
+          DCOUNT=$(grep -c . deleted.txt || echo 0)
+          {
+            echo "ahead=$AHEAD"
+            echo "behind=$BEHIND"
+            echo "dcount=$DCOUNT"
+          } >> "$GITHUB_OUTPUT"
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const ahead = '${{ steps.compute.outputs.ahead }}';
+            const behind = '${{ steps.compute.outputs.behind }}';
+            const dcount = parseInt('${{ steps.compute.outputs.dcount }}', 10) || 0;
+            const deleted = fs.existsSync('deleted.txt')
+              ? fs.readFileSync('deleted.txt', 'utf8').trim().split('\n').filter(Boolean)
+              : [];
+            const danger = (parseInt(behind, 10) || 0) > 0 || dcount > 0;
+            const head = '🔎 **Contrôle de divergence prod** (auto, voir AGENTS.md §7c)';
+            const lines = [
+              head,
+              '',
+              `- Commits amenés en prod par ce merge : **${ahead}**`,
+              `- Commits dont cette branche est EN RETARD sur \`main\` : **${behind}**`,
+              `- Fichiers que ce merge SUPPRIMERAIT de la prod : **${dcount}**`,
+            ];
+            if (deleted.length) {
+              lines.push('', '<details><summary>Fichiers supprimés</summary>', '',
+                '```', ...deleted.slice(0, 50), '```', '</details>');
+            }
+            lines.push('', danger
+              ? '⚠️ **Danger de régression.** La branche est en retard sur `main` et/ou supprime des fichiers en prod. Resynchroniser (`git merge origin/main`) AVANT de merger.'
+              : '✅ Pas de régression détectée : aucun retard sur `main`, aucune suppression.');
+            const body = lines.join('\n');
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body && c.body.startsWith(head));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                comment_id: existing.id, body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: context.issue.number, body,
+              });
+            }
