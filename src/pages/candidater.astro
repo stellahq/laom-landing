@@ -21,43 +21,67 @@ const pageSchema = createWebPageSchema({
     ldJSON: pageSchema,
   }}
 >
-  <div class="min-h-screen bg-[#F3EEDC]">
+  <div class="candidater-brand min-h-screen bg-[#F2EBDB]">
     <!-- Logo seul, cliquable (page épurée, zéro distraction) -->
     <header class="max-w-3xl mx-auto px-10 sm:px-16 pt-8 pb-4">
-      <a
-        href={getLocalizedPath('/', lang)}
-        class="font-playfair text-2xl font-medium tracking-[0.05em] text-black hover:opacity-70 transition-opacity"
-      >
-        LAOM
+      <a href={getLocalizedPath('/', lang)} class="inline-block hover:opacity-70 transition-opacity">
+        <img
+          src="/images/brand/logo-laom-wordmark-terracotta.svg"
+          alt="LAOM"
+          width="128"
+          height="28"
+          class="h-7 w-auto"
+        />
       </a>
     </header>
 
     <main class="max-w-3xl mx-auto px-10 sm:px-16 pt-12 pb-32">
       <!-- Titre -->
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
+      <span class="block text-xs font-semibold tracking-[0.2em] uppercase text-[#9A3922] mb-6">
         {c.eyebrow}
       </span>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-black mb-8 tracking-tight">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#412F1F] mb-8 tracking-tight leading-[1.05]">
         {c.heroTitle}
       </h1>
 
       <!-- Intro -->
-      <p class="text-lg md:text-xl font-light text-black/70 leading-relaxed mb-12">
+      <p class="text-lg md:text-xl font-normal text-[#412F1F]/80 leading-relaxed mb-12">
         {c.intro}
       </p>
 
       <!-- Formulaire (placeholder en attendant l'embed Tally) -->
       <div
-        class="rounded-sm border border-dashed border-black/20 bg-white/40 py-20 px-8 text-center mb-12"
+        class="rounded-sm border border-dashed border-[#9A3922]/35 bg-white/40 py-20 px-8 text-center mb-12"
       >
-        <p class="text-base font-medium text-black/70 mb-2">{c.formPlaceholderTitle}</p>
-        <p class="text-sm font-light text-black/40">{c.formPlaceholderNote}</p>
+        <p class="text-base font-semibold text-[#412F1F] mb-2">{c.formPlaceholderTitle}</p>
+        <p class="text-sm font-normal text-[#412F1F]/50">{c.formPlaceholderNote}</p>
       </div>
 
       <!-- Réassurance -->
-      <p class="text-base font-light text-black/60 leading-relaxed">
+      <p class="text-base font-normal text-[#412F1F]/70 leading-relaxed">
         {c.reassurance}
       </p>
     </main>
   </div>
 </Layout>
+
+<style>
+  /* Police de marque LAOM — Host Grotesk (self-hostée), scopée à cette page */
+  @font-face {
+    font-family: 'Host Grotesk';
+    src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Host Grotesk';
+    src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+  }
+  .candidater-brand {
+    font-family: 'Host Grotesk', system-ui, -apple-system, sans-serif;
+  }
+</style>
