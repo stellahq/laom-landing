@@ -351,7 +351,7 @@ The LAOM landing page is designed with a **luxury wellness aesthetic** inspired 
 
 ### 7b. Git Workflow & Team Access (READ THIS)
 
-- **Repo**: `github.com/amandineorriols/laom-landing` (owner: Amandine)
+- **Repo**: `github.com/stellahq/laom-landing` (org: stellahq)
 - **`main` is production.** Any push to `main` auto-deploys to production
   (`laom.fr`) via GitHub Actions. Never push directly to `main`.
 - **`staging` is the working branch.** Eduardo and other collaborators commit

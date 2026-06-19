@@ -31,13 +31,13 @@ La landing page de LAOM, l'écolieu / coliving rural en Aveyron. Esthétique
 1. **Bun** — `curl -fsSL https://bun.sh/install | bash` puis vérifier `bun --version`
 2. **Git** — déjà présent sur Mac, sinon `xcode-select --install`
 3. **Claude Code** — ton copilote pour coder le site (tu peux ouvrir ce guide dedans)
-4. Un **accès en écriture au repo GitHub** `amandineorriols/laom-landing`
+4. Un **accès en écriture au repo GitHub** `stellahq/laom-landing`
    → demande à Charly de t'inviter (rôle *Write*).
 
 ## 4. Récupérer le projet
 
 ```bash
-git clone https://github.com/amandineorriols/laom-landing.git
+git clone https://github.com/stellahq/laom-landing.git
 cd laom-landing
 bun install
 ```
