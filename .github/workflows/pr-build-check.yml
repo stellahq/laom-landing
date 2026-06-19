@@ -1,0 +1,26 @@
+name: PR build check
+
+# Build + SEO check à chaque PR vers `main`, AVANT merge (et non plus seulement
+# après, au déploiement). Rend le build vert obligatoire pour shipper en prod.
+# Ne déploie rien. Voir AGENTS.md §7c.
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run build
+      - run: bun run seo:check

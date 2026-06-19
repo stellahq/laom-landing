@@ -1,0 +1,3 @@
+# Charly est le gardien de la prod. Toute PR vers `main` exige SA review
+# (require_code_owner_reviews activé sur la branche main). Voir AGENTS.md §7c.
+* @barwtoski
