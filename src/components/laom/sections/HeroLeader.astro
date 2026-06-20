@@ -1,0 +1,66 @@
+---
+// HeroLeader — ouverture : GRANDE CARTE arrondie contenue (marge beige autour).
+// Le header (nav + logo) est À L'INTÉRIEUR de la carte, par-dessus la photo.
+import SiteNav from '../SiteNav.astro'
+import Pill from '../Pill.astro'
+import StatGlass from '../StatGlass.astro'
+interface Props {
+  img: string; alt?: string; eyebrow?: string; title: string; accent?: string;
+  ctaText?: string; ctaHref?: string; nav?: boolean; fullbleed?: boolean;
+  stats?: { value: string; unit?: string; label: string }[];
+  avatars?: string[]; avatarValue?: string; avatarLabel?: string;
+}
+const {
+  img, alt = '', eyebrow, title, accent, ctaText = 'Découvrir', ctaHref = '#', nav = true, fullbleed = false,
+  stats = [], avatars = [], avatarValue, avatarLabel,
+} = Astro.props
+const sectionCls = fullbleed ? 'relative' : 'max-w-[96rem] mx-auto px-4 sm:px-6 pt-6 pb-10 md:pb-14'
+const cardCls = fullbleed
+  ? 'relative overflow-hidden min-h-screen flex items-end'
+  : 'relative overflow-hidden rounded-[2rem] min-h-[38rem] md:min-h-[90vh] flex items-end'
+---
+<div class={fullbleed ? '' : 'bg-[#F2EBDB]'}>
+  <section class={sectionCls}>
+    <div class={cardCls}>
+      <img src={img} alt={alt} class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/80 via-[#1D1B18]/30 to-[#1D1B18]/45"></div>
+
+      <!-- Header dans la carte, par-dessus la photo -->
+      {nav && <SiteNav transparent={true} />}
+
+      <!-- Contenu en bas de la carte -->
+      <div class="relative w-full p-8 md:p-12 lg:p-14">
+        <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-end">
+          <div>
+            {eyebrow && <p class="eyebrow eyebrow--light mb-5">{eyebrow}</p>}
+            <h1 class="text-4xl md:text-5xl xl:text-6xl font-extrabold text-[#F2EBDB] leading-[1.0] tracking-[-0.03em] text-balance">
+              {title}{accent && <> <span class="acc-light">{accent}</span></>}
+            </h1>
+            <Pill href={ctaHref} variant="primary" class="mt-8">{ctaText}</Pill>
+          </div>
+          {(stats.length > 0 || avatars.length > 0) && (
+            <div class="space-y-4">
+              {stats.length > 0 && (
+                <div class="grid grid-cols-2 gap-4">
+                  {stats.slice(0,2).map((s) => <StatGlass value={s.value} unit={s.unit} label={s.label} />)}
+                </div>
+              )}
+              {avatars.length > 0 && (
+                <div class="glass rounded-3xl p-6 flex items-center gap-4">
+                  <div class="flex -space-x-3">
+                    {avatars.map((a) => <img src={a} alt="" class="w-11 h-11 rounded-full object-cover border-2 border-[#F2EBDB]/60" loading="lazy" />)}
+                    <span class="w-11 h-11 rounded-full bg-[#9A3922] text-[#F2EBDB] flex items-center justify-center text-lg font-medium border-2 border-[#F2EBDB]/60">+</span>
+                  </div>
+                  <div>
+                    <p class="text-xl font-extrabold text-[#F2EBDB] leading-none">{avatarValue}</p>
+                    <p class="text-sm text-[#F2EBDB]/70 mt-1">{avatarLabel}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

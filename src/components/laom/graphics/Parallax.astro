@@ -1,0 +1,32 @@
+---
+// Parallax — image de fond avec léger défilement parallaxe au scroll (élément modulaire).
+// À poser dans un conteneur relatif + overflow-hidden. Respecte prefers-reduced-motion.
+interface Props { src: string; alt?: string; class?: string; speed?: number }
+const { src, alt = '', class: cls = '', speed = 0.18 } = Astro.props
+---
+<div class:list={['absolute inset-0 overflow-hidden', cls]} data-parallax data-speed={speed}>
+  <img src={src} alt={alt} loading="lazy"
+       class="js-parallax-img absolute inset-x-0 top-[-18%] w-full h-[136%] object-cover will-change-transform" />
+</div>
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (!reduce) {
+    let ticking = false
+    const update = () => {
+      ticking = false
+      const vh = window.innerHeight
+      document.querySelectorAll('[data-parallax]').forEach((el) => {
+        const r = el.getBoundingClientRect()
+        if (r.bottom < -120 || r.top > vh + 120) return
+        const speed = parseFloat(el.getAttribute('data-speed') || '0.18')
+        const off = (r.top + r.height / 2 - vh / 2) * -speed
+        const img = el.querySelector('.js-parallax-img')
+        if (img) (img as HTMLElement).style.transform = `translate3d(0, ${off.toFixed(1)}px, 0)`
+      })
+    }
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update) } }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', update)
+    update()
+  }
+</script>

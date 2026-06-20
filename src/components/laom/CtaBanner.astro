@@ -1,0 +1,35 @@
+---
+// CtaBanner — bannière photo (overlay marron) : titre + 2 boutons + carte verre à puces.
+import Pill from './Pill.astro'
+interface Props {
+  img: string; eyebrow?: string; title: string; accent?: string;
+  primaryText?: string; primaryHref?: string; secondaryText?: string; secondaryHref?: string;
+  items?: { title: string; desc: string }[]; class?: string
+}
+const { img, eyebrow, title, accent, primaryText = 'Réserver', primaryHref = '#contact',
+  secondaryText, secondaryHref = '#', items = [], class: cls = '' } = Astro.props
+---
+<div class:list={['relative rounded-[2rem] overflow-hidden', cls]}>
+  <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+  <div class="absolute inset-0 bg-gradient-to-r from-[#412F1F]/90 via-[#412F1F]/70 to-[#1D1B18]/50"></div>
+  <div class="relative grid lg:grid-cols-2 gap-10 items-center p-10 md:p-16">
+    <div>
+      {eyebrow && <p class="eyebrow eyebrow--light mb-5">{eyebrow}</p>}
+      <h2 class="text-3xl md:text-4xl xl:text-5xl font-extrabold text-[#F2EBDB] leading-[1.05] tracking-[-0.02em] text-balance">{title}{accent && <> <span class="acc-light">{accent}</span></>}</h2>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <Pill href={primaryHref} variant="primary">{primaryText}</Pill>
+        {secondaryText && <Pill href={secondaryHref} variant="outline">{secondaryText}</Pill>}
+      </div>
+    </div>
+    {items.length > 0 && (
+      <div class="glass rounded-3xl p-7 space-y-5 lg:justify-self-end lg:max-w-sm w-full">
+        {items.map((it) => (
+          <div class="flex items-center gap-4">
+            <span class="circle-btn w-11 h-11 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></span>
+            <div><p class="text-[#F2EBDB] font-bold leading-tight">{it.title}</p><p class="text-sm text-[#F2EBDB]/70">{it.desc}</p></div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>

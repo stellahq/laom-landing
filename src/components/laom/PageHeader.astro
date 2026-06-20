@@ -1,0 +1,17 @@
+---
+// PageHeader — en-tête de page intérieure : titre centré sur photo (overlay marron).
+import SiteNav from './SiteNav.astro'
+interface Props { img: string; title: string; subtitle?: string }
+const { img, title, subtitle } = Astro.props
+---
+<div class="relative">
+  <SiteNav transparent={true} />
+  <section class="relative min-h-[52vh] flex items-center justify-center text-center overflow-hidden">
+    <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <div class="absolute inset-0 bg-[#412F1F]/70"></div>
+    <div class="relative max-w-3xl px-6 pt-24">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.05] text-balance">{title}</h1>
+      {subtitle && <p class="text-lg text-[#F2EBDB]/75 mt-5 max-w-xl mx-auto">{subtitle}</p>}
+    </div>
+  </section>
+</div>

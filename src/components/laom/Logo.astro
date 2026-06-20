@@ -1,0 +1,11 @@
+---
+// Logo — wordmark officiel LAOM (SVG inline, currentColor). La couleur = text color.
+// Ex: <Logo class="text-[#9A3922]" height="1.7rem" /> (terre sur clair) ou text-[#F2EBDB] (sur sombre).
+import logoRaw from './graphics/logo-laom.svg?raw'
+interface Props { class?: string; height?: string; label?: string }
+const { class: cls = '', height = '1.7rem', label = 'LAOM' } = Astro.props
+---
+<span class:list={['laom-logo inline-block leading-none', cls]} style={`height:${height}`} role="img" aria-label={label} set:html={logoRaw} />
+<style is:global>
+  .laom-logo svg { height: 100%; width: auto; display: block; }
+</style>

@@ -1,0 +1,33 @@
+---
+// SgBar — barre de navigation du Design System + switcher DS1/DS2.
+// ds=1 : design arrondi (défaut). ds=2 : design "angles droits / élégant" (.ds-square).
+import Logo from './Logo.astro'
+interface Props { current?: string; ds?: number }
+const { current = '', ds = 1 } = Astro.props
+const routes = ds === 2
+  ? { overview:'/ds2', sections:'/ds2/sections', labo:'/ds2/labo', home:'/ds2/pages/home', events:'/ds2/pages/events', blog:'/ds2/pages/blog', vente:'/ds2/pages/vente' }
+  : { overview:'/styleguide', sections:'/styleguide/sections', labo:'/styleguide/labo', home:'/styleguide/pages/home', 'home-full':'/styleguide/pages/home-full', events:'/styleguide/pages/events', blog:'/styleguide/pages/blog', vente:'/styleguide/pages/vente' }
+const links = ds === 2
+  ? [ {id:'overview',label:'Vue d’ensemble'},{id:'sections',label:'Sections'},{id:'labo',label:'Labo'},{id:'home',label:'Home'},{id:'events',label:'Événements'},{id:'blog',label:'Blog'},{id:'vente',label:'Page de vente'} ]
+  : [ {id:'overview',label:'Vue d’ensemble'},{id:'sections',label:'Sections'},{id:'labo',label:'Labo'},{id:'home',label:'Home carte'},{id:'home-full',label:'Home plein'},{id:'events',label:'Événements'},{id:'blog',label:'Blog'},{id:'vente',label:'Page de vente'} ]
+const tab = 'px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors'
+---
+<div class="sticky top-0 z-[100] bg-[#1D1B18] text-[#F2EBDB] border-b border-[#F2EBDB]/10">
+  <div class="max-w-[1600px] mx-auto px-4 h-12 flex items-center gap-1 overflow-x-auto">
+    <a href={routes.overview} class="text-[#CB7A5C] pr-3 shrink-0"><Logo height="1.1rem" /></a>
+
+    <!-- Switcher Design System -->
+    <div class="flex items-center gap-1.5 pr-3 mr-1 border-r border-[#F2EBDB]/15 shrink-0">
+      <span class="text-[10px] uppercase tracking-[0.18em] text-[#F2EBDB]/40 hidden sm:inline">Design</span>
+      <a href="/styleguide" class:list={['px-2.5 py-0.5 rounded-full text-sm font-medium', ds===1 ? 'bg-[#9A3922] text-[#F2EBDB]' : 'text-[#F2EBDB]/55 hover:text-[#F2EBDB]']}>DS1</a>
+      <a href="/ds2" class:list={['px-2.5 py-0.5 rounded-full text-sm font-medium', ds===2 ? 'bg-[#9A3922] text-[#F2EBDB]' : 'text-[#F2EBDB]/55 hover:text-[#F2EBDB]']}>DS2</a>
+    </div>
+
+    <nav class="flex items-center gap-1">
+      {links.map((l) => (
+        <a href={routes[l.id]} class:list={[tab, current === l.id ? 'bg-[#9A3922] text-[#F2EBDB]' : 'text-[#F2EBDB]/65 hover:text-[#F2EBDB] hover:bg-[#F2EBDB]/10']}>{l.label}</a>
+      ))}
+    </nav>
+  </div>
+</div>
+{ds === 2 && <script is:inline>document.documentElement.classList.add('ds-square')</script>}

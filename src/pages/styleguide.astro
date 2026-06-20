@@ -1,0 +1,195 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SgBar from '~/components/laom/SgBar.astro'
+import Eyebrow from '~/components/laom/Eyebrow.astro'
+import SectionHeading from '~/components/laom/SectionHeading.astro'
+import Pill from '~/components/laom/Pill.astro'
+import StatGlass from '~/components/laom/StatGlass.astro'
+import MediaCard from '~/components/laom/MediaCard.astro'
+import ActivityCard from '~/components/laom/ActivityCard.astro'
+import BlogCard from '~/components/laom/BlogCard.astro'
+import TeamCard from '~/components/laom/TeamCard.astro'
+import Testimonial from '~/components/laom/Testimonial.astro'
+import FeatureItem from '~/components/laom/FeatureItem.astro'
+import NumberedCard from '~/components/laom/NumberedCard.astro'
+import LogoStrip from '~/components/laom/LogoStrip.astro'
+import CtaBanner from '~/components/laom/CtaBanner.astro'
+import PopularList from '~/components/laom/PopularList.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const colors = [
+  ['Beige', '#F2EBDB', 'Fond principal'],
+  ['Terre', '#9A3922', 'Accent (CTA, liens, logo)'],
+  ['Terre clair', '#CB7A5C', 'Accent sur fond sombre'],
+  ['Vert', '#73673E', 'Secondaire / eyebrows'],
+  ['Marron', '#412F1F', 'Titres / panneaux sombres'],
+  ['Noir', '#1D1B18', 'Texte'],
+  ['Crème', '#FBF6EA', 'Sections alternées'],
+]
+const F = (n: string) => `/images/festival/${n}.webp`
+const Lbl = 'text-xs font-medium tracking-[0.2em] uppercase text-[#73673E] mb-6 pt-4 border-t border-[#412F1F]/15'
+---
+<Layout title="LAOM — Style Guide" hideChrome={true} seo={{ noIndex: true }}>
+  <SgBar current="overview" />
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-16 space-y-16">
+    <header>
+      <p class="font-logo text-2xl text-[#9A3922]">LAOM</p>
+      <h1 class="text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] mt-2">Design System</h1>
+      <p class="text-[#1D1B18]/60 mt-2">Source de vérité visuelle — voir <code>DESIGN.md</code>. Éléments : <code>src/components/laom/</code> · Sections : <code>…/sections/</code>.</p>
+      <div class="mt-6">
+        <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#73673E] mb-3">Gabarits par type de page</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/styleguide/pages/home" class="pill pill-primary !py-2.5 !px-5 !text-sm">Home</a>
+          <a href="/styleguide/pages/events" class="pill pill-primary !py-2.5 !px-5 !text-sm">Événements</a>
+          <a href="/styleguide/pages/blog" class="pill pill-primary !py-2.5 !px-5 !text-sm">Blog</a>
+          <a href="/styleguide/pages/vente" class="pill pill-primary !py-2.5 !px-5 !text-sm">Page de vente</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Couleurs -->
+    <section>
+      <p class={Lbl}>Couleurs (charte)</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+        {colors.map(([name, hex, use]) => (
+          <div>
+            <div class="h-20 rounded-2xl border border-[#412F1F]/10" style={`background:${hex}`}></div>
+            <p class="text-sm font-bold text-[#412F1F] mt-2">{name}</p>
+            <p class="text-xs text-[#1D1B18]/50">{hex}</p>
+            <p class="text-xs text-[#1D1B18]/50">{use}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Typo -->
+    <section>
+      <p class={Lbl}>Typographie — Host Grotesk (+ logo serif)</p>
+      <div class="space-y-3">
+        <p class="font-logo text-5xl text-[#9A3922]">LAOM <span class="text-base text-[#1D1B18]/50">— logo (Fraunces serif)</span></p>
+        <h1 class="text-6xl font-extrabold text-[#412F1F] tracking-[-0.03em]">Titre H1 Extrabold</h1>
+        <h2 class="text-4xl font-extrabold text-[#412F1F]">Titre H2 <span class="acc">accent italique</span></h2>
+        <p class="text-lg text-[#1D1B18]/75 max-w-2xl">Corps de texte Regular — Host Grotesk. Lisible, chaleureux, sobre. Longueur de ligne limitée à ~70 caractères.</p>
+        <Eyebrow>Eyebrow de section</Eyebrow>
+      </div>
+    </section>
+
+    <!-- Boutons -->
+    <section>
+      <p class={Lbl}>Boutons / Pills</p>
+      <div class="flex flex-wrap gap-4 items-center">
+        <Pill variant="primary">Primaire</Pill>
+        <Pill variant="primary" arrow>Avec flèche</Pill>
+        <div class="bg-[#412F1F] p-4 rounded-2xl flex gap-4">
+          <Pill variant="light">Clair</Pill>
+          <Pill variant="outline">Outline</Pill>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats glass -->
+    <section>
+      <p class={Lbl}>StatGlass (sur fond sombre)</p>
+      <div class="topo rounded-3xl p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatGlass value="21" unit="ha" label="Domaine préservé" />
+        <StatGlass value="850" unit="m²" label="Paille porteuse" />
+        <StatGlass value="15" label="Familles" />
+        <StatGlass value="2021" label="Depuis" />
+      </div>
+    </section>
+
+    <!-- MediaCard -->
+    <section>
+      <p class={Lbl}>MediaCard (habitats / lieux)</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <MediaCard img={F('about-2')} alt="" title="La salle de danse" desc="Lumière, espace, vue sur les monts." />
+        <MediaCard img={F('act-riviere')} alt="" title="La rivière" desc="Le cours d’eau en contrebas." />
+        <MediaCard img={F('about-1')} alt="" title="Le lieu de vie" desc="Bois, terre, convivialité." />
+      </div>
+    </section>
+
+    <!-- ActivityCard -->
+    <section>
+      <p class={Lbl}>ActivityCard</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <ActivityCard img={F('act-danse')} title="Danse & mouvement" />
+        <ActivityCard img={F('act-atelier')} title="Ateliers & cercles" />
+        <ActivityCard img={F('act-chillworking')} title="Chillworking" />
+        <ActivityCard img={F('act-riviere')} title="Rivière & nature" />
+      </div>
+    </section>
+
+    <!-- NumberedCard -->
+    <section>
+      <p class={Lbl}>NumberedCard (séquence) — sur fond sombre</p>
+      <div class="topo rounded-3xl p-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <NumberedCard num="01" title="Tu arrives" text="Accueil, tour du domaine, on pose le cadre." />
+        <NumberedCard num="02" title="Tu t’installes" text="Ton espace de travail, ton rythme." />
+        <NumberedCard num="03" title="Tu bouges" text="Mouvement le matin, nature l’après-midi." />
+        <NumberedCard num="04" title="Tu repars" text="Plus clair, plus ancré." />
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section>
+      <p class={Lbl}>FeatureItem (bénéfices)</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <FeatureItem title="Pension complète">Nourriture du terroir, potager maison, repas inclus.</FeatureItem>
+        <FeatureItem title="Wifi fibre">Espaces de travail intérieurs et extérieurs.</FeatureItem>
+        <FeatureItem title="Communauté choisie">Entrepreneurs et créatifs alignés.</FeatureItem>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section>
+      <p class={Lbl}>TeamCard</p>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <TeamCard img="/images/festival/avatar-1.webp" name="Charly Aubert" role="Fondateur" />
+        <TeamCard img="/images/festival/avatar-2.webp" name="Amandine Orriols" role="Co-pilote" />
+        <TeamCard img="/images/festival/avatar-3.webp" name="L’équipe" role="Chantier & accueil" />
+        <TeamCard img="/images/festival/avatar-4.webp" name="Les habitants" role="15 familles" />
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+      <p class={Lbl}>Testimonial</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <Testimonial quote="Un lieu magique, perché et entouré de montagnes." name="Clémence M." avatar="/images/festival/avatar-1.webp" />
+        <Testimonial quote="On déconnecte vraiment, on se reconnecte à soi." name="Caroline T." avatar="/images/festival/avatar-2.webp" />
+        <Testimonial quote="L’accueil et la qualité de présence, extraordinaires." name="François D." avatar="/images/festival/avatar-3.webp" />
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section>
+      <p class={Lbl}>BlogCard + PopularList</p>
+      <div class="grid lg:grid-cols-3 gap-6">
+        <BlogCard img={F('blog-1')} date="6 juin 2026" title="Construire en paille porteuse : le récit du Grand Shambala" />
+        <BlogCard img={F('blog-2')} date="2 juin 2026" title="Vivre en collectif sur 21 hectares" />
+        <PopularList items={[
+          { img: F('pop-1'), title: 'Piloter un écolieu avec une IA', date: '28 mai 2026' },
+          { img: F('pop-2'), title: 'Petit Shambala : l’imprévu', date: '20 mai 2026' },
+        ]} />
+      </div>
+    </section>
+
+    <!-- LogoStrip -->
+    <div class="-mx-6 md:-mx-10 lg:-mx-14">
+      <LogoStrip eyebrow="Ils en parlent" logos={[{label:'France 3'},{label:'La Dépêche'},{label:'Konbini'},{label:'Socialter'}]} />
+    </div>
+
+    <!-- CTA -->
+    <section>
+      <p class={Lbl}>CtaBanner</p>
+      <CtaBanner img={F('cta')} eyebrow="Réservation anticipée" title="Réserve tôt, profite du lieu" accent="en plein calme"
+        primaryText="Réserver un séjour" secondaryText="Demander un devis"
+        items={[{title:'Tarif early-bird', desc:'Jusqu’à -15% hors saison'},{title:'Séjours flexibles', desc:'À partir de 5 nuits'}]} />
+    </section>
+  </div>
+
+  <div class="mt-8">
+    <p class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 text-xs font-medium tracking-[0.2em] uppercase text-[#73673E] mb-6">SiteFooter</p>
+    <SiteFooter />
+  </div>
+</Layout>

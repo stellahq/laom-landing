@@ -1,0 +1,26 @@
+---
+// Hero — section d'ouverture : photo plein écran, overlay sombre, titre + accent,
+// CTA, et colonne de cartes (stats glass + avatars) via le slot `aside`.
+import Pill from './Pill.astro'
+interface Props {
+  img: string; alt?: string; eyebrow?: string;
+  title: string; accent?: string; ctaText?: string; ctaHref?: string;
+}
+const { img, alt = '', eyebrow, title, accent, ctaText = 'Découvrir', ctaHref = '#' } = Astro.props
+---
+<section class="relative min-h-[92vh] flex items-center overflow-hidden">
+  <img src={img} alt={alt} class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+  <div class="absolute inset-0 bg-gradient-to-r from-[#1D1B18]/85 via-[#1D1B18]/55 to-[#412F1F]/40"></div>
+  <div class="relative w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-28 pb-16">
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+      <div>
+        {eyebrow && <p class="eyebrow eyebrow--light mb-6">{eyebrow}</p>}
+        <h1 class="text-5xl md:text-6xl xl:text-7xl font-extrabold text-[#F2EBDB] leading-[0.98] tracking-[-0.03em] text-balance">
+          {title}{accent && <> <span class="acc-light">{accent}</span></>}
+        </h1>
+        <Pill href={ctaHref} variant="primary" class="mt-10">{ctaText}</Pill>
+      </div>
+      <div class="space-y-4"><slot name="aside" /></div>
+    </div>
+  </div>
+</section>

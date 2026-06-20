@@ -1,0 +1,14 @@
+---
+// BlogCard — vignette article : image + date (pastille) + titre.
+interface Props { img: string; date: string; title: string; href?: string; class?: string }
+const { img, date, title, href = '#', class: cls = '' } = Astro.props
+---
+<a href={href} class:list={['imgzoom lift group block rounded-3xl bg-[#FBF6EA]', cls]}>
+  <div class="aspect-[16/11] overflow-hidden relative rounded-t-3xl">
+    <img src={img} alt={title} class="w-full h-full object-cover" loading="lazy" />
+    <span class="absolute bottom-4 left-4 rounded-full bg-[#F2EBDB]/95 text-[#412F1F] text-xs font-medium px-3 py-1.5">{date}</span>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-extrabold text-[#412F1F] leading-snug group-hover:text-[#9A3922] transition-colors">{title}</h3>
+  </div>
+</a>

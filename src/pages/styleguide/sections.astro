@@ -1,0 +1,95 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SgBar from '~/components/laom/SgBar.astro'
+import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
+import StatsBand from '~/components/laom/sections/StatsBand.astro'
+import AboutCards from '~/components/laom/sections/AboutCards.astro'
+import MissionSection from '~/components/laom/sections/MissionSection.astro'
+import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
+import ActivitiesSection from '~/components/laom/sections/ActivitiesSection.astro'
+import TeamSection from '~/components/laom/sections/TeamSection.astro'
+import TestimonialsSection from '~/components/laom/sections/TestimonialsSection.astro'
+import FeaturesSection from '~/components/laom/sections/FeaturesSection.astro'
+import BlogSection from '~/components/laom/sections/BlogSection.astro'
+import EventList from '~/components/laom/sections/EventList.astro'
+import CtaSection from '~/components/laom/sections/CtaSection.astro'
+import ArticleBody from '~/components/laom/sections/ArticleBody.astro'
+import BookingForm from '~/components/laom/BookingForm.astro'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+const F = (n: string) => `/images/festival/${n}.webp`
+const L = (n: string) => `/images/laom/${n}.webp`
+const av = [F('avatar-1'), F('avatar-2'), F('avatar-3'), F('avatar-4')]
+---
+<Layout title="LAOM — Sections" hideChrome={true} seo={{ noIndex: true }}>
+  <SgBar current="sections" />
+
+  <div class="bg-[#1D1B18] text-[#F2EBDB] px-6 py-10 max-w-7xl mx-auto">
+    <h1 class="text-3xl font-extrabold">Sections designées</h1>
+    <p class="text-[#F2EBDB]/60 mt-2 text-sm">Chaque bloc est un composant de <code>src/components/laom/sections/</code>. On le pose avec des props (titres, items, photos) et c'est déjà designé.</p>
+  </div>
+
+  <div data-sg="HeroLeader" class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">HeroLeader</div>
+  <HeroLeader img={F('hero')} nav={false} eyebrow="Écolieu · Aveyron" title="Travaille et ressource-toi au cœur d’un" accent="lieu vivant"
+    stats={[{value:'21',unit:'ha',label:'Domaine'},{value:'850',unit:'m²',label:'Paille'}]} avatars={av} avatarValue="15 familles" avatarLabel="à LAOM" />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">StatsBand</div>
+  <StatsBand stats={[{value:'21',unit:'ha',label:'hectares'},{value:'15',label:'familles'},{value:'850',unit:'m²',label:'paille'},{value:'2021',label:'depuis'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">AboutCards</div>
+  <AboutCards title="Un écolieu où l’on vient" accent="créer autrement" intro="21 hectares dans le sud de l’Aveyron."
+    items={[{kind:'photo',img:F('about-1')},{kind:'text',color:'marron',title:'Chantier vivant',text:'Depuis 2021, sans filtre.'},{kind:'photo',img:F('about-2')},{kind:'text',color:'vert',title:'Accueil toute l’année',text:'Retraites, chillworking, forums.'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">MissionSection</div>
+  <MissionSection img={F('cta')} eyebrow="Comment ça se passe" title="Quatre" accent="temps forts"
+    items={[{num:'01',title:'Tu arrives',text:'On pose le cadre.'},{num:'02',title:'Tu t’installes',text:'Ton rythme.'},{num:'03',title:'Tu bouges',text:'Mouvement, nature.'},{num:'04',title:'Tu repars',text:'Plus ancré.'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">HabitatsSection</div>
+  <HabitatsSection title="Choisis ton coin de" accent="tranquillité" intro="Du grand bâtiment au tipi."
+    items={[{img:L('laom-batiment-paille'),title:'Grand Shambala',desc:'850 m² paille.'},{img:L('petit-shambala-exterieur'),title:'Petit Shambala',desc:'Terre crue.'},{img:L('tipis'),title:'Les Tipis',desc:'Au plus près du vivant.'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">ActivitiesSection</div>
+  <ActivitiesSection title="La beauté se vit en" accent="activités"
+    items={[{img:F('act-danse'),title:'Danse & mouvement'},{img:F('act-atelier'),title:'Ateliers'},{img:F('act-chillworking'),title:'Chillworking'},{img:F('act-riviere'),title:'Rivière'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">TeamSection</div>
+  <TeamSection title="Celles et ceux qui" accent="font le lieu"
+    members={[{img:av[0],name:'Charly',role:'Fondateur'},{img:av[1],name:'Amandine',role:'Co-pilote'},{img:av[2],name:'L’équipe',role:'Accueil'},{img:av[3],name:'Les habitants',role:'15 familles'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">FeaturesSection</div>
+  <FeaturesSection eyebrow="Ce qui est inclus" title="Tout est pris en" accent="charge"
+    items={[{title:'Pension complète',text:'Repas du terroir inclus.'},{title:'Wifi fibre',text:'Espaces de travail.'},{title:'Communauté choisie',text:'Entrepreneurs alignés.'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">TestimonialsSection</div>
+  <TestimonialsSection title="Ce qu’ils disent du" accent="lieu"
+    items={[{quote:'Un lieu magique.',name:'Clémence M.',avatar:av[0]},{quote:'On se reconnecte à soi.',name:'Caroline T.',avatar:av[1]},{quote:'Accueil extraordinaire.',name:'François D.',avatar:av[2]}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">EventList</div>
+  <EventList title="Prochains" accent="événements"
+    events={[{date:'3-5 juil.',sub:'2026',title:'Forum Éco-construction',desc:'Paille, terre, bois.'},{date:'5-9 août',sub:'2026',title:'En Mouvement',desc:'Immersion danse.'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">BookingForm</div>
+  <BookingForm photo={F('about-1')} title="Ton échappée nature t’attend." accent="Pose tes dates !" text="On te recontacte sous 48h." sideImg={F('booking-side')} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">CtaSection</div>
+  <CtaSection img={F('cta')} eyebrow="Réservation anticipée" title="Réserve tôt, profite du lieu" accent="en plein calme"
+    primaryText="Réserver" secondaryText="Devis" items={[{title:'Early-bird',desc:'-15% hors saison'},{title:'Flexible',desc:'Dès 5 nuits'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">BlogSection</div>
+  <BlogSection title="Nos derniers" accent="récits"
+    posts={[{img:F('blog-1'),date:'6 juin 2026',title:'Le récit du Grand Shambala'},{img:F('blog-2'),date:'2 juin 2026',title:'Vivre en collectif'}]}
+    popular={[{img:F('pop-1'),title:'Piloter avec une IA',date:'28 mai'},{img:F('pop-2'),title:'Petit Shambala',date:'20 mai'}]} />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">PageHeader</div>
+  <PageHeader img={F('blog-2')} title="Journal de bord" subtitle="Le chantier, sans filtre." />
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">ArticleBody</div>
+  <ArticleBody heading="Construire en paille :" accent="le récit" images={[{src:F('about-1')},{src:F('act-atelier')}]}>
+    <p>850 m² de paille porteuse sur deux niveaux, construits en trois mois.</p>
+    <h3>Pourquoi la paille</h3>
+    <p>Un matériau bio-sourcé, isolant, local. Le mur porte, isole et respire.</p>
+  </ArticleBody>
+
+  <div class="bg-[#9A3922] text-[#F2EBDB] text-xs uppercase tracking-[0.2em] px-6 py-2 font-medium">SiteFooter</div>
+  <SiteFooter />
+</Layout>

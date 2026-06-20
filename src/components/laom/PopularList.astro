@@ -1,0 +1,16 @@
+---
+// PopularList — carte marron listant des articles (image + titre + date).
+interface Props { title?: string; items: { img: string; title: string; date: string; href?: string }[]; class?: string }
+const { title = 'Les plus lus', items, class: cls = '' } = Astro.props
+---
+<div class:list={['rounded-3xl bg-[#412F1F] p-7', cls]}>
+  <h3 class="text-xl font-extrabold text-[#F2EBDB] mb-6">{title}</h3>
+  <div class="space-y-5">
+    {items.map((p) => (
+      <a href={p.href ?? '#'} class="group flex gap-4 items-center">
+        <div class="w-20 h-16 shrink-0 rounded-xl overflow-hidden"><img src={p.img} alt={p.title} class="w-full h-full object-cover" loading="lazy" /></div>
+        <div><p class="text-sm font-bold text-[#F2EBDB] leading-snug group-hover:text-[#CB7A5C] transition-colors">{p.title}</p><p class="text-xs text-[#F2EBDB]/60 mt-1.5">{p.date}</p></div>
+      </a>
+    ))}
+  </div>
+</div>

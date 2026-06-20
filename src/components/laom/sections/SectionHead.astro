@@ -1,0 +1,18 @@
+---
+// SectionHead — en-tête de section réutilisable : eyebrow + titre (+ accent) + intro.
+// align: left | center. light pour fond sombre.
+import Eyebrow from '../Eyebrow.astro'
+import SectionHeading from '../SectionHeading.astro'
+interface Props {
+  eyebrow?: string; title: string; accent?: string; intro?: string;
+  align?: 'left' | 'center'; light?: boolean; size?: string; class?: string
+}
+const { eyebrow, title, accent, intro, align = 'left', light = false, size = 'text-4xl md:text-5xl', class: cls = '' } = Astro.props
+const wrap = align === 'center' ? 'text-center max-w-2xl mx-auto' : 'max-w-3xl'
+const introColor = light ? 'text-[#F2EBDB]/70' : 'text-[#1D1B18]/70'
+---
+<div class:list={[wrap, cls]}>
+  {eyebrow && <Eyebrow light={light} class="mb-4">{eyebrow}</Eyebrow>}
+  <SectionHeading text={title} accent={accent} light={light} size={size} />
+  {intro && <p class:list={['text-lg leading-relaxed mt-5', introColor]}>{intro}</p>}
+</div>

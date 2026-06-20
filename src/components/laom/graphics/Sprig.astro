@@ -1,0 +1,8 @@
+---
+// Sprig — élément botanique décoratif (SVG généré, feuilles posées sur la tige). currentColor.
+import sprigRaw from './sprig.svg?raw'
+interface Props { class?: string; width?: string; flip?: boolean }
+const { class: cls = '', width = '120px', flip = false } = Astro.props
+---
+<span aria-hidden="true" class:list={['inline-block pointer-events-none select-none [&>svg]:w-full [&>svg]:h-auto [&>svg]:block', cls]}
+      style={`width:${width};${flip ? 'transform:scaleX(-1);' : ''}`} set:html={sprigRaw} />

@@ -1,0 +1,22 @@
+---
+// ActivitiesSection — head centré + grille d'ActivityCard + CTA centré.
+import SectionHead from './SectionHead.astro'
+import ActivityCard from '../ActivityCard.astro'
+import Pill from '../Pill.astro'
+interface Props {
+  eyebrow?: string; title: string; accent?: string; intro?: string;
+  items: { img: string; title: string; href?: string }[];
+  ctaText?: string; ctaHref?: string; bg?: string;
+}
+const { eyebrow = 'Au quotidien', title, accent, intro, items, ctaText = 'Toutes les activités', ctaHref = '#', bg = 'bg-[#F2EBDB]' } = Astro.props
+const cols = items.length >= 5 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+---
+<section id="activites" class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <SectionHead eyebrow={eyebrow} title={title} accent={accent} intro={intro} align="center" class="mb-14" />
+    <div class:list={['grid sm:grid-cols-2 gap-5', cols]}>
+      {items.map((a) => <ActivityCard img={a.img} title={a.title} href={a.href} />)}
+    </div>
+    {ctaText && <div class="text-center mt-12"><Pill href={ctaHref} variant="primary">{ctaText}</Pill></div>}
+  </div>
+</section>

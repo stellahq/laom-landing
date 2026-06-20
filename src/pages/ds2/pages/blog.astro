@@ -1,0 +1,34 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SgBar from '~/components/laom/SgBar.astro'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import BlogSection from '~/components/laom/sections/BlogSection.astro'
+import ArticleBody from '~/components/laom/sections/ArticleBody.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+const F = (n: string) => `/images/festival/${n}.webp`
+---
+<Layout title="LAOM — Gabarit Blog" hideChrome={true} seo={{ noIndex: true }}>
+  <SgBar current="blog" ds={2} />
+  <PageHeader img={F('blog-2')} title="Journal de bord" subtitle="Le chantier, les décisions, les erreurs, les apprentissages — sans filtre." />
+
+  <BlogSection eyebrow="Tous les articles" title="Derniers" accent="récits" bg="bg-[#F2EBDB]"
+    posts={[
+      {img:F('blog-1'),date:'6 juin 2026',title:'Construire en paille porteuse : le récit du Grand Shambala'},
+      {img:F('blog-2'),date:'2 juin 2026',title:'Vivre en collectif sur 21 hectares'},
+    ]}
+    popular={[
+      {img:F('pop-1'),title:'Piloter un écolieu avec une IA',date:'28 mai 2026'},
+      {img:F('pop-2'),title:'Petit Shambala : l’imprévu',date:'20 mai 2026'},
+    ]} />
+
+  <!-- Aperçu gabarit "article" (corps long-forme) -->
+  <ArticleBody heading="Construire en paille porteuse :" accent="le récit" bg="bg-[#FBF6EA]"
+    images={[{src:F('about-1')},{src:F('act-atelier')}]}>
+    <p>En 2021, on a commencé à bâtir le Grand Shambala : 850 m² de paille porteuse sur deux niveaux, construits en trois mois. De l’intention au chantier, tout est documenté.</p>
+    <h3>Pourquoi la paille porteuse</h3>
+    <p>Un matériau bio-sourcé, isolant, local — et un geste qui réconcilie l’habitat avec le vivant. Le mur porte, isole et respire.</p>
+    <p>Ce récit raconte les décisions clés, les erreurs, et ce qu’on en a appris collectivement.</p>
+  </ArticleBody>
+
+  <SiteFooter />
+</Layout>

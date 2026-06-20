@@ -1,0 +1,46 @@
+---
+// BookingForm — section réservation en UNE carte arrondie contenue (pas plein page).
+// Gauche : photo bien visible + formulaire verre par-dessus. Droite : panneau marron texturé + texte + photo.
+// NB: <form> non branché (action à définir : Worker+Resend). Voir DESIGN.md > Formulaires.
+import Pill from './Pill.astro'
+import TopoBg from './graphics/TopoBg.astro'
+interface Props { photo: string; eyebrow?: string; title: string; accent?: string; text?: string; sideImg?: string; action?: string; bg?: string }
+const { photo, eyebrow = 'Réserver', title, accent, text, sideImg, action, bg = 'bg-[#F2EBDB]' } = Astro.props
+const field = 'w-full rounded-xl bg-[#FBF6EA] text-[#1D1B18] placeholder-[#1D1B18]/40 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#9A3922]/40'
+const lbl = 'block text-xs font-medium text-[#F2EBDB] mb-1.5'
+---
+<section id="contact" class:list={[bg, 'py-16 md:py-24']}>
+  <div class="max-w-[96rem] mx-auto px-4 sm:px-6">
+    <div class="relative rounded-[2rem] overflow-hidden grid lg:grid-cols-2 shadow-xl">
+      <!-- Gauche : photo visible + formulaire verre -->
+      <div class="relative p-6 md:p-10 flex items-center min-h-[34rem]">
+        <img src={photo} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1D1B18]/45 to-[#412F1F]/35"></div>
+        <form action={action} method={action ? 'post' : undefined} class="relative w-full glass rounded-2xl p-6 md:p-7">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div><label class={lbl}>Nom complet <span class="text-[#CB7A5C]">*</span></label><input name="name" required type="text" placeholder="Ton nom" class={field} /></div>
+            <div><label class={lbl}>Email <span class="text-[#CB7A5C]">*</span></label><input name="email" required type="email" placeholder="ton@email.com" class={field} /></div>
+            <div><label class={lbl}>Téléphone</label><input name="phone" type="tel" placeholder="Téléphone" class={field} /></div>
+            <div><label class={lbl}>Type de séjour <span class="text-[#CB7A5C]">*</span></label>
+              <select name="stay" required class={field}><option>Choisir…</option><option>Chillworking</option><option>Retraite / immersion</option><option>Forum éco-construction</option></select></div>
+            <div><label class={lbl}>Arrivée <span class="text-[#CB7A5C]">*</span></label><input name="checkin" required type="date" class={field} /></div>
+            <div><label class={lbl}>Départ <span class="text-[#CB7A5C]">*</span></label><input name="checkout" required type="date" class={field} /></div>
+          </div>
+          <div class="mt-4"><label class={lbl}>Message</label><textarea name="message" rows="2" placeholder="Ton message" class={`${field} resize-none`}></textarea></div>
+          <Pill variant="primary" class="w-full mt-5">Envoyer la demande</Pill>
+        </form>
+      </div>
+
+      <!-- Droite : panneau marron texturé + texte + photo -->
+      <div class="relative bg-[#412F1F] p-8 md:p-12 lg:p-14 flex flex-col justify-center overflow-hidden">
+        <TopoBg variant="light" />
+        <div class="relative">
+          {eyebrow && <p class="eyebrow eyebrow--light mb-4">{eyebrow}</p>}
+          <h2 class="text-3xl md:text-4xl font-extrabold text-[#F2EBDB] leading-[1.05] tracking-[-0.02em] text-balance">{title}{accent && <> <span class="acc-light">{accent}</span></>}</h2>
+          {text && <p class="text-[#F2EBDB]/70 leading-relaxed mt-5 max-w-md">{text}</p>}
+          {sideImg && <div class="rounded-2xl overflow-hidden mt-8 aspect-[16/8]"><img src={sideImg} alt="" class="w-full h-full object-cover" loading="lazy" /></div>}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

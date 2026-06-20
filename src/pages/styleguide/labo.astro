@@ -1,0 +1,102 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SgBar from '~/components/laom/SgBar.astro'
+import Texture from '~/components/laom/graphics/TopoBg.astro'
+import Sprig from '~/components/laom/graphics/Sprig.astro'
+import Pill from '~/components/laom/Pill.astro'
+import Eyebrow from '~/components/laom/Eyebrow.astro'
+import SectionHeading from '~/components/laom/SectionHeading.astro'
+const Lbl = 'text-xs font-medium tracking-[0.2em] uppercase text-[#73673E] mb-5 pt-6 border-t border-[#412F1F]/15'
+const textures = [
+  { kind: 'topo', label: 'Topo — vaguelettes' },
+  { kind: 'topo-org', label: 'Topo — déstructuré' },
+  { kind: 'terre', label: 'Craquelure de terre' },
+] as const
+---
+<Layout title="LAOM — Labo" hideChrome={true} seo={{ noIndex: true }}>
+  <SgBar current="labo" />
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-12 space-y-12">
+    <header>
+      <p class="eyebrow mb-2">Bac à sable</p>
+      <h1 class="text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em]">Labo — ressources graphiques</h1>
+      <p class="text-[#1D1B18]/60 mt-2 max-w-2xl">Tests de textures (terre / topo) et d'éléments déco. Comparaison entre usage <strong>modulaire</strong> (petites briques) et <strong>section</strong> (bloc composé).</p>
+    </header>
+
+    <!-- TEXTURES sur fond sombre -->
+    <section>
+      <p class={Lbl}>Textures — sur fond marron</p>
+      <div class="grid sm:grid-cols-3 gap-5">
+        {textures.map((t) => (
+          <div class="relative overflow-hidden rounded-2xl bg-[#412F1F] h-52 flex items-end p-5">
+            <Texture kind={t.kind} variant="light" />
+            <span class="relative text-sm font-medium text-[#F2EBDB]">{t.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- TEXTURES sur fond clair -->
+    <section>
+      <p class={Lbl}>Textures — sur fond beige / crème</p>
+      <div class="grid sm:grid-cols-3 gap-5">
+        {textures.map((t) => (
+          <div class="relative overflow-hidden rounded-2xl bg-[#FBF6EA] h-52 flex items-end p-5 border border-[#412F1F]/10">
+            <Texture kind={t.kind} variant="terre" />
+            <span class="relative text-sm font-medium text-[#412F1F]">{t.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- SPRIG -->
+    <section>
+      <p class={Lbl}>Sprig botanique (currentColor)</p>
+      <div class="grid sm:grid-cols-3 gap-5">
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 h-52 flex items-center justify-center">
+          <Sprig class="text-[#73673E]" width="90px" />
+        </div>
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 h-52 flex items-center justify-center">
+          <Sprig class="text-[#9A3922]" width="90px" flip={true} />
+        </div>
+        <div class="relative overflow-hidden rounded-2xl bg-[#412F1F] h-52 flex items-center justify-center">
+          <Texture kind="terre" variant="light" />
+          <Sprig class="relative text-[#CB7A5C]" width="90px" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULAIRE vs SECTION -->
+    <section>
+      <p class={Lbl}>Modulaire vs Section</p>
+      <div class="grid lg:grid-cols-2 gap-6">
+        <!-- modulaire : briques isolées -->
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-7">
+          <p class="text-xs uppercase tracking-[0.2em] text-[#73673E] mb-5">Modulaire — briques</p>
+          <div class="space-y-4">
+            <Eyebrow>Eyebrow</Eyebrow>
+            <SectionHeading text="Titre + accent" accent="éditorial" size="text-2xl md:text-3xl" />
+            <div class="flex flex-wrap gap-3">
+              <Pill variant="primary">Primaire</Pill>
+              <Pill variant="primary" arrow>Flèche</Pill>
+            </div>
+            <div class="flex items-center gap-3 pt-2">
+              <Sprig class="text-[#73673E]" width="48px" />
+              <span class="text-sm text-[#1D1B18]/60">déco posable au besoin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- section : bloc composé contenu -->
+        <div class="relative overflow-hidden rounded-2xl bg-[#412F1F] p-8 flex flex-col justify-end min-h-[18rem]">
+          <Texture kind="topo-org" variant="light" />
+          <Sprig class="absolute top-4 right-4 text-[#73673E] opacity-80" width="120px" />
+          <div class="relative">
+            <p class="eyebrow eyebrow--light mb-3">Section composée</p>
+            <SectionHeading text="Un bloc déjà designé, prêt à" accent="poser" light={true} size="text-2xl md:text-3xl" />
+            <Pill variant="primary" class="mt-5">Action</Pill>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

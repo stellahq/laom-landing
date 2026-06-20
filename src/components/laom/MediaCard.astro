@@ -1,0 +1,16 @@
+---
+// MediaCard — carte photo avec encart verre en bas (titre + desc + flèche).
+// Utilisée pour Habitats, lieux, espaces. Ratio par défaut 4/5.
+interface Props { img: string; alt: string; title: string; desc?: string; href?: string; ratio?: string; class?: string }
+const { img, alt, title, desc, href = '#', ratio = 'aspect-[4/5]', class: cls = '' } = Astro.props
+---
+<a href={href} class:list={['imgzoom lift group relative rounded-3xl block', ratio, cls]}>
+  <img src={img} alt={alt} class="w-full h-full object-cover" loading="lazy" />
+  <div class="absolute inset-x-4 bottom-4 glass-dark rounded-2xl p-5 pr-16">
+    <h3 class="text-lg font-extrabold text-[#F2EBDB] leading-tight mb-1">{title}</h3>
+    {desc && <p class="text-sm text-[#F2EBDB]/75 leading-snug">{desc}</p>}
+    <span class="circle-btn absolute right-4 bottom-4 w-10 h-10">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+    </span>
+  </div>
+</a>
