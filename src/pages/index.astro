@@ -84,28 +84,28 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </style>
 
   <!-- 1. Hero Split -->
-  <section class="min-h-screen -mt-24 md:-mt-28 pt-24 md:pt-28 bg-[#FAF8F5]">
+  <section class="min-h-screen -mt-24 md:-mt-28 pt-24 md:pt-28 bg-[#F2EBDB]">
     <div class="grid lg:grid-cols-2 min-h-[calc(100vh-6rem)]">
-      
+
       <!-- Colonne gauche : Contenu + Form -->
-      <div class="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 py-16 lg:py-20 bg-[#FAF8F5] order-2 lg:order-1">
+      <div class="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-24 py-16 lg:py-20 bg-[#F2EBDB] order-2 lg:order-1">
         <div class="max-w-lg">
-          <p class="text-[11px] font-light tracking-[0.3em] uppercase text-[#2C2824]/40 mb-8">
+          <p class="text-[11px] font-light tracking-[0.3em] uppercase text-[#73673E] mb-8">
             Habitat · Coliving · Événements · Création
           </p>
-          
-          <h1 class="font-playfair text-4xl md:text-5xl xl:text-6xl font-medium text-[#2C2824] mb-6 tracking-tight leading-[1.1]">
+
+          <h1 class="font-playfair text-4xl md:text-5xl xl:text-6xl font-medium text-[#1D1B18] mb-6 tracking-tight leading-[1.1]">
             Vivre et créer,<br/>
-            <span class="text-[#C4A855]">ensemble</span>
+            <span class="text-[#9A3922]">ensemble</span>
           </h1>
-          
-          <p class="text-lg md:text-xl font-light text-[#2C2824]/70 mb-10 leading-relaxed">
+
+          <p class="text-lg md:text-xl font-light text-[#1D1B18]/70 mb-10 leading-relaxed">
             Un écolieu dans le sud de l'Aveyron. À la fois habitat, espace d'accueil et terrain d'expérimentation, on y vient ralentir, se relier, créer et s'inspirer.
           </p>
-          
+
           <!-- Newsletter Form -->
           <div class="mb-8">
-            <p class="text-sm font-medium text-[#2C2824]/80 mb-4">
+            <p class="text-sm font-medium text-[#1D1B18]/80 mb-4">
               Recevez les coulisses chaque dimanche
             </p>
             <form
@@ -123,7 +123,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                 <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
                 <div data-element="fields" data-stacked="false" class="flex flex-col sm:flex-row gap-3">
                   <input
-                    class="flex-1 px-5 py-4 rounded-sm bg-white border border-[#2C2824]/10 text-[#2C2824] placeholder-[#2C2824]/40 text-base focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-all"
+                    class="flex-1 px-5 py-4 rounded-2xl bg-white border border-[#1D1B18]/10 text-[#1D1B18] placeholder-[#1D1B18]/40 text-base focus:outline-none focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922]/30 transition-all"
                     name="email_address"
                     type="email"
                     required
@@ -134,28 +134,28 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                   <button
                     type="submit"
                     data-element="submit"
-                    class="px-8 py-4 rounded-sm bg-[#2C2824] text-white font-medium text-sm tracking-wider uppercase hover:bg-[#3D3830] transition-colors whitespace-nowrap"
+                    class="px-8 py-4 rounded-full bg-[#9A3922] text-[#F2EBDB] font-medium text-sm tracking-wider uppercase hover:bg-[#b34228] transition-colors whitespace-nowrap"
                   >
                     S'inscrire
                   </button>
                 </div>
               </div>
             </form>
-            <p class="text-xs text-[#2C2824]/40 mt-3">Pas de spam. Désinscription en un clic.</p>
+            <p class="text-xs text-[#1D1B18]/40 mt-3">Pas de spam. Désinscription en un clic.</p>
           </div>
           
           <!-- Quick links -->
           <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <a href="/project/" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">Découvrir le projet</a>
-            <a href="/stage-danse/" class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">Prochaine retraite</a>
+            <a href="/project/" class="text-[#1D1B18]/60 hover:text-[#9A3922] transition-colors underline underline-offset-4">Découvrir le projet</a>
+            <a href="/stage-danse/" class="text-[#1D1B18]/60 hover:text-[#9A3922] transition-colors underline underline-offset-4">Prochaine retraite</a>
           </div>
         </div>
       </div>
-      
+
       <!-- Colonne droite : Image -->
       <div class="relative h-[50vh] lg:h-auto order-1 lg:order-2 overflow-hidden">
-        <img 
-          src="/images/laom/festival-laom-ambiance-nature-aveyron.webp" 
+        <img
+          src="/images/laom/festival-laom-ambiance-nature-aveyron.webp"
           alt="Communauté LAOM lors d'une retraite"
           title="Retraite en pleine nature à LAOM, Aveyron"
           class="absolute inset-0 w-full h-full object-cover"
@@ -167,25 +167,25 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- 2. Chiffres clés -->
-  <section class="py-16 md:py-20 bg-[#FAF8F5] border-t border-[#2C2824]/5">
+  <!-- 2. Chiffres clés — bande terre -->
+  <section class="py-20 md:py-28 bg-[#9A3922]">
     <div class="max-w-5xl mx-auto px-8 md:px-12 lg:px-24">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-6">
         <div class="text-center">
-          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">21</p>
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">hectares</p>
+          <p class="text-5xl md:text-6xl xl:text-7xl font-extrabold text-[#F2EBDB] tracking-tight mb-3 leading-none">21</p>
+          <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#F2EBDB]/60">hectares</p>
         </div>
         <div class="text-center">
-          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">15</p>
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">familles</p>
+          <p class="text-5xl md:text-6xl xl:text-7xl font-extrabold text-[#F2EBDB] tracking-tight mb-3 leading-none">15</p>
+          <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#F2EBDB]/60">familles</p>
         </div>
         <div class="text-center">
-          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">850</p>
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">m² paille porteuse</p>
+          <p class="text-5xl md:text-6xl xl:text-7xl font-extrabold text-[#F2EBDB] tracking-tight mb-3 leading-none">850</p>
+          <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#F2EBDB]/60">m² paille porteuse</p>
         </div>
         <div class="text-center">
-          <p class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-2">2021</p>
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#2C2824]/40">depuis</p>
+          <p class="text-5xl md:text-6xl xl:text-7xl font-extrabold text-[#F2EBDB] tracking-tight mb-3 leading-none">2021</p>
+          <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#F2EBDB]/60">depuis</p>
         </div>
       </div>
     </div>
@@ -205,11 +205,11 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- 4. Immersions signature -->
-  <section id="immersions" class="py-24 md:py-32 bg-[#FAF8F5] overflow-hidden">
+  <section id="immersions" class="py-24 md:py-32 bg-[#FBF6EA] overflow-hidden">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="text-center mb-16 opacity-0" animate-fade-in-up>
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-4">Immersions signature</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#73673E] mb-4">Immersions signature</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#1D1B18] tracking-tight">
           Nos programmes d'immersion
         </h2>
       </div>
@@ -217,23 +217,23 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
         <!-- En Mouvement -->
         <a href="/stage-danse/" class="group block opacity-0" animate-fade-in-up>
-          <div class="aspect-[4/5] bg-neutral-100 overflow-hidden rounded-sm mb-6">
+          <div class="aspect-[4/5] bg-neutral-100 overflow-hidden rounded-2xl mb-6">
             <img
               src="/images/laom/samuel-planas.webp"
               alt="Samuel Planas, En Mouvement, immersion par le corps à LAOM"
               title="Samuel Planas guide l'immersion En Mouvement"
-              class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+              class="w-full h-full object-cover object-top rounded-2xl group-hover:scale-[1.02] transition-transform duration-500"
               loading="lazy"
             />
           </div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Corps & mouvement</p>
-          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#9A3922] mb-3">Corps & mouvement</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#1D1B18] mb-3 group-hover:text-[#9A3922] transition-colors">
             En Mouvement
           </h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+          <p class="text-base font-light text-[#1D1B18]/70 leading-relaxed mb-4">
             5 jours d'immersion par la danse et le mouvement. Guidé par Samuel Planas et Charly Aubert. Ouvert à tous.
           </p>
-          <p class="text-sm font-light text-[#2C2824]/50">
+          <p class="text-sm font-light text-[#1D1B18]/50">
             5-9 août 2026
           </p>
         </a>
@@ -241,7 +241,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         <!-- ARCHIVÉ — Clarté (passé)
              À réactiver quand une nouvelle session est programmée : décommente le bloc, mets à jour la date.
         <a href="/clarte/" class="group block opacity-0" animate-fade-in-up style="animation-delay: 100ms">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm mb-6 relative">
+          <div class="aspect-[4/5] overflow-hidden rounded-2xl mb-6 relative">
             <img
               src="/images/en-mouvement/charly-aubert.webp"
               alt="Charly Aubert, fondateur LAOM, stage Clarté vision et système de vie"
@@ -255,14 +255,14 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
               <p class="font-playfair text-3xl font-medium text-white tracking-tight drop-shadow-lg">Clarté</p>
             </div>
           </div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Vision & système</p>
-          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#9A3922] mb-3">Vision & système</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#1D1B18] mb-3 group-hover:text-[#9A3922] transition-colors">
             Clarté
           </h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+          <p class="text-base font-light text-[#1D1B18]/70 leading-relaxed mb-4">
             Un week-end pour créer ton système de vie : vision, PARA, et Claude Code comme agent IA personnel.
           </p>
-          <p class="text-sm font-light text-[#2C2824]/50">
+          <p class="text-sm font-light text-[#1D1B18]/50">
             JJ-JJ MOIS 2026 · 12 places
           </p>
         </a>
@@ -270,69 +270,69 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
 
         <!-- Forum Éco-construction -->
         <a href="/forum-eco-construction/" class="group block opacity-0" animate-fade-in-up style="animation-delay: 100ms">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm mb-6">
+          <div class="aspect-[4/5] overflow-hidden rounded-2xl mb-6">
             <img
               src="/images/laom/laom-batiment-paille-hero.jpeg"
               alt="Grand Shambala, paille porteuse à LAOM, Forum Éco-construction"
               title="Forum Éco-construction à LAOM — paille, terre, bois"
-              class="w-full h-full object-cover rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+              class="w-full h-full object-cover rounded-2xl group-hover:scale-[1.02] transition-transform duration-500"
               loading="lazy"
             />
           </div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Habitat naturel</p>
-          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#9A3922] mb-3">Habitat naturel</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#1D1B18] mb-3 group-hover:text-[#9A3922] transition-colors">
             Forum Éco-construction
           </h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+          <p class="text-base font-light text-[#1D1B18]/70 leading-relaxed mb-4">
             3 jours pour bâtisseurs et passionnés de l'habitat naturel : paille, terre, bois. Visites, conférences, atelier enduit terre.
           </p>
-          <p class="text-sm font-light text-[#2C2824]/50">
+          <p class="text-sm font-light text-[#1D1B18]/50">
             3-5 juillet 2026
           </p>
         </a>
 
         <!-- LAOM School -->
         <a href="/school/online/" class="group block opacity-0" animate-fade-in-up style="animation-delay: 200ms">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm mb-6">
+          <div class="aspect-[4/5] overflow-hidden rounded-2xl mb-6">
             <img
               src="/images/laom/preparation-terre-laom.webp"
               alt="LAOM School, accompagnement collectif porteurs de projet écolieu"
               title="LAOM School — accompagnement 12 lives sur 6 mois"
-              class="w-full h-full object-cover rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+              class="w-full h-full object-cover rounded-2xl group-hover:scale-[1.02] transition-transform duration-500"
               loading="lazy"
             />
           </div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Accompagnement</p>
-          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#9A3922] mb-3">Accompagnement</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#1D1B18] mb-3 group-hover:text-[#9A3922] transition-colors">
             LAOM School
           </h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+          <p class="text-base font-light text-[#1D1B18]/70 leading-relaxed mb-4">
             La feuille de route pour créer ton lieu : 12 lives collectifs sur 6 mois, animés par Charly. Pas à pas, en groupe.
           </p>
-          <p class="text-sm font-light text-[#2C2824]/50">
+          <p class="text-sm font-light text-[#1D1B18]/50">
             12 lives · 6 mois
           </p>
         </a>
 
         <!-- Séjour Chillworking -->
         <a href="/chillworking/" class="group block opacity-0" animate-fade-in-up style="animation-delay: 300ms">
-          <div class="aspect-[4/5] overflow-hidden rounded-sm mb-6">
+          <div class="aspect-[4/5] overflow-hidden rounded-2xl mb-6">
             <img
               src="/images/laom/tipis.webp"
               alt="Séjour Chillworking à LAOM, format vacances-travail en écolieu"
               title="Séjour Chillworking — vacances-travail à LAOM"
-              class="w-full h-full object-cover rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
+              class="w-full h-full object-cover rounded-2xl group-hover:scale-[1.02] transition-transform duration-500"
               loading="lazy"
             />
           </div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">Vacances-travail</p>
-          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#9A3922] mb-3">Vacances-travail</p>
+          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#1D1B18] mb-3 group-hover:text-[#9A3922] transition-colors">
             Séjour Chillworking
           </h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
+          <p class="text-base font-light text-[#1D1B18]/70 leading-relaxed mb-4">
             Pour entrepreneurs, dirigeants, freelances, créatifs et salariés en remote. Mouvement le matin, sessions de travail à ton rythme, soirées de partage.
           </p>
-          <p class="text-sm font-light text-[#2C2824]/50">
+          <p class="text-sm font-light text-[#1D1B18]/50">
             Juin & août 2026 · Durée flexible (min. 5 nuits)
           </p>
         </a>
@@ -341,7 +341,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- 5. Journal de bord -->
-  <section class="py-16 md:py-24 bg-[#FAF8F5]">
+  <section class="py-16 md:py-24 bg-[#F2EBDB]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-3xl md:text-4xl font-normal text-black tracking-tight mb-14 opacity-0 title-underline" animate-fade-in-up>
         Journal de bord
@@ -351,7 +351,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         <!-- Featured: Grand Shambala -->
         <a href="/grand-shambala-v2/" class="group block mb-10">
           <article class="flex flex-col md:flex-row gap-8 items-start">
-            <div class="w-full md:w-2/3 aspect-[16/9] overflow-hidden rounded-sm">
+            <div class="w-full md:w-2/3 aspect-[16/9] overflow-hidden rounded-2xl">
               <img
                 src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
                 alt="Grand Shambala,  850 m2 de paille porteuse"
@@ -361,7 +361,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
               />
             </div>
             <div class="flex-1 py-2">
-              <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-3">
+              <p class="text-xs font-light tracking-[0.2em] uppercase text-[#73673E] mb-3">
                 À la une
               </p>
               <h3 class="font-playfair text-2xl md:text-3xl font-normal text-black mb-3 tracking-tight leading-snug">
@@ -384,7 +384,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
               <a href={getLocalizedPath(`/blog/${post.slug}/`, 'fr')} class="group block">
                 <article class="flex flex-col">
                   {post.data.heroImage && (
-                    <div class="aspect-[16/10] overflow-hidden rounded-sm mb-5">
+                    <div class="aspect-[16/10] overflow-hidden rounded-2xl mb-5">
                       <img
                         src={post.data.heroImage}
                         alt={post.data.title}
@@ -394,7 +394,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
                       />
                     </div>
                   )}
-                  <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-2">
+                  <p class="text-xs font-light tracking-[0.2em] uppercase text-[#73673E] mb-2">
                     {new Date(post.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
                   </p>
                   <h3 class="font-playfair text-xl font-normal text-black mb-2 tracking-tight leading-snug">
@@ -423,7 +423,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
 
 {/* SECTION DESACTIVEE - Nos Espaces - photos à mettre à jour
   <!-- 6. Nos Espaces -->
-  <section id="spaces" class="py-24 md:py-32 bg-[#FAF8F5]">
+  <section id="spaces" class="py-24 md:py-32 bg-[#FBF6EA]">
     <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight text-center mb-16 opacity-0 title-underline mx-auto" animate-fade-in-up>
         {t.home.ourSpaces.sectionTitle}
@@ -433,7 +433,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <button
         type="button"
         id="spaces-prev"
-        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FAF8F5]/90 flex items-center justify-center text-black/60 hover:bg-[#FAF8F5] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        class="spaces-arrow absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FBF6EA]/90 flex items-center justify-center text-black/60 hover:bg-[#FBF6EA] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
         aria-label="Espace précédent"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
@@ -441,7 +441,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <button
         type="button"
         id="spaces-next"
-        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FAF8F5]/90 flex items-center justify-center text-black/60 hover:bg-[#FAF8F5] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        class="spaces-arrow absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full border border-black/20 bg-[#FBF6EA]/90 flex items-center justify-center text-black/60 hover:bg-[#FBF6EA] hover:border-black/40 hover:text-black transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
         aria-label="Espace suivant"
       >
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
@@ -450,12 +450,12 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         <div class="flex gap-6 pl-10 sm:pl-16 lg:pl-24 pr-14 sm:pr-24 lg:pr-36 py-2 min-w-max">
           {spaces.map((space, i) => (
             <article class="spaces-card flex-shrink-0 w-[260px] sm:w-[280px] snap-start opacity-0" animate-fade-in-up style={`animation-delay: ${i * 80}ms`}>
-              <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-sm">
+              <div class="aspect-[3/4] bg-neutral-100 overflow-hidden rounded-2xl">
                 <img
                   src={space.image}
                   alt={(space as { imageAlt?: string }).imageAlt ?? space.title}
                   title={space.title}
-                  class={`w-full h-full object-cover rounded-sm ${i === 2 ? 'object-left' : i === 3 ? 'object-right' : ''}`}
+                  class={`w-full h-full object-cover rounded-2xl ${i === 2 ? 'object-left' : i === 3 ? 'object-right' : ''}`}
                   loading="lazy"
                   width="420"
                   height="560"
@@ -504,40 +504,40 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
 
 */}
   <!-- Témoignages lieu -->
-  <section class="py-24 md:py-32 bg-white">
+  <section class="py-24 md:py-32 bg-[#FBF6EA]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
       <div class="text-center mb-16">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Témoignages</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">Ce qu'ils disent du lieu</h2>
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#73673E] mb-4">Témoignages</p>
+        <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#1D1B18] tracking-tight">Ce qu'ils disent du lieu</h2>
       </div>
 
       <!-- 3 témoignages vedettes -->
       <div class="grid md:grid-cols-3 gap-8 mb-12">
-        <div class="bg-[#FAF8F5] p-6 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-sm font-light text-[#2C2824]/80 italic leading-relaxed mb-4">
+        <div class="bg-white p-7 rounded-2xl border-l-4 border-[#9A3922] shadow-sm">
+          <blockquote class="text-sm font-light text-[#1D1B18]/80 italic leading-relaxed mb-4">
             "Un lieu magique, perché en altitude et entouré par la majesté des montagnes. La salle de danse est un espace parfait pour l'introspection : épurée, zen, esthétique, harmonieuse. Un lieu unique, où la relation à soi, aux autres et à la nature est mise au centre."
           </blockquote>
           <div class="flex items-center gap-3 mt-4">
             <img src="/images/clemence-martin.jpg" alt="Clémence Martin" class="w-8 h-8 rounded-full object-cover" loading="lazy" width="32" height="32" />
-            <p class="text-xs font-medium text-[#2C2824]/50">Clémence Martin</p>
+            <p class="text-xs font-medium text-[#1D1B18]/50">Clémence Martin</p>
           </div>
         </div>
-        <div class="bg-[#FAF8F5] p-6 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-sm font-light text-[#2C2824]/80 italic leading-relaxed mb-4">
+        <div class="bg-white p-7 rounded-2xl border-l-4 border-[#9A3922] shadow-sm">
+          <blockquote class="text-sm font-light text-[#1D1B18]/80 italic leading-relaxed mb-4">
             "Le lieu permet de vraiment déconnecter, de se connecter à la nature et à soi. La salle est dingue, la lumière, l'espace, la vue... J'ai adoré cette retraite et le lieu y a participé à hauteur d'au moins 50%."
           </blockquote>
           <div class="flex items-center gap-3 mt-4">
             <img src="/images/temoignages-lieu/caroline-taris.webp" alt="Caroline Taris" class="w-8 h-8 rounded-full object-cover" loading="lazy" width="32" height="32" />
-            <p class="text-xs font-medium text-[#2C2824]/50">Caroline Taris</p>
+            <p class="text-xs font-medium text-[#1D1B18]/50">Caroline Taris</p>
           </div>
         </div>
-        <div class="bg-[#FAF8F5] p-6 rounded-sm border-l-4 border-[#C4A855]">
-          <blockquote class="text-sm font-light text-[#2C2824]/80 italic leading-relaxed mb-4">
+        <div class="bg-white p-7 rounded-2xl border-l-4 border-[#9A3922] shadow-sm">
+          <blockquote class="text-sm font-light text-[#1D1B18]/80 italic leading-relaxed mb-4">
             "C'est top : les repas et la salle de repas sont vraiment chaleureux. La salle de danse est extraordinaire. Le cadre est calme et grand. L'accueil est extraordinaire par la qualité de présence."
           </blockquote>
           <div class="flex items-center gap-3 mt-4">
             <img src="/images/temoignages-lieu/francois-durnez.webp" alt="François Durnez" class="w-8 h-8 rounded-full object-cover" loading="lazy" width="32" height="32" />
-            <p class="text-xs font-medium text-[#2C2824]/50">François Durnez</p>
+            <p class="text-xs font-medium text-[#1D1B18]/50">François Durnez</p>
           </div>
         </div>
       </div>
@@ -547,106 +547,106 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/henri-duran.webp" alt="Henri Duran" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">La salle est très agréable et les infrastructures très plaisantes. La nourriture était au top. Endroit reposant et agréable !</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Henri Duran</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">La salle est très agréable et les infrastructures très plaisantes. La nourriture était au top. Endroit reposant et agréable !</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Henri Duran</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/florence-pechot.webp" alt="Florence Péchot" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Lieu nature complètement adapté pour la recherche, le travail d'intériorisation, de corps. Un lieu de rencontres humaines et nature.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Florence Péchot</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Lieu nature complètement adapté pour la recherche, le travail d'intériorisation, de corps. Un lieu de rencontres humaines et nature.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Florence Péchot</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/krystel-gilberton.webp" alt="Krystel Gilberton" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">LAOM est un lieu hors du temps magnifique pour une immersion. La salle est agréable et lumineuse.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Krystel Gilberton</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">LAOM est un lieu hors du temps magnifique pour une immersion. La salle est agréable et lumineuse.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Krystel Gilberton</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/bruno-bernasconi.webp" alt="Bruno Bernasconi" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Des bâtiments écoresponsables confortables dans lesquels il est agréable de passer du temps.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Bruno Bernasconi</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Des bâtiments écoresponsables confortables dans lesquels il est agréable de passer du temps.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Bruno Bernasconi</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/melea.webp" alt="Melea" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Super cadre, pour des moments de nature et de tranquillité, avec des personnes qui ont une très belle humanité. Belle expérience qui déconnecte du quotidien.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Méléa</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Super cadre, pour des moments de nature et de tranquillité, avec des personnes qui ont une très belle humanité. Belle expérience qui déconnecte du quotidien.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Méléa</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/gregoire-hilon.webp" alt="Grégoire Hilon" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Un lieu magique, proche de la nature et plein de gens inspirants. Hâte de pouvoir y revenir bientôt.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Grégoire Hilon</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Un lieu magique, proche de la nature et plein de gens inspirants. Hâte de pouvoir y revenir bientôt.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Grégoire Hilon</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/yann-bourrel.webp" alt="Yann Bourrel" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Endroit enchanteur pour se reconnecter à la nature et à un mode de vie.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Yann Bourrel</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Endroit enchanteur pour se reconnecter à la nature et à un mode de vie.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Yann Bourrel</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/camille-flex.webp" alt="Camille Flex" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Un lieu stimulant en pleine nature, favorable au calme, à la concentration et à des échanges inspirants, qui permet d'être productif sur l'essentiel, en repartant avec les idées plus claires.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Camille Flex</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Un lieu stimulant en pleine nature, favorable au calme, à la concentration et à des échanges inspirants, qui permet d'être productif sur l'essentiel, en repartant avec les idées plus claires.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Camille Flex</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/david-lin.webp" alt="David Lin" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Le lieu est situé en pleine nature avec des monts qui nous entourent, une rivière sympathique. Quel lieu !</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">David Lin</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Le lieu est situé en pleine nature avec des monts qui nous entourent, une rivière sympathique. Quel lieu !</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">David Lin</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/damien-chambon.webp" alt="Damien Chambon" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Lieu calme, ressourçant, reposant avec un cours d'eau en contrebas. Lieux communs de qualité, esthétiques.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Damien Chambon</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Lieu calme, ressourçant, reposant avec un cours d'eau en contrebas. Lieux communs de qualité, esthétiques.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Damien Chambon</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/perrine-benard.webp" alt="Perrine Bénard" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Ce lieu invite à la connexion, des vibrations hautes. La nature nous invite à un retour sur soi. La salle de danse est top !</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Perrine Bénard</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Ce lieu invite à la connexion, des vibrations hautes. La nature nous invite à un retour sur soi. La salle de danse est top !</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Perrine Bénard</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/henri-beaumont.webp" alt="Henri Beaumont" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">LAOM est un lieu magique niché au cœur de la nature. Les habitants y sont très accueillants et bienveillants.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Henri Beaumont</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">LAOM est un lieu magique niché au cœur de la nature. Les habitants y sont très accueillants et bienveillants.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Henri Beaumont</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/flavien.webp" alt="Flavien" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Un écolieu singulier, avec un paysage magnifique, un fond culturel palpable, une énergie ressourçante.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Flavien</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Un écolieu singulier, avec un paysage magnifique, un fond culturel palpable, une énergie ressourçante.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Flavien</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/patricia-tinti.webp" alt="Patricia Tinti" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Très bel accueil. Endroit calme et ressourçant.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Patricia Tinti</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Très bel accueil. Endroit calme et ressourçant.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Patricia Tinti</p>
           </div>
         </div>
         <div class="flex gap-3 items-start">
           <img src="/images/temoignages-lieu/caroline-taris.webp" alt="Caroline Taris" class="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" loading="lazy" width="28" height="28" />
           <div>
-            <p class="text-sm font-light text-[#2C2824]/70 italic leading-relaxed">Lieu incroyable et ressourçant avec une connexion à la nature. La salle de danse offre des expériences incroyables — danse, méditation, balades dans les montagnes.</p>
-            <p class="text-xs font-medium text-[#2C2824]/40 mt-2">Caroline Taris</p>
+            <p class="text-sm font-light text-[#1D1B18]/70 italic leading-relaxed">Lieu incroyable et ressourçant avec une connexion à la nature. La salle de danse offre des expériences incroyables — danse, méditation, balades dans les montagnes.</p>
+            <p class="text-xs font-medium text-[#1D1B18]/40 mt-2">Caroline Taris</p>
           </div>
         </div>
       </div>
@@ -654,18 +654,18 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- 7. Prochains événements (aperçu) -->
-  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
+  <section id="events" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#F2EBDB]">
     <div class="max-w-3xl mx-auto">
       <div class="flex items-end justify-between mb-12 opacity-0" animate-fade-in-up>
         <div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-3">Agenda</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight">
+          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#73673E] mb-3">Agenda</p>
+          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#1D1B18] tracking-tight">
             Prochains événements
           </h2>
         </div>
         <a
           href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
-          class="hidden sm:inline-flex items-center gap-2 text-sm text-[#2C2824]/50 hover:text-[#C4A855] transition-colors font-light"
+          class="hidden sm:inline-flex items-center gap-2 text-sm text-[#1D1B18]/50 hover:text-[#9A3922] transition-colors font-light"
         >
           Tout voir
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -674,30 +674,30 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         </a>
       </div>
 
-      <div class="divide-y divide-[#2C2824]/10 opacity-0" animate-fade-in-up>
+      <div class="divide-y divide-[#1D1B18]/10 opacity-0" animate-fade-in-up>
         {events.slice(0, 4).map((event) => (
             <a
               href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
               class="group flex items-start gap-6 py-6 first:pt-0 last:pb-0"
             >
               <div class="w-24 flex-shrink-0">
-                <p class="text-xs font-light tracking-wider uppercase text-[#C4A855]">
+                <p class="text-xs font-light tracking-wider uppercase text-[#9A3922]">
                   {event.date.split(' ')[0]}
                 </p>
-                <p class="text-[11px] font-light text-[#2C2824]/40 mt-0.5">
+                <p class="text-[11px] font-light text-[#1D1B18]/40 mt-0.5">
                   {event.date.split(' ').slice(1).join(' ')}
                 </p>
               </div>
               <div class="flex-1 min-w-0">
-                <h3 class="font-playfair text-lg font-medium text-[#2C2824] group-hover:text-[#C4A855] transition-colors leading-snug">
+                <h3 class="font-playfair text-lg font-medium text-[#1D1B18] group-hover:text-[#9A3922] transition-colors leading-snug">
                   {event.title}
                 </h3>
-                <p class="text-sm font-light text-[#2C2824]/50 mt-1 line-clamp-1">
+                <p class="text-sm font-light text-[#1D1B18]/50 mt-1 line-clamp-1">
                   {event.description}
                 </p>
               </div>
               <div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg class="w-5 h-5 text-[#C4A855]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-[#9A3922]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
@@ -708,7 +708,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
       <div class="text-center mt-10 sm:hidden opacity-0" animate-fade-in-up>
         <a
           href={getLocalizedPath('/events/', lang as 'fr' | 'en')}
-          class="inline-flex items-center gap-2 text-sm text-[#2C2824]/60 hover:text-[#C4A855] transition-colors font-light"
+          class="inline-flex items-center gap-2 text-sm text-[#1D1B18]/60 hover:text-[#9A3922] transition-colors font-light"
         >
           Voir tout le calendrier
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -720,7 +720,7 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
   </section>
 
   <!-- LaomFest – Citadel Garden style -->
-  <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FAF8F5]">
+  <section id="laomfest" class="py-24 md:py-32 px-10 sm:px-16 lg:px-24 bg-[#FBF6EA]">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-10">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-normal text-black tracking-tight mb-6">
@@ -732,12 +732,12 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         <p class="text-sm font-normal text-black/60 italic">{t.home.laomfest.dateNote}</p>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" aria-label="Photos d’illustration LAOMFEST">
-        {['vanlifest-IMG_1021', 'vanlifest-IMG_1373', 'vanlifest-IMG_1399', 'vanlifest-IMG_2563', 'vanlifest-IMG_2846', 'vanlifest-IMG_9979'].map((name) => (
-          <div class="aspect-[4/3] rounded-sm overflow-hidden bg-neutral-100">
+        {['laomfest-festival-vue-2023', 'laomfest-activite-groupe', 'laomfest-ambiance-soiree-2023', 'laomfest-communaute-2021', 'laomfest-scene-festival', 'laomfest-ambiance-2024'].map((name) => (
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100">
             <img
               src={`/images/laom/laomfest/${name}.webp`}
               alt=""
-              class="w-full h-full object-cover rounded-sm"
+              class="w-full h-full object-cover rounded-2xl"
               loading="lazy"
               width="400"
               height="300"
@@ -750,19 +750,19 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
     </div>
   </section>
 
-  <!-- 8. YouTube,  video embed -->
-  <section class="py-24 md:py-32 bg-[#FAF8F5]">
+  <!-- 8. YouTube — bande marron sombre -->
+  <section class="py-24 md:py-32 bg-[#241C13]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 opacity-0" animate-fade-in-up>
       <div class="text-center mb-12">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">YouTube</p>
-        <h2 class="font-playfair text-3xl md:text-4xl font-normal text-black tracking-tight mb-6 title-underline mx-auto">
+        <p class="text-xs font-medium tracking-[0.25em] uppercase text-[#CB7A5C] mb-6">YouTube</p>
+        <h2 class="text-4xl md:text-5xl xl:text-6xl font-extrabold text-[#F2EBDB] tracking-tight mb-6 leading-none">
           Suivre l'aventure
         </h2>
-        <p class="text-lg font-light text-black/60 leading-relaxed max-w-2xl mx-auto">
+        <p class="text-lg font-light text-[#F2EBDB]/70 leading-relaxed max-w-2xl mx-auto">
           Charly documente la construction de LAOM en vidéo. Chantier, décisions, erreurs, apprentissages,  tout est là, sans filtre.
         </p>
       </div>
-      <div class="aspect-video rounded-sm overflow-hidden border border-black/5">
+      <div class="aspect-video rounded-2xl overflow-hidden border border-[#F2EBDB]/10 shadow-2xl">
         <iframe
           src="https://www.youtube.com/embed/Bltd5fr5VVY"
           title="Construction du Grand Shambala,  LAOM,  Conférence et timelapse du chantier"
@@ -772,17 +772,37 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           loading="lazy"
         ></iframe>
       </div>
-      <div class="text-center mt-8">
+      <div class="text-center mt-10">
         <a
           href="https://www.youtube.com/@charlyaubert"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-3 rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
+          class="inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] px-8 py-4 text-xs font-medium tracking-[0.2em] uppercase hover:bg-[#b34228] transition-colors"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           S'abonner à la chaîne
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- 9. Wordmark géant façon elmut — photo pleine largeur + gros logo LAOM -->
+  <section class="bg-[#F2EBDB] pt-24 md:pt-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+      <div class="rounded-2xl overflow-hidden aspect-[16/8] md:aspect-[16/6]">
+        <img
+          src="/images/laom/diner-golden-hour-laom.webp"
+          alt="Dîner au coucher du soleil à LAOM, écolieu en Aveyron"
+          title="La vie à LAOM, les pieds dans la terre"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          width="1600"
+          height="600"
+        />
+      </div>
+    </div>
+    <div class="text-center leading-none select-none -mb-[0.08em]">
+      <span class="wordmark-giant block">LAOM</span>
     </div>
   </section>
 </Layout>
