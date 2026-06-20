@@ -4,7 +4,7 @@
 import Logo from './Logo.astro'
 interface Props { current?: string; ds?: number }
 const { current = '', ds = 1 } = Astro.props
-const routes = ds === 2
+const routes: Record<string, string> = ds === 2
   ? { overview:'/ds2', sections:'/ds2/sections', labo:'/ds2/labo', home:'/ds2/pages/home', events:'/ds2/pages/events', blog:'/ds2/pages/blog', vente:'/ds2/pages/vente' }
   : { overview:'/styleguide', sections:'/styleguide/sections', labo:'/styleguide/labo', home:'/styleguide/pages/home', 'home-full':'/styleguide/pages/home-full', events:'/styleguide/pages/events', blog:'/styleguide/pages/blog', vente:'/styleguide/pages/vente' }
 const links = ds === 2
