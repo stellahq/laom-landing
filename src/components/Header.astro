@@ -1,5 +1,6 @@
 ---
 import { getTranslations, getLocalizedPath, getAlternateLocale } from '~/i18n/utils'
+import Logo from '~/components/laom/Logo.astro'
 
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
@@ -8,50 +9,50 @@ const currentPath = Astro.url.pathname
 const altPath = getLocalizedPath(currentPath, altLang)
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-[#F3EEDC]/95 backdrop-blur-md transition-all duration-200">
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#F2EBDB]/95 backdrop-blur-md transition-all duration-200">
   <nav class="max-w-7xl mx-auto px-10 sm:px-16 lg:px-24 pt-5 pb-0">
-    <div class="flex items-center justify-between border-b border-black/10 pb-5">
+    <div class="flex items-center justify-between border-b border-[#412F1F]/12 pb-5">
       <!-- Logo -->
-      <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class="font-playfair text-2xl font-medium tracking-[0.05em] text-black hover:opacity-70 transition-opacity z-50 relative">
-        LAOM
+      <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class="text-[#9A3922] hover:opacity-70 transition-opacity z-50 relative">
+        <Logo height="1.6rem" />
       </a>
 
       <div class="flex items-center gap-10">
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center gap-10">
-          <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.home}</a>
-          <a href={getLocalizedPath('/project', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.project}</a>
+          <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.home}</a>
+          <a href={getLocalizedPath('/project', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.project}</a>
           <!-- Accompagnements dropdown -->
           <div class="relative" id="accomp-dropdown">
-            <button id="accomp-btn" class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors flex items-center gap-1" type="button">
+            <button id="accomp-btn" class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors flex items-center gap-1" type="button">
               {t.nav.accompagnements}
-              <svg class="w-3 h-3 text-black/40 transition-transform duration-200" id="accomp-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+              <svg class="w-3 h-3 text-[#1D1B18]/40 transition-transform duration-200" id="accomp-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
             </button>
             <div id="accomp-panel" class="absolute top-full left-0 pt-2 opacity-0 pointer-events-none transition-all duration-200">
-              <div class="bg-white border border-black/10 rounded-sm shadow-lg py-2 min-w-[200px]">
-                <a href={getLocalizedPath('/mentorat', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-black/70 hover:text-black hover:bg-[#F3EEDC]/50 transition-colors">
+              <div class="bg-white border border-[#412F1F]/12 rounded-xl shadow-lg py-2 min-w-[200px]">
+                <a href={getLocalizedPath('/mentorat', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-[#1D1B18]/70 hover:text-[#9A3922] hover:bg-[#F2EBDB]/50 transition-colors">
                   {lang === 'fr' ? 'Mentorat' : 'Mentoring'}
                 </a>
-                <a href={getLocalizedPath('/school/online', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-black/70 hover:text-black hover:bg-[#F3EEDC]/50 transition-colors">
+                <a href={getLocalizedPath('/school/online', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-[#1D1B18]/70 hover:text-[#9A3922] hover:bg-[#F2EBDB]/50 transition-colors">
                   LAOMSCHOOL
                 </a>
-                <a href={getLocalizedPath('/capital', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-black/70 hover:text-black hover:bg-[#F3EEDC]/50 transition-colors">
+                <a href={getLocalizedPath('/capital', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-[#1D1B18]/70 hover:text-[#9A3922] hover:bg-[#F2EBDB]/50 transition-colors">
                   LAOM Capital
                 </a>
               </div>
             </div>
           </div>
-          <a href={getLocalizedPath('/events', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.events}</a>
-          <a href={getLocalizedPath('/blog', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.blog}</a>
-          <a href={getLocalizedPath('/resources', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.resources}</a>
-          <a href={getLocalizedPath('/contact', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.contact}</a>
+          <a href={getLocalizedPath('/events', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.events}</a>
+          <a href={getLocalizedPath('/blog', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.blog}</a>
+          <a href={getLocalizedPath('/resources', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.resources}</a>
+          <a href={getLocalizedPath('/contact', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.contact}</a>
         </nav>
 
         <!-- Language Switcher & Mobile Toggle -->
-        <div class="flex items-center gap-6 pl-6 border-l border-black/10">
+        <div class="flex items-center gap-6 pl-6 border-l border-[#412F1F]/12">
           <a 
             href={altPath} 
-            class="text-sm font-normal tracking-wide text-black/60 hover:text-black transition-colors"
+            class="text-sm font-normal tracking-wide text-[#1D1B18]/60 hover:text-[#9A3922] transition-colors"
             hreflang={altLang}
           >
             {altLang}
@@ -60,7 +61,7 @@ const altPath = getLocalizedPath(currentPath, altLang)
           <!-- Mobile Menu Button -->
           <button 
             id="mobile-menu-button"
-            class="md:hidden text-black focus:outline-none p-2 -mr-2"
+            class="md:hidden text-[#1D1B18] focus:outline-none p-2 -mr-2"
             aria-label="Toggle menu"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,23 +73,23 @@ const altPath = getLocalizedPath(currentPath, altLang)
     </div>
 
     <!-- Mobile Navigation -->
-    <nav id="mobile-menu" class="hidden md:hidden mt-6 pb-4 border-t border-black/10">
+    <nav id="mobile-menu" class="hidden md:hidden mt-6 pb-4 border-t border-[#412F1F]/12">
       <div class="flex flex-col space-y-4 pt-4">
-        <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.home}</a>
-        <a href={getLocalizedPath('/project', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.project}</a>
-        <div class="pl-4 space-y-3 border-l border-[#C4A855]/30">
-          <p class="text-xs font-light tracking-[0.15em] uppercase text-black/40">{t.nav.accompagnements}</p>
-          <a href={getLocalizedPath('/mentorat', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{lang === 'fr' ? 'Mentorat' : 'Mentoring'}</a>
-          <a href={getLocalizedPath('/school/online', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">LAOMSCHOOL</a>
-          <a href={getLocalizedPath('/capital', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">LAOM Capital</a>
+        <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.home}</a>
+        <a href={getLocalizedPath('/project', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.project}</a>
+        <div class="pl-4 space-y-3 border-l border-[#9A3922]/30">
+          <p class="text-xs font-light tracking-[0.15em] uppercase text-[#1D1B18]/40">{t.nav.accompagnements}</p>
+          <a href={getLocalizedPath('/mentorat', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{lang === 'fr' ? 'Mentorat' : 'Mentoring'}</a>
+          <a href={getLocalizedPath('/school/online', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">LAOMSCHOOL</a>
+          <a href={getLocalizedPath('/capital', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">LAOM Capital</a>
         </div>
-        <a href={getLocalizedPath('/events', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.events}</a>
-        <a href={getLocalizedPath('/blog', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.blog}</a>
-        <a href={getLocalizedPath('/resources', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.resources}</a>
-        <a href={getLocalizedPath('/contact', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors">{t.nav.contact}</a>
+        <a href={getLocalizedPath('/events', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.events}</a>
+        <a href={getLocalizedPath('/blog', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.blog}</a>
+        <a href={getLocalizedPath('/resources', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.resources}</a>
+        <a href={getLocalizedPath('/contact', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.contact}</a>
         <a 
           href={altPath} 
-          class="text-sm font-normal tracking-wide text-black/70 hover:text-black transition-colors pt-2 border-t border-black/10"
+          class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors pt-2 border-t border-[#412F1F]/12"
           hreflang={altLang}
         >
           {altLang}
