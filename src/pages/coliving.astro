@@ -2,6 +2,15 @@
 import Layout from '~/layouts/Layout.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
+import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
+import StatsBand from '~/components/laom/sections/StatsBand.astro'
+import FeaturesSection from '~/components/laom/sections/FeaturesSection.astro'
+import MissionSection from '~/components/laom/sections/MissionSection.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import CtaSection from '~/components/laom/sections/CtaSection.astro'
+import BookingForm from '~/components/laom/BookingForm.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
 const pageSchema = createWebPageSchema({
   name: 'Coliving',
   url: Astro.url.toString(),
@@ -9,122 +18,87 @@ const pageSchema = createWebPageSchema({
     'Ouverture fin 2026 : 7 chambres, salon/cuisine partagés, cuisine d’été, salle polyvalente, coworking, rivière et prairies.',
 })
 
-const galleryImages = [
-  '/images/laom/coliving/coliving-laom-rendu-3d-vue-generale.webp',
-  '/images/laom/coliving/coliving-laom-plan-etage.webp',
-  '/images/laom/coliving/coliving-laom-rendu-chambre.webp',
-  '/images/laom/coliving/coliving-laom-rendu-facade.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-01.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-02.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-03.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-04.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-05.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-06.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-07.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-08.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-09.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-10.webp',
-  '/images/laom/coliving/coliving-laom-maquette-interieure.webp',
-  '/images/laom/coliving/hameau-5-8b46de75.webp',
-  '/images/laom/coliving/coliving-laom-vue-domaine.webp',
+const C = (n: string) => `/images/laom/coliving/${n}.webp`
+const F = (n: string) => `/images/festival/${n}.webp`
+
+const gallery = [
+  'coliving-laom-rendu-chambre',
+  'coliving-laom-rendu-facade',
+  'coliving-laom-vue-interieure-01',
+  'coliving-laom-vue-interieure-04',
+  'coliving-laom-vue-interieure-07',
+  'coliving-laom-vue-interieure-09',
 ]
 ---
 
 <Layout
   title="Coliving – LAOM"
   description="Ouverture fin 2026 : 7 chambres, salon/cuisine partagés, cuisine d’été, salle polyvalente, coworking, rivière et prairies."
+  hideChrome={true}
   seo={{ ldJSON: pageSchema }}
 >
-  <section class="py-32 lg:py-40 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">Ouverture fin 2026</span>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-black mb-6 tracking-tight">Coliving</h1>
-      <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
-        7 chambres · 1 salon / cuisine · 1 cuisine d’été · 1 salle polyvalente · 21 hectares · une rivière
-      </p>
-    </div>
-  </section>
+  <HeroLeader img={C('coliving-laom-rendu-3d-vue-generale')} alt="Rendu 3D du coliving LAOM"
+    eyebrow="Ouverture fin 2026"
+    title="Vivre et créer en" accent="coliving"
+    ctaText="Être prévenu de l'ouverture" ctaHref="/newsletter/"
+    stats={[{value:'7',label:'chambres'},{value:'21',unit:'ha',label:'de nature'}]}
+    avatars={[F('avatar-1'),F('avatar-2'),F('avatar-3'),F('avatar-4')]} avatarValue="11 familles" avatarLabel="déjà sur le lieu" />
 
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="grid gap-6 md:grid-cols-3">
-        <img
-          src="/images/laom/coliving/coliving-laom-vue-domaine.webp"
-          alt="Maison du coliving"
-          title="Vue du domaine et du coliving LAOM"
-          class="h-64 w-full rounded-sm object-cover border border-black/10"
-          loading="lazy"
-        />
-        <img
-          src="/images/laom/coliving/coliving-laom-maquette-interieure.webp"
-          alt="Espaces intérieurs du coliving"
-          title="Maquette interieure du coliving LAOM"
-          class="h-64 w-full rounded-sm object-cover border border-black/10"
-          loading="lazy"
-        />
-        <img
-          src="/images/laom/coliving/hameau-5-8b46de75.webp"
-          alt="Vue du hameau et de la vallée"
-          title="Le hameau de La Margue et la vallee"
-          class="h-64 w-full rounded-sm object-cover border border-black/10"
-          loading="lazy"
-        />
-      </div>
-    </div>
-  </section>
+  <StatsBand stats={[
+    {value:'7',label:'chambres'},
+    {value:'1',label:'salon / cuisine'},
+    {value:'1',label:'salle polyvalente'},
+    {value:'1',label:'coworking'},
+  ]} />
 
-  <section class="py-24 bg-[#faf9f6]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {[
-          'Les chambres',
-          'Les sanitaires',
-          'Le coin salon et cuisine commune',
-          'La salle',
-          'Le coworking',
-        ].map((title) => (
-          <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-            <h2 class="text-xl font-light text-black mb-4">{title}</h2>
-            <p class="text-sm font-light text-black/60 leading-relaxed">
-              Parce que nous vous proposons bien plus qu’une simple chambre, découvrez tous les services et équipements
-              de nos espaces en coliving.
-            </p>
-          </article>
+  <FeaturesSection bg="bg-[#F2EBDB]" eyebrow="Les espaces"
+    title="Bien plus qu'une simple" accent="chambre"
+    intro="7 chambres · 1 salon / cuisine · 1 cuisine d'été · 1 salle polyvalente · 21 hectares · une rivière."
+    items={[
+      {title:'Les chambres',text:'Sept chambres douillettes dans un bâtiment écologique, pensées pour se ressourcer au calme.'},
+      {title:'Les sanitaires',text:'Sanitaires partagés confortables, conçus avec des matériaux naturels.'},
+      {title:'Salon & cuisine commune',text:'Un grand espace de vie partagé : cuisine ouverte, canapés, longues tablées.'},
+      {title:'La salle polyvalente',text:'Un lieu modulable pour pratiques, ateliers, cercles et moments collectifs.'},
+      {title:'Le coworking',text:'Un espace pour travailler et faire mûrir des projets, entre nature et dynamique collective.'},
+      {title:'La cuisine d\'été',text:'Une guinguette extérieure pour cuisiner et partager les repas à la belle saison.'},
+    ]} />
+
+  <MissionSection img={C('coliving-laom-vue-domaine')} bg="bg-[#FBF6EA]" eyebrow="Le domaine de la Margue"
+    title="Un coliving au cœur d'un" accent="domaine vivant"
+    intro="On y alterne travail, repos et rencontres, au rythme du lieu et des saisons."
+    items={[
+      {num:'01',title:'En pleine nature',text:'21 hectares de forêt, prairies et grands espaces ouverts.'},
+      {num:'02',title:'La rivière',text:'En contrebas du domaine, pour se rafraîchir et ralentir.'},
+      {num:'03',title:'Les prairies',text:'Espaces ouverts pour les rassemblements et le repos.'},
+      {num:'04',title:'La vallée',text:'Une vue dégagée, des spectacles et des moments partagés.'},
+    ]} />
+
+  <section class="bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <SectionHead eyebrow="Aperçu" title="La" accent="galerie" class="mb-12" />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {gallery.map((n, i) => (
+          <div class="imgzoom lift rounded-3xl overflow-hidden aspect-[4/3]">
+            <img src={C(n)} alt={`Rendu du coliving LAOM ${i + 1}`} class="w-full h-full object-cover" loading="lazy" />
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="py-24 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-8">Le domaine de la Margue</h2>
-      <p class="text-lg font-light text-black/70 leading-relaxed mb-10">
-        Un coliving en pleine nature, au cœur d’un domaine vivant où l’on alterne travail, repos et rencontres.
-      </p>
-      <div class="grid gap-4 md:grid-cols-2 text-lg font-light text-black/70">
-        <div class="border border-black/10 p-5">En pleine nature</div>
-        <div class="border border-black/10 p-5">La rivière</div>
-        <div class="border border-black/10 p-5">Les prairies</div>
-        <div class="border border-black/10 p-5">La vallée</div>
-        <div class="border border-black/10 p-5">Des spectacles et moments partagés</div>
-      </div>
-    </div>
-  </section>
+  <CtaSection img={C('coliving-laom-rendu-facade')} bg="bg-[#FBF6EA]" eyebrow="Ouverture fin 2026"
+    title="Sois prévenu dès l'ouverture du" accent="coliving"
+    primaryText="Rejoindre la newsletter" primaryHref="/newsletter/"
+    secondaryText="Nous écrire" secondaryHref="/contact/"
+    items={[
+      {title:'7 chambres',desc:'Bâtiment écologique'},
+      {title:'Espaces partagés',desc:'Salon, cuisine, coworking'},
+      {title:'21 hectares',desc:'Rivière, prairies, vallée'},
+    ]} />
 
-  <section class="py-24 bg-[#faf9f6]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-10">Galerie</h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {galleryImages.map((src, index) => (
-          <img
-            src={src}
-            alt={`Galerie Coliving ${index + 1}`}
-            title={`Coliving LAOM - photo ${index + 1}`}
-            class="h-56 w-full rounded-sm object-cover border border-black/10 bg-white"
-            loading="lazy"
-          />
-        ))}
-      </div>
-    </div>
-  </section>
+  <BookingForm photo={C('coliving-laom-vue-interieure-03')} eyebrow="Rester informé"
+    title="Le coliving t'intéresse ?" accent="Parlons-en."
+    text="Dis-nous qui tu es et ce que tu cherches. On te recontacte dès qu'on ouvre les candidatures." sideImg={C('coliving-laom-rendu-chambre')} />
+
+  <SiteFooter />
 </Layout>

@@ -2,20 +2,22 @@
 import Layout from '~/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import { createWebPageSchema } from '~/utils/schema'
-import { getTranslations } from '~/i18n/utils'
+import { getTranslations, getLocalizedPath } from '~/i18n/utils'
 
-const lang = Astro.currentLocale || 'fr'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import BlogCard from '~/components/laom/BlogCard.astro'
+import EventList from '~/components/laom/sections/EventList.astro'
+import CtaSection from '~/components/laom/sections/CtaSection.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const lang = 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
 
-const allPosts = await getCollection('blog', ({ data }) => {
-  return data.locale === lang && !data.draft
-})
-// Exclure les LaomLetters (newsletters) : elles ne figurent que dans "Newsletters passées"
+const allPosts = await getCollection('blog', ({ data }) => data.locale === lang && !data.draft)
 const posts = allPosts
   .filter((p) => !p.data.tags?.includes('newsletter'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-
-const grandShambalaHref = '/grand-shambala-v2/'
 
 const allNewsletters = await getCollection('newsletters')
 const newsletters = allNewsletters
@@ -27,139 +29,54 @@ const pageSchema = createWebPageSchema({
   url: Astro.url.toString(),
   description: t.blog.description,
 })
+
+const F = (n: string) => `/images/festival/${n}.webp`
+const fmtDate = (d: Date) => new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+
+const cards = posts.map((p, i) => ({
+  img: p.data.heroImage || F(`blog-${(i % 2) + 1}`),
+  date: fmtDate(p.data.pubDate),
+  title: p.data.title,
+  href: getLocalizedPath(`/blog/${p.slug}/`, 'fr'),
+}))
+const letterRows = newsletters.map((n) => ({
+  date: fmtDate(n.data.date),
+  title: n.data.title,
+  desc: n.data.description,
+  href: n.data.url,
+}))
 ---
 
 <Layout
   title={`${t.blog.title} – LAOM`}
   description={t.blog.description}
+  hideChrome={true}
   seo={{ ldJSON: pageSchema }}
 >
-  <!-- Hero -->
-  <section class="py-32 lg:py-40 bg-[#F3EEDC]">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
-      <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">{t.blog.heroLabel}</p>
-      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#1D1B18] mb-6 tracking-tight">
-        {t.blog.title}
-      </h1>
-      <p class="text-xl md:text-2xl font-light text-[#1D1B18]/60 max-w-3xl mx-auto leading-relaxed">
-        {t.blog.heroSubtitle}
-      </p>
+  <PageHeader img={F('blog-2')} title={t.blog.title} subtitle={t.blog.heroSubtitle} />
+
+  <section class="bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <SectionHead eyebrow={t.blog.heroLabel} title="Tous les" accent="récits" class="mb-12" />
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cards.map((c) => <BlogCard img={c.img} date={c.date} title={c.title} href={c.href} />)}
+      </div>
     </div>
   </section>
 
-  <!-- Grand Shambala : article a la une -->
-  <section class="bg-[#1D1B18]">
-    <a href={grandShambalaHref} class="group block">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid lg:grid-cols-2">
-          <!-- Image -->
-          <div class="relative aspect-[16/10] lg:aspect-auto overflow-hidden">
-            <img
-              src="/images/laom/grand-shambala/grand-shambala-vue-drone-paille-porteuse-aveyron.webp"
-              alt="Grand Shambala, 850 m2 de paille porteuse"
-              title="Grand Shambala, le plus grand batiment en paille porteuse au monde"
-              class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700"
-              loading="eager"
-            />
-          </div>
-          <!-- Texte -->
-          <div class="flex flex-col justify-center px-10 sm:px-16 lg:px-16 py-12 lg:py-20">
-            <div class="inline-flex items-center gap-2 mb-6">
-              <span class="inline-block w-2 h-2 rounded-full bg-[#9A3922]"></span>
-              <span class="text-xs font-light tracking-[0.25em] uppercase text-[#9A3922]">A la une</span>
-            </div>
-            <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight mb-6">
-              {t.home.grandShambalaTitle}
-            </h2>
-            <p class="text-base md:text-lg font-light text-white/70 leading-relaxed mb-8 max-w-lg">
-              {t.home.grandShambalaDescription}
-            </p>
-            <div class="flex items-center gap-3 text-[#9A3922] group-hover:gap-5 transition-all duration-300">
-              <span class="text-sm font-light tracking-[0.15em] uppercase">Lire l'article</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-  </section>
-
-  <!-- Articles du blog, du plus récent au plus ancien -->
-  {posts.length === 0 ? (
-    <section class="py-24 bg-[#F3EEDC]">
-      <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-        <p class="text-lg font-light text-[#1D1B18]/60">{t.blog.empty}</p>
-      </div>
-    </section>
-  ) : (
-    <section class="py-20 md:py-24 bg-[#F3EEDC]">
-      <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-        <div class="grid md:grid-cols-2 gap-x-10 gap-y-16">
-          {posts.map((post) => (
-            <a href={`/blog/${post.slug}/`} class="group block">
-              <article>
-                {post.data.heroImage && (
-                  <div class="aspect-[16/10] overflow-hidden rounded-2xl mb-6">
-                    <img
-                      src={post.data.heroImage}
-                      alt={post.data.title}
-                      title={post.data.title}
-                      class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">
-                  {new Date(post.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
-                </p>
-                <h3 class="font-playfair text-2xl font-medium text-[#1D1B18] mb-3 tracking-tight leading-snug group-hover:text-[#1D1B18]/70 transition-colors">
-                  {post.data.title}
-                </h3>
-                <p class="text-base font-light text-[#1D1B18]/60 leading-relaxed line-clamp-3">
-                  {post.data.description}
-                </p>
-              </article>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+  {letterRows.length > 0 && (
+    <EventList eyebrow="Archives" title="Newsletters" accent="passées" bg="bg-[#FBF6EA]" events={letterRows} />
   )}
 
-  <!-- Past Newsletters -->
-  {newsletters.length > 0 && (
-    <section class="py-20 md:py-24 bg-[#FBF6EA]">
-      <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
-        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Archives</p>
-        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#1D1B18] tracking-tight mb-10">{t.blog.newsletterSectionTitle}</h2>
-        <div class="space-y-0">
-          {newsletters.map((nl) => {
-            const formattedDate = new Date(nl.data.date).toLocaleDateString('fr-FR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })
-            const isInternal = nl.data.url.includes('laom.com') || nl.data.url.startsWith('/')
-            const href = isInternal ? new URL(nl.data.url).pathname : nl.data.url
-            return (
-              <a
-                href={href}
-                target={isInternal ? undefined : '_blank'}
-                rel={isInternal ? undefined : 'noopener noreferrer'}
-                class="group flex items-baseline justify-between py-5 border-b border-black/10 hover:border-[#9A3922]/40 transition-colors"
-                aria-label={isInternal ? nl.data.title : `${nl.data.title} (ouvre dans un nouvel onglet)`}
-              >
-                <span class="font-playfair text-lg font-medium text-[#1D1B18] group-hover:text-[#1D1B18]/70 transition-colors tracking-tight">
-                  {nl.data.title}{nl.data.subtitle ? ` — ${nl.data.subtitle}` : ''}
-                </span>
-                <span class="text-xs font-light text-[#1D1B18]/40 tracking-[0.1em] uppercase flex-shrink-0 ml-6">
-                  {formattedDate}
-                </span>
-              </a>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )}
+  <CtaSection img={F('cta')} bg="bg-[#F2EBDB]" eyebrow="Suivre le projet"
+    title="Reçois les coulisses" accent="chaque dimanche"
+    primaryText="Rejoindre la newsletter" primaryHref="/newsletter/"
+    secondaryText="Découvrir le projet" secondaryHref="/qui-sommes-nous/"
+    items={[
+      {title:'Coulisses du chantier',desc:'Décisions et apprentissages'},
+      {title:'Sans filtre',desc:'Les erreurs aussi'},
+      {title:'Pas de spam',desc:'Désinscription en un clic'},
+    ]} />
+
+  <SiteFooter />
 </Layout>

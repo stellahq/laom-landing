@@ -14,7 +14,7 @@ const { eyebrow = 'Agenda', title, accent, events, bg = 'bg-[#F2EBDB]' } = Astro
       {events.map((e) => (
         <a href={e.href ?? '#'} class="group flex items-start gap-6 py-6 first:pt-0">
           <div class="w-28 flex-shrink-0">
-            <p class="text-sm font-medium tracking-wide uppercase text-[#9A3922]">{e.date}</p>
+            <p class="text-sm font-medium tracking-wide uppercase text-[#9A3922] break-words hyphens-auto">{e.date}</p>
             {e.sub && <p class="text-xs text-[#1D1B18]/40 mt-0.5">{e.sub}</p>}
           </div>
           <div class="flex-1 min-w-0">
