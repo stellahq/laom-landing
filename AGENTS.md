@@ -14,15 +14,12 @@
 > - **Éléments** : `Logo · Eyebrow · SectionHeading · Pill · StatGlass · MediaCard · ActivityCard · NumberedCard · FeatureItem · TeamCard · Testimonial · BlogCard · PopularList`.
 > - **Sections** (`/sections/`) : `HeroLeader · StatsBand · AboutCards · MissionSection · MissionShowcase · HabitatsSection · ActivitiesSection · TeamSection · TestimonialsSection · FeaturesSection · BlogSection · EventList · CtaSection · ArticleBody` (+ `BookingForm · SiteFooter · PageHeader · LogoStrip`).
 > - **Graphics** (`/graphics/`) : `TopoBg` (textures topo/terre), `Sprig` (botanique), `Parallax` (photo au scroll).
-> - **Deux skins** : DS1 (arrondi, défaut) · DS2 (angles droits / élégant) via la classe `.ds-square`. Switcher dans la barre du styleguide.
+> - **Deux skins** : **DS1 (arrondi) = le design validé et actif** — c'est lui qu'on utilise. DS2 (angles droits / élégant, via `.ds-square`) = exploration **non validée**, gardée comme option. Switcher dans la barre du styleguide.
 >
 > ### Créer une nouvelle page
 > 1. Ouvre `/styleguide` et repère les sections qui conviennent.
 > 2. `src/pages/ma-page.astro` : importe `Layout` + les sections de `laom/sections/`, passe les props (titres, items, photos). **On assemble des composants, on n'écrit pas de markup ad hoc.**
 > 3. Couleurs uniquement depuis la charte. Photos en **webp** dans `public/images/`. Pas de blanc pur (utiliser crème). Pas de hotlink externe.
->
-> ### Réskiner une page existante (appliquer la DA en gardant wording + structure)
-> Remap palette : `#C4A855→#9A3922` · off-white→`#FBF6EA` · sombre `#2C2824`→`#1D1B18` · `bg-black→bg-[#412F1F]` · vert→`#73673E` · `bg-white→bg-[#FBF6EA]` · `rounded-sm→rounded-2xl`. Le **Header/Footer** sont déjà en DS1 (chrome partagé sur tout le site).
 >
 > ### Déploiement ⚠️
 > - Push **`staging`** → **staging.laom.fr** (préprod, noindex). Push **`main`** → **laom.fr** (PROD, branche protégée, CODEOWNERS = Charly).
