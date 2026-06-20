@@ -38,17 +38,17 @@ const pageSchema = createWebPageSchema({
   <section class="py-32 lg:py-40 bg-[#F3EEDC]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center opacity-0" animate-fade-in-up>
       <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-6">{t.blog.heroLabel}</p>
-      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#2C2824] mb-6 tracking-tight">
+      <h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-medium text-[#1D1B18] mb-6 tracking-tight">
         {t.blog.title}
       </h1>
-      <p class="text-xl md:text-2xl font-light text-[#2C2824]/60 max-w-3xl mx-auto leading-relaxed">
+      <p class="text-xl md:text-2xl font-light text-[#1D1B18]/60 max-w-3xl mx-auto leading-relaxed">
         {t.blog.heroSubtitle}
       </p>
     </div>
   </section>
 
   <!-- Grand Shambala : article a la une -->
-  <section class="bg-[#2C2824]">
+  <section class="bg-[#1D1B18]">
     <a href={grandShambalaHref} class="group block">
       <div class="max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-2">
@@ -65,8 +65,8 @@ const pageSchema = createWebPageSchema({
           <!-- Texte -->
           <div class="flex flex-col justify-center px-10 sm:px-16 lg:px-16 py-12 lg:py-20">
             <div class="inline-flex items-center gap-2 mb-6">
-              <span class="inline-block w-2 h-2 rounded-full bg-[#C4A855]"></span>
-              <span class="text-xs font-light tracking-[0.25em] uppercase text-[#C4A855]">A la une</span>
+              <span class="inline-block w-2 h-2 rounded-full bg-[#9A3922]"></span>
+              <span class="text-xs font-light tracking-[0.25em] uppercase text-[#9A3922]">A la une</span>
             </div>
             <h2 class="font-playfair text-3xl md:text-4xl lg:text-5xl font-medium text-white tracking-tight leading-tight mb-6">
               {t.home.grandShambalaTitle}
@@ -74,7 +74,7 @@ const pageSchema = createWebPageSchema({
             <p class="text-base md:text-lg font-light text-white/70 leading-relaxed mb-8 max-w-lg">
               {t.home.grandShambalaDescription}
             </p>
-            <div class="flex items-center gap-3 text-[#C4A855] group-hover:gap-5 transition-all duration-300">
+            <div class="flex items-center gap-3 text-[#9A3922] group-hover:gap-5 transition-all duration-300">
               <span class="text-sm font-light tracking-[0.15em] uppercase">Lire l'article</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </div>
@@ -88,7 +88,7 @@ const pageSchema = createWebPageSchema({
   {posts.length === 0 ? (
     <section class="py-24 bg-[#F3EEDC]">
       <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-        <p class="text-lg font-light text-[#2C2824]/60">{t.blog.empty}</p>
+        <p class="text-lg font-light text-[#1D1B18]/60">{t.blog.empty}</p>
       </div>
     </section>
   ) : (
@@ -99,7 +99,7 @@ const pageSchema = createWebPageSchema({
             <a href={`/blog/${post.slug}/`} class="group block">
               <article>
                 {post.data.heroImage && (
-                  <div class="aspect-[16/10] overflow-hidden rounded-sm mb-6">
+                  <div class="aspect-[16/10] overflow-hidden rounded-2xl mb-6">
                     <img
                       src={post.data.heroImage}
                       alt={post.data.title}
@@ -112,10 +112,10 @@ const pageSchema = createWebPageSchema({
                 <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-3">
                   {new Date(post.data.pubDate).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}
                 </p>
-                <h3 class="font-playfair text-2xl font-medium text-[#2C2824] mb-3 tracking-tight leading-snug group-hover:text-[#2C2824]/70 transition-colors">
+                <h3 class="font-playfair text-2xl font-medium text-[#1D1B18] mb-3 tracking-tight leading-snug group-hover:text-[#1D1B18]/70 transition-colors">
                   {post.data.title}
                 </h3>
-                <p class="text-base font-light text-[#2C2824]/60 leading-relaxed line-clamp-3">
+                <p class="text-base font-light text-[#1D1B18]/60 leading-relaxed line-clamp-3">
                   {post.data.description}
                 </p>
               </article>
@@ -128,10 +128,10 @@ const pageSchema = createWebPageSchema({
 
   <!-- Past Newsletters -->
   {newsletters.length > 0 && (
-    <section class="py-20 md:py-24 bg-white">
+    <section class="py-20 md:py-24 bg-[#FBF6EA]">
       <div class="max-w-4xl mx-auto px-10 sm:px-16 lg:px-24">
         <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">Archives</p>
-        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-10">{t.blog.newsletterSectionTitle}</h2>
+        <h2 class="font-playfair text-2xl md:text-3xl font-medium text-[#1D1B18] tracking-tight mb-10">{t.blog.newsletterSectionTitle}</h2>
         <div class="space-y-0">
           {newsletters.map((nl) => {
             const formattedDate = new Date(nl.data.date).toLocaleDateString('fr-FR', {
@@ -146,13 +146,13 @@ const pageSchema = createWebPageSchema({
                 href={href}
                 target={isInternal ? undefined : '_blank'}
                 rel={isInternal ? undefined : 'noopener noreferrer'}
-                class="group flex items-baseline justify-between py-5 border-b border-black/10 hover:border-[#C4A855]/40 transition-colors"
+                class="group flex items-baseline justify-between py-5 border-b border-black/10 hover:border-[#9A3922]/40 transition-colors"
                 aria-label={isInternal ? nl.data.title : `${nl.data.title} (ouvre dans un nouvel onglet)`}
               >
-                <span class="font-playfair text-lg font-medium text-[#2C2824] group-hover:text-[#2C2824]/70 transition-colors tracking-tight">
+                <span class="font-playfair text-lg font-medium text-[#1D1B18] group-hover:text-[#1D1B18]/70 transition-colors tracking-tight">
                   {nl.data.title}{nl.data.subtitle ? ` — ${nl.data.subtitle}` : ''}
                 </span>
-                <span class="text-xs font-light text-[#2C2824]/40 tracking-[0.1em] uppercase flex-shrink-0 ml-6">
+                <span class="text-xs font-light text-[#1D1B18]/40 tracking-[0.1em] uppercase flex-shrink-0 ml-6">
                   {formattedDate}
                 </span>
               </a>
