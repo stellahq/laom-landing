@@ -20,6 +20,7 @@ const CANDIDATER = '/candidater/'
 
 <Layout title="LAOM — Coliving entrepreneurs (labo)" hideChrome={true} seo={{ noIndex: true }}>
 
+  <div class="labo-hero">
   <HeroLeader
     img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
     eyebrow="Coliving entrepreneurs · Sud Aveyron"
@@ -27,6 +28,7 @@ const CANDIDATER = '/candidater/'
     ctaText="Candidater" ctaHref={CANDIDATER}
     stats={[{value:'21',unit:'ha',label:'Domaine préservé'},{value:'12',label:'places / semaine'},{value:'1h30',label:'de Montpellier'}]}
     avatars={[F('avatar-1'),F('avatar-2'),F('avatar-3'),F('avatar-4')]} avatarValue="Août 2026" avatarLabel="3 sessions" />
+  </div>
 
   <StatsBand stats={[{value:'21',unit:'ha',label:'de nature'},{value:'12',label:'par semaine'},{value:'1h30',label:'de Montpellier'},{value:'2026',label:'août'}]} />
 
@@ -105,3 +107,21 @@ const CANDIDATER = '/candidater/'
 
   <SiteFooter />
 </Layout>
+
+<style is:global>
+  /* Lisibilité du hero sur photo claire — limité à cette page (.labo-hero) */
+  .labo-hero .eyebrow--light {
+    color: #f2ebdb;
+    text-shadow: 0 1px 10px rgba(29, 27, 24, 0.85);
+  }
+  .labo-hero h1 {
+    text-shadow: 0 1px 14px rgba(29, 27, 24, 0.45);
+  }
+  /* Mobile : décale le contenu du hero sous la nav pour éviter que le logo
+     chevauche l'eyebrow (limité à cette page). */
+  @media (max-width: 767px) {
+    .labo-hero .relative.w-full {
+      padding-top: 7rem;
+    }
+  }
+</style>
