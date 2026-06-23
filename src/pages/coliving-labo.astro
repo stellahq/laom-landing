@@ -48,14 +48,14 @@ const navLinks = [
       text="LAOM, c’est un coliving installé dans un domaine de vingt-et-un hectares, en pleine nature, à 1h30 de Montpellier. On l’a pensé pour les entrepreneurs déjà installés — celles et ceux qui ont bâti quelque chose, et qui savent qu’on crée mieux quand on peut, de temps en temps, ralentir et se reconnecter : à soi, aux autres, au vivant. Ni un hôtel, ni un coworking de plus. Un endroit où l’on vient vivre, une semaine, ce qu’on a envie de vivre depuis longtemps." />
   </div>
 
-  <!-- ③ TA SEMAINE — narration + deux moments -->
-  <div animate-fade-in-up class="opacity-0">
-    <SplitHeading bg="bg-[#F2EBDB]" pad={false}
+  <!-- ③ TA SEMAINE — narration + deux moments (bloc unique, aéré comme les autres) -->
+  <div animate-fade-in-up class="opacity-0 bg-[#F2EBDB] pt-24 md:pt-32 pb-24 md:pb-32">
+    <SplitHeading bg="bg-transparent" pad={false}
       eyebrow="Ta semaine"
       title="Le premier matin, tu ouvres ton ordi" accent="face à la vallée."
       text="Le wifi est là, le calme aussi — celui que tu n’avais plus. Tu travailles le matin, quand ta tête est la plus claire. À midi, tu poses tout : on mange ce qui a poussé ici, à la même table que onze autres qui, deux jours plus tôt, ne se connaissaient pas. L’après-midi, tu choisis — avancer encore, ou descendre jusqu’à la rivière. Le soir, c’est le feu, les conversations qui partent loin, et la voie lactée au-dessus de toi, sans une lumière pour la troubler." />
-    <div class="pt-10 md:pt-12">
-      <AltCardsBand bg="bg-[#F2EBDB]"
+    <div class="mt-12 md:mt-16">
+      <AltCardsBand bg="bg-transparent" pad={false}
         items={[
           { img: F('act-chillworking'), alt: 'Coworking face à la vallée à LAOM', title: 'Le matin, tu crées.', text: 'Coworking face à la vallée, wifi fibre, le silence que tu cherchais. Tu avances sur ce qui compte vraiment.' },
           { img: L('diner-golden-hour-laom'), alt: 'Soirée au feu à LAOM', title: 'Le soir, on se retrouve.', text: 'Repas faits maison, le feu, des gens qui parlent vrai. Souvent, c’est ça qu’on remporte.' },
