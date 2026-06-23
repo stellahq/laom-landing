@@ -98,8 +98,7 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `SiteFooter` | Footer arrondi marron |
 | `PageHeader` | En-tête de page intérieure |
 | `StickyCta` | Barre CTA fixe en bas (mobile) — « Candidater ». `static` pour la démo |
-| `HeroImmersive` | Ouverture plein écran centrée, **logo mis en avant**, vidéo/photo + overlay fort (voir `/accueil-labo`) |
-| `Statement` | Déclaration centrée spacieuse (manifeste/vision), très lisible, texture topo optionnelle |
+| `MediaText` | Photo nette d'un côté + texte (eyebrow/titre/intro) + CTA de l'autre. `reverse` pour inverser |
 
 ---
 
