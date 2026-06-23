@@ -19,14 +19,14 @@ const wrap = transparent ? 'absolute top-0 left-0 right-0 z-40' : 'sticky top-0 
 ---
 <header class={wrap}>
   <nav class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-6">
-    <div class="flex items-center justify-between pb-5" style={`border-bottom:1px solid ${transparent ? 'rgba(242,235,219,0.2)' : 'rgba(65,47,31,0.12)'}`}>
-      <a href="/" class={transparent ? 'text-[#F2EBDB]' : 'text-[#9A3922]'}><Logo height="1.6rem" /></a>
-      <ul class="hidden lg:flex items-center gap-9">
+    <div class="grid grid-cols-[1fr_auto_1fr] items-center pb-5" style={`border-bottom:1px solid ${transparent ? 'rgba(242,235,219,0.2)' : 'rgba(65,47,31,0.12)'}`}>
+      <a href="/" class:list={['justify-self-start', transparent ? 'text-[#F2EBDB]' : 'text-[#9A3922]']}><Logo height="1.6rem" /></a>
+      <ul class="hidden lg:flex items-center gap-10 justify-self-center">
         {links.map((n, i) => (
           <li><a href={n.href} class="text-sm tracking-wide transition-opacity hover:opacity-70" style={`color:${ink};opacity:${i === 0 ? 1 : 0.75}`}>{n.label}</a></li>
         ))}
       </ul>
-      <a href={ctaHref} class={transparent ? 'pill pill-light' : 'pill pill-primary'} style="padding:.7rem 1.6rem">{ctaText}</a>
+      <a href={ctaHref} class:list={['justify-self-end', transparent ? 'pill pill-light' : 'pill pill-primary']} style="padding:.7rem 1.6rem">{ctaText}</a>
     </div>
   </nav>
 </header>
