@@ -1,0 +1,15 @@
+---
+// StickyCta — barre CTA fixe en bas d'écran (mobile uniquement).
+// Demandée dans le brief : "Candidater" visible sur toutes les pages sauf Candidater.
+// static=true : rend la barre en flux normal (pour la démo styleguide).
+interface Props { text?: string; href?: string; static?: boolean }
+const { text = 'Candidater', href = '/candidater/', static: isStatic = false } = Astro.props
+const pos = isStatic ? 'relative' : 'lg:hidden fixed bottom-0 left-0 right-0 z-50'
+---
+<a
+  href={href}
+  class:list={[pos, 'block text-center']}
+  style="background:var(--color-terre);color:var(--color-beige);padding:1rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;font-size:0.85rem;box-shadow:0 -8px 24px -10px rgba(29,27,24,0.45)"
+>
+  {text}
+</a>

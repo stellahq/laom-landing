@@ -1,127 +1,92 @@
 ---
-// Page LABO isolée (noindex, hors menu) — reprend le texte d'accueil d'Eduardo
-// (angle « coliving entrepreneurs ») assemblé avec le design system DS1.
-// Ne touche à AUCUNE page du site. Promotion vers / seulement avec l'aval de Charly.
+// Page 1 — ACCUEIL, au format exact du brief (6 sections), assemblée en DS1.
+// Route isolée /accueil-labo (noindex, hors menu) — ne touche aucune page du site.
 import Layout from '~/layouts/Layout.astro'
 import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
-import StatsBand from '~/components/laom/sections/StatsBand.astro'
 import AboutCards from '~/components/laom/sections/AboutCards.astro'
-import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
-import FeaturesSection from '~/components/laom/sections/FeaturesSection.astro'
 import CtaSection from '~/components/laom/sections/CtaSection.astro'
-import TeamSection from '~/components/laom/sections/TeamSection.astro'
-import BookingForm from '~/components/laom/BookingForm.astro'
+import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
 const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
-const CANDIDATER = '/candidater/'
+
+const navLinks = [
+  { label: 'Accueil', href: '/' },
+  { label: 'Coliving', href: '/coliving/' },
+  { label: 'Le lieu', href: '/le-lieu/' },
+  { label: 'Notre histoire', href: '/notre-histoire/' },
+]
 ---
 
-<Layout title="LAOM — Coliving entrepreneurs (labo)" hideChrome={true} seo={{ noIndex: true }}>
+<Layout title="LAOM — Coliving entrepreneurs (accueil)" hideChrome={true} seo={{ noIndex: true }}>
 
-  <div class="labo-hero">
+  <!-- 1. HERO -->
   <HeroLeader
-    img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
-    eyebrow="Coliving entrepreneurs · Sud Aveyron"
+    video="/videos/aveyron_hero.webm" img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
+    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
+    eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
     title="Vis et travaille autrement, en pleine nature," accent="entre pairs"
-    ctaText="Candidater" ctaHref={CANDIDATER}
-    stats={[{value:'21',unit:'ha',label:'Domaine préservé'},{value:'12',label:'places / semaine'},{value:'1h30',label:'de Montpellier'}]}
-    avatars={[F('avatar-1'),F('avatar-2'),F('avatar-3'),F('avatar-4')]} avatarValue="Août 2026" avatarLabel="3 sessions" />
-  </div>
+    ctaText="Candidater" ctaHref="/candidater/" />
 
-  <StatsBand stats={[{value:'21',unit:'ha',label:'de nature'},{value:'12',label:'par semaine'},{value:'1h30',label:'de Montpellier'},{value:'2026',label:'août'}]} />
-
+  <!-- 2. MANIFESTE -->
   <AboutCards
-    eyebrow="Le projet"
-    title="Un ancien domaine agricole de 21 hectares, devenu un" accent="lieu de vie"
-    intro="Entre causses et vallées, dans le sud de l’Aveyron. On y mange ce qui pousse ici, on y travaille dans le calme, on partage le quotidien avec des gens qui nous ressemblent."
+    eyebrow="Le manifeste"
+    title="On y a construit un" accent="lieu de vie."
+    intro="LAOM, c’est un ancien domaine agricole de 21 hectares, entre causses et vallées, dans le sud de l’Aveyron."
     items={[
       {kind:'photo',img:F('about-1')},
-      {kind:'text',color:'marron',title:'Pas un hôtel, pas un centre de formation',text:'Un endroit où l’on vit vraiment, le temps d’une semaine. On accueille des entrepreneurs qui ont construit quelque chose et cherchent un cadre pour continuer, autrement.'},
+      {kind:'text',color:'marron',title:'Pas un hôtel, pas un centre de formation',text:'Un endroit où l’on mange ce qui pousse ici, où l’on travaille dans le calme, et où l’on partage le quotidien avec des gens qui nous ressemblent.'},
       {kind:'photo',img:F('about-2')},
-      {kind:'text',color:'vert',title:'Manger ce qui pousse ici',text:'Repas faits maison, produits du potager et des producteurs locaux. La table, c’est là où tout le monde se retrouve.'},
+      {kind:'text',color:'vert',title:'Pour qui ?',text:'On accueille des entrepreneurs qui ont construit quelque chose et qui cherchent un cadre pour continuer, autrement.'},
     ]} />
 
-  <HabitatsSection bg="bg-[#FBF6EA]"
-    eyebrow="Le lieu"
-    title="Le domaine, espace par" accent="espace"
-    intro="Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse."
-    items={[
-      {img:L('tipis'),title:'Les tipis',desc:'Hébergement au cœur du domaine, au calme.'},
-      {img:L('chillworking-salle-pratique'),title:'L’espace coworking',desc:'Wifi fibre, concentration, vue.'},
-      {img:L('laom-salle'),title:'La salle commune',desc:'Là où tout le monde se retrouve.'},
-      {img:L('laom-potager'),title:'Le potager',desc:'Ce qui pousse ici finit dans l’assiette.'},
-      {img:L('festival-laom-ambiance-nature-aveyron'),title:'La guinguette',desc:'Vivante, conviviale, ouverte.'},
-      {img:L('riviere-laom'),title:'Les extérieurs',desc:'Feu de camp, forêt, rivière.'},
-    ]} />
-
-  <FeaturesSection bg="bg-[#F2EBDB]"
-    eyebrow="Le quotidien"
-    title="Ce que tu viens vivre à" accent="LAOM"
-    intro="Pendant une semaine, tu poses ton ordi dans un cadre que tu n’as jamais eu. Rien n’est obligatoire, tout est proposé."
-    items={[
-      {title:'Coworking en pleine nature',text:'Wifi fibre, calme absolu, vue sur la vallée.'},
-      {title:'Repas faits maison',text:'Produits du potager et des producteurs locaux.'},
-      {title:'Activités chaque jour',text:'Yoga, marche, ateliers, soirées au feu.'},
-      {title:'12 personnes par semaine',text:'Pas une de plus. Une communauté choisie.'},
-      {title:'Ton rythme',text:'Zéro programme imposé. Tu vis ta semaine comme tu l’entends.'},
-      {title:'Tout est inclus',text:'Hébergement, repas, espace de travail, activités.'},
-    ]} />
-
+  <!-- 3. TEASER COLIVING AOÛT 2026 -->
   <CtaSection bg="bg-[#FBF6EA]" img={F('cta')}
-    eyebrow="Le coliving d’août"
-    title="1 500 € la semaine," accent="tout compris"
-    primaryText="Candidater" primaryHref={CANDIDATER}
-    secondaryText="Découvrir le programme" secondaryHref="/coliving-aout/"
+    eyebrow="Coliving entrepreneurs"
+    title="Coliving entrepreneurs." accent="Août 2026."
+    primaryText="Découvrir le programme" primaryHref="/coliving-aout/"
     items={[
-      {title:'Hébergement en tipi',desc:'Au cœur du domaine'},
-      {title:'3 repas / jour',desc:'Faits maison, terroir'},
-      {title:'Activités & coworking',desc:'Inclus, chaque jour'},
+      {title:'1 semaine · 12 places',desc:'Tout est inclus'},
+      {title:'Hébergement & repas',desc:'Faits maison, terroir'},
+      {title:'Coworking & activités',desc:'Sur le domaine'},
     ]} />
 
-  <TeamSection bg="bg-[#F2EBDB]"
+  <!-- 4. LE LIEU EN APERÇU -->
+  <HabitatsSection bg="bg-[#F2EBDB]"
+    eyebrow="Le lieu"
+    title="Le domaine, en" accent="aperçu"
+    intro="Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse. Le domaine est à 1h30 de Montpellier, au milieu de nulle part. C’est exactement le point."
+    items={[
+      {img:L('tipis'),title:'Les tipis',desc:'Dormir au plus près du vivant.',href:'/le-lieu/'},
+      {img:L('laom-potager'),title:'Le potager',desc:'Ce qui pousse ici finit dans l’assiette.',href:'/le-lieu/'},
+      {img:L('riviere-laom'),title:'La nature',desc:'Forêt, rivière, ciel étoilé.',href:'/le-lieu/'},
+    ]} />
+
+  <!-- 5. LES FONDATEURS -->
+  <AboutCards bg="bg-[#FBF6EA]"
     eyebrow="Les fondateurs"
-    title="Celles et ceux qui portent" accent="LAOM"
-    intro="Ils ont quitté la ville, acheté 21 hectares, et construit le lieu qu’ils auraient voulu trouver."
-    members={[
-      {img:F('avatar-1'),name:'Charly Aubert',role:'Cofondateur'},
-      {img:F('avatar-2'),name:'Amandine Orriols',role:'Cofondatrice'},
+    title="Charly & Amandine," accent="le cœur du lieu"
+    intro="Ils ont créé LAOM avec une conviction simple : on vit mieux quand on choisit son cadre."
+    items={[
+      {kind:'photo',img:L('charly-amandine')},
+      {kind:'text',color:'marron',title:'Un projet de vie',text:'Ils ont quitté la ville, acheté 21 hectares, et construit un lieu où le travail, la nature et la communauté cohabitent. → Lire notre histoire'},
     ]} />
 
-  <CtaSection bg="bg-[#FBF6EA]" img={F('act-chillworking')}
+  <!-- 6. QUIZ -->
+  <CtaSection bg="bg-[#F2EBDB]" img={F('act-chillworking')}
     eyebrow="Le quiz"
     title="Vis-tu vraiment le mode de vie que tu" accent="veux ?"
-    primaryText="Faire le quiz" primaryHref={CANDIDATER}
-    secondaryText="Candidater directement" secondaryHref={CANDIDATER}
+    primaryText="Faire le quiz" primaryHref="/candidater/"
     items={[
       {title:'2 minutes',desc:'Un point sur ton équilibre'},
       {title:'Profil personnalisé',desc:'Reçu par email'},
       {title:'Sans engagement',desc:'Juste pour toi'},
     ]} />
 
-  <BookingForm photo={F('about-1')} sideImg={F('booking-side')} action={CANDIDATER}
-    eyebrow="Candidater"
-    title="Prêt à vivre la semaine ?" accent="On t’attend."
-    text="Remplis le formulaire, on te rappelle sous 48h pour voir si LAOM est fait pour toi." />
-
   <SiteFooter />
-</Layout>
 
-<style is:global>
-  /* Lisibilité du hero sur photo claire — limité à cette page (.labo-hero) */
-  .labo-hero .eyebrow--light {
-    color: #f2ebdb;
-    text-shadow: 0 1px 10px rgba(29, 27, 24, 0.85);
-  }
-  .labo-hero h1 {
-    text-shadow: 0 1px 14px rgba(29, 27, 24, 0.45);
-  }
-  /* Mobile : décale le contenu du hero sous la nav pour éviter que le logo
-     chevauche l'eyebrow (limité à cette page). */
-  @media (max-width: 767px) {
-    .labo-hero .relative.w-full {
-      padding-top: 7rem;
-    }
-  }
-</style>
+  <!-- CTA sticky mobile (brief) -->
+  <StickyCta text="Candidater" href="/candidater/" />
+</Layout>

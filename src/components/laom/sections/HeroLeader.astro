@@ -5,15 +5,18 @@ import SiteNav from '../SiteNav.astro'
 import Pill from '../Pill.astro'
 import StatGlass from '../StatGlass.astro'
 interface Props {
-  img: string; alt?: string; eyebrow?: string; title: string; accent?: string;
+  img: string; video?: string; alt?: string; eyebrow?: string; title: string; accent?: string;
   ctaText?: string; ctaHref?: string; nav?: boolean; fullbleed?: boolean;
+  navLinks?: { label: string; href: string }[]; navCta?: string; navCtaHref?: string;
   stats?: { value: string; unit?: string; label: string }[];
   avatars?: string[]; avatarValue?: string; avatarLabel?: string;
 }
 const {
-  img, alt = '', eyebrow, title, accent, ctaText = 'Découvrir', ctaHref = '#', nav = true, fullbleed = false,
+  img, video, alt = '', eyebrow, title, accent, ctaText = 'Découvrir', ctaHref = '#', nav = true, fullbleed = false,
+  navLinks, navCta, navCtaHref,
   stats = [], avatars = [], avatarValue, avatarLabel,
 } = Astro.props
+const videoType = video?.endsWith('.mp4') ? 'video/mp4' : 'video/webm'
 const sectionCls = fullbleed ? 'relative' : 'max-w-[96rem] mx-auto px-4 sm:px-6 pt-6 pb-10 md:pb-14'
 const cardCls = fullbleed
   ? 'relative overflow-hidden min-h-screen flex items-end'
@@ -22,11 +25,13 @@ const cardCls = fullbleed
 <div class={fullbleed ? '' : 'bg-[#F2EBDB]'}>
   <section class={sectionCls}>
     <div class={cardCls}>
-      <img src={img} alt={alt} class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+      {video
+        ? <video autoplay muted loop playsinline poster={img} class="absolute inset-0 w-full h-full object-cover"><source src={video} type={videoType} /></video>
+        : <img src={img} alt={alt} class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />}
       <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/80 via-[#1D1B18]/30 to-[#1D1B18]/45"></div>
 
       <!-- Header dans la carte, par-dessus la photo -->
-      {nav && <SiteNav transparent={true} />}
+      {nav && <SiteNav transparent={true} links={navLinks} ctaText={navCta} ctaHref={navCtaHref} />}
 
       <!-- Contenu en bas de la carte -->
       <div class="relative w-full p-8 md:p-12 lg:p-14">

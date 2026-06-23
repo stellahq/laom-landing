@@ -6,6 +6,7 @@ import Sprig from '~/components/laom/graphics/Sprig.astro'
 import Pill from '~/components/laom/Pill.astro'
 import Eyebrow from '~/components/laom/Eyebrow.astro'
 import SectionHeading from '~/components/laom/SectionHeading.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
 const Lbl = 'text-xs font-medium tracking-[0.2em] uppercase text-[#73673E] mb-5 pt-6 border-t border-[#412F1F]/15'
 const textures = [
   { kind: 'topo', label: 'Topo — vaguelettes' },
@@ -21,6 +22,14 @@ const textures = [
       <h1 class="text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em]">Labo — ressources graphiques</h1>
       <p class="text-[#1D1B18]/60 mt-2 max-w-2xl">Tests de textures (terre / topo) et d'éléments déco. Comparaison entre usage <strong>modulaire</strong> (petites briques) et <strong>section</strong> (bloc composé).</p>
     </header>
+
+    <!-- StickyCta (démo statique) -->
+    <section>
+      <p class={Lbl}>CTA sticky mobile — <code>StickyCta</code> (démo statique ; en réel : fixé en bas, mobile only)</p>
+      <div class="max-w-sm rounded-2xl overflow-hidden border border-[#412F1F]/15">
+        <StickyCta static={true} />
+      </div>
+    </section>
 
     <!-- TEXTURES sur fond sombre -->
     <section>
