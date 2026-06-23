@@ -18,8 +18,8 @@ const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
 
 const navLinks = [
-  { label: 'Accueil', href: '/' },
-  { label: 'Coliving', href: '/coliving/' },
+  { label: 'Accueil', href: '/accueil-labo/' },
+  { label: 'Coliving', href: '/coliving-labo/' },
   { label: 'Le lieu', href: '/le-lieu/' },
   { label: 'Notre histoire', href: '/notre-histoire/' },
   { label: 'Contact', href: '/contact/' },
@@ -32,7 +32,7 @@ const navLinks = [
   <PageHeader
     img={F('hero')}
     navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
-    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Coliving' }]}
+    crumbs={[{ label: 'Accueil', href: '/accueil-labo/' }, { label: 'Coliving' }]}
     title="Vivre et travailler autrement"
     subtitle="Une semaine en pleine nature, entre douze entrepreneurs. On s’occupe de tout — tu gardes ton énergie pour ce que tu es venu·e créer." />
 
