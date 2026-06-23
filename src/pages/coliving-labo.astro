@@ -1,19 +1,15 @@
 ---
-// Page 2 — COLIVING (présentation). Header de page intérieure (compact + breadcrumb),
-// sections propres et séparées (zéro superposition), nav + cartes d'interconnexion.
-// Charte Lucas (Host Grotesk, beige/terracotta), texte du brief, vraies photos.
+// Page 2 — COLIVING (présentation), composition reprise du template "À propos"
+// (header photo + breadcrumb, titre 2 colonnes, bande alternée photo/cartes,
+// mission + cartes numérotées qui chevauchent + 3 cartes services), habillée en
+// charte Lucas avec le texte du brief et les vraies photos LAOM.
 // Route isolée /coliving-labo (noindex, hors menu).
 import Layout from '~/layouts/Layout.astro'
 import PageHeader from '~/components/laom/PageHeader.astro'
-import Statement from '~/components/laom/sections/Statement.astro'
+import SplitHeading from '~/components/laom/sections/SplitHeading.astro'
+import AltCardsBand from '~/components/laom/sections/AltCardsBand.astro'
+import MissionShowcase from '~/components/laom/sections/MissionShowcase.astro'
 import OfferFeature from '~/components/laom/sections/OfferFeature.astro'
-import FeaturesSection from '~/components/laom/sections/FeaturesSection.astro'
-import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
-import Timeline from '~/components/laom/sections/Timeline.astro'
-import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
-import FitCheck from '~/components/laom/sections/FitCheck.astro'
-import MediaText from '~/components/laom/sections/MediaText.astro'
-import ExploreCards from '~/components/laom/sections/ExploreCards.astro'
 import CtaBand from '~/components/laom/sections/CtaBand.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
@@ -32,21 +28,52 @@ const navLinks = [
 
 <Layout title="LAOM — Coliving entrepreneurs, présentation" hideChrome={true} seo={{ noIndex: true }}>
 
-  <!-- HEADER DE PAGE INTÉRIEURE (compact + fil d'ariane) -->
+  <!-- HEADER (photo arrondie + breadcrumb) -->
   <PageHeader
     img={F('hero')}
     navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
     crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Coliving' }]}
-    eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
-    title="Une semaine pour vivre et travailler" accent="autrement."
-    subtitle="12 entrepreneurs, 21 hectares de nature, tout est inclus. Le temps de bosser dans un cadre que tu n’as jamais eu." />
+    title="Vivre et travailler autrement"
+    subtitle="Une semaine en pleine nature, entre douze entrepreneurs. On s’occupe de tout — tu gardes ton énergie pour ce que tu es venu·e créer." />
 
-  <!-- L'INVITATION -->
+  <!-- INTRO — titre 2 colonnes -->
   <div animate-fade-in-up class="opacity-0">
-    <Statement bg="bg-[#FBF6EA]"
-      eyebrow="L’invitation"
-      title="Une semaine pour retrouver" accent="un cadre."
-      intro="Tu es entrepreneur depuis quelques années. Tu as construit quelque chose qui marche. Mais ton quotidien ressemble de moins en moins à ce que tu voulais créer au départ. LAOM, c’est une semaine pour travailler dans le calme, manger ce qui pousse ici, et rencontrer des pairs qui vivent la même chose. Ce n’est pas une retraite, ce n’est pas un séminaire. C’est un mode de vie, le temps d’une semaine." />
+    <SplitHeading bg="bg-[#FBF6EA]"
+      eyebrow="Le coliving"
+      title="Une semaine pour poser ton ordi dans un cadre que tu n’as jamais eu," accent="et rien d’autre à gérer."
+      text="Tu es entrepreneur depuis quelques années. Tu as construit quelque chose qui marche, mais ton quotidien ressemble de moins en moins à ce que tu voulais créer au départ. LAOM, c’est une semaine pour travailler dans le calme, manger ce qui pousse ici, et rencontrer des pairs qui vivent la même chose. Ce n’est pas une retraite, ce n’est pas un séminaire. C’est un mode de vie, le temps d’une semaine." />
+  </div>
+
+  <!-- BANDE ALTERNÉE — photo / carte / photo / carte -->
+  <div animate-fade-in-up class="opacity-0">
+    <AltCardsBand bg="bg-[#F2EBDB]"
+      items={[
+        { img: F('act-chillworking'), alt: 'Coworking en pleine nature à LAOM', title: 'Coworking en pleine nature', text: 'Wifi haut débit, calme absolu, face à la vallée. Tu bosses le matin, tu décroches l’après-midi.' },
+        { img: L('diner-golden-hour-laom'), alt: 'Dîner fait maison à LAOM', title: 'Repas faits maison', text: 'Produits du potager et producteurs locaux, trois fois par jour. Tu ne penses plus à rien.' },
+      ]} />
+  </div>
+
+  <!-- MISSION — cartes numérotées qui chevauchent + 3 cartes services -->
+  <div animate-fade-in-up class="opacity-0">
+    <MissionShowcase bg="bg-[#FBF6EA]"
+      topImg={F('about-2')}
+      topEyebrow="Tout est inclus"
+      topTitle="Tu ne gères rien," topAccent="tu profites de tout."
+      steps={[
+        { num: '01', title: 'Hébergement en tipi', text: 'Au cœur du domaine, six nuits.' },
+        { num: '02', title: 'Trois repas par jour', text: 'Faits maison, produits d’ici.' },
+        { num: '03', title: 'Espace coworking', text: 'Équipé, wifi haut débit, au calme.' },
+        { num: '04', title: 'Activités chaque jour', text: 'Yoga, rando, ateliers, soirées.' },
+      ]}
+      bottomImg={F('about-1')}
+      bottomEyebrow="Aller plus loin"
+      bottomTitle="Découvre le reste de" bottomAccent="LAOM."
+      bottomText="Le lieu, l’histoire, et comment réserver ta semaine."
+      features={[
+        { title: 'Le lieu', text: '21 hectares, les tipis, le potager, la rivière.', href: '/le-lieu/' },
+        { title: 'Notre histoire', text: 'Charly, Amandine et la naissance de LAOM.', href: '/notre-histoire/' },
+        { title: 'Candidater', text: 'Deux minutes pour réserver ta semaine.', href: '/candidater/' },
+      ]} />
   </div>
 
   <!-- L'OFFRE — bloc centré (encarts + prix) -->
@@ -55,120 +82,17 @@ const navLinks = [
       eyebrow="L’offre"
       title="Une semaine. Douze entrepreneurs." accent="Tout est inclus."
       callouts={[
-        {value:'12',label:'places / semaine'},
-        {value:'6',label:'nuits en tipi'},
-        {value:'18',label:'repas faits maison'},
-        {value:'1h30',label:'de Montpellier'},
+        { value: '12', label: 'places / semaine' },
+        { value: '6', label: 'nuits en tipi' },
+        { value: '18', label: 'repas faits maison' },
+        { value: '1h30', label: 'de Montpellier' },
       ]}
       priceLabel="Prix de lancement, août 2026"
       price="1 500 € HT" priceSuffix="/ semaine, tout compris"
       ctaText="Candidater" ctaHref="/candidater/" />
   </div>
 
-  <!-- CE QUE TU VIENS VIVRE -->
-  <div animate-fade-in-up class="opacity-0">
-    <FeaturesSection bg="bg-[#FBF6EA]"
-      eyebrow="Le quotidien"
-      title="Ce que tu viens vivre à" accent="LAOM."
-      intro="Pendant une semaine, tu poses ton ordi dans un cadre que tu n’as jamais eu — et tu n’as à gérer rien d’autre que ce que tu es venu·e créer."
-      items={[
-        {title:'Coworking en pleine nature',text:'Wifi haut débit, calme absolu, face à la vallée.'},
-        {title:'Repas faits maison',text:'Produits du potager et producteurs locaux.'},
-        {title:'Des activités chaque jour',text:'Yoga, marche, ateliers, soirées.'},
-        {title:'Ton rythme',text:'12 personnes, zéro programme imposé.'},
-      ]} />
-  </div>
-
-  <!-- TOUT EST INCLUS -->
-  <div animate-fade-in-up class="opacity-0">
-    <IncludedGrid bg="bg-[#F2EBDB]"
-      eyebrow="Tout compris"
-      title="Tout est inclus." accent="Tu ne gères rien."
-      items={[
-        {title:'Hébergement en tipi',desc:'Au cœur du domaine.'},
-        {title:'3 repas par jour',desc:'Faits maison, potager et producteurs locaux.'},
-        {title:'Espace coworking',desc:'Équipé, wifi haut débit, au calme.'},
-        {title:'Activités chaque jour',desc:'Yoga, randonnées, ateliers, soirées.'},
-        {title:'Accès libre au domaine',desc:'Forêt, potager, guinguette, feu de camp.'},
-        {title:'Toute la logistique',desc:'Pas de courses, pas de cuisine, rien à gérer.'},
-      ]} />
-  </div>
-
-  <!-- UNE JOURNÉE TYPE -->
-  <div animate-fade-in-up class="opacity-0">
-    <Timeline bg="bg-[#FBF6EA]"
-      eyebrow="Une journée type"
-      title="À quoi ressemble une" accent="journée ici."
-      items={[
-        {time:'7h30',label:'Réveil en pleine nature'},
-        {time:'8h00',label:'Petit-déjeuner, produits du domaine'},
-        {time:'9h00 – 12h30',label:'Deep work : coworking, calme, concentration'},
-        {time:'12h30',label:'Déjeuner en communauté'},
-        {time:'14h00 – 17h00',label:'Travail ou activité, au choix'},
-        {time:'17h00',label:'Activité collective : yoga, rando, atelier'},
-        {time:'19h30',label:'Dîner fait maison'},
-        {time:'21h00',label:'Veillée sous les étoiles'},
-      ]}
-      note="Rien n’est obligatoire. Tout est proposé. Tu choisis ce qui te fait du bien." />
-  </div>
-
-  <!-- LE LIEU — galerie mosaïque (→ Le lieu) -->
-  <div animate-fade-in-up class="opacity-0">
-    <MosaicGallery bg="bg-[#F2EBDB]"
-      eyebrow="Le lieu"
-      title="21 hectares de nature préservée," accent="loin de tout."
-      intro="Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse."
-      images={[
-        {src:'/images/vue-aeriene-laom2-hero.webp',alt:'Vue aérienne du domaine LAOM'},
-        {src:L('tipis'),alt:'Les tipis de LAOM'},
-        {src:L('laom-potager'),alt:'Le potager de LAOM'},
-        {src:L('riviere-laom'),alt:'La rivière du domaine'},
-        {src:L('diner-golden-hour-laom'),alt:'Dîner en communauté à LAOM'},
-      ]}
-      ctaText="Voir le lieu en détail" ctaHref="/le-lieu/" />
-  </div>
-
-  <!-- C'EST POUR TOI SI… -->
-  <div animate-fade-in-up class="opacity-0">
-    <FitCheck bg="bg-[#FBF6EA]"
-      eyebrow="Pour qui"
-      title="C’est pour toi" accent="si…"
-      forItems={[
-        'Tu es entrepreneur ou indépendant depuis au moins 2 à 3 ans',
-        'Tu cherches un cadre pour bosser autrement, pas des vacances',
-        'Tu as envie de rencontrer des pairs qui vivent la même chose',
-        'Tu veux te reconnecter à un rythme qui te ressemble',
-      ]}
-      notItems={[
-        'Tu cherches des vacances all inclusive au soleil',
-        'Tu veux un programme de formation business',
-        'Tu n’es pas à l’aise avec la vie en communauté',
-        'Tu cherches du luxe hôtelier',
-      ]} />
-  </div>
-
-  <!-- CHARLY & AMANDINE (→ Notre histoire) -->
-  <div animate-fade-in-up class="opacity-0">
-    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine')} alt="Charly et Amandine, fondateurs de LAOM"
-      eyebrow="Charly & Amandine"
-      title="Le lieu qu’ils auraient voulu" accent="trouver."
-      text="Ils ont quitté la ville, acheté 21 hectares dans le sud de l’Aveyron, et construit un endroit où la nature, le travail et la communauté cohabitent au quotidien. LAOM, c’est leur projet de vie. Le coliving, c’est l’invitation à venir le vivre avec eux."
-      ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
-  </div>
-
-  <!-- INTERCONNEXION — aller plus loin -->
-  <div animate-fade-in-up class="opacity-0">
-    <ExploreCards bg="bg-[#FBF6EA]"
-      eyebrow="Aller plus loin"
-      title="Découvre le reste de" accent="LAOM."
-      cards={[
-        {img:L('riviere-laom'),title:'Le lieu',text:'21 hectares, les tipis, le potager, la rivière.',ctaText:'Voir le lieu',href:'/le-lieu/'},
-        {img:F('about-1'),title:'Notre histoire',text:'Charly, Amandine et la naissance de LAOM.',ctaText:'Lire l’histoire',href:'/notre-histoire/'},
-        {img:F('booking-side'),title:'Candidater',text:'Deux minutes pour réserver ta semaine.',ctaText:'Candidater',href:'/candidater/'},
-      ]} />
-  </div>
-
-  <!-- CTA FINAL (aplat propre) -->
+  <!-- CTA FINAL -->
   <div animate-fade-in-up class="opacity-0">
     <CtaBand
       eyebrow="À toi de jouer"
