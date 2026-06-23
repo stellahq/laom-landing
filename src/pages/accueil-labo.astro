@@ -1,12 +1,14 @@
 ---
-// Page 1 — ACCUEIL (brief), direction B « contemplatif » : hero centré épuré,
-// puis alternance aérée déclaration centrée ↔ photo/texte. Espace optimisé.
+// Page 1 — ACCUEIL : storytelling (le projet → le lieu → le coliving → les
+// fondateurs → l'action). Un seul plein écran (le hero), le reste aéré.
+// Chaque section renvoie vers sa page dédiée. Texte validé par Eduardo.
 // Route isolée /accueil-labo (noindex, hors menu) — ne touche aucune page du site.
 import Layout from '~/layouts/Layout.astro'
 import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
 import Statement from '~/components/laom/sections/Statement.astro'
+import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
 import MediaText from '~/components/laom/sections/MediaText.astro'
-import ShowcaseBand from '~/components/laom/sections/ShowcaseBand.astro'
+import CtaBanner from '~/components/laom/CtaBanner.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
@@ -23,48 +25,64 @@ const navLinks = [
 
 <Layout title="LAOM — Coliving entrepreneurs (accueil)" hideChrome={true} seo={{ noIndex: true }}>
 
-  <!-- 1. HERO (direction B, validé) -->
+  <!-- 0. HERO (plein écran, le seul) -->
   <HeroCenter
     video="/videos/aveyron_hero.webm" img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
     navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
     eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
     title="Vis et travaille autrement, en pleine nature," accent="entre pairs"
-    subtitle="Une semaine pour changer de cadre, sans mettre ta vie pro en pause."
+    subtitle="Une semaine dans un domaine de 21 hectares. On s’occupe de tout — tu gardes ton énergie pour ce que tu es venu·e créer."
     ctaText="Candidater" ctaHref="/candidater/" />
 
-  <!-- 2. LE DOMAINE — grande image + blocs (taille + atouts) -->
-  <ShowcaseBand img="/images/vue-aeriene-laom2-hero.webp" alt="Vue aérienne du domaine LAOM, 21 hectares en sud Aveyron"
-    eyebrow="Le domaine"
-    title="On y a construit un" accent="lieu de vie."
-    intro="Pas un hôtel, pas un centre de formation. 21 hectares entre causses et vallées, dans le sud de l’Aveyron — un endroit où l’on vit, où l’on travaille au calme, et où l’on partage le quotidien."
-    stats={[
-      {value:'21',unit:'ha',label:'Domaine préservé'},
-      {value:'12',label:'places / semaine'},
-      {value:'1h30',label:'de Montpellier'},
-    ]}
-    atouts={['Tipis','Coworking','Potager','Guinguette','Feu de camp']}
-    note="Et la voie lactée, la nuit, sans aucune pollution lumineuse." />
+  <!-- 1. LE PROJET — qu'est-ce que LAOM (→ Notre histoire) -->
+  <Statement texture={true}
+    eyebrow="Le projet"
+    title="Pas un lieu de plus, un" accent="lieu de vie."
+    intro="LAOM, c’est un coliving installé dans un domaine de 21 hectares en pleine nature, dans le sud de l’Aveyron. Pensé pour les entrepreneurs déjà installés qui sentent qu’on crée mieux quand on peut, parfois, ralentir et se reconnecter — à soi, aux autres, au vivant. Pas un hôtel. Pas un coworking de plus. Pas une retraite. Un endroit où l’on vient vivre, une semaine, ce qu’on aspire à vivre depuis longtemps."
+    ctaText="Découvrir le projet" ctaHref="/notre-histoire/" />
 
-  <!-- 3. TEASER COLIVING AOÛT (photo + texte) -->
-  <MediaText bg="bg-[#F2EBDB]" img={F('cta')} alt="Coliving entrepreneurs à LAOM"
-    eyebrow="Coliving entrepreneurs"
-    title="Coliving entrepreneurs." accent="Août 2026."
-    text="1 semaine. 12 places. Tout est inclus : hébergement, repas faits maison, espace de travail, activités. Un cadre qui change tout, sans mettre ta vie pro en pause."
+  <!-- 2. LE LIEU — où ça se passe + galerie (→ Le lieu) -->
+  <HabitatsSection bg="bg-[#F2EBDB]"
+    eyebrow="Le lieu"
+    title="21 hectares entre causses et vallées," accent="loin de tout."
+    intro="Un ancien domaine agricole, à 1h30 de Montpellier. Les repas sortent du potager, on travaille au calme face à la rivière, et le soir la voie lactée s’allume — sans aucune pollution lumineuse."
+    items={[
+      {img:L('tipis'),title:'Les tipis',desc:'Dormir au plus près du vivant.',href:'/le-lieu/'},
+      {img:L('chillworking-salle-pratique'),title:'Le shala',desc:'Coworking, wifi fibre, face à la vallée.',href:'/le-lieu/'},
+      {img:L('laom-potager'),title:'Le potager',desc:'Ce qui pousse ici finit dans l’assiette.',href:'/le-lieu/'},
+      {img:L('festival-laom-ambiance-nature-aveyron'),title:'La guinguette',desc:'Là où le collectif se retrouve.',href:'/le-lieu/'},
+      {img:L('riviere-laom'),title:'La rivière & la forêt',desc:'21 hectares à parcourir.',href:'/le-lieu/'},
+      {img:L('diner-golden-hour-laom'),title:'Le feu, la nuit',desc:'Soirées sous les étoiles.',href:'/le-lieu/'},
+    ]} />
+
+  <!-- 3. LE COLIVING D'AOÛT — concrètement (→ programme) -->
+  <MediaText bg="bg-[#FBF6EA]" img={F('cta')} alt="Le coliving entrepreneurs de LAOM"
+    eyebrow="Le coliving d’août 2026"
+    title="Une semaine. Douze entrepreneurs." accent="Tout est inclus."
+    text="Six nuits en tipi, dix-huit repas faits maison, un espace de travail au calme, des pratiques le matin (yoga, mouvement, marche), des ateliers et des soirées sous les étoiles. On gère la logistique — tu n’as qu’à exister, créer, et te retrouver. Douze places par semaine, pas une de plus."
     ctaText="Découvrir le programme" ctaHref="/coliving-aout/" />
 
-  <!-- 4. LES FONDATEURS (photo nette à droite + texte) -->
-  <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('charly-amandine')} alt="Charly et Amandine, fondateurs de LAOM"
-    eyebrow="Les fondateurs"
-    title="Charly & Amandine," accent="le cœur du lieu"
-    text="Ils ont créé LAOM avec une conviction simple : on vit mieux quand on choisit son cadre. Ils ont quitté la ville, acheté 21 hectares, et construit un lieu où le travail, la nature et la communauté cohabitent."
+  <!-- 4. LES FONDATEURS & LA CONVICTION — qui & pourquoi (→ Notre histoire) -->
+  <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine')} alt="Charly et Amandine, fondateurs de LAOM"
+    eyebrow="Charly & Amandine"
+    title="On vit mieux" accent="quand on choisit son cadre."
+    text="C’est leur conviction. Ils ont quitté la ville, acheté 21 hectares dans le sud de l’Aveyron, et construit le lieu qu’ils auraient voulu trouver — où le travail, la nature et la communauté tiennent ensemble. LAOM, c’est leur projet de vie. Le coliving, c’est l’invitation à venir le vivre avec eux."
     ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
 
-  <!-- 5. QUIZ (déclaration centrée + CTA) -->
-  <Statement bg="bg-[#F2EBDB]"
-    eyebrow="Le quiz"
-    title="Vis-tu vraiment le mode de vie que tu" accent="veux ?"
-    intro="Un quiz de 2 minutes pour faire le point sur ton équilibre entre travail, cadre de vie, et ce qui compte vraiment pour toi. Tu reçois ton profil personnalisé par email."
-    ctaText="Faire le quiz" ctaHref="/candidater/" />
+  <!-- 5. PASSE À L'ACTION (→ Candidater + quiz) -->
+  <section class="bg-[#FBF6EA] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <CtaBanner img={F('booking-side')}
+        eyebrow="À toi de jouer"
+        title="Prêt·e à vivre la semaine ?" accent="On t’attend."
+        primaryText="Candidater" primaryHref="/candidater/"
+        secondaryText="Faire le quiz" secondaryHref="/candidater/"
+        items={[
+          {title:'Un échange de 15 min',desc:'Pas de pitch, pas de pression'},
+          {title:'12 places par semaine',desc:'On prend le temps de se connaître'},
+        ]} />
+    </div>
+  </section>
 
   <SiteFooter />
 
