@@ -96,7 +96,7 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `CtaBanner` | Bannière photo + boutons + carte à puces |
 | `BookingForm` | Section réservation (form verre + texte/image) |
 | `SiteFooter` | Footer arrondi marron |
-| `PageHeader` | En-tête de page intérieure |
+| `PageHeader` | En-tête de page intérieure **compact** : fil d'ariane + titre + sous-titre sur photo (dégradé sobre), nav interconnectée |
 | `StickyCta` | Barre CTA fixe en bas (mobile) — « Candidater ». `static` pour la démo |
 | `MediaText` | Photo nette d'un côté + texte (eyebrow/titre/intro) + CTA de l'autre. `reverse` pour inverser |
 | `HeroCenter` | Ouverture plein écran, contenu **centré** (titre + CTA), logo petit à gauche — direction « contemplatif » |
@@ -105,6 +105,8 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `IncludedGrid` | Grille « tout est inclus » : coche + intitulé + précision |
 | `OfferFeature` | Bloc offre centré : titre + encarts chiffres + prix + CTA (compo template) |
 | `MosaicGallery` | Galerie mosaïque : 1 grande image + 4 petites + CTA (compo template) |
+| `ExploreCards` | Interconnexion : 3 cartes propres (image + titre + lien) vers d'autres pages |
+| `CtaBand` | Bande CTA aplat terre, texte centré, sans photo ni calque |
 | `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
 | `ShowcaseBand` | Grande image (le domaine) + blocs verre : taille + atouts. Contenu en bas, overlay fort |
 

@@ -1,18 +1,20 @@
 ---
-// Page 2 — COLIVING (présentation). Composition reprise du template (single-cottage)
-// — bloc offre, vécu numéroté, inclus, journée, galerie mosaïque, CTA — habillée
-// en charte LAOM (Host Grotesk, beige/terracotta) avec le texte du brief.
-// Route isolée /coliving-labo (noindex, hors menu) — ne touche aucune page du site.
+// Page 2 — COLIVING (présentation). Header de page intérieure (compact + breadcrumb),
+// sections propres et séparées (zéro superposition), nav + cartes d'interconnexion.
+// Charte Lucas (Host Grotesk, beige/terracotta), texte du brief, vraies photos.
+// Route isolée /coliving-labo (noindex, hors menu).
 import Layout from '~/layouts/Layout.astro'
-import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import Statement from '~/components/laom/sections/Statement.astro'
 import OfferFeature from '~/components/laom/sections/OfferFeature.astro'
-import MissionSection from '~/components/laom/sections/MissionSection.astro'
+import FeaturesSection from '~/components/laom/sections/FeaturesSection.astro'
 import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
 import Timeline from '~/components/laom/sections/Timeline.astro'
 import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
 import FitCheck from '~/components/laom/sections/FitCheck.astro'
 import MediaText from '~/components/laom/sections/MediaText.astro'
-import CtaBanner from '~/components/laom/CtaBanner.astro'
+import ExploreCards from '~/components/laom/sections/ExploreCards.astro'
+import CtaBand from '~/components/laom/sections/CtaBand.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
@@ -24,19 +26,28 @@ const navLinks = [
   { label: 'Coliving', href: '/coliving/' },
   { label: 'Le lieu', href: '/le-lieu/' },
   { label: 'Notre histoire', href: '/notre-histoire/' },
+  { label: 'Contact', href: '/contact/' },
 ]
 ---
 
 <Layout title="LAOM — Coliving entrepreneurs, présentation" hideChrome={true} seo={{ noIndex: true }}>
 
-  <!-- HERO -->
-  <HeroCenter
-    video="/videos/aveyron_hero.webm" img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
+  <!-- HEADER DE PAGE INTÉRIEURE (compact + fil d'ariane) -->
+  <PageHeader
+    img={F('hero')}
     navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
+    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Coliving' }]}
     eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
     title="Une semaine pour vivre et travailler" accent="autrement."
-    subtitle="12 entrepreneurs. 21 hectares de nature. Tout est inclus."
-    ctaText="Candidater" ctaHref="/candidater/" />
+    subtitle="12 entrepreneurs, 21 hectares de nature, tout est inclus. Le temps de bosser dans un cadre que tu n’as jamais eu." />
+
+  <!-- L'INVITATION -->
+  <div animate-fade-in-up class="opacity-0">
+    <Statement bg="bg-[#FBF6EA]"
+      eyebrow="L’invitation"
+      title="Une semaine pour retrouver" accent="un cadre."
+      intro="Tu es entrepreneur depuis quelques années. Tu as construit quelque chose qui marche. Mais ton quotidien ressemble de moins en moins à ce que tu voulais créer au départ. LAOM, c’est une semaine pour travailler dans le calme, manger ce qui pousse ici, et rencontrer des pairs qui vivent la même chose. Ce n’est pas une retraite, ce n’est pas un séminaire. C’est un mode de vie, le temps d’une semaine." />
+  </div>
 
   <!-- L'OFFRE — bloc centré (encarts + prix) -->
   <div animate-fade-in-up class="opacity-0">
@@ -54,17 +65,17 @@ const navLinks = [
       ctaText="Candidater" ctaHref="/candidater/" />
   </div>
 
-  <!-- CE QUE TU VIENS VIVRE — numéroté -->
+  <!-- CE QUE TU VIENS VIVRE -->
   <div animate-fade-in-up class="opacity-0">
-    <MissionSection bg="bg-[#FBF6EA]" img={F('act-chillworking')}
+    <FeaturesSection bg="bg-[#FBF6EA]"
       eyebrow="Le quotidien"
       title="Ce que tu viens vivre à" accent="LAOM."
       intro="Pendant une semaine, tu poses ton ordi dans un cadre que tu n’as jamais eu — et tu n’as à gérer rien d’autre que ce que tu es venu·e créer."
       items={[
-        {num:'01',title:'Coworking en pleine nature',text:'Wifi haut débit, calme absolu, face à la vallée.'},
-        {num:'02',title:'Repas faits maison',text:'Produits du potager et producteurs locaux.'},
-        {num:'03',title:'Des activités chaque jour',text:'Yoga, marche, ateliers, soirées.'},
-        {num:'04',title:'Ton rythme',text:'12 personnes, zéro programme imposé.'},
+        {title:'Coworking en pleine nature',text:'Wifi haut débit, calme absolu, face à la vallée.'},
+        {title:'Repas faits maison',text:'Produits du potager et producteurs locaux.'},
+        {title:'Des activités chaque jour',text:'Yoga, marche, ateliers, soirées.'},
+        {title:'Ton rythme',text:'12 personnes, zéro programme imposé.'},
       ]} />
   </div>
 
@@ -145,20 +156,27 @@ const navLinks = [
       ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
   </div>
 
-  <!-- PASSE À L'ACTION -->
-  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-28">
-    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
-      <CtaBanner img={F('booking-side')}
-        eyebrow="À toi de jouer"
-        title="Prêt·e à vivre la semaine ?" accent="On t’attend."
-        primaryText="Candidater" primaryHref="/candidater/"
-        secondaryText="Faire le quiz" secondaryHref="/candidater/"
-        items={[
-          {title:'Un échange de 15 min',desc:'Pas de pitch, pas de pression'},
-          {title:'12 places par semaine',desc:'On prend le temps de se connaître'},
-        ]} />
-    </div>
-  </section>
+  <!-- INTERCONNEXION — aller plus loin -->
+  <div animate-fade-in-up class="opacity-0">
+    <ExploreCards bg="bg-[#FBF6EA]"
+      eyebrow="Aller plus loin"
+      title="Découvre le reste de" accent="LAOM."
+      cards={[
+        {img:L('riviere-laom'),title:'Le lieu',text:'21 hectares, les tipis, le potager, la rivière.',ctaText:'Voir le lieu',href:'/le-lieu/'},
+        {img:F('about-1'),title:'Notre histoire',text:'Charly, Amandine et la naissance de LAOM.',ctaText:'Lire l’histoire',href:'/notre-histoire/'},
+        {img:F('booking-side'),title:'Candidater',text:'Deux minutes pour réserver ta semaine.',ctaText:'Candidater',href:'/candidater/'},
+      ]} />
+  </div>
+
+  <!-- CTA FINAL (aplat propre) -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaBand
+      eyebrow="À toi de jouer"
+      title="Prêt·e à vivre la semaine ?" accent="On t’attend."
+      subtitle="Un échange de 15 minutes, sans pression. 12 places par semaine, on prend le temps de se connaître."
+      primaryText="Candidater" primaryHref="/candidater/"
+      secondaryText="ou fais le quiz" secondaryHref="/candidater/" />
+  </div>
 
   <SiteFooter />
 

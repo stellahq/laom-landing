@@ -1,17 +1,40 @@
 ---
-// PageHeader — en-tête de page intérieure : titre centré sur photo (overlay marron).
+// PageHeader — en-tête de page intérieure (compact, façon template) : fil d'ariane
+// + titre + sous-titre, sur photo avec dégradé sobre. Nav interconnectée.
 import SiteNav from './SiteNav.astro'
-interface Props { img: string; title: string; subtitle?: string }
-const { img, title, subtitle } = Astro.props
+interface Crumb { label: string; href?: string }
+interface NavLink { label: string; href: string }
+interface Props {
+  img?: string; eyebrow?: string; title: string; accent?: string; subtitle?: string
+  crumbs?: Crumb[]; navLinks?: NavLink[]; navCta?: string; navCtaHref?: string
+}
+const { img, eyebrow, title, accent, subtitle, crumbs = [], navLinks, navCta, navCtaHref } = Astro.props
 ---
-<div class="relative">
-  <SiteNav transparent={true} />
-  <section class="relative min-h-[52vh] flex items-center justify-center text-center overflow-hidden">
-    <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
-    <div class="absolute inset-0 bg-[#412F1F]/70"></div>
-    <div class="relative max-w-3xl px-6 pt-24">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.05] text-balance">{title}</h1>
-      {subtitle && <p class="text-lg text-[#F2EBDB]/75 mt-5 max-w-xl mx-auto">{subtitle}</p>}
+<div class="relative bg-[#412F1F]">
+  <SiteNav transparent={true} links={navLinks} ctaText={navCta} ctaHref={navCtaHref} />
+  <section class="relative min-h-[42vh] md:min-h-[46vh] flex items-end overflow-hidden">
+    {img && (
+      <>
+        <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/85 via-[#1D1B18]/55 to-[#1D1B18]/35"></div>
+      </>
+    )}
+    <div class="relative w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-36 pb-14">
+      {crumbs.length > 0 && (
+        <nav class="flex items-center gap-2.5 text-sm mb-5">
+          {crumbs.map((c, i) => (
+            <>
+              {i > 0 && <span class="text-[#F2EBDB]/40">/</span>}
+              {c.href
+                ? <a href={c.href} class="text-[#F2EBDB]/70 hover:text-[#F2EBDB] transition-colors">{c.label}</a>
+                : <span class="text-[#F2EBDB]">{c.label}</span>}
+            </>
+          ))}
+        </nav>
+      )}
+      {eyebrow && <p class="text-xs uppercase tracking-[0.18em] text-[#CB7A5C] font-semibold mb-3">{eyebrow}</p>}
+      <h1 class="text-4xl md:text-6xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.05] text-balance max-w-3xl">{title}{accent && <> <span class="acc-light">{accent}</span></>}</h1>
+      {subtitle && <p class="text-lg text-[#F2EBDB]/75 mt-5 max-w-xl">{subtitle}</p>}
     </div>
   </section>
 </div>
