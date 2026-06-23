@@ -109,6 +109,9 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `CtaBand` | Bande CTA aplat terre, texte centré, sans photo ni calque |
 | `SplitHeading` | Titre de section asymétrique : eyebrow étroit à gauche / gros titre + accent + paragraphe à droite (compo template) |
 | `AltCardsBand` | Bande alternée : photo / carte colorée / photo / carte colorée (compo template) |
+| `Carousel` | Galerie défilante scroll-snap : slides photo immersifs + légende + flèches préc/suiv |
+| `StatBand` | Bande de chiffres-clés sur photo teintée arrondie, texte centré |
+| `CtaImage` | CTA sur photo arrondie + bloc glass centré, texte centré |
 | `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
 | `ShowcaseBand` | Grande image (le domaine) + blocs verre : taille + atouts. Contenu en bas, overlay fort |
 

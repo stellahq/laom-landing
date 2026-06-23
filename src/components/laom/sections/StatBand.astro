@@ -1,0 +1,27 @@
+---
+// StatBand — bande de chiffres-clés sur photo teintée (arrondie, encadrée).
+// Met le lieu en valeur d'un coup d'œil. Texte centré.
+interface Stat { value: string; label: string }
+interface Props { img: string; eyebrow?: string; title: string; accent?: string; stats: Stat[]; bg?: string }
+const { img, eyebrow, title, accent, stats, bg = 'bg-[#F2EBDB]' } = Astro.props
+---
+<section class:list={[bg]}>
+  <div class="px-2 md:px-3 py-2 md:py-3">
+    <div class="relative rounded-[2rem] overflow-hidden">
+      <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-[#412F1F]/65"></div>
+      <div class="relative px-6 py-20 md:py-28 text-center">
+        {eyebrow && <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#CB7A5C] mb-3">{eyebrow}</p>}
+        <h2 class="text-3xl md:text-5xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.08] text-balance max-w-3xl mx-auto">{title}{accent && <> <span class="acc-light">{accent}</span></>}</h2>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto mt-14">
+          {stats.map((s) => (
+            <div>
+              <p class="text-4xl md:text-6xl font-extrabold text-[#F2EBDB] leading-none">{s.value}</p>
+              <p class="text-xs uppercase tracking-[0.12em] text-[#F2EBDB]/70 mt-3 leading-snug">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
