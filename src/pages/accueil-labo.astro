@@ -45,9 +45,8 @@ const navLinks = [
       ctaText="Découvrir le projet" ctaHref="/notre-histoire/" />
   </div>
 
-  <!-- 2. LE LIEU — où ça se passe + galerie (→ Le lieu) -->
-  <div animate-fade-in-up class="opacity-0">
-    <HabitatsSection bg="bg-[#F2EBDB]"
+  <!-- 2. LE LIEU — où ça se passe + galerie (apparition en cascade) (→ Le lieu) -->
+  <HabitatsSection reveal={true} bg="bg-[#F2EBDB]"
       eyebrow="Le lieu"
       title="21 hectares de nature préservée," accent="loin de tout."
       intro="Un ancien domaine agricole, à 1h30 de Montpellier. Les repas sortent du potager, on travaille au calme face à la rivière, et le soir la voie lactée s’allume — sans aucune pollution lumineuse."
@@ -59,7 +58,6 @@ const navLinks = [
         {img:L('riviere-laom'),title:'La rivière & la forêt',desc:'21 hectares à parcourir.',href:'/le-lieu/'},
         {img:L('diner-golden-hour-laom'),title:'Le feu, la nuit',desc:'Soirées sous les étoiles.',href:'/le-lieu/'},
       ]} />
-  </div>
 
   <!-- 3. LE COLIVING D'AOÛT — concrètement (→ programme) -->
   <div animate-fade-in-up class="opacity-0">

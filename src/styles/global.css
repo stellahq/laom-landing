@@ -105,6 +105,9 @@ body {
 .animate-fade-in-up {
   animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+/* Pour le reveal en cascade (stagger) avec animation-delay : tient l'état caché
+   pendant le délai (fill both) → pas de flash avant l'animation. */
+.stagger-fill { animation-fill-mode: both; }
 .opacity-0 { opacity: 0; }
 
 a, button {
