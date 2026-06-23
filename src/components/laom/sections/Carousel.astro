@@ -1,0 +1,59 @@
+---
+// Carousel — galerie défilante (scroll-snap natif) de slides immersifs : photo
+// plein cadre + dégradé + légende (nom de l'espace). Flèches préc/suiv (JS léger),
+// glisser/clavier natifs. Met le lieu en avant, un espace à la fois.
+import SectionHead from './SectionHead.astro'
+interface Slide { img: string; alt?: string; title: string; text?: string }
+interface Props { eyebrow?: string; title: string; accent?: string; slides: Slide[]; bg?: string }
+const { eyebrow, title, accent, slides, bg = 'bg-[#F2EBDB]' } = Astro.props
+const uid = 'car-' + Math.random().toString(36).slice(2, 8)
+---
+<section class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-10 md:mb-14">
+      <SectionHead eyebrow={eyebrow} title={title} accent={accent} />
+      <div class="flex gap-3 shrink-0">
+        <button type="button" data-prev={uid} aria-label="Précédent" class="circle-btn w-12 h-12">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button type="button" data-next={uid} aria-label="Suivant" class="circle-btn w-12 h-12">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id={uid} class="carousel-track flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3 px-6 md:px-10 lg:px-14">
+    {slides.map((s) => (
+      <article class="snap-start shrink-0 w-[80%] sm:w-[47%] lg:w-[31%] relative rounded-2xl overflow-hidden lift">
+        <div class="aspect-[3/4] imgzoom">
+          <img src={s.img} alt={s.alt ?? ''} loading="lazy" class="w-full h-full object-cover" />
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/85 via-[#1D1B18]/15 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+          <h3 class="text-2xl font-extrabold text-[#F2EBDB] leading-tight">{s.title}</h3>
+          {s.text && <p class="text-[#F2EBDB]/80 mt-2 text-sm leading-relaxed">{s.text}</p>}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .carousel-track { scrollbar-width: none; -ms-overflow-style: none; }
+  .carousel-track::-webkit-scrollbar { display: none; }
+</style>
+
+<script define:vars={{ uid }}>
+  const track = document.getElementById(uid);
+  if (track) {
+    const step = () => {
+      const card = track.querySelector('article');
+      return card ? card.getBoundingClientRect().width + 20 : track.clientWidth * 0.85;
+    };
+    document.querySelector(`[data-prev="${uid}"]`)?.addEventListener('click', () =>
+      track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    document.querySelector(`[data-next="${uid}"]`)?.addEventListener('click', () =>
+      track.scrollBy({ left: step(), behavior: 'smooth' }));
+  }
+</script>
