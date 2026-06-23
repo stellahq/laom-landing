@@ -1,11 +1,13 @@
 ---
-// Page 1 — ACCUEIL, au format exact du brief (6 sections), assemblée en DS1.
+// Page 1 — ACCUEIL (brief), refonte immersive : hero plein écran centré + logo,
+// manifeste centré spacieux, sections pleine largeur, lisibilité maximale.
 // Route isolée /accueil-labo (noindex, hors menu) — ne touche aucune page du site.
 import Layout from '~/layouts/Layout.astro'
-import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
-import AboutCards from '~/components/laom/sections/AboutCards.astro'
+import HeroImmersive from '~/components/laom/sections/HeroImmersive.astro'
+import Statement from '~/components/laom/sections/Statement.astro'
 import CtaSection from '~/components/laom/sections/CtaSection.astro'
 import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
+import CtaBanner from '~/components/laom/CtaBanner.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
@@ -22,28 +24,23 @@ const navLinks = [
 
 <Layout title="LAOM — Coliving entrepreneurs (accueil)" hideChrome={true} seo={{ noIndex: true }}>
 
-  <!-- 1. HERO -->
-  <HeroLeader
+  <!-- 1. HERO IMMERSIF (plein écran, centré, logo en avant) -->
+  <HeroImmersive
     video="/videos/aveyron_hero.webm" img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
     navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
-    eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
+    eyebrow="Écolieu en pleine nature · Sud Aveyron"
     title="Vis et travaille autrement, en pleine nature," accent="entre pairs"
+    subtitle="Coliving pour entrepreneurs. Une semaine pour changer de cadre, sans mettre ta vie pro en pause."
     ctaText="Candidater" ctaHref="/candidater/" />
 
-  <!-- 2. MANIFESTE -->
-  <AboutCards
+  <!-- 2. MANIFESTE (déclaration centrée, spacieuse) -->
+  <Statement texture={true}
     eyebrow="Le manifeste"
     title="On y a construit un" accent="lieu de vie."
-    intro="LAOM, c’est un ancien domaine agricole de 21 hectares, entre causses et vallées, dans le sud de l’Aveyron."
-    items={[
-      {kind:'photo',img:F('about-1')},
-      {kind:'text',color:'marron',title:'Pas un hôtel, pas un centre de formation',text:'Un endroit où l’on mange ce qui pousse ici, où l’on travaille dans le calme, et où l’on partage le quotidien avec des gens qui nous ressemblent.'},
-      {kind:'photo',img:F('about-2')},
-      {kind:'text',color:'vert',title:'Pour qui ?',text:'On accueille des entrepreneurs qui ont construit quelque chose et qui cherchent un cadre pour continuer, autrement.'},
-    ]} />
+    intro="LAOM, c’est un ancien domaine agricole de 21 hectares, entre causses et vallées, dans le sud de l’Aveyron. Pas un hôtel, pas un centre de formation : un endroit où l’on mange ce qui pousse ici, où l’on travaille dans le calme, et où l’on accueille des entrepreneurs qui ont construit quelque chose et cherchent un cadre pour continuer, autrement." />
 
   <!-- 3. TEASER COLIVING AOÛT 2026 -->
-  <CtaSection bg="bg-[#FBF6EA]" img={F('cta')}
+  <CtaSection bg="bg-[#F2EBDB]" img={F('cta')}
     eyebrow="Coliving entrepreneurs"
     title="Coliving entrepreneurs." accent="Août 2026."
     primaryText="Découvrir le programme" primaryHref="/coliving-aout/"
@@ -54,7 +51,7 @@ const navLinks = [
     ]} />
 
   <!-- 4. LE LIEU EN APERÇU -->
-  <HabitatsSection bg="bg-[#F2EBDB]"
+  <HabitatsSection bg="bg-[#FBF6EA]"
     eyebrow="Le lieu"
     title="Le domaine, en" accent="aperçu"
     intro="Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse. Le domaine est à 1h30 de Montpellier, au milieu de nulle part. C’est exactement le point."
@@ -64,18 +61,22 @@ const navLinks = [
       {img:L('riviere-laom'),title:'La nature',desc:'Forêt, rivière, ciel étoilé.',href:'/le-lieu/'},
     ]} />
 
-  <!-- 5. LES FONDATEURS -->
-  <AboutCards bg="bg-[#FBF6EA]"
-    eyebrow="Les fondateurs"
-    title="Charly & Amandine," accent="le cœur du lieu"
-    intro="Ils ont créé LAOM avec une conviction simple : on vit mieux quand on choisit son cadre."
-    items={[
-      {kind:'photo',img:L('charly-amandine')},
-      {kind:'text',color:'marron',title:'Un projet de vie',text:'Ils ont quitté la ville, acheté 21 hectares, et construit un lieu où le travail, la nature et la communauté cohabitent. → Lire notre histoire'},
-    ]} />
+  <!-- 5. LES FONDATEURS (grande bannière photo) -->
+  <section class="bg-[#F2EBDB] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <CtaBanner img={L('charly-amandine')}
+        eyebrow="Les fondateurs"
+        title="Charly & Amandine," accent="le cœur du lieu"
+        primaryText="Lire notre histoire" primaryHref="/notre-histoire/"
+        items={[
+          {title:'Ils ont quitté la ville',desc:'et acheté 21 hectares'},
+          {title:'Un lieu de vie',desc:'travail, nature, communauté'},
+        ]} />
+    </div>
+  </section>
 
   <!-- 6. QUIZ -->
-  <CtaSection bg="bg-[#F2EBDB]" img={F('act-chillworking')}
+  <CtaSection bg="bg-[#FBF6EA]" img={F('act-chillworking')}
     eyebrow="Le quiz"
     title="Vis-tu vraiment le mode de vie que tu" accent="veux ?"
     primaryText="Faire le quiz" primaryHref="/candidater/"
@@ -87,6 +88,5 @@ const navLinks = [
 
   <SiteFooter />
 
-  <!-- CTA sticky mobile (brief) -->
   <StickyCta text="Candidater" href="/candidater/" />
 </Layout>
