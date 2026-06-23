@@ -1,0 +1,33 @@
+---
+// CtaImage — appel à l'action sur photo : grande image arrondie + dégradé sobre,
+// avec un bloc translucide (glass) centré par-dessus. Texte centré, stylé.
+import Pill from '../Pill.astro'
+interface Props {
+  img: string; eyebrow?: string; title: string; accent?: string; subtitle?: string
+  primaryText: string; primaryHref: string
+  secondaryText?: string; secondaryHref?: string
+  bg?: string
+}
+const { img, eyebrow, title, accent, subtitle, primaryText, primaryHref, secondaryText, secondaryHref, bg = 'bg-[#F2EBDB]' } = Astro.props
+---
+<section class:list={[bg]}>
+  <div class="px-2 md:px-3 py-2 md:py-3">
+    <div class="relative rounded-[2rem] overflow-hidden">
+      <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-[#1D1B18]/45"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/70 via-[#1D1B18]/20 to-[#1D1B18]/45"></div>
+
+      <div class="relative flex items-center justify-center px-5 py-24 md:py-36">
+        <div class="glass-dark rounded-3xl text-center max-w-2xl px-8 py-12 md:px-14 md:py-16">
+          {eyebrow && <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#CB7A5C] mb-4">{eyebrow}</p>}
+          <h2 class="text-4xl md:text-5xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.08] text-balance">{title}{accent && <> <span class="italic font-medium text-[#F2EBDB]/85">{accent}</span></>}</h2>
+          {subtitle && <p class="text-lg text-[#F2EBDB]/85 mt-5 max-w-xl mx-auto leading-relaxed">{subtitle}</p>}
+          <div class="flex flex-wrap gap-4 justify-center items-center mt-9">
+            <Pill href={primaryHref} variant="light" arrow={true}>{primaryText}</Pill>
+            {secondaryText && <a href={secondaryHref} class="text-[#F2EBDB]/85 underline underline-offset-4 hover:text-[#F2EBDB] transition-colors text-sm">{secondaryText}</a>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
