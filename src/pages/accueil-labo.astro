@@ -6,7 +6,7 @@ import Layout from '~/layouts/Layout.astro'
 import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
 import Statement from '~/components/laom/sections/Statement.astro'
 import MediaText from '~/components/laom/sections/MediaText.astro'
-import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
+import ShowcaseBand from '~/components/laom/sections/ShowcaseBand.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
@@ -32,11 +32,18 @@ const navLinks = [
     subtitle="Une semaine pour changer de cadre, sans mettre ta vie pro en pause."
     ctaText="Candidater" ctaHref="/candidater/" />
 
-  <!-- 2. MANIFESTE (déclaration centrée, aérée) -->
-  <Statement texture={true}
-    eyebrow="Le manifeste"
+  <!-- 2. LE DOMAINE — grande image + blocs (taille + atouts) -->
+  <ShowcaseBand img="/images/vue-aeriene-laom2-hero.webp" alt="Vue aérienne du domaine LAOM, 21 hectares en sud Aveyron"
+    eyebrow="Le domaine"
     title="On y a construit un" accent="lieu de vie."
-    intro="LAOM, c’est un ancien domaine agricole de 21 hectares, entre causses et vallées, dans le sud de l’Aveyron. Pas un hôtel, pas un centre de formation : un endroit où l’on mange ce qui pousse ici, où l’on travaille dans le calme, et où l’on accueille des entrepreneurs qui ont construit quelque chose et cherchent un cadre pour continuer, autrement." />
+    intro="Pas un hôtel, pas un centre de formation. 21 hectares entre causses et vallées, dans le sud de l’Aveyron — un endroit où l’on vit, où l’on travaille au calme, et où l’on partage le quotidien."
+    stats={[
+      {value:'21',unit:'ha',label:'Domaine préservé'},
+      {value:'12',label:'places / semaine'},
+      {value:'1h30',label:'de Montpellier'},
+    ]}
+    atouts={['Tipis','Coworking','Potager','Guinguette','Feu de camp']}
+    note="Et la voie lactée, la nuit, sans aucune pollution lumineuse." />
 
   <!-- 3. TEASER COLIVING AOÛT (photo + texte) -->
   <MediaText bg="bg-[#F2EBDB]" img={F('cta')} alt="Coliving entrepreneurs à LAOM"
@@ -45,26 +52,15 @@ const navLinks = [
     text="1 semaine. 12 places. Tout est inclus : hébergement, repas faits maison, espace de travail, activités. Un cadre qui change tout, sans mettre ta vie pro en pause."
     ctaText="Découvrir le programme" ctaHref="/coliving-aout/" />
 
-  <!-- 4. LE LIEU EN APERÇU (galerie) -->
-  <HabitatsSection bg="bg-[#FBF6EA]"
-    eyebrow="Le lieu"
-    title="Le domaine, en" accent="aperçu"
-    intro="Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse. Le domaine est à 1h30 de Montpellier, au milieu de nulle part. C’est exactement le point."
-    items={[
-      {img:L('tipis'),title:'Les tipis',desc:'Dormir au plus près du vivant.',href:'/le-lieu/'},
-      {img:L('laom-potager'),title:'Le potager',desc:'Ce qui pousse ici finit dans l’assiette.',href:'/le-lieu/'},
-      {img:L('riviere-laom'),title:'La nature',desc:'Forêt, rivière, ciel étoilé.',href:'/le-lieu/'},
-    ]} />
-
-  <!-- 5. LES FONDATEURS (photo nette à droite + texte) -->
-  <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine')} alt="Charly et Amandine, fondateurs de LAOM"
+  <!-- 4. LES FONDATEURS (photo nette à droite + texte) -->
+  <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('charly-amandine')} alt="Charly et Amandine, fondateurs de LAOM"
     eyebrow="Les fondateurs"
     title="Charly & Amandine," accent="le cœur du lieu"
     text="Ils ont créé LAOM avec une conviction simple : on vit mieux quand on choisit son cadre. Ils ont quitté la ville, acheté 21 hectares, et construit un lieu où le travail, la nature et la communauté cohabitent."
     ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
 
-  <!-- 6. QUIZ (déclaration centrée + CTA) -->
-  <Statement bg="bg-[#FBF6EA]"
+  <!-- 5. QUIZ (déclaration centrée + CTA) -->
+  <Statement bg="bg-[#F2EBDB]"
     eyebrow="Le quiz"
     title="Vis-tu vraiment le mode de vie que tu" accent="veux ?"
     intro="Un quiz de 2 minutes pour faire le point sur ton équilibre entre travail, cadre de vie, et ce qui compte vraiment pour toi. Tu reçois ton profil personnalisé par email."
