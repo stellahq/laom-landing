@@ -1,0 +1,39 @@
+---
+// HeroCenter — ouverture plein écran, contenu CENTRÉ (direction « contemplatif »).
+// Logo petit à gauche (via SiteNav), titre centré, beaucoup d'air, un seul CTA.
+import SiteNav from '../SiteNav.astro'
+import Pill from '../Pill.astro'
+interface Props {
+  img: string; video?: string; alt?: string
+  navLinks?: { label: string; href: string }[]; navCta?: string; navCtaHref?: string
+  eyebrow?: string; title: string; accent?: string; subtitle?: string
+  ctaText?: string; ctaHref?: string
+}
+const {
+  img, video, alt = '', navLinks, navCta = 'Candidater', navCtaHref = '/candidater/',
+  eyebrow, title, accent, subtitle, ctaText = 'Candidater', ctaHref = '/candidater/',
+} = Astro.props
+const videoType = video?.endsWith('.mp4') ? 'video/mp4' : 'video/webm'
+---
+<section class="relative min-h-screen w-full overflow-hidden flex flex-col">
+  {video
+    ? <video autoplay muted loop playsinline poster={img} class="absolute inset-0 w-full h-full object-cover"><source src={video} type={videoType} /></video>
+    : <img src={img} alt={alt} class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />}
+  <div class="absolute inset-0 bg-[#1D1B18]/50"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-[#1D1B18]/45 via-[#1D1B18]/20 to-[#1D1B18]/65"></div>
+
+  <SiteNav transparent={true} links={navLinks} ctaText={navCta} ctaHref={navCtaHref} />
+
+  <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6">
+    {eyebrow && <p class="mb-7 text-xs md:text-sm font-medium tracking-[0.3em] uppercase text-[#F2EBDB]/85">{eyebrow}</p>}
+    <h1 class="font-extrabold text-[#F2EBDB] text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.03] tracking-[-0.03em] max-w-4xl text-balance">
+      {title}{accent && <> <span class="acc-light">{accent}</span></>}
+    </h1>
+    {subtitle && <p class="mt-7 text-lg md:text-xl text-[#F2EBDB]/85 max-w-xl mx-auto leading-relaxed">{subtitle}</p>}
+    <Pill href={ctaHref} variant="primary" arrow={true} class="mt-10">{ctaText}</Pill>
+  </div>
+
+  <div class="relative z-10 pb-8 flex justify-center">
+    <span aria-hidden="true" class="block w-px h-12 bg-gradient-to-b from-transparent to-[#F2EBDB]/55"></span>
+  </div>
+</section>
