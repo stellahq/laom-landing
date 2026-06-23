@@ -1,0 +1,26 @@
+---
+// FoundersQuotes — deux cartes « personne » : portrait + prénom + citation à la
+// première personne. Pour donner la parole aux fondateurs.
+import SectionHead from './SectionHead.astro'
+interface Person { img: string; name: string; quote: string }
+interface Props { eyebrow?: string; title: string; accent?: string; people: Person[]; bg?: string }
+const { eyebrow, title, accent, people, bg = 'bg-[#F2EBDB]' } = Astro.props
+---
+<section class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="mb-14 text-center"><SectionHead align="center" eyebrow={eyebrow} title={title} accent={accent} /></div>
+    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+      {people.map((p) => (
+        <figure class="rounded-2xl overflow-hidden bg-[#FBF6EA] border border-[#412F1F]/10 flex flex-col sm:flex-row">
+          <div class="sm:w-2/5 shrink-0 imgzoom overflow-hidden">
+            <div class="aspect-[4/5] sm:h-full"><img src={p.img} alt={p.name} loading="lazy" class="w-full h-full object-cover" /></div>
+          </div>
+          <figcaption class="p-7 md:p-8 flex flex-col justify-center">
+            <p class="font-extrabold text-xl text-[#412F1F]">{p.name}</p>
+            <blockquote class="text-[#1D1B18]/75 mt-4 leading-relaxed italic">« {p.quote} »</blockquote>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

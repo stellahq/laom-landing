@@ -111,6 +111,9 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `AltCardsBand` | Bande alternée : photo / carte colorée / photo / carte colorée (compo template) |
 | `Carousel` | Galerie défilante scroll-snap : slides photo immersifs + légende + flèches préc/suiv |
 | `StatBand` | Bande de chiffres-clés sur photo teintée arrondie, texte centré |
+| `PhotoStrip` | Bande de 2 à 4 photos alignées (rounded + zoom), légendes optionnelles |
+| `FoundersQuotes` | Deux cartes personne : portrait + prénom + citation 1re personne |
+| `PhotoQuote` | Déclaration centrée sur photo teintée arrondie, sans CTA (respiration) |
 | `CtaImage` | CTA sur photo arrondie + bloc glass centré, texte centré |
 | `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
 | `ShowcaseBand` | Grande image (le domaine) + blocs verre : taille + atouts. Contenu en bas, overlay fort |
