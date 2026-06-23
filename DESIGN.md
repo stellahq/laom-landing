@@ -101,6 +101,7 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `MediaText` | Photo nette d'un côté + texte (eyebrow/titre/intro) + CTA de l'autre. `reverse` pour inverser |
 | `HeroCenter` | Ouverture plein écran, contenu **centré** (titre + CTA), logo petit à gauche — direction « contemplatif » |
 | `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
+| `ShowcaseBand` | Grande image (le domaine) + blocs verre : taille + atouts. Contenu en bas, overlay fort |
 
 ---
 

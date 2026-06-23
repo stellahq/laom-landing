@@ -1,0 +1,45 @@
+---
+// ShowcaseBand — grande image (le domaine) avec, par-dessus, l'accroche + des
+// blocs verre montrant la TAILLE et les ATOUTS du lieu. Contenu en bas sur
+// overlay sombre fort = lisibilité garantie.
+interface Props {
+  img: string; alt?: string
+  eyebrow?: string; title: string; accent?: string; intro?: string
+  stats?: { value: string; unit?: string; label: string }[]
+  atouts?: string[]; note?: string
+}
+const { img, alt = '', eyebrow, title, accent, intro, stats = [], atouts = [], note } = Astro.props
+---
+<section class="relative w-full overflow-hidden min-h-[88vh] flex items-end">
+  <img src={img} alt={alt} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+  <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/92 via-[#1D1B18]/40 to-[#1D1B18]/25"></div>
+
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-14 py-14 md:py-20">
+    <div class="max-w-2xl">
+      {eyebrow && <p class="mb-5 text-xs md:text-sm font-medium tracking-[0.28em] uppercase text-[#CB7A5C]">{eyebrow}</p>}
+      <h2 class="font-extrabold text-[#F2EBDB] text-[clamp(2rem,4.5vw,3.6rem)] leading-[1.07] tracking-[-0.02em] text-balance">
+        {title}{accent && <> <span class="acc-light">{accent}</span></>}
+      </h2>
+      {intro && <p class="mt-5 text-lg text-[#F2EBDB]/85 leading-relaxed">{intro}</p>}
+    </div>
+
+    {stats.length > 0 && (
+      <div class="mt-9 grid grid-cols-3 gap-3 sm:gap-4 max-w-xl">
+        {stats.map((s) => (
+          <div class="glass rounded-2xl px-4 py-4">
+            <p class="text-2xl sm:text-4xl font-extrabold text-[#F2EBDB] leading-none">{s.value}{s.unit && <span class="text-base sm:text-lg text-[#CB7A5C] align-top">{s.unit}</span>}</p>
+            <p class="text-[0.7rem] sm:text-xs text-[#F2EBDB]/70 mt-2 leading-tight">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {atouts.length > 0 && (
+      <div class="mt-5 flex flex-wrap gap-2.5">
+        {atouts.map((a) => <span class="glass rounded-full px-4 py-2 text-sm text-[#F2EBDB]">{a}</span>)}
+      </div>
+    )}
+
+    {note && <p class="mt-6 italic text-lg text-[#F2EBDB]/80 max-w-md">{note}</p>}
+  </div>
+</section>
