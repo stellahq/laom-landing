@@ -1,0 +1,28 @@
+---
+// IncludedGrid — grille « tout est inclus » : coche + intitulé + précision.
+// Transparence : ce qui est compris, d'un coup d'œil.
+import SectionHead from './SectionHead.astro'
+interface Props {
+  eyebrow?: string; title: string; accent?: string; intro?: string
+  items: { title: string; desc?: string }[]; bg?: string
+}
+const { eyebrow, title, accent, intro, items, bg = 'bg-[#FBF6EA]' } = Astro.props
+---
+<section class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="mb-14 text-center">
+      <SectionHead align="center" eyebrow={eyebrow} title={title} accent={accent} intro={intro} />
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {items.map((it) => (
+        <div class="rounded-2xl bg-[#F2EBDB] border border-[#412F1F]/10 p-6 flex items-start gap-4">
+          <span class="circle-btn w-10 h-10 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></span>
+          <div>
+            <p class="font-extrabold text-[#412F1F] leading-tight">{it.title}</p>
+            {it.desc && <p class="text-sm text-[#1D1B18]/65 mt-1.5 leading-relaxed">{it.desc}</p>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

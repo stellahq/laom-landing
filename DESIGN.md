@@ -100,6 +100,9 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `StickyCta` | Barre CTA fixe en bas (mobile) — « Candidater ». `static` pour la démo |
 | `MediaText` | Photo nette d'un côté + texte (eyebrow/titre/intro) + CTA de l'autre. `reverse` pour inverser |
 | `HeroCenter` | Ouverture plein écran, contenu **centré** (titre + CTA), logo petit à gauche — direction « contemplatif » |
+| `Timeline` | Frise horaire verticale (une journée type) : heure + moment |
+| `FitCheck` | Deux colonnes « c'est pour toi si… / pas pour toi si… » (coches / croix) |
+| `IncludedGrid` | Grille « tout est inclus » : coche + intitulé + précision |
 | `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
 | `ShowcaseBand` | Grande image (le domaine) + blocs verre : taille + atouts. Contenu en bas, overlay fort |
 
