@@ -1,16 +1,18 @@
 ---
-// Page 2 — COLIVING (présentation). Ton posé, transparent, prix visible.
-// Un seul plein écran (hero), reste aéré, reveal au scroll. Texte = brief LAOM.
+// Page 2 — COLIVING (présentation). Composition reprise du template (single-cottage)
+// — bloc offre, vécu numéroté, inclus, journée, galerie mosaïque, CTA — habillée
+// en charte LAOM (Host Grotesk, beige/terracotta) avec le texte du brief.
 // Route isolée /coliving-labo (noindex, hors menu) — ne touche aucune page du site.
 import Layout from '~/layouts/Layout.astro'
 import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
-import Statement from '~/components/laom/sections/Statement.astro'
-import FeaturesSection from '~/components/laom/sections/FeaturesSection.astro'
-import Timeline from '~/components/laom/sections/Timeline.astro'
-import MediaText from '~/components/laom/sections/MediaText.astro'
-import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
-import FitCheck from '~/components/laom/sections/FitCheck.astro'
+import OfferFeature from '~/components/laom/sections/OfferFeature.astro'
 import MissionSection from '~/components/laom/sections/MissionSection.astro'
+import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
+import Timeline from '~/components/laom/sections/Timeline.astro'
+import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
+import FitCheck from '~/components/laom/sections/FitCheck.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import CtaBanner from '~/components/laom/CtaBanner.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
@@ -27,7 +29,7 @@ const navLinks = [
 
 <Layout title="LAOM — Coliving entrepreneurs, présentation" hideChrome={true} seo={{ noIndex: true }}>
 
-  <!-- 0. HERO -->
+  <!-- HERO -->
   <HeroCenter
     video="/videos/aveyron_hero.webm" img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
     navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
@@ -36,31 +38,52 @@ const navLinks = [
     subtitle="12 entrepreneurs. 21 hectares de nature. Tout est inclus."
     ctaText="Candidater" ctaHref="/candidater/" />
 
-  <!-- 1. L'INVITATION -->
+  <!-- L'OFFRE — bloc centré (encarts + prix) -->
   <div animate-fade-in-up class="opacity-0">
-    <Statement texture={true}
-      eyebrow="L’invitation"
-      title="Une semaine pour retrouver" accent="un cadre."
-      intro="Tu es entrepreneur depuis quelques années. Tu as construit quelque chose qui marche. Mais ton quotidien ressemble de moins en moins à ce que tu voulais créer au départ. LAOM, c’est une semaine pour travailler dans le calme, manger ce qui pousse ici, et rencontrer des pairs qui vivent la même chose. Ce n’est pas une retraite. Ce n’est pas un séminaire. C’est un mode de vie, le temps d’une semaine." />
+    <OfferFeature bg="bg-[#F2EBDB]"
+      eyebrow="L’offre"
+      title="Une semaine. Douze entrepreneurs." accent="Tout est inclus."
+      callouts={[
+        {value:'12',label:'places / semaine'},
+        {value:'6',label:'nuits en tipi'},
+        {value:'18',label:'repas faits maison'},
+        {value:'1h30',label:'de Montpellier'},
+      ]}
+      priceLabel="Prix de lancement, août 2026"
+      price="1 500 € HT" priceSuffix="/ semaine, tout compris"
+      ctaText="Candidater" ctaHref="/candidater/" />
   </div>
 
-  <!-- 2. CE QUE TU VIENS VIVRE -->
+  <!-- CE QUE TU VIENS VIVRE — numéroté -->
   <div animate-fade-in-up class="opacity-0">
-    <FeaturesSection bg="bg-[#F2EBDB]"
+    <MissionSection bg="bg-[#FBF6EA]" img={F('act-chillworking')}
       eyebrow="Le quotidien"
       title="Ce que tu viens vivre à" accent="LAOM."
-      intro="Pendant une semaine, tu poses ton ordi dans un cadre que tu n’as jamais eu. Tu travailles le matin face à la vallée, tu manges des plats faits maison avec ce qui pousse au potager, et tu échanges le soir avec onze autres entrepreneurs."
+      intro="Pendant une semaine, tu poses ton ordi dans un cadre que tu n’as jamais eu — et tu n’as à gérer rien d’autre que ce que tu es venu·e créer."
       items={[
-        {title:'Coworking en pleine nature',text:'Wifi haut débit, calme absolu.'},
-        {title:'Repas faits maison',text:'Produits du potager et producteurs locaux.'},
-        {title:'Des activités chaque jour',text:'Yoga, marche, ateliers, soirées.'},
-        {title:'12 personnes par semaine',text:'Pas une de plus.'},
-        {title:'Zéro programme imposé',text:'Tu vis ta semaine comme tu l’entends.'},
-        {title:'Tu gardes ton énergie',text:'On s’occupe de toute la logistique.'},
+        {num:'01',title:'Coworking en pleine nature',text:'Wifi haut débit, calme absolu, face à la vallée.'},
+        {num:'02',title:'Repas faits maison',text:'Produits du potager et producteurs locaux.'},
+        {num:'03',title:'Des activités chaque jour',text:'Yoga, marche, ateliers, soirées.'},
+        {num:'04',title:'Ton rythme',text:'12 personnes, zéro programme imposé.'},
       ]} />
   </div>
 
-  <!-- 3. UNE JOURNÉE À LAOM (frise) -->
+  <!-- TOUT EST INCLUS -->
+  <div animate-fade-in-up class="opacity-0">
+    <IncludedGrid bg="bg-[#F2EBDB]"
+      eyebrow="Tout compris"
+      title="Tout est inclus." accent="Tu ne gères rien."
+      items={[
+        {title:'Hébergement en tipi',desc:'Au cœur du domaine.'},
+        {title:'3 repas par jour',desc:'Faits maison, potager et producteurs locaux.'},
+        {title:'Espace coworking',desc:'Équipé, wifi haut débit, au calme.'},
+        {title:'Activités chaque jour',desc:'Yoga, randonnées, ateliers, soirées.'},
+        {title:'Accès libre au domaine',desc:'Forêt, potager, guinguette, feu de camp.'},
+        {title:'Toute la logistique',desc:'Pas de courses, pas de cuisine, rien à gérer.'},
+      ]} />
+  </div>
+
+  <!-- UNE JOURNÉE TYPE -->
   <div animate-fade-in-up class="opacity-0">
     <Timeline bg="bg-[#FBF6EA]"
       eyebrow="Une journée type"
@@ -78,33 +101,25 @@ const navLinks = [
       note="Rien n’est obligatoire. Tout est proposé. Tu choisis ce qui te fait du bien." />
   </div>
 
-  <!-- 4. LE LIEU (→ Le lieu) -->
+  <!-- LE LIEU — galerie mosaïque (→ Le lieu) -->
   <div animate-fade-in-up class="opacity-0">
-    <MediaText bg="bg-[#F2EBDB]" img="/images/vue-aeriene-laom2-hero.webp" alt="Vue aérienne du domaine LAOM"
+    <MosaicGallery bg="bg-[#F2EBDB]"
       eyebrow="Le lieu"
       title="21 hectares de nature préservée," accent="loin de tout."
-      text="Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse. À 1h30 de Montpellier, au milieu de nulle part. C’est exactement le point."
+      intro="Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse."
+      images={[
+        {src:'/images/vue-aeriene-laom2-hero.webp',alt:'Vue aérienne du domaine LAOM'},
+        {src:L('tipis'),alt:'Les tipis de LAOM'},
+        {src:L('laom-potager'),alt:'Le potager de LAOM'},
+        {src:L('riviere-laom'),alt:'La rivière du domaine'},
+        {src:L('diner-golden-hour-laom'),alt:'Dîner en communauté à LAOM'},
+      ]}
       ctaText="Voir le lieu en détail" ctaHref="/le-lieu/" />
   </div>
 
-  <!-- 5. TOUT EST INCLUS -->
+  <!-- C'EST POUR TOI SI… -->
   <div animate-fade-in-up class="opacity-0">
-    <IncludedGrid bg="bg-[#FBF6EA]"
-      eyebrow="Tout compris"
-      title="Tout est inclus." accent="Tu ne gères rien."
-      items={[
-        {title:'Hébergement en tipi',desc:'Au cœur du domaine.'},
-        {title:'3 repas par jour',desc:'Faits maison, potager et producteurs locaux.'},
-        {title:'Espace coworking',desc:'Équipé, wifi haut débit, au calme.'},
-        {title:'Activités chaque jour',desc:'Yoga, randonnées, ateliers, soirées.'},
-        {title:'Accès libre au domaine',desc:'Forêt, potager, guinguette, feu de camp.'},
-        {title:'Toute la logistique',desc:'Pas de courses, pas de cuisine, rien à gérer.'},
-      ]} />
-  </div>
-
-  <!-- 6. C'EST POUR TOI SI… -->
-  <div animate-fade-in-up class="opacity-0">
-    <FitCheck bg="bg-[#F2EBDB]"
+    <FitCheck bg="bg-[#FBF6EA]"
       eyebrow="Pour qui"
       title="C’est pour toi" accent="si…"
       forItems={[
@@ -121,35 +136,29 @@ const navLinks = [
       ]} />
   </div>
 
-  <!-- 7. CHARLY & AMANDINE (→ Notre histoire) -->
+  <!-- CHARLY & AMANDINE (→ Notre histoire) -->
   <div animate-fade-in-up class="opacity-0">
-    <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('charly-amandine')} alt="Charly et Amandine, fondateurs de LAOM"
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine')} alt="Charly et Amandine, fondateurs de LAOM"
       eyebrow="Charly & Amandine"
       title="Le lieu qu’ils auraient voulu" accent="trouver."
       text="Ils ont quitté la ville, acheté 21 hectares dans le sud de l’Aveyron, et construit un endroit où la nature, le travail et la communauté cohabitent au quotidien. LAOM, c’est leur projet de vie. Le coliving, c’est l’invitation à venir le vivre avec eux."
       ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
   </div>
 
-  <!-- 8. LE PRIX -->
-  <div animate-fade-in-up class="opacity-0">
-    <Statement bg="bg-[#F2EBDB]"
-      eyebrow="Le prix"
-      title="1 500 € HT la semaine." accent="Tout compris."
-      intro="Hébergement, 3 repas par jour, coworking, activités, accès au domaine. Pas de frais cachés. Prix de lancement, août 2026."
-      ctaText="Candidater" ctaHref="/candidater/" />
-  </div>
-
-  <!-- 9. COMMENT CANDIDATER (3 étapes) -->
-  <div animate-fade-in-up class="opacity-0">
-    <MissionSection bg="bg-[#FBF6EA]" img={F('about-1')}
-      eyebrow="Le process"
-      title="3 étapes." accent="2 minutes pour la première."
-      items={[
-        {num:'01',title:'Tu remplis le formulaire',text:'2 minutes, pas plus.'},
-        {num:'02',title:'On t’appelle dans les 48h',text:'Un échange de 15 minutes, sans pression.'},
-        {num:'03',title:'Si ça matche, c’est confirmé',text:'Ta place est réservée.'},
-      ]} />
-  </div>
+  <!-- PASSE À L'ACTION -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <CtaBanner img={F('booking-side')}
+        eyebrow="À toi de jouer"
+        title="Prêt·e à vivre la semaine ?" accent="On t’attend."
+        primaryText="Candidater" primaryHref="/candidater/"
+        secondaryText="Faire le quiz" secondaryHref="/candidater/"
+        items={[
+          {title:'Un échange de 15 min',desc:'Pas de pitch, pas de pression'},
+          {title:'12 places par semaine',desc:'On prend le temps de se connaître'},
+        ]} />
+    </div>
+  </section>
 
   <SiteFooter />
 

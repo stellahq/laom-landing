@@ -103,6 +103,8 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `Timeline` | Frise horaire verticale (une journée type) : heure + moment |
 | `FitCheck` | Deux colonnes « c'est pour toi si… / pas pour toi si… » (coches / croix) |
 | `IncludedGrid` | Grille « tout est inclus » : coche + intitulé + précision |
+| `OfferFeature` | Bloc offre centré : titre + encarts chiffres + prix + CTA (compo template) |
+| `MosaicGallery` | Galerie mosaïque : 1 grande image + 4 petites + CTA (compo template) |
 | `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
 | `ShowcaseBand` | Grande image (le domaine) + blocs verre : taille + atouts. Contenu en bas, overlay fort |
 
