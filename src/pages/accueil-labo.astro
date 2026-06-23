@@ -3,7 +3,7 @@
 // avatars), sections photo-riches, photo des fondateurs montrée en grand et nette.
 // Route isolée /accueil-labo (noindex, hors menu) — ne touche aucune page du site.
 import Layout from '~/layouts/Layout.astro'
-import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
+import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
 import AboutCards from '~/components/laom/sections/AboutCards.astro'
 import CtaSection from '~/components/laom/sections/CtaSection.astro'
 import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
@@ -24,15 +24,14 @@ const navLinks = [
 
 <Layout title="LAOM — Coliving entrepreneurs (accueil)" hideChrome={true} seo={{ noIndex: true }}>
 
-  <!-- 1. HERO — plein écran, logo petit à gauche, vie (stats + avatars) -->
-  <HeroLeader fullbleed={true}
+  <!-- 1. HERO — direction B : plein écran, logo petit à gauche, titre centré, épuré -->
+  <HeroCenter
     video="/videos/aveyron_hero.webm" img={F('hero')} alt="Le domaine LAOM en sud Aveyron"
     navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
     eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
     title="Vis et travaille autrement, en pleine nature," accent="entre pairs"
-    ctaText="Candidater" ctaHref="/candidater/"
-    stats={[{value:'21',unit:'ha',label:'Domaine préservé'},{value:'12',label:'places / semaine'}]}
-    avatars={[F('avatar-1'),F('avatar-2'),F('avatar-3'),F('avatar-4')]} avatarValue="Août 2026" avatarLabel="3 sessions" />
+    subtitle="Une semaine pour changer de cadre, sans mettre ta vie pro en pause."
+    ctaText="Candidater" ctaHref="/candidater/" />
 
   <!-- 2. MANIFESTE — illustré (photos + texte) -->
   <AboutCards
