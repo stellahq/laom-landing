@@ -97,6 +97,7 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `BookingForm` | Section réservation (form verre + texte/image) |
 | `SiteFooter` | Footer arrondi marron |
 | `PageHeader` | En-tête de page intérieure |
+| `StickyCta` | Barre CTA fixe en bas (mobile) — « Candidater ». `static` pour la démo |
 
 ---
 
