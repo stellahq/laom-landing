@@ -1,0 +1,35 @@
+---
+// MosaicGallery — galerie mosaïque : 1 grande image + 4 plus petites, + CTA.
+// (Composition « gallery » du template, en charte LAOM.)
+import Pill from '../Pill.astro'
+import SectionHead from './SectionHead.astro'
+interface Props {
+  eyebrow?: string; title: string; accent?: string; intro?: string
+  images: { src: string; alt?: string }[]
+  ctaText?: string; ctaHref?: string; bg?: string
+}
+const { eyebrow, title, accent, intro, images, ctaText, ctaHref = '#', bg = 'bg-[#F2EBDB]' } = Astro.props
+const big = images[0]
+const rest = images.slice(1, 5)
+---
+<section class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-end mb-12">
+      <SectionHead eyebrow={eyebrow} title={title} accent={accent} />
+      {intro && <p class="text-lg text-[#1D1B18]/70 leading-relaxed lg:pb-2 lg:max-w-md lg:justify-self-end">{intro}</p>}
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+      <div class="col-span-2 row-span-2 imgzoom rounded-2xl overflow-hidden aspect-square md:aspect-auto">
+        <img src={big.src} alt={big.alt ?? ''} loading="lazy" class="w-full h-full object-cover" />
+      </div>
+      {rest.map((im) => (
+        <div class="imgzoom rounded-2xl overflow-hidden aspect-square">
+          <img src={im.src} alt={im.alt ?? ''} loading="lazy" class="w-full h-full object-cover" />
+        </div>
+      ))}
+    </div>
+
+    {ctaText && <div class="mt-10"><Pill href={ctaHref} variant="primary" arrow={true}>{ctaText}</Pill></div>}
+  </div>
+</section>

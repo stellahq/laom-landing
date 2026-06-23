@@ -1,0 +1,39 @@
+---
+// OfferFeature — bloc offre centré : titre + rangée d'encarts chiffres + prix
+// + CTA. (Composition « feature » du template, en charte LAOM.)
+import Pill from '../Pill.astro'
+import SectionHead from './SectionHead.astro'
+interface Props {
+  eyebrow?: string; title: string; accent?: string
+  callouts: { value: string; unit?: string; label: string }[]
+  priceLabel?: string; price: string; priceSuffix?: string
+  ctaText?: string; ctaHref?: string; bg?: string
+}
+const {
+  eyebrow, title, accent, callouts = [],
+  priceLabel = 'Prix de lancement', price, priceSuffix,
+  ctaText = 'Candidater', ctaHref = '/candidater/', bg = 'bg-[#F2EBDB]',
+} = Astro.props
+---
+<section class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-5xl mx-auto px-6 md:px-10 text-center">
+    <div class="mb-12"><SectionHead align="center" eyebrow={eyebrow} title={title} accent={accent} /></div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto mb-14">
+      {callouts.map((c) => (
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <p class="font-extrabold text-3xl md:text-4xl text-[#9A3922] leading-none">{c.value}{c.unit && <span class="text-lg">{c.unit}</span>}</p>
+          <p class="text-xs text-[#1D1B18]/60 mt-2.5 uppercase tracking-[0.12em] leading-snug">{c.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="inline-flex flex-col items-center gap-6 rounded-3xl bg-[#412F1F] text-[#F2EBDB] px-10 py-9">
+      <div>
+        <p class="text-xs tracking-[0.2em] uppercase text-[#F2EBDB]/60 mb-2">{priceLabel}</p>
+        <p class="font-extrabold text-4xl md:text-5xl leading-none">{price}{priceSuffix && <span class="text-base font-normal text-[#F2EBDB]/70 ml-2">{priceSuffix}</span>}</p>
+      </div>
+      <Pill href={ctaHref} variant="light" arrow={true}>{ctaText}</Pill>
+    </div>
+  </div>
+</section>
