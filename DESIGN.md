@@ -100,6 +100,7 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `StickyCta` | Barre CTA fixe en bas (mobile) — « Candidater ». `static` pour la démo |
 | `MediaText` | Photo nette d'un côté + texte (eyebrow/titre/intro) + CTA de l'autre. `reverse` pour inverser |
 | `HeroCenter` | Ouverture plein écran, contenu **centré** (titre + CTA), logo petit à gauche — direction « contemplatif » |
+| `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
 
 ---
 
