@@ -107,6 +107,8 @@ Définis en CSS vars dans `src/styles/global.css` (`:root`).
 | `MosaicGallery` | Galerie mosaïque : 1 grande image + 4 petites + CTA (compo template) |
 | `ExploreCards` | Interconnexion : 3 cartes propres (image + titre + lien) vers d'autres pages |
 | `CtaBand` | Bande CTA aplat terre, texte centré, sans photo ni calque |
+| `SplitHeading` | Titre de section asymétrique : eyebrow étroit à gauche / gros titre + accent + paragraphe à droite (compo template) |
+| `AltCardsBand` | Bande alternée : photo / carte colorée / photo / carte colorée (compo template) |
 | `Statement` | Déclaration centrée aérée (manifeste, vision) + CTA/texture optionnels |
 | `ShowcaseBand` | Grande image (le domaine) + blocs verre : taille + atouts. Contenu en bas, overlay fort |
 
