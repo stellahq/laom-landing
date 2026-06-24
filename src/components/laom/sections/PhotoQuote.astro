@@ -8,8 +8,9 @@ const { img, eyebrow, title, accent, text, bg = 'bg-[#F2EBDB]' } = Astro.props
   <div class="px-2 md:px-3 py-2 md:py-3">
     <div class="relative rounded-[2rem] overflow-hidden">
       <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-      <div class="absolute inset-0 bg-[#1D1B18]/55"></div>
-      <div class="relative text-center max-w-3xl mx-auto px-6 py-24 md:py-32">
+      <div class="absolute inset-0 bg-[#1D1B18]/60"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-[#1D1B18]/40 via-transparent to-[#1D1B18]/55"></div>
+      <div class="relative text-center max-w-3xl mx-auto px-6 py-28 md:py-40">
         {eyebrow && <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#CB7A5C] mb-4">{eyebrow}</p>}
         <h2 class="text-3xl md:text-5xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.1] text-balance">{title}{accent && <> <span class="acc-light">{accent}</span></>}</h2>
         {text && <p class="text-lg text-[#F2EBDB]/85 mt-6 max-w-xl mx-auto leading-relaxed">{text}</p>}
