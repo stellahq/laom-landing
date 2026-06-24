@@ -1,0 +1,45 @@
+---
+// Hub de liens (bio Instagram) — alternative Linktree, hébergée sur le site, à la
+// charte LAOM. Fond photo du domaine + boutons hiérarchisés (conversion en haut).
+// Mobile-first. Route /liens-labo (noindex).
+import Layout from '~/layouts/Layout.astro'
+import Logo from '~/components/laom/Logo.astro'
+
+const links = [
+  { label: 'Candidater au coliving', href: '/candidater-labo/', primary: true },
+  { label: 'Le coliving — une semaine en août', href: '/coliving-labo/' },
+  { label: 'Le lieu — 21 hectares en Aveyron', href: '/le-lieu-labo/' },
+  { label: 'Notre histoire — Charly & Amandine', href: '/notre-histoire-labo/' },
+  { label: 'Le test : ta vie est-elle alignée ?', href: '/quiz-labo/' },
+]
+---
+
+<Layout title="LAOM — tous nos liens" hideChrome={true} seo={{ noIndex: true }}>
+  <div class="relative min-h-screen flex flex-col items-center justify-center px-5 py-14">
+    <img src="/images/festival/hero.webp" alt="" class="fixed inset-0 w-full h-full object-cover" />
+    <div class="fixed inset-0 bg-[#1D1B18]/65"></div>
+    <div class="fixed inset-0 bg-gradient-to-b from-[#1D1B18]/50 via-transparent to-[#1D1B18]/70"></div>
+
+    <main class="relative w-full max-w-md text-center">
+      <a href="/accueil-labo/" class="text-[#F2EBDB] inline-block" aria-label="Accueil"><Logo height="2.4rem" /></a>
+      <p class="text-[#F2EBDB]/80 mt-4 text-sm uppercase tracking-[0.16em]">Coliving pour entrepreneurs · Sud Aveyron</p>
+      <p class="text-[#F2EBDB]/90 mt-4 leading-relaxed">Une semaine pour vivre et travailler autrement, en pleine nature.</p>
+
+      <nav class="mt-9 space-y-3.5">
+        {links.map((l) => (
+          l.primary
+            ? <a href={l.href} class="block w-full rounded-2xl bg-[#F2EBDB] text-[#412F1F] font-extrabold py-4 px-6 text-center shadow-lg hover:bg-white transition">{l.label}</a>
+            : <a href={l.href} class="block w-full rounded-2xl glass-dark text-[#F2EBDB] font-semibold py-4 px-6 text-center hover:bg-[#F2EBDB]/[0.16] transition">{l.label}</a>
+        ))}
+      </nav>
+
+      <div class="mt-9 flex items-center justify-center gap-4">
+        <a href="#" aria-label="Instagram" class="w-11 h-11 rounded-full glass-dark text-[#F2EBDB] flex items-center justify-center hover:bg-[#F2EBDB]/[0.16] transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.9.07s-3.63 0-4.9-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.46 2.21 8.84 2.2 12 2.2Zm0 1.8c-3.15 0-3.5 0-4.74.07-.9.04-1.38.19-1.7.31-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.12.32-.27.8-.31 1.7C3.43 9.13 3.42 9.5 3.42 12s0 2.87.07 4.1c.04.9.19 1.38.31 1.7.17.43.37.74.69 1.06.32.32.63.52 1.06.69.32.12.8.27 1.7.31 1.24.06 1.59.07 4.74.07s3.5 0 4.74-.07c.9-.04 1.38-.19 1.7-.31.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.12-.32.27-.8.31-1.7.06-1.23.07-1.6.07-4.1s0-2.87-.07-4.1c-.04-.9-.19-1.38-.31-1.7a2.86 2.86 0 0 0-.69-1.06 2.86 2.86 0 0 0-1.06-.69c-.32-.12-.8-.27-1.7-.31C15.5 4 15.15 4 12 4Zm0 3.06A4.94 4.94 0 1 1 12 17a4.94 4.94 0 0 1 0-9.88Zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28Zm5.13-.7a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg>
+        </a>
+      </div>
+
+      <p class="text-[#F2EBDB]/55 text-xs mt-9">La Margue · Saint-Félix-de-Sorgues · Sud Aveyron</p>
+    </main>
+  </div>
+</Layout>
