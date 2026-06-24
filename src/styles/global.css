@@ -1,8 +1,26 @@
 @import "tailwindcss";
 
+/* Police de marque officielle — Host Grotesk (self-hostée, variable + italique).
+   Déclarée globalement pour TOUTES les pages (titres Extrabold, sous-titres
+   Medium Italic, corps Regular — brandboard Lucas Provost). */
+@font-face {
+  font-family: 'Host Grotesk';
+  src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Host Grotesk';
+  src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ============================================================
-   LAOM — Nouvelle DA "Les pieds dans la terre"
-   Typo : Host Grotesk (sans) + Fraunces (serif, logo/marque)
+   LAOM — DA officielle (brandboard Lucas Provost)
+   Typo : Host Grotesk partout. Logo = wordmark SVG dessiné (aucun serif).
    Palette : beige / terre / vert / marron / noir
    Inspiration : elmut (beige chaud, photo pleine largeur, wordmark géant)
    ============================================================ */
