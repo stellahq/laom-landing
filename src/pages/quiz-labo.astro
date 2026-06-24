@@ -76,18 +76,7 @@ const profiles = [
         <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Le test · 2 minutes</p>
         <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Vis-tu vraiment le mode de vie que tu veux ?</h1>
         <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">10 questions pour savoir où tu en es, vraiment, sur les 5 piliers d’une vie d’entrepreneur alignée : cadre de vie, rythme, communauté, connexion à soi, alignement.</p>
-        <form id="q-start" class="mt-10 space-y-5" novalidate>
-          <div class="space-y-2">
-            <label for="q-prenom" class="font-semibold text-[#412F1F]">Ton prénom</label>
-            <input id="q-prenom" name="prenom" type="text" required autocomplete="given-name" class={inputCls} />
-          </div>
-          <div class="space-y-2">
-            <label for="q-email" class="font-semibold text-[#412F1F]">Ton email</label>
-            <input id="q-email" name="email" type="email" required autocomplete="email" class={inputCls} />
-            <p class="text-sm text-[#1D1B18]/55">On t’envoie ton résultat détaillé par email.</p>
-          </div>
-          <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Je fais le test</button>
-        </form>
+        <button type="button" id="q-begin" class="pill pill-primary w-full sm:w-auto justify-center mt-10" style="padding:.95rem 2.4rem">Je fais le test</button>
       </section>
 
       <!-- QUIZ -->
@@ -113,6 +102,28 @@ const profiles = [
         ))}
       </section>
 
+      <!-- COORDONNÉES (juste avant le résultat) -->
+      <section id="q-gate" hidden>
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Presque fini</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Ton résultat est prêt.</h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">Laisse-nous ton prénom et ton email : on t’envoie ton profil détaillé, et tu le découvres juste après.</p>
+        <form id="q-gateform" class="mt-10 space-y-5" novalidate>
+          <div class="space-y-2">
+            <label for="q-prenom" class="font-semibold text-[#412F1F]">Ton prénom</label>
+            <input id="q-prenom" name="prenom" type="text" required autocomplete="given-name" class={inputCls} />
+          </div>
+          <div class="space-y-2">
+            <label for="q-email" class="font-semibold text-[#412F1F]">Ton email</label>
+            <input id="q-email" name="email" type="email" required autocomplete="email" class={inputCls} />
+          </div>
+          <label class="flex items-start gap-3 text-sm text-[#1D1B18]/70">
+            <input type="checkbox" name="rgpd" required class="mt-1 accent-[#9A3922] w-4 h-4 shrink-0" />
+            <span>J’accepte de recevoir mon résultat et des informations sur LAOM. Je peux me désinscrire à tout moment.</span>
+          </label>
+          <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Voir mon résultat</button>
+        </form>
+      </section>
+
       <!-- RÉSULTAT -->
       <section id="q-result" hidden></section>
     </main>
@@ -122,6 +133,7 @@ const profiles = [
 <script define:vars={{ piliers, profiles }}>
   const intro = document.getElementById('q-intro')
   const quiz = document.getElementById('q-quiz')
+  const gate = document.getElementById('q-gate')
   const result = document.getElementById('q-result')
   const steps = [...document.querySelectorAll('.q-step')]
   const progress = document.getElementById('q-progress')
@@ -139,15 +151,25 @@ const profiles = [
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  document.getElementById('q-start').addEventListener('submit', (e) => {
+  document.getElementById('q-begin').addEventListener('click', () => {
+    intro.hidden = true
+    quiz.hidden = false
+    show(0)
+  })
+
+  const showGate = () => {
+    quiz.hidden = true
+    gate.hidden = false
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  document.getElementById('q-gateform').addEventListener('submit', (e) => {
     e.preventDefault()
     const f = e.target
     if (!f.checkValidity()) { f.reportValidity(); return }
     lead.prenom = f.prenom.value.trim().split(' ')[0]
     lead.email = f.email.value.trim()
-    intro.hidden = true
-    quiz.hidden = false
-    show(0)
+    finish()
   })
 
   steps.forEach((step, i) => {
@@ -155,7 +177,7 @@ const profiles = [
       btn.addEventListener('click', () => {
         answers[i] = parseInt(btn.dataset.points, 10)
         if (i < total - 1) show(i + 1)
-        else finish()
+        else showGate()
       })
     })
     const back = step.querySelector('.q-back')
@@ -199,7 +221,7 @@ const profiles = [
       </div>
       <p class="text-sm text-[#1D1B18]/55 mt-6">Ton résultat détaillé t’a aussi été envoyé par email.</p>`
 
-    quiz.hidden = true
+    gate.hidden = true
     result.hidden = false
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
