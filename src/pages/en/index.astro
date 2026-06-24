@@ -137,7 +137,6 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
           </div>
           <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <a href={getLocalizedPath('/project/', lang)} class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">{t.home.heroLinkProject}</a>
-            <a href={getLocalizedPath('/stage-danse/', lang)} class="text-[#2C2824]/60 hover:text-[#C4A855] transition-colors underline underline-offset-4">{t.home.heroLinkRetreat}</a>
           </div>
         </div>
       </div>
@@ -202,27 +201,6 @@ const spaces = t.home.ourSpaces.items.map((item, i) => ({ ...item, image: spaceI
         </h2>
       </div>
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-        <a href={getLocalizedPath('/stage-danse/', lang)} class="group block opacity-0" animate-fade-in-up>
-          <div class="aspect-[4/5] bg-neutral-100 overflow-hidden rounded-sm mb-6">
-            <img
-              src="/images/laom/samuel-planas.webp"
-              alt="Samuel Planas, En Mouvement, body immersion at LAOM"
-              title="Samuel Planas guiding the En Mouvement immersion"
-              class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
-              loading="lazy"
-            />
-          </div>
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-3">{t.home.enMouvementTag}</p>
-          <h3 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] mb-3 group-hover:text-[#C4A855] transition-colors">
-            {t.home.enMouvementCard.title}
-          </h3>
-          <p class="text-base font-light text-[#2C2824]/70 leading-relaxed mb-4">
-            {t.home.enMouvementCard.description}
-          </p>
-          <p class="text-sm font-light text-[#2C2824]/50">
-            {t.home.enMouvementCard.date}
-          </p>
-        </a>
         <a href="/clarte/" class="group block opacity-0" animate-fade-in-up style="animation-delay: 100ms">
           <div class="aspect-[4/5] overflow-hidden rounded-sm mb-6 relative">
             <img

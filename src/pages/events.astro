@@ -23,12 +23,10 @@ const eventImages = [
   '/images/event-rencontre-perspective.webp',                                  // 4  Festival Perspective
   '/images/laom/partenaires/fyneo-logo-F-vert-texte-vert-copie.webp',         // 5  Rencontre Fyneo #1
   '/images/laom/tipis.webp',                                                   // 6  Séjour Chillworking #1
-  '/images/laom/petit-shambala-exterieur.webp',                                // 7  Rencontre Forum Éco-construction
-  '/images/laom/les-enfants-sauvages-15.webp',                                 // 8  Family Camp 1
+  '/images/laom/les-enfants-sauvages-15.webp',                                 // 7  Family Camp 1
   '/images/laom/partenaires/summer-camp-amawe-partenaire-LAOM.webp',          // 9  Summer Camp Amawé
-  '/images/laom/partenaires/Aime-Etre-retraite-partenaire-LAOM.webp',        // 10 Aime-Être
-  '/images/laom/samuel-planas.webp',                                           // 11 En Mouvement
-  '/images/laom/tipis.webp',                                                   // 12 Séjour Chillworking #2
+  '/images/laom/partenaires/Aime-Etre-retraite-partenaire-LAOM.webp',        // 9  Aime-Être
+  '/images/laom/tipis.webp',                                                   // 10 Séjour Chillworking #2
   '/images/laom/les-enfants-sauvages-15.webp',                                 // 13 Family Camp 2
   '/images/laom/partenaires/Stage-guerison-blessures-partenaire-LAOM.webp',   // 14 Guérison des Blessures
 ]
@@ -38,7 +36,6 @@ const events = t.events.items.map((item, index) => ({
 }))
 
 // Sessions En Mouvement
-const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
 
 // Immersions LAOM
 //
@@ -72,24 +69,6 @@ const weekendsLaom = [
     animateur: 'Équipe LAOM',
     href: '/chillworking',
     image: '/images/laom/tipis.webp',
-  },
-  {
-    title: 'Rencontre Forum Éco-construction',
-    date: '3-5 juillet 2026',
-    description: 'Un week-end pour échanger avec des professionnels de l\'éco-construction : auto-constructeurs, projets de lieux d\'accueil innovants, habitats collectifs.',
-    price: '150 €',
-    animateur: 'Charly Aubert',
-    href: '/forum-eco-construction',
-    image: '/images/laom/laom-batiment-paille-hero.jpeg',
-  },
-  {
-    title: 'En Mouvement',
-    date: '5-9 août 2026',
-    description: '5 jours d\'immersion par la danse et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Ouvert à tous, aucune expérience requise.',
-    price: '1 100 €',
-    animateur: 'Samuel Planas & Charly Aubert',
-    href: '/stage-danse',
-    image: '/images/laom/samuel-planas.webp',
   },
 ]
 

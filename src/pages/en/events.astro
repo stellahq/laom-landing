@@ -33,7 +33,6 @@ const events = t.events.items.map((item, index) => ({
   image: eventImages[index] || '/images/david-lin-fyneo.webp',
 }))
 
-const emSessions = t.pages.eventsPage.enMouvementBlock.sessions
 const laomfestImages = [
   'vanlifest-IMG_1021',
   'vanlifest-IMG_1373',
@@ -72,54 +71,6 @@ const laomfestImages = [
       <p class="text-lg md:text-xl font-light text-white/85 max-w-2xl mx-auto leading-relaxed">
         {t.pages.eventsPage.heroSubtitle}
       </p>
-    </div>
-  </section>
-
-  <!-- En Mouvement, signature immersion -->
-  <section class="py-24 md:py-32 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
-
-        <!-- Image Samuel -->
-        <div class="w-full lg:w-[400px] flex-shrink-0">
-          <a href="/en/stage-danse/" class="block group">
-            <div class="aspect-[3/4] overflow-hidden rounded-sm">
-              <img
-                src="/images/laom/samuel-planas.webp"
-                alt="Samuel Planas, En Mouvement"
-                class="w-full h-full object-cover object-top rounded-sm group-hover:scale-[1.02] transition-transform duration-500"
-                loading="lazy"
-              />
-            </div>
-          </a>
-        </div>
-
-        <!-- Content -->
-        <div class="flex-1">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-[#8B7A3A] mb-4">{t.pages.eventsPage.enMouvementBlock.label}</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-medium text-[#2C2824] tracking-tight mb-4">{t.pages.eventsPage.enMouvementBlock.title}</h2>
-          <p class="text-lg font-light text-[#2C2824]/70 leading-relaxed mb-8">
-            {t.pages.eventsPage.enMouvementBlock.description}
-          </p>
-
-          <!-- Sessions -->
-          <div class="space-y-3 mb-10">
-            {emSessions.map((s) => (
-              <div class="flex justify-between items-center py-3 border-b border-black/5">
-                <span class="text-sm font-light text-[#2C2824]/50">{s.label}</span>
-                <span class="font-playfair text-base text-[#2C2824]">{s.date} 2026</span>
-              </div>
-            ))}
-          </div>
-
-          <a
-            href="/en/stage-danse/"
-            class="inline-flex items-center justify-center rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
-          >
-            {t.pages.eventsPage.enMouvementBlock.cta}
-          </a>
-        </div>
-      </div>
     </div>
   </section>
 
