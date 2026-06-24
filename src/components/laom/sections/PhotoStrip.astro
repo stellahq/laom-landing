@@ -1,6 +1,6 @@
 ---
-// PhotoStrip — bande de 2 à 4 photos alignées (rounded + zoom au survol), légendes
-// optionnelles. Pour enrichir une section récit de plusieurs visuels.
+// PhotoStrip — bande de 2 à 4 cartes photo immersives : photo plein cadre +
+// dégradé + légende intégrée (même box que le carrousel des espaces). Designé.
 interface Item { img: string; alt?: string; caption?: string }
 interface Props { items: Item[]; bg?: string }
 const { items, bg = 'bg-[#F2EBDB]' } = Astro.props
@@ -10,11 +10,17 @@ const cols = items.length === 2 ? 'sm:grid-cols-2' : items.length >= 4 ? 'sm:gri
   <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
     <div class:list={['grid grid-cols-1 gap-4 md:gap-5', cols]}>
       {items.map((it) => (
-        <figure class="lift">
-          <div class="rounded-2xl overflow-hidden imgzoom aspect-[4/3]">
+        <figure class="relative rounded-2xl overflow-hidden lift group">
+          <div class="aspect-[4/3] imgzoom">
             <img src={it.img} alt={it.alt ?? ''} loading="lazy" class="w-full h-full object-cover" />
           </div>
-          {it.caption && <figcaption class="text-sm text-[#1D1B18]/60 mt-3 px-1">{it.caption}</figcaption>}
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/80 via-[#1D1B18]/10 to-transparent"></div>
+          {it.caption && (
+            <figcaption class="absolute bottom-0 left-0 right-0 p-5 md:p-6 flex items-center gap-2.5">
+              <span class="h-px w-6 bg-[#CB7A5C] shrink-0"></span>
+              <span class="text-[#F2EBDB] font-extrabold text-lg leading-tight">{it.caption}</span>
+            </figcaption>
+          )}
         </figure>
       ))}
     </div>
