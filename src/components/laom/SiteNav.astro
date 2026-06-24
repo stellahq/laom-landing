@@ -104,7 +104,8 @@ const isActive = (href: string) => href === path || href + '/' === path || href 
   .site-nav--over .snav-cta { background: #F2EBDB; color: #412F1F; }
   .site-nav--over.is-scrolled .snav-cta,
   .site-nav--solid .snav-cta { background: #9A3922; color: #F2EBDB; }
-  .snav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(65, 47, 31, .35); }
+  .snav-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px rgba(65, 47, 31, .42); }
+  .snav-cta:active { transform: translateY(0); }
 
   @media (prefers-reduced-motion: reduce) {
     .site-nav, .snav-row, .snav-logo, .snav-link, .snav-link::after, .snav-cta { transition: none; }
