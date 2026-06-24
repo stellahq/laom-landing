@@ -1,0 +1,206 @@
+---
+// Quiz lead magnet — "Vis-tu vraiment le mode de vie que tu veux ?"
+// Natif, hébergé sur le site. Entrée (prénom + email) -> wizard 10 questions
+// (5 piliers) -> calcul score /30 -> profil + score par pilier + CTA coliving.
+// Contenu du livrable Quiz-Lead-Magnet-LAOM. Épuré (logo seul). Route /quiz-labo.
+// NB : capture lead + email de résultat (Brevo) = backend à brancher.
+import Layout from '~/layouts/Layout.astro'
+import Logo from '~/components/laom/Logo.astro'
+
+const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/40 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
+
+const piliers = ['Cadre de vie', 'Rythme', 'Communauté', 'Connexion à soi', 'Alignement vie / activité']
+
+const questions = [
+  { q: 'Ton environnement de travail au quotidien, il te ressemble ?', options: [
+    { t: 'Oui, j’ai choisi mon cadre et il me nourrit chaque jour', p: 3 },
+    { t: 'C’est correct mais ça ne m’inspire plus, je fais avec', p: 2 },
+    { t: 'Non, je subis mon environnement, c’est un bureau par défaut', p: 1 } ] },
+  { q: 'Quand tu imagines ton cadre de vie idéal, tu en es où ?', options: [
+    { t: 'J’y suis déjà ou j’en suis très proche', p: 3 },
+    { t: 'Je sais ce que je veux mais j’ai pas encore bougé', p: 2 },
+    { t: 'J’y ai jamais vraiment réfléchi, j’ai la tête dans le guidon', p: 1 } ] },
+  { q: 'Ton rythme de travail, il est soutenable ?', options: [
+    { t: 'Oui, j’ai trouvé mon équilibre entre intensité et récupération', p: 3 },
+    { t: 'Ça va par phases, des semaines je gère, d’autres je sature', p: 2 },
+    { t: 'Non, je suis en surrégime et je sais que ça tiendra pas', p: 1 } ] },
+  { q: 'Tu arrives à couper vraiment ?', options: [
+    { t: 'Oui, quand je déconnecte, je déconnecte pour de vrai', p: 3 },
+    { t: 'J’essaie mais mon cerveau tourne en fond en permanence', p: 2 },
+    { t: 'Non, je suis toujours branché, même en vacances', p: 1 } ] },
+  { q: 'Tu es entouré·e de gens qui comprennent ta réalité d’entrepreneur ?', options: [
+    { t: 'Oui, j’ai un cercle de pairs avec qui j’échange régulièrement', p: 3 },
+    { t: 'J’ai quelques personnes mais c’est pas un vrai cercle', p: 2 },
+    { t: 'Non, je suis assez seul·e, personne ne comprend vraiment', p: 1 } ] },
+  { q: 'Tu te nourris d’échanges avec d’autres entrepreneurs ?', options: [
+    { t: 'Oui, c’est essentiel pour moi et je le fais activement', p: 3 },
+    { t: 'J’aimerais mais j’ai pas trouvé le bon format ou les bonnes personnes', p: 2 },
+    { t: 'J’y pense même pas, j’ai pas le temps ou l’occasion', p: 1 } ] },
+  { q: 'Tu sais pourquoi tu fais ce que tu fais ?', options: [
+    { t: 'Oui, ma direction est claire et elle me porte au quotidien', p: 3 },
+    { t: 'J’avais la réponse mais je l’ai perdue en route', p: 2 },
+    { t: 'Honnêtement, je sais plus trop, j’avance par inertie', p: 1 } ] },
+  { q: 'Tu prends du temps pour toi, hors travail, hors logistique ?', options: [
+    { t: 'Oui, j’ai des rituels et des moments qui m’appartiennent', p: 3 },
+    { t: 'De temps en temps, mais c’est la première chose qui saute', p: 2 },
+    { t: 'Non, tout tourne autour du boulot et du quotidien', p: 1 } ] },
+  { q: 'Ton activité te permet de vivre comme tu veux ?', options: [
+    { t: 'Oui, mon business est au service de ma vie, pas l’inverse', p: 3 },
+    { t: 'Pas encore, mais j’y travaille', p: 2 },
+    { t: 'Non, c’est ma vie qui s’est pliée à mon business', p: 1 } ] },
+  { q: 'Si tu pouvais tout redesigner demain, tu changerais quoi en premier ?', options: [
+    { t: 'Presque rien, je suis proche de ce que je veux', p: 3 },
+    { t: 'Mon cadre de vie ou mon rythme, le fond est bon mais la forme me pèse', p: 2 },
+    { t: 'Beaucoup de choses, j’ai construit un truc qui ne me ressemble plus', p: 1 } ] },
+]
+
+const profiles = [
+  { min: 26, key: 'Aligné', title: 'Tu vis déjà ce que la plupart cherchent.', text: 'Ton mode de vie et ton activité sont cohérents. Tu as fait des choix que beaucoup n’osent pas faire, et ça se voit dans tes réponses. Ce qui pourrait faire la différence maintenant, c’est de t’entourer de pairs qui vivent la même chose — pas pour apprendre, mais pour partager un cadre avec des gens qui comprennent ta réalité.' },
+  { min: 20, key: 'En chemin', title: 'Le fond est bon. C’est le cadre qui manque.', text: 'Tu sais ce que tu veux, tu as construit quelque chose qui a de la valeur. Mais ton quotidien ne reflète pas encore complètement la vie que tu vises. C’est souvent une question d’environnement : on finit par ressembler au cadre dans lequel on évolue. Change le cadre, même une semaine, et tout se recalibre.' },
+  { min: 14, key: 'En décalage', title: 'Tu as construit quelque chose. Mais ça ne te ressemble plus.', text: 'T’as bossé dur pour en arriver là. Et pourtant, quelque chose coince : ton cadre, ton rythme, ton entourage pro ne sont plus alignés avec ce que tu veux vraiment vivre. C’est pas un problème de motivation, c’est un problème d’environnement. Tu as besoin de prendre du recul, dans un cadre qui te permet de voir clair.' },
+  { min: 10, key: 'En rupture', title: 'Le signal est clair. Quelque chose doit changer.', text: 'Ton activité a pris le dessus sur tout le reste : le cadre, le rythme, l’entourage, la connexion à ce qui t’anime. C’est pas une fatalité, c’est un signal — et le fait que tu aies fait ce quiz, c’est déjà le premier pas. Ce qu’il te faut, c’est pas un conseil. C’est un cadre différent.' },
+]
+---
+
+<Layout title="Quiz — Vis-tu vraiment le mode de vie que tu veux ? · LAOM" hideChrome={true} seo={{ noIndex: true }}>
+  <div class="min-h-screen bg-[#FBF6EA] flex flex-col">
+
+    <header class="px-6 md:px-10 lg:px-14 py-6 border-b border-[#412F1F]/10">
+      <a href="/accueil-labo/" class="text-[#9A3922] inline-block" aria-label="Retour à l’accueil"><Logo height="1.7rem" /></a>
+    </header>
+
+    <main class="flex-1 w-full max-w-2xl mx-auto px-6 py-14 md:py-20">
+
+      <!-- ENTRÉE -->
+      <section id="q-intro">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Le test · 2 minutes</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Vis-tu vraiment le mode de vie que tu veux ?</h1>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">10 questions pour savoir où tu en es, vraiment, sur les 5 piliers d’une vie d’entrepreneur alignée : cadre de vie, rythme, communauté, connexion à soi, alignement.</p>
+        <form id="q-start" class="mt-10 space-y-5" novalidate>
+          <div class="space-y-2">
+            <label for="q-prenom" class="font-semibold text-[#412F1F]">Ton prénom</label>
+            <input id="q-prenom" name="prenom" type="text" required autocomplete="given-name" class={inputCls} />
+          </div>
+          <div class="space-y-2">
+            <label for="q-email" class="font-semibold text-[#412F1F]">Ton email</label>
+            <input id="q-email" name="email" type="email" required autocomplete="email" class={inputCls} />
+            <p class="text-sm text-[#1D1B18]/55">On t’envoie ton résultat détaillé par email.</p>
+          </div>
+          <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Je fais le test</button>
+        </form>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="q-quiz" hidden>
+        <div class="flex items-center gap-4 mb-10">
+          <div class="flex-1 h-1.5 rounded-full bg-[#412F1F]/10 overflow-hidden">
+            <div id="q-progress" class="h-full bg-[#9A3922] rounded-full transition-all duration-300" style="width:10%"></div>
+          </div>
+          <span id="q-count" class="text-sm font-semibold text-[#412F1F]/60 tabular-nums">1 / 10</span>
+        </div>
+
+        {questions.map((qq, i) => (
+          <div class="q-step" data-step={i} hidden>
+            <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#CB7A5C] mb-3">{piliers[Math.floor(i / 2)]}</p>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-[#412F1F] leading-snug text-balance">{qq.q}</h2>
+            <div class="grid gap-3 mt-8">
+              {qq.options.map((o) => (
+                <button type="button" class="q-opt text-left rounded-xl border border-[#412F1F]/15 bg-white px-5 py-4 text-[#412F1F] hover:border-[#9A3922] hover:bg-[#9A3922]/[0.04] transition" data-points={o.p}>{o.t}</button>
+              ))}
+            </div>
+            {i > 0 && <button type="button" class="q-back mt-8 text-sm text-[#1D1B18]/55 hover:text-[#9A3922] inline-flex items-center gap-1.5 transition"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>Question précédente</button>}
+          </div>
+        ))}
+      </section>
+
+      <!-- RÉSULTAT -->
+      <section id="q-result" hidden></section>
+    </main>
+  </div>
+</Layout>
+
+<script define:vars={{ piliers, profiles }}>
+  const intro = document.getElementById('q-intro')
+  const quiz = document.getElementById('q-quiz')
+  const result = document.getElementById('q-result')
+  const steps = [...document.querySelectorAll('.q-step')]
+  const progress = document.getElementById('q-progress')
+  const count = document.getElementById('q-count')
+  const total = steps.length
+  const answers = new Array(total).fill(0)
+  let cur = 0
+  let lead = { prenom: '', email: '' }
+
+  const show = (i) => {
+    steps.forEach((s, k) => (s.hidden = k !== i))
+    progress.style.width = ((i + 1) / total) * 100 + '%'
+    count.textContent = (i + 1) + ' / ' + total
+    cur = i
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  document.getElementById('q-start').addEventListener('submit', (e) => {
+    e.preventDefault()
+    const f = e.target
+    if (!f.checkValidity()) { f.reportValidity(); return }
+    lead.prenom = f.prenom.value.trim().split(' ')[0]
+    lead.email = f.email.value.trim()
+    intro.hidden = true
+    quiz.hidden = false
+    show(0)
+  })
+
+  steps.forEach((step, i) => {
+    step.querySelectorAll('.q-opt').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        answers[i] = parseInt(btn.dataset.points, 10)
+        if (i < total - 1) show(i + 1)
+        else finish()
+      })
+    })
+    const back = step.querySelector('.q-back')
+    if (back) back.addEventListener('click', () => show(i - 1))
+  })
+
+  const finish = () => {
+    const pillarScores = [0, 1, 2, 3, 4].map((p) => answers[p * 2] + answers[p * 2 + 1])
+    const global = answers.reduce((a, b) => a + b, 0)
+    const profile = profiles.find((pr) => global >= pr.min) || profiles[profiles.length - 1]
+    // TODO backend : enregistrer le lead (prénom, email, réponses, scores, profil) + envoyer l'email de résultat (Brevo) + ajout newsletter.
+    const bars = pillarScores.map((s, k) => `
+      <div>
+        <div class="flex justify-between text-sm mb-1.5">
+          <span class="text-[#412F1F] font-medium">${piliers[k]}</span>
+          <span class="text-[#1D1B18]/55 tabular-nums">${s}/6</span>
+        </div>
+        <div class="h-2 rounded-full bg-[#412F1F]/10 overflow-hidden">
+          <div class="h-full rounded-full bg-[#9A3922]" style="width:${(s / 6) * 100}%"></div>
+        </div>
+      </div>`).join('')
+
+    result.innerHTML = `
+      <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Ton résultat${lead.prenom ? ', ' + lead.prenom : ''}</p>
+      <div class="flex items-baseline gap-3 mb-3">
+        <span class="text-5xl md:text-6xl font-extrabold text-[#9A3922] leading-none">${global}<span class="text-2xl text-[#1D1B18]/40">/30</span></span>
+        <span class="text-lg font-extrabold text-[#412F1F]">${profile.key}</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">${profile.title}</h1>
+      <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">${profile.text}</p>
+      <div class="mt-10 space-y-4 rounded-2xl bg-white border border-[#412F1F]/10 p-6 md:p-8">
+        <p class="font-semibold text-[#412F1F] mb-2">Le détail par pilier</p>
+        ${bars}
+      </div>
+      <div class="mt-10 rounded-2xl bg-[#412F1F] text-[#F2EBDB] p-7 md:p-9">
+        <p class="text-lg leading-relaxed">LAOM, c’est une semaine entre entrepreneurs qui vivent la même chose que toi. 12 places, tout inclus, en pleine nature dans le sud de l’Aveyron.</p>
+        <div class="flex flex-wrap gap-4 items-center mt-7">
+          <a href="/coliving-labo/" class="pill pill-light" style="padding:.85rem 1.8rem">Découvrir le coliving</a>
+          <a href="/candidater-labo/" class="text-[#F2EBDB]/85 underline underline-offset-4 hover:text-[#F2EBDB] transition text-sm">ou candidater directement</a>
+        </div>
+      </div>
+      <p class="text-sm text-[#1D1B18]/55 mt-6">Ton résultat détaillé t’a aussi été envoyé par email.</p>`
+
+    quiz.hidden = true
+    result.hidden = false
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+</script>
