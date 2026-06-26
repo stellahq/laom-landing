@@ -1,0 +1,268 @@
+---
+// PAGE DE VENTE — Variant B (test design/format). S'inspire des TECHNIQUES de
+// La Pioche / Le Charbon (hero preuve-first + visages, douleurs nommées, bande de
+// stats, crédibilité par le lieu, qualification binaire sur photo sombre, densité
+// de CTA), mais en CHARTE LAOM (terre/marron/beige, Host Grotesk, nos photos) et
+// posture LAOM (pas de sur-promesse). Lead-gen : tout converge vers "Postuler".
+// Route isolée /coliving-aout-labo-b (noindex). À comparer avec /coliving-aout-labo.
+import Layout from '~/layouts/Layout.astro'
+import SiteNav from '~/components/laom/SiteNav.astro'
+import Timeline from '~/components/laom/sections/Timeline.astro'
+import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import TestimonialsSection from '~/components/laom/sections/TestimonialsSection.astro'
+import Faq from '~/components/laom/sections/Faq.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const L = (n: string) => `/images/laom/${n}.webp`
+const POSTULER = '/candidater-labo/'
+
+// Témoignages PLACEHOLDER — à remplacer par les vrais avis (Google + alumni juin).
+const temoins = [
+  { quote: 'En une semaine, j’ai pris des décisions que je repoussais depuis six mois.', name: 'Thomas', role: 'Coach indépendant · Lyon' },
+  { quote: 'Venue pour souffler, repartie avec trois personnes que je vois encore.', name: 'Mathilde', role: 'Studio de design · Bordeaux' },
+  { quote: 'J’avais peur de décrocher de mes clients. J’ai bossé chaque matin, et le reste m’a remis d’aplomb.', name: 'Sofiane', role: 'Consultant · Paris' },
+  { quote: 'Le cadre fait le travail. Tu n’as rien à forcer, ça vient.', name: 'Inès', role: 'Naturopathe · Toulouse' },
+]
+const initiales = (n: string) => n.trim().slice(0, 1).toUpperCase()
+
+const stats = [
+  { v: '21 ha', l: 'de nature préservée' },
+  { v: '12', l: 'places par semaine' },
+  { v: '3', l: 'éditions en août' },
+  { v: '1h30', l: 'de Montpellier' },
+]
+const pains = [
+  { t: 'La solitude du fondateur', lead: 'Tu portes tout, seul.', body: 'Les décisions, les doutes, la pression. Autour de toi, personne ne comprend vraiment ta réalité. Tes proches voient « un truc qui marche ». Toi, tu vois tout ce qu’il y a derrière.', img: L('coworking-echange') },
+  { t: 'Le rythme qui t’épuise', lead: 'Tu te dis que tu ralentiras plus tard.', body: 'Tu repousses le sport, tu manges vite, tu dors moyen. Le téléphone ne s’éteint jamais vraiment. Et plus tard, ça n’arrive jamais.', img: L('atelier-presentation') },
+  { t: 'Le cadre qui t’éteint', lead: 'Les mêmes murs, le même bureau.', body: 'Ton décor ne te porte plus, il te vide. Tu crées dans un environnement qui n’a rien à voir avec la vie que tu voulais en te lançant.', img: L('coworking-coussins') },
+]
+---
+
+<Layout title="Coliving entrepreneurs · Août 2026 (B) · LAOM" hideChrome={true} seo={{ noIndex: true }}>
+
+  <!-- ① HERO — bold, preuve-first -->
+  <section class="relative overflow-hidden text-[#F2EBDB]" style="background:linear-gradient(135deg,#2A1E14 0%,#7c2f1d 55%,#9A3922 100%)">
+    <SiteNav transparent={true} links={[]} ctaText="Postuler" ctaHref={POSTULER} />
+    <div class="relative max-w-4xl mx-auto px-6 text-center pt-36 md:pt-44 pb-14">
+      <span class="inline-block rounded-full bg-[#F2EBDB]/12 border border-[#F2EBDB]/15 px-5 py-2 text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-[#F2EBDB]/90 mb-9">Coliving entrepreneurs · 3 éditions · Août 2026</span>
+      <h1 class="font-extrabold text-[#F2EBDB] text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-[-0.03em] text-balance">Cette semaine, ton bureau, <span class="italic font-medium text-[#E7C89A]">c’est 21 hectares de nature.</span></h1>
+      <p class="text-lg md:text-xl text-[#F2EBDB]/80 mt-7 max-w-2xl mx-auto leading-relaxed">Six jours dans le sud de l’Aveyron, avec onze entrepreneurs qui te ressemblent. Tu continues de bosser, mais dans un cadre qui te nourrit au lieu de t’épuiser.</p>
+      <a href={POSTULER} class="pill pill-light mt-10" style="padding:1rem 2.6rem">Postuler pour août 2026</a>
+      <p class="text-xs tracking-[0.12em] uppercase text-[#F2EBDB]/55 mt-5">Candidature en 2 minutes · sans engagement</p>
+    </div>
+    <!-- bandeau de visages témoins -->
+    <div class="relative max-w-7xl mx-auto px-6 pb-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        {temoins.map((t) => (
+          <figure class="rounded-2xl bg-[#F2EBDB]/8 border border-[#F2EBDB]/12 backdrop-blur-sm p-5 text-left">
+            <blockquote class="text-sm text-[#F2EBDB]/90 leading-relaxed">“{t.quote}”</blockquote>
+            <figcaption class="flex items-center gap-3 mt-4">
+              <span class="w-9 h-9 rounded-full bg-[#F2EBDB] text-[#9A3922] grid place-items-center text-sm font-bold shrink-0">{initiales(t.name)}</span>
+              <span class="text-xs text-[#F2EBDB]/70 leading-tight">{t.name}<br />{t.role}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ② BANDE DE STATS -->
+  <section class="bg-[#FBF6EA] py-16 md:py-20 border-b border-[#412F1F]/8">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
+      {stats.map((s) => (
+        <div class="text-center">
+          <p class="font-extrabold text-[#9A3922] text-4xl md:text-5xl leading-none mb-2">{s.v}</p>
+          <p class="text-sm text-[#1D1B18]/60">{s.l}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ③ LE CONSTAT — douleurs nommées -->
+  <section animate-fade-in-up class="opacity-0 bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-16 items-start">
+      <div class="lg:pt-4">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Le constat</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">On connaît <span class="acc">cette situation.</span></h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed max-w-md">Parce qu’on l’a vue des dizaines de fois. Chez les entrepreneurs qui viennent à LAOM, trois choses reviennent presque à chaque fois.</p>
+        <a href={POSTULER} class="pill pill-primary mt-9" style="padding:.9rem 2.2rem">Postuler pour août 2026</a>
+      </div>
+      <div class="space-y-5">
+        {pains.map((p) => (
+          <div class="rounded-3xl bg-[#9A3922] text-[#F2EBDB] p-7 md:p-8 flex gap-6 items-start">
+            <img src={p.img} alt="" loading="lazy" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl object-cover shrink-0" />
+            <div>
+              <h3 class="text-xl md:text-2xl font-extrabold text-[#F2EBDB] leading-tight mb-2">{p.t}</h3>
+              <p class="font-semibold text-[#F2EBDB] mb-1.5">{p.lead}</p>
+              <p class="text-sm text-[#F2EBDB]/80 leading-relaxed">{p.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ CRÉDIBILITÉ — le lieu existe -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="imgzoom rounded-3xl overflow-hidden aspect-[4/3] order-2 lg:order-1">
+        <img src="/images/vue-aeriene-laom2-hero.webp" alt="Le domaine LAOM, 21 hectares en sud Aveyron" loading="lazy" class="w-full h-full object-cover" />
+      </div>
+      <div class="order-1 lg:order-2">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Ce n’est pas un concept</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.06] text-balance">Un lieu qui <span class="acc">existe vraiment.</span></h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed max-w-xl">Charly et Amandine ont acheté vingt-et-un hectares dans le sud de l’Aveyron et passé des années à bâtir, de leurs mains, un vrai lieu de vie. Des événements y sont organisés depuis plusieurs années, des résidents y vivent déjà à l’année. Le coliving d’août, c’est l’ouverture de ce mode de vie à douze entrepreneurs par semaine.</p>
+        <div class="grid grid-cols-3 gap-4 mt-9">
+          {[{v:'21 ha',l:'de domaine'},{v:'Plusieurs',l:'années de vie sur place'},{v:'Résidents',l:'à l’année'}].map((c) => (
+            <div class="rounded-2xl border border-[#412F1F]/12 p-5 text-center">
+              <p class="font-extrabold text-[#9A3922] text-xl md:text-2xl leading-tight mb-1">{c.v}</p>
+              <p class="text-xs text-[#1D1B18]/55 leading-snug">{c.l}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ UNE JOURNÉE -->
+  <div animate-fade-in-up class="opacity-0">
+    <Timeline bg="bg-[#F2EBDB]"
+      eyebrow="Une journée type"
+      title="Du premier souffle" accent="à la dernière étoile."
+      items={[
+        { time: '7h30', label: 'Réveil en pleine nature' },
+        { time: '8h00', label: 'Pratique du matin : yoga, mouvement ou marche' },
+        { time: '9h00', label: 'Petit-déjeuner du potager, face à la vallée' },
+        { time: '9h30 – 13h', label: 'Travail au calme, wifi fibre' },
+        { time: '13h00', label: 'Déjeuner à la grande table' },
+        { time: '14h – 17h', label: 'Au choix : avancer, rivière, atelier, sieste' },
+        { time: '19h30', label: 'Dîner fait maison' },
+        { time: '21h00', label: 'Feu, soirée, voie lactée' },
+      ]}
+      note="Rien n’est obligatoire. Tout est proposé. Tu fais ta semaine à ton rythme." />
+  </div>
+
+  <!-- ⑥ LE LIEU -->
+  <div animate-fade-in-up class="opacity-0">
+    <MosaicGallery bg="bg-[#FBF6EA]"
+      eyebrow="Le lieu"
+      title="Vingt-et-un hectares," accent="et plus rien autour."
+      intro="Un ancien domaine agricole à 1h30 de Montpellier. Des tipis dans l’herbe, une rivière où se baigner, un potager qui nourrit la table. Et la nuit, un ciel sans pollution lumineuse où la voie lactée se voit à l’œil nu."
+      images={[
+        { src: '/images/vue-aeriene-laom2-hero.webp', alt: 'Vue aérienne du domaine LAOM' },
+        { src: L('tipis'), alt: 'Les tipis de LAOM' },
+        { src: L('riviere-laom'), alt: 'La rivière du domaine' },
+        { src: L('potager-rangs'), alt: 'Le potager de LAOM' },
+        { src: L('diner-golden-hour-laom'), alt: 'Dîner en communauté à LAOM' },
+      ]}
+      ctaText="Postuler pour août 2026" ctaHref={POSTULER} />
+  </div>
+
+  <!-- ⑦ TRAVAILLER AUTREMENT -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" img={L('coworking-duo-table')} alt="Entrepreneurs au travail à LAOM, face à la vallée"
+      eyebrow="Le travail"
+      title="Ton activité ne s’arrête pas." accent="Elle respire."
+      text="Ici, tu travailles. Le Shala est un vrai espace de coworking, wifi fibre, au calme, la vallée pour fond d’écran. Tu prends tes calls, tu avances tes projets. La seule différence, c’est qu’entre deux sessions tu plonges dans la rivière au lieu de scroller. Tu ne perds pas une semaine de business. Tu en gagnes la clarté pour les six mois qui suivent." />
+  </div>
+
+  <!-- ⑧ TÉMOIGNAGES (placeholder à remplacer) -->
+  <div animate-fade-in-up class="opacity-0">
+    <TestimonialsSection bg="bg-[#FBF6EA]"
+      eyebrow="Ils l’ont vécu"
+      title="Ce qu’ils en" accent="disent."
+      items={temoins.map((t) => ({ quote: t.quote, name: t.name, role: t.role }))} />
+  </div>
+
+  <!-- ⑨ EST-CE FAIT POUR TOI — qualification sur photo sombre -->
+  <section animate-fade-in-up class="opacity-0 relative overflow-hidden">
+    <img src={L('festival-laom-ambiance-nature-aveyron')} alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0" style="background:rgba(29,27,24,0.82)"></div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-10 lg:px-14 py-24 md:py-32 text-[#F2EBDB]">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#E7C89A] mb-5">Pour qui</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.06] text-balance">Est-ce que cette semaine est <span class="italic font-medium text-[#E7C89A]">faite pour toi ?</span></h2>
+        <p class="text-lg text-[#F2EBDB]/75 mt-5 leading-relaxed">LAOM n’est pas pour tout le monde. Et c’est tant mieux. Voici comment savoir si c’est ton moment.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6">
+        <div class="rounded-3xl bg-[#9A3922] p-8 md:p-9">
+          <p class="flex items-center gap-3 text-xl font-extrabold mb-6"><span class="w-7 h-7 rounded-full bg-[#F2EBDB] text-[#9A3922] grid place-items-center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>C’est pour toi si…</p>
+          <ul class="space-y-3.5 text-[#F2EBDB]/90">
+            {['Tu es entrepreneur ou indépendant depuis 3 ans et plus','Tu veux changer de cadre sans mettre ton activité en pause','Tu cherches des pairs qui comprennent vraiment ta réalité','Tu sens que ton rythme n’est plus tenable et tu veux le bouger'].map((i) => <li class="leading-relaxed">{i}</li>)}
+          </ul>
+        </div>
+        <div class="rounded-3xl bg-[#2A1E14] border border-[#F2EBDB]/10 p-8 md:p-9">
+          <p class="flex items-center gap-3 text-xl font-extrabold text-[#F2EBDB]/80 mb-6"><span class="w-7 h-7 rounded-full bg-[#F2EBDB]/15 grid place-items-center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span>Ce n’est pas pour toi si…</p>
+          <ul class="space-y-3.5 text-[#F2EBDB]/60">
+            {['Tu cherches des vacances all inclusive','Tu veux un bootcamp pour aller plus vite','Tu veux tout couper et ne rien faire','Tu débutes (moins de 2 à 3 ans)'].map((i) => <li class="leading-relaxed">{i}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a href={POSTULER} class="pill pill-light" style="padding:.95rem 2.4rem">Voir si j’ai ma place</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑩ LES FONDATEURS -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-rire')} alt="Charly et Amandine, fondateurs de LAOM"
+      eyebrow="Les hôtes"
+      title="Charly & Amandine," accent="le lieu, c’est eux."
+      text="Ils ont quitté la ville, acheté vingt-et-un hectares dans le sud de l’Aveyron, et bâti de leurs mains le lieu qu’ils auraient voulu trouver. LAOM, c’est leur projet de vie. Le coliving, c’est leur façon de t’inviter à le vivre." />
+  </div>
+
+  <!-- ⑪ OFFRE + PROCESS -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-6 md:px-10 lg:px-14">
+      <div class="text-center max-w-2xl mx-auto">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">L’offre</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Une semaine. Douze entrepreneurs. <span class="acc">Tout compris.</span></h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed">Hébergement en tipi, repas du potager, pratiques du matin, ateliers, soirées, espace de travail wifi fibre. Le détail complet du programme et les dates, on te les raconte de vive voix.</p>
+        <p class="mt-9 font-extrabold text-[#412F1F]"><span class="text-4xl md:text-5xl text-[#9A3922]">1 500 € HT</span><span class="block text-sm font-medium text-[#1D1B18]/60 mt-2">la semaine · prix de lancement · tout compris</span></p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8 md:gap-10 mt-16">
+        {[{n:'01',t:'Tu remplis le formulaire. Deux minutes.'},{n:'02',t:'On t’appelle dans les 48h. Quinze minutes, pour voir si c’est le bon moment et le bon groupe.'},{n:'03',t:'Si ça matche, ta place est confirmée.'}].map((s) => (
+          <div class="border-t border-[#412F1F]/15 pt-6">
+            <p class="text-4xl md:text-5xl font-extrabold text-[#9A3922] leading-none mb-4">{s.n}</p>
+            <p class="text-[#1D1B18]/75 leading-relaxed">{s.t}</p>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-14">
+        <a href={POSTULER} class="pill pill-primary" style="padding:.95rem 2.4rem">Postuler pour août 2026</a>
+        <p class="text-sm text-[#1D1B18]/55 mt-5">Candidature en 2 minutes. Pas de pitch, pas de pression.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑫ FAQ -->
+  <div animate-fade-in-up class="opacity-0">
+    <Faq bg="bg-[#F2EBDB]"
+      eyebrow="Questions fréquentes"
+      title="Ce qu’on te demande" accent="le plus souvent."
+      items={[
+        { q: 'Une semaine, c’est long, et mes clients ?', a: 'Ton activité continue : wifi fibre, espaces de travail, tu organises ton temps comme tu veux. Ce n’est pas une parenthèse où tu coupes tout, c’est ton rythme et ton environnement qui changent.' },
+        { q: 'L’Aveyron, c’est loin ?', a: 'On est en sud Aveyron, à 1h30 de Montpellier (gare TGV) et 2h de Toulouse. On s’occupe de ton arrivée. Et c’est précisément cette distance qui fait la valeur du lieu.' },
+        { q: 'C’est pas un truc trop perché ?', a: 'Non. Un lieu exigeant, des entrepreneurs sérieux, et rien d’obligatoire : tu prends ce qui te parle, tu laisses le reste.' },
+        { q: 'Il y aura qui d’autre ?', a: 'Douze personnes par semaine, choisies via le formulaire, avec des profils proches du tien. On te parle de la cohorte au téléphone.' },
+      ]} />
+  </div>
+
+  <!-- ⑬ CTA FINAL -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage bg="bg-[#FBF6EA]" img={L('diner-golden-hour-laom')}
+      eyebrow="Août 2026"
+      title="Trois semaines. Douze places chacune." accent="Quand c’est complet, c’est complet."
+      subtitle="Dates : 10-16, 17-23 et 24-30 août 2026. 1 500 € HT, prix de lancement, tout compris. Le reste, on en parle ensemble."
+      primaryText="Postuler pour août 2026" primaryHref={POSTULER}
+      secondaryText="ou faire le diagnostic" secondaryHref="/quiz-labo/" />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Postuler" href={POSTULER} />
+</Layout>
