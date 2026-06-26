@@ -4,8 +4,9 @@
 // Survol desktop : soulignement qui balaie + passage à la couleur d'accent.
 import Logo from './Logo.astro'
 interface NavLink { label: string; href: string }
-interface Props { links?: NavLink[]; ctaText?: string; ctaHref?: string; transparent?: boolean }
+interface Props { links?: NavLink[]; ctaText?: string; ctaHref?: string; transparent?: boolean; logoHref?: string }
 const {
+  logoHref = '/',
   links = [
     { label: 'Accueil', href: '/' },
     { label: 'Le lieu', href: '#lieu' },
@@ -22,7 +23,7 @@ const isActive = (href: string) => href === path || href + '/' === path || href 
 <header class:list={['site-nav', transparent ? 'site-nav--over' : 'site-nav--solid']}>
   <nav class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-6">
     <div class="snav-row flex items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] pb-5">
-      <a href="/" class="snav-logo justify-self-start" aria-label="LAOM — accueil"><Logo height="1.6rem" /></a>
+      <a href={logoHref} class="snav-logo justify-self-start" aria-label="LAOM — accueil"><Logo height="1.6rem" /></a>
       <ul class="hidden lg:flex items-center gap-9 justify-self-center">
         {links.map((n) => (
           <li><a href={n.href} class="snav-link" aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
