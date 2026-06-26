@@ -1,9 +1,10 @@
 ---
-// Quiz lead magnet — "Vis-tu vraiment le mode de vie que tu veux ?"
-// Natif, hébergé sur le site. Entrée (prénom + email) -> wizard 10 questions
-// (5 piliers) -> calcul score /30 -> profil + score par pilier + CTA coliving.
-// Contenu du livrable Quiz-Lead-Magnet-LAOM. Épuré (logo seul). Route /quiz-labo.
-// NB : capture lead + email de résultat (Brevo) = backend à brancher.
+// Quiz lead magnet — "Où ça coince, vraiment ?"
+// Natif, hébergé sur le site. Wizard 10 questions (5 piliers) -> coordonnées
+// (prénom + email) -> DIAGNOSTIC : on pointe le plus gros décalage (pilier le plus
+// bas), on explique le pourquoi (cause -> effet + système nerveux / cortisol),
+// puis la "bascule" (première direction) qui amène LAOM. Épuré (logo seul).
+// NB : capture lead + email de résultat (Kit) = backend à brancher. Route /quiz-labo.
 import Layout from '~/layouts/Layout.astro'
 import Logo from '~/components/laom/Logo.astro'
 
@@ -54,15 +55,28 @@ const questions = [
     { t: 'Beaucoup de choses, j’ai construit un truc qui ne me ressemble plus', p: 1 } ] },
 ]
 
-const profiles = [
-  { min: 26, key: 'Aligné', title: 'Tu vis déjà ce que la plupart cherchent.', text: 'Ton mode de vie et ton activité sont cohérents. Tu as fait des choix que beaucoup n’osent pas faire, et ça se voit dans tes réponses. Ce qui pourrait faire la différence maintenant, c’est de t’entourer de pairs qui vivent la même chose, pas pour apprendre, mais pour partager un cadre avec des gens qui comprennent ta réalité.' },
-  { min: 20, key: 'En chemin', title: 'Le fond est bon. C’est le cadre qui manque.', text: 'Tu sais ce que tu veux, tu as construit quelque chose qui a de la valeur. Mais ton quotidien ne reflète pas encore complètement la vie que tu vises. C’est souvent une question d’environnement : on finit par ressembler au cadre dans lequel on évolue. Change le cadre, même une semaine, et tout se recalibre.' },
-  { min: 14, key: 'En décalage', title: 'Tu as construit quelque chose. Mais ça ne te ressemble plus.', text: 'T’as bossé dur pour en arriver là. Et pourtant, quelque chose coince : ton cadre, ton rythme, ton entourage pro ne sont plus alignés avec ce que tu veux vraiment vivre. C’est pas un problème de motivation, c’est un problème d’environnement. Tu as besoin de prendre du recul, dans un cadre qui te permet de voir clair.' },
-  { min: 10, key: 'En rupture', title: 'Le signal est clair. Quelque chose doit changer.', text: 'Ton activité a pris le dessus sur tout le reste : le cadre, le rythme, l’entourage, la connexion à ce qui t’anime. C’est pas une fatalité, c’est un signal, et le fait que tu aies fait ce quiz, c’est déjà le premier pas. Ce qu’il te faut, c’est pas un conseil. C’est un cadre différent.' },
+// Un diagnostic par pilier (index aligné sur `piliers`).
+// gap = formulation du décalage · why = cause -> effet (avec un peu de science) · bascule = première direction + LAOM
+const diagnostics = [
+  { gap: 'ton cadre de vie',
+    why: 'On finit par ressembler au cadre dans lequel on vit. Un environnement fermé, gris, sans nature ni vraie lumière, ton corps le sait avant ta tête : l’énergie baisse, l’attention s’effrite, la motivation s’érode sans raison apparente. Ce n’est pas toi qui flanches. C’est ton décor qui ne te porte plus.',
+    bascule: 'Tu n’as pas besoin de tout plaquer. Te poser quelques jours dans un cadre vivant, de la nature, de l’espace, de la lumière, suffit souvent à sentir la différence dans ton corps, et à voir clair sur ce que tu veux vraiment changer. C’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'ton rythme',
+    why: 'Quand ton système nerveux ne redescend jamais, ton corps reste en alerte et ton cortisol tourne en continu. Tu fonctionnes en mode survie : tu décides moins bien, tu récupères mal, et même au repos ta tête ne s’arrête pas. Ce n’est pas un manque de volonté. C’est physiologique.',
+    bascule: 'La bascule, ce n’est pas de travailler moins. C’est de redonner à ton système nerveux un endroit où redescendre pour de vrai, quelques jours, dans un autre cadre. C’est souvent là que tout se recalibre. Et c’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'ta solitude de dirigeant',
+    why: 'Porter seul les décisions, les doutes et la pression, ça a un coût réel. Le lien humain régule ton système nerveux : au contact de gens qui te comprennent, ton niveau de stress baisse, c’est ce qu’on appelle la co-régulation. Sans pairs qui vivent ta réalité, ta charge mentale tourne en boucle, sans soupape.',
+    bascule: 'Ce qu’il te manque, ce n’est pas un coach ni une méthode de plus. C’est une table avec des gens qui traversent la même chose, le temps de souffler et de remettre les choses à leur place. C’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'la connexion à toi-même',
+    why: 'À force de courir, tu n’entends plus tes signaux faibles : la fatigue, l’intuition, ce qui te nourrit ou ce qui te pèse vraiment. Ton corps continue d’envoyer l’information, mais le bruit couvre tout. À la longue, tu avances par inertie, un peu coupé de ce qui t’anime.',
+    bascule: 'Pour te réentendre, il faut baisser le volume : du silence, de l’espace, un rythme qui laisse remonter ce qui compte. Pas besoin de te couper du monde, juste un cadre où tu peux enfin t’écouter. C’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'l’alignement entre ta vie et ton activité',
+    why: 'Quand ton activité dicte ta vie au lieu de la servir, une dissonance de fond s’installe. Ça ne se voit pas tout de suite, mais ça use : une fatigue qui ne part pas avec le repos, du sens qui s’érode, le sentiment de subir ce que tu as pourtant construit.',
+    bascule: 'La question n’est pas de tout casser, mais de reprendre la main : quelle vie tu veux, et comment ton activité peut s’y plier plutôt que l’inverse. Ça commence par prendre du recul, dans un cadre qui le permet. C’est exactement ce qu’on a construit à LAOM.' },
 ]
 ---
 
-<Layout title="Quiz — Vis-tu vraiment le mode de vie que tu veux ? · LAOM" hideChrome={true} seo={{ noIndex: true }}>
+<Layout title="Le diagnostic — Où ça coince, vraiment ? · LAOM" hideChrome={true} seo={{ noIndex: true }}>
   <div class="min-h-screen bg-[#FBF6EA] flex flex-col">
 
     <header class="px-6 md:px-10 lg:px-14 py-6 border-b border-[#412F1F]/10">
@@ -73,10 +87,10 @@ const profiles = [
 
       <!-- ENTRÉE -->
       <section id="q-intro">
-        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Le test · 2 minutes</p>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Vis-tu vraiment le mode de vie que tu veux ?</h1>
-        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">10 questions pour savoir où tu en es, vraiment, sur les 5 piliers d’une vie d’entrepreneur alignée : cadre de vie, rythme, communauté, connexion à soi, alignement.</p>
-        <button type="button" id="q-begin" class="pill pill-primary w-full sm:w-auto justify-center mt-10" style="padding:.95rem 2.4rem">Je fais le test</button>
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Le diagnostic · 2 minutes</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Où ça coince, vraiment ?</h1>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">Tu sens que quelque chose ne tourne pas rond dans ton rythme, ton cadre ou ton énergie, sans bien réussir à mettre le doigt dessus. En 10 questions, ce diagnostic te montre <strong class="text-[#412F1F] font-semibold">où est ton plus gros décalage</strong>, pourquoi, et par quoi commencer.</p>
+        <button type="button" id="q-begin" class="pill pill-primary w-full sm:w-auto justify-center mt-10" style="padding:.95rem 2.4rem">Faire le diagnostic</button>
       </section>
 
       <!-- QUIZ -->
@@ -105,8 +119,8 @@ const profiles = [
       <!-- COORDONNÉES (juste avant le résultat) -->
       <section id="q-gate" hidden>
         <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Presque fini</p>
-        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Ton résultat est prêt.</h2>
-        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">Laisse-nous ton prénom et ton email : on t’envoie ton profil détaillé, et tu le découvres juste après.</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Ton diagnostic est prêt.</h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">Laisse-nous ton prénom et ton email : on t’envoie ton diagnostic détaillé, et tu le découvres juste après.</p>
         <form id="q-gateform" class="mt-10 space-y-5" novalidate>
           <div class="space-y-2">
             <label for="q-prenom" class="font-semibold text-[#412F1F]">Ton prénom</label>
@@ -120,7 +134,7 @@ const profiles = [
             <input type="checkbox" name="rgpd" required class="mt-1 accent-[#9A3922] w-4 h-4 shrink-0" />
             <span>J’accepte de recevoir mon résultat et des informations sur LAOM. Je peux me désinscrire à tout moment.</span>
           </label>
-          <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Voir mon résultat</button>
+          <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Voir mon diagnostic</button>
         </form>
       </section>
 
@@ -130,7 +144,7 @@ const profiles = [
   </div>
 </Layout>
 
-<script define:vars={{ piliers, profiles }}>
+<script define:vars={{ piliers, diagnostics }}>
   const intro = document.getElementById('q-intro')
   const quiz = document.getElementById('q-quiz')
   const gate = document.getElementById('q-gate')
@@ -185,41 +199,48 @@ const profiles = [
   })
 
   const finish = () => {
-    const pillarScores = [0, 1, 2, 3, 4].map((p) => answers[p * 2] + answers[p * 2 + 1])
-    const global = answers.reduce((a, b) => a + b, 0)
-    const profile = profiles.find((pr) => global >= pr.min) || profiles[profiles.length - 1]
-    // TODO backend : enregistrer le lead (prénom, email, réponses, scores, profil) + envoyer l'email de résultat (Brevo) + ajout newsletter.
-    const bars = pillarScores.map((s, k) => `
+    const pillarScores = [0, 1, 2, 3, 4].map((p) => answers[p * 2] + answers[p * 2 + 1]) // chacun /6
+    let gap = 0
+    for (let k = 1; k < pillarScores.length; k++) if (pillarScores[k] < pillarScores[gap]) gap = k
+    const d = diagnostics[gap]
+    const aligned = pillarScores[gap] >= 5
+    // TODO backend : enregistrer le lead (prénom, email, réponses, pilier-décalage) + email de diagnostic (Kit) + ajout liste.
+
+    const bars = pillarScores.map((s, k) => {
+      const low = k === gap
+      return `
       <div>
         <div class="flex justify-between text-sm mb-1.5">
-          <span class="text-[#412F1F] font-medium">${piliers[k]}</span>
+          <span class="${low ? 'text-[#9A3922] font-bold' : 'text-[#412F1F] font-medium'}">${piliers[k]}${low ? ' · à reprendre en priorité' : ''}</span>
           <span class="text-[#1D1B18]/55 tabular-nums">${s}/6</span>
         </div>
         <div class="h-2 rounded-full bg-[#412F1F]/10 overflow-hidden">
-          <div class="h-full rounded-full bg-[#9A3922]" style="width:${(s / 6) * 100}%"></div>
+          <div class="h-full rounded-full ${low ? 'bg-[#9A3922]' : 'bg-[#73673E]'}" style="width:${(s / 6) * 100}%"></div>
         </div>
-      </div>`).join('')
+      </div>`
+    }).join('')
 
     result.innerHTML = `
-      <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Ton résultat${lead.prenom ? ', ' + lead.prenom : ''}</p>
-      <div class="flex items-baseline gap-3 mb-3">
-        <span class="text-5xl md:text-6xl font-extrabold text-[#9A3922] leading-none">${global}<span class="text-2xl text-[#1D1B18]/40">/30</span></span>
-        <span class="text-lg font-extrabold text-[#412F1F]">${profile.key}</span>
+      <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Ton diagnostic${lead.prenom ? ', ' + lead.prenom : ''}</p>
+      ${aligned ? `<p class="text-base text-[#1D1B18]/70 mb-4">Globalement, tu es plutôt aligné·e. Mais s’il y a un point à reprendre en priorité, c’est celui-là.</p>` : ``}
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Ton plus gros décalage : ${d.gap}.</h1>
+      <p class="text-lg text-[#1D1B18]/75 mt-5 leading-relaxed">${d.why}</p>
+      <div class="mt-7 border-l-4 border-[#9A3922] pl-5 md:pl-6">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#9A3922] mb-2">La bascule</p>
+        <p class="text-lg text-[#412F1F] leading-relaxed">${d.bascule}</p>
       </div>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">${profile.title}</h1>
-      <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">${profile.text}</p>
       <div class="mt-10 space-y-4 rounded-2xl bg-white border border-[#412F1F]/10 p-6 md:p-8">
-        <p class="font-semibold text-[#412F1F] mb-2">Le détail par pilier</p>
+        <p class="font-semibold text-[#412F1F] mb-2">Où tu en es, pilier par pilier</p>
         ${bars}
       </div>
       <div class="mt-10 rounded-2xl bg-[#412F1F] text-[#F2EBDB] p-7 md:p-9">
-        <p class="text-lg leading-relaxed">LAOM, c’est une semaine entre entrepreneurs qui vivent la même chose que toi. 12 places, tout inclus, en pleine nature dans le sud de l’Aveyron.</p>
+        <p class="text-lg leading-relaxed">À LAOM, on a construit le cadre exact pour faire cette bascule : une semaine en pleine nature, entre des gens qui vivent la même chose que toi. Tout est inclus, douze places.</p>
         <div class="flex flex-wrap gap-4 items-center mt-7">
           <a href="/coliving-labo/" class="pill pill-light" style="padding:.85rem 1.8rem">Découvrir le coliving</a>
           <a href="/candidater-labo/" class="text-[#F2EBDB]/85 underline underline-offset-4 hover:text-[#F2EBDB] transition text-sm">ou candidater directement</a>
         </div>
       </div>
-      <p class="text-sm text-[#1D1B18]/55 mt-6">Ton résultat détaillé t’a aussi été envoyé par email.</p>`
+      <p class="text-sm text-[#1D1B18]/55 mt-6">Ton diagnostic complet t’a aussi été envoyé par email.</p>`
 
     gate.hidden = true
     result.hidden = false
