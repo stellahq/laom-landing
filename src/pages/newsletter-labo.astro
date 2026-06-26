@@ -3,19 +3,13 @@
 // beige / terre / marron). Réutilise le formulaire Kit existant (composant KitForm),
 // donc aucune clé API. Route isolée /newsletter-labo (noindex, hors menu).
 import Layout from '~/layouts/Layout.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
 import SiteNav from '~/components/laom/SiteNav.astro'
 import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
 import KitForm from '~/components/laom/KitForm.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
 const L = (n: string) => `/images/laom/${n}.webp`
-
-const navLinks = [
-  { label: 'Accueil', href: '/accueil-labo/' },
-  { label: 'Coliving', href: '/coliving-labo/' },
-  { label: 'Le lieu', href: '/le-lieu-labo/' },
-  { label: 'Notre histoire', href: '/notre-histoire-labo/' },
-]
 
 const gallery = [
   { img: L('diner-golden-hour-laom'), alt: 'Dîner à la golden hour à LAOM' },
