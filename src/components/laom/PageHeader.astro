@@ -6,9 +6,9 @@ interface Crumb { label: string; href?: string }
 interface NavLink { label: string; href: string }
 interface Props {
   img: string; title: string; subtitle?: string
-  crumbs?: Crumb[]; navLinks?: NavLink[]; navCta?: string; navCtaHref?: string
+  crumbs?: Crumb[]; navLinks?: NavLink[]; navCta?: string; navCtaHref?: string; logoHref?: string
 }
-const { img, title, subtitle, crumbs = [], navLinks, navCta, navCtaHref } = Astro.props
+const { img, title, subtitle, crumbs = [], navLinks, navCta, navCtaHref, logoHref } = Astro.props
 ---
 <div class="px-2 pt-2 md:px-3 md:pt-3 bg-[#F2EBDB]">
   <div class="relative rounded-[2rem] overflow-hidden">
@@ -17,7 +17,7 @@ const { img, title, subtitle, crumbs = [], navLinks, navCta, navCtaHref } = Astr
     <div class="absolute inset-0 bg-gradient-to-b from-[#1D1B18]/40 via-transparent to-[#1D1B18]/40"></div>
 
     <div class="relative">
-      <SiteNav transparent={true} links={navLinks} ctaText={navCta} ctaHref={navCtaHref} />
+      <SiteNav transparent={true} links={navLinks} ctaText={navCta} ctaHref={navCtaHref} logoHref={logoHref} />
       <div class="min-h-[58vh] md:min-h-[64vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-16">
         <h1 class="text-5xl md:text-7xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.02] text-balance max-w-4xl">{title}</h1>
         {subtitle && <p class="text-lg md:text-xl text-[#F2EBDB]/75 mt-6 max-w-xl leading-relaxed">{subtitle}</p>}

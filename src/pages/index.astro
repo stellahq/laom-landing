@@ -18,6 +18,13 @@ import CtaSection from '~/components/laom/sections/CtaSection.astro'
 import BlogSection from '~/components/laom/sections/BlogSection.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 
+// Staging uniquement : la racine montre le nouveau site (accueil-labo) plutot que
+// l'ancienne home. Host-gated sur staging.laom.fr -> la prod laom.fr n'est jamais
+// impactee (meme fichier, condition basee sur le hostname de la requete).
+if (Astro.url.hostname === 'staging.laom.fr') {
+  return Astro.redirect('/accueil-labo/', 302)
+}
+
 const lang = 'fr'
 const t = getI18nTranslations(lang as 'fr' | 'en')
 const siteSchema = createWebSiteSchema({
