@@ -1,0 +1,50 @@
+---
+// KitForm — formulaire d'inscription à la newsletter via Kit (ConvertKit).
+// Réutilise l'intégration existante (form 8987350) : aucune clé API, le formulaire
+// poste directement chez Kit. Style à la charte LAOM. variant: 'light' | 'dark'.
+interface Props { variant?: 'light' | 'dark'; submitLabel?: string }
+const { variant = 'light', submitLabel = "Je m'inscris" } = Astro.props
+
+const formKitOptions = {
+  settings: {
+    after_subscribe: {
+      action: 'message',
+      success_message: 'Bienvenue dans l’aventure. Va confirmer dans ta boîte mail.',
+      redirect_url: '',
+    },
+    powered_by: { show: false },
+    recaptcha: { enabled: false },
+  },
+  version: '5',
+}
+
+const base = 'px-5 py-4 rounded-xl text-base transition-all focus:outline-none'
+const inputCls = variant === 'dark'
+  ? `${base} bg-white/10 border border-[#F2EBDB]/25 text-[#F2EBDB] placeholder-[#F2EBDB]/50 focus:border-[#F2EBDB]/60 focus:bg-white/15`
+  : `${base} bg-white border border-[#412F1F]/15 text-[#412F1F] placeholder-[#412F1F]/40 focus:border-[#9A3922] focus:ring-2 focus:ring-[#9A3922]/20`
+const btnCls = variant === 'dark'
+  ? 'px-8 py-4 rounded-xl bg-[#F2EBDB] text-[#412F1F] font-extrabold whitespace-nowrap transition-transform hover:-translate-y-0.5 active:translate-y-0'
+  : 'px-8 py-4 rounded-xl bg-[#9A3922] text-[#F2EBDB] font-extrabold whitespace-nowrap transition-transform hover:-translate-y-0.5 active:translate-y-0'
+---
+<form
+  action="https://app.kit.com/forms/8987350/subscriptions"
+  class="seva-form formkit-form"
+  method="post"
+  data-sv-form="8987350"
+  data-uid="af2e0fc1e5"
+  data-format="inline"
+  data-version="5"
+  data-options={JSON.stringify(formKitOptions)}
+>
+  <input type="hidden" name="tags[]" value="18454995" />
+  <div data-style="clean">
+    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
+    <div data-element="fields" data-stacked="true" class="flex flex-col gap-3">
+      <input class={`${inputCls} w-full`} name="fields[first_name]" type="text" aria-label="Ton prénom" placeholder="Ton prénom" autocomplete="given-name" />
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input class={`${inputCls} w-full sm:flex-1`} name="email_address" type="email" required aria-label="Ton adresse e-mail" placeholder="ton@email.com" autocomplete="email" />
+        <button type="submit" data-element="submit" class={btnCls}>{submitLabel}</button>
+      </div>
+    </div>
+  </div>
+</form>
