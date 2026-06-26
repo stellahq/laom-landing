@@ -4,6 +4,7 @@
 // bon composant de la grammaire template, rien n'est coupé.
 // Route isolée /coliving-labo (noindex, hors menu).
 import Layout from '~/layouts/Layout.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
 import PageHeader from '~/components/laom/PageHeader.astro'
 import SplitHeading from '~/components/laom/sections/SplitHeading.astro'
 import AltCardsBand from '~/components/laom/sections/AltCardsBand.astro'
@@ -21,14 +22,6 @@ import SiteFooter from '~/components/laom/SiteFooter.astro'
 
 const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
-
-const navLinks = [
-  { label: 'Accueil', href: '/accueil-labo/' },
-  { label: 'Coliving', href: '/coliving-labo/' },
-  { label: 'Le lieu', href: '/le-lieu-labo/' },
-  { label: 'Notre histoire', href: '/notre-histoire-labo/' },
-  { label: 'Contact', href: '/contact/' },
-]
 ---
 
 <Layout title="LAOM — Coliving entrepreneurs, présentation" hideChrome={true} seo={{ noIndex: true }}>

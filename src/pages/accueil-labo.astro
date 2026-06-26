@@ -6,6 +6,7 @@
 // Contenu visible par défaut si pas de JS / prefers-reduced-motion (charte).
 // Route isolée /accueil-labo (noindex, hors menu) — ne touche aucune page du site.
 import Layout from '~/layouts/Layout.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
 import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
 import Statement from '~/components/laom/sections/Statement.astro'
 import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
@@ -16,13 +17,6 @@ import SiteFooter from '~/components/laom/SiteFooter.astro'
 
 const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
-
-const navLinks = [
-  { label: 'Accueil', href: '/accueil-labo/' },
-  { label: 'Coliving', href: '/coliving-labo/' },
-  { label: 'Le lieu', href: '/le-lieu-labo/' },
-  { label: 'Notre histoire', href: '/notre-histoire-labo/' },
-]
 ---
 
 <Layout title="LAOM — Coliving entrepreneurs (accueil)" hideChrome={true} seo={{ noIndex: true }}>
