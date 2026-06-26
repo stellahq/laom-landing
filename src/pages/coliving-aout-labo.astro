@@ -1,0 +1,203 @@
+---
+// PAGE DE VENTE — Coliving entrepreneurs · Août 2026. Logique LEAD-GEN :
+// désir + projection à fond, mystère sur l'opérationnel (programme/dates/cohorte
+// gardés pour l'échange), prix affiché léger, TOUT converge vers "Postuler".
+// Cohérent avec les 8 angles pub (journée type, lieu, Shala, voie lactée,
+// communauté, témoignages, fondateurs). Route isolée /coliving-aout-labo (noindex).
+import Layout from '~/layouts/Layout.astro'
+import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
+import Statement from '~/components/laom/sections/Statement.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import Timeline from '~/components/laom/sections/Timeline.astro'
+import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
+import PeersSection from '~/components/laom/sections/PeersSection.astro'
+import TestimonialsSection from '~/components/laom/sections/TestimonialsSection.astro'
+import FitCheck from '~/components/laom/sections/FitCheck.astro'
+import Faq from '~/components/laom/sections/Faq.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const L = (n: string) => `/images/laom/${n}.webp`
+const POSTULER = '/candidater-labo/'
+---
+
+<Layout title="Coliving entrepreneurs · Août 2026 · LAOM" hideChrome={true} seo={{ noIndex: true }}>
+
+  <!-- ① HERO -->
+  <HeroCenter
+    video="/videos/hero-laom-v2.mp4" img="/images/hero-laom-poster-v2.webp" alt="Le domaine LAOM en sud Aveyron"
+    navLinks={[]} navCta="Postuler" navCtaHref={POSTULER}
+    eyebrow="Coliving entrepreneurs · Août 2026 · Sud Aveyron"
+    title="Tu as tout construit." accent="Sauf le cadre de vie qui va avec."
+    subtitle="Une semaine en pleine nature, avec onze entrepreneurs qui te ressemblent. Tu continues de travailler, mais dans un cadre qui te nourrit au lieu de t’épuiser."
+    ctaText="Postuler pour août 2026" ctaHref={POSTULER} />
+
+  <!-- ② LE MIROIR -->
+  <div animate-fade-in-up class="opacity-0">
+    <Statement bg="bg-[#FBF6EA]"
+      eyebrow="Si tu lis ça"
+      title="Ton activité tourne." accent="Et pourtant, quelque chose s’est éteint."
+      intro="Tu t’es lancé il y a quelques années. Tu as trouvé tes clients, bâti quelque chose qui tient debout. Vu de l’extérieur, ça marche. Mais tes semaines se ressemblent toutes : le même bureau, les mêmes murs, le téléphone qui ne s’éteint jamais vraiment. Tu repousses le sport, tu manges vite, tu dors moyen. Et autour de toi, personne ne comprend vraiment ce que c’est, de porter un projet seul. Tu n’as pas besoin de plus. Tu as besoin de mieux." />
+  </div>
+
+  <!-- ③ LA BASCULE -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('tipis')} alt="Un tipi au cœur du domaine LAOM"
+      eyebrow="La proposition"
+      title="Et si, une semaine, tout changeait." accent="Sauf ton travail."
+      text="Imagine. Tu te réveilles dans un tipi, au milieu de vingt-et-un hectares. Tu prends ton café face à la vallée pendant que la brume se lève. Tu bouges, tu respires, tu manges ce qui a poussé au potager. Puis tu ouvres ton ordi et tu bosses, vraiment, au calme. Le soir, c’est le feu, les conversations qui partent loin, et la voie lactée entière au-dessus de toi. Tu ne pars pas en vacances. Tu ne mets rien en pause. Tu vis une semaine comme tu aimerais vivre tout le temps." />
+  </div>
+
+  <!-- ④ UNE JOURNÉE -->
+  <div animate-fade-in-up class="opacity-0">
+    <Timeline bg="bg-[#FBF6EA]"
+      eyebrow="Une journée type"
+      title="Du premier souffle" accent="à la dernière étoile."
+      items={[
+        { time: '7h30', label: 'Réveil en pleine nature' },
+        { time: '8h00', label: 'Pratique du matin : yoga, mouvement ou marche' },
+        { time: '9h00', label: 'Petit-déjeuner du potager, face à la vallée' },
+        { time: '9h30 – 13h', label: 'Travail au calme, wifi fibre' },
+        { time: '13h00', label: 'Déjeuner à la grande table' },
+        { time: '14h – 17h', label: 'Au choix : avancer, rivière, atelier, sieste' },
+        { time: '19h30', label: 'Dîner fait maison' },
+        { time: '21h00', label: 'Feu, soirée, voie lactée' },
+      ]}
+      note="Rien n’est obligatoire. Tout est proposé. Tu fais ta semaine à ton rythme." />
+  </div>
+
+  <!-- ⑤ LE LIEU -->
+  <div animate-fade-in-up class="opacity-0">
+    <MosaicGallery bg="bg-[#F2EBDB]"
+      eyebrow="Le lieu"
+      title="Vingt-et-un hectares," accent="et plus rien autour."
+      intro="Un ancien domaine agricole dans le sud de l’Aveyron, à 1h30 de Montpellier. Des tipis dans l’herbe, une rivière où se baigner, un potager qui nourrit la table, des chemins en forêt. Et la nuit, un ciel sans pollution lumineuse où la voie lactée se voit à l’œil nu."
+      images={[
+        { src: '/images/vue-aeriene-laom2-hero.webp', alt: 'Vue aérienne du domaine LAOM' },
+        { src: L('tipis'), alt: 'Les tipis de LAOM' },
+        { src: L('riviere-laom'), alt: 'La rivière du domaine' },
+        { src: L('potager-rangs'), alt: 'Le potager de LAOM' },
+        { src: L('diner-golden-hour-laom'), alt: 'Dîner en communauté à LAOM' },
+      ]}
+      ctaText="Postuler pour août 2026" ctaHref={POSTULER} />
+  </div>
+
+  <!-- ⑥ TU CONTINUES DE BOSSER -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" img={L('coworking-duo-table')} alt="Entrepreneurs au travail à LAOM, face à la vallée"
+      eyebrow="Le travail"
+      title="Ton activité ne s’arrête pas." accent="Elle respire."
+      text="C’est ce qui change tout, et ce qui fait que LAOM n’est pas une retraite : ici, tu travailles. Le Shala est un vrai espace de coworking, wifi fibre, au calme, la vallée pour fond d’écran. Tu prends tes calls, tu avances tes projets, tu crées. La seule différence, c’est qu’entre deux sessions tu plonges dans la rivière au lieu de scroller. Tu ne perds pas une semaine de business. Tu en gagnes la clarté pour les six mois qui suivent." />
+  </div>
+
+  <!-- ⑦ QUI TU VAS RENCONTRER -->
+  <div animate-fade-in-up class="opacity-0">
+    <PeersSection bg="bg-[#F2EBDB]"
+      eyebrow="La cohorte"
+      title="Onze autres," accent="qui vivent ce que tu vis."
+      paragraphs={[
+        'Des fondateurs, des créatifs, des indépendants, des coachs, des thérapeutes. Pas de débutants venus chercher une recette, pas de posture à tenir. Des gens qui ont bâti quelque chose et qui cherchent, comme toi, un cadre pour créer autrement.',
+        'C’est souvent là, à la table du soir ou au bord de la rivière, que se disent les vraies choses, et qu’une décision qui traînait depuis des mois finit par se débloquer.',
+      ]}
+      img={L('peers-groupe')} alt="Des entrepreneurs en échange à LAOM"
+      closing="Tu arrives parmi des inconnus." closingAccent="Tu repars avec des gens qui comptent." />
+  </div>
+
+  <!-- ⑧ TÉMOIGNAGES — À REMPLACER PAR LES VRAIS AVIS (Google + alumni juin) -->
+  <div animate-fade-in-up class="opacity-0">
+    <TestimonialsSection bg="bg-[#FBF6EA]"
+      eyebrow="Ils l’ont vécu"
+      title="Ce qu’ils en" accent="disent."
+      items={[
+        { quote: 'En une semaine, j’ai pris des décisions que je repoussais depuis six mois. Le cadre fait le travail.', name: 'Thomas', role: 'Coach indépendant · Lyon' },
+        { quote: 'Je suis venue pour souffler, je suis repartie avec trois personnes que je vois encore aujourd’hui.', name: 'Mathilde', role: 'Studio de design · Bordeaux' },
+        { quote: 'J’avais peur de décrocher de mes clients. J’ai bossé chaque matin, et le reste m’a remis d’aplomb.', name: 'Sofiane', role: 'Consultant · Paris' },
+      ]} />
+  </div>
+
+  <!-- ⑨ LES FONDATEURS -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-rire')} alt="Charly et Amandine, fondateurs de LAOM"
+      eyebrow="Les hôtes"
+      title="Charly & Amandine," accent="le lieu, c’est eux."
+      text="Ils ont quitté la ville, acheté vingt-et-un hectares dans le sud de l’Aveyron, et passé des années à bâtir, de leurs mains, le lieu qu’ils auraient voulu trouver. LAOM, c’est leur projet de vie. Le coliving, c’est leur façon de t’inviter à le vivre." />
+  </div>
+
+  <!-- ⑩ POUR QUI -->
+  <div animate-fade-in-up class="opacity-0">
+    <FitCheck bg="bg-[#FBF6EA]"
+      eyebrow="Pour qui"
+      title="C’est fait pour toi," accent="ou pas. Et c’est tant mieux."
+      forItems={[
+        'Tu es entrepreneur ou indépendant depuis 3 ans et plus',
+        'Tu veux changer de cadre sans mettre ton activité en pause',
+        'Tu cherches des pairs qui comprennent vraiment ta réalité',
+        'Tu sens que ton rythme n’est plus tenable et tu veux le bouger',
+      ]}
+      notItems={[
+        'Tu cherches des vacances all inclusive',
+        'Tu veux un bootcamp pour aller plus vite',
+        'Tu veux tout couper et ne rien faire',
+        'Tu débutes (moins de 2 à 3 ans)',
+      ]} />
+  </div>
+
+  <!-- ⑪ L'OFFRE (prix léger) + LE PROCESS -->
+  <section animate-fade-in-up class="opacity-0 bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-6 md:px-10 lg:px-14">
+      <div class="text-center max-w-2xl mx-auto">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">L’offre</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Une semaine. Douze entrepreneurs. <span class="acc">Tout compris.</span></h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed">Hébergement en tipi, repas du potager, pratiques du matin, ateliers, soirées sous les étoiles, espace de travail wifi fibre. Le détail complet du programme et les dates, on te les raconte de vive voix.</p>
+        <p class="mt-9 font-extrabold text-[#412F1F]"><span class="text-4xl md:text-5xl text-[#9A3922]">1 500 € HT</span><span class="block text-sm font-medium text-[#1D1B18]/60 mt-2">la semaine · prix de lancement · tout compris</span></p>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-8 md:gap-10 mt-16">
+        {[
+          { n: '01', t: 'Tu remplis le formulaire. Deux minutes.' },
+          { n: '02', t: 'On t’appelle dans les 48h. Quinze minutes, pour voir si c’est le bon moment et le bon groupe.' },
+          { n: '03', t: 'Si ça matche, ta place est confirmée.' },
+        ].map((s) => (
+          <div class="border-t border-[#412F1F]/15 pt-6">
+            <p class="text-4xl md:text-5xl font-extrabold text-[#9A3922] leading-none mb-4">{s.n}</p>
+            <p class="text-[#1D1B18]/75 leading-relaxed">{s.t}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-14">
+        <a href={POSTULER} class="pill pill-primary" style="padding:.95rem 2.4rem">Postuler pour août 2026</a>
+        <p class="text-sm text-[#1D1B18]/55 mt-5">Pas de pitch, pas de pression. Juste une conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑫ FAQ -->
+  <div animate-fade-in-up class="opacity-0">
+    <Faq bg="bg-[#FBF6EA]"
+      eyebrow="Questions fréquentes"
+      title="Ce qu’on te demande" accent="le plus souvent."
+      items={[
+        { q: 'Une semaine, c’est long, et mes clients ?', a: 'Ton activité continue : wifi fibre, espaces de travail, tu organises ton temps comme tu veux. Ce n’est pas une parenthèse où tu coupes tout, c’est ton rythme et ton environnement qui changent.' },
+        { q: 'L’Aveyron, c’est loin ?', a: 'On est en sud Aveyron, à 1h30 de Montpellier (gare TGV) et 2h de Toulouse. On s’occupe de ton arrivée. Et c’est précisément cette distance qui fait la valeur du lieu.' },
+        { q: 'C’est pas un truc trop perché ?', a: 'Non. Un lieu exigeant, des entrepreneurs sérieux, et rien d’obligatoire : tu prends ce qui te parle, tu laisses le reste. On t’en dit plus pendant l’échange.' },
+        { q: 'Il y aura qui d’autre ?', a: 'Douze personnes par semaine, choisies via le formulaire, avec des profils proches du tien. On te parle de la cohorte au téléphone.' },
+        { q: 'Je dois être un pro du yoga ou du bien-être ?', a: 'Pas du tout. Tout est accessible et proposé, jamais imposé. Tu viens élargir ton spectre, pas performer.' },
+      ]} />
+  </div>
+
+  <!-- ⑬ URGENCE + CTA FINAL -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage bg="bg-[#F2EBDB]" img={L('diner-golden-hour-laom')}
+      eyebrow="Août 2026"
+      title="Trois semaines. Douze places chacune." accent="Quand c’est complet, c’est complet."
+      subtitle="Dates : 10-16, 17-23 et 24-30 août 2026. 1 500 € HT, prix de lancement, tout compris. Le reste, on en parle ensemble."
+      primaryText="Postuler pour août 2026" primaryHref={POSTULER}
+      secondaryText="ou faire le diagnostic" secondaryHref="/quiz-labo/" />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Postuler" href={POSTULER} />
+</Layout>
