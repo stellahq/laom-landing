@@ -1,0 +1,126 @@
+---
+// Page NEWSLETTER — « La LAOM Letter », refaite à la charte LAOM (Host Grotesk,
+// beige / terre / marron). Réutilise le formulaire Kit existant (composant KitForm),
+// donc aucune clé API. Route isolée /newsletter-labo (noindex, hors menu).
+import Layout from '~/layouts/Layout.astro'
+import SiteNav from '~/components/laom/SiteNav.astro'
+import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
+import KitForm from '~/components/laom/KitForm.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const L = (n: string) => `/images/laom/${n}.webp`
+
+const navLinks = [
+  { label: 'Accueil', href: '/accueil-labo/' },
+  { label: 'Coliving', href: '/coliving-labo/' },
+  { label: 'Le lieu', href: '/le-lieu-labo/' },
+  { label: 'Notre histoire', href: '/notre-histoire-labo/' },
+]
+
+const gallery = [
+  { img: L('diner-golden-hour-laom'), alt: 'Dîner à la golden hour à LAOM' },
+  { img: L('tipis'), alt: 'Les tipis de LAOM' },
+  { img: L('riviere-laom'), alt: 'La rivière qui borde LAOM' },
+  { img: L('jardin-laom'), alt: 'Le jardin de LAOM' },
+  { img: L('festival-laom-ambiance-nature-aveyron'), alt: 'La guinguette de LAOM' },
+  { img: L('peers-groupe'), alt: 'Un moment de travail à LAOM' },
+]
+---
+
+<Layout title="La LAOM Letter — des nouvelles du lieu, chaque dimanche" hideChrome={true} seo={{ noIndex: true }}>
+  <style is:global>
+    .formkit-alert:empty { display: none; }
+    .formkit-alert-error {
+      background: rgba(154, 57, 34, 0.10); border: 1px solid rgba(154, 57, 34, 0.30);
+      color: #9A3922; border-radius: 0.5rem; padding: 0.5rem 0.75rem; font-size: 0.875rem;
+      list-style: none; margin: 0 0 0.75rem 0;
+    }
+    .formkit-alert-success {
+      background: rgba(115, 103, 62, 0.12); border: 1px solid rgba(115, 103, 62, 0.30);
+      color: #5b5230; border-radius: 0.5rem; padding: 0.75rem 1rem; font-size: 0.95rem;
+      list-style: none; margin: 0;
+    }
+  </style>
+
+  <!-- ① HERO + FORMULAIRE -->
+  <div class="px-2 pt-2 md:px-3 md:pt-3 bg-[#F2EBDB]">
+    <div class="relative rounded-[2rem] overflow-hidden">
+      <img src="/images/laom/grand-shambala/grand-shambala-vue-drone-tipis-arbres-laom.webp" alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+      <div class="absolute inset-0 bg-[#412F1F]/45"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-[#1D1B18]/55 via-[#1D1B18]/20 to-[#1D1B18]/60"></div>
+
+      <div class="relative">
+        <SiteNav transparent={true} links={navLinks} ctaText="Candidater" ctaHref="/candidater-labo/" />
+        <div class="min-h-[64vh] md:min-h-[72vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-20">
+          <p class="text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-[#CB7A5C] mb-5">La LAOM Letter</p>
+          <h1 class="text-4xl md:text-6xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.04] text-balance max-w-3xl">
+            Chaque dimanche, <span class="acc text-[#F2EBDB]/85">des nouvelles du lieu.</span>
+          </h1>
+          <p class="text-lg md:text-xl text-[#F2EBDB]/80 mt-6 max-w-xl leading-relaxed">
+            On bâtit un éco-lieu, en pleine nature, dans le sud de l’Aveyron. Une fois par semaine, je te raconte ce qui se passe ici, sans filtre.
+          </p>
+
+          <div class="mt-9 w-full max-w-md rounded-3xl bg-[#FBF6EA] p-6 md:p-7 shadow-[0_30px_60px_-25px_rgba(29,27,24,0.6)] text-left">
+            <KitForm variant="light" submitLabel="Je m'inscris" />
+            <p class="text-xs text-[#412F1F]/55 mt-4 text-center">Du vrai, pas de spam. Désinscription en un clic.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② CE QUE TU REÇOIS -->
+  <div animate-fade-in-up class="opacity-0">
+    <IncludedGrid bg="bg-[#FBF6EA]"
+      eyebrow="Dans ta boîte mail"
+      title="Ce que tu vas" accent="recevoir."
+      intro="Pas une newsletter de plus. Le carnet de bord d’un lieu qui se construit, et d’un collectif qui prend forme."
+      items={[
+        { title: 'Les coulisses du chantier', desc: 'Le Grand Shambala en paille, les décisions, les erreurs, ce qu’on apprend en bâtissant un lieu de A à Z.' },
+        { title: 'La vie sur place', desc: 'Les événements, les immersions, les festivals, et les rencontres improbables qu’on y fait.' },
+        { title: 'Comment venir', desc: 'Avant tout le monde : les dates d’ouverture et les semaines de coliving pour vivre LAOM.' },
+      ]} />
+  </div>
+
+  <!-- ③ LA COMMUNAUTÉ EN IMAGES -->
+  <section animate-fade-in-up class="opacity-0 bg-[#F2EBDB] py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        {gallery.map((g) => (
+          <div class="aspect-[4/3] overflow-hidden rounded-2xl">
+            <img src={g.img} alt={g.alt} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-sm text-[#1D1B18]/50 mt-6">21 hectares, sud Aveyron, Parc naturel des Grands Causses.</p>
+    </div>
+  </section>
+
+  <!-- ④ TÉMOIGNAGE -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-24">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 text-center">
+      <blockquote>
+        <p class="text-2xl md:text-3xl font-extrabold text-[#412F1F] tracking-[-0.01em] leading-[1.2] text-balance">
+          « Merci beaucoup pour ce mail si éclairant, donc précieux. »
+        </p>
+        <footer class="mt-5 text-sm text-[#1D1B18]/55">Véro, abonnée à la LAOM Letter</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ⑤ CTA FINAL + FORMULAIRE -->
+  <section animate-fade-in-up class="opacity-0 bg-[#9A3922] py-20 md:py-28">
+    <div class="max-w-xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.1] text-balance">
+        Tu veux suivre <span class="acc text-[#F2EBDB]/85">l’aventure ?</span>
+      </h2>
+      <p class="text-base md:text-lg text-[#F2EBDB]/70 mt-4 mb-9">On t’écrit dimanche. Rien d’autre.</p>
+      <KitForm variant="dark" submitLabel="Je m'inscris" />
+      <p class="text-xs text-[#F2EBDB]/45 mt-6">Désinscription en un clic.</p>
+    </div>
+  </section>
+
+  <SiteFooter />
+
+  <script is:inline async src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+</Layout>
