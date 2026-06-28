@@ -61,6 +61,34 @@ export const GET: APIRoute = async ({ request, locals }) => {
       { step: 'Payé', count: reachedPaid, conversion_rate: pct(reachedPaid, reachedMatch), leak_rate: pct(reachedMatch - reachedPaid, reachedMatch) },
     ]
 
+    // Funnel segmente par source (entonnoir avec composition par source a chaque etape)
+    const srcStatusRows = (await tdb.prepare(
+      `SELECT COALESCE(utm_source,'(directe)') as source, status, COUNT(*) as n
+       FROM leads ${whereSql} GROUP BY source, status`,
+    ).bind(...args).all()).results as Array<{ source: string; status: string; n: number }>
+    const perSource: Record<string, Record<string, number>> = {}
+    for (const r of srcStatusRows) {
+      perSource[r.source] = perSource[r.source] || {}
+      perSource[r.source][r.status] = r.n
+    }
+    const stageCounts = (m: Record<string, number>): Record<string, number> => {
+      const g = (k: string) => m[k] || 0
+      return {
+        Leads: g('lead') + g('call_booked') + g('call_done') + g('match') + g('paid'), // actifs (hors lost)
+        Call: g('call_booked') + g('call_done') + g('match') + g('paid'),
+        Match: g('match') + g('paid'),
+        'Payé': g('paid'),
+      }
+    }
+    const sourceNames = Object.keys(perSource)
+    const funnelSegmented = ['Leads', 'Call', 'Match', 'Payé'].map((step) => {
+      const segments = sourceNames
+        .map((s) => ({ source: s, count: stageCounts(perSource[s])[step] }))
+        .filter((seg) => seg.count > 0)
+        .sort((a, b) => b.count - a.count)
+      return { step, total: segments.reduce((acc, s) => acc + s.count, 0), segments }
+    })
+
     // Sources (par utm_source / campaign)
     const sourceRows = (await tdb.prepare(
       `SELECT COALESCE(utm_source,'(directe)') as source, COALESCE(utm_campaign,'—') as campaign, COUNT(*) as n
@@ -100,6 +128,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         conversion_lead_paid: pct(byStatus.paid, activeLeads),
       },
       funnel,
+      funnel_segmented: funnelSegmented,
       sources,
       leads,
       revenue,
