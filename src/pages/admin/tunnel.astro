@@ -158,32 +158,39 @@ import Layout from '~/layouts/Layout.astro'
   <!-- Dashboard logic -->
   <script is:inline>
   (function() {
-    var password = '';
     var authGate = document.getElementById('auth-gate');
     var dashboard = document.getElementById('dashboard');
     var loading = document.getElementById('loading');
     var content = document.getElementById('dashboard-content');
     var authError = document.getElementById('auth-error');
 
-    // Check saved password
-    var saved = sessionStorage.getItem('laom-admin-pwd');
-    if (saved) {
-      password = saved;
-      authGate.classList.add('hidden');
-      dashboard.classList.remove('hidden');
-      loadData();
-    }
+    function showGate() { authGate.classList.remove('hidden'); dashboard.classList.add('hidden'); }
+    function showDashboard() { authGate.classList.add('hidden'); dashboard.classList.remove('hidden'); }
 
-    // Login
-    document.getElementById('admin-login').addEventListener('click', function() {
-      password = document.getElementById('admin-password').value;
-      sessionStorage.setItem('laom-admin-pwd', password);
-      authGate.classList.add('hidden');
-      dashboard.classList.remove('hidden');
-      loadData();
-    });
+    // Tente un chargement direct : si le cookie de session est valide, pas de login.
+    loadData();
+
+    // Login : pose le cookie de session signe via /api/admin/login.
+    function doLogin() {
+      var password = document.getElementById('admin-password').value;
+      authError.classList.add('hidden');
+      fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: password }),
+      }).then(function(res) {
+        if (!res.ok) {
+          authError.textContent = 'Mot de passe incorrect';
+          authError.classList.remove('hidden');
+          throw new Error('unauthorized');
+        }
+        showDashboard();
+        loadData();
+      }).catch(function() {});
+    }
+    document.getElementById('admin-login').addEventListener('click', doLogin);
     document.getElementById('admin-password').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') document.getElementById('admin-login').click();
+      if (e.key === 'Enter') doLogin();
     });
 
     // Period change
@@ -196,19 +203,16 @@ import Layout from '~/layouts/Layout.astro'
       content.classList.add('hidden');
       authError.classList.add('hidden');
 
-      fetch('/api/admin/tunnel-data/?password=' + encodeURIComponent(password) + '&period=' + period)
+      fetch('/api/admin/tunnel-data/?period=' + period, { credentials: 'same-origin' })
         .then(function(res) {
           if (res.status === 401) {
-            authError.classList.remove('hidden');
-            authError.textContent = 'Mot de passe incorrect';
-            authGate.classList.remove('hidden');
-            dashboard.classList.add('hidden');
-            sessionStorage.removeItem('laom-admin-pwd');
+            showGate();
             throw new Error('unauthorized');
           }
           return res.json();
         })
         .then(function(data) {
+          showDashboard();
           loading.classList.add('hidden');
           content.classList.remove('hidden');
           renderDashboard(data);
