@@ -1,0 +1,89 @@
+---
+// Bandeau de consentement cookies (CNIL / Consent Mode v2).
+// Pilote le tracking CLIENT (gtag consent + fbq). Les conversions server-side
+// (Lead/Purchase via CAPI) restent fiables : base legale = consentement du
+// formulaire (email volontaire). S'affiche tant qu'aucun choix n'est stocke.
+---
+
+<div id="consent-banner" hidden class="consent-banner" role="dialog" aria-label="Consentement cookies">
+  <div class="consent-inner">
+    <p class="consent-text">
+      On utilise des cookies pour mesurer l’audience et améliorer le site.
+      <a href="/mentions-legales/" class="consent-link">En savoir plus</a>
+    </p>
+    <div class="consent-actions">
+      <button type="button" id="consent-refuse" class="consent-btn consent-btn--ghost">Refuser</button>
+      <button type="button" id="consent-accept" class="consent-btn consent-btn--primary">Accepter</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .consent-banner {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 60;
+    background: rgba(251, 246, 234, .97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(65, 47, 31, .12);
+    box-shadow: 0 -8px 30px -14px rgba(65, 47, 31, .28);
+  }
+  .consent-inner {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+    align-items: flex-start;
+  }
+  .consent-text { color: #412F1F; font-size: .9rem; line-height: 1.5; margin: 0; }
+  .consent-link { color: #9A3922; text-decoration: underline; }
+  .consent-actions { display: flex; gap: .6rem; flex-shrink: 0; }
+  .consent-btn {
+    border-radius: 9999px;
+    padding: .6rem 1.4rem;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease, color .2s ease;
+  }
+  .consent-btn--ghost { background: transparent; color: #412F1F; border: 1px solid rgba(65, 47, 31, .25); }
+  .consent-btn--ghost:hover { background: rgba(65, 47, 31, .06); }
+  .consent-btn--primary { background: #9A3922; color: #F2EBDB; border: 1px solid #9A3922; }
+  .consent-btn--primary:hover { transform: translateY(-1px); }
+  @media (min-width: 640px) {
+    .consent-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var KEY = 'laom_consent';
+    var banner = document.getElementById('consent-banner');
+    if (!banner) return;
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+    if (!stored) banner.hidden = false;
+
+    function setConsent(granted) {
+      try { localStorage.setItem(KEY, granted ? 'granted' : 'denied'); } catch (e) {}
+      document.cookie = 'laom_consent=' + (granted ? 'granted' : 'denied') +
+        '; path=/; max-age=' + (60 * 60 * 24 * 180) + '; samesite=lax';
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', granted
+          ? { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' }
+          : { ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      }
+      try { if (typeof window.fbq === 'function') window.fbq('consent', granted ? 'grant' : 'revoke'); } catch (e) {}
+      banner.hidden = true;
+    }
+
+    var accept = document.getElementById('consent-accept');
+    var refuse = document.getElementById('consent-refuse');
+    if (accept) accept.addEventListener('click', function () { setConsent(true); });
+    if (refuse) refuse.addEventListener('click', function () { setConsent(false); });
+  })();
+</script>
