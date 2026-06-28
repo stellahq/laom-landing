@@ -18,6 +18,11 @@
 			"binding": "DB",
 			"database_name": "laom-team",
 			"database_id": "fe9eddef-c23a-4aee-b954-8b53014f8fc6"
+		},
+		{
+			"binding": "TRACKING_DB",
+			"database_name": "laom-tracking",
+			"database_id": "543b50f3-f08f-45f2-a48c-99deaa390884"
 		}
 	],
 	// Production deploy uses custom domain; no workers.dev fallback

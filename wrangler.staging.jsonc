@@ -25,6 +25,11 @@
 			"binding": "DB",
 			"database_name": "laom-team",
 			"database_id": "fe9eddef-c23a-4aee-b954-8b53014f8fc6"
+		},
+		{
+			"binding": "TRACKING_DB",
+			"database_name": "laom-tracking-staging",
+			"database_id": "e2fc2b54-2f47-4b86-ab9a-9f573c7fbe75"
 		}
 	],
 	"workers_dev": false,
