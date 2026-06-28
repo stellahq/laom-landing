@@ -59,6 +59,13 @@ export const prerender = false
         <div id="funnel" class="space-y-3"></div>
       </section>
 
+      <!-- Funnel par source (entonnoir segmente) -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+        <h2 class="font-playfair text-lg text-[#2C2824] mb-4">Funnel par source</h2>
+        <div id="funnel-legend" class="flex flex-wrap gap-x-4 gap-y-2 mb-4 text-xs text-[#2C2824]/70"></div>
+        <div id="funnel-segmented" class="space-y-3"></div>
+      </section>
+
       <div class="grid md:grid-cols-2 gap-6">
         <!-- Sources -->
         <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
@@ -145,6 +152,26 @@ export const prerender = false
           var w = Math.max(2, Math.round((f.count / maxF) * 100));
           var color = f.leak_rate > 50 ? '#dc2626' : f.leak_rate > 30 ? '#f59e0b' : '#4A7C59';
           return '<div><div class="flex justify-between text-sm mb-1"><span class="text-[#2C2824]">' + f.step + ' · <span class="font-mono">' + f.count + '</span></span><span class="text-[#2C2824]/40">' + f.conversion_rate + '%</span></div><div class="h-6 bg-[#2C2824]/5 rounded-sm overflow-hidden"><div style="width:' + w + '%;background:' + color + '" class="h-full"></div></div></div>';
+        }).join('');
+
+        // Funnel segmente par source (entonnoir : barres degressives, couleurs = sources)
+        var palette = ['#C4A855', '#4A7C59', '#9A3922', '#7B6B8A', '#5B8AA6', '#B07A3C', '#2C2824'];
+        var fseg = d.funnel_segmented || [];
+        var colorMap = {};
+        ((fseg[0] || {}).segments || []).forEach(function (s, i) { colorMap[s.source] = palette[i % palette.length]; });
+        fseg.forEach(function (st) { (st.segments || []).forEach(function (s) { if (!colorMap[s.source]) colorMap[s.source] = palette[Object.keys(colorMap).length % palette.length]; }); });
+        $('funnel-legend').innerHTML = Object.keys(colorMap).map(function (src) {
+          return '<span class="inline-flex items-center gap-1.5"><span style="width:11px;height:11px;border-radius:2px;background:' + colorMap[src] + '" class="inline-block"></span>' + esc(src) + '</span>';
+        }).join('') || '<span class="text-[#2C2824]/40">Aucune source</span>';
+        var maxTotal = (fseg[0] || {}).total || 1;
+        $('funnel-segmented').innerHTML = fseg.map(function (st) {
+          var barW = Math.max(3, Math.round((st.total / maxTotal) * 100));
+          var segs = (st.segments || []).map(function (s) {
+            var w = st.total > 0 ? (s.count / st.total * 100) : 0;
+            return '<div title="' + esc(s.source) + ' : ' + s.count + '" style="width:' + w + '%;background:' + colorMap[s.source] + '" class="h-full flex items-center justify-center text-[10px] text-white font-mono overflow-hidden whitespace-nowrap">' + (w > 9 ? s.count : '') + '</div>';
+          }).join('');
+          return '<div><div class="flex justify-between text-sm mb-1"><span class="text-[#2C2824]">' + st.step + '</span><span class="text-[#2C2824]/40 font-mono">' + st.total + '</span></div>' +
+            '<div class="h-7 rounded-sm overflow-hidden bg-[#2C2824]/5" style="width:' + barW + '%"><div class="flex h-full">' + segs + '</div></div></div>';
         }).join('');
 
         $('sources').innerHTML = (d.sources || []).map(function (s) {
