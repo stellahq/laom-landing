@@ -141,16 +141,57 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
 
 <script>
   const form = document.getElementById('cand-form') as HTMLFormElement | null
-  form?.addEventListener('submit', (e) => {
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault()
     const q8 = form.querySelectorAll('input[name="attentes"]:checked').length
     const q8err = document.getElementById('q8-error') as HTMLElement
     if (q8 === 0) { q8err.hidden = false; q8err.scrollIntoView({ behavior: 'smooth', block: 'center' }); return }
     q8err.hidden = true
     if (!form.checkValidity()) { form.reportValidity(); return }
-    // TODO backend : envoyer les réponses (Brevo / endpoint Stella) + déclencheurs (mail confirmation, notif Eduardo, ajout newsletter).
-    const nom = (form.querySelector('[name="nom"]') as HTMLInputElement)?.value || ''
-    const prenom = nom.trim().split(' ')[0]
+
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…' }
+
+    const fd = new FormData(form)
+    const eventId = (crypto.randomUUID && crypto.randomUUID())
+      || ('eid_' + Date.now() + '_' + Math.random().toString(36).slice(2))
+
+    // Pixel client (meme event_id que le serveur -> Meta/GA dedupent).
+    const w = window as any
+    try { if (w.fbq) w.fbq('track', 'Lead', { content_name: 'candidature-coliving' }, { eventID: eventId }) } catch {}
+    try { if (w.gtag) w.gtag('event', 'generate_lead', { event_category: 'coliving', event_label: 'candidature' }) } catch {}
+
+    const payload = {
+      nom: String(fd.get('nom') || ''),
+      email: String(fd.get('email') || ''),
+      tel: String(fd.get('tel') || ''),
+      activite: String(fd.get('activite') || ''),
+      anciennete: String(fd.get('anciennete') || ''),
+      equipe: String(fd.get('equipe') || ''),
+      experience: String(fd.get('experience') || ''),
+      attentes: fd.getAll('attentes').map(String),
+      semaine: String(fd.get('semaine') || ''),
+      message: String(fd.get('message') || ''),
+      rgpd: !!fd.get('rgpd'),
+      event_id: eventId,
+    }
+
+    try {
+      const res = await fetch('/api/form/candidater', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (!res.ok) throw new Error('submit failed')
+    } catch (err) {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma candidature' }
+      const reass = document.getElementById('reassurance') as HTMLElement
+      if (reass) { reass.textContent = 'Oups, un souci à l’envoi. Réessaie dans un instant.'; reass.style.color = '#9A3922' }
+      return
+    }
+
+    const prenom = payload.nom.trim().split(' ')[0]
     const nameEl = document.getElementById('cand-name')
     if (nameEl) nameEl.textContent = prenom ? ' ' + prenom : ''
     const app = document.getElementById('cand-app') as HTMLElement
