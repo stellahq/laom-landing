@@ -1,16 +1,13 @@
 ---
-// PAGE DE VENTE — Variant B (test design/format). S'inspire des TECHNIQUES de
-// La Pioche / Le Charbon (hero preuve-first + visages, douleurs nommées, bande de
-// stats, crédibilité par le lieu, qualification binaire sur photo sombre, densité
-// de CTA), mais en CHARTE LAOM (terre/marron/beige, Host Grotesk, nos photos) et
-// posture LAOM (pas de sur-promesse). Lead-gen : tout converge vers "Postuler".
-// Route isolée /coliving-aout-labo-b (noindex). À comparer avec /coliving-aout-labo.
+// PAGE DE VENTE — Variant B (gardée et optimisée). Techniques La Pioche en charte
+// LAOM, posture LAOM. Optims : hero vidéo (sans bande de visages), témoignages en
+// carrousel infini, prix retiré (max candidatures), process bienveillant en
+// scroll-stack, journée type animée au scroll. Lead-gen : tout vers "Postuler".
+// Route isolée /coliving-aout-labo-b (noindex).
 import Layout from '~/layouts/Layout.astro'
 import SiteNav from '~/components/laom/SiteNav.astro'
-import Timeline from '~/components/laom/sections/Timeline.astro'
 import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
 import MediaText from '~/components/laom/sections/MediaText.astro'
-import TestimonialsSection from '~/components/laom/sections/TestimonialsSection.astro'
 import Faq from '~/components/laom/sections/Faq.astro'
 import CtaImage from '~/components/laom/sections/CtaImage.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
@@ -39,33 +36,39 @@ const pains = [
   { t: 'Le rythme qui t’épuise', lead: 'Tu te dis que tu ralentiras plus tard.', body: 'Tu repousses le sport, tu manges vite, tu dors moyen. Le téléphone ne s’éteint jamais vraiment. Et plus tard, ça n’arrive jamais.', img: L('atelier-presentation') },
   { t: 'Le cadre qui t’éteint', lead: 'Les mêmes murs, le même bureau.', body: 'Ton décor ne te porte plus, il te vide. Tu crées dans un environnement qui n’a rien à voir avec la vie que tu voulais en te lançant.', img: L('coworking-coussins') },
 ]
+const journee = [
+  { time: '7h30', label: 'Réveil en pleine nature' },
+  { time: '8h00', label: 'Pratique du matin : yoga, mouvement ou marche' },
+  { time: '9h00', label: 'Petit-déjeuner du potager, face à la vallée' },
+  { time: '9h30 – 13h', label: 'Travail au calme, wifi fibre' },
+  { time: '13h00', label: 'Déjeuner à la grande table' },
+  { time: '14h – 17h', label: 'Au choix : avancer, rivière, atelier, sieste' },
+  { time: '19h30', label: 'Dîner fait maison' },
+  { time: '21h00', label: 'Feu, soirée, voie lactée' },
+]
+const etapes = [
+  { n: '01', t: 'Tu remplis le formulaire. Deux minutes, sans engagement.' },
+  { n: '02', t: 'On s’appelle 15 minutes, juste pour faire connaissance et voir si c’est le bon moment pour toi.' },
+  { n: '03', t: 'Si l’envie est là, ta place t’attend.' },
+]
 ---
 
 <Layout title="Coliving entrepreneurs · Août 2026 (B) · LAOM" hideChrome={true} seo={{ noIndex: true }}>
 
-  <!-- ① HERO — bold, preuve-first -->
-  <section class="relative overflow-hidden text-[#F2EBDB]" style="background:linear-gradient(135deg,#2A1E14 0%,#7c2f1d 55%,#9A3922 100%)">
+  <!-- ① HERO — vidéo plein écran -->
+  <section class="relative min-h-screen w-full overflow-hidden flex flex-col text-[#F2EBDB]">
+    <video autoplay muted loop playsinline poster="/images/hero-laom-poster-v2.webp" class="absolute inset-0 w-full h-full object-cover">
+      <source src="/videos/hero-laom-v2.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(28,19,12,0.88) 0%,rgba(122,47,29,0.6) 55%,rgba(154,57,34,0.5) 100%)"></div>
     <SiteNav transparent={true} links={[]} ctaText="Postuler" ctaHref={POSTULER} />
-    <div class="relative max-w-4xl mx-auto px-6 text-center pt-36 md:pt-44 pb-14">
-      <span class="inline-block rounded-full bg-[#F2EBDB]/12 border border-[#F2EBDB]/15 px-5 py-2 text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-[#F2EBDB]/90 mb-9">Coliving entrepreneurs · 3 éditions · Août 2026</span>
+    <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pt-28 pb-20 max-w-4xl mx-auto">
+      <span class="inline-block rounded-full bg-[#F2EBDB]/12 border border-[#F2EBDB]/15 px-5 py-2 text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-[#F2EBDB]/90 mb-8">Coliving entrepreneurs · 3 éditions · Août 2026</span>
       <h1 class="font-extrabold text-[#F2EBDB] text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-[-0.03em] text-balance">Cette semaine, ton bureau, <span class="italic font-medium text-[#E7C89A]">c’est 21 hectares de nature.</span></h1>
-      <p class="text-lg md:text-xl text-[#F2EBDB]/80 mt-7 max-w-2xl mx-auto leading-relaxed">Six jours dans le sud de l’Aveyron, avec onze entrepreneurs qui te ressemblent. Tu continues de bosser, mais dans un cadre qui te nourrit au lieu de t’épuiser.</p>
+      <p class="text-lg md:text-xl text-[#F2EBDB]/85 mt-7 max-w-2xl mx-auto leading-relaxed">Six jours dans le sud de l’Aveyron, avec onze entrepreneurs qui te ressemblent. Tu continues de bosser, mais dans un cadre qui te nourrit au lieu de t’épuiser.</p>
       <a href={POSTULER} class="pill pill-light mt-10" style="padding:1rem 2.6rem">Postuler pour août 2026</a>
       <p class="text-xs tracking-[0.12em] uppercase text-[#F2EBDB]/55 mt-5">Candidature en 2 minutes · sans engagement</p>
-    </div>
-    <!-- bandeau de visages témoins -->
-    <div class="relative max-w-7xl mx-auto px-6 pb-10">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        {temoins.map((t) => (
-          <figure class="rounded-2xl bg-[#F2EBDB]/8 border border-[#F2EBDB]/12 backdrop-blur-sm p-5 text-left">
-            <blockquote class="text-sm text-[#F2EBDB]/90 leading-relaxed">“{t.quote}”</blockquote>
-            <figcaption class="flex items-center gap-3 mt-4">
-              <span class="w-9 h-9 rounded-full bg-[#F2EBDB] text-[#9A3922] grid place-items-center text-sm font-bold shrink-0">{initiales(t.name)}</span>
-              <span class="text-xs text-[#F2EBDB]/70 leading-tight">{t.name}<br />{t.role}</span>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      <p class="text-sm font-medium text-[#E7C89A] mt-3">Douze places par édition, et elles partent vite.</p>
     </div>
   </section>
 
@@ -127,23 +130,29 @@ const pains = [
     </div>
   </section>
 
-  <!-- ⑤ UNE JOURNÉE -->
-  <div animate-fade-in-up class="opacity-0">
-    <Timeline bg="bg-[#F2EBDB]"
-      eyebrow="Une journée type"
-      title="Du premier souffle" accent="à la dernière étoile."
-      items={[
-        { time: '7h30', label: 'Réveil en pleine nature' },
-        { time: '8h00', label: 'Pratique du matin : yoga, mouvement ou marche' },
-        { time: '9h00', label: 'Petit-déjeuner du potager, face à la vallée' },
-        { time: '9h30 – 13h', label: 'Travail au calme, wifi fibre' },
-        { time: '13h00', label: 'Déjeuner à la grande table' },
-        { time: '14h – 17h', label: 'Au choix : avancer, rivière, atelier, sieste' },
-        { time: '19h30', label: 'Dîner fait maison' },
-        { time: '21h00', label: 'Feu, soirée, voie lactée' },
-      ]}
-      note="Rien n’est obligatoire. Tout est proposé. Tu fais ta semaine à ton rythme." />
-  </div>
+  <!-- ⑤ UNE JOURNÉE — défile au scroll -->
+  <section id="journee" class="bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-3xl mx-auto px-6 md:px-10">
+      <div class="text-center mb-14">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Une journée type</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Du premier souffle <span class="acc">à la dernière étoile.</span></h2>
+      </div>
+      <div class="jt">
+        <span class="jt-rail"></span>
+        <span class="jt-fill" id="jtfill"></span>
+        <ol>
+          {journee.map((it) => (
+            <li class="jt-item">
+              <span class="jt-dot"></span>
+              <span class="jt-time">{it.time}</span>
+              <p class="jt-label">{it.label}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p class="text-center text-sm text-[#1D1B18]/55 mt-12 max-w-md mx-auto">Rien n’est obligatoire. Tout est proposé. Tu fais ta semaine à ton rythme.</p>
+    </div>
+  </section>
 
   <!-- ⑥ LE LIEU -->
   <div animate-fade-in-up class="opacity-0">
@@ -169,13 +178,26 @@ const pains = [
       text="Ici, tu travailles. Le Shala est un vrai espace de coworking, wifi fibre, au calme, la vallée pour fond d’écran. Tu prends tes calls, tu avances tes projets. La seule différence, c’est qu’entre deux sessions tu plonges dans la rivière au lieu de scroller. Tu ne perds pas une semaine de business. Tu en gagnes la clarté pour les six mois qui suivent." />
   </div>
 
-  <!-- ⑧ TÉMOIGNAGES (placeholder à remplacer) -->
-  <div animate-fade-in-up class="opacity-0">
-    <TestimonialsSection bg="bg-[#FBF6EA]"
-      eyebrow="Ils l’ont vécu"
-      title="Ce qu’ils en" accent="disent."
-      items={temoins.map((t) => ({ quote: t.quote, name: t.name, role: t.role }))} />
-  </div>
+  <!-- ⑧ TÉMOIGNAGES — carrousel infini -->
+  <section class="bg-[#FBF6EA] py-20 md:py-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 mb-12 text-center">
+      <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Ils l’ont vécu</p>
+      <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Ce qu’ils en <span class="acc">disent.</span></h2>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        {[...temoins, ...temoins].map((t) => (
+          <figure class="tcard">
+            <blockquote class="text-[#1D1B18]/85 leading-relaxed italic">“{t.quote}”</blockquote>
+            <figcaption class="flex items-center gap-3 mt-5">
+              <span class="w-10 h-10 rounded-full bg-[#9A3922] text-[#F2EBDB] grid place-items-center text-sm font-bold shrink-0">{initiales(t.name)}</span>
+              <span class="leading-tight"><span class="block text-sm font-bold text-[#412F1F]">{t.name}</span><span class="block text-xs text-[#73673E]">{t.role}</span></span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- ⑨ EST-CE FAIT POUR TOI — qualification sur photo sombre -->
   <section animate-fade-in-up class="opacity-0 relative overflow-hidden">
@@ -215,23 +237,25 @@ const pains = [
       text="Ils ont quitté la ville, acheté vingt-et-un hectares dans le sud de l’Aveyron, et bâti de leurs mains le lieu qu’ils auraient voulu trouver. LAOM, c’est leur projet de vie. Le coliving, c’est leur façon de t’inviter à le vivre." />
   </div>
 
-  <!-- ⑪ OFFRE + PROCESS -->
-  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-24 md:py-32">
+  <!-- ⑪ L'OFFRE + LE PROCESS (scroll-stack), sans prix -->
+  <section class="bg-[#FBF6EA] py-24 md:py-32">
     <div class="max-w-4xl mx-auto px-6 md:px-10 lg:px-14">
       <div class="text-center max-w-2xl mx-auto">
         <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">L’offre</p>
         <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Une semaine. Douze entrepreneurs. <span class="acc">Tout compris.</span></h2>
-        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed">Hébergement en tipi, repas du potager, pratiques du matin, ateliers, soirées, espace de travail wifi fibre. Le détail complet du programme et les dates, on te les raconte de vive voix.</p>
-        <p class="mt-9 font-extrabold text-[#412F1F]"><span class="text-4xl md:text-5xl text-[#9A3922]">1 500 € HT</span><span class="block text-sm font-medium text-[#1D1B18]/60 mt-2">la semaine · prix de lancement · tout compris</span></p>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed">Hébergement en tipi, repas du potager, pratiques du matin, ateliers, soirées, espace de travail wifi fibre. Le détail complet du programme, les dates et le tarif, on te les raconte de vive voix.</p>
       </div>
-      <div class="grid sm:grid-cols-3 gap-8 md:gap-10 mt-16">
-        {[{n:'01',t:'Tu remplis le formulaire. Deux minutes.'},{n:'02',t:'On t’appelle dans les 48h. Quinze minutes, pour voir si c’est le bon moment et le bon groupe.'},{n:'03',t:'Si ça matche, ta place est confirmée.'}].map((s) => (
-          <div class="border-t border-[#412F1F]/15 pt-6">
-            <p class="text-4xl md:text-5xl font-extrabold text-[#9A3922] leading-none mb-4">{s.n}</p>
-            <p class="text-[#1D1B18]/75 leading-relaxed">{s.t}</p>
-          </div>
+
+      <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mt-20 mb-8 text-center">Comment ça se passe</p>
+      <div class="pstack max-w-2xl mx-auto">
+        {etapes.map((s, i) => (
+          <article class="pstack-card bg-white border border-[#412F1F]/10 rounded-3xl p-8 md:p-10 flex items-center gap-7 shadow-[0_22px_44px_-26px_rgba(65,47,31,0.4)]" style={`--i:${i}`}>
+            <p class="text-5xl md:text-6xl font-extrabold text-[#9A3922] leading-none shrink-0">{s.n}</p>
+            <p class="text-lg text-[#412F1F] leading-relaxed">{s.t}</p>
+          </article>
         ))}
       </div>
+
       <div class="text-center mt-14">
         <a href={POSTULER} class="pill pill-primary" style="padding:.95rem 2.4rem">Postuler pour août 2026</a>
         <p class="text-sm text-[#1D1B18]/55 mt-5">Candidature en 2 minutes. Pas de pitch, pas de pression.</p>
@@ -249,6 +273,7 @@ const pains = [
         { q: 'L’Aveyron, c’est loin ?', a: 'On est en sud Aveyron, à 1h30 de Montpellier (gare TGV) et 2h de Toulouse. On s’occupe de ton arrivée. Et c’est précisément cette distance qui fait la valeur du lieu.' },
         { q: 'C’est pas un truc trop perché ?', a: 'Non. Un lieu exigeant, des entrepreneurs sérieux, et rien d’obligatoire : tu prends ce qui te parle, tu laisses le reste.' },
         { q: 'Il y aura qui d’autre ?', a: 'Douze personnes par semaine, choisies via le formulaire, avec des profils proches du tien. On te parle de la cohorte au téléphone.' },
+        { q: 'Et le tarif ?', a: 'On t’en parle pendant l’échange de 15 minutes, en même temps que le programme et les dates. C’est un prix de lancement, tout compris.' },
       ]} />
   </div>
 
@@ -257,7 +282,7 @@ const pains = [
     <CtaImage bg="bg-[#FBF6EA]" img={L('diner-golden-hour-laom')}
       eyebrow="Août 2026"
       title="Trois semaines. Douze places chacune." accent="Quand c’est complet, c’est complet."
-      subtitle="Dates : 10-16, 17-23 et 24-30 août 2026. 1 500 € HT, prix de lancement, tout compris. Le reste, on en parle ensemble."
+      subtitle="Dates : 10-16, 17-23 et 24-30 août 2026. Douze places par édition, et elles partent vite. Le reste, on en parle ensemble."
       primaryText="Postuler pour août 2026" primaryHref={POSTULER}
       secondaryText="ou faire le diagnostic" secondaryHref="/quiz-labo/" />
   </div>
@@ -266,3 +291,51 @@ const pains = [
 
   <StickyCta text="Postuler" href={POSTULER} />
 </Layout>
+
+<style>
+  .marquee { display: flex; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .marquee-track { display: flex; gap: 1.25rem; padding: 0 0.625rem; width: max-content; animation: tmarquee 42s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes tmarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .tcard { flex: 0 0 330px; background: #fff; border: 0.5px solid rgba(65,47,31,0.1); border-radius: 1.25rem; padding: 1.5rem 1.6rem; }
+
+  .jt { position: relative; }
+  .jt ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.9rem; }
+  .jt-rail, .jt-fill { position: absolute; left: 11px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; }
+  .jt-rail { background: rgba(65,47,31,0.14); }
+  .jt-fill { bottom: auto; height: 0; background: #9A3922; transition: height 0.12s linear; }
+  .jt-item { position: relative; padding-left: 44px; opacity: 0.32; transform: translateY(8px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .jt-item.in { opacity: 1; transform: none; }
+  .jt-dot { position: absolute; left: 4px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: #F2EBDB; border: 2px solid rgba(65,47,31,0.25); transition: border-color 0.4s ease, background 0.4s ease; }
+  .jt-item.in .jt-dot { border-color: #9A3922; background: #9A3922; }
+  .jt-time { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; color: #9A3922; }
+  .jt-label { margin-top: 2px; font-size: 1.05rem; color: #412F1F; }
+
+  .pstack-card { position: sticky; top: calc(116px + var(--i, 0) * 16px); }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .pstack-card { position: static; }
+    .jt-item { opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  const sec = document.getElementById('journee')
+  const fill = document.getElementById('jtfill')
+  const jt = sec && sec.querySelector('.jt')
+  if (sec && fill && jt) {
+    const items = sec.querySelectorAll('.jt-item')
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in') })
+    }, { threshold: 0.5 })
+    items.forEach((i) => io.observe(i))
+    const onScroll = () => {
+      const r = jt.getBoundingClientRect()
+      const p = Math.min(Math.max((window.innerHeight * 0.55 - r.top) / r.height, 0), 1)
+      fill.style.height = (p * 100) + '%'
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+  }
+</script>
