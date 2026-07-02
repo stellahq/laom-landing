@@ -1,5 +1,9 @@
 ---
+// Louer le lieu — page de capture (Kit form 8987350, tag "location") qui donne
+// accès aux tarifs (/tarifs-location/). Rebrandée charte LAOM (juil. 2026) :
+// photo plein écran + calque marron, carte crème, champs charte, pill terre.
 import Layout from '~/layouts/Layout.astro'
+import Logo from '~/components/laom/Logo.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
@@ -7,15 +11,18 @@ const pageSchema = createWebPageSchema({
   url: Astro.url.toString(),
   description: 'Découvrez nos tarifs de location et nos conditions pour organiser un stage, une retraite ou un événement à LAOM.',
 })
+
+const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/50 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
 ---
 
 <Layout
   title="Organiser un événement à LAOM"
   description="Découvrez nos tarifs de location et nos conditions pour organiser un stage, une retraite ou un événement à LAOM."
+  hideChrome={true}
   seo={{ ldJSON: pageSchema }}
 >
-  <section class="relative py-32 lg:py-40 flex items-center justify-center overflow-hidden -mt-24 md:-mt-28 min-h-screen">
-    <div class="absolute inset-0 z-0">
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden py-24 px-6">
+    <div class="absolute inset-0">
       <img
         src="/images/laom/salle-de-pratique.webp"
         alt="Salle de pratique LAOM"
@@ -23,83 +30,61 @@ const pageSchema = createWebPageSchema({
         loading="eager"
         fetchpriority="high"
       />
-      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="absolute inset-0 bg-[#412F1F]/70"></div>
     </div>
 
-    <div class="relative z-10 max-w-lg mx-auto px-10 sm:px-16">
-      <div class="bg-white rounded-sm p-8 md:p-10 shadow-xl">
-        <!-- Logo -->
-        <div class="text-center mb-8">
-          <img
-            src="/images/laom/presentation/logo-laom.webp"
-            alt="Logo LAOM"
-            class="h-12 mx-auto mb-6"
-          />
-          <h1 class="font-playfair text-2xl md:text-3xl font-medium text-[#2C2824] tracking-tight mb-3">
-            Organiser un événement à LAOM
-          </h1>
-          <p class="text-base font-light text-[#2C2824]/60 leading-relaxed">
-            Recevez nos tarifs de location, nos conditions et les dates disponibles.
-          </p>
-        </div>
+    <a href="/" class="absolute top-6 left-6 md:top-8 md:left-10 text-[#F2EBDB] z-10" aria-label="Retour à l’accueil">
+      <Logo height="1.7rem" />
+    </a>
 
-        <!-- Formulaire Kit — via form 8987350 avec source=location -->
-        <iframe name="kit-iframe" id="kit-iframe" style="display:none"></iframe>
+    <div class="relative z-10 w-full max-w-lg">
+      <div class="bg-[#FBF6EA] rounded-3xl p-8 md:p-10">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Location · Stages, retraites, événements</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance mb-4">
+          Organiser un événement <span class="italic font-medium text-[#9A3922]">à LAOM.</span>
+        </h1>
+        <p class="text-[#1D1B18]/70 leading-relaxed mb-8">
+          Reçois nos tarifs de location, nos conditions et les dates disponibles.
+        </p>
+
+        <!-- Formulaire Kit — via form 8987350 avec tag "location" -->
+        <iframe name="kit-iframe" id="kit-iframe" style="display:none" title="Kit"></iframe>
         <form
           id="location-form"
           action="https://app.kit.com/forms/8987350/subscriptions"
           method="post"
           target="kit-iframe"
-          class="space-y-4"
+          class="space-y-5"
         >
           <input type="hidden" name="tags[]" value="18080822" />
-          <div>
-            <label class="block text-sm font-medium text-[#2C2824] mb-1.5">Prénom</label>
-            <input
-              class="w-full rounded-sm border border-[#2C2824]/15 px-4 py-3 text-sm text-[#2C2824] placeholder-[#2C2824]/40 focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-colors"
-              name="fields[first_name]"
-              type="text"
-              required
-              placeholder="Votre prénom"
-              autocomplete="given-name"
-            />
+          <div class="space-y-2">
+            <label for="loc-prenom" class="font-semibold text-[#412F1F]">Prénom</label>
+            <input id="loc-prenom" class={inputCls} name="fields[first_name]" type="text" required placeholder="Ton prénom" autocomplete="given-name" />
           </div>
-          <div>
-            <label class="block text-sm font-medium text-[#2C2824] mb-1.5">Email</label>
-            <input
-              class="w-full rounded-sm border border-[#2C2824]/15 px-4 py-3 text-sm text-[#2C2824] placeholder-[#2C2824]/40 focus:outline-none focus:border-[#C4A855] focus:ring-1 focus:ring-[#C4A855]/30 transition-colors"
-              name="email_address"
-              type="email"
-              required
-              placeholder="votre@email.com"
-              autocomplete="email"
-            />
+          <div class="space-y-2">
+            <label for="loc-email" class="font-semibold text-[#412F1F]">Email</label>
+            <input id="loc-email" class={inputCls} name="email_address" type="email" required placeholder="ton@email.com" autocomplete="email" />
           </div>
-          <button
-            type="submit"
-            id="submit-btn"
-            class="w-full rounded-sm bg-[#2C2824] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#3D3832] transition-colors"
-          >
-            J'accède aux conditions et dates disponibles
+          <button type="submit" id="submit-btn" class="pill pill-primary w-full justify-center" style="padding:.95rem 2rem">
+            J’accède aux conditions et dates
           </button>
         </form>
 
-        <p class="text-xs font-light text-[#2C2824]/40 text-center mt-4">
-          Vous serez également inscrit à la LAOM Letter, notre newsletter mensuelle.
+        <p class="text-xs text-[#1D1B18]/55 text-center mt-5">
+          Tu seras aussi inscrit·e à la LAOM Letter, nos coulisses chaque dimanche.
         </p>
-
-        <script is:inline>
-          document.getElementById('location-form').addEventListener('submit', function() {
-            var btn = document.getElementById('submit-btn');
-            btn.disabled = true;
-            btn.textContent = 'Envoi en cours...';
-            setTimeout(function() {
-              window.location.href = '/tarifs-location/';
-            }, 2000);
-          });
-        </script>
       </div>
     </div>
+
+    <script is:inline>
+      document.getElementById('location-form').addEventListener('submit', function() {
+        var btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'Envoi en cours…';
+        setTimeout(function() {
+          window.location.href = '/tarifs-location/';
+        }, 2000);
+      });
+    </script>
   </section>
 </Layout>
-
