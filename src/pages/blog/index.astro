@@ -5,6 +5,7 @@ import { createWebPageSchema } from '~/utils/schema'
 import { getTranslations, getLocalizedPath } from '~/i18n/utils'
 
 import PageHeader from '~/components/laom/PageHeader.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
 import SectionHead from '~/components/laom/sections/SectionHead.astro'
 import BlogCard from '~/components/laom/BlogCard.astro'
 import EventList from '~/components/laom/sections/EventList.astro'
@@ -53,7 +54,9 @@ const letterRows = newsletters.map((n) => ({
   hideChrome={true}
   seo={{ ldJSON: pageSchema }}
 >
-  <PageHeader img={F('blog-2')} title={t.blog.title} subtitle={t.blog.heroSubtitle} />
+  <PageHeader img={F('blog-2')} title={t.blog.title} subtitle={t.blog.heroSubtitle}
+    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
+    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Journal' }]} />
 
   <section class="bg-[#F2EBDB] py-24 md:py-32">
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
@@ -71,7 +74,7 @@ const letterRows = newsletters.map((n) => ({
   <CtaSection img={F('cta')} bg="bg-[#F2EBDB]" eyebrow="Suivre le projet"
     title="Reçois les coulisses" accent="chaque dimanche"
     primaryText="Rejoindre la newsletter" primaryHref="/newsletter/"
-    secondaryText="Découvrir le projet" secondaryHref="/qui-sommes-nous/"
+    secondaryText="Découvrir le projet" secondaryHref="/notre-histoire/"
     items={[
       {title:'Coulisses du chantier',desc:'Décisions et apprentissages'},
       {title:'Sans filtre',desc:'Les erreurs aussi'},
