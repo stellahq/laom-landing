@@ -22,7 +22,7 @@ const attentes = [
 const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore']
 ---
 
-<Layout title="Candidater — LAOM Coliving août 2026" hideChrome={true} seo={{ noIndex: true }}>
+<Layout title="Candidater — LAOM Coliving août 2026" description="Candidate pour le coliving d'août 2026 à LAOM. Formulaire en 2 minutes, réponse sous 48h." hideChrome={true} seo={{ noIndex: true }}>
   <div class="min-h-screen bg-[#FBF6EA]">
 
     <!-- Logo seul (retour accueil) -->
@@ -155,11 +155,6 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
     const eventId = (crypto.randomUUID && crypto.randomUUID())
       || ('eid_' + Date.now() + '_' + Math.random().toString(36).slice(2))
 
-    // Pixel client (meme event_id que le serveur -> Meta/GA dedupent).
-    const w = window as any
-    try { if (w.fbq) w.fbq('track', 'Lead', { content_name: 'candidature-coliving' }, { eventID: eventId }) } catch {}
-    try { if (w.gtag) w.gtag('event', 'generate_lead', { event_category: 'coliving', event_label: 'candidature' }) } catch {}
-
     const payload = {
       nom: String(fd.get('nom') || ''),
       email: String(fd.get('email') || ''),
@@ -183,6 +178,11 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
         body: JSON.stringify(payload),
       })
       if (!res.ok) throw new Error('submit failed')
+      // Pixel client APRÈS confirmation serveur (même event_id -> Meta dedupe).
+      // Tiré avant, un échec réseau créait un Lead Meta sans lead en base.
+      const w = window as any
+      try { if (w.fbq) w.fbq('track', 'Lead', { content_name: 'candidature-coliving' }, { eventID: eventId }) } catch {}
+      try { if (w.gtag) w.gtag('event', 'generate_lead', { event_category: 'coliving', event_label: 'candidature' }) } catch {}
     } catch (err) {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma candidature' }
       const reass = document.getElementById('reassurance') as HTMLElement

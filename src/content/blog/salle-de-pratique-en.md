@@ -253,7 +253,7 @@ That revelation stayed with me. Ecological building and artistic creation aren�
 
 The room breathes. Earth-plaster walls regulate humidity naturally. The air is healthy. Light comes in through large openings. The space invites you to move, dare, and let yourself be surprised.
 
-This is where we host movement workshops. Dance sessions. Collective practice. [The “En Mouvement” workshop with Samuel Planas](/en/stage-danse/) — our signature immersion — exists thanks to this room.
+This is where we host movement workshops. Dance sessions. Collective practice. [The “En Mouvement” workshop with Samuel Planas](/en/events/) — our signature immersion — exists thanks to this room.
 
 Before the Shala, LAOM was a build site. After the Shala, LAOM became a place to live. This room made it possible to start running activities, welcome groups, and bring the ecolieu to life.
 

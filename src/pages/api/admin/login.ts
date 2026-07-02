@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { signSession, cookieHeader, clearCookieHeader, timingSafeEqualStr } from '~/utils/admin-auth'
+import { checkRateLimit, clientIp, tooManyRequests } from '~/lib/rate-limit'
 
 // POST /api/admin/login { password } -> pose un cookie de session signe (8h).
 // DELETE /api/admin/login -> deconnexion (efface le cookie).
@@ -19,6 +20,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const adminPwd = env?.ADMIN_PASSWORD
   if (!secret || !adminPwd) {
     return json({ error: 'Auth non configurée (secrets manquants)' }, 500)
+  }
+
+  // Anti-brute-force : 10 tentatives / 15 min / IP.
+  if (!(await checkRateLimit(env?.TRACKING_DB, `login:${clientIp(request)}`, 10, 900))) {
+    return tooManyRequests()
   }
 
   let password = ''

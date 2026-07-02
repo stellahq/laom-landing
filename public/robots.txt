@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://laom.com/sitemap-index.xml
+Sitemap: https://laom.fr/sitemap-index.xml

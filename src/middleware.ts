@@ -11,7 +11,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url
 
   // --- 1. Gate admin ---
-  if (pathname.startsWith('/api/admin/') && !pathname.startsWith('/api/admin/login')) {
+  // Match EXACT du point d'entrée login (un futur /api/admin/login-xxx resterait gardé).
+  const isLogin = pathname === '/api/admin/login' || pathname === '/api/admin/login/'
+  if (pathname.startsWith('/api/admin/') && !isLogin) {
     const env = (context.locals as any).runtime?.env
     if (!(await isAuthenticated(context.request, env))) {
       return unauthorized()

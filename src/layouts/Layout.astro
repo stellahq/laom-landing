@@ -41,12 +41,15 @@ import DevImageManagerBridge from '~/components/DevImageManagerBridge.astro'
 import MetaPixel from '~/components/MetaPixel.astro'
 import ConsentBanner from '~/components/ConsentBanner.astro'
 
-// Merge SEO props with defaults
+// Merge SEO props with defaults.
+// Tolère la casse `noindex`/`nofollow` (minuscules) : ~20 pages internes la
+// passaient ainsi et SEO.astro ne lit que `noIndex` -> elles étaient INDEXABLES.
 const seoProps = {
   title: seo.title || title || 'Laom – A Sanctuary for Your Soul',
   description: seo.description || description,
   image: seo.image || ogImage,
   ...seo,
+  noIndex: seo.noIndex ?? (seo as any).noindex ?? false,
 }
 ---
 

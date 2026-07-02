@@ -35,6 +35,14 @@ fbq('init', '25994721960205947');
     return m ? decodeURIComponent(m[1]) : null;
   }
 
+  // Consentement : les beacons CAPI initiés par le NAVIGATEUR (PageView, events
+  // custom) suivent le même régime que le pixel — pas de consentement, pas d'envoi
+  // (CNIL). Les conversions serveur (Lead au submit du formulaire) gardent leur
+  // base légale propre (consentement RGPD du formulaire) et ne passent pas par ici.
+  function hasConsent() {
+    try { return localStorage.getItem('laom_consent') === 'granted'; } catch (e) { return false; }
+  }
+
   // Generate a unique event ID for deduplication
   function eventId() {
     return 'eid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -48,6 +56,8 @@ fbq('init', '25994721960205947');
     if (typeof fbq === 'function') {
       fbq('track', eventName, customData || {}, { eventID: eid });
     }
+
+    if (!hasConsent()) return;
 
     // 2. Server-side CAPI (fire and forget)
     var payload = {
@@ -78,6 +88,8 @@ fbq('init', '25994721960205947');
   // Auto-track PageView on load
   var pvId = eventId();
   fbq('track', 'PageView', {}, { eventID: pvId });
+
+  if (!hasConsent()) return;
 
   // CAPI PageView
   var pvPayload = {

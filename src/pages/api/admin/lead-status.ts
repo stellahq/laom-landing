@@ -42,8 +42,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    await tdb.prepare("UPDATE leads SET status = ?, updated_at = datetime('now') WHERE id = ?")
+    const res = await tdb.prepare("UPDATE leads SET status = ?, updated_at = datetime('now') WHERE id = ?")
       .bind(status, id).run()
+    if (!res?.meta?.changes) {
+      return new Response(JSON.stringify({ error: 'Lead introuvable' }), { status: 404 })
+    }
   } catch (e) {
     console.error('[lead-status] error:', e)
     return new Response(JSON.stringify({ error: 'Update failed' }), { status: 500 })
@@ -55,10 +58,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
   if (eventName) {
     try {
       const lead = await tdb.prepare(
-        `SELECT l.email, l.phone, l.first_name, l.visitor_id, va.fbc
+        `SELECT l.email, l.phone, l.first_name, l.visitor_id, va.fbc, va.user_agent
          FROM leads l LEFT JOIN visitor_attribution va ON va.visitor_id = l.visitor_id
          WHERE l.id = ?`,
-      ).bind(id).first() as { email: string; phone: string | null; first_name: string | null; visitor_id: string | null; fbc: string | null } | null
+      ).bind(id).first() as { email: string; phone: string | null; first_name: string | null; visitor_id: string | null; fbc: string | null; user_agent: string | null } | null
       if (lead?.email) {
         const res = await sendMetaEvents(
           [{
@@ -74,9 +77,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
               external_id: lead.visitor_id || lead.email,
             },
           }],
-          // Pas d'IP/UA : ce serait ceux de l'admin, pas du lead. Le match se fait
-          // sur em/ph/external_id + fbc du clic d'origine.
-          { accessToken: env?.META_CAPI_TOKEN || '', fbc: lead.fbc || undefined },
+          // Pas d'IP admin (mauvais signal), mais le user-agent D'ORIGINE du lead
+          // (stocké dans visitor_attribution) : requis par Meta pour action_source
+          // website, et c'est bien celui du navigateur qui a converti.
+          {
+            accessToken: env?.META_CAPI_TOKEN || '',
+            fbc: lead.fbc || undefined,
+            userAgent: lead.user_agent || undefined,
+          },
         )
         capi = res.ok
         if (!res.ok) console.error('[lead-status] CAPI stage error:', JSON.stringify(res.result))

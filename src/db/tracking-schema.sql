@@ -58,3 +58,10 @@ CREATE INDEX IF NOT EXISTS idx_leads_email ON leads(email);
 CREATE INDEX IF NOT EXISTS idx_leads_visitor ON leads(visitor_id);
 CREATE INDEX IF NOT EXISTS idx_leads_type_status ON leads(type, status);
 CREATE INDEX IF NOT EXISTS idx_leads_created ON leads(created_at);
+
+-- Rate limiting applicatif (fenetre fixe par cle, ex: "form:<ip>").
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key TEXT PRIMARY KEY,
+  count INTEGER NOT NULL DEFAULT 0,
+  reset_at INTEGER NOT NULL
+);

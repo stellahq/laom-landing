@@ -532,7 +532,7 @@ export const translations = {
         enMouvement: {
           sectionTitle: 'Stages « En Mouvement »',
           sessions: [
-            { date: '5 à 9 août 2026', title: 'En Mouvement', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/stage-danse/' },
+            { date: '5 à 9 août 2026', title: 'En Mouvement', description: '5 jours d\'immersion par le corps et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Aucune expérience requise.', href: '/events/' },
           ],
         },
         laomfest: {
@@ -1061,7 +1061,7 @@ export const translations = {
           title: 'LAOM School',
           date: 'Coaching · 12 live sessions over 6 months',
           description: 'The roadmap to create your place: 12 group live sessions over 6 months to walk you through it step by step, hosted by Charly.',
-          href: '/en/school/online/',
+          href: '/en/school/',
         },
         {
           title: 'Soul Brothers',
@@ -1498,9 +1498,9 @@ export const translations = {
         enMouvement: {
           sectionTitle: '« En Mouvement » Workshops',
           sessions: [
-            { date: 'August 5–9, 2026', title: 'En Mouvement,  Session 1', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
-            { date: 'August 11–15, 2026', title: 'En Mouvement,  Session 2', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
-            { date: 'August 16–20, 2026', title: 'En Mouvement,  Session 3', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/stage-danse/' },
+            { date: 'August 5–9, 2026', title: 'En Mouvement,  Session 1', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/events/' },
+            { date: 'August 11–15, 2026', title: 'En Mouvement,  Session 2', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/events/' },
+            { date: 'August 16–20, 2026', title: 'En Mouvement,  Session 3', description: '5-day body & movement immersion. Led by Samuel Planas (CNSMDP) and Charly Aubert. No dance experience required.', href: '/events/' },
           ],
         },
         laomfest: {
