@@ -1,50 +1,59 @@
 ---
-// Louer le lieu — page de capture (Kit form 8987350, tag "location") qui donne
-// accès aux tarifs (/tarifs-location/). Rebrandée charte LAOM (juil. 2026) :
-// photo plein écran + calque marron, carte crème, champs charte, pill terre.
+// Louer le lieu — page navigable (nav + footer) : pitch du cadre + formulaire de
+// capture Kit (form 8987350, tag "location") qui donne accès aux tarifs
+// (/tarifs-location/). Charte LAOM.
 import Layout from '~/layouts/Layout.astro'
-import Logo from '~/components/laom/Logo.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import FeatureItem from '~/components/laom/FeatureItem.astro'
+import PhotoStrip from '~/components/laom/sections/PhotoStrip.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
 import { createWebPageSchema } from '~/utils/schema'
 
 const pageSchema = createWebPageSchema({
-  name: 'Organiser un événement à LAOM',
+  name: 'Louer le lieu — organiser un événement à LAOM',
   url: Astro.url.toString(),
-  description: 'Découvrez nos tarifs de location et nos conditions pour organiser un stage, une retraite ou un événement à LAOM.',
+  description: 'Stages, retraites, séminaires : accueille ton groupe dans un domaine de 21 hectares en sud Aveyron. Tarifs, conditions et dates disponibles.',
 })
 
 const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/50 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
+const L = (n: string) => `/images/laom/${n}.webp`
 ---
 
 <Layout
-  title="Organiser un événement à LAOM"
-  description="Découvrez nos tarifs de location et nos conditions pour organiser un stage, une retraite ou un événement à LAOM."
+  title="Louer le lieu — organiser un événement à LAOM"
+  description="Stages, retraites, séminaires : accueille ton groupe dans un domaine de 21 hectares en sud Aveyron. Tarifs, conditions et dates disponibles."
   hideChrome={true}
   seo={{ ldJSON: pageSchema }}
 >
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden py-24 px-6">
-    <div class="absolute inset-0">
-      <img
-        src="/images/laom/salle-de-pratique.webp"
-        alt="Salle de pratique LAOM"
-        class="absolute inset-0 w-full h-full object-cover object-center"
-        loading="eager"
-        fetchpriority="high"
-      />
-      <div class="absolute inset-0 bg-[#412F1F]/70"></div>
-    </div>
+  <PageHeader img={L('salle-de-pratique')}
+    title="Louer le lieu"
+    subtitle="Stages, retraites, séminaires : accueille ton groupe dans un domaine de 21 hectares en sud Aveyron."
+    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/"
+    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Louer le lieu' }]} />
 
-    <a href="/" class="absolute top-6 left-6 md:top-8 md:left-10 text-[#F2EBDB] z-10" aria-label="Retour à l’accueil">
-      <Logo height="1.7rem" />
-    </a>
+  <section class="bg-[#F2EBDB] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-20 items-start">
 
-    <div class="relative z-10 w-full max-w-lg">
-      <div class="bg-[#FBF6EA] rounded-3xl p-8 md:p-10">
-        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Location · Stages, retraites, événements</p>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance mb-4">
-          Organiser un événement <span class="italic font-medium text-[#9A3922]">à LAOM.</span>
-        </h1>
+      <div>
+        <SectionHead eyebrow="Le cadre" title="Un lieu fait pour" accent="les groupes."
+          intro="Un ancien domaine agricole à 1h30 de Montpellier. Une salle de pratique face à la vallée, une guinguette pour le collectif, des habitats sur place, la rivière et la forêt tout autour." class="mb-12" />
+        <div class="grid sm:grid-cols-2 gap-8">
+          <FeatureItem title="Le shala">Grand volume lumineux face à la vallée, pour les pratiques, les ateliers et les cercles.</FeatureItem>
+          <FeatureItem title="La guinguette">L’espace couvert où le groupe se retrouve, mange et passe ses soirées.</FeatureItem>
+          <FeatureItem title="Les habitats">Tipis et hébergements sur place, pour dormir au plus près du vivant.</FeatureItem>
+          <FeatureItem title="21 hectares">Rivière, forêt, potager : tout le domaine respire avec ton événement.</FeatureItem>
+        </div>
+      </div>
+
+      <div class="bg-[#FBF6EA] rounded-3xl p-8 md:p-10 lg:sticky lg:top-28">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Tarifs & disponibilités</p>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance mb-3">
+          Reçois les conditions <span class="italic font-medium text-[#9A3922]">et les dates.</span>
+        </h2>
         <p class="text-[#1D1B18]/70 leading-relaxed mb-8">
-          Reçois nos tarifs de location, nos conditions et les dates disponibles.
+          Laisse-nous ton prénom et ton email : tu accèdes directement aux tarifs de location, aux conditions et aux dates disponibles.
         </p>
 
         <!-- Formulaire Kit — via form 8987350 avec tag "location" -->
@@ -75,16 +84,24 @@ const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-
         </p>
       </div>
     </div>
-
-    <script is:inline>
-      document.getElementById('location-form').addEventListener('submit', function() {
-        var btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.textContent = 'Envoi en cours…';
-        setTimeout(function() {
-          window.location.href = '/tarifs-location/';
-        }, 2000);
-      });
-    </script>
   </section>
+
+  <PhotoStrip bg="bg-[#FBF6EA]" items={[
+    { img: L('festival-laom-ambiance-nature-aveyron'), alt: 'La guinguette de LAOM pendant un événement', caption: 'La guinguette' },
+    { img: L('lieu-shala-tipis'), alt: 'Le shala et les tipis de LAOM', caption: 'Le shala & les tipis' },
+    { img: L('riviere-baignade'), alt: 'La rivière au bord du domaine', caption: 'La rivière' },
+  ]} />
+
+  <SiteFooter />
+
+  <script is:inline>
+    document.getElementById('location-form').addEventListener('submit', function() {
+      var btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+      setTimeout(function() {
+        window.location.href = '/tarifs-location/';
+      }, 2000);
+    });
+  </script>
 </Layout>
