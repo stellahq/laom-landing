@@ -81,14 +81,17 @@ export const prerender = false
 
       <!-- Leads -->
       <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6 overflow-x-auto">
-        <h2 class="font-playfair text-lg text-[#2C2824] mb-4">Contacts</h2>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-playfair text-lg text-[#2C2824]">Contacts</h2>
+          <button id="csv-btn" class="text-sm border border-[#2C2824]/15 rounded-sm px-3 py-1.5 bg-white hover:bg-[#2C2824]/5">Exporter CSV</button>
+        </div>
         <table class="w-full text-sm">
           <thead>
             <tr class="text-left text-[#2C2824]/50 border-b border-[#2C2824]/8">
               <th class="px-3 py-2">Date</th><th class="px-3 py-2">Type</th>
               <th class="px-3 py-2">Nom</th><th class="px-3 py-2">Email</th>
               <th class="px-3 py-2">Tél</th><th class="px-3 py-2">Source</th>
-              <th class="px-3 py-2">Statut</th>
+              <th class="px-3 py-2">Statut</th><th class="px-3 py-2"></th>
             </tr>
           </thead>
           <tbody id="leads-tbody" class="divide-y divide-[#2C2824]/5"></tbody>
@@ -104,8 +107,13 @@ export const prerender = false
     (function () {
       var STATUS = [
         ['lead', 'Lead'], ['call_booked', 'RDV pris'], ['call_done', 'Call fait'],
-        ['match', 'Match'], ['paid', 'Payé'], ['lost', 'Perdu'],
+        ['no_show', 'No-show'], ['match', 'Match'], ['paid', 'Payé'], ['lost', 'Écarté'],
       ];
+      var ANSWER_LABELS = [
+        ['activite', 'Activité'], ['anciennete', 'Ancienneté'], ['equipe', 'Équipe'],
+        ['experience', 'Déjà fait'], ['attentes', 'Attentes'], ['semaine', 'Semaine'], ['message', 'Message'],
+      ];
+      var lastLeads = [];
       var $ = function (id) { return document.getElementById(id); };
       var authGate = $('auth-gate'), dashboard = $('dashboard'), loading = $('loading'),
           content = $('dashboard-content'), authError = $('auth-error');
@@ -181,6 +189,7 @@ export const prerender = false
         $('revenue').innerHTML = '<div class="text-3xl font-mono">' + eur((d.revenue || {}).total) + '</div><div class="text-sm text-[#2C2824]/50 mt-1">' + ((d.revenue || {}).count || 0) + ' paiement(s) coliving</div>';
 
         var leads = d.leads || [];
+        lastLeads = leads;
         var noLeads = $('no-leads'), tbody = $('leads-tbody');
         if (!leads.length) { noLeads.classList.remove('hidden'); tbody.innerHTML = ''; }
         else {
@@ -189,7 +198,15 @@ export const prerender = false
             var name = esc(((l.first_name || '') + ' ' + (l.last_name || '')).trim() || '—');
             var src = esc(l.utm_source || '(directe)') + (l.utm_content ? ' · ' + esc(l.utm_content) : '');
             var opts = STATUS.map(function (s) { return '<option value="' + s[0] + '"' + (l.status === s[0] ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('');
-            return '<tr class="hover:bg-[#FAF8F5]/60">' +
+            var answers = null;
+            try { answers = l.answers ? JSON.parse(l.answers) : null; } catch (e) {}
+            var detail = answers ? ANSWER_LABELS.map(function (a) {
+              var v = answers[a[0]];
+              if (v == null || v === '' || (Array.isArray(v) && !v.length)) return '';
+              return '<div class="flex gap-2"><span class="text-[#2C2824]/45 w-24 shrink-0">' + a[1] + '</span><span class="text-[#2C2824]">' + esc(Array.isArray(v) ? v.join(' · ') : v) + '</span></div>';
+            }).filter(Boolean).join('') : '';
+            var toggle = detail ? '<button data-detail="lead-detail-' + l.id + '" class="lead-toggle text-[#2C2824]/50 hover:text-[#2C2824] text-xs border border-[#2C2824]/15 rounded-sm px-2 py-1">▸ détail</button>' : '';
+            var row = '<tr class="hover:bg-[#FAF8F5]/60">' +
               '<td class="px-3 py-2 text-[#2C2824]/60 text-xs whitespace-nowrap">' + fmtDate(l.created_at) + '</td>' +
               '<td class="px-3 py-2 text-[#2C2824]">' + esc(l.type) + '</td>' +
               '<td class="px-3 py-2 text-[#2C2824]">' + name + '</td>' +
@@ -197,8 +214,19 @@ export const prerender = false
               '<td class="px-3 py-2">' + (l.phone ? '<a class="text-[#2C2824] hover:text-[#C4A855]" href="tel:' + esc(l.phone) + '">' + esc(l.phone) + '</a>' : '—') + '</td>' +
               '<td class="px-3 py-2 text-[#2C2824]/50 text-xs">' + src + '</td>' +
               '<td class="px-3 py-2"><select data-id="' + l.id + '" class="lead-status border border-[#2C2824]/15 rounded-sm px-2 py-1 text-xs bg-white">' + opts + '</select></td>' +
+              '<td class="px-3 py-2">' + toggle + '</td>' +
               '</tr>';
+            if (detail) {
+              row += '<tr id="lead-detail-' + l.id + '" class="hidden bg-[#FAF8F5]/70"><td colspan="8" class="px-6 py-4 text-xs space-y-1.5">' + detail + '</td></tr>';
+            }
+            return row;
           }).join('');
+          Array.prototype.forEach.call(document.querySelectorAll('.lead-toggle'), function (btn) {
+            btn.addEventListener('click', function () {
+              var target = $(this.getAttribute('data-detail'));
+              if (target) { target.classList.toggle('hidden'); this.textContent = target.classList.contains('hidden') ? '▸ détail' : '▾ détail'; }
+            });
+          });
           Array.prototype.forEach.call(document.querySelectorAll('.lead-status'), function (sel) {
             sel.addEventListener('change', function () {
               var id = this.getAttribute('data-id'), status = this.value, el = this;
@@ -215,6 +243,28 @@ export const prerender = false
         $('meta-line').textContent = 'Période : ' + m.period + ' · ' + (m.total || 0) + ' leads';
       }
 
+      function exportCsv() {
+        if (!lastLeads.length) return;
+        var head = ['date', 'type', 'statut', 'prenom', 'nom', 'email', 'tel', 'source', 'campagne', 'contenu']
+          .concat(ANSWER_LABELS.map(function (a) { return a[0]; }));
+        var q = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+        var rows = lastLeads.map(function (l) {
+          var answers = {};
+          try { answers = l.answers ? JSON.parse(l.answers) : {}; } catch (e) {}
+          return [l.created_at, l.type, l.status, l.first_name, l.last_name, l.email, l.phone,
+            l.utm_source, l.utm_campaign, l.utm_content]
+            .concat(ANSWER_LABELS.map(function (a) { var v = answers[a[0]]; return Array.isArray(v) ? v.join(' | ') : v; }))
+            .map(q).join(';');
+        });
+        var csv = '﻿' + head.join(';') + '\n' + rows.join('\n');
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+        a.download = 'leads-coliving-' + new Date().toISOString().slice(0, 10) + '.csv';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      $('csv-btn').addEventListener('click', exportCsv);
       $('admin-login').addEventListener('click', doLogin);
       $('admin-password').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
       $('period-select').addEventListener('change', loadData);
