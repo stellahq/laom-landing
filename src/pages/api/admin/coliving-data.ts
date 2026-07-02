@@ -6,7 +6,7 @@ import type { APIRoute } from 'astro'
 
 export const prerender = false
 
-const STATUSES = ['lead', 'call_booked', 'call_done', 'match', 'paid', 'lost'] as const
+const STATUSES = ['lead', 'call_booked', 'call_done', 'no_show', 'match', 'paid', 'lost'] as const
 
 function periodStart(period: string): string | null {
   const now = Date.now()
@@ -48,8 +48,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
     let totalLeads = 0
     for (const r of statusRows) { byStatus[r.status] = r.n; totalLeads += r.n }
 
-    // Funnel cumulatif (descendant)
-    const reachedCall = byStatus.call_booked + byStatus.call_done + byStatus.match + byStatus.paid
+    // Funnel cumulatif (descendant) — no_show a atteint l'etape Call (RDV pris)
+    const reachedCall = byStatus.call_booked + byStatus.call_done + byStatus.no_show + byStatus.match + byStatus.paid
     const reachedMatch = byStatus.match + byStatus.paid
     const reachedPaid = byStatus.paid
     const activeLeads = totalLeads - byStatus.lost
@@ -74,8 +74,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const stageCounts = (m: Record<string, number>): Record<string, number> => {
       const g = (k: string) => m[k] || 0
       return {
-        Leads: g('lead') + g('call_booked') + g('call_done') + g('match') + g('paid'), // actifs (hors lost)
-        Call: g('call_booked') + g('call_done') + g('match') + g('paid'),
+        Leads: g('lead') + g('call_booked') + g('call_done') + g('no_show') + g('match') + g('paid'), // actifs (hors lost)
+        Call: g('call_booked') + g('call_done') + g('no_show') + g('match') + g('paid'),
         Match: g('match') + g('paid'),
         'Payé': g('paid'),
       }
@@ -102,7 +102,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     // Liste des leads (PII servie uniquement derriere l'auth)
     const leads = (await tdb.prepare(
       `SELECT id, created_at, type, status, first_name, last_name, email, phone,
-              utm_source, utm_campaign, utm_content
+              utm_source, utm_campaign, utm_content, answers
        FROM leads ${whereSql} ORDER BY created_at DESC LIMIT 500`,
     ).bind(...args).all()).results
 
