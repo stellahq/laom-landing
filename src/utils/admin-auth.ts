@@ -56,12 +56,13 @@ export async function verifySession(token: string | undefined, secret: string | 
   if (!token || !secret) return false
   const [payload, sig] = token.split('.')
   if (!payload || !sig) return false
-  const expected = await hmac(secret, payload)
-  if (!timingSafeEqual(b64urlDecode(sig), expected)) return false
   try {
+    const expected = await hmac(secret, payload)
+    if (!timingSafeEqual(b64urlDecode(sig), expected)) return false
     const { exp } = JSON.parse(new TextDecoder().decode(b64urlDecode(payload)))
     return typeof exp === 'number' && exp > Math.floor(Date.now() / 1000)
   } catch {
+    // Cookie malformé (base64 invalide...) = non authentifié, pas une 500.
     return false
   }
 }

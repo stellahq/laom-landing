@@ -33,7 +33,7 @@ const altPath = getLocalizedPath(currentPath, altLang)
                 <a href={getLocalizedPath('/mentorat', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-[#1D1B18]/70 hover:text-[#9A3922] hover:bg-[#F2EBDB]/50 transition-colors">
                   {lang === 'fr' ? 'Mentorat' : 'Mentoring'}
                 </a>
-                <a href={getLocalizedPath('/school/online', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-[#1D1B18]/70 hover:text-[#9A3922] hover:bg-[#F2EBDB]/50 transition-colors">
+                <a href={(lang === 'en' ? '/en/school/' : '/school/online/')} class="block px-5 py-2.5 text-sm font-light text-[#1D1B18]/70 hover:text-[#9A3922] hover:bg-[#F2EBDB]/50 transition-colors">
                   LAOMSCHOOL
                 </a>
                 <a href={getLocalizedPath('/capital', lang as 'fr' | 'en')} class="block px-5 py-2.5 text-sm font-light text-[#1D1B18]/70 hover:text-[#9A3922] hover:bg-[#F2EBDB]/50 transition-colors">
@@ -80,7 +80,7 @@ const altPath = getLocalizedPath(currentPath, altLang)
         <div class="pl-4 space-y-3 border-l border-[#9A3922]/30">
           <p class="text-xs font-light tracking-[0.15em] uppercase text-[#1D1B18]/40">{t.nav.accompagnements}</p>
           <a href={getLocalizedPath('/mentorat', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{lang === 'fr' ? 'Mentorat' : 'Mentoring'}</a>
-          <a href={getLocalizedPath('/school/online', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">LAOMSCHOOL</a>
+          <a href={(lang === 'en' ? '/en/school/' : '/school/online/')} class="block text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">LAOMSCHOOL</a>
           <a href={getLocalizedPath('/capital', lang as 'fr' | 'en')} class="block text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">LAOM Capital</a>
         </div>
         <a href={getLocalizedPath('/events', lang as 'fr' | 'en')} class="text-sm font-normal tracking-wide text-[#1D1B18]/70 hover:text-[#9A3922] transition-colors">{t.nav.events}</a>

@@ -11,7 +11,11 @@ const STATUSES = ['lead', 'call_booked', 'call_done', 'no_show', 'match', 'paid'
 function periodStart(period: string): string | null {
   const now = Date.now()
   const day = 86400000
-  if (period === 'today') return new Date(now - day).toISOString()
+  if (period === 'today') {
+    const midnight = new Date()
+    midnight.setUTCHours(0, 0, 0, 0) // created_at est en UTC (datetime('now'))
+    return midnight.toISOString()
+  }
   if (period === '7d') return new Date(now - 7 * day).toISOString()
   if (period === '30d') return new Date(now - 30 * day).toISOString()
   return null // 'all'
@@ -121,7 +125,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
     return new Response(JSON.stringify({
       kpis: {
         leads: totalLeads,
-        calls: byStatus.call_booked + byStatus.call_done,
+        // Cumulatif (comme le funnel) : un lead passé à match/paid a bien eu son call.
+        calls: reachedCall,
         matchs: byStatus.match,
         paid: byStatus.paid,
         lost: byStatus.lost,

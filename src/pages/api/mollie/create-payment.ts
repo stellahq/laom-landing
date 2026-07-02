@@ -300,7 +300,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       amount: { currency: 'EUR', value: total.toFixed(2) },
       description,
       method: 'creditcard',
-      redirectUrl: `${origin}/stage-danse/merci/`,
+      redirectUrl: `${origin}/`, // page stage-danse supprimée,
       ...(isLocalhost ? {} : { webhookUrl: `${origin}/api/mollie/webhook/` }),
       metadata: {
         product: 'en-mouvement',
@@ -430,7 +430,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       amount: { currency: 'EUR', value: total.toFixed(2) },
       description,
       method: 'creditcard',
-      redirectUrl: `${origin}/forum-eco-construction/merci/`,
+      redirectUrl: `${origin}/`, // page forum supprimée,
       ...(isLocalhost ? {} : { webhookUrl: `${origin}/api/mollie/webhook/` }),
       metadata: {
         product: 'forum-eco-construction',

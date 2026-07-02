@@ -22,9 +22,9 @@ export function parseAttribution(request: Request, url: URL): Attribution {
   const q = url.searchParams
   const get = (k: string) => q.get(k) || null
   const fbclid = get('fbclid')
-  // fbc deterministe depuis fbclid (format Meta : fb.1.<ts>.<fbclid>) -> dispo
-  // cote serveur meme si le pixel navigateur est bloque.
-  const fbc = fbclid ? `fb.1.${Math.floor(Date.now() / 1000)}.${fbclid}` : null
+  // fbc deterministe depuis fbclid (format Meta : fb.1.<creationTime en MILLISECONDES>.<fbclid>)
+  // -> dispo cote serveur meme si le pixel navigateur est bloque.
+  const fbc = fbclid ? `fb.1.${Date.now()}.${fbclid}` : null
   return {
     utm_source: get('utm_source'),
     utm_medium: get('utm_medium'),
@@ -84,10 +84,14 @@ export async function refreshLastTouch(
 ): Promise<void> {
   if (!db) return
   try {
+    // COALESCE partout : un retour avec fbclid seul (partage FB organique, sans UTM)
+    // ne doit pas ecraser l'attribution UTM existante avec des NULL.
     await db
       .prepare(
         `UPDATE visitor_attribution SET
-           utm_source = ?, utm_medium = ?, utm_campaign = ?, utm_content = ?, utm_term = ?,
+           utm_source = COALESCE(?, utm_source), utm_medium = COALESCE(?, utm_medium),
+           utm_campaign = COALESCE(?, utm_campaign), utm_content = COALESCE(?, utm_content),
+           utm_term = COALESCE(?, utm_term),
            fbclid = COALESCE(?, fbclid), gclid = COALESCE(?, gclid), fbc = COALESCE(?, fbc)
          WHERE visitor_id = ?`,
       )

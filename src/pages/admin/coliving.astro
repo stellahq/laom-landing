@@ -247,7 +247,13 @@ export const prerender = false
         if (!lastLeads.length) return;
         var head = ['date', 'type', 'statut', 'prenom', 'nom', 'email', 'tel', 'source', 'campagne', 'contenu']
           .concat(ANSWER_LABELS.map(function (a) { return a[0]; }));
-        var q = function (v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; };
+        var q = function (v) {
+          var s = String(v == null ? '' : v);
+          // Anti "formula injection" : un lead nommé =HYPERLINK(...) ne doit pas
+          // devenir une formule active à l'ouverture dans Excel.
+          if (/^[=+\-@]/.test(s)) s = "'" + s;
+          return '"' + s.replace(/"/g, '""') + '"';
+        };
         var rows = lastLeads.map(function (l) {
           var answers = {};
           try { answers = l.answers ? JSON.parse(l.answers) : {}; } catch (e) {}

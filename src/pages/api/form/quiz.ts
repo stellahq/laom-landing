@@ -4,6 +4,7 @@ import { getAttribution } from '~/lib/attribution'
 import { subscribeWithTag } from '~/lib/kit'
 import { sendDataFastGoal } from '~/lib/datafast'
 import { piliers, diagnostics } from '~/data/quizDiagnostics'
+import { checkRateLimit, clientIp, tooManyRequests } from '~/lib/rate-limit'
 
 // POST /api/form/quiz
 // Lead magnet "diagnostic" : écrit le lead (type quiz) en D1, envoie le diagnostic
@@ -19,9 +20,22 @@ const json = (body: unknown, status: number) =>
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+/** Échappe une valeur pour insertion dans du HTML d'email (anti-injection). */
+const esc = (v: unknown) =>
+  String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string))
+
 export const POST: APIRoute = async ({ request, locals, cookies }) => {
   const env = (locals as any).runtime?.env
   const db = env?.TRACKING_DB
+  if (!db) {
+    console.error('[form/quiz] TRACKING_DB manquant')
+    return json({ error: 'Service indisponible' }, 503)
+  }
+
+  // Anti-abus : 5 quiz / heure / IP (email bombing via l'email de diagnostic).
+  if (!(await checkRateLimit(db, `quiz:${clientIp(request)}`, 5, 3600))) {
+    return tooManyRequests()
+  }
 
   let body: Record<string, any>
   try {
@@ -30,8 +44,8 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
     return json({ error: 'Requête invalide' }, 400)
   }
 
-  const prenom = String(body.prenom || '').trim()
-  const email = String(body.email || '').trim()
+  const prenom = String(body.prenom || '').trim().slice(0, 60)
+  const email = String(body.email || '').trim().slice(0, 254)
   if (!prenom || !EMAIL_RE.test(email)) {
     return json({ error: 'Prénom ou email invalide' }, 400)
   }
@@ -51,11 +65,11 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   const result = { pillarScores, gap, gapLabel: piliers[gap] }
 
   const visitorId = cookies.get('laom_vid')?.value || null
-  const eventId = String(body.event_id || '') || crypto.randomUUID()
+  const eventId = String(body.event_id || '').slice(0, 64) || crypto.randomUUID()
   const attr = (await getAttribution(db, visitorId || undefined)) || {}
 
   // 1. Lead en D1 (source de vérité). Bloquant.
-  if (db) {
+  {
     try {
       await db
         .prepare(
@@ -110,7 +124,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
       }).join('')
       const html = `
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1D1B18;line-height:1.6">
-          <p>Salut ${prenom},</p>
+          <p>Salut ${esc(prenom)},</p>
           <p>Voilà ton diagnostic complet.</p>
           <h2 style="color:#412F1F">Ton plus gros décalage : ${d.gap}.</h2>
           <p>${d.why}</p>

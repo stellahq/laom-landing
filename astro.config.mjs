@@ -35,6 +35,7 @@ export default defineConfig({
   output: 'server',
   // Anciennes routes "labo" (espace de travail staging) promues en URLs propres.
   redirects: {
+    '/accueil': '/', // ancienne home (doublon de contenu avec la nouvelle)
     '/accueil-labo': '/',
     '/le-lieu-labo': '/le-lieu',
     '/coliving-labo': '/coliving',
@@ -69,6 +70,20 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      // Pages noindex (internes, tunnels, outils) : exclues du sitemap.
+      filter: (page) => {
+        const path = new URL(page).pathname
+        const excluded = [
+          '/cockpit', '/lorenzo', '/khaldoun', '/amandine', '/magali',
+          '/camp-nomade', '/chantier-2026', '/chauffage-comparatif',
+          '/ferme-jardin-guinguette', '/strategie-2026', '/previsionnel-2026',
+          '/valorisation-fdv', '/perspectives-table', '/la-margue-est',
+          '/devis-voda', '/tarifs-location-pdf', '/admin',
+          '/candidater', '/quiz', '/liens', '/coliving-aout',
+          '/ds2', '/styleguide', '/planification', '/presentation',
+        ]
+        return !excluded.some((p) => path === p + '/' || path === p || path.startsWith(p + '/'))
+      },
       i18n: {
         defaultLocale: 'fr',
         locales: {

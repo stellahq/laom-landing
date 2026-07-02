@@ -3,6 +3,7 @@ import { sendMetaEvents, extractRequestContext } from '~/lib/meta-capi'
 import { getAttribution } from '~/lib/attribution'
 import { subscribeWithTag } from '~/lib/kit'
 import { sendDataFastGoal } from '~/lib/datafast'
+import { checkRateLimit, clientIp, tooManyRequests } from '~/lib/rate-limit'
 
 // POST /api/form/candidater
 // Source de verite : ecrit le lead en D1 (TRACKING_DB), PUIS declenche la
@@ -16,9 +17,26 @@ const json = (body: unknown, status: number) =>
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+/** Échappe une valeur pour insertion dans du HTML d'email (anti-injection). */
+const esc = (v: unknown) =>
+  String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string))
+
+/** Champ texte borné : force le type string et coupe à max caractères. */
+const field = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : v == null ? null : String(v).slice(0, max))
+
 export const POST: APIRoute = async ({ request, locals, cookies }) => {
   const env = (locals as any).runtime?.env
   const db = env?.TRACKING_DB
+  if (!db) {
+    // Sans base, pas de lead : on refuse plutôt que d'envoyer des emails orphelins.
+    console.error('[form/candidater] TRACKING_DB manquant')
+    return json({ error: 'Service indisponible' }, 503)
+  }
+
+  // Anti-abus : 5 candidatures / heure / IP (email bombing, pollution du funnel).
+  if (!(await checkRateLimit(db, `form:${clientIp(request)}`, 5, 3600))) {
+    return tooManyRequests()
+  }
 
   let body: Record<string, any>
   try {
@@ -27,9 +45,9 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
     return json({ error: 'Requête invalide' }, 400)
   }
 
-  const nom = String(body.nom || '').trim()
-  const email = String(body.email || '').trim()
-  const tel = String(body.tel || '').trim()
+  const nom = String(field(body.nom, 120) || '')
+  const email = String(field(body.email, 254) || '')
+  const tel = String(field(body.tel, 30) || '')
   if (!nom || !EMAIL_RE.test(email) || !tel) {
     return json({ error: 'Champs requis manquants ou email invalide' }, 400)
   }
@@ -40,45 +58,46 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   const firstName = nom.split(' ')[0]
   const lastName = nom.split(' ').slice(1).join(' ') || null
   const visitorId = cookies.get('laom_vid')?.value || null
-  const eventId = String(body.event_id || '') || crypto.randomUUID()
+  const eventId = String(field(body.event_id, 64) || '') || crypto.randomUUID()
 
   const answers = {
-    activite: body.activite ?? null,
-    anciennete: body.anciennete ?? null,
-    equipe: body.equipe ?? null,
-    experience: body.experience ?? null,
-    attentes: Array.isArray(body.attentes) ? body.attentes : (body.attentes ? [body.attentes] : []),
-    semaine: body.semaine ?? null,
-    message: body.message ?? null,
+    activite: field(body.activite, 300),
+    anciennete: field(body.anciennete, 60),
+    equipe: field(body.equipe, 60),
+    experience: field(body.experience, 60),
+    attentes: (Array.isArray(body.attentes) ? body.attentes : (body.attentes ? [body.attentes] : []))
+      .slice(0, 10).map((a: unknown) => String(field(a, 200) || '')),
+    semaine: field(body.semaine, 60),
+    message: field(body.message, 2000),
   }
 
   // Attribution resolue cote serveur (verite), pas ce que le client pretend.
   const attr = (await getAttribution(db, visitorId || undefined)) || {}
 
   // 1. Ecrire le lead (source de verite). Bloquant : si la DB echoue, on le signale.
-  if (db) {
-    try {
-      await db
-        .prepare(
-          `INSERT INTO leads
-           (visitor_id, type, status, first_name, last_name, email, phone, answers,
-            utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid,
-            landing_page, referrer, meta_event_id, consent)
-           VALUES (?, 'candidature', 'lead', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        )
-        .bind(
-          visitorId, firstName, lastName, email, tel, JSON.stringify(answers),
-          (attr as any).utm_source ?? null, (attr as any).utm_medium ?? null,
-          (attr as any).utm_campaign ?? null, (attr as any).utm_content ?? null,
-          (attr as any).utm_term ?? null, (attr as any).fbclid ?? null, (attr as any).gclid ?? null,
-          (attr as any).landing_page ?? null, (attr as any).referrer ?? null,
-          eventId, JSON.stringify({ rgpd: true, at: new Date().toISOString() }),
-        )
-        .run()
-    } catch (e) {
-      console.error('[form/candidater] D1 insert error:', e)
-      return json({ error: 'Erreur enregistrement' }, 500)
-    }
+  let leadId: number | null = null
+  try {
+    const res = await db
+      .prepare(
+        `INSERT INTO leads
+         (visitor_id, type, status, first_name, last_name, email, phone, answers,
+          utm_source, utm_medium, utm_campaign, utm_content, utm_term, fbclid, gclid,
+          landing_page, referrer, meta_event_id, consent)
+         VALUES (?, 'candidature', 'lead', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .bind(
+        visitorId, firstName, lastName, email, tel, JSON.stringify(answers),
+        (attr as any).utm_source ?? null, (attr as any).utm_medium ?? null,
+        (attr as any).utm_campaign ?? null, (attr as any).utm_content ?? null,
+        (attr as any).utm_term ?? null, (attr as any).fbclid ?? null, (attr as any).gclid ?? null,
+        (attr as any).landing_page ?? null, (attr as any).referrer ?? null,
+        eventId, JSON.stringify({ rgpd: true, at: new Date().toISOString() }),
+      )
+      .run()
+    leadId = res?.meta?.last_row_id ?? null
+  } catch (e) {
+    console.error('[form/candidater] D1 insert error:', e)
+    return json({ error: 'Erreur enregistrement' }, 500)
   }
 
   // 2. Conversion Lead server-side (dedup avec le client via event_id). Non bloquant.
@@ -116,8 +135,10 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
         ['Attentes', answers.attentes.join(' · ')], ['Semaine', answers.semaine],
         ['Message', answers.message], ['Source', utmLine],
       ]
-      const html = `<h2>Nouvelle candidature coliving — ${nom}</h2><table cellpadding="6" style="border-collapse:collapse">${
-        rows.map(([k, v]) => `<tr><td style="color:#888">${k}</td><td><strong>${v ?? '—'}</strong></td></tr>`).join('')
+      // esc() sur toutes les valeurs utilisateur : un champ "message" contenant du
+      // HTML ne doit jamais etre rendu tel quel dans la boite de l'equipe (phishing).
+      const html = `<h2>Nouvelle candidature coliving — ${esc(nom)}</h2><table cellpadding="6" style="border-collapse:collapse">${
+        rows.map(([k, v]) => `<tr><td style="color:#888">${k}</td><td><strong>${v == null || v === '' ? '—' : esc(v)}</strong></td></tr>`).join('')
       }</table>`
       await fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -129,9 +150,9 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
           html,
         }),
       })
-      if (db && visitorId) {
+      if (leadId != null) {
         try {
-          await db.prepare('UPDATE leads SET notified_at = datetime(\'now\') WHERE meta_event_id = ?').bind(eventId).run()
+          await db.prepare('UPDATE leads SET notified_at = datetime(\'now\') WHERE id = ?').bind(leadId).run()
         } catch { /* non-blocking */ }
       }
     }
@@ -145,7 +166,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
     if (resendKey) {
       const html = `
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1D1B18;line-height:1.6">
-          <p>Salut ${firstName},</p>
+          <p>Salut ${esc(firstName)},</p>
           <p><strong>Ta candidature pour le coliving d'août est bien reçue.</strong></p>
           <p>On t'appelle dans les 48h pour un échange de 15 minutes. Pas de pitch, pas de pression —
           juste une conversation pour voir si LAOM est fait pour toi.</p>
