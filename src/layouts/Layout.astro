@@ -80,6 +80,18 @@ const seoProps = {
       gtag('config', 'G-RB6J5QX8TD');
     </script>
     <MetaPixel />
+    {/* DataFast analytics (cookieless) via Managed Proxy dtf.laom.fr (anti-adblock).
+        Charge uniquement en prod (laom.fr) pour ne pas polluer les stats avec staging/dev. */}
+    {Astro.url.hostname === 'laom.fr' && (
+      <script
+        is:inline
+        defer
+        data-website-id="dfid_NbvpedqFAGpmJHyWUeWZp"
+        data-domain="laom.fr"
+        data-api-url="https://dtf.laom.fr/api/events"
+        src="https://dtf.laom.fr/js/script.js"
+      />
+    )}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
