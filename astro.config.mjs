@@ -82,7 +82,8 @@ export default defineConfig({
           '/candidater', '/quiz', '/liens', '/coliving-aout',
           '/ds2', '/styleguide', '/planification', '/presentation',
         ]
-        return !excluded.some((p) => path === p + '/' || path === p || path.startsWith(p + '/'))
+        const clean = path.replace(/^\/en/, '') // couvre aussi les variantes /en/*
+        return !excluded.some((p) => clean === p + '/' || clean === p || clean.startsWith(p + '/'))
       },
       i18n: {
         defaultLocale: 'fr',
