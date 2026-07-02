@@ -1,156 +1,92 @@
 ---
+// Page 1 — ACCUEIL : storytelling (le projet → le lieu → le coliving → les
+// fondateurs → l'action). Un seul plein écran (le hero), le reste aéré.
+// Effets d'arrivée au scroll : chaque section (sauf le hero) est enrobée d'un
+// [animate-fade-in-up] + opacity-0 → fondu/glissé via l'observer du Layout.
+// Contenu visible par défaut si pas de JS / prefers-reduced-motion (charte).
+// Home officielle du site (ex-/accueil-labo, promue en prod juillet 2026).
 import Layout from '~/layouts/Layout.astro'
-import { createWebSiteSchema } from '~/utils/schema'
-import { getTranslations as getI18nTranslations, getLocalizedPath } from '~/i18n/utils'
-import { getCollection } from 'astro:content'
-
-import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
-import StatsBand from '~/components/laom/sections/StatsBand.astro'
-import AboutCards from '~/components/laom/sections/AboutCards.astro'
-import LogoStrip from '~/components/laom/LogoStrip.astro'
-import MissionShowcase from '~/components/laom/sections/MissionShowcase.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
+import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
+import Statement from '~/components/laom/sections/Statement.astro'
 import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
-import ActivitiesSection from '~/components/laom/sections/ActivitiesSection.astro'
-import TeamSection from '~/components/laom/sections/TeamSection.astro'
-import TestimonialsSection from '~/components/laom/sections/TestimonialsSection.astro'
-import BookingForm from '~/components/laom/BookingForm.astro'
-import CtaSection from '~/components/laom/sections/CtaSection.astro'
-import BlogSection from '~/components/laom/sections/BlogSection.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import CtaBanner from '~/components/laom/CtaBanner.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
-
-// Staging uniquement : la racine montre le nouveau site (accueil-labo) plutot que
-// l'ancienne home. Host-gated sur staging.laom.fr -> la prod laom.fr n'est jamais
-// impactee (meme fichier, condition basee sur le hostname de la requete).
-if (Astro.url.hostname === 'staging.laom.fr') {
-  return Astro.redirect('/accueil-labo/', 302)
-}
-
-const lang = 'fr'
-const t = getI18nTranslations(lang as 'fr' | 'en')
-const siteSchema = createWebSiteSchema({
-  url: Astro.site?.toString() || 'https://laom.com',
-  description: t.site.description,
-})
-
-const allPosts = (await getCollection('blog'))
-  .filter(post => post.data.locale === 'fr' && !post.data.draft && !post.data.tags?.includes('newsletter'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 
 const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
-const fmtDate = (d: Date) => new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
-
-// Articles réels de la collection blog (DA = composants BlogSection)
-const blogPosts = allPosts.slice(0, 2).map((p) => ({
-  img: p.data.heroImage || F('blog-1'),
-  date: fmtDate(p.data.pubDate),
-  title: p.data.title,
-  href: getLocalizedPath(`/blog/${p.slug}/`, 'fr'),
-}))
-const blogPopular = allPosts.slice(2, 4).map((p) => ({
-  img: p.data.heroImage || F('pop-1'),
-  date: fmtDate(p.data.pubDate),
-  title: p.data.title,
-  href: getLocalizedPath(`/blog/${p.slug}/`, 'fr'),
-}))
-
-// Nos espaces (wording réel t.home.ourSpaces) → cartes habitats
-const spaceImages = [L('laom-potager-chalet'), L('petit-shambala-interieur'), L('tipis'), L('salle-de-pratique'), L('jardin-laom'), L('chillworking-salle-pratique')]
-const habitats = t.home.ourSpaces.items.slice(0, 6).map((s, i) => ({
-  img: spaceImages[i],
-  title: s.title,
-  desc: [s.description, (s as { note?: string }).note].filter(Boolean).join(' '),
-}))
-
-// Activités (labels réels de l'expérience LAOM)
-const actImages = [F('act-danse'), F('act-atelier'), F('act-chillworking'), F('act-riviere')]
-const activities = t.home.experience.labels.map((label, i) => ({ img: actImages[i], title: label }))
 ---
 
-<Layout
-  title={`${t.site.name} – ${t.site.tagline}`}
-  description={t.site.description}
-  hideChrome={true}
-  seo={{ ldJSON: siteSchema }}
->
-  <HeroLeader img={F('hero')} alt="LAOM, écolieu dans le sud de l'Aveyron"
-    eyebrow={t.home.heroOverline}
-    title={`${t.home.heroTitleLine1}`} accent={t.home.heroTitleHighlight}
-    ctaText={t.home.heroLinkProject} ctaHref="#lieu"
-    stats={[{value:'21',unit:'ha',label:'Domaine préservé'},{value:'800',unit:'m²',label:'Paille porteuse'}]}
-    avatars={[F('avatar-1'),F('avatar-2'),F('avatar-3'),F('avatar-4')]} avatarValue="11 copropriétaires" avatarLabel="engagés dans le projet" />
+<Layout title="LAOM — Coliving pour entrepreneurs en pleine nature, sud Aveyron" description="Vis et travaille autrement, en pleine nature, entre pairs. Une semaine dans un domaine de 21 hectares en sud Aveyron : tu gardes ton énergie pour ce que tu es venu·e créer." hideChrome={true}>
 
-  <StatsBand stats={[
-    {value:'21',unit:'ha',label:'nature préservée'},
-    {value:'800',unit:'m²',label:'paille porteuse'},
-    {value:'11',label:'copropriétaires'},
-    {value:'2',unit:'M€',label:'investis collectivement'},
-  ]} />
+  <!-- 0. HERO (plein écran, le seul — pas d'effet, instantané) -->
+  <HeroCenter
+    video="/videos/hero-laom-v2.mp4" img="/images/hero-laom-poster-v2.webp" alt="Le domaine LAOM en sud Aveyron"
+    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/" navLogoHref="/"
+    eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
+    title="Vis et travaille autrement, en pleine nature," accent="entre pairs"
+    subtitle="Une semaine dans un domaine de 21 hectares. On s’occupe de tout : tu gardes ton énergie pour ce que tu es venu·e créer."
+    ctaText="Candidater" ctaHref="/candidater/" />
 
-  <AboutCards title="Un écolieu où l'on vient ralentir, se relier, et" accent="créer autrement"
-    intro={t.home.intro.paragraphs[1]}
-    items={[
-      {kind:'photo',img:F('about-1')},
-      {kind:'text',color:'marron',title:'Un chantier vivant depuis 2021',text:'Le plus grand bâtiment en paille porteuse au monde, construit pas à pas, sans filtre.'},
-      {kind:'photo',img:F('about-2')},
-      {kind:'text',color:'vert',title:'Accueil & immersions toute l\'année',text:'Retraites, séjours chillworking, résidences artistiques et entrepreneuriales.'},
-    ]} />
+  <!-- 1. LE PROJET — qu'est-ce que LAOM (→ Notre histoire) -->
+  <div animate-fade-in-up class="opacity-0">
+    <Statement texture={true}
+      eyebrow="Le projet"
+      title="Pas un lieu de plus, un" accent="lieu de vie."
+      intro="LAOM, c’est un coliving installé dans un domaine de 21 hectares en pleine nature, dans le sud de l’Aveyron. Pensé pour les entrepreneurs déjà installés qui sentent qu’on crée mieux quand on peut, parfois, ralentir et se reconnecter à soi, aux autres, au vivant. Pas un hôtel. Pas un coworking de plus. Pas une retraite. Un endroit où l’on vient vivre, une semaine, ce qu’on aspire à vivre depuis longtemps."
+      ctaText="Découvrir le projet" ctaHref="/notre-histoire/" />
+  </div>
 
-  <LogoStrip eyebrow="Ils en parlent" logos={[{label:'France 3'},{label:'La Dépêche'},{label:'Konbini'},{label:'Socialter'}]} />
+  <!-- 2. LE LIEU — où ça se passe + galerie (apparition en cascade) (→ Le lieu) -->
+  <HabitatsSection reveal={true} bg="bg-[#F2EBDB]"
+      eyebrow="Le lieu"
+      title="21 hectares de nature préservée," accent="loin de tout."
+      intro="Un ancien domaine agricole, à 1h30 de Montpellier. Les repas sortent du potager, on travaille au calme face à la rivière, et le soir la voie lactée s’allume, sans aucune pollution lumineuse."
+      items={[
+        {img:L('tipis'),title:'Les tipis',desc:'Dormir au plus près du vivant.',href:'/le-lieu/'},
+        {img:L('chillworking-salle-pratique'),title:'Le shala',desc:'Coworking, wifi fibre, face à la vallée.',href:'/le-lieu/'},
+        {img:L('potager-rangs'),title:'Le potager',desc:'Ce qui pousse ici finit dans l’assiette.',href:'/le-lieu/'},
+        {img:L('festival-laom-ambiance-nature-aveyron'),title:'La guinguette',desc:'Là où le collectif se retrouve.',href:'/le-lieu/'},
+        {img:L('riviere-laom'),title:'La rivière & la forêt',desc:'21 hectares à parcourir.',href:'/le-lieu/'},
+        {img:L('diner-golden-hour-laom'),title:'Le feu, la nuit',desc:'Soirées sous les étoiles.',href:'/le-lieu/'},
+      ]} />
 
-  <MissionShowcase
-    topImg={F('act-atelier')} topEyebrow="Notre mission & nos valeurs"
-    topTitle="Un lieu qui prend soin du vivant, et de" topAccent="ceux qui le font"
-    steps={[
-      {num:'01',title:'Préserver le lieu',text:'21 hectares de forêt, rivière et prairie, en gestion douce.'},
-      {num:'02',title:'Transmettre',text:'Éco-construction, permaculture, mouvement — on partage tout.'},
-      {num:'03',title:'Relier',text:'Une communauté choisie d\'entrepreneurs et de créatifs.'},
-      {num:'04',title:'Construire bas-carbone',text:'Paille porteuse, terre crue, matériaux locaux.'},
-    ]}
-    bottomImg={F('act-riviere')} bottomEyebrow="L'Expérience LAOM"
-    bottomTitle="Nature, confort," bottomAccent="communauté"
-    bottomText={t.home.intro.paragraphs[0]}
-    features={[
-      {title:'Découvrir le lieu',text:'Visite, histoire du chantier, et la vie quotidienne sur le domaine.'},
-      {title:'Activités & immersions',text:'Mouvement, ateliers, rivière, cercles — le corps et le projet.'},
-      {title:'Réserver un séjour',text:'Chillworking, retraite ou résidence : on cale tes dates ensemble.'},
-    ]} />
+  <!-- 3. LE COLIVING D'AOÛT — concrètement (→ programme) -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" img={L('coworking-tablee')} alt="Des entrepreneurs au travail, ensemble, à LAOM"
+      eyebrow="Le coliving d’août 2026"
+      title="Une semaine. Douze entrepreneurs." accent="Tout est inclus."
+      text="Six nuits en tipi, dix-huit repas faits maison, un espace de travail au calme, des pratiques le matin (yoga, mouvement, marche), des ateliers et des soirées sous les étoiles. On gère la logistique : tu n’as qu’à exister, créer, et te retrouver. Douze places par semaine, pas une de plus."
+      ctaText="Découvrir le programme" ctaHref="/coliving/" />
+  </div>
 
-  <div id="habitats"></div>
-  <HabitatsSection title="Choisis ton coin de" accent="tranquillité"
-    intro={t.home.ourSpaces.sectionTitle + " — du grand bâtiment collectif aux tipis en lisière de forêt, chaque lieu a son grain, sa lumière."}
-    items={habitats} />
+  <!-- 4. LES FONDATEURS & LA CONVICTION — qui & pourquoi (→ Notre histoire) -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-cam')} alt="Charly et Amandine, fondateurs de LAOM"
+      eyebrow="Charly & Amandine"
+      title="On vit mieux" accent="quand on choisit son cadre."
+      text="C’est leur conviction. Ils ont quitté la ville, acheté 21 hectares dans le sud de l’Aveyron, et construit le lieu qu’ils auraient voulu trouver, où le travail, la nature et la communauté tiennent ensemble. LAOM, c’est leur projet de vie. Le coliving, c’est l’invitation à venir le vivre avec eux."
+      ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
+  </div>
 
-  <div id="activites"></div>
-  <ActivitiesSection title="La beauté du lieu se vit en" accent="activités"
-    intro="Mouvement le matin, mains dans la terre l'après-midi, travail à ton rythme."
-    items={activities} />
-
-  <TeamSection eyebrow="L'équipe" title="Celles et ceux qui" accent="font le lieu"
-    members={[
-      {img:F('avatar-1'),name:'Charly Aubert',role:'Fondateur'},
-      {img:F('avatar-2'),name:'Amandine Orriols',role:'Co-pilote'},
-      {img:F('avatar-3'),name:'L\'équipe',role:'Chantier & accueil'},
-      {img:F('avatar-4'),name:'Les habitants',role:'11 copropriétaires'},
-    ]} />
-
-  <TestimonialsSection title="Ce qu'ils disent du" accent="lieu"
-    items={[
-      {quote:'Un lieu magique, perché et entouré de montagnes.',name:'Clémence M.',avatar:F('avatar-1')},
-      {quote:'On déconnecte vraiment, on se reconnecte à soi.',name:'Caroline T.',avatar:F('avatar-2')},
-      {quote:'L\'accueil et la qualité de présence, extraordinaires.',name:'François D.',avatar:F('avatar-3')},
-    ]} />
-
-  <div id="contact"></div>
-  <BookingForm photo={F('about-1')} title="Ton échappée nature t'attend." accent="Pose tes dates !"
-    text="Dis-nous qui tu es et ce que tu cherches. On te recontacte sous 48h." sideImg={F('booking-side')} />
-
-  <CtaSection img={F('cta')} eyebrow="Suivre le projet" title="Des nouvelles de LAOM" accent="chaque dimanche"
-    primaryText="Rejoindre la newsletter" primaryHref="/newsletter/" secondaryText="Découvrir le projet" secondaryHref="/qui-sommes-nous/"
-    items={[{title:'Coulisses du chantier',desc:'Décisions et apprentissages terrain'},{title:'Éco-construction',desc:'Paille porteuse, terre crue, low-tech'},{title:'Pas de spam',desc:'Désinscription en un clic'}]} />
-
-  <BlogSection title="Nos derniers" accent="récits"
-    posts={blogPosts} popular={blogPopular} ctaText={t.home.allArticlesLink} ctaHref="/blog/" />
+  <!-- 5. PASSE À L'ACTION (→ Candidater + quiz) -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <CtaBanner img={L('coworking-echange')}
+        eyebrow="À toi de jouer"
+        title="Prêt·e à vivre la semaine ?" accent="On t’attend."
+        primaryText="Candidater" primaryHref="/candidater/"
+        secondaryText="Faire le quiz" secondaryHref="/quiz/"
+        items={[
+          {title:'Un échange de 15 min',desc:'Pas de pitch, pas de pression'},
+          {title:'12 places par semaine',desc:'On prend le temps de se connaître'},
+        ]} />
+    </div>
+  </section>
 
   <SiteFooter />
+
+  <StickyCta text="Candidater" href="/candidater/" />
 </Layout>

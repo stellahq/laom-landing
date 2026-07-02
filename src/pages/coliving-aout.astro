@@ -1,292 +1,353 @@
 ---
+// PAGE DE VENTE — Variant B (gardée et optimisée). Techniques La Pioche en charte
+// LAOM, posture LAOM. Optims : hero vidéo (sans bande de visages), témoignages en
+// carrousel infini, prix retiré (max candidatures), process bienveillant en
+// scroll-stack, journée type animée au scroll. Lead-gen : tout vers "Postuler".
+// Route isolée /coliving-aout-labo-b (noindex).
 import Layout from '~/layouts/Layout.astro'
-import { createWebPageSchema } from '~/utils/schema'
-import { getLocalizedPath } from '~/i18n/utils'
-import { translations, INSTAGRAM_URL } from '~/i18n/translations'
+import SiteNav from '~/components/laom/SiteNav.astro'
+import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import Faq from '~/components/laom/sections/Faq.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
 
-const lang = 'fr' as const
-const a = translations.fr.pages.pdvAoutPage
+const L = (n: string) => `/images/laom/${n}.webp`
+const POSTULER = '/candidater/'
 
-const home = getLocalizedPath('/', lang)
-// TODO: pointer "Postuler" vers le formulaire Tally dédié quand il existera
-const postuler = getLocalizedPath('/candidater/', lang)
-// TODO: lien réel du quiz Tally/Typeform
-const quiz = postuler
+// Témoignages PLACEHOLDER — à remplacer par les vrais avis (Google + alumni juin).
+const temoins = [
+  { quote: 'En une semaine, j’ai pris des décisions que je repoussais depuis six mois.', name: 'Thomas', role: 'Coach indépendant · Lyon' },
+  { quote: 'Venue pour souffler, repartie avec trois personnes que je vois encore.', name: 'Mathilde', role: 'Studio de design · Bordeaux' },
+  { quote: 'J’avais peur de décrocher de mes clients. J’ai bossé chaque matin, et le reste m’a remis d’aplomb.', name: 'Sofiane', role: 'Consultant · Paris' },
+  { quote: 'Le cadre fait le travail. Tu n’as rien à forcer, ça vient.', name: 'Inès', role: 'Naturopathe · Toulouse' },
+]
+const initiales = (n: string) => n.trim().slice(0, 1).toUpperCase()
 
-const heroTitle = `${a.heroTitlePre}${a.heroTitleAccent}${a.heroTitlePost}`
-const pageSchema = createWebPageSchema({
-  name: 'Coliving entrepreneurs LAOM — Août 2026',
-  url: Astro.url.toString(),
-  description: heroTitle,
-})
-
-const lieuImages = [
-  { src: '/images/vue-aeriene-laom2-hero.webp', alt: 'Vue aérienne du domaine LAOM en sud Aveyron' },
-  { src: '/images/laom/diner-golden-hour-laom.webp', alt: 'Dîner en communauté à LAOM, lumière dorée' },
-  { src: '/images/laom/festival-laom-ambiance-nature-aveyron.webp', alt: 'Ambiance nature et communauté à LAOM' },
-  { src: '/images/laom/Oasis-La-Margue-1.webp', alt: 'Le domaine de La Margue, espaces extérieurs de LAOM' },
-  { src: '/images/laom/LAOM-journee-cohesion.webp', alt: 'Journée de cohésion à LAOM' },
+const stats = [
+  { v: '21 ha', l: 'de nature préservée' },
+  { v: '12', l: 'places par semaine' },
+  { v: '3', l: 'éditions en août' },
+  { v: '1h30', l: 'de Montpellier' },
+]
+const pains = [
+  { t: 'La solitude du fondateur', lead: 'Tu portes tout, seul.', body: 'Les décisions, les doutes, la pression. Autour de toi, personne ne comprend vraiment ta réalité. Tes proches voient « un truc qui marche ». Toi, tu vois tout ce qu’il y a derrière.', img: L('coworking-echange') },
+  { t: 'Le rythme qui t’épuise', lead: 'Tu te dis que tu ralentiras plus tard.', body: 'Tu repousses le sport, tu manges vite, tu dors moyen. Le téléphone ne s’éteint jamais vraiment. Et plus tard, ça n’arrive jamais.', img: L('atelier-presentation') },
+  { t: 'Le cadre qui t’éteint', lead: 'Les mêmes murs, le même bureau.', body: 'Ton décor ne te porte plus, il te vide. Tu crées dans un environnement qui n’a rien à voir avec la vie que tu voulais en te lançant.', img: L('coworking-coussins') },
+]
+const journee = [
+  { time: '7h30', label: 'Réveil en pleine nature' },
+  { time: '8h00', label: 'Pratique du matin : yoga, mouvement ou marche' },
+  { time: '9h00', label: 'Petit-déjeuner du potager, face à la vallée' },
+  { time: '9h30 – 13h', label: 'Travail au calme, wifi fibre' },
+  { time: '13h00', label: 'Déjeuner à la grande table' },
+  { time: '14h – 17h', label: 'Au choix : avancer, rivière, atelier, sieste' },
+  { time: '19h30', label: 'Dîner fait maison' },
+  { time: '21h00', label: 'Feu, soirée, voie lactée' },
+]
+const etapes = [
+  { n: '01', t: 'Tu remplis le formulaire. Deux minutes, sans engagement.' },
+  { n: '02', t: 'On s’appelle 15 minutes, juste pour faire connaissance et voir si c’est le bon moment pour toi.' },
+  { n: '03', t: 'Si l’envie est là, ta place t’attend.' },
 ]
 ---
 
-<Layout
-  title="Coliving entrepreneurs LAOM — Août 2026, sud Aveyron"
-  description={heroTitle}
-  hideChrome={true}
-  seo={{ ldJSON: pageSchema, noIndex: true }}
->
-  <div class="pdv bg-[#F2EBDB] text-[#2A1E14] selection:bg-[#9A3922] selection:text-[#F2EBDB]">
-    <!-- HEADER -->
-    <header class="absolute top-0 left-0 right-0 z-30">
-      <nav class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14 h-24 flex items-center justify-between">
-        <a href={home} class="inline-block hover:opacity-80 transition-opacity">
-          <img src="/images/brand/logo-laom-wordmark-beige.svg" alt="LAOM" width="128" height="28" class="h-7 w-auto" />
-        </a>
-        <a href={postuler} class="group inline-flex items-center gap-2.5 rounded-full bg-[#9A3922] px-6 py-2.5 text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-[#F2EBDB] hover:bg-[#822f1c] transition-colors">
-          {a.navCta}
-          <span class="w-1.5 h-1.5 rounded-full bg-[#F2EBDB]/70"></span>
-        </a>
-      </nav>
-    </header>
+<Layout title="Coliving entrepreneurs · Août 2026 · LAOM" hideChrome={true} seo={{ noIndex: true }}>
 
-    <!-- 1. HERO -->
-    <section class="relative min-h-screen w-full overflow-hidden flex items-center">
-      <video autoplay muted loop playsinline poster="/images/vue-aeriene-laom2-hero.webp" class="absolute inset-0 w-full h-full object-cover">
-        <source src="/videos/aveyron_hero.webm" type="video/webm" />
-      </video>
-      <div class="absolute inset-0 bg-gradient-to-b from-[#1c130c]/75 via-[#1c130c]/45 to-[#1c130c]/85"></div>
-      <div class="relative z-10 max-w-[1240px] w-full mx-auto px-6 sm:px-10 lg:px-14 pt-28">
-        <span class="flex items-center gap-4 text-[#F2EBDB]/75 text-[0.72rem] font-semibold tracking-[0.32em] uppercase mb-8">
-          <span class="w-10 h-px bg-[#F2EBDB]/40"></span>{a.heroEyebrow}
-        </span>
-        <h1 class="font-display text-[#F2EBDB] max-w-4xl text-[clamp(2.7rem,6.5vw,5.5rem)] leading-[1.0] tracking-[-0.02em]">
-          {a.heroTitlePre}<em class="italic text-[#E7C89A]">{a.heroTitleAccent}</em>{a.heroTitlePost}
-        </h1>
-        <a href={postuler} class="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] pl-9 pr-6 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-[#822f1c] transition-colors">
-          {a.heroCta}
-          <span class="grid place-items-center w-7 h-7 rounded-full bg-[#F2EBDB]/15 group-hover:translate-x-0.5 transition-transform">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </a>
-      </div>
-    </section>
+  <!-- ① HERO — vidéo plein écran -->
+  <section class="relative min-h-screen w-full overflow-hidden flex flex-col text-[#F2EBDB]">
+    <video autoplay muted loop playsinline poster="/images/hero-laom-poster-v2.webp" class="absolute inset-0 w-full h-full object-cover">
+      <source src="/videos/hero-laom-v2.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(28,19,12,0.88) 0%,rgba(122,47,29,0.6) 55%,rgba(154,57,34,0.5) 100%)"></div>
+    <SiteNav transparent={true} links={[]} ctaText="Postuler" ctaHref={POSTULER} />
+    <div class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pt-28 pb-20 max-w-4xl mx-auto">
+      <span class="inline-block rounded-full bg-[#F2EBDB]/12 border border-[#F2EBDB]/15 px-5 py-2 text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-[#F2EBDB]/90 mb-8">Coliving entrepreneurs · 3 éditions · Août 2026</span>
+      <h1 class="font-extrabold text-[#F2EBDB] text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-[-0.03em] text-balance">Cette semaine, ton bureau, <span class="italic font-medium text-[#E7C89A]">c’est 21 hectares de nature.</span></h1>
+      <p class="text-lg md:text-xl text-[#F2EBDB]/85 mt-7 max-w-2xl mx-auto leading-relaxed">Six jours dans le sud de l’Aveyron, avec onze entrepreneurs qui te ressemblent. Tu continues de bosser, mais dans un cadre qui te nourrit au lieu de t’épuiser.</p>
+      <a href={POSTULER} class="pill pill-light mt-10" style="padding:1rem 2.6rem">Postuler pour août 2026</a>
+      <p class="text-xs tracking-[0.12em] uppercase text-[#F2EBDB]/55 mt-5">Candidature en 2 minutes · sans engagement</p>
+      <p class="text-sm font-medium text-[#E7C89A] mt-3">Douze places par édition, et elles partent vite.</p>
+    </div>
+  </section>
 
-    <!-- 2. ACCROCHE -->
-    <section class="py-28 md:py-40 bg-[#2A1E14] text-[#F2EBDB]">
-      <div class="max-w-3xl mx-auto px-6 sm:px-10 space-y-8">
-        <p class="font-display text-[clamp(1.7rem,3vw,2.6rem)] leading-[1.25]">{a.accroche[0]}</p>
-        <p class="text-lg md:text-xl font-light text-[#F2EBDB]/70 leading-[1.7]">{a.accroche[1]}</p>
-        <p class="text-lg md:text-xl font-light text-[#E7C89A] leading-[1.7] italic">{a.accroche[2]}</p>
-      </div>
-    </section>
-
-    <!-- 3. LA RUPTURE -->
-    <section class="relative">
-      <div class="h-[42vh] min-h-[300px] w-full">
-        <img src="/images/laom/diner-golden-hour-laom.webp" alt="Soirée entre entrepreneurs à LAOM, lumière dorée" width="1600" height="700" class="w-full h-full object-cover" />
-      </div>
-      <div class="py-24 md:py-36 bg-[#1c130c] text-[#F2EBDB]">
-        <div class="max-w-4xl mx-auto px-6 sm:px-10 text-center">
-          <h2 class="font-display text-[clamp(2.2rem,5vw,4rem)] leading-[1.05] tracking-[-0.02em] mb-12">
-            {a.ruptureTitlePre}<em class="italic text-[#E7C89A]">{a.ruptureTitleAccent}</em>{a.ruptureTitlePost}
-          </h2>
-          <p class="text-lg md:text-xl font-light text-[#F2EBDB]/80 leading-[1.8] mb-7 max-w-2xl mx-auto">{a.ruptureText1}</p>
-          <p class="text-lg md:text-xl font-light text-[#F2EBDB]/80 leading-[1.8] max-w-2xl mx-auto">{a.ruptureText2}</p>
+  <!-- ② BANDE DE STATS -->
+  <section class="bg-[#FBF6EA] py-16 md:py-20 border-b border-[#412F1F]/8">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6">
+      {stats.map((s) => (
+        <div class="text-center">
+          <p class="font-extrabold text-[#9A3922] text-4xl md:text-5xl leading-none mb-2">{s.v}</p>
+          <p class="text-sm text-[#1D1B18]/60">{s.l}</p>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
+  </section>
 
-    <!-- 4. LE LIEU — galerie immersive -->
-    <section class="py-28 md:py-40 bg-[#2A1E14] text-[#F2EBDB]">
-      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14">
-        <span class="flex items-center gap-4 text-[#E7C89A] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-10">
-          <span class="w-10 h-px bg-[#E7C89A]/40"></span>{a.lieuEyebrow}
-        </span>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          <img src={lieuImages[0].src} alt={lieuImages[0].alt} loading="lazy" class="col-span-2 row-span-2 w-full h-full aspect-square md:aspect-auto object-cover rounded-[2px]" />
-          <img src={lieuImages[1].src} alt={lieuImages[1].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
-          <img src={lieuImages[2].src} alt={lieuImages[2].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
-          <img src={lieuImages[3].src} alt={lieuImages[3].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
-          <img src={lieuImages[4].src} alt={lieuImages[4].alt} loading="lazy" class="w-full aspect-square object-cover rounded-[2px]" />
-        </div>
-        <p class="font-display italic text-[clamp(1.5rem,3vw,2.4rem)] leading-snug text-[#F2EBDB]/90 mt-12 max-w-3xl">{a.lieuCaption}</p>
+  <!-- ③ LE CONSTAT — douleurs nommées -->
+  <section animate-fade-in-up class="opacity-0 bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-16 items-start">
+      <div class="lg:pt-4">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Le constat</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">On connaît <span class="acc">cette situation.</span></h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed max-w-md">Parce qu’on l’a vue des dizaines de fois. Chez les entrepreneurs qui viennent à LAOM, trois choses reviennent presque à chaque fois.</p>
+        <a href={POSTULER} class="pill pill-primary mt-9" style="padding:.9rem 2.2rem">Postuler pour août 2026</a>
       </div>
-    </section>
-
-    <!-- 5. LA PROMESSE + PRIX -->
-    <section class="py-28 md:py-40">
-      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14 grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
-        <div>
-          <span class="flex items-center gap-4 text-[#9A3922] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
-            <span class="w-10 h-px bg-[#9A3922]/50"></span>{a.promesseEyebrow}
-          </span>
-          <h2 class="font-display text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.04] tracking-[-0.02em] mb-8">
-            {a.promesseTitlePre}<em class="italic text-[#9A3922]">{a.promesseTitleAccent}</em>
-          </h2>
-          <p class="text-lg font-light text-[#2A1E14]/75 leading-[1.7] mb-5 max-w-xl">{a.promesseText1}</p>
-          <p class="text-lg font-light text-[#2A1E14]/75 leading-[1.7] max-w-xl">{a.promesseText2}</p>
-        </div>
-        <div class="bg-[#9A3922] text-[#F2EBDB] rounded-[3px] p-10 sm:p-12 text-center">
-          <p class="text-[0.72rem] font-semibold tracking-[0.24em] uppercase text-[#F2EBDB]/70 mb-4">{a.promessePrixLabel}</p>
-          <p class="font-display text-[clamp(3rem,7vw,5rem)] leading-none mb-2">{a.promessePrix}</p>
-          <p class="text-sm font-light text-[#F2EBDB]/80 mb-8">{a.promessePrixSuffix}</p>
-          <a href={postuler} class="inline-flex items-center justify-center w-full rounded-full bg-[#F2EBDB] text-[#9A3922] px-8 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-white transition-colors">{a.promesseCta}</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. PREUVE SOCIALE -->
-    <section class="py-28 md:py-40 bg-[#73673E] text-[#F2EBDB]">
-      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14">
-        <div class="max-w-2xl mb-14">
-          <span class="flex items-center gap-4 text-[#F2EBDB]/70 text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
-            <span class="w-10 h-px bg-[#F2EBDB]/50"></span>{a.preuveEyebrow}
-          </span>
-          <h2 class="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.05] tracking-[-0.02em] mb-6">{a.preuveTitle}</h2>
-          <p class="text-lg font-light text-[#F2EBDB]/80 leading-[1.7] mb-4">{a.preuveText1}</p>
-          <p class="text-lg font-light text-[#F2EBDB]/80 leading-[1.7]">{a.preuveText2}</p>
-        </div>
-        <div class="grid sm:grid-cols-3 gap-px bg-[#F2EBDB]/15 border border-[#F2EBDB]/15 rounded-[2px] overflow-hidden mb-10">
-          {a.preuveFacts.map((f) => (
-            <div class="bg-[#73673E] px-7 py-9">
-              <p class="font-display text-2xl md:text-3xl mb-2">{f.value}</p>
-              <p class="text-sm font-light text-[#F2EBDB]/70 leading-relaxed">{f.label}</p>
+      <div class="space-y-5">
+        {pains.map((p) => (
+          <div class="rounded-3xl bg-[#9A3922] text-[#F2EBDB] p-7 md:p-8 flex gap-6 items-start">
+            <img src={p.img} alt="" loading="lazy" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl object-cover shrink-0" />
+            <div>
+              <h3 class="text-xl md:text-2xl font-extrabold text-[#F2EBDB] leading-tight mb-2">{p.t}</h3>
+              <p class="font-semibold text-[#F2EBDB] mb-1.5">{p.lead}</p>
+              <p class="text-sm text-[#F2EBDB]/80 leading-relaxed">{p.body}</p>
             </div>
-          ))}
-        </div>
-        <div class="grid sm:grid-cols-2 gap-4">
-          {[0, 1].map(() => (
-            <div class="border border-dashed border-[#F2EBDB]/25 rounded-[2px] px-7 py-10 flex items-center gap-4">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="text-[#F2EBDB]/40 shrink-0"><path d="M10 11H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6c0 2-1 3.5-3 4M19 11h-4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6c0 2-1 3.5-3 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span class="text-sm font-light italic text-[#F2EBDB]/55">{a.temoignagesPlaceholder}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ CRÉDIBILITÉ — le lieu existe -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="imgzoom rounded-3xl overflow-hidden aspect-[4/3] order-2 lg:order-1">
+        <img src="/images/vue-aeriene-laom2-hero.webp" alt="Le domaine LAOM, 21 hectares en sud Aveyron" loading="lazy" class="w-full h-full object-cover" />
+      </div>
+      <div class="order-1 lg:order-2">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Ce n’est pas un concept</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.06] text-balance">Un lieu qui <span class="acc">existe vraiment.</span></h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed max-w-xl">Charly et Amandine ont acheté vingt-et-un hectares dans le sud de l’Aveyron et passé des années à bâtir, de leurs mains, un vrai lieu de vie. Des événements y sont organisés depuis plusieurs années, des résidents y vivent déjà à l’année. Le coliving d’août, c’est l’ouverture de ce mode de vie à douze entrepreneurs par semaine.</p>
+        <div class="grid grid-cols-3 gap-4 mt-9">
+          {[{v:'21 ha',l:'de domaine'},{v:'Plusieurs',l:'années de vie sur place'},{v:'Résidents',l:'à l’année'}].map((c) => (
+            <div class="rounded-2xl border border-[#412F1F]/12 p-5 text-center">
+              <p class="font-extrabold text-[#9A3922] text-xl md:text-2xl leading-tight mb-1">{c.v}</p>
+              <p class="text-xs text-[#1D1B18]/55 leading-snug">{c.l}</p>
             </div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- 7. FONDATEURS -->
-    <section class="py-28 md:py-40">
-      <div class="max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-14 grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-        <div class="grid grid-cols-2 gap-5">
-          <img src="/images/charly-aubert.webp" alt="Charly Aubert, cofondateur de LAOM" width="420" height="540" loading="lazy" class="w-full aspect-[4/5] object-cover rounded-[2px]" />
-          <img src="/images/amandine-orriols.webp" alt="Amandine Orriols, cofondatrice de LAOM" width="420" height="540" loading="lazy" class="w-full aspect-[4/5] object-cover rounded-[2px] mt-12" />
-        </div>
-        <div>
-          <span class="flex items-center gap-4 text-[#9A3922] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
-            <span class="w-10 h-px bg-[#9A3922]/50"></span>{a.fondateursEyebrow}
-          </span>
-          <h2 class="font-display text-[clamp(2.2rem,4vw,3.4rem)] leading-[1.04] mb-8">{a.fondateursTitle}</h2>
-          <p class="text-lg font-light text-[#2A1E14]/80 leading-[1.7] mb-5">{a.fondateursText1}</p>
-          <p class="text-lg font-light text-[#2A1E14]/80 leading-[1.7]">{a.fondateursText2}</p>
-        </div>
+  <!-- ⑤ UNE JOURNÉE — défile au scroll -->
+  <section id="journee" class="bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-3xl mx-auto px-6 md:px-10">
+      <div class="text-center mb-14">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Une journée type</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Du premier souffle <span class="acc">à la dernière étoile.</span></h2>
       </div>
-    </section>
-
-    <!-- 8. QUALIFICATION DOUCE -->
-    <section class="py-28 md:py-40 bg-[#2A1E14] text-[#F2EBDB]">
-      <div class="max-w-3xl mx-auto px-6 sm:px-10">
-        <span class="flex items-center gap-4 text-[#E7C89A] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
-          <span class="w-10 h-px bg-[#E7C89A]/40"></span>{a.qualifEyebrow}
-        </span>
-        <h2 class="font-display text-[clamp(2.4rem,5vw,4rem)] leading-[1.04] mb-12">{a.qualifTitle}</h2>
-        <ul class="divide-y divide-[#F2EBDB]/15 border-y border-[#F2EBDB]/15 mb-10">
-          {a.qualifItems.map((item) => (
-            <li class="flex items-center gap-5 py-6">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" class="text-[#E7C89A] shrink-0"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span class="text-lg md:text-xl font-light">{item}</span>
+      <div class="jt">
+        <span class="jt-rail"></span>
+        <span class="jt-fill" id="jtfill"></span>
+        <ol>
+          {journee.map((it) => (
+            <li class="jt-item">
+              <span class="jt-dot"></span>
+              <span class="jt-time">{it.time}</span>
+              <p class="jt-label">{it.label}</p>
             </li>
           ))}
-        </ul>
-        <p class="text-base font-light text-[#F2EBDB]/65 leading-relaxed mb-10 max-w-xl">{a.qualifNote}</p>
-        <a href={postuler} class="group inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] pl-9 pr-6 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-[#822f1c] transition-colors">
-          {a.qualifCta}
-          <span class="grid place-items-center w-7 h-7 rounded-full bg-[#F2EBDB]/15 group-hover:translate-x-0.5 transition-transform">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </a>
+        </ol>
       </div>
-    </section>
+      <p class="text-center text-sm text-[#1D1B18]/55 mt-12 max-w-md mx-auto">Rien n’est obligatoire. Tout est proposé. Tu fais ta semaine à ton rythme.</p>
+    </div>
+  </section>
 
-    <!-- 9. LE PROCESS -->
-    <section class="py-28 md:py-40">
-      <div class="max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-14">
-        <div class="max-w-2xl mb-16">
-          <span class="flex items-center gap-4 text-[#9A3922] text-[0.72rem] font-semibold tracking-[0.28em] uppercase mb-7">
-            <span class="w-10 h-px bg-[#9A3922]/50"></span>{a.processEyebrow}
-          </span>
-          <h2 class="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.04] tracking-[-0.02em]">{a.processTitle}</h2>
-        </div>
-        <div class="grid sm:grid-cols-3 gap-10">
-          {a.processSteps.map((s) => (
-            <div class="border-t border-[#2A1E14]/15 pt-7">
-              <p class="font-display text-5xl text-[#9A3922] mb-5">{s.n}</p>
-              <p class="text-lg font-light text-[#2A1E14]/80 leading-relaxed">{s.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- 10. URGENCE -->
-    <section class="py-28 md:py-40 bg-[#1c130c] text-[#F2EBDB] text-center">
-      <div class="max-w-3xl mx-auto px-6 sm:px-10">
-        <h2 class="font-display text-[clamp(2.4rem,5.5vw,4.4rem)] leading-[1.04] tracking-[-0.02em] mb-12">
-          {a.urgenceTitlePre}<em class="italic text-[#E7C89A]">{a.urgenceTitleAccent}</em>
-        </h2>
-        <a href={postuler} class="group inline-flex items-center gap-3 rounded-full bg-[#9A3922] text-[#F2EBDB] pl-9 pr-6 py-4 text-[0.8rem] font-semibold tracking-[0.16em] uppercase hover:bg-[#822f1c] transition-colors">
-          {a.urgenceCta}
-          <span class="grid place-items-center w-7 h-7 rounded-full bg-[#F2EBDB]/15 group-hover:translate-x-0.5 transition-transform">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </a>
-      </div>
-    </section>
-
-    <!-- 11. SORTIE DOUCE -->
-    <section class="py-16 bg-[#2A1E14] text-[#F2EBDB]/70 border-t border-[#F2EBDB]/10">
-      <div class="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-14 flex flex-col sm:flex-row items-center justify-between gap-5 text-sm">
-        <p class="font-light">{a.sortieText}</p>
-        <div class="flex items-center gap-8">
-          <a href={quiz} class="hover:text-white transition-colors underline underline-offset-4 decoration-[#F2EBDB]/30">{a.sortieQuiz}</a>
-          <a href={home} class="hover:text-white transition-colors">{a.sortieRetour}</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA sticky mobile -->
-    <a href={postuler} class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#9A3922] text-[#F2EBDB] text-center py-4 text-[0.85rem] font-semibold tracking-[0.16em] uppercase shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.4)]">
-      {a.navCta} — Août 2026
-    </a>
-    <div class="lg:hidden h-14"></div>
+  <!-- ⑥ LE LIEU -->
+  <div animate-fade-in-up class="opacity-0">
+    <MosaicGallery bg="bg-[#FBF6EA]"
+      eyebrow="Le lieu"
+      title="Vingt-et-un hectares," accent="et plus rien autour."
+      intro="Un ancien domaine agricole à 1h30 de Montpellier. Des tipis dans l’herbe, une rivière où se baigner, un potager qui nourrit la table. Et la nuit, un ciel sans pollution lumineuse où la voie lactée se voit à l’œil nu."
+      images={[
+        { src: '/images/vue-aeriene-laom2-hero.webp', alt: 'Vue aérienne du domaine LAOM' },
+        { src: L('lieu-shala-tipis'), alt: 'Le shala et les tipis de LAOM' },
+        { src: L('riviere-laom'), alt: 'La rivière du domaine' },
+        { src: L('potager-rangs'), alt: 'Le potager de LAOM' },
+        { src: L('diner-golden-hour-laom'), alt: 'Dîner en communauté à LAOM' },
+      ]}
+      ctaText="Postuler pour août 2026" ctaHref={POSTULER} />
   </div>
+
+  <!-- ⑦ TRAVAILLER AUTREMENT -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" img={L('coworking-duo-table')} alt="Entrepreneurs au travail à LAOM, face à la vallée"
+      eyebrow="Le travail"
+      title="Ton activité ne s’arrête pas." accent="Elle respire."
+      text="Ici, tu travailles. Le Shala est un vrai espace de coworking, wifi fibre, au calme, la vallée pour fond d’écran. Tu prends tes calls, tu avances tes projets. La seule différence, c’est qu’entre deux sessions tu plonges dans la rivière au lieu de scroller. Tu ne perds pas une semaine de business. Tu en gagnes la clarté pour les six mois qui suivent." />
+  </div>
+
+  <!-- ⑦bis RESPIRATION — fond vidéo immersif -->
+  <section class="relative overflow-hidden text-[#F2EBDB]">
+    <video autoplay muted loop playsinline poster="/images/hero-laom-poster-v2.webp" class="absolute inset-0 w-full h-full object-cover">
+      <source src="/videos/sec-domaine-2.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(29,27,24,0.5),rgba(29,27,24,0.72))"></div>
+    <div class="relative max-w-3xl mx-auto px-6 py-28 md:py-40 text-center">
+      <h2 class="text-4xl md:text-6xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.05] text-balance">Imagine ton lundi matin, <span class="italic font-medium text-[#E7C89A]">ici.</span></h2>
+      <p class="text-lg md:text-xl text-[#F2EBDB]/85 mt-6 max-w-xl mx-auto leading-relaxed">Le café face à la vallée, le calme, et tout à créer. Pendant que les autres reprennent le métro.</p>
+      <a href={POSTULER} class="pill pill-light mt-9" style="padding:.95rem 2.4rem">Postuler pour août 2026</a>
+    </div>
+  </section>
+
+  <!-- ⑧ TÉMOIGNAGES — carrousel infini -->
+  <section class="bg-[#FBF6EA] py-20 md:py-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 mb-12 text-center">
+      <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">Ils l’ont vécu</p>
+      <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Ce qu’ils en <span class="acc">disent.</span></h2>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        {[...temoins, ...temoins].map((t) => (
+          <figure class="tcard">
+            <blockquote class="text-[#1D1B18]/85 leading-relaxed italic">“{t.quote}”</blockquote>
+            <figcaption class="flex items-center gap-3 mt-5">
+              <span class="w-10 h-10 rounded-full bg-[#9A3922] text-[#F2EBDB] grid place-items-center text-sm font-bold shrink-0">{initiales(t.name)}</span>
+              <span class="leading-tight"><span class="block text-sm font-bold text-[#412F1F]">{t.name}</span><span class="block text-xs text-[#73673E]">{t.role}</span></span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑨ EST-CE FAIT POUR TOI — qualification sur photo sombre -->
+  <section animate-fade-in-up class="opacity-0 relative overflow-hidden">
+    <img src={L('festival-laom-ambiance-nature-aveyron')} alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0" style="background:rgba(29,27,24,0.82)"></div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-10 lg:px-14 py-24 md:py-32 text-[#F2EBDB]">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#E7C89A] mb-5">Pour qui</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.06] text-balance">Est-ce que cette semaine est <span class="italic font-medium text-[#E7C89A]">faite pour toi ?</span></h2>
+        <p class="text-lg text-[#F2EBDB]/75 mt-5 leading-relaxed">LAOM n’est pas pour tout le monde. Et c’est tant mieux. Voici comment savoir si c’est ton moment.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6">
+        <div class="rounded-3xl bg-[#9A3922] p-8 md:p-9">
+          <p class="flex items-center gap-3 text-xl font-extrabold mb-6"><span class="w-7 h-7 rounded-full bg-[#F2EBDB] text-[#9A3922] grid place-items-center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>C’est pour toi si…</p>
+          <ul class="space-y-3.5 text-[#F2EBDB]/90">
+            {['Tu portes déjà un projet qui avance, pas une idée sur le papier','Tu veux changer de cadre sans mettre ton activité en pause','Tu cherches des pairs qui comprennent vraiment ta réalité','Tu sens que ton rythme n’est plus tenable et tu veux le bouger'].map((i) => <li class="leading-relaxed">{i}</li>)}
+          </ul>
+        </div>
+        <div class="rounded-3xl bg-[#2A1E14] border border-[#F2EBDB]/10 p-8 md:p-9">
+          <p class="flex items-center gap-3 text-xl font-extrabold text-[#F2EBDB]/80 mb-6"><span class="w-7 h-7 rounded-full bg-[#F2EBDB]/15 grid place-items-center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span>Ce n’est pas pour toi si…</p>
+          <ul class="space-y-3.5 text-[#F2EBDB]/60">
+            {['Tu cherches des vacances tout-inclus','Tu en es encore à chercher ton idée ou à la lancer','Tu veux tout couper et ne rien faire','Tu cherches une formation business'].map((i) => <li class="leading-relaxed">{i}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a href={POSTULER} class="pill pill-light" style="padding:.95rem 2.4rem">Voir si j’ai ma place</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑩ LES FONDATEURS -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-rire')} alt="Charly et Amandine, fondateurs de LAOM"
+      eyebrow="Les hôtes"
+      title="Charly & Amandine," accent="le lieu, c’est eux."
+      text="Ils ont quitté la ville, acheté vingt-et-un hectares dans le sud de l’Aveyron, et bâti de leurs mains le lieu qu’ils auraient voulu trouver. LAOM, c’est leur projet de vie. Le coliving, c’est leur façon de t’inviter à le vivre." />
+  </div>
+
+  <!-- ⑪ L'OFFRE + LE PROCESS (scroll-stack), sans prix -->
+  <section class="bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-4xl mx-auto px-6 md:px-10 lg:px-14">
+      <div class="text-center max-w-2xl mx-auto">
+        <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-5">L’offre</p>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">Une semaine. Douze entrepreneurs. <span class="acc">Tout compris.</span></h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-6 leading-relaxed">Hébergement en tipi, repas du potager, pratiques du matin, ateliers, soirées, espace de travail wifi fibre. Le détail complet du programme, les dates et le tarif, on te les raconte de vive voix.</p>
+      </div>
+
+      <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] mt-20 mb-8 text-center">Comment ça se passe</p>
+      <div class="pstack max-w-2xl mx-auto">
+        {etapes.map((s, i) => (
+          <article class="pstack-card bg-white border border-[#412F1F]/10 rounded-3xl p-8 md:p-10 flex items-center gap-7 shadow-[0_22px_44px_-26px_rgba(65,47,31,0.4)]" style={`--i:${i}`}>
+            <p class="text-5xl md:text-6xl font-extrabold text-[#9A3922] leading-none shrink-0">{s.n}</p>
+            <p class="text-lg text-[#412F1F] leading-relaxed">{s.t}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="text-center mt-14">
+        <a href={POSTULER} class="pill pill-primary" style="padding:.95rem 2.4rem">Postuler pour août 2026</a>
+        <p class="text-sm text-[#1D1B18]/55 mt-5">Candidature en 2 minutes. Pas de pitch, pas de pression.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑫ FAQ -->
+  <div animate-fade-in-up class="opacity-0">
+    <Faq bg="bg-[#F2EBDB]"
+      eyebrow="Questions fréquentes"
+      title="Ce qu’on te demande" accent="le plus souvent."
+      items={[
+        { q: 'Une semaine, c’est long, et mes clients ?', a: 'Ton activité continue : wifi fibre, espaces de travail, tu organises ton temps comme tu veux. Ce n’est pas une parenthèse où tu coupes tout, c’est ton rythme et ton environnement qui changent.' },
+        { q: 'L’Aveyron, c’est loin ?', a: 'On est en sud Aveyron, à 1h30 de Montpellier (gare TGV) et 2h de Toulouse. On s’occupe de ton arrivée. Et c’est précisément cette distance qui fait la valeur du lieu.' },
+        { q: 'C’est pas un truc trop perché ?', a: 'Non. Un lieu exigeant, des entrepreneurs sérieux, et rien d’obligatoire : tu prends ce qui te parle, tu laisses le reste.' },
+        { q: 'Il y aura qui d’autre ?', a: 'Douze personnes par semaine, choisies via le formulaire, avec des profils proches du tien. On te parle de la cohorte au téléphone.' },
+        { q: 'Et le tarif ?', a: 'On t’en parle pendant l’échange de 15 minutes, en même temps que le programme et les dates. C’est un prix de lancement, tout compris.' },
+      ]} />
+  </div>
+
+  <!-- ⑬ CTA FINAL -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage bg="bg-[#FBF6EA]" img={L('diner-golden-hour-laom')}
+      eyebrow="Août 2026"
+      title="Trois semaines. Douze places chacune." accent="Quand c’est complet, c’est complet."
+      subtitle="Dates : 10-16, 17-23 et 24-30 août 2026. Douze places par édition, et elles partent vite. Le reste, on en parle ensemble."
+      primaryText="Postuler pour août 2026" primaryHref={POSTULER} />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Postuler" href={POSTULER} />
 </Layout>
 
 <style>
-  @font-face {
-    font-family: 'Host Grotesk';
-    src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype-variations');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Host Grotesk';
-    src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype-variations');
-    font-weight: 100 900;
-    font-style: italic;
-    font-display: swap;
-  }
-  .pdv {
-    font-family: 'Host Grotesk', system-ui, -apple-system, sans-serif;
-  }
-  .pdv .font-display {
-    font-family: 'Host Grotesk', system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-  }
-  .pdv .font-display.italic {
-    font-weight: 500;
-    letter-spacing: -0.015em;
+  .marquee { display: flex; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .marquee-track { display: flex; gap: 1.25rem; padding: 0 0.625rem; width: max-content; animation: tmarquee 42s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes tmarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .tcard { flex: 0 0 330px; background: #fff; border: 0.5px solid rgba(65,47,31,0.1); border-radius: 1.25rem; padding: 1.5rem 1.6rem; }
+
+  .jt { position: relative; }
+  .jt ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.9rem; }
+  .jt-rail, .jt-fill { position: absolute; left: 11px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; }
+  .jt-rail { background: rgba(65,47,31,0.14); }
+  .jt-fill { bottom: auto; height: 0; background: #9A3922; transition: height 0.12s linear; }
+  .jt-item { position: relative; padding-left: 44px; opacity: 0.32; transform: translateY(8px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .jt-item.in { opacity: 1; transform: none; }
+  .jt-dot { position: absolute; left: 4px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: #F2EBDB; border: 2px solid rgba(65,47,31,0.25); transition: border-color 0.4s ease, background 0.4s ease; }
+  .jt-item.in .jt-dot { border-color: #9A3922; background: #9A3922; }
+  .jt-time { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; color: #9A3922; }
+  .jt-label { margin-top: 2px; font-size: 1.05rem; color: #412F1F; }
+
+  .pstack-card { position: sticky; top: calc(116px + var(--i, 0) * 16px); }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .pstack-card { position: static; }
+    .jt-item { opacity: 1; transform: none; }
   }
 </style>
+
+<script>
+  const sec = document.getElementById('journee')
+  const fill = document.getElementById('jtfill')
+  const jt = sec && sec.querySelector('.jt')
+  if (sec && fill && jt) {
+    const items = sec.querySelectorAll('.jt-item')
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in') })
+    }, { threshold: 0.5 })
+    items.forEach((i) => io.observe(i))
+    const onScroll = () => {
+      const r = jt.getBoundingClientRect()
+      const p = Math.min(Math.max((window.innerHeight * 0.55 - r.top) / r.height, 0), 1)
+      fill.style.height = (p * 100) + '%'
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+  }
+</script>
