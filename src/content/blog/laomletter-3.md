@@ -104,6 +104,6 @@ LAOM
 
 ---
 
-**PS** : RDV en août pour **En Mouvement** : 5 jours pour explorer ce qui émerge quand tu te mets en mouvement avec un groupe qui te porte. Danse, mouvement libre, flux continu. Une pratique intensive de la danse et du mouvement. Guidé par **Samuel Planas** (danseur pro, chorégraphe, interprète pour Boris Charmatz) et **Charly**. Pas besoin de savoir danser. **Juste l'envie de bouger et de te laisser surprendre !** 3 sessions en août. [Je rejoins En Mouvement](/stage-danse/)
+**PS** : RDV en août pour **En Mouvement** : 5 jours pour explorer ce qui émerge quand tu te mets en mouvement avec un groupe qui te porte. Danse, mouvement libre, flux continu. Une pratique intensive de la danse et du mouvement. Guidé par **Samuel Planas** (danseur pro, chorégraphe, interprète pour Boris Charmatz) et **Charly**. Pas besoin de savoir danser. **Juste l'envie de bouger et de te laisser surprendre !** 3 sessions en août. [Je rejoins En Mouvement](/events/)
 
 **PS2** : On a une histoire de dingue à raconter. 5 ans de rêves, de chantier, de galères et de magie ! Bientôt, on vous raconte toute l'histoire de LAOM en vidéo : une web série, épisode par épisode, sur notre Instagram. Suivre LAOM sur Instagram : [@laomcoliving](https://www.instagram.com/laomcoliving/)

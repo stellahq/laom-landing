@@ -96,9 +96,9 @@ Originally, eight of us carried the impulse to create the ecolieu and acquire th
 
 ## Upcoming signature LAOM events
 
-- [**Clarté**](/en/clarte/) — 1 weekend to create your life system (Vision, PARA, Claude Code) and (re)find alignment. With Charly Aubert.
+- [**Clarté**](/clarte/) — 1 weekend to create your life system (Vision, PARA, Claude Code) and (re)find alignment. With Charly Aubert.
 - [**LAOM School**](/en/school/) — Training weekends to structure your ecolieu / coliving / collective place project: vision, funding, legal, governance, collective (the fruit of our 5 years of successes and progress). With Charly Aubert.
-- [**En Mouvement**](/en/stage-danse/) (3 sessions in August) — 5 days to let emerge what wants to be expressed, through intensive dance and movement practice. Open to all levels. With Samuel Planas, professional dancer & Charly Aubert.
+- [**En Mouvement**](/en/events/) (3 sessions in August) — 5 days to let emerge what wants to be expressed, through intensive dance and movement practice. Open to all levels. With Samuel Planas, professional dancer & Charly Aubert.
 
 ---
 

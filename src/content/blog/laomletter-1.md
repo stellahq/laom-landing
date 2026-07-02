@@ -90,7 +90,7 @@ Nous avons réussi à trouver un modèle qui respecte à la fois notre besoin d'
 
 - [**Clarté**](/clarte/) — 1 weekend pour créer ton système de vie (Vision, PARA, Claude Code) et (re)trouver de l'alignement. Avec Charly Aubert.
 - [**LAOM School**](/school/) — Weekends formation pour structurer ton projet d'écolieu / coliving / lieu collectif : vision, financement, légalité, gouvernance, juridique, collectif (le fruit de nos 5 ans de réussite et avancées). Avec Charly Aubert.
-- [**En Mouvement**](/stage-danse/) (3 sessions en août) — 5 jours pour laisser émerger ce qui cherche à s'exprimer, par une pratique intensive de la danse et du mouvement. Ouvert à tous niveaux. Avec Samuel Planas, danseur professionnel & Charly Aubert.
+- [**En Mouvement**](/events/) (3 sessions en août) — 5 jours pour laisser émerger ce qui cherche à s'exprimer, par une pratique intensive de la danse et du mouvement. Ouvert à tous niveaux. Avec Samuel Planas, danseur professionnel & Charly Aubert.
 
 ---
 

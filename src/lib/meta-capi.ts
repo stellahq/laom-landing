@@ -14,6 +14,14 @@ function sha256(value: string): string {
   return createHash('sha256').update(value.trim().toLowerCase()).digest('hex')
 }
 
+/** Normalise un telephone au format Meta (chiffres seuls + indicatif pays, defaut FR). */
+function normalizePhone(value: string): string {
+  let digits = value.replace(/\D/g, '')
+  if (digits.startsWith('00')) digits = digits.slice(2)
+  else if (digits.startsWith('0') && digits.length === 10) digits = '33' + digits.slice(1)
+  return digits
+}
+
 export interface MetaUserData {
   em?: string; ph?: string; fn?: string; ln?: string; external_id?: string
 }
@@ -64,7 +72,7 @@ export async function sendMetaEvents(
     if (ctx.fbp) userData.fbp = ctx.fbp
     if (ctx.fbc) userData.fbc = ctx.fbc
     if (evt.user_data?.em) userData.em = [sha256(evt.user_data.em)]
-    if (evt.user_data?.ph) userData.ph = [sha256(evt.user_data.ph)]
+    if (evt.user_data?.ph) userData.ph = [sha256(normalizePhone(evt.user_data.ph))]
     if (evt.user_data?.fn) userData.fn = [sha256(evt.user_data.fn)]
     if (evt.user_data?.ln) userData.ln = [sha256(evt.user_data.ln)]
     if (evt.user_data?.external_id) userData.external_id = [sha256(evt.user_data.external_id)]

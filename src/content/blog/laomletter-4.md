@@ -97,6 +97,6 @@ LAOM
 
 - **Immersion Clarté** - du 17 au 19 avril : [Découvrir Clarté](/clarte/) - pour les entrepreneurs, les leaders, les créatifs ou les personnes qui ont une charge mentale importante et des complexités à gérer au quotidien
 - L'article de Charly pour aller plus loin sur l'IA : [Comment je pilote un écolieu de 21 hectares, un chantier de 800m², une équipe et ma vie entière — avec une IA](/blog/piloter-sa-vie-avec-une-ia/)
-- **Immersions En Mouvement** - plusieurs dates en août : [En Mouvement](/stage-danse/)
+- **Immersions En Mouvement** - plusieurs dates en août : [En Mouvement](/events/)
 
 **PS2** : On prépare une web série Instagram de 34 épisodes sur l'histoire de LAOM ! Suivre LAOM sur Instagram pour ne rien louper : [@laomcoliving](https://www.instagram.com/laomcoliving/)

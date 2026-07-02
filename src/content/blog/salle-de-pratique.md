@@ -185,7 +185,7 @@ Cette révélation m'a marqué profondément. La construction écologique et la 
 
 La salle respire. Les murs en enduit terre régulent l'humidité naturellement. L'air est sain. La lumière entre par de grandes ouvertures. L'espace invite à bouger, à oser, à se laisser surprendre.
 
-C'est ici qu'on accueille les stages de mouvement. Les ateliers de danse. Les temps de pratique collective. [Le stage "En Mouvement" avec Samuel Planas](/stage-danse/) — notre immersion signature — existe grâce à cette salle.
+C'est ici qu'on accueille les stages de mouvement. Les ateliers de danse. Les temps de pratique collective. [Le stage "En Mouvement" avec Samuel Planas](/events/) — notre immersion signature — existe grâce à cette salle.
 
 Avant le Shala, LAOM était un chantier. Après le Shala, LAOM est devenu un lieu de vie. Cette salle a permis de commencer les animations, d'accueillir des groupes, de faire vivre l'écolieu.
 
