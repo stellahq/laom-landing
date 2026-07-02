@@ -1,6 +1,6 @@
 import { defineMiddleware } from 'astro:middleware'
 import { isAuthenticated, unauthorized } from './utils/admin-auth'
-import { parseAttribution, persistAttribution } from './lib/attribution'
+import { parseAttribution, persistAttribution, refreshLastTouch, hasClickSignal } from './lib/attribution'
 
 // 1) Gate des endpoints admin (PII / data live) : auth par cookie de session
 //    signe, requise cote serveur. Seul /api/admin/login est ouvert (point d'entree).
@@ -44,12 +44,24 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const response = await next()
 
-  // Persiste l'attribution first-touch une seule fois (visiteur neuf), non bloquant.
-  if (isPage && newVisitor && visitorId) {
+  // Attribution : uniquement sur les pages qui existent (200) — les scanners de
+  // vulnerabilites (/jolokia, /actuator...) generaient des lignes fantomes via
+  // les 404. Non bloquant.
+  if (isPage && visitorId && response.status === 200) {
     const env = (context.locals as any).runtime?.env
     const attr = parseAttribution(context.request, context.url)
     context.locals.attribution = attr as any
-    await persistAttribution(env?.TRACKING_DB, visitorId, attr)
+    if (newVisitor) {
+      // First-touch : premiere visite, on fige la source d'origine.
+      await persistAttribution(env?.TRACKING_DB, visitorId, attr)
+    } else if (hasClickSignal(attr)) {
+      // Last-touch : visiteur connu revenant via un clic tague (pub) — la
+      // conversion doit etre attribuee a ce clic, pas a la venue d'origine.
+      // INSERT OR IGNORE d'abord : couvre les cookies anterieurs a la base
+      // (aucune ligne a mettre a jour sinon).
+      await persistAttribution(env?.TRACKING_DB, visitorId, attr)
+      await refreshLastTouch(env?.TRACKING_DB, visitorId, attr)
+    }
   }
 
   if (context.url.hostname === 'staging.laom.fr') {

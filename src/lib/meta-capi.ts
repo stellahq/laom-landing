@@ -5,7 +5,9 @@ import { createHash, randomUUID } from 'node:crypto'
 // endpoints serveur (form, webhook) -> les conversions critiques (Lead, Purchase)
 // partent du serveur, non bloquables par adblock. Dedup via event_id partage.
 
-const PIXEL_ID = '1274109067570116'
+// Dataset "Laom.fr" du BM laom.coliving (vérifié Meta) — bascule du 2/07/2026,
+// la campagne coliving août tourne sur act_1371175461441820 dans ce BM.
+const PIXEL_ID = '25994721960205947'
 const API_VERSION = 'v25.0'
 
 function sha256(value: string): string {
