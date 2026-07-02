@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro'
 import { sendMetaEvents, extractRequestContext } from '~/lib/meta-capi'
 import { getAttribution } from '~/lib/attribution'
 import { subscribeWithTag } from '~/lib/kit'
+import { sendDataFastGoal } from '~/lib/datafast'
 
 // POST /api/form/candidater
 // Source de verite : ecrit le lead en D1 (TRACKING_DB), PUIS declenche la
@@ -176,6 +177,11 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   } catch (e) {
     console.error('[form/candidater] Kit error (non-blocking):', e)
   }
+
+  // 6. Goal DataFast "candidature" (funnels analytics). Non bloquant.
+  await sendDataFastGoal(env, request, 'candidature', {
+    source: (attr as any).utm_source || 'directe',
+  })
 
   return json({ ok: true }, 200)
 }
