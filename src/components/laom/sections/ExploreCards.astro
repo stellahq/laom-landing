@@ -1,0 +1,30 @@
+---
+// ExploreCards — interconnexion : 3 cartes propres (image + titre + lien) vers
+// les autres pages. Aucune superposition de texte sur image.
+import SectionHead from './SectionHead.astro'
+interface Card { img: string; title: string; text?: string; ctaText?: string; href: string }
+interface Props { eyebrow?: string; title: string; accent?: string; cards: Card[]; bg?: string }
+const { eyebrow, title, accent, cards, bg = 'bg-[#FBF6EA]' } = Astro.props
+---
+<section class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="mb-14 text-center"><SectionHead align="center" eyebrow={eyebrow} title={title} accent={accent} /></div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {cards.map((c) => (
+        <a href={c.href} class="group block rounded-2xl bg-[#F2EBDB] border border-[#412F1F]/10 overflow-hidden lift">
+          <div class="aspect-[4/3] overflow-hidden imgzoom">
+            <img src={c.img} alt="" loading="lazy" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <p class="font-extrabold text-xl text-[#412F1F] leading-tight">{c.title}</p>
+            {c.text && <p class="text-[#1D1B18]/65 mt-2.5 leading-relaxed">{c.text}</p>}
+            <span class="inline-flex items-center gap-2 text-[#9A3922] font-semibold mt-5 text-sm">
+              {c.ctaText ?? 'Découvrir'}
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

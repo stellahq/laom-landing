@@ -1,0 +1,11 @@
+---
+// Texture décorative posable dans un conteneur relatif (aria-hidden).
+// kind : 'topo' (vaguelettes régulières) · 'topo-org' (topographie déstructurée) · 'terre' (craquelure de terre)
+// variant (teinte) : 'light' (sur fond sombre) · 'terre' (sur fond clair) · 'marron'
+interface Props { kind?: 'topo' | 'topo-org' | 'terre'; variant?: 'light' | 'terre' | 'marron'; size?: string; class?: string }
+const { kind = 'topo', variant = 'light', size, class: cls = '' } = Astro.props
+const file = `/textures/${kind}-${variant}.svg`
+const tile = size ?? (kind === 'terre' ? '300px 300px' : '860px 860px')
+---
+<div aria-hidden="true" class:list={['absolute inset-0 pointer-events-none bg-repeat', cls]}
+     style={`background-image:url('${file}');background-size:${tile}`}></div>

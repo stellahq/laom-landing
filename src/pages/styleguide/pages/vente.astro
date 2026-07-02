@@ -1,0 +1,57 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SgBar from '~/components/laom/SgBar.astro'
+import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
+import StatsBand from '~/components/laom/sections/StatsBand.astro'
+import FeaturesSection from '~/components/laom/sections/FeaturesSection.astro'
+import MissionSection from '~/components/laom/sections/MissionSection.astro'
+import TestimonialsSection from '~/components/laom/sections/TestimonialsSection.astro'
+import CtaSection from '~/components/laom/sections/CtaSection.astro'
+import BookingForm from '~/components/laom/BookingForm.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+const F = (n: string) => `/images/festival/${n}.webp`
+---
+<Layout title="LAOM — Gabarit Page de vente" hideChrome={true} seo={{ noIndex: true }}>
+  <SgBar current="vente" />
+  <HeroLeader img={F('cta')} eyebrow="Coliving Entrepreneurs · Août 2026"
+    title="Travaille autrement, une semaine, dans un cadre qui" accent="te nourrit"
+    ctaText="Réserver ma place" ctaHref="#contact"
+    stats={[{value:'12',label:'places / session'},{value:'1500',unit:'€',label:'tout compris'}]}
+    avatars={[F('avatar-1'),F('avatar-2'),F('avatar-3'),F('avatar-4')]} avatarValue="3 sessions" avatarLabel="en août" />
+
+  <StatsBand stats={[{value:'6',label:'nuits'},{value:'18',label:'repas terroir'},{value:'6',label:'pratiques'},{value:'∞',label:'vue vallée'}]} />
+
+  <FeaturesSection bg="bg-[#F2EBDB]" eyebrow="Ce qui est inclus" title="Tout est pris en charge pour que tu n’aies qu’à" accent="bosser et respirer"
+    items={[
+      {title:'Hébergement tipi',text:'6 nuits au plus près de la nature, douche extérieure, ciel étoilé.'},
+      {title:'Pension complète',text:'18 repas maison, légumes du potager, produits locaux < 50 km.'},
+      {title:'Wifi fibre',text:'Espaces de travail intérieurs (shala) et extérieurs.'},
+      {title:'Pratiques corporelles',text:'Yoga, MovNat, danse, marche en nature chaque matin.'},
+      {title:'Ateliers thématiques',text:'Mindset, IA, naturo/nutrition, acroyoga.'},
+      {title:'Soirées rituelles',text:'Ecstatic dance, sound healing, feu de camp, jam.'},
+    ]} />
+
+  <MissionSection img={F('act-danse')} eyebrow="Une journée type" title="Le rythme d’une" accent="journée à LAOM"
+    items={[
+      {num:'01',title:'Matin',text:'Pratique corporelle au lever du soleil.'},
+      {num:'02',title:'Midi',text:'Repas du terroir, échanges entre pairs.'},
+      {num:'03',title:'Après-midi',text:'Travail concentré, vue sur la vallée.'},
+      {num:'04',title:'Soir',text:'Rituel collectif sous les étoiles.'},
+    ]} />
+
+  <TestimonialsSection bg="bg-[#FBF6EA]" title="Ils l’ont" accent="vécu"
+    items={[
+      {quote:'Punaise, c’est vraiment ce dont j’avais besoin. Je me suis vu là-bas.',name:'David L.',avatar:F('avatar-3')},
+      {quote:'J’ai bossé mieux en une semaine qu’en un mois en ville.',name:'Camille F.',avatar:F('avatar-2')},
+      {quote:'Le cadre change tout. On repart transformé sans avoir “lâché”.',name:'Grégoire H.',avatar:F('avatar-1')},
+    ]} />
+
+  <CtaSection bg="bg-[#F2EBDB]" img={F('booking-side')} eyebrow="Places limitées" title="3 semaines, 12 places chacune." accent="Réserve la tienne"
+    primaryText="Réserver ma place" secondaryText="Poser une question"
+    items={[{title:'10-16 août',desc:'Session 1'},{title:'17-23 août',desc:'Session 2'},{title:'24-30 août',desc:'Session 3'}]} />
+
+  <BookingForm photo={F('about-1')} eyebrow="Réservation" title="Prêt à vivre la semaine ?" accent="On t’attend."
+    text="Remplis le formulaire, on te rappelle sous 48h pour caler ta venue." sideImg={F('booking-side')} />
+
+  <SiteFooter />
+</Layout>

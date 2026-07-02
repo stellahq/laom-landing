@@ -19,7 +19,7 @@ const pageSchema = createWebPageSchema({
     ldJSON: pageSchema,
   }}
 >
-  <section class="-mt-24 md:-mt-28 py-32 lg:py-40 bg-white">
+  <section class="-mt-24 md:-mt-28 py-32 lg:py-40 bg-[#FBF6EA]">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
         Contact
@@ -44,7 +44,7 @@ const pageSchema = createWebPageSchema({
       </p>
       <a
         href="/location/"
-        class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        class="inline-flex items-center justify-center rounded-2xl bg-[#9A3922] text-white px-8 py-3.5 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
       >
         Organiser un événement à LAOM — Voir les tarifs
       </a>
@@ -52,7 +52,7 @@ const pageSchema = createWebPageSchema({
   </section>
 
   <!-- Ressources (avant contact) -->
-  <section class="py-24 bg-white">
+  <section class="py-24 bg-[#FBF6EA]">
     <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
       <p class="text-lg font-light text-black/70 mb-10">{t.pages.contactPage.beforeContactIntro}</p>
       <ul class="space-y-6">
@@ -91,13 +91,13 @@ const pageSchema = createWebPageSchema({
   </section>
 
   <!-- CTA -->
-  <section class="py-20 bg-[#2d5016] text-white">
+  <section class="py-20 bg-[#73673E] text-white">
     <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
       <h2 class="text-3xl md:text-4xl font-light mb-4">{t.pages.contactPage.ctaTitle}</h2>
       <p class="text-lg font-light text-white/80 mb-8">{t.pages.contactPage.ctaDescription}</p>
       <a
         href={getLocalizedPath('/newsletter', lang as 'fr' | 'en')}
-        class="inline-flex items-center justify-center rounded-sm bg-white text-black px-8 py-3 text-xs tracking-[0.25em] uppercase hover:bg-white/90 transition-colors"
+        class="inline-flex items-center justify-center rounded-2xl bg-[#FBF6EA] text-black px-8 py-3 text-xs tracking-[0.25em] uppercase hover:bg-[#FBF6EA]/90 transition-colors"
       >
         {t.pages.contactPage.ctaButton}
       </a>

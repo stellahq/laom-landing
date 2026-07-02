@@ -1,0 +1,21 @@
+---
+// SectionHeading — titre de section Host Grotesk Extrabold + mot accentué en italique.
+// `accent` = le morceau en italique (terre, ou terre clair si light).
+interface Props {
+  text: string
+  accent?: string
+  light?: boolean
+  as?: 'h1' | 'h2' | 'h3'
+  size?: string // classes tailwind de taille, override
+  class?: string
+}
+const {
+  text, accent, light = false, as: Tag = 'h2',
+  size = 'text-4xl md:text-5xl', class: cls = '',
+} = Astro.props
+const color = light ? 'text-[#F2EBDB]' : 'text-[#412F1F]'
+const accClass = light ? 'acc-light' : 'acc'
+---
+<Tag class:list={[size, 'font-extrabold tracking-[-0.02em] leading-[1.05] text-balance', color, cls]}>
+  {text}{accent && <> <span class={accClass}>{accent}</span></>}
+</Tag>

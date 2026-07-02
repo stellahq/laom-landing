@@ -1,0 +1,11 @@
+---
+// NumberedCard — carte numérotée (01-04) sur fond sombre (mission/étapes).
+// Variante glass (sur photo) ou pleine (marron). N'utiliser des numéros que pour une vraie séquence.
+interface Props { num: string; title: string; text: string; glass?: boolean; class?: string }
+const { num, title, text, glass = true, class: cls = '' } = Astro.props
+---
+<div class:list={[glass ? 'glass' : 'bg-[#412F1F]', 'rounded-3xl p-7', cls]}>
+  <p class="acc-light not-italic font-extrabold text-3xl mb-4">{num}</p>
+  <h3 class="text-lg font-bold text-[#F2EBDB] mb-2">{title}</h3>
+  <p class="text-sm text-[#F2EBDB]/70 leading-relaxed">{text}</p>
+</div>

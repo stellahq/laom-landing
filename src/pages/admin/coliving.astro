@@ -1,0 +1,228 @@
+---
+import Layout from '~/layouts/Layout.astro'
+
+// Dashboard Coliving Août 2026 — perf du tunnel + gestion des leads/contacts.
+// Donnees live depuis TRACKING_DB (leads) + DB (revenue). Auth : cookie de session
+// (POST /api/admin/login), endpoints gardes par le middleware. SSR (pas de prerender).
+export const prerender = false
+---
+
+<Layout title="Coliving — LAOM Admin" seo={{ noIndex: true }} hideChrome={true}>
+  <style is:global>
+    .font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+    .font-mono { font-family: 'SF Mono', ui-monospace, Menlo, monospace; }
+  </style>
+
+  <!-- Gate -->
+  <div id="auth-gate" class="min-h-screen bg-[#FAF8F5] flex items-center justify-center px-6">
+    <div class="w-full max-w-sm text-center">
+      <h1 class="font-playfair text-2xl text-[#2C2824] mb-6">Coliving — Admin</h1>
+      <input type="password" id="admin-password" placeholder="Mot de passe"
+        class="w-full border border-[#2C2824]/15 rounded-sm px-4 py-3 mb-3 outline-none focus:border-[#C4A855]" />
+      <button id="admin-login" class="w-full bg-[#2C2824] text-white rounded-sm px-4 py-3 hover:bg-[#2C2824]/90 transition">Accéder</button>
+      <p id="auth-error" class="text-red-600 text-sm mt-3 hidden">Mot de passe incorrect</p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden min-h-screen bg-[#FAF8F5]">
+    <header class="sticky top-0 z-10 bg-[#FAF8F5]/90 backdrop-blur border-b border-[#2C2824]/8">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4 flex-wrap">
+        <h1 class="font-playfair text-xl text-[#2C2824]">Coliving Août 2026 — Tunnel & Leads</h1>
+        <div class="flex items-center gap-2">
+          <select id="type-filter" class="text-sm border border-[#2C2824]/15 rounded-sm px-2 py-1.5 bg-white">
+            <option value="">Tous types</option>
+            <option value="candidature">Candidatures</option>
+            <option value="quiz">Quiz</option>
+            <option value="newsletter">Newsletter</option>
+          </select>
+          <select id="period-select" class="text-sm border border-[#2C2824]/15 rounded-sm px-2 py-1.5 bg-white">
+            <option value="today">Aujourd'hui</option>
+            <option value="7d" selected>7 jours</option>
+            <option value="30d">30 jours</option>
+            <option value="all">Tout</option>
+          </select>
+          <button id="refresh-btn" class="text-sm border border-[#2C2824]/15 rounded-sm px-3 py-1.5 bg-white hover:bg-[#2C2824]/5">↻</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="loading" class="max-w-7xl mx-auto px-6 py-16 text-center text-[#2C2824]/50 hidden">Chargement…</div>
+
+    <main id="dashboard-content" class="hidden max-w-7xl mx-auto px-6 py-8 space-y-8">
+      <!-- KPIs -->
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-4" id="kpis"></div>
+
+      <!-- Funnel -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+        <h2 class="font-playfair text-lg text-[#2C2824] mb-4">Funnel</h2>
+        <div id="funnel" class="space-y-3"></div>
+      </section>
+
+      <!-- Funnel par source (entonnoir segmente) -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+        <h2 class="font-playfair text-lg text-[#2C2824] mb-4">Funnel par source</h2>
+        <div id="funnel-legend" class="flex flex-wrap gap-x-4 gap-y-2 mb-4 text-xs text-[#2C2824]/70"></div>
+        <div id="funnel-segmented" class="space-y-3"></div>
+      </section>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Sources -->
+        <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+          <h2 class="font-playfair text-lg text-[#2C2824] mb-4">Sources</h2>
+          <table class="w-full text-sm"><tbody id="sources"></tbody></table>
+        </section>
+        <!-- Revenue -->
+        <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6">
+          <h2 class="font-playfair text-lg text-[#2C2824] mb-4">Revenue coliving</h2>
+          <div id="revenue" class="text-[#2C2824]"></div>
+        </section>
+      </div>
+
+      <!-- Leads -->
+      <section class="bg-white border border-[#2C2824]/5 rounded-sm p-6 overflow-x-auto">
+        <h2 class="font-playfair text-lg text-[#2C2824] mb-4">Contacts</h2>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-[#2C2824]/50 border-b border-[#2C2824]/8">
+              <th class="px-3 py-2">Date</th><th class="px-3 py-2">Type</th>
+              <th class="px-3 py-2">Nom</th><th class="px-3 py-2">Email</th>
+              <th class="px-3 py-2">Tél</th><th class="px-3 py-2">Source</th>
+              <th class="px-3 py-2">Statut</th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody" class="divide-y divide-[#2C2824]/5"></tbody>
+        </table>
+        <p id="no-leads" class="text-[#2C2824]/40 text-center py-8 hidden">Aucun lead sur la période.</p>
+      </section>
+
+      <p class="text-center text-xs text-[#2C2824]/30 pt-4" id="meta-line"></p>
+    </main>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var STATUS = [
+        ['lead', 'Lead'], ['call_booked', 'RDV pris'], ['call_done', 'Call fait'],
+        ['match', 'Match'], ['paid', 'Payé'], ['lost', 'Perdu'],
+      ];
+      var $ = function (id) { return document.getElementById(id); };
+      var authGate = $('auth-gate'), dashboard = $('dashboard'), loading = $('loading'),
+          content = $('dashboard-content'), authError = $('auth-error');
+
+      function showGate() { authGate.classList.remove('hidden'); dashboard.classList.add('hidden'); }
+      function showDashboard() { authGate.classList.add('hidden'); dashboard.classList.remove('hidden'); }
+      function eur(n) { return (n || 0).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' €'; }
+      function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      function fmtDate(s) { if (!s) return '—'; var d = new Date(s.replace(' ', 'T') + 'Z'); return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
+
+      function doLogin() {
+        var pwd = $('admin-password').value;
+        authError.classList.add('hidden');
+        fetch('/api/admin/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pwd }),
+        }).then(function (res) {
+          if (!res.ok) { authError.classList.remove('hidden'); throw new Error('unauth'); }
+          showDashboard(); loadData();
+        }).catch(function () {});
+      }
+
+      function loadData() {
+        var period = $('period-select').value, type = $('type-filter').value;
+        loading.classList.remove('hidden'); content.classList.add('hidden');
+        fetch('/api/admin/coliving-data/?period=' + period + '&type=' + encodeURIComponent(type), { credentials: 'same-origin' })
+          .then(function (res) { if (res.status === 401) { showGate(); throw new Error('unauth'); } return res.json(); })
+          .then(function (data) { showDashboard(); loading.classList.add('hidden'); content.classList.remove('hidden'); render(data); })
+          .catch(function (err) { if (err.message !== 'unauth') { loading.textContent = 'Erreur de chargement'; } });
+      }
+
+      function render(d) {
+        var k = d.kpis || {};
+        var cards = [
+          ['Leads', k.leads], ['Calls', k.calls], ['Matchs', k.matchs],
+          ['Payés', k.paid], ['Conv. → payé', (k.conversion_lead_paid || 0) + '%'], ['Revenue', eur((d.revenue || {}).total)],
+        ];
+        $('kpis').innerHTML = cards.map(function (c) {
+          return '<div class="bg-white border border-[#2C2824]/5 rounded-sm p-4"><div class="text-2xl font-mono text-[#2C2824]">' + esc(c[1] == null ? 0 : c[1]) + '</div><div class="text-xs text-[#2C2824]/50 mt-1">' + c[0] + '</div></div>';
+        }).join('');
+
+        var maxF = Math.max.apply(null, (d.funnel || []).map(function (f) { return f.count; }).concat([1]));
+        $('funnel').innerHTML = (d.funnel || []).map(function (f) {
+          var w = Math.max(2, Math.round((f.count / maxF) * 100));
+          var color = f.leak_rate > 50 ? '#dc2626' : f.leak_rate > 30 ? '#f59e0b' : '#4A7C59';
+          return '<div><div class="flex justify-between text-sm mb-1"><span class="text-[#2C2824]">' + f.step + ' · <span class="font-mono">' + f.count + '</span></span><span class="text-[#2C2824]/40">' + f.conversion_rate + '%</span></div><div class="h-6 bg-[#2C2824]/5 rounded-sm overflow-hidden"><div style="width:' + w + '%;background:' + color + '" class="h-full"></div></div></div>';
+        }).join('');
+
+        // Funnel segmente par source (entonnoir : barres degressives, couleurs = sources)
+        var palette = ['#C4A855', '#4A7C59', '#9A3922', '#7B6B8A', '#5B8AA6', '#B07A3C', '#2C2824'];
+        var fseg = d.funnel_segmented || [];
+        var colorMap = {};
+        ((fseg[0] || {}).segments || []).forEach(function (s, i) { colorMap[s.source] = palette[i % palette.length]; });
+        fseg.forEach(function (st) { (st.segments || []).forEach(function (s) { if (!colorMap[s.source]) colorMap[s.source] = palette[Object.keys(colorMap).length % palette.length]; }); });
+        $('funnel-legend').innerHTML = Object.keys(colorMap).map(function (src) {
+          return '<span class="inline-flex items-center gap-1.5"><span style="width:11px;height:11px;border-radius:2px;background:' + colorMap[src] + '" class="inline-block"></span>' + esc(src) + '</span>';
+        }).join('') || '<span class="text-[#2C2824]/40">Aucune source</span>';
+        var maxTotal = (fseg[0] || {}).total || 1;
+        $('funnel-segmented').innerHTML = fseg.map(function (st) {
+          var barW = Math.max(3, Math.round((st.total / maxTotal) * 100));
+          var segs = (st.segments || []).map(function (s) {
+            var w = st.total > 0 ? (s.count / st.total * 100) : 0;
+            return '<div title="' + esc(s.source) + ' : ' + s.count + '" style="width:' + w + '%;background:' + colorMap[s.source] + '" class="h-full flex items-center justify-center text-[10px] text-white font-mono overflow-hidden whitespace-nowrap">' + (w > 9 ? s.count : '') + '</div>';
+          }).join('');
+          return '<div><div class="flex justify-between text-sm mb-1"><span class="text-[#2C2824]">' + st.step + '</span><span class="text-[#2C2824]/40 font-mono">' + st.total + '</span></div>' +
+            '<div class="h-7 rounded-sm overflow-hidden bg-[#2C2824]/5" style="width:' + barW + '%"><div class="flex h-full">' + segs + '</div></div></div>';
+        }).join('');
+
+        $('sources').innerHTML = (d.sources || []).map(function (s) {
+          return '<tr class="border-b border-[#2C2824]/5"><td class="py-2 text-[#2C2824]">' + esc(s.source) + '</td><td class="py-2 text-[#2C2824]/50">' + esc(s.campaign) + '</td><td class="py-2 text-right font-mono text-[#2C2824]">' + s.count + '</td><td class="py-2 text-right text-[#2C2824]/40 w-12">' + s.percentage + '%</td></tr>';
+        }).join('') || '<tr><td class="py-3 text-[#2C2824]/40">Aucune source</td></tr>';
+
+        $('revenue').innerHTML = '<div class="text-3xl font-mono">' + eur((d.revenue || {}).total) + '</div><div class="text-sm text-[#2C2824]/50 mt-1">' + ((d.revenue || {}).count || 0) + ' paiement(s) coliving</div>';
+
+        var leads = d.leads || [];
+        var noLeads = $('no-leads'), tbody = $('leads-tbody');
+        if (!leads.length) { noLeads.classList.remove('hidden'); tbody.innerHTML = ''; }
+        else {
+          noLeads.classList.add('hidden');
+          tbody.innerHTML = leads.map(function (l) {
+            var name = esc(((l.first_name || '') + ' ' + (l.last_name || '')).trim() || '—');
+            var src = esc(l.utm_source || '(directe)') + (l.utm_content ? ' · ' + esc(l.utm_content) : '');
+            var opts = STATUS.map(function (s) { return '<option value="' + s[0] + '"' + (l.status === s[0] ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('');
+            return '<tr class="hover:bg-[#FAF8F5]/60">' +
+              '<td class="px-3 py-2 text-[#2C2824]/60 text-xs whitespace-nowrap">' + fmtDate(l.created_at) + '</td>' +
+              '<td class="px-3 py-2 text-[#2C2824]">' + esc(l.type) + '</td>' +
+              '<td class="px-3 py-2 text-[#2C2824]">' + name + '</td>' +
+              '<td class="px-3 py-2"><a class="text-[#2C2824] hover:text-[#C4A855]" href="mailto:' + esc(l.email) + '">' + esc(l.email) + '</a></td>' +
+              '<td class="px-3 py-2">' + (l.phone ? '<a class="text-[#2C2824] hover:text-[#C4A855]" href="tel:' + esc(l.phone) + '">' + esc(l.phone) + '</a>' : '—') + '</td>' +
+              '<td class="px-3 py-2 text-[#2C2824]/50 text-xs">' + src + '</td>' +
+              '<td class="px-3 py-2"><select data-id="' + l.id + '" class="lead-status border border-[#2C2824]/15 rounded-sm px-2 py-1 text-xs bg-white">' + opts + '</select></td>' +
+              '</tr>';
+          }).join('');
+          Array.prototype.forEach.call(document.querySelectorAll('.lead-status'), function (sel) {
+            sel.addEventListener('change', function () {
+              var id = this.getAttribute('data-id'), status = this.value, el = this;
+              el.disabled = true;
+              fetch('/api/admin/lead-status', {
+                method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: Number(id), status: status }),
+              }).then(function (r) { el.disabled = false; if (!r.ok) el.style.borderColor = '#dc2626'; else el.style.borderColor = '#4A7C59'; })
+                .catch(function () { el.disabled = false; el.style.borderColor = '#dc2626'; });
+            });
+          });
+        }
+        var m = d.meta || {};
+        $('meta-line').textContent = 'Période : ' + m.period + ' · ' + (m.total || 0) + ' leads';
+      }
+
+      $('admin-login').addEventListener('click', doLogin);
+      $('admin-password').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+      $('period-select').addEventListener('change', loadData);
+      $('type-filter').addEventListener('change', loadData);
+      $('refresh-btn').addEventListener('click', loadData);
+
+      // Tente un chargement direct (cookie de session valide -> pas de login).
+      loadData();
+    })();
+  </script>
+</Layout>

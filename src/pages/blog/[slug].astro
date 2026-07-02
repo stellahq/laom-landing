@@ -1,9 +1,17 @@
 ---
+// Article du journal — charte LAOM (Host Grotesk, beige/crème/terre/marron).
+// Logique data/SEO inchangée ; seule la présentation a été rebrandée (juil. 2026).
 import Layout from '~/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
 import { createWebPageSchema } from '~/utils/schema'
 import { getTranslations } from '~/i18n/utils'
 import { getLocalizedPath } from '~/i18n/utils'
+import { laboNav as navLinks } from '~/data/laboNav'
+import SiteNav from '~/components/laom/SiteNav.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import BlogCard from '~/components/laom/BlogCard.astro'
+import CtaBand from '~/components/laom/sections/CtaBand.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
 
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
@@ -33,6 +41,9 @@ const relatedPosts = allPosts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3)
 
+const fmtShort = (d: Date) =>
+  new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+
 // Create article schema for JSON-LD
 const pageSchema = createWebPageSchema({
   name: post.data.title,
@@ -45,6 +56,7 @@ const pageSchema = createWebPageSchema({
 <Layout
   title={`${post.data.title} – LAOM`}
   description={post.data.description}
+  hideChrome={true}
   seo={{
     ldJSON: pageSchema,
     ogType: 'article',
@@ -53,52 +65,46 @@ const pageSchema = createWebPageSchema({
     image: post.data.heroImage ? new URL(post.data.heroImage, Astro.site || Astro.url).toString() : undefined,
   }}
 >
+  <SiteNav transparent={Boolean(post.data.heroImage)} links={navLinks} ctaText="Candidater" ctaHref="/candidater/" />
 
   <article>
-    <!-- Hero -->
-    {post.data.heroImage && (
-      <section class="relative w-full -mt-24 md:-mt-28">
+    {post.data.heroImage ? (
+      <header class="relative w-full">
         <img
           src={post.data.heroImage}
           alt={post.data.title}
           title={post.data.title}
-          class="w-full h-[50vh] md:h-[65vh] lg:h-[75vh] object-cover object-center"
+          class="w-full h-[55vh] md:h-[65vh] object-cover object-center"
           loading="eager"
           fetchpriority="high"
           decoding="async"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col items-center justify-end pb-10 md:pb-16 lg:pb-20 gap-2 md:gap-3">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-white/70 mb-1 md:mb-2">
-            {formattedPubDate}
-          </p>
-          <h1 class="font-playfair text-2xl md:text-4xl lg:text-6xl font-medium text-white tracking-tight text-center max-w-4xl px-6 md:px-8 drop-shadow-lg leading-tight">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/85 via-[#1D1B18]/25 to-[#1D1B18]/20 flex flex-col items-center justify-end pb-12 md:pb-16 gap-4">
+          <span class="rounded-full bg-[#F2EBDB]/95 text-[#412F1F] text-xs font-medium px-3 py-1.5">{formattedPubDate}</span>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.1] text-balance text-center max-w-4xl px-6">
             {post.data.title}
           </h1>
         </div>
-      </section>
-    )}
-
-    {!post.data.heroImage && (
-      <section class="pt-16 pb-8 bg-white">
-        <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
-          <p class="text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
-            {formattedPubDate}
-          </p>
-          <h1 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-medium text-[#2C2824] tracking-tight leading-tight">
+      </header>
+    ) : (
+      <header class="bg-[#FBF6EA] pt-36 md:pt-44 pb-10">
+        <div class="max-w-3xl mx-auto px-6">
+          <span class="inline-block rounded-full bg-[#412F1F]/8 text-[#412F1F] text-xs font-medium px-3 py-1.5 mb-6">{formattedPubDate}</span>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">
             {post.data.title}
           </h1>
         </div>
-      </section>
+      </header>
     )}
 
-    <!-- Intro -->
-    <section class="py-12 md:py-16 bg-[#FAF8F5]">
-      <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
-        <p class="font-playfair text-xl md:text-2xl leading-relaxed text-[#2C2824]">
+    <!-- Lede -->
+    <section class="bg-[#FBF6EA] py-12 md:py-16">
+      <div class="max-w-3xl mx-auto px-6">
+        <p class="text-xl md:text-2xl font-medium italic text-[#412F1F] leading-relaxed text-pretty">
           {post.data.description}
         </p>
         {post.data.author && post.data.author !== 'LAOM' && (
-          <p class="mt-6 text-sm font-light text-[#2C2824]/50">
+          <p class="mt-6 text-sm text-[#1D1B18]/60">
             {t.blog.by} {post.data.author}
           </p>
         )}
@@ -107,9 +113,9 @@ const pageSchema = createWebPageSchema({
 
     <!-- YouTube embed if present -->
     {post.data.youtubeId && (
-      <section class="py-8 bg-white">
-        <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-          <div class="aspect-video w-full rounded-sm overflow-hidden border border-black/5">
+      <section class="bg-[#F2EBDB] pt-14 md:pt-20">
+        <div class="max-w-4xl mx-auto px-6">
+          <div class="aspect-video w-full rounded-2xl overflow-hidden">
             <iframe
               src={`https://www.youtube.com/embed/${post.data.youtubeId}`}
               title={post.data.title}
@@ -124,185 +130,143 @@ const pageSchema = createWebPageSchema({
     )}
 
     <!-- Article Content -->
-    <section class="py-16 md:py-24 bg-white">
-      <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24 article-content">
+    <section class="bg-[#F2EBDB] py-16 md:py-24">
+      <div class="max-w-3xl mx-auto px-6 article-content">
         <Content />
+      </div>
+      <div class="max-w-3xl mx-auto px-6 mt-14">
+        <a href={getLocalizedPath('/blog/', lang as 'fr' | 'en')}
+          class="pill pill-outline inline-flex" style="padding:.8rem 1.8rem">
+          ← {t.blog.backToBlogLabel}
+        </a>
       </div>
     </section>
 
     <!-- A lire aussi -->
     {relatedPosts.length > 0 && (
-      <section class="py-16 md:py-24 bg-[#FAF8F5] border-t border-black/5">
-        <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-          <h2 class="font-playfair text-2xl md:text-3xl font-normal text-[#2C2824] tracking-tight mb-12">
-            {t.blog.relatedTitle}
-          </h2>
-
-          <div class="grid md:grid-cols-3 gap-8">
+      <section class="bg-[#FBF6EA] py-20 md:py-28">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+          <SectionHead eyebrow="Le journal" title={t.blog.relatedTitle} class="mb-12" />
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedPosts.map((related) => (
-              <a href={getLocalizedPath(`/blog/${related.slug}/`, lang as 'fr' | 'en')} class="group block">
-                <article class="flex flex-col">
-                  {related.data.heroImage && (
-                    <div class="aspect-[16/10] overflow-hidden rounded-sm mb-5">
-                      <img
-                        src={related.data.heroImage}
-                        alt={related.data.title}
-                        title={related.data.title}
-                        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                  )}
-                  <p class="text-xs font-light tracking-[0.2em] uppercase text-[#2C2824]/40 mb-2">
-                    {new Date(related.data.pubDate).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { year: 'numeric', month: 'long' })}
-                  </p>
-                  <h3 class="font-playfair text-lg font-normal text-[#2C2824] mb-2 tracking-tight leading-snug group-hover:text-[#2C2824]/70 transition-colors">
-                    {related.data.title}
-                  </h3>
-                  <p class="text-sm font-light text-[#2C2824]/60 leading-relaxed line-clamp-2">
-                    {related.data.description}
-                  </p>
-                </article>
-              </a>
+              <BlogCard
+                img={related.data.heroImage || '/images/festival/blog-1.webp'}
+                date={fmtShort(related.data.pubDate)}
+                title={related.data.title}
+                href={getLocalizedPath(`/blog/${related.slug}/`, lang as 'fr' | 'en')}
+              />
             ))}
           </div>
         </div>
       </section>
     )}
-
-    <!-- Back -->
-    <section class="py-12 bg-white">
-      <div class="max-w-[680px] mx-auto px-10 sm:px-16 lg:px-24">
-        <a
-          href={getLocalizedPath('/blog/', lang as 'fr' | 'en')}
-          class="text-sm font-light text-[#2C2824]/40 hover:text-[#2C2824] transition-colors underline underline-offset-4"
-        >
-          &larr; {t.blog.backToBlogLabel}
-        </a>
-      </div>
-    </section>
   </article>
 
+  <CtaBand eyebrow="Suivre le projet"
+    title="Reçois les coulisses" accent="chaque dimanche."
+    subtitle="Le chantier, le lieu, la communauté — sans filtre, dans la LAOM Letter."
+    primaryText="Rejoindre la newsletter" primaryHref="/newsletter/" />
+
+  <SiteFooter />
+
   <style is:inline>
-    /* Article content,  editorial styling */
-    .article-content h1 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 2.25rem;
-      font-weight: 500;
-      color: #2C2824;
-      margin-top: 0;
-      margin-bottom: 2.5rem;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-    }
+    /* Contenu d'article — charte LAOM (Host Grotesk, marron/terre sur beige). */
+    .article-content h1,
     .article-content h2 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.75rem;
-      font-weight: 500;
-      color: #2C2824;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #412F1F;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
       margin-top: 3rem;
       margin-bottom: 1.25rem;
-      letter-spacing: -0.02em;
-      line-height: 1.3;
+      text-wrap: balance;
     }
     .article-content h3 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.35rem;
-      font-weight: 500;
-      color: #2C2824;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #412F1F;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
       margin-top: 2.5rem;
       margin-bottom: 1rem;
-      letter-spacing: -0.01em;
+      text-wrap: balance;
     }
     .article-content p {
       font-size: 1.125rem;
-      font-weight: 300;
-      color: rgba(44, 40, 36, 0.85);
+      color: rgba(29, 27, 24, 0.92);
       line-height: 1.8;
       margin-bottom: 1.5rem;
+      text-wrap: pretty;
     }
     .article-content > p:first-of-type::first-letter {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 3.5rem;
-      font-weight: 400;
+      font-size: 3.4rem;
+      font-weight: 800;
       float: left;
-      line-height: 1;
-      margin-right: 0.5rem;
-      margin-top: 0.15rem;
-      color: #2C2824;
+      line-height: 0.95;
+      margin-right: 0.6rem;
+      margin-top: 0.3rem;
+      color: #9A3922;
     }
     .article-content strong {
-      font-weight: 500;
-      color: #2C2824;
+      font-weight: 700;
+      color: #412F1F;
     }
-    .article-content em {
-      font-style: italic;
-    }
+    .article-content em { font-style: italic; }
     .article-content blockquote {
-      border-left: 2px solid #C4A855;
-      padding-left: 2rem;
+      background: #FBF6EA;
+      border-radius: 1rem;
+      padding: 1.75rem 2rem;
       margin: 2.5rem 0;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
     }
     .article-content blockquote p {
-      font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.25rem;
+      font-weight: 500;
       font-style: italic;
-      color: rgba(44, 40, 36, 0.85);
+      color: #412F1F;
       line-height: 1.6;
+      margin-bottom: 0;
     }
+    .article-content blockquote p + p { margin-top: 1rem; }
     .article-content ul, .article-content ol {
       font-size: 1.125rem;
-      font-weight: 300;
-      color: rgba(44, 40, 36, 0.85);
+      color: rgba(29, 27, 24, 0.92);
       line-height: 1.8;
       margin-bottom: 1.5rem;
-      padding-left: 2rem;
+      padding-left: 1.75rem;
       list-style-position: outside;
     }
-    .article-content ul {
-      list-style-type: disc;
-    }
-    .article-content ol {
-      list-style-type: decimal;
-    }
-    .article-content li {
-      margin-bottom: 0.5rem;
-      padding-left: 0.35rem;
-    }
+    .article-content ul { list-style-type: disc; }
+    .article-content ol { list-style-type: decimal; }
+    .article-content li { margin-bottom: 0.5rem; padding-left: 0.35rem; }
+    .article-content li::marker { color: #9A3922; }
     .article-content img {
       width: 100%;
-      border-radius: 2px;
-      margin: 2rem 0 0.5rem;
+      border-radius: 1rem;
+      margin: 2.25rem 0 0.75rem;
     }
-    /* Legendes d'images : un paragraphe qui ne contient qu'un <em> */
+    /* Légendes d'images : un paragraphe qui ne contient qu'un <em> */
     .article-content p:has(> em:only-child) {
       text-align: center;
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: rgba(44, 40, 36, 0.55);
+      font-size: 0.875rem;
+      color: rgba(29, 27, 24, 0.6);
       margin-top: 0;
-      margin-bottom: 2rem;
+      margin-bottom: 2.25rem;
       line-height: 1.5;
     }
     .article-content a {
-      color: #8B7A3A;
-      font-weight: 500;
-      border-bottom: 2px solid #8B7A3A;
-      text-decoration: none;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      color: #9A3922;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1.5px;
+      transition: color 0.2s;
     }
-    .article-content a:hover {
-      color: #6B5A2A;
-      border-color: #6B5A2A;
-      background: rgba(139, 122, 58, 0.08);
-    }
+    .article-content a:hover { color: #412F1F; }
     .article-content hr {
       border: none;
-      border-top: 1px solid rgba(44, 40, 36, 0.1);
+      border-top: 1px solid rgba(65, 47, 31, 0.15);
       margin: 3rem 0;
     }
   </style>
-
 </Layout>

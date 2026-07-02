@@ -1,0 +1,46 @@
+---
+// FitCheck — deux colonnes « c'est pour toi si… » / « pas pour toi si… ».
+// Qualification honnête. Coches (terre) vs croix (sobre).
+import SectionHead from './SectionHead.astro'
+interface Props {
+  eyebrow?: string; title: string; accent?: string
+  forLabel?: string; notLabel?: string
+  forItems: string[]; notItems: string[]; bg?: string
+}
+const {
+  eyebrow, title, accent,
+  forLabel = 'C’est fait pour toi si…', notLabel = 'Ce n’est probablement pas pour toi si…',
+  forItems, notItems, bg = 'bg-[#F2EBDB]',
+} = Astro.props
+---
+<section class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="mb-14 text-center">
+      <SectionHead align="center" eyebrow={eyebrow} title={title} accent={accent} />
+    </div>
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="rounded-3xl bg-[#FBF6EA] border border-[#73673E]/25 p-8 md:p-10">
+        <p class="text-base font-extrabold text-[#412F1F] mb-6">{forLabel}</p>
+        <ul class="space-y-4">
+          {forItems.map((t) => (
+            <li class="flex items-start gap-3.5">
+              <span class="circle-btn w-7 h-7 shrink-0 mt-0.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></span>
+              <span class="text-[#1D1B18]/85 leading-relaxed">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-3xl bg-[#412F1F]/[0.04] border border-[#412F1F]/12 p-8 md:p-10">
+        <p class="text-base font-extrabold text-[#1D1B18]/70 mb-6">{notLabel}</p>
+        <ul class="space-y-4">
+          {notItems.map((t) => (
+            <li class="flex items-start gap-3.5">
+              <span class="w-7 h-7 shrink-0 mt-0.5 rounded-full border border-[#412F1F]/25 flex items-center justify-center text-[#412F1F]/40"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></span>
+              <span class="text-[#1D1B18]/60 leading-relaxed">{t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

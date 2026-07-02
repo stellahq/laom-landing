@@ -1,0 +1,17 @@
+---
+// LogoStrip — bandeau partenaires / presse / "ils en parlent".
+interface Props { eyebrow?: string; logos: { src?: string; label?: string }[]; class?: string }
+const { eyebrow, logos, class: cls = '' } = Astro.props
+---
+<section class:list={['bg-[#F2EBDB] py-14', cls]}>
+  <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14 text-center">
+    {eyebrow && <p class="eyebrow mb-8">{eyebrow}</p>}
+    <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-70">
+      {logos.map((l) => (
+        l.src
+          ? <img src={l.src} alt={l.label ?? ''} class="h-7 w-auto object-contain" loading="lazy" />
+          : <span class="text-xl font-bold text-[#412F1F]/60">{l.label}</span>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SgBar from '~/components/laom/SgBar.astro'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import EventList from '~/components/laom/sections/EventList.astro'
+import CtaSection from '~/components/laom/sections/CtaSection.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+const F = (n: string) => `/images/festival/${n}.webp`
+---
+<Layout title="LAOM — Gabarit Événements" hideChrome={true} seo={{ noIndex: true }}>
+  <SgBar current="events" />
+  <PageHeader img={F('act-danse')} title="Les rendez-vous de LAOM" subtitle="Festivals, immersions, forums, soirées — toute l’année sur le domaine." />
+
+  <EventList eyebrow="Agenda 2026" title="Prochains" accent="événements" bg="bg-[#F2EBDB]"
+    events={[
+      {date:'3-5 juil.',sub:'2026',title:'Forum Éco-construction',desc:'Paille, terre, bois — visites, conférences, atelier enduit.'},
+      {date:'5-9 août',sub:'2026',title:'En Mouvement',desc:'5 jours d’immersion par la danse et le mouvement.'},
+      {date:'10-30 août',sub:'2026',title:'Coliving Entrepreneurs',desc:'3 semaines, 12 places/session, tout compris.'},
+      {date:'Sept.',sub:'2026',title:'Festival Perspective',desc:'Concerts, ateliers, ecstatic dance, repas du terroir.'},
+    ]} />
+
+  <CtaSection img={F('cta')} bg="bg-[#FBF6EA]" eyebrow="Tu veux venir ?" title="Réserve ta place pour le prochain" accent="rendez-vous"
+    primaryText="Voir les billets" secondaryText="Nous écrire"
+    items={[{title:'Places limitées',desc:'12 par session'},{title:'Tout compris',desc:'Hébergement + repas'}]} />
+
+  <SiteFooter />
+</Layout>

@@ -1,0 +1,101 @@
+---
+// Page 3 — LE LIEU (présentation du domaine). Page la plus visuelle : le lieu est
+// le héros. Copie storytellée (registre présentation), design photo-forward avec
+// carrousel des espaces, bande de chiffres sur photo, et CTA sur image.
+// Même langage visuel + mêmes règles que Coliving. Route isolée /le-lieu-labo (noindex).
+import Layout from '~/layouts/Layout.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import StatBand from '~/components/laom/sections/StatBand.astro'
+import Carousel from '~/components/laom/sections/Carousel.astro'
+import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const F = (n: string) => `/images/festival/${n}.webp`
+const L = (n: string) => `/images/laom/${n}.webp`
+---
+
+<Layout title="LAOM — Le lieu, un domaine de 21 hectares en sud Aveyron" description="Un ancien domaine agricole à 1h30 de Montpellier : tipis, shala face à la vallée, potager, guinguette, rivière et forêt. Le cadre de vie du coliving LAOM." hideChrome={true}>
+
+  <!-- ① HEADER -->
+  <PageHeader
+    img="/images/vue-aeriene-laom2-hero.webp"
+    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/" logoHref="/"
+    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Le lieu' }]}
+    title="Vingt-et-un hectares de vivant, à mille lieues du bruit."
+    subtitle="Un ancien domaine agricole dans le sud de l’Aveyron, devenu un lieu de vie. Voici où tout se passe." />
+
+  <!-- ② L'ARRIVÉE -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" img={F('hero')} alt="Le domaine LAOM dans le sud de l’Aveyron"
+      eyebrow="L’arrivée"
+      title="Tu quittes la route," accent="et le silence prend le relais."
+      text="À 1h30 de Montpellier, la route se rétrécit, les villages s’espacent, et puis il n’y a plus que des collines, des chênes et le vent. LAOM est posé là, dans le sud de l’Aveyron, assez loin pour qu’on t’oublie, assez près pour qu’on te retrouve. La première chose que tu remarques en arrivant, c’est ce que tu n’entends plus." />
+  </div>
+
+  <!-- ③ LE DOMAINE D'UN COUP D'ŒIL -->
+  <div animate-fade-in-up class="opacity-0">
+    <StatBand img={L('riviere-laom')}
+      eyebrow="Le domaine"
+      title="Tout est là," accent="à ciel ouvert."
+      stats={[
+        { value: '21 ha', label: 'de nature préservée' },
+        { value: '1h30', label: 'de Montpellier' },
+        { value: '1', label: 'rivière sur le domaine' },
+        { value: '0', label: 'pollution lumineuse' },
+      ]} />
+  </div>
+
+  <!-- ④ LES ESPACES — carrousel -->
+  <div animate-fade-in-up class="opacity-0">
+    <Carousel bg="bg-[#F2EBDB]"
+      eyebrow="Les espaces"
+      title="Chaque coin du domaine" accent="a sa raison d’être."
+      slides={[
+        { img: L('tipis'), alt: 'Les tipis de LAOM', title: 'Les tipis', text: 'Dormir dans la toile, au plus près du dehors. Le matin, c’est le chant des oiseaux qui te réveille.' },
+        { img: L('chillworking-salle-pratique'), alt: 'Le shala de LAOM', title: 'Le shala', text: 'Coworking le jour, pratiques le matin. Wifi fibre, et la vallée pour seul écran de fond.' },
+        { img: L('potager-calendula'), alt: 'Le potager de LAOM, fleurs de calendula', title: 'Le potager', text: 'Ce qui pousse ici finit dans l’assiette. Les repas suivent les saisons, pas l’inverse.' },
+        { img: L('riviere-baignade'), alt: 'Baignade collective dans la rivière de LAOM', title: 'La rivière & la forêt', text: 'Vingt-et-un hectares à parcourir. L’eau froide en été, les chemins sous les arbres.' },
+        { img: L('festival-laom-ambiance-nature-aveyron'), alt: 'La guinguette de LAOM', title: 'La guinguette', text: 'Le cœur des soirées. Là où le collectif se retrouve, un verre à la main.' },
+        { img: L('diner-golden-hour-laom'), alt: 'Le feu, la nuit, à LAOM', title: 'Le feu, la nuit', text: 'Quand le jour tombe, on s’assoit autour des flammes. Et au-dessus, la voie lactée entière.' },
+      ]} />
+  </div>
+
+  <!-- ⑤ LE VIVANT -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('jardin-laom')} alt="Le jardin et le potager de LAOM"
+      eyebrow="Le vivant"
+      title="Un lieu qui se régénère," accent="saison après saison."
+      text="Ici, on ne fait pas que profiter de la nature, on en prend soin. Le potager, les arbres, la rivière, le sol : tout est entretenu pour durer. Au fil de l’année, le domaine change de visage : le vert dense de l’été, l’or de l’automne, le silence de l’hiver. Quelle que soit la saison où tu viens, tu ne trouveras jamais tout à fait le même endroit." />
+  </div>
+
+  <!-- ⑥ VENIR À LAOM -->
+  <div animate-fade-in-up class="opacity-0">
+    <IncludedGrid bg="bg-[#F2EBDB]"
+      eyebrow="Venir"
+      title="Comment nous" accent="rejoindre."
+      intro="Le domaine est à La Margue, à Saint-Félix-de-Sorgues (12400), dans le sud de l’Aveyron."
+      items={[
+        { title: 'En voiture', desc: '1h30 de Montpellier, 2h de Toulouse. Parking sur place.' },
+        { title: 'En train + navette', desc: 'On organise une navette depuis la gare de Montpellier le jour de ton arrivée, jusqu’au domaine.' },
+        { title: 'Sur place', desc: 'La Margue, Saint-Félix-de-Sorgues (12400), sud Aveyron.' },
+      ]} />
+  </div>
+
+  <!-- ⑦ INVITATION -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage img={L('batiment-laom-jour')}
+      eyebrow="Nous rejoindre"
+      title="Le mieux," accent="c’est encore de venir le voir."
+      subtitle="Les photos donnent une idée. Le reste se vit sur place. Si le lieu t’appelle, une semaine de coliving est la meilleure façon de le découvrir."
+      primaryText="Découvrir le coliving" primaryHref="/coliving/"
+      secondaryText="ou candidater" secondaryHref="/candidater/" />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Candidater" href="/candidater/" />
+</Layout>

@@ -1,0 +1,11 @@
+---
+// StatGlass — carte chiffre clé en verre (sur photo/fond sombre).
+interface Props { value: string; unit?: string; label: string; class?: string }
+const { value, unit, label, class: cls = '' } = Astro.props
+---
+<div class:list={['glass rounded-3xl p-7', cls]}>
+  <p class="text-5xl font-extrabold text-[#F2EBDB] leading-none">
+    {value}{unit && <span class="text-2xl align-top text-[#CB7A5C]">{unit}</span>}
+  </p>
+  <p class="text-sm text-[#F2EBDB]/70 mt-3">{label}</p>
+</div>

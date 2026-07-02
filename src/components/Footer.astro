@@ -2,67 +2,65 @@
 import { getTranslations, getLocalizedPath } from '~/i18n/utils'
 import { INSTAGRAM_URL, YOUTUBE_URL } from '~/i18n/translations'
 import NewsletterForm from '~/components/NewsletterForm.astro'
+import Logo from '~/components/laom/Logo.astro'
+import Sprig from '~/components/laom/graphics/Sprig.astro'
 
 const lang = Astro.currentLocale || 'fr'
 const t = getTranslations(lang as 'fr' | 'en')
+const link = 'text-[#F2EBDB]/70 hover:text-[#CB7A5C] text-sm transition-colors'
 ---
 
-<footer class="bg-black text-white py-16">
-  <div class="max-w-7xl mx-auto px-10 sm:px-16 lg:px-24">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-      <!-- Brand -->
-      <div>
-        <h3 class="text-2xl font-light tracking-wider mb-6">LAOM</h3>
-        <p class="text-white/70 text-sm font-light leading-relaxed max-w-xs">
-          {t.footer.description}
+<footer class="bg-[#F2EBDB] px-4 sm:px-6 pt-8 pb-8">
+  <div class="relative max-w-7xl mx-auto rounded-[2rem] bg-[#412F1F] text-[#F2EBDB] px-8 md:px-14 py-16 overflow-hidden">
+    <Sprig class="absolute bottom-0 right-2 text-[#73673E] opacity-90" width="170px" />
+    <div class="relative">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <!-- Brand -->
+        <div>
+          <div class="mb-6"><Logo height="2.2rem" /></div>
+          <p class="text-[#F2EBDB]/70 text-sm leading-relaxed max-w-xs">{t.footer.description}</p>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h4 class="text-sm tracking-widest uppercase mb-6 text-[#F2EBDB]">{t.footer.explore}</h4>
+          <nav class="flex flex-col space-y-3">
+            <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class={link}>{t.nav.home}</a>
+            <a href={getLocalizedPath('/project', lang as 'fr' | 'en')} class={link}>{t.nav.project}</a>
+            <a href={getLocalizedPath('/events', lang as 'fr' | 'en')} class={link}>{t.nav.events}</a>
+            <a href={getLocalizedPath('/blog', lang as 'fr' | 'en')} class={link}>{t.nav.blog}</a>
+            <a href={getLocalizedPath('/resources', lang as 'fr' | 'en')} class={link}>{t.nav.resources}</a>
+            <a href="/talk/" class={link}>Conférence gratuite</a>
+          </nav>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-sm tracking-widest uppercase mb-6 text-[#F2EBDB]">{t.footer.connect}</h4>
+          <nav class="flex flex-col space-y-3">
+            <a href={getLocalizedPath('/contact', lang as 'fr' | 'en')} class={link}>{t.nav.contact}</a>
+            <a href={getLocalizedPath('/newsletter', lang as 'fr' | 'en')} class={link}>{t.footer.newsletterTitle}</a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={`${t.footer.instagram} (opens in new tab)`} class={link}>{t.footer.instagram}</a>
+            <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" aria-label={`${t.footer.youtube} (opens in new tab)`} class={link}>{t.footer.youtube}</a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="border-t border-[#F2EBDB]/15 pt-10 mb-10">
+        <NewsletterForm />
+      </div>
+
+      <!-- Copyright -->
+      <div class="border-t border-[#F2EBDB]/15 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-[#F2EBDB]/50 text-xs">
+          {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
         </p>
-      </div>
-
-      <!-- Navigation -->
-      <div>
-        <h4 class="text-sm font-light tracking-widest uppercase mb-6">{t.footer.explore}</h4>
-        <nav class="flex flex-col space-y-4">
-          <a href={getLocalizedPath('/', lang as 'fr' | 'en')} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.nav.home}</a>
-          <a href={getLocalizedPath('/project', lang as 'fr' | 'en')} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.nav.project}</a>
-          <a href={getLocalizedPath('/events', lang as 'fr' | 'en')} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.nav.events}</a>
-          <a href={getLocalizedPath('/blog', lang as 'fr' | 'en')} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.nav.blog}</a>
-          <a href={getLocalizedPath('/resources', lang as 'fr' | 'en')} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.nav.resources}</a>
-          <a href="/talk/" class="text-white/70 hover:text-white text-sm font-light transition-colors">Conférence gratuite</a>
-        </nav>
-      </div>
-
-      <!-- Contact -->
-      <div>
-        <h4 class="text-sm font-light tracking-widest uppercase mb-6">{t.footer.connect}</h4>
-        <nav class="flex flex-col space-y-4">
-          <a href={getLocalizedPath('/contact', lang as 'fr' | 'en')} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.nav.contact}</a>
-          <a href={getLocalizedPath('/newsletter', lang as 'fr' | 'en')} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.footer.newsletterTitle}</a>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label={`${t.footer.instagram} (opens in new tab)`} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.footer.instagram}</a>
-          <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" aria-label={`${t.footer.youtube} (opens in new tab)`} class="text-white/70 hover:text-white text-sm font-light transition-colors">{t.footer.youtube}</a>
-        </nav>
-      </div>
-    </div>
-
-    <!-- Newsletter -->
-    <div class="border-t border-white/10 pt-10 mb-10">
-      <NewsletterForm />
-    </div>
-
-    <!-- Copyright -->
-    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-white/50 text-xs font-light">
-        {t.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
-      </p>
-      <div class="flex items-center gap-4">
-        <a href="/mentions-legales/" class="text-white/50 hover:text-white text-xs font-light transition-colors">
-          Mentions legales
-        </a>
-        <a href="/devis-voda" class="text-white/70 hover:text-white text-sm font-light transition-colors">
-          Espace devis
-        </a>
-        <a href="/previsionnel-2026" class="text-white/70 hover:text-white text-sm font-light transition-colors">
-          Espace associés
-        </a>
+        <div class="flex items-center gap-5">
+          <a href="/mentions-legales/" class="text-[#F2EBDB]/50 hover:text-[#F2EBDB] text-xs transition-colors">Mentions légales</a>
+          <a href="/devis-voda" class="text-[#F2EBDB]/50 hover:text-[#F2EBDB] text-xs transition-colors">Espace devis</a>
+          <a href="/previsionnel-2026" class="text-[#F2EBDB]/50 hover:text-[#F2EBDB] text-xs transition-colors">Espace associés</a>
+        </div>
       </div>
     </div>
   </div>

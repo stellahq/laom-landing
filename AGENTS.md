@@ -1,5 +1,31 @@
 # LAOM Landing Page - Agent Documentation
 
+> ## 🎨 DA 2026 — DESIGN SYSTEM (à lire en premier)
+>
+> La direction artistique a changé (charte officielle Lucas Provost, juin 2026). Les sections « Design References / Design System » plus bas sont **PÉRIMÉES** (ancienne identité luxury-wellness, palette noir/vert/or, system fonts). Sources de vérité du design :
+> - **`DESIGN.md`** — la charte complète (couleurs, typo, logo, formes, photos, formulaires, catalogue de composants, anti-slop).
+> - **`/styleguide`** (+ `/ds2`, `/styleguide/labo`) — la doc **vivante** : éléments, sections et gabarits rendus en vrai. À ouvrir AVANT de créer une page.
+>
+> ### Stack
+> Astro 5 · Tailwind CSS 4 · Bun · Cloudflare Workers. Dev : `bun run dev`. Build : `bun run build` (= `wrangler types && astro check && astro build`).
+>
+> ### Le design system (`src/components/laom/`)
+> - **Tokens** (`src/styles/global.css`) : beige `#F2EBDB` · terre `#9A3922` · terre clair `#CB7A5C` (accent sur fond sombre) · vert `#73673E` · marron `#412F1F` · noir `#1D1B18` · crème `#FBF6EA`. Typo **Host Grotesk** partout (Extrabold titres / Medium Italic accents / Regular corps). Logo = **SVG officiel** (`graphics/logo-laom.svg`, composant `<Logo/>`), **jamais** une police.
+> - **Éléments** : `Logo · Eyebrow · SectionHeading · Pill · StatGlass · MediaCard · ActivityCard · NumberedCard · FeatureItem · TeamCard · Testimonial · BlogCard · PopularList`.
+> - **Sections** (`/sections/`) : `HeroLeader · StatsBand · AboutCards · MissionSection · MissionShowcase · HabitatsSection · ActivitiesSection · TeamSection · TestimonialsSection · FeaturesSection · BlogSection · EventList · CtaSection · ArticleBody` (+ `BookingForm · SiteFooter · PageHeader · LogoStrip`).
+> - **Graphics** (`/graphics/`) : `TopoBg` (textures topo/terre), `Sprig` (botanique), `Parallax` (photo au scroll).
+> - **Deux skins** : **DS1 (arrondi) = le design validé et actif** — c'est lui qu'on utilise. DS2 (angles droits / élégant, via `.ds-square`) = exploration **non validée**, gardée comme option. Switcher dans la barre du styleguide.
+>
+> ### Créer une nouvelle page
+> 1. Ouvre `/styleguide` et repère les sections qui conviennent.
+> 2. `src/pages/ma-page.astro` : importe `Layout` + les sections de `laom/sections/`, passe les props (titres, items, photos). **On assemble des composants, on n'écrit pas de markup ad hoc.**
+> 3. Couleurs uniquement depuis la charte. Photos en **webp** dans `public/images/`. Pas de blanc pur (utiliser crème). Pas de hotlink externe.
+>
+> ### Déploiement ⚠️
+> - Push **`staging`** → **staging.laom.fr** (préprod, noindex). Push **`main`** → **laom.fr** (PROD, branche protégée, CODEOWNERS = Charly).
+> - Le CI lance **`astro check`** : **toute erreur TypeScript bloque le déploiement**. Lance `bunx astro check` (0 erreur) AVANT de pousser.
+> - Toujours bosser sur une branche → PR. Vérifier la divergence des branches avant de merger. **Jamais de push `main` sans feu vert de Charly.**
+
 ## Project Overview
 
 LAOM is a beautiful, multilingual landing page for a rural coliving space located in the south of Aveyron, France. The project is inspired by luxury wellness brands like Our Habitas (Tulum) and The House of AïA, featuring a minimal, elegant aesthetic with a focus on nature, wellness, and mindful living.
@@ -101,6 +127,8 @@ bun run seo:check:report
 ```
 
 ## Design References and Inspiration
+
+> 🚫 **PÉRIMÉ (DA 2025).** Cette section et le « Design System » qui suit décrivent l'ancienne identité. Pour tout choix visuel, voir le bloc « DA 2026 » en haut + `DESIGN.md` + `/styleguide`.
 
 ### Design Philosophy
 

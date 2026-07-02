@@ -11,7 +11,7 @@ import type { APIRoute } from 'astro'
  *   - product?: filtre par produit (ex: 'chillworking', 'school-online')
  */
 
-const ADMIN_PASSWORD = 'laom2026'
+// Auth assuree par le middleware (cookie de session signe). Voir src/middleware.ts.
 
 interface Reservation {
   payment_id: string
@@ -36,14 +36,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const db = env?.DB
   const mollieKey = env?.MOLLIE_API_KEY
   const url = new URL(request.url)
-
-  const password = url.searchParams.get('password')
-  if (password !== ADMIN_PASSWORD) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
 
   if (!db) {
     return new Response(JSON.stringify({ error: 'DB not configured' }), {

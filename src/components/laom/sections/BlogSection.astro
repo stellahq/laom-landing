@@ -1,0 +1,26 @@
+---
+// BlogSection — head + bouton "tous les articles" + grille (2 BlogCard + PopularList).
+import SectionHead from './SectionHead.astro'
+import BlogCard from '../BlogCard.astro'
+import PopularList from '../PopularList.astro'
+import Pill from '../Pill.astro'
+interface Props {
+  eyebrow?: string; title: string; accent?: string;
+  posts: { img: string; date: string; title: string; href?: string }[];
+  popular?: { img: string; title: string; date: string; href?: string }[];
+  ctaText?: string; ctaHref?: string; bg?: string;
+}
+const { eyebrow = 'Journal de bord', title, accent, posts, popular = [], ctaText = 'Tous les articles', ctaHref = '#', bg = 'bg-[#F2EBDB]' } = Astro.props
+---
+<section id="blog" class:list={[bg, 'py-24 md:py-32']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
+      <SectionHead eyebrow={eyebrow} title={title} accent={accent} />
+      <Pill href={ctaHref} variant="primary" class="!py-3.5 !px-7">{ctaText}</Pill>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-6">
+      {posts.map((p) => <BlogCard img={p.img} date={p.date} title={p.title} href={p.href} />)}
+      {popular.length > 0 && <PopularList items={popular} />}
+    </div>
+  </div>
+</section>

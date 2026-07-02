@@ -1,0 +1,96 @@
+---
+// Page 4 — NOTRE HISTOIRE. Charly & Amandine parlent à la première personne, leur
+// projet de vie. Pas de titres. Copie tirée du brief (PAGE 4), mise à leur voix.
+// Photo-forward (plusieurs visuels par moment, swappables). Route /notre-histoire-labo.
+import Layout from '~/layouts/Layout.astro'
+import { laboNav as navLinks } from '~/data/laboNav'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import PhotoStrip from '~/components/laom/sections/PhotoStrip.astro'
+import FoundersQuotes from '~/components/laom/sections/FoundersQuotes.astro'
+import PhotoQuote from '~/components/laom/sections/PhotoQuote.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const F = (n: string) => `/images/festival/${n}.webp`
+const L = (n: string) => `/images/laom/${n}.webp`
+---
+
+<Layout title="LAOM — Notre histoire, Charly & Amandine" description="Ils ont quitté la ville, acheté 21 hectares dans le sud de l'Aveyron, et construisent le lieu qu'ils auraient voulu trouver. LAOM, c'est leur projet de vie." hideChrome={true}>
+
+  <!-- ① HEADER -->
+  <PageHeader
+    img={L('charly-amandine-rire')}
+    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/" logoHref="/"
+    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Notre histoire' }]}
+    title="Derrière LAOM, il y a nous."
+    subtitle="Charly et Amandine. Vingt-et-un hectares, et l’envie de vivre autrement. Voici comment c’est né." />
+
+  <!-- ② LE DÉBUT -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" img={F('hero')} alt="Le domaine de LAOM dans le sud de l’Aveyron"
+      eyebrow="Le début"
+      title="On cherchait un endroit" accent="où vivre autrement."
+      text="Pas un projet théorique, pas un concept sur un pitch deck. Un lieu, un vrai, avec de la terre, du silence, et de l’espace pour construire quelque chose de cohérent. On a trouvé vingt-et-un hectares dans le sud de l’Aveyron, un ancien domaine agricole, loin de tout. On s’y est installé, et on a tout bâti de nos mains, de A à Z : les bâtiments, le potager, la guinguette. Puis on a commencé à accueillir des gens." />
+  </div>
+
+  <!-- bande de 3 photos — les premiers gestes -->
+  <div animate-fade-in-up class="opacity-0">
+    <PhotoStrip bg="bg-[#F2EBDB]"
+      items={[
+        { img: L('laom-batiment-paille'), alt: 'Les bâtiments en paille de LAOM', caption: 'Les bâtiments, montés en paille' },
+        { img: L('chillworking-salle-pratique'), alt: 'La grande salle de LAOM', caption: 'La grande salle, sortie de terre' },
+        { img: L('festival-laom-ambiance-nature-aveyron'), alt: 'La guinguette de LAOM', caption: 'La guinguette, bâtie de leurs mains' },
+      ]} />
+  </div>
+
+  <!-- ③ LE DÉCLIC -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('atelier-presentation')} alt="Un atelier de travail à LAOM, entrepreneurs réunis"
+      eyebrow="Le déclic"
+      title="Très vite, on a vu" accent="que le cadre changeait les gens."
+      text="Des entrepreneurs, des créatifs, des indépendants arrivaient fatigués et repartaient avec une clarté qu’ils n’avaient pas en arrivant. Pas grâce à un programme. Grâce au cadre. C’est de là qu’est né le coliving : si on réunit les bonnes personnes dans le bon environnement, il se passe quelque chose qu’on ne peut pas provoquer autrement." />
+  </div>
+
+  <!-- ④ NOUS DEUX — citations -->
+  <div animate-fade-in-up class="opacity-0">
+    <FoundersQuotes bg="bg-[#F2EBDB]"
+      eyebrow="Nous deux"
+      title="Lui voit loin," accent="elle fait vivre le lieu."
+      people={[
+        { img: L('charly-portrait'), name: 'Charly', quote: 'J’ai eu la vision de LAOM avant même que le lieu existe. Je pense en systèmes, je construis. J’ai quitté la ville avec une conviction : on peut bâtir un projet de vie qui ne sacrifie rien : ni l’ambition, ni le cadre, ni les gens autour.' },
+        { img: L('amandine-portrait'), name: 'Amandine', quote: 'Moi, c’est le lieu vivant qui me porte : l’accueil, les repas, le lien entre des gens qui ne se connaissaient pas le matin même. Mon obsession, c’est qu’on se sente chez soi ici dès le premier soir.' },
+      ]} />
+  </div>
+
+  <!-- ⑤ LE NOM -->
+  <div animate-fade-in-up class="opacity-0">
+    <PhotoQuote bg="bg-[#FBF6EA]" img={L('diner-golden-hour-laom')}
+      eyebrow="Le nom"
+      title="LAOM," accent="l’ancrage et l’élévation."
+      text="La contraction de LAM et OM. Les pieds dans la terre, la tête dans les étoiles. C’est exactement ce qu’on veut offrir ici." />
+  </div>
+
+  <!-- ⑥ LA VISION -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" img="/images/vue-aeriene-laom2-hero.webp" alt="Vue aérienne du domaine LAOM"
+      eyebrow="Demain"
+      title="Faire de LAOM" accent="le lieu où l’on revient."
+      text="Notre objectif : que LAOM devienne, en France, le lieu de référence pour celles et ceux qui veulent vivre et travailler autrement. Le coliving, c’est la première brique. Le reste, on le construit saison après saison." />
+  </div>
+
+  <!-- ⑦ INVITATION -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage img={L('collectif-la-margue-laomletter')}
+      eyebrow="Nous rejoindre"
+      title="Le mieux," accent="c’est de venir vivre une semaine avec nous."
+      subtitle="On n’a pas envie de te convaincre avec des mots. Viens, et fais-toi ton avis."
+      primaryText="Découvrir le coliving" primaryHref="/coliving/"
+      secondaryText="ou candidater" secondaryHref="/candidater/" />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Candidater" href="/candidater/" />
+</Layout>

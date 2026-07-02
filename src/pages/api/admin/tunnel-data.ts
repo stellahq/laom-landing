@@ -21,21 +21,12 @@ import type { APIRoute } from 'astro'
  *   - meta: { period, from, to, total_events }
  */
 
-const ADMIN_PASSWORD = 'laom2026' // Meme mdp que strategie-2026
+// Auth assuree par le middleware (cookie de session signe). Voir src/middleware.ts.
 
 export const GET: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env
   const db = env?.DB
   const url = new URL(request.url)
-
-  // Auth basique par query param
-  const password = url.searchParams.get('password')
-  if (password !== ADMIN_PASSWORD) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  }
 
   if (!db) {
     return new Response(JSON.stringify({ error: 'DB not configured' }), {

@@ -1,0 +1,112 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import SgBar from '~/components/laom/SgBar.astro'
+import HeroLeader from '~/components/laom/sections/HeroLeader.astro'
+import StatsBand from '~/components/laom/sections/StatsBand.astro'
+import AboutCards from '~/components/laom/sections/AboutCards.astro'
+import LogoStrip from '~/components/laom/LogoStrip.astro'
+import MissionShowcase from '~/components/laom/sections/MissionShowcase.astro'
+import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
+import ActivitiesSection from '~/components/laom/sections/ActivitiesSection.astro'
+import TeamSection from '~/components/laom/sections/TeamSection.astro'
+import TestimonialsSection from '~/components/laom/sections/TestimonialsSection.astro'
+import BookingForm from '~/components/laom/BookingForm.astro'
+import CtaSection from '~/components/laom/sections/CtaSection.astro'
+import BlogSection from '~/components/laom/sections/BlogSection.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+const F = (n: string) => `/images/festival/${n}.webp`
+const L = (n: string) => `/images/laom/${n}.webp`
+---
+<Layout title="LAOM — Gabarit Home" hideChrome={true} seo={{ noIndex: true }}>
+  <SgBar current="home" />
+  <HeroLeader img={F('hero')} eyebrow="Écolieu · Aveyron"
+    title="Travaille et ressource-toi au cœur d’un" accent="lieu vivant"
+    ctaText="Découvrir nos habitats" ctaHref="#habitats"
+    stats={[{value:'21',unit:'ha',label:'Domaine préservé'},{value:'850',unit:'m²',label:'Paille porteuse'}]}
+    avatars={[F('avatar-1'),F('avatar-2'),F('avatar-3'),F('avatar-4')]} avatarValue="15 familles" avatarLabel="vivent à LAOM" />
+
+  <StatsBand stats={[{value:'21',unit:'ha',label:'hectares'},{value:'15',label:'familles'},{value:'850',unit:'m²',label:'paille porteuse'},{value:'2021',label:'depuis'}]} />
+
+  <AboutCards title="Un écolieu où l’on vient ralentir, se relier, et" accent="créer autrement"
+    intro="21 hectares dans le sud de l’Aveyron. À la fois habitat, espace d’accueil et terrain d’expérimentation — nourriture du terroir, mouvement, communauté sélectionnée."
+    items={[
+      {kind:'photo',img:F('about-1')},
+      {kind:'text',color:'marron',title:'Un chantier vivant depuis 2021',text:'Le plus grand bâtiment en paille porteuse au monde, construit pas à pas, sans filtre.'},
+      {kind:'photo',img:F('about-2')},
+      {kind:'text',color:'vert',title:'Accueil & immersions toute l’année',text:'Retraites, séjours chillworking, forums éco-construction.'},
+    ]} />
+
+  <LogoStrip eyebrow="Ils en parlent" logos={[{label:'France 3'},{label:'La Dépêche'},{label:'Konbini'},{label:'Socialter'}]} />
+
+  <MissionShowcase
+    topImg={F('act-atelier')} topEyebrow="Notre mission & nos valeurs"
+    topTitle="Un lieu qui prend soin du vivant, et de" topAccent="ceux qui le font"
+    steps={[
+      {num:'01',title:'Préserver le lieu',text:'21 hectares de forêt, rivière et prairie, en gestion douce.'},
+      {num:'02',title:'Transmettre',text:'Éco-construction, permaculture, mouvement — on partage tout.'},
+      {num:'03',title:'Relier',text:'Une communauté choisie d’entrepreneurs et de créatifs.'},
+      {num:'04',title:'Construire bas-carbone',text:'Paille porteuse, terre crue, matériaux locaux.'},
+    ]}
+    bottomImg={F('act-riviere')} bottomEyebrow="Nos formats"
+    bottomTitle="Choisis ta façon de" bottomAccent="vivre LAOM"
+    bottomText="Du séjour chillworking à la retraite immersive — chaque format a son rythme et son intention."
+    features={[
+      {title:'Découvrir le lieu',text:'Visite, histoire du chantier, et la vie quotidienne sur le domaine.'},
+      {title:'Activités & immersions',text:'Mouvement, ateliers, rivière, cercles — le corps et le projet.'},
+      {title:'Réserver un séjour',text:'Chillworking, retraite ou forum : on cale tes dates ensemble.'},
+    ]} />
+
+  <HabitatsSection title="Choisis ton coin de" accent="tranquillité"
+    intro="Du grand bâtiment collectif au tipi en lisière de forêt — chaque lieu a son grain, sa lumière."
+    items={[
+      {img:L('laom-batiment-paille'),title:'Grand Shambala',desc:'850 m² de paille porteuse.'},
+      {img:L('petit-shambala-exterieur'),title:'Petit Shambala',desc:'Sol en terre crue.'},
+      {img:L('tipis'),title:'Les Tipis',desc:'Dormir au plus près du vivant.'},
+      {img:L('salle-de-pratique'),title:'La salle de danse',desc:'Lumière, espace, vue.'},
+      {img:L('laom-potager-chalet'),title:'Le chalet & potager',desc:'Nourriture du terroir.'},
+      {img:L('riviere-laom'),title:'La rivière',desc:'En contrebas du domaine.'},
+    ]} />
+
+  <ActivitiesSection title="La beauté du lieu se vit en" accent="activités"
+    intro="Mouvement le matin, mains dans la terre l’après-midi, travail à ton rythme."
+    items={[
+      {img:F('act-danse'),title:'Danse & mouvement'},
+      {img:F('act-atelier'),title:'Ateliers & cercles'},
+      {img:F('act-chillworking'),title:'Chillworking'},
+      {img:F('act-riviere'),title:'Rivière & nature'},
+    ]} />
+
+  <TeamSection eyebrow="L’équipe" title="Celles et ceux qui" accent="font le lieu"
+    members={[
+      {img:F('avatar-1'),name:'Charly Aubert',role:'Fondateur'},
+      {img:F('avatar-2'),name:'Amandine Orriols',role:'Co-pilote'},
+      {img:F('avatar-3'),name:'L’équipe',role:'Chantier & accueil'},
+      {img:F('avatar-4'),name:'Les habitants',role:'15 familles'},
+    ]} />
+
+  <TestimonialsSection title="Ce qu’ils disent du" accent="lieu"
+    items={[
+      {quote:'Un lieu magique, perché et entouré de montagnes.',name:'Clémence M.',avatar:F('avatar-1')},
+      {quote:'On déconnecte vraiment, on se reconnecte à soi.',name:'Caroline T.',avatar:F('avatar-2')},
+      {quote:'L’accueil et la qualité de présence, extraordinaires.',name:'François D.',avatar:F('avatar-3')},
+    ]} />
+
+  <BookingForm photo={F('about-1')} title="Ton échappée nature t’attend." accent="Pose tes dates !"
+    text="Dis-nous qui tu es et ce que tu cherches. On te recontacte sous 48h." sideImg={F('booking-side')} />
+
+  <CtaSection img={F('cta')} eyebrow="Réservation anticipée" title="Réserve tôt, profite du lieu" accent="en plein calme"
+    primaryText="Réserver un séjour" secondaryText="Demander un devis"
+    items={[{title:'Tarif early-bird',desc:'Jusqu’à -15% hors saison'},{title:'Séjours flexibles',desc:'À partir de 5 nuits'},{title:'Pension complète',desc:'Nourriture du terroir incluse'}]} />
+
+  <BlogSection title="Nos derniers" accent="récits"
+    posts={[
+      {img:F('blog-1'),date:'6 juin 2026',title:'Construire en paille porteuse : le récit du Grand Shambala'},
+      {img:F('blog-2'),date:'2 juin 2026',title:'Vivre en collectif sur 21 hectares'},
+    ]}
+    popular={[
+      {img:F('pop-1'),title:'Piloter un écolieu avec une IA',date:'28 mai 2026'},
+      {img:F('pop-2'),title:'Petit Shambala : l’imprévu',date:'20 mai 2026'},
+    ]} />
+
+  <SiteFooter />
+</Layout>

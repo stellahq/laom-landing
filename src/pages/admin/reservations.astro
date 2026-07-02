@@ -113,8 +113,15 @@ import Layout from '~/layouts/Layout.astro'
 
     function login() {
       const pwd = document.getElementById('admin-password').value
-      sessionStorage.setItem('admin_pwd', pwd)
-      loadData()
+      document.getElementById('auth-error').classList.add('hidden')
+      fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pwd }),
+      }).then((res) => {
+        if (!res.ok) { showError(); return }
+        loadData()
+      }).catch(() => {})
     }
 
     function showError() {
@@ -153,19 +160,15 @@ import Layout from '~/layouts/Layout.astro'
     }
 
     async function loadData() {
-      const pwd = sessionStorage.getItem('admin_pwd')
-      if (!pwd) return
       const filter = document.getElementById('product-filter').value
-      const url = `/api/admin/reservations/?password=${encodeURIComponent(pwd)}${filter ? `&product=${filter}` : ''}`
+      const url = `/api/admin/reservations/${filter ? `?product=${filter}` : ''}`
       document.getElementById('loading').classList.remove('hidden')
       document.getElementById('dashboard-content').classList.add('hidden')
       try {
-        const res = await fetch(url)
+        const res = await fetch(url, { credentials: 'same-origin' })
         if (res.status === 401) {
-          sessionStorage.removeItem('admin_pwd')
           document.getElementById('auth-gate').classList.remove('hidden')
           document.getElementById('dashboard').classList.add('hidden')
-          showError()
           return
         }
         const data = await res.json()
@@ -251,8 +254,7 @@ import Layout from '~/layouts/Layout.astro'
     document.getElementById('product-filter').addEventListener('change', loadData)
     document.getElementById('export-csv').addEventListener('click', exportCSV)
 
-    if (sessionStorage.getItem('admin_pwd')) {
-      loadData()
-    }
+    // Tente un chargement direct : si le cookie de session est valide, pas de login.
+    loadData()
   </script>
 </Layout>

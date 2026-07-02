@@ -1,0 +1,16 @@
+---
+// FeatureItem — bénéfice : icône (slot) + titre + texte. Sur fond clair.
+interface Props { title: string; class?: string }
+const { title, class: cls = '' } = Astro.props
+---
+<div class:list={['flex gap-4', cls]}>
+  <span class="shrink-0 w-12 h-12 rounded-2xl bg-[#9A3922]/10 text-[#9A3922] flex items-center justify-center">
+    <slot name="icon">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </slot>
+  </span>
+  <div>
+    <h3 class="font-bold text-[#412F1F] mb-1">{title}</h3>
+    <p class="text-sm text-[#1D1B18]/65 leading-relaxed"><slot /></p>
+  </div>
+</div>

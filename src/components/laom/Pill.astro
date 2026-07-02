@@ -1,0 +1,19 @@
+---
+// Pill — bouton/CTA arrondi. variant: primary (terre) | light (beige) | outline.
+interface Props {
+  href?: string
+  variant?: 'primary' | 'light' | 'outline'
+  arrow?: boolean
+  class?: string
+  target?: string
+}
+const { href, variant = 'primary', arrow = false, class: cls = '', target } = Astro.props
+const Tag = href ? 'a' : 'button'
+const rel = target === '_blank' ? 'noopener noreferrer' : undefined
+---
+<Tag href={href} target={target} rel={rel} class:list={['pill', `pill-${variant}`, cls]}>
+  <slot />
+  {arrow && (
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+  )}
+</Tag>

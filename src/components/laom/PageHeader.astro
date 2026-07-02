@@ -1,0 +1,40 @@
+---
+// PageHeader — en-tête de page intérieure façon template : grande photo arrondie
+// + nav (avec filet), titre centré, sous-titre, et pastille fil d'ariane.
+import SiteNav from './SiteNav.astro'
+interface Crumb { label: string; href?: string }
+interface NavLink { label: string; href: string }
+interface Props {
+  img: string; title: string; subtitle?: string
+  crumbs?: Crumb[]; navLinks?: NavLink[]; navCta?: string; navCtaHref?: string; logoHref?: string
+}
+const { img, title, subtitle, crumbs = [], navLinks, navCta, navCtaHref, logoHref } = Astro.props
+---
+<div class="px-2 pt-2 md:px-3 md:pt-3 bg-[#F2EBDB]">
+  <div class="relative rounded-[2rem] overflow-hidden">
+    <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high" />
+    <div class="absolute inset-0 bg-[#412F1F]/55"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#1D1B18]/40 via-transparent to-[#1D1B18]/40"></div>
+
+    <div class="relative">
+      <SiteNav transparent={true} links={navLinks} ctaText={navCta} ctaHref={navCtaHref} logoHref={logoHref} />
+      <div class="min-h-[58vh] md:min-h-[64vh] flex flex-col items-center justify-center text-center px-6 pt-28 pb-16">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.02] text-balance max-w-4xl">{title}</h1>
+        {subtitle && <p class="text-lg md:text-xl text-[#F2EBDB]/75 mt-6 max-w-xl leading-relaxed">{subtitle}</p>}
+        {crumbs.length > 0 && (
+          <nav class="mt-9 inline-flex items-center gap-2.5 rounded-full bg-[#1D1B18]/35 backdrop-blur-sm px-5 py-2.5 text-sm">
+            <svg class="w-4 h-4 text-[#F2EBDB]/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h12a1 1 0 001-1V10"/></svg>
+            {crumbs.map((c, i) => (
+              <>
+                {i > 0 && <span class="text-[#F2EBDB]/40">/</span>}
+                {c.href
+                  ? <a href={c.href} class="text-[#F2EBDB]/80 hover:text-[#F2EBDB] transition-colors">{c.label}</a>
+                  : <span class="text-[#CB7A5C] font-medium">{c.label}</span>}
+              </>
+            ))}
+          </nav>
+        )}
+      </div>
+    </div>
+  </div>
+</div>

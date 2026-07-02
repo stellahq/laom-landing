@@ -606,6 +606,193 @@ export const translations = {
         ctaDescription: 'Rejoignez la newsletter pour suivre l\'aventure et recevoir nos ressources.',
         ctaButton: 'S\'inscrire à la newsletter',
       },
+      candidaterPage: {
+        eyebrow: 'Candidater',
+        heroTitle: 'Candidate pour le coliving d\'août 2026.',
+        intro:
+          'LAOM accueille 12 entrepreneurs par semaine dans un cadre qui n\'existe nulle part ailleurs. Pour que l\'expérience soit à la hauteur pour chacun, on prend le temps de connaître ceux qui candidatent. Ce formulaire prend 2 minutes.',
+        formPlaceholderTitle: 'Formulaire à venir',
+        formPlaceholderNote: 'Le formulaire de pré-qualification sera intégré ici.',
+        reassurance:
+          'On te rappelle dans les 48h. Pas de pitch, pas de pression. Juste une conversation pour voir si LAOM est fait pour toi.',
+        backToHome: 'Retour à l\'accueil',
+      },
+      accueilColivingPage: {
+        nav: { coliving: 'Coliving', cta: 'Candidater' },
+        heroOverlay: 'Vis et travaille autrement, en pleine nature, entre pairs.',
+        heroSub: 'Coliving pour entrepreneurs. Sud Aveyron.',
+        heroCta: 'Candidater',
+        manifesto1:
+          'LAOM, c\'est un ancien domaine agricole de 21 hectares, entre causses et vallées, dans le sud de l\'Aveyron.',
+        manifesto2:
+          'On y a construit un lieu de vie. Pas un hôtel. Pas un centre de formation. Un endroit où l\'on mange ce qui pousse ici, où l\'on travaille dans le calme, et où l\'on partage le quotidien avec des gens qui nous ressemblent.',
+        manifesto3:
+          'On accueille des entrepreneurs qui ont construit quelque chose et qui cherchent un cadre pour continuer, autrement.',
+        teaserEyebrow: 'Coliving entrepreneurs',
+        teaserTitle: 'Coliving entrepreneurs. Août 2026.',
+        teaserText1:
+          '1 semaine. 12 places. Tout est inclus : hébergement, repas faits maison, espace de travail, activités.',
+        teaserText2: 'Un cadre qui change tout, sans mettre ta vie pro en pause.',
+        teaserCta: 'Découvrir le programme',
+        lieuEyebrow: 'Le lieu',
+        lieuTitle: 'Le lieu en aperçu',
+        lieuText1:
+          'Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse.',
+        lieuText2:
+          'Le domaine est à 1h30 de Montpellier, au milieu de nulle part. C\'est exactement le point.',
+        lieuCta: 'Voir le lieu',
+        foundersEyebrow: 'Les fondateurs',
+        foundersTitle: 'Charly et Amandine',
+        foundersText1:
+          'Charly et Amandine ont créé LAOM avec une conviction simple : on vit mieux quand on choisit son cadre.',
+        foundersText2:
+          'Ils ont quitté la ville, acheté 21 hectares, et construit un lieu où le travail, la nature et la communauté cohabitent.',
+        foundersCta: 'Lire notre histoire',
+        quizTitle: 'Vis-tu vraiment le mode de vie que tu veux ?',
+        quizSub:
+          'Un quiz de 2 minutes pour faire le point sur ton équilibre entre travail, cadre de vie, et ce qui compte vraiment pour toi. Tu reçois ton profil personnalisé par email.',
+        quizCta: 'Faire le quiz',
+        footerTagline: 'Coliving pour entrepreneurs. Sud Aveyron.',
+        footerNavTitle: 'Naviguer',
+        footerContactTitle: 'Contact',
+        footerInstagram: 'Instagram',
+        heroEyebrow: 'Coliving entrepreneurs · Sud Aveyron',
+        stats: [
+          { value: '21', suffix: ' ha', label: 'de nature préservée' },
+          { value: '12', suffix: '', label: 'entrepreneurs par semaine' },
+          { value: '1h30', suffix: '', label: 'de Montpellier' },
+        ],
+        statsTag: 'Un cadre. Une communauté. Un mode de vie.',
+        aboutEyebrow: 'Le projet',
+        aboutTitle: 'Un ancien domaine agricole de 21 hectares, devenu un ',
+        aboutTitleAccent: 'lieu de vie.',
+        aboutSubtitle:
+          'Entre causses et vallées, dans le sud de l\'Aveyron. On y mange ce qui pousse ici, on y travaille dans le calme, on y partage le quotidien avec des gens qui nous ressemblent.',
+        aboutBlock1Title: 'Pas un hôtel, pas un centre de formation',
+        aboutBlock1Text:
+          'Un endroit où l\'on vit vraiment, le temps d\'une semaine. On accueille des entrepreneurs qui ont construit quelque chose et cherchent un cadre pour continuer, autrement.',
+        aboutBlock2Title: 'Manger ce qui pousse ici',
+        aboutBlock2Text:
+          'Repas faits maison, produits du potager et des producteurs locaux. La table, c\'est là où tout le monde se retrouve.',
+        espacesEyebrow: 'Le lieu',
+        espacesTitle: 'Le domaine, espace par espace',
+        espacesSubtitle:
+          'Des tipis, un potager, une guinguette, des chemins en forêt. Et la voie lactée, la nuit, sans aucune pollution lumineuse.',
+        espaces: [
+          { title: 'Les tipis', text: 'Hébergement au cœur du domaine, au calme.' },
+          { title: 'L\'espace coworking', text: 'Bureaux, wifi haut débit, concentration.' },
+          { title: 'La cuisine & la salle commune', text: 'Là où tout le monde se retrouve.' },
+          { title: 'Le potager', text: 'Ce qui pousse ici finit dans l\'assiette.' },
+          { title: 'La guinguette', text: 'Ouverte à tous, vivante, conviviale.' },
+          { title: 'Les espaces extérieurs', text: 'Feu de camp, terrasses, hamacs, forêt.' },
+        ],
+        ctaBandTitle: 'Ton cadre t\'attend.',
+        ctaBandText:
+          'On accueille 12 entrepreneurs par semaine. Pas une de plus. Candidate en 2 minutes, on te rappelle dans les 48h.',
+        ctaBandButton: 'Candidater',
+        vivreEyebrow: 'Le quotidien',
+        vivreTitle: 'Ce que tu viens vivre à LAOM',
+        vivreSubtitle:
+          'Pendant une semaine, tu poses ton ordi dans un cadre que tu n\'as jamais eu. Rien n\'est obligatoire, tout est proposé.',
+        vivreItems: [
+          { title: 'Coworking en pleine nature', text: 'Wifi haut débit, calme absolu.' },
+          { title: 'Repas faits maison', text: 'Produits du potager et producteurs locaux.' },
+          { title: 'Activités chaque jour', text: 'Yoga, marche, ateliers, soirées.' },
+          { title: '12 personnes par semaine', text: 'Pas une de plus.' },
+          { title: 'Zéro programme imposé', text: 'Tu vis ta semaine comme tu l\'entends.' },
+        ],
+        prixEyebrow: 'Le coliving d\'août',
+        prixTitle: '1 500 € HT la semaine. Tout compris.',
+        prixText:
+          'Hébergement, 3 repas par jour, coworking, activités, accès au domaine. Pas de frais cachés. Prix de lancement, août 2026.',
+        prixButton: 'Candidater',
+        prixButtonAlt: 'Découvrir le programme',
+        inclusItems: [
+          'Hébergement en tipi, au cœur du domaine',
+          '3 repas par jour faits maison',
+          'Espace coworking équipé, au calme',
+          'Activités proposées chaque jour',
+          'Accès libre à tout le domaine',
+        ],
+        footerColLieuTitle: 'Le coliving',
+        footerCopyright: '© 2026 LAOM. Tous droits réservés.',
+        footerPrivacy: 'Confidentialité',
+        footerTerms: 'Mentions légales',
+      },
+      pdvAoutPage: {
+        navCta: 'Postuler',
+        heroEyebrow: 'Coliving entrepreneurs · Août 2026',
+        heroTitlePre: 'Tu as tout construit. Sauf le ',
+        heroTitleAccent: 'cadre de vie',
+        heroTitlePost: ' qui va avec.',
+        heroCta: 'Postuler',
+        accroche: [
+          'Tu t\'es lancé il y a quelques années. Tu as créé ton activité, trouvé tes clients, construit quelque chose qui tourne.',
+          'Mais ton quotidien ne ressemble plus à ce que tu avais en tête quand tu as commencé. Les semaines se répètent. Le même bureau. Les mêmes murs. Tu avances, mais tu ne sais plus trop vers quoi.',
+          'Et autour de toi, personne ne comprend vraiment ce que ça fait, de porter un projet seul.',
+        ],
+        ruptureTitlePre: 'Et si pendant une semaine, tout ',
+        ruptureTitleAccent: 'changeait',
+        ruptureTitlePost: ' sauf ton travail ?',
+        ruptureText1:
+          'Imagine. Tu te réveilles dans un tipi au milieu de 21 hectares de nature. Tu ouvres ton ordi face aux causses. Tu manges ce qui pousse au potager. Le soir, tu parles de ce qui compte vraiment avec 11 entrepreneurs qui vivent la même chose que toi.',
+        ruptureText2:
+          'Tu ne décroches pas. Tu ne pars pas en vacances. Tu fais exactement ce que tu fais d\'habitude, mais dans un cadre qui te régénère au lieu de t\'épuiser.',
+        lieuEyebrow: 'Le lieu',
+        lieuCaption:
+          '21 hectares en sud Aveyron. La voie lactée la nuit. Zéro pollution lumineuse. À 1h30 de Montpellier.',
+        promesseEyebrow: 'La promesse',
+        promesseTitlePre: 'Une semaine. 12 entrepreneurs. ',
+        promesseTitleAccent: 'Tout est inclus.',
+        promesseText1:
+          'Hébergement, repas faits maison, espace de travail, activités. Tu ne gères rien. Tu arrives, tout est prêt.',
+        promesseText2: 'Pas un séminaire. Pas une retraite. Pas des vacances. Un mode de vie, le temps d\'une semaine.',
+        promessePrixLabel: 'Prix de lancement',
+        promessePrix: '1 500 € HT',
+        promessePrixSuffix: 'la semaine, tout compris',
+        promesseCta: 'Postuler',
+        preuveEyebrow: 'Preuve sociale',
+        preuveTitle: 'Ce lieu existe depuis plusieurs années.',
+        preuveText1:
+          'Des événements y sont organisés régulièrement. Des entrepreneurs reconnus y sont venus travailler. Des résidents y vivent déjà à l\'année.',
+        preuveText2: 'Le coliving d\'août, c\'est l\'ouverture de ce mode de vie à 12 personnes par semaine.',
+        preuveFacts: [
+          { value: 'Plusieurs années', label: 'd\'événements et de vie sur le domaine' },
+          { value: 'Résidents', label: 'qui vivent déjà à l\'année à LAOM' },
+          { value: '12 / semaine', label: 'places ouvertes pour le coliving d\'août' },
+        ],
+        temoignagesPlaceholder: 'Témoignages en cours de collecte (slots juin)',
+        fondateursEyebrow: 'Les fondateurs',
+        fondateursTitle: 'Charly & Amandine',
+        fondateursText1:
+          'Charly et Amandine ont quitté la ville, acheté 21 hectares dans le sud de l\'Aveyron, et construit le lieu qu\'ils auraient voulu trouver.',
+        fondateursText2:
+          'LAOM, c\'est leur projet de vie. Le coliving d\'août, c\'est l\'invitation à venir le vivre avec eux.',
+        qualifEyebrow: 'Pour qui',
+        qualifTitle: 'C\'est pour toi si…',
+        qualifItems: [
+          'Tu es entrepreneur ou indépendant depuis au moins 2 à 3 ans',
+          'Tu veux changer de cadre sans mettre ton activité en pause',
+          'Tu as envie de rencontrer des pairs qui comprennent ta réalité',
+          'Tu cherches un environnement qui te recharge au lieu de te vider',
+        ],
+        qualifNote:
+          'On accueille 12 personnes par semaine. Pas une de plus. Chaque candidature passe par un échange téléphonique de 15 minutes pour s\'assurer que c\'est le bon fit.',
+        qualifCta: 'Postuler',
+        processEyebrow: 'Le process',
+        processTitle: '3 étapes. 2 minutes pour la première.',
+        processSteps: [
+          { n: '01', text: 'Tu remplis le formulaire.' },
+          { n: '02', text: 'On t\'appelle dans les 48h.' },
+          { n: '03', text: 'Si ça matche, ta place est confirmée.' },
+        ],
+        urgenceTitlePre: 'Août 2026. 12 places. ',
+        urgenceTitleAccent: 'Quand c\'est complet, c\'est complet.',
+        urgenceCta: 'Postuler',
+        sortieText: 'Pas encore prêt(e) ?',
+        sortieQuiz: 'Faire le quiz',
+        sortieRetour: 'Retour au site',
+      },
       newsletterPage: {
         heroTitle: 'LAOM Letter',
         heroSubtitle: 'Coulisses du projet, décisions clés, actus et événements. Pas de spam.',
@@ -1385,6 +1572,119 @@ export const translations = {
         ctaTitle: 'Prefer another start?',
         ctaDescription: 'Join the newsletter to follow the adventure and receive resources.',
         ctaButton: 'Join the newsletter',
+      },
+      candidaterPage: {
+        eyebrow: 'Apply',
+        heroTitle: 'Apply for the August 2026 coliving.',
+        intro:
+          'LAOM welcomes 12 entrepreneurs each week in a setting that exists nowhere else. So the experience lives up to its promise for everyone, we take the time to get to know those who apply. This form takes 2 minutes.',
+        formPlaceholderTitle: 'Form coming soon',
+        formPlaceholderNote: 'The pre-qualification form will be embedded here.',
+        reassurance:
+          'We\'ll call you back within 48 hours. No pitch, no pressure. Just a conversation to see if LAOM is right for you.',
+        backToHome: 'Back to home',
+      },
+      accueilColivingPage: {
+        nav: { coliving: 'Coliving', cta: 'Apply' },
+        heroOverlay: 'Live and work differently, surrounded by nature, among peers.',
+        heroSub: 'Coliving for entrepreneurs. South Aveyron.',
+        heroCta: 'Apply',
+        manifesto1:
+          'LAOM is a former 21-hectare farming estate, between limestone plateaus and valleys, in the south of Aveyron.',
+        manifesto2:
+          'We built a place to live here. Not a hotel. Not a training centre. A place where you eat what grows here, where you work in calm, and where you share daily life with people who are like you.',
+        manifesto3:
+          'We welcome entrepreneurs who have built something and who are looking for a setting to keep going, differently.',
+        teaserEyebrow: 'Coliving for entrepreneurs',
+        teaserTitle: 'Coliving for entrepreneurs. August 2026.',
+        teaserText1:
+          '1 week. 12 spots. Everything included: accommodation, home-cooked meals, a workspace, activities.',
+        teaserText2: 'A setting that changes everything, without putting your work life on hold.',
+        teaserCta: 'Discover the programme',
+        lieuEyebrow: 'The place',
+        lieuTitle: 'The place at a glance',
+        lieuText1:
+          'Tipis, a vegetable garden, an open-air café, forest trails. And the Milky Way at night, with zero light pollution.',
+        lieuText2:
+          'The estate is 1h30 from Montpellier, in the middle of nowhere. That is exactly the point.',
+        lieuCta: 'See the place',
+        foundersEyebrow: 'The founders',
+        foundersTitle: 'Charly and Amandine',
+        foundersText1:
+          'Charly and Amandine created LAOM with one simple conviction: you live better when you choose your setting.',
+        foundersText2:
+          'They left the city, bought 21 hectares, and built a place where work, nature and community live together.',
+        foundersCta: 'Read our story',
+        quizTitle: 'Are you really living the life you want?',
+        quizSub:
+          'A 2-minute quiz to take stock of your balance between work, living environment, and what truly matters to you. You receive your personalised profile by email.',
+        quizCta: 'Take the quiz',
+        footerTagline: 'Coliving for entrepreneurs. South Aveyron.',
+        footerNavTitle: 'Navigate',
+        footerContactTitle: 'Contact',
+        footerInstagram: 'Instagram',
+        heroEyebrow: 'Coliving for entrepreneurs · South Aveyron',
+        stats: [
+          { value: '21', suffix: ' ha', label: 'of preserved nature' },
+          { value: '12', suffix: '', label: 'entrepreneurs per week' },
+          { value: '1h30', suffix: '', label: 'from Montpellier' },
+        ],
+        statsTag: 'A setting. A community. A way of life.',
+        aboutEyebrow: 'The project',
+        aboutTitle: 'A former 21-hectare farming estate, turned into a ',
+        aboutTitleAccent: 'place to live.',
+        aboutSubtitle:
+          'Between limestone plateaus and valleys, in the south of Aveyron. You eat what grows here, you work in calm, you share daily life with people who are like you.',
+        aboutBlock1Title: 'Not a hotel, not a training centre',
+        aboutBlock1Text:
+          'A place where you truly live, for a week. We welcome entrepreneurs who have built something and are looking for a setting to keep going, differently.',
+        aboutBlock2Title: 'Eat what grows here',
+        aboutBlock2Text:
+          'Home-cooked meals, produce from the garden and local growers. The table is where everyone comes together.',
+        espacesEyebrow: 'The place',
+        espacesTitle: 'The estate, space by space',
+        espacesSubtitle:
+          'Tipis, a vegetable garden, an open-air café, forest trails. And the Milky Way at night, with zero light pollution.',
+        espaces: [
+          { title: 'The tipis', text: 'Accommodation at the heart of the estate, in calm.' },
+          { title: 'The coworking space', text: 'Desks, high-speed wifi, focus.' },
+          { title: 'The kitchen & common room', text: 'Where everyone comes together.' },
+          { title: 'The vegetable garden', text: 'What grows here ends up on your plate.' },
+          { title: 'The open-air café', text: 'Open to all, lively, convivial.' },
+          { title: 'The outdoor spaces', text: 'Campfire, terraces, hammocks, forest.' },
+        ],
+        ctaBandTitle: 'Your setting awaits.',
+        ctaBandText:
+          'We welcome 12 entrepreneurs per week. Not one more. Apply in 2 minutes, we call you back within 48 hours.',
+        ctaBandButton: 'Apply',
+        vivreEyebrow: 'Daily life',
+        vivreTitle: 'What you come to live at LAOM',
+        vivreSubtitle:
+          'For a week, you set your laptop in a place you have never had. Nothing is mandatory, everything is offered.',
+        vivreItems: [
+          { title: 'Coworking in nature', text: 'High-speed wifi, absolute calm.' },
+          { title: 'Home-cooked meals', text: 'Garden produce and local growers.' },
+          { title: 'Activities every day', text: 'Yoga, walks, workshops, evenings.' },
+          { title: '12 people per week', text: 'Not one more.' },
+          { title: 'No imposed schedule', text: 'You live your week your way.' },
+        ],
+        prixEyebrow: 'The August coliving',
+        prixTitle: '€1,500 excl. VAT per week. All included.',
+        prixText:
+          'Accommodation, 3 meals a day, coworking, activities, access to the estate. No hidden fees. Launch price, August 2026.',
+        prixButton: 'Apply',
+        prixButtonAlt: 'Discover the programme',
+        inclusItems: [
+          'Accommodation in a tipi, at the heart of the estate',
+          '3 home-cooked meals a day',
+          'Equipped coworking space, in calm',
+          'Activities offered every day',
+          'Free access to the whole estate',
+        ],
+        footerColLieuTitle: 'The coliving',
+        footerCopyright: '© 2026 LAOM. All rights reserved.',
+        footerPrivacy: 'Privacy',
+        footerTerms: 'Legal notice',
       },
       newsletterPage: {
         heroTitle: 'LAOM Letter',

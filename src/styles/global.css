@@ -1,50 +1,96 @@
 @import "tailwindcss";
 
-/* Custom styles for Laom - Citadel Garden inspired design */
+/* Police de marque officielle — Host Grotesk (self-hostée, variable + italique).
+   Déclarée globalement pour TOUTES les pages (titres Extrabold, sous-titres
+   Medium Italic, corps Regular — brandboard Lucas Provost). */
+@font-face {
+  font-family: 'Host Grotesk';
+  src: url('/fonts/HostGrotesk-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Host Grotesk';
+  src: url('/fonts/HostGrotesk-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ============================================================
+   LAOM — DA officielle (brandboard Lucas Provost)
+   Typo : Host Grotesk partout. Logo = wordmark SVG dessiné (aucun serif).
+   Palette : beige / terre / vert / marron / noir
+   Inspiration : elmut (beige chaud, photo pleine largeur, wordmark géant)
+   ============================================================ */
 :root {
-  --color-primary: #1a1a1a;
-  --color-secondary: #285230; /* Citadel Garden green */
-  --color-accent: #285230;
-  --color-bg: #F3EEDC; /* Beige background like citadel.garden */
-  --color-text: #1a1a1a;
-  --color-text-light: rgba(26, 26, 26, 0.6);
+  --color-beige: #F2EBDB;   /* couleur principale (fond) */
+  --color-terre: #9A3922;   /* couleur d'accentuation (logo, CTA, liens) */
+  --color-vert: #73673E;    /* couleur secondaire */
+  --color-marron: #412F1F;  /* couleur titres (charte officielle) */
+  --color-noir: #1D1B18;    /* couleur textes */
+  --color-creme: #FBF6EA;   /* sections / cartes alternées */
+
+  /* alias hérités */
+  --color-primary: var(--color-noir);
+  --color-secondary: var(--color-vert);
+  --color-accent: var(--color-terre);
+  --color-bg: var(--color-beige);
+  --color-text: var(--color-noir);
+  --color-text-light: rgba(29, 27, 24, 0.6);
 }
 
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-html {
-  background-color: #F3EEDC;
+  background-color: var(--color-beige);
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  color: var(--color-primary);
-  background-color: #F3EEDC !important;
+  font-family: 'Host Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--color-noir);
+  background-color: var(--color-beige) !important;
   line-height: 1.6;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 
-/* Typography - Citadel Garden style: clean, minimal, elegant */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 400; /* Regular weight for clean look */
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+/* Typographie — Host Grotesk : titres percutants, sous-titres en italique.
+   Dans @layer base pour que les utilitaires Tailwind text-[...] gardent la priorité. */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Host Grotesk', sans-serif;
+    color: var(--color-marron);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  h1 { font-weight: 800; }            /* Header 1 — Extrabold */
+  h2 { font-weight: 500; }            /* Header 2 — Medium */
+  h3, h4, h5, h6 { font-weight: 400; } /* Header 3 — Regular */
 }
 
-h1, h2 {
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
+/* Les anciennes classes "playfair" deviennent Host Grotesk (DA sans-serif) */
 .font-playfair {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Host Grotesk', sans-serif !important;
+  letter-spacing: -0.02em;
 }
 
-/* Decorative gold underline for homepage section titles */
+/* Marque / logo LAOM — seul élément en serif (Fraunces), couleur terre */
+.font-logo {
+  font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Sous-titre éditorial en italique (Header 2 du moodboard) */
+.lead-italic {
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Soulignement décoratif des titres de section — désormais terre */
 .title-underline {
   position: relative;
   display: inline-block;
@@ -56,52 +102,122 @@ h1, h2 {
   left: 0;
   width: 2em;
   height: 2px;
-  background-color: #C4A855;
+  background-color: var(--color-terre);
 }
 
-/* Smooth scroll reveal animations - Elegant entrance */
+/* Wordmark géant façon elmut */
+.wordmark-giant {
+  font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+  color: var(--color-terre);
+  font-weight: 500;
+  line-height: 0.8;
+  letter-spacing: 0.02em;
+  font-size: clamp(6rem, 26vw, 24rem);
+}
+
+/* Smooth scroll reveal animations */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 .animate-fade-in-up {
   animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+/* Pour le reveal en cascade (stagger) avec animation-delay : tient l'état caché
+   pendant le délai (fill both) → pas de flash avant l'animation. */
+.stagger-fill { animation-fill-mode: both; }
+.opacity-0 { opacity: 0; }
 
-.opacity-0 {
-  opacity: 0;
-}
-
-/* Subtle hover effects for interactive elements */
 a, button {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Focus states for accessibility */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-terre);
   outline-offset: 4px;
 }
 
-/* Hide scrollbar for Nos Espaces horizontal scroll (no bar underneath) */
-.spaces-scroll::-webkit-scrollbar {
-  display: none;
-}
+.spaces-scroll::-webkit-scrollbar { display: none; }
 .spaces-scroll {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-/* Reduce motion for users who prefer it */
+/* ============================================================
+   DESIGN SYSTEM — utilitaires partagés par les composants laom/
+   (source de vérité : DESIGN.md). Ne pas dupliquer en local.
+   ============================================================ */
+
+/* Accent éditorial : mot en italique, terre (sur fond clair) */
+.acc { font-style: italic; font-weight: 500; color: var(--color-terre); }
+/* Accent sur fond sombre : terre clair (lisible sur marron/photo) */
+.acc-light { font-style: italic; font-weight: 500; color: #CB7A5C; }
+
+/* Eyebrow : label de section (vert sur clair, terre clair sur sombre) */
+.eyebrow { font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-vert); }
+.eyebrow--light { color: #CB7A5C; }
+
+/* Verre (glassmorphism) — usage parcimonieux, sur photo/fond sombre */
+.glass { background: rgba(242,235,219,0.10); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(242,235,219,0.15); }
+.glass-dark { background: rgba(29,27,24,0.30); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(242,235,219,0.15); }
+
+/* Pills / boutons */
+.pill { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 9999px; padding: 1rem 2.25rem; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em; transition: background-color .35s ease, color .35s ease, border-color .35s ease, transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease; }
+.pill:hover { transform: translateY(-2px); }
+.pill:active { transform: translateY(0); transition-duration: .08s; }
+.pill svg { transition: transform .35s cubic-bezier(.16,1,.3,1); }
+.pill:hover svg { transform: translate(3px, -3px); }
+.pill-primary { background: var(--color-terre); color: var(--color-beige); }
+.pill-primary:hover { background: #b34228; box-shadow: 0 14px 30px -12px rgba(154,57,34,.6); }
+.pill-light { background: var(--color-beige); color: var(--color-marron); }
+.pill-light:hover { background: #fff; box-shadow: 0 14px 30px -12px rgba(65,47,31,.4); }
+.pill-outline { border: 1px solid rgba(242,235,219,0.4); color: var(--color-beige); }
+.pill-outline:hover { background: rgba(242,235,219,0.12); border-color: rgba(242,235,219,.7); box-shadow: 0 12px 26px -14px rgba(242,235,219,.4); }
 @media (prefers-reduced-motion: reduce) {
+  .pill { transition: background-color .2s, color .2s, border-color .2s; }
+  .pill:hover, .pill:hover svg { transform: none; }
+}
+
+/* Cercle d'action (flèche) */
+.circle-btn { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border-radius: 9999px; background: var(--color-terre); color: var(--color-beige); transition: background-color .3s; }
+.group:hover .circle-btn, .circle-btn:hover { background: #b34228; }
+
+/* Motion : lift au survol + zoom image */
+.lift { transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1); }
+.lift:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -24px rgba(65,47,31,.45); }
+.imgzoom { overflow: hidden; }
+.imgzoom img { transition: transform .7s cubic-bezier(.16,1,.3,1); }
+.imgzoom:hover img { transform: scale(1.04); }
+
+/* Fonds texturés — veinage topo/eau (SVG dans public/textures) */
+.topo { background-color: var(--color-marron); background-image: url('/textures/topo-light.svg'); background-size: 600px 600px; }
+.topo-beige { background-color: var(--color-beige); background-image: url('/textures/topo-terre.svg'); background-size: 600px 600px; }
+.topo-creme { background-color: var(--color-creme); background-image: url('/textures/topo-marron.svg'); background-size: 600px 600px; }
+
+/* ============================================================
+   DESIGN SYSTEM 2 — angles droits, plus élégant
+   Activé via la classe .ds-square sur <html> (switcher SgBar).
+   ============================================================ */
+/* léger arrondi (au lieu de carré pur) — test élégance */
+.ds-square [class*="rounded"] { border-radius: 6px !important; }
+.ds-square .pill,
+.ds-square .circle-btn,
+.ds-square img,
+.ds-square .glass,
+.ds-square .glass-dark { border-radius: 6px !important; }
+/* CTA rectangulaires, élégants (capitales fines espacées) */
+.ds-square .pill { text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.76rem; font-weight: 500; padding: 0.95rem 2.4rem; }
+.ds-square .eyebrow { letter-spacing: 0.3em; }
+.ds-square .lift:hover { transform: translateY(-3px); box-shadow: 0 16px 36px -28px rgba(65,47,31,.45); }
+/* footer en pleine page (plus de carte-cadre) */
+.ds-square footer { padding-left: 0; padding-right: 0; padding-bottom: 0; }
+.ds-square footer > div { max-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lift, .imgzoom img, .animate-fade-in-up { transition: none; animation: none; }
+  .lift:hover { transform: none; }
+  .imgzoom:hover img { transform: none; }
   *,
   *::before,
   *::after {

@@ -1,0 +1,19 @@
+---
+// SplitHeading — titre de section asymétrique : eyebrow étroit à gauche,
+// gros titre + accent italique + paragraphe à droite. (Compo template.)
+interface Props { eyebrow: string; title: string; accent?: string; text?: string; bg?: string; pad?: boolean }
+const { eyebrow, title, accent, text, bg = 'bg-[#FBF6EA]', pad = true } = Astro.props
+---
+<section class:list={[bg, pad ? 'py-24 md:py-32' : '']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <div class="grid lg:grid-cols-[0.7fr_2fr] gap-6 lg:gap-16 items-start">
+      <p class="text-sm uppercase tracking-[0.18em] font-semibold text-[#73673E] lg:pt-3">{eyebrow}</p>
+      <div>
+        <h2 class="text-4xl md:text-5xl xl:text-6xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.08] text-balance">
+          {title}{accent && <> <span class="acc">{accent}</span></>}
+        </h2>
+        {text && <p class="text-lg text-[#1D1B18]/70 mt-7 max-w-2xl leading-relaxed">{text}</p>}
+      </div>
+    </div>
+  </div>
+</section>

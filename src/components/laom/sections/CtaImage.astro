@@ -1,0 +1,33 @@
+---
+// CtaImage — appel à l'action sur photo : grande image arrondie + dégradé sobre,
+// avec un bloc translucide (glass) centré par-dessus. Texte centré, stylé.
+import Pill from '../Pill.astro'
+interface Props {
+  img: string; eyebrow?: string; title: string; accent?: string; subtitle?: string
+  primaryText: string; primaryHref: string
+  secondaryText?: string; secondaryHref?: string
+  bg?: string
+}
+const { img, eyebrow, title, accent, subtitle, primaryText, primaryHref, secondaryText, secondaryHref, bg = 'bg-[#F2EBDB]' } = Astro.props
+---
+<section class:list={[bg]}>
+  <div class="max-w-5xl mx-auto px-6 md:px-10 py-14 md:py-20">
+    <div class="relative rounded-[1.75rem] overflow-hidden shadow-[0_30px_60px_-30px_rgba(65,47,31,0.45)]">
+      <img src={img} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-[#1D1B18]/45"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#1D1B18]/75 via-[#1D1B18]/25 to-[#1D1B18]/40"></div>
+
+      <div class="relative flex items-center justify-center px-5 py-16 md:py-20">
+        <div class="glass-dark rounded-3xl text-center max-w-xl px-8 py-9 md:px-12 md:py-11">
+          {eyebrow && <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#CB7A5C] mb-3">{eyebrow}</p>}
+          <h2 class="text-3xl md:text-4xl font-extrabold text-[#F2EBDB] tracking-[-0.02em] leading-[1.1] text-balance">{title}{accent && <> <span class="italic font-medium text-[#F2EBDB]/85">{accent}</span></>}</h2>
+          {subtitle && <p class="text-base md:text-lg text-[#F2EBDB]/85 mt-4 max-w-lg mx-auto leading-relaxed">{subtitle}</p>}
+          <div class="flex flex-wrap gap-4 justify-center items-center mt-7">
+            <Pill href={primaryHref} variant="light" arrow={true}>{primaryText}</Pill>
+            {secondaryText && <a href={secondaryHref} class="text-[#F2EBDB]/85 underline underline-offset-4 hover:text-[#F2EBDB] transition-colors text-sm">{secondaryText}</a>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

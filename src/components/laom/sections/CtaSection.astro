@@ -1,0 +1,15 @@
+---
+// CtaSection — wrapper paddé autour de CtaBanner (bannière photo + boutons + puces).
+import CtaBanner from '../CtaBanner.astro'
+interface Props {
+  img: string; eyebrow?: string; title: string; accent?: string;
+  primaryText?: string; primaryHref?: string; secondaryText?: string; secondaryHref?: string;
+  items?: { title: string; desc: string }[]; bg?: string;
+}
+const { bg = 'bg-[#F2EBDB]', ...rest } = Astro.props
+---
+<section class:list={[bg, 'py-16 md:py-24']}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+    <CtaBanner {...rest} />
+  </div>
+</section>

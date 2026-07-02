@@ -1,0 +1,6 @@
+---
+// Eyebrow — label de section. Vert sur fond clair, terre clair sur fond sombre.
+interface Props { light?: boolean; class?: string }
+const { light = false, class: cls = '' } = Astro.props
+---
+<p class:list={['eyebrow', light && 'eyebrow--light', cls]}><slot /></p>

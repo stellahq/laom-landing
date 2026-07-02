@@ -1,0 +1,74 @@
+---
+// MissionShowcase — grande carte composite (assets 15.15.18 + 15.15.24) :
+//  • photo du haut (~1/3) avec eyebrow + titre centré
+//  • 4 cartes numérotées qui CHEVAUCHENT la jointure
+//  • photo du bas (~2/3, claire) avec titre + paragraphe + 3 cartes blanches
+import SectionHeading from '../SectionHeading.astro'
+interface Step { num: string; title: string; text: string }
+interface Feature { title: string; text: string; href?: string }
+interface Props {
+  topImg: string; topEyebrow?: string; topTitle: string; topAccent?: string;
+  steps: Step[];
+  bottomImg: string; bottomEyebrow?: string; bottomTitle: string; bottomAccent?: string; bottomText?: string;
+  features: Feature[]; bg?: string;
+}
+const { topImg, topEyebrow, topTitle, topAccent, steps, bottomImg, bottomEyebrow, bottomTitle, bottomAccent, bottomText, features, bg = 'bg-[#F2EBDB]' } = Astro.props
+---
+<section class:list={[bg, 'py-16 md:py-24']}>
+  <div class="max-w-[84rem] mx-auto px-4 sm:px-6">
+    <div class="rounded-[2rem] overflow-hidden bg-[#412F1F]">
+
+      <!-- HAUT : photo + titre centré -->
+      <div class="relative px-6 pt-16 md:pt-20 pb-32 text-center">
+        <img src={topImg} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-[#412F1F]/72"></div>
+        <div class="relative max-w-2xl mx-auto">
+          {topEyebrow && <p class="eyebrow eyebrow--light mb-3">{topEyebrow}</p>}
+          <SectionHeading text={topTitle} accent={topAccent} light={true} size="text-3xl md:text-4xl" />
+        </div>
+      </div>
+
+      <!-- 4 cartes numérotées qui chevauchent -->
+      <div class="relative z-10 -mt-24 px-6 md:px-10">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {steps.map((s) => (
+            <div class="rounded-2xl bg-[#412F1F]/80 backdrop-blur-md border border-[#F2EBDB]/15 p-6">
+              <p class="text-2xl font-extrabold text-[#CB7A5C] mb-3">{s.num}</p>
+              <h3 class="text-[#F2EBDB] font-bold mb-2 leading-tight">{s.title}</h3>
+              <p class="text-sm text-[#F2EBDB]/70 leading-relaxed">{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- BAS : photo claire + titre + 3 cartes -->
+      <div class="relative px-6 md:px-12 pt-20 pb-14 mt-10">
+        <img src={bottomImg} alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-[#F2EBDB]/80"></div>
+        <div class="relative">
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            {bottomEyebrow && <p class="eyebrow mb-3">{bottomEyebrow}</p>}
+            <SectionHeading text={bottomTitle} accent={bottomAccent} size="text-3xl md:text-4xl" class="!mx-auto" />
+            {bottomText && <p class="text-[#1D1B18]/70 leading-relaxed mt-4">{bottomText}</p>}
+          </div>
+          <div class="grid md:grid-cols-3 gap-5">
+            {features.map((f) => (
+              <a href={f.href ?? '#'} class="lift group block bg-[#FBF6EA] rounded-2xl p-6 shadow-sm">
+                <span class="w-11 h-11 rounded-xl bg-[#9A3922]/10 text-[#9A3922] flex items-center justify-center mb-4">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3l8 4v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/></svg>
+                </span>
+                <h3 class="font-bold text-[#412F1F] mb-2">{f.title}</h3>
+                <p class="text-sm text-[#1D1B18]/65 leading-relaxed mb-4">{f.text}</p>
+                <span class="text-sm font-medium text-[#9A3922] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Découvrir
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

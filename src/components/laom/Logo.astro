@@ -1,0 +1,15 @@
+---
+// Logo — logo officiel LAOM (SVG inline, currentColor). La couleur = text color.
+// variant="word" : wordmark horizontal (défaut, logo principal — espaces larges).
+// variant="mark" : monogramme LA/OM empilé (logo secondaire — carré, favicon, avatar).
+// Ex: <Logo class="text-[#9A3922]" height="1.7rem" /> ou <Logo variant="mark" height="2.4rem" />
+import wordRaw from './graphics/logo-laom.svg?raw'
+import markRaw from './graphics/logo-laom-mark.svg?raw'
+interface Props { class?: string; height?: string; label?: string; variant?: 'word' | 'mark' }
+const { class: cls = '', height = '1.7rem', label = 'LAOM', variant = 'word' } = Astro.props
+const raw = variant === 'mark' ? markRaw : wordRaw
+---
+<span class:list={['laom-logo inline-block leading-none', cls]} style={`height:${height}`} role="img" aria-label={label} set:html={raw} />
+<style is:global>
+  .laom-logo svg { height: 100%; width: auto; display: block; }
+</style>

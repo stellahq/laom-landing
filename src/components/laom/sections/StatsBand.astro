@@ -1,0 +1,19 @@
+---
+// StatsBand — bande terre pleine largeur avec gros chiffres crème.
+interface Props { stats: { value: string; unit?: string; label: string }[] }
+const { stats } = Astro.props
+---
+<section class="bg-[#9A3922] py-20 md:py-28">
+  <div class="max-w-5xl mx-auto px-8 md:px-12 lg:px-24">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-6">
+      {stats.map((s) => (
+        <div class="text-center">
+          <p class="text-5xl md:text-6xl xl:text-7xl font-extrabold text-[#F2EBDB] tracking-tight mb-3 leading-none">
+            {s.value}{s.unit && <span class="text-2xl align-top text-[#F2EBDB]/70">{s.unit}</span>}
+          </p>
+          <p class="text-xs font-medium tracking-[0.2em] uppercase text-[#F2EBDB]/60">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

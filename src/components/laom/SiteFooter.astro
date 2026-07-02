@@ -1,0 +1,68 @@
+---
+// SiteFooter — footer arrondi marron : logo serif, colonnes de liens, contact, barre légale.
+// Liens volontairement minimaux (décision Charly, juil. 2026) : le site public est
+// focalisé coliving ; seuls le Journal et la location restent maillés depuis le footer.
+import Logo from './Logo.astro'
+import Sprig from './graphics/Sprig.astro'
+interface Col { title: string; links: { label: string; href: string }[] }
+interface Social { label: string; href: string }
+interface Props {
+  tagline?: string
+  columns?: Col[]
+  socials?: Social[]
+  address?: string
+  email?: string
+}
+const {
+  tagline = 'Écolieu de coliving en pleine nature, sud Aveyron. Un cadre sain pour créer autrement.',
+  columns = [
+    { title: 'Explorer', links: [{ label: 'Le journal', href: '/blog/' }, { label: 'Louer le lieu', href: '/location/' }] },
+  ],
+  socials = [
+    { label: 'Instagram', href: 'https://www.instagram.com/laomcoliving/' },
+    { label: 'YouTube', href: 'https://www.youtube.com/@charlyaubert' },
+  ],
+  address = 'Le Truel, sud Aveyron (12)',
+  email = 'bonjour@laom.fr',
+} = Astro.props
+const gridCls = columns.length >= 2 ? 'lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]' : 'lg:grid-cols-[1.4fr_1fr_1.2fr]'
+---
+<footer class="bg-[#F2EBDB] px-4 sm:px-6 pb-8">
+  <div class="relative max-w-[96rem] mx-auto rounded-[2rem] bg-[#412F1F] px-8 md:px-14 py-16 overflow-hidden">
+    <Sprig class="absolute bottom-0 right-2 text-[#73673E] opacity-90" width="170px" />
+    <div class:list={['relative grid gap-12', gridCls]}>
+      <div class="max-w-xs">
+        <div class="text-[#F2EBDB] mb-6"><Logo height="2.2rem" /></div>
+        <p class="text-[#F2EBDB]/70 leading-relaxed mb-7">{tagline}</p>
+        <div class="flex gap-3">
+          {socials.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (nouvel onglet)`}
+              class="w-10 h-10 rounded-full bg-[#F2EBDB]/10 hover:bg-[#9A3922] transition-colors flex items-center justify-center text-[#F2EBDB] text-xs">{s.label[0]}</a>
+          ))}
+        </div>
+      </div>
+      {columns.map((c) => (
+        <div>
+          <h4 class="text-[#F2EBDB] font-bold mb-5">{c.title}</h4>
+          <ul class="space-y-3 text-[#F2EBDB]/70 text-sm">
+            {c.links.map((l) => <li><a href={l.href} class="hover:text-[#CB7A5C] transition-colors">{l.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+      <div>
+        <h4 class="text-[#F2EBDB] font-bold mb-5">Nous contacter</h4>
+        <ul class="space-y-4 text-sm">
+          <li><p class="text-[#F2EBDB]/50 text-xs mb-1">Adresse</p><p class="text-[#F2EBDB]">{address}</p></li>
+          <li><p class="text-[#F2EBDB]/50 text-xs mb-1">Email</p><p class="text-[#F2EBDB]">{email}</p></li>
+        </ul>
+      </div>
+    </div>
+    <div class="relative border-t border-[#F2EBDB]/15 mt-12 pt-6 flex flex-wrap items-center justify-between gap-4">
+      <p class="text-[#F2EBDB]/60 text-sm">LAOM © 2026. Tous droits réservés.</p>
+      <div class="flex gap-6 text-sm text-[#F2EBDB]/60">
+        <a href="/mentions-legales" class="hover:text-[#F2EBDB] transition-colors">Mentions légales</a>
+        <a href="/mentions-legales#donnees-personnelles" class="hover:text-[#F2EBDB] transition-colors">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>

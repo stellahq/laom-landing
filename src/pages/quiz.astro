@@ -1,0 +1,249 @@
+---
+// Quiz lead magnet — "Où ça coince, vraiment ?"
+// Natif, hébergé sur le site. Wizard 10 questions (5 piliers) -> coordonnées
+// (prénom + email) -> DIAGNOSTIC : on pointe le plus gros décalage (pilier le plus
+// bas), on explique le pourquoi (cause -> effet + système nerveux / cortisol),
+// puis la "bascule" (première direction) qui amène LAOM. Épuré (logo seul).
+// NB : capture lead + email de résultat (Kit) = backend à brancher. Route /quiz-labo.
+import Layout from '~/layouts/Layout.astro'
+import Logo from '~/components/laom/Logo.astro'
+
+const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/40 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
+
+const piliers = ['Cadre de vie', 'Rythme', 'Communauté', 'Connexion à soi', 'Alignement vie / activité']
+
+const questions = [
+  { q: 'Ton environnement de travail au quotidien, il te ressemble ?', options: [
+    { t: 'Oui, j’ai choisi mon cadre et il me nourrit chaque jour', p: 3 },
+    { t: 'C’est correct mais ça ne m’inspire plus, je fais avec', p: 2 },
+    { t: 'Non, je subis mon environnement, c’est un bureau par défaut', p: 1 } ] },
+  { q: 'Quand tu imagines ton cadre de vie idéal, tu en es où ?', options: [
+    { t: 'J’y suis déjà ou j’en suis très proche', p: 3 },
+    { t: 'Je sais ce que je veux mais j’ai pas encore bougé', p: 2 },
+    { t: 'J’y ai jamais vraiment réfléchi, j’ai la tête dans le guidon', p: 1 } ] },
+  { q: 'Ton rythme de travail, il est soutenable ?', options: [
+    { t: 'Oui, j’ai trouvé mon équilibre entre intensité et récupération', p: 3 },
+    { t: 'Ça va par phases, des semaines je gère, d’autres je sature', p: 2 },
+    { t: 'Non, je suis en surrégime et je sais que ça tiendra pas', p: 1 } ] },
+  { q: 'Tu arrives à couper vraiment ?', options: [
+    { t: 'Oui, quand je déconnecte, je déconnecte pour de vrai', p: 3 },
+    { t: 'J’essaie mais mon cerveau tourne en fond en permanence', p: 2 },
+    { t: 'Non, je suis toujours branché, même en vacances', p: 1 } ] },
+  { q: 'Tu es entouré·e de gens qui comprennent ta réalité d’entrepreneur ?', options: [
+    { t: 'Oui, j’ai un cercle de pairs avec qui j’échange régulièrement', p: 3 },
+    { t: 'J’ai quelques personnes mais c’est pas un vrai cercle', p: 2 },
+    { t: 'Non, je suis assez seul·e, personne ne comprend vraiment', p: 1 } ] },
+  { q: 'Tu te nourris d’échanges avec d’autres entrepreneurs ?', options: [
+    { t: 'Oui, c’est essentiel pour moi et je le fais activement', p: 3 },
+    { t: 'J’aimerais mais j’ai pas trouvé le bon format ou les bonnes personnes', p: 2 },
+    { t: 'J’y pense même pas, j’ai pas le temps ou l’occasion', p: 1 } ] },
+  { q: 'Tu sais pourquoi tu fais ce que tu fais ?', options: [
+    { t: 'Oui, ma direction est claire et elle me porte au quotidien', p: 3 },
+    { t: 'J’avais la réponse mais je l’ai perdue en route', p: 2 },
+    { t: 'Honnêtement, je sais plus trop, j’avance par inertie', p: 1 } ] },
+  { q: 'Tu prends du temps pour toi, hors travail, hors logistique ?', options: [
+    { t: 'Oui, j’ai des rituels et des moments qui m’appartiennent', p: 3 },
+    { t: 'De temps en temps, mais c’est la première chose qui saute', p: 2 },
+    { t: 'Non, tout tourne autour du boulot et du quotidien', p: 1 } ] },
+  { q: 'Ton activité te permet de vivre comme tu veux ?', options: [
+    { t: 'Oui, mon business est au service de ma vie, pas l’inverse', p: 3 },
+    { t: 'Pas encore, mais j’y travaille', p: 2 },
+    { t: 'Non, c’est ma vie qui s’est pliée à mon business', p: 1 } ] },
+  { q: 'Si tu pouvais tout redesigner demain, tu changerais quoi en premier ?', options: [
+    { t: 'Presque rien, je suis proche de ce que je veux', p: 3 },
+    { t: 'Mon cadre de vie ou mon rythme, le fond est bon mais la forme me pèse', p: 2 },
+    { t: 'Beaucoup de choses, j’ai construit un truc qui ne me ressemble plus', p: 1 } ] },
+]
+
+// Un diagnostic par pilier (index aligné sur `piliers`).
+// gap = formulation du décalage · why = cause -> effet (avec un peu de science) · bascule = première direction + LAOM
+const diagnostics = [
+  { gap: 'ton cadre de vie',
+    why: 'On finit par ressembler au cadre dans lequel on vit. Un environnement fermé, gris, sans nature ni vraie lumière, ton corps le sait avant ta tête : l’énergie baisse, l’attention s’effrite, la motivation s’érode sans raison apparente. Ce n’est pas toi qui flanches. C’est ton décor qui ne te porte plus.',
+    bascule: 'Tu n’as pas besoin de tout plaquer. Te poser quelques jours dans un cadre vivant, de la nature, de l’espace, de la lumière, suffit souvent à sentir la différence dans ton corps, et à voir clair sur ce que tu veux vraiment changer. C’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'ton rythme',
+    why: 'Quand ton système nerveux ne redescend jamais, ton corps reste en alerte et ton cortisol tourne en continu. Tu fonctionnes en mode survie : tu décides moins bien, tu récupères mal, et même au repos ta tête ne s’arrête pas. Ce n’est pas un manque de volonté. C’est physiologique.',
+    bascule: 'La bascule, ce n’est pas de travailler moins. C’est de redonner à ton système nerveux un endroit où redescendre pour de vrai, quelques jours, dans un autre cadre. C’est souvent là que tout se recalibre. Et c’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'ta solitude de dirigeant',
+    why: 'Porter seul les décisions, les doutes et la pression, ça a un coût réel. Le lien humain régule ton système nerveux : au contact de gens qui te comprennent, ton niveau de stress baisse, c’est ce qu’on appelle la co-régulation. Sans pairs qui vivent ta réalité, ta charge mentale tourne en boucle, sans soupape.',
+    bascule: 'Ce qu’il te manque, ce n’est pas un coach ni une méthode de plus. C’est une table avec des gens qui traversent la même chose, le temps de souffler et de remettre les choses à leur place. C’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'la connexion à toi-même',
+    why: 'À force de courir, tu n’entends plus tes signaux faibles : la fatigue, l’intuition, ce qui te nourrit ou ce qui te pèse vraiment. Ton corps continue d’envoyer l’information, mais le bruit couvre tout. À la longue, tu avances par inertie, un peu coupé de ce qui t’anime.',
+    bascule: 'Pour te réentendre, il faut baisser le volume : du silence, de l’espace, un rythme qui laisse remonter ce qui compte. Pas besoin de te couper du monde, juste un cadre où tu peux enfin t’écouter. C’est exactement ce qu’on a construit à LAOM.' },
+  { gap: 'l’alignement entre ta vie et ton activité',
+    why: 'Quand ton activité dicte ta vie au lieu de la servir, une dissonance de fond s’installe. Ça ne se voit pas tout de suite, mais ça use : une fatigue qui ne part pas avec le repos, du sens qui s’érode, le sentiment de subir ce que tu as pourtant construit.',
+    bascule: 'La question n’est pas de tout casser, mais de reprendre la main : quelle vie tu veux, et comment ton activité peut s’y plier plutôt que l’inverse. Ça commence par prendre du recul, dans un cadre qui le permet. C’est exactement ce qu’on a construit à LAOM.' },
+]
+---
+
+<Layout title="Le diagnostic · Qu’est-ce qui te freine vraiment ? · LAOM" hideChrome={true} seo={{ noIndex: true }}>
+  <div class="min-h-screen bg-[#FBF6EA] flex flex-col">
+
+    <header class="px-6 md:px-10 lg:px-14 py-6 border-b border-[#412F1F]/10">
+      <a href="/" class="text-[#9A3922] inline-block" aria-label="Retour à l’accueil"><Logo height="1.7rem" /></a>
+    </header>
+
+    <main class="flex-1 w-full max-w-2xl mx-auto px-6 py-14 md:py-20">
+
+      <!-- ENTRÉE -->
+      <section id="q-intro">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Le diagnostic · 2 minutes</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Qu’est-ce qui te freine vraiment ?</h1>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">Tu sens que quelque chose t’épuise ou te ralentit, sans bien savoir quoi. En 2 minutes, ce diagnostic <strong class="text-[#412F1F] font-semibold">met le doigt dessus</strong>, t’explique pourquoi (ton corps autant que ta tête), et te montre par où commencer pour que ça change.</p>
+        <button type="button" id="q-begin" class="pill pill-primary w-full sm:w-auto justify-center mt-10" style="padding:.95rem 2.4rem">Faire le diagnostic</button>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="q-quiz" hidden>
+        <div class="flex items-center gap-4 mb-10">
+          <div class="flex-1 h-1.5 rounded-full bg-[#412F1F]/10 overflow-hidden">
+            <div id="q-progress" class="h-full bg-[#9A3922] rounded-full transition-all duration-300" style="width:10%"></div>
+          </div>
+          <span id="q-count" class="text-sm font-semibold text-[#412F1F]/60 tabular-nums">1 / 10</span>
+        </div>
+
+        {questions.map((qq, i) => (
+          <div class="q-step" data-step={i} hidden>
+            <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#CB7A5C] mb-3">{piliers[Math.floor(i / 2)]}</p>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-[#412F1F] leading-snug text-balance">{qq.q}</h2>
+            <div class="grid gap-3 mt-8">
+              {qq.options.map((o) => (
+                <button type="button" class="q-opt text-left rounded-xl border border-[#412F1F]/15 bg-white px-5 py-4 text-[#412F1F] hover:border-[#9A3922] hover:bg-[#9A3922]/[0.04] transition" data-points={o.p}>{o.t}</button>
+              ))}
+            </div>
+            {i > 0 && <button type="button" class="q-back mt-8 text-sm text-[#1D1B18]/55 hover:text-[#9A3922] inline-flex items-center gap-1.5 transition"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>Question précédente</button>}
+          </div>
+        ))}
+      </section>
+
+      <!-- COORDONNÉES (juste avant le résultat) -->
+      <section id="q-gate" hidden>
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Presque fini</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Ton diagnostic est prêt.</h2>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">Laisse-nous ton prénom et ton email : on t’envoie ton diagnostic détaillé, et tu le découvres juste après.</p>
+        <form id="q-gateform" class="mt-10 space-y-5" novalidate>
+          <div class="space-y-2">
+            <label for="q-prenom" class="font-semibold text-[#412F1F]">Ton prénom</label>
+            <input id="q-prenom" name="prenom" type="text" required autocomplete="given-name" class={inputCls} />
+          </div>
+          <div class="space-y-2">
+            <label for="q-email" class="font-semibold text-[#412F1F]">Ton email</label>
+            <input id="q-email" name="email" type="email" required autocomplete="email" class={inputCls} />
+          </div>
+          <label class="flex items-start gap-3 text-sm text-[#1D1B18]/70">
+            <input type="checkbox" name="rgpd" required class="mt-1 accent-[#9A3922] w-4 h-4 shrink-0" />
+            <span>J’accepte de recevoir mon résultat et des informations sur LAOM. Je peux me désinscrire à tout moment.</span>
+          </label>
+          <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Voir mon diagnostic</button>
+        </form>
+      </section>
+
+      <!-- RÉSULTAT -->
+      <section id="q-result" hidden></section>
+    </main>
+  </div>
+</Layout>
+
+<script define:vars={{ piliers, diagnostics }}>
+  const intro = document.getElementById('q-intro')
+  const quiz = document.getElementById('q-quiz')
+  const gate = document.getElementById('q-gate')
+  const result = document.getElementById('q-result')
+  const steps = [...document.querySelectorAll('.q-step')]
+  const progress = document.getElementById('q-progress')
+  const count = document.getElementById('q-count')
+  const total = steps.length
+  const answers = new Array(total).fill(0)
+  let cur = 0
+  let lead = { prenom: '', email: '' }
+
+  const show = (i) => {
+    steps.forEach((s, k) => (s.hidden = k !== i))
+    progress.style.width = ((i + 1) / total) * 100 + '%'
+    count.textContent = (i + 1) + ' / ' + total
+    cur = i
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  document.getElementById('q-begin').addEventListener('click', () => {
+    intro.hidden = true
+    quiz.hidden = false
+    show(0)
+  })
+
+  const showGate = () => {
+    quiz.hidden = true
+    gate.hidden = false
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  document.getElementById('q-gateform').addEventListener('submit', (e) => {
+    e.preventDefault()
+    const f = e.target
+    if (!f.checkValidity()) { f.reportValidity(); return }
+    lead.prenom = f.prenom.value.trim().split(' ')[0]
+    lead.email = f.email.value.trim()
+    finish()
+  })
+
+  steps.forEach((step, i) => {
+    step.querySelectorAll('.q-opt').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        answers[i] = parseInt(btn.dataset.points, 10)
+        if (i < total - 1) show(i + 1)
+        else showGate()
+      })
+    })
+    const back = step.querySelector('.q-back')
+    if (back) back.addEventListener('click', () => show(i - 1))
+  })
+
+  const finish = () => {
+    const pillarScores = [0, 1, 2, 3, 4].map((p) => answers[p * 2] + answers[p * 2 + 1]) // chacun /6
+    let gap = 0
+    for (let k = 1; k < pillarScores.length; k++) if (pillarScores[k] < pillarScores[gap]) gap = k
+    const d = diagnostics[gap]
+    const aligned = pillarScores[gap] >= 5
+    // TODO backend : enregistrer le lead (prénom, email, réponses, pilier-décalage) + email de diagnostic (Kit) + ajout liste.
+
+    const bars = pillarScores.map((s, k) => {
+      const low = k === gap
+      return `
+      <div>
+        <div class="flex justify-between text-sm mb-1.5">
+          <span class="${low ? 'text-[#9A3922] font-bold' : 'text-[#412F1F] font-medium'}">${piliers[k]}${low ? ' · à reprendre en priorité' : ''}</span>
+          <span class="text-[#1D1B18]/55 tabular-nums">${s}/6</span>
+        </div>
+        <div class="h-2 rounded-full bg-[#412F1F]/10 overflow-hidden">
+          <div class="h-full rounded-full ${low ? 'bg-[#9A3922]' : 'bg-[#73673E]'}" style="width:${(s / 6) * 100}%"></div>
+        </div>
+      </div>`
+    }).join('')
+
+    result.innerHTML = `
+      <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Ton diagnostic${lead.prenom ? ', ' + lead.prenom : ''}</p>
+      ${aligned ? `<p class="text-base text-[#1D1B18]/70 mb-4">Globalement, tu es plutôt aligné·e. Mais s’il y a un point à reprendre en priorité, c’est celui-là.</p>` : ``}
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Ton plus gros décalage : ${d.gap}.</h1>
+      <p class="text-lg text-[#1D1B18]/75 mt-5 leading-relaxed">${d.why}</p>
+      <div class="mt-7 border-l-4 border-[#9A3922] pl-5 md:pl-6">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#9A3922] mb-2">La bascule</p>
+        <p class="text-lg text-[#412F1F] leading-relaxed">${d.bascule}</p>
+      </div>
+      <div class="mt-10 space-y-4 rounded-2xl bg-white border border-[#412F1F]/10 p-6 md:p-8">
+        <p class="font-semibold text-[#412F1F] mb-2">Où tu en es, pilier par pilier</p>
+        ${bars}
+      </div>
+      <div class="mt-10 rounded-2xl bg-[#412F1F] text-[#F2EBDB] p-7 md:p-9">
+        <p class="text-lg leading-relaxed">Cette bascule, on en a fait un lieu. Une semaine à LAOM, c’est se réveiller au calme, travailler face à la vallée, et le soir refaire le monde autour du feu avec des gens qui vivent la même chose que toi. Le cadre est prêt. Va voir s’il est fait pour toi.</p>
+        <div class="flex flex-wrap gap-4 items-center mt-7">
+          <a href="/coliving/" class="pill pill-light" style="padding:.85rem 1.8rem">Découvrir le coliving</a>
+          <a href="/candidater/" class="text-[#F2EBDB]/85 underline underline-offset-4 hover:text-[#F2EBDB] transition text-sm">ou candidater directement</a>
+        </div>
+      </div>
+      <p class="text-sm text-[#1D1B18]/55 mt-6">Ton diagnostic complet t’a aussi été envoyé par email.</p>`
+
+    gate.hidden = true
+    result.hidden = false
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+</script>

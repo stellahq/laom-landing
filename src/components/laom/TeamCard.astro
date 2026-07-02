@@ -1,0 +1,12 @@
+---
+// TeamCard — portrait + nom + rôle.
+interface Props { img: string; name: string; role: string; class?: string }
+const { img, name, role, class: cls = '' } = Astro.props
+---
+<div class:list={['imgzoom group', cls]}>
+  <div class="rounded-3xl overflow-hidden aspect-[4/5] mb-4">
+    <img src={img} alt={name} class="w-full h-full object-cover" loading="lazy" />
+  </div>
+  <h3 class="text-lg font-extrabold text-[#412F1F]">{name}</h3>
+  <p class="text-sm text-[#73673E]">{role}</p>
+</div>
