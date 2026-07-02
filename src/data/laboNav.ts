@@ -10,8 +10,8 @@ export interface NavLink {
 }
 
 export const laboNav: NavLink[] = [
-  { label: 'Le lieu', href: '/le-lieu-labo/' },
-  { label: 'Coliving', href: '/coliving-labo/' },
-  { label: 'Notre histoire', href: '/notre-histoire-labo/' },
-  { label: 'Newsletter', href: '/newsletter-labo/' },
+  { label: 'Le lieu', href: '/le-lieu/' },
+  { label: 'Coliving', href: '/coliving/' },
+  { label: 'Notre histoire', href: '/notre-histoire/' },
+  { label: 'Newsletter', href: '/newsletter/' },
 ]

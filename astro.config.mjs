@@ -33,6 +33,19 @@ const pageLastModDates = getPageLastModDates()
 
 export default defineConfig({
   output: 'server',
+  // Anciennes routes "labo" (espace de travail staging) promues en URLs propres.
+  redirects: {
+    '/accueil-labo': '/',
+    '/le-lieu-labo': '/le-lieu',
+    '/coliving-labo': '/coliving',
+    '/notre-histoire-labo': '/notre-histoire',
+    '/newsletter-labo': '/newsletter',
+    '/coliving-aout-labo': '/coliving-aout',
+    '/coliving-aout-labo-b': '/coliving-aout',
+    '/candidater-labo': '/candidater',
+    '/liens-labo': '/liens',
+    '/quiz-labo': '/quiz',
+  },
   security: {
     checkOrigin: false,
   },

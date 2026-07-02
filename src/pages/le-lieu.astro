@@ -18,13 +18,13 @@ const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
 ---
 
-<Layout title="LAOM — Le lieu, le domaine en sud Aveyron" hideChrome={true} seo={{ noIndex: true }}>
+<Layout title="LAOM — Le lieu, un domaine de 21 hectares en sud Aveyron" description="Un ancien domaine agricole à 1h30 de Montpellier : tipis, shala face à la vallée, potager, guinguette, rivière et forêt. Le cadre de vie du coliving LAOM." hideChrome={true}>
 
   <!-- ① HEADER -->
   <PageHeader
     img="/images/vue-aeriene-laom2-hero.webp"
-    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater-labo/" logoHref="/accueil-labo/"
-    crumbs={[{ label: 'Accueil', href: '/accueil-labo/' }, { label: 'Le lieu' }]}
+    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/" logoHref="/"
+    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Le lieu' }]}
     title="Vingt-et-un hectares de vivant, à mille lieues du bruit."
     subtitle="Un ancien domaine agricole dans le sud de l’Aveyron, devenu un lieu de vie. Voici où tout se passe." />
 
@@ -91,11 +91,11 @@ const L = (n: string) => `/images/laom/${n}.webp`
       eyebrow="Nous rejoindre"
       title="Le mieux," accent="c’est encore de venir le voir."
       subtitle="Les photos donnent une idée. Le reste se vit sur place. Si le lieu t’appelle, une semaine de coliving est la meilleure façon de le découvrir."
-      primaryText="Découvrir le coliving" primaryHref="/coliving-labo/"
-      secondaryText="ou candidater" secondaryHref="/candidater-labo/" />
+      primaryText="Découvrir le coliving" primaryHref="/coliving/"
+      secondaryText="ou candidater" secondaryHref="/candidater/" />
   </div>
 
   <SiteFooter />
 
-  <StickyCta text="Candidater" href="/candidater-labo/" />
+  <StickyCta text="Candidater" href="/candidater/" />
 </Layout>
