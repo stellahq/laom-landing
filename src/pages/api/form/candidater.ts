@@ -100,7 +100,10 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   // 3. Notifier l'equipe (Resend). Non bloquant.
   try {
     const resendKey = env?.RESEND_API_KEY
-    const to = env?.LEAD_NOTIFY_EMAIL || 'laomcoliving@gmail.com'
+    // Destinataires de la notif equipe (liste separee par des virgules, surchargeables
+    // via la var LEAD_NOTIFY_EMAIL sur le worker).
+    const to = String(env?.LEAD_NOTIFY_EMAIL || 'laomcoliving@gmail.com,eduardo@weble.fr')
+      .split(',').map((s: string) => s.trim()).filter(Boolean)
     if (resendKey) {
       const utmLine = (attr as any).utm_source
         ? `${(attr as any).utm_source} / ${(attr as any).utm_campaign ?? '—'} / ${(attr as any).utm_content ?? '—'}`
@@ -120,7 +123,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
         headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
           from: 'LAOM Candidatures <hello@laom.fr>',
-          to: [to],
+          to,
           subject: `Nouvelle candidature coliving — ${nom}`,
           html,
         }),
