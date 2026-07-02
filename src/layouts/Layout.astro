@@ -54,32 +54,37 @@ const seoProps = {
 <html lang={Astro.currentLocale || 'fr'}>
   <head>
     <SEO {...seoProps} />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB6J5QX8TD"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      // Consent Mode v2 — refus par defaut (CNIL), maj via le bandeau de consentement.
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        analytics_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        wait_for_update: 500,
-      });
-      // Re-applique un consentement deja donne (avant le chargement du bandeau).
-      try {
-        if (localStorage.getItem('laom_consent') === 'granted') {
-          gtag('consent', 'update', {
-            ad_storage: 'granted', analytics_storage: 'granted',
-            ad_user_data: 'granted', ad_personalization: 'granted',
+    {/* Trackers tiers (GA4, Meta Pixel) charges UNIQUEMENT en prod : les visites
+        staging/dev ne doivent pas polluer les datasets qui pilotent les campagnes. */}
+    {Astro.url.hostname === 'laom.fr' && (
+      <>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB6J5QX8TD"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          // Consent Mode v2 — refus par defaut (CNIL), maj via le bandeau de consentement.
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            analytics_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500,
           });
-        }
-      } catch (e) {}
-      gtag('config', 'G-RB6J5QX8TD');
-    </script>
-    <MetaPixel />
+          // Re-applique un consentement deja donne (avant le chargement du bandeau).
+          try {
+            if (localStorage.getItem('laom_consent') === 'granted') {
+              gtag('consent', 'update', {
+                ad_storage: 'granted', analytics_storage: 'granted',
+                ad_user_data: 'granted', ad_personalization: 'granted',
+              });
+            }
+          } catch (e) {}
+          gtag('config', 'G-RB6J5QX8TD');
+        </script>
+        <MetaPixel />
+      </>
+    )}
     {/* DataFast analytics (cookieless) via Managed Proxy dtf.laom.fr (anti-adblock).
         Charge uniquement en prod (laom.fr) pour ne pas polluer les stats avec staging/dev. */}
     {Astro.url.hostname === 'laom.fr' && (

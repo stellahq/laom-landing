@@ -65,6 +65,42 @@ export async function persistAttribution(
   }
 }
 
+/** True si la requete porte un signal d'acquisition (clic pub / campagne taguee). */
+export function hasClickSignal(a: Attribution): boolean {
+  return Boolean(a.fbclid || a.gclid || a.utm_source)
+}
+
+/**
+ * Rafraichit l'attribution en last-touch quand un visiteur CONNU revient via un
+ * nouveau clic tague (fbclid/gclid/utm). Sans ca, un visiteur venu une premiere
+ * fois en organique puis convertissant apres un clic pub serait attribue
+ * "(directe)" — et son fbc ne serait jamais transmis a Meta. first_seen et
+ * landing_page (first-touch) ne bougent pas.
+ */
+export async function refreshLastTouch(
+  db: { prepare: (q: string) => any } | undefined,
+  visitorId: string,
+  a: Attribution,
+): Promise<void> {
+  if (!db) return
+  try {
+    await db
+      .prepare(
+        `UPDATE visitor_attribution SET
+           utm_source = ?, utm_medium = ?, utm_campaign = ?, utm_content = ?, utm_term = ?,
+           fbclid = COALESCE(?, fbclid), gclid = COALESCE(?, gclid), fbc = COALESCE(?, fbc)
+         WHERE visitor_id = ?`,
+      )
+      .bind(
+        a.utm_source, a.utm_medium, a.utm_campaign, a.utm_content, a.utm_term,
+        a.fbclid, a.gclid, a.fbc, visitorId,
+      )
+      .run()
+  } catch (e) {
+    console.error('attribution last-touch error (non-blocking):', e)
+  }
+}
+
 /** Recupere l'attribution stockee d'un visiteur (pour rattacher un lead). */
 export async function getAttribution(
   db: { prepare: (q: string) => any } | undefined,
