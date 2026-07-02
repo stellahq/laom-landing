@@ -40,14 +40,14 @@ jobs:
         run: bun run seo:check
         continue-on-error: true
       - name: Set Cloudflare Worker secrets (staging)
+        # PAS de META_CAPI_TOKEN sur staging (décision 2/07/2026) : les tests
+        # staging ne doivent JAMAIS envoyer d'événements au dataset Meta de prod.
         run: |
-          echo "$META_CAPI_TOKEN" | bunx wrangler@latest secret put META_CAPI_TOKEN -c wrangler.staging.jsonc
           echo "$CF_API_TOKEN_RUNTIME" | bunx wrangler@latest secret put CF_API_TOKEN -c wrangler.staging.jsonc
           echo "$CF_ACCOUNT_ID_RUNTIME" | bunx wrangler@latest secret put CF_ACCOUNT_ID -c wrangler.staging.jsonc
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          META_CAPI_TOKEN: ${{ secrets.META_CAPI_TOKEN }}
           CF_API_TOKEN_RUNTIME: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CF_ACCOUNT_ID_RUNTIME: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       - name: Deploy to Staging
