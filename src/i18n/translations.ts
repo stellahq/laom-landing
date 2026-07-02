@@ -108,12 +108,6 @@ export const translations = {
         },
         // JUILLET
         {
-          title: 'Rencontre Forum Éco-construction',
-          date: '3 juil. – 5 juil. 2026',
-          description: 'Un week-end pour discuter et échanger avec des professionnels de l\'éco-construction : pour les porteurs de projets de construction écologique (auto-constructeurs, projets de lieux d\'accueil innovants, habitats collectifs, etc).',
-          href: 'mailto:hello@laom.fr',
-        },
-        {
           title: 'Family Camp 1',
           date: '8 juil. – 22 juil. 2026',
           description: '2 semaines de vie collective entre familles au cœur de la nature. Ateliers nature pour les enfants le matin, activités partagées et soirées entre familles (ou temps libre).',
@@ -133,12 +127,6 @@ export const translations = {
           href: 'mailto:hello@laom.fr',
         },
         // AOÛT
-        {
-          title: 'En Mouvement',
-          date: '5 août – 9 août 2026',
-          description: '5 jours d\'immersion par la danse et le mouvement. Guidé par Samuel Planas (CNSMDP) et Charly Aubert. Ouvert à tous, aucune expérience requise.',
-          href: '/stage-danse/',
-        },
         {
           title: 'Séjour Chillworking #2',
           date: '6 août – 20 août 2026',
