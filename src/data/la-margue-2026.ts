@@ -210,10 +210,10 @@ export const estTotals = {
   capital: 1167696.1,
   dettes: 836328.12,
   prixLyre: 336910.21,
-  fraisAnnexes: 156005.02,
+  fraisAnnexes: 145797.02,
   chaudiere: 20730.62,
   fosse: 16222.47,
-  mainALaMain: 30624,
+  mainALaMain: 20416,
   notaire: 25427.93,
   foyerCommun: 63000,
 }
@@ -365,15 +365,15 @@ export const foyersEst: FoyerEst[] = [
     lotsAConstruire: lotsAConstruirePatricia,
     capitalCommentaire:
       "Les lots 8 à 12 sont des lots à construire, hors clé historique des quotes-parts : ce que Patricia n'est pas remboursée en argent.",
-    fraisAnnexes: 28284.9,
+    fraisAnnexes: 23180.9,
     fraisAnnexesDetail: [
       { label: 'Fosse (1 WC)', montant: 2027.81 },
-      { label: 'Main à la main (1 part)', montant: 5104 },
+      { label: 'Main à la main (1 part, déjà avancée)', montant: 0 },
       { label: 'Frais de notaire', montant: 2788.33 },
       { label: 'Foyer commun (1 part)', montant: 11454.55 },
       { label: 'Chaudière (1/3 du devis Voda)', montant: 6910.21 },
     ],
-    total: 28284.9,
+    total: 23180.9,
     totalDetail: 'les frais annexes seuls : sa créance couvre son capital',
     partCapital: '18,7 %',
     alias: ['Patricia Salgon'],
@@ -426,14 +426,14 @@ export const foyersEst: FoyerEst[] = [
     surfaceDpe: 59.8,
     valeurConventionnelle: 165715.87,
     capital: 165715.87,
-    fraisAnnexes: 22628.58,
+    fraisAnnexes: 17524.58,
     fraisAnnexesDetail: [
       { label: 'Fosse (1 WC)', montant: 2027.81 },
-      { label: 'Main à la main (1 part)', montant: 5104 },
+      { label: 'Main à la main (1 part, déjà avancée)', montant: 0 },
       { label: 'Frais de notaire', montant: 4042.22 },
       { label: 'Foyer commun (1 part)', montant: 11454.55 },
     ],
-    total: 75115.47,
+    total: 70011.47,
     totalDetail: 'complément + frais annexes',
     partCapital: '14,2 %',
     alias: ['Grégoire Renevier'],
@@ -479,11 +479,60 @@ export function prixM2Dpe(f: FoyerEst): number {
 
 export const estFraisAnnexesTotaux: Ligne[] = [
   { label: 'Fosse Est', montant: estTotals.fosse },
-  { label: 'Main à la main', montant: estTotals.mainALaMain },
+  {
+    label: "Main à la main (payé par les foyers qui n'ont pas avancé)",
+    montant: estTotals.mainALaMain,
+  },
   { label: 'Frais de notaire', montant: estTotals.notaire },
   { label: 'Foyer commun', montant: estTotals.foyerCommun },
   { label: 'Chaudière (devis Voda, trois lots)', montant: estTotals.chaudiere },
 ]
+
+/**
+ * Le main à la main déjà avancé, foyer par foyer, les deux SCIA confondues.
+ * Les fondateurs ne paient pas leur part une deuxième fois : ils récupèrent la
+ * différence entre ce qu'ils ont avancé et leur propre part. Source : onglet
+ * main à la main du classeur de Greg.
+ */
+export interface MainALaMainAvance {
+  foyer: string
+  avance: number
+  /** Sa part de la clé à 10,5 parts : 0 pour Isabelle et Caroline. */
+  part: number
+  /** Le lot qui porte la part, ou la raison de son absence. */
+  partNote?: string
+  recupere: number
+  /** Précision quand le foyer ne récupère pas ce qu'il a avancé. */
+  note?: string
+}
+
+export const mainALaMainAvances: MainALaMainAvance[] = [
+  { foyer: 'Patricia', avance: 24238, part: 5104, partNote: 'La Grange', recupere: 19134 },
+  { foyer: 'Grégoire', avance: 10812, part: 5104, partNote: 'Rivière', recupere: 5708 },
+  { foyer: 'Claire & Baptiste', avance: 9862, part: 5104, partNote: 'lot de Claire', recupere: 4758 },
+  { foyer: 'Amandine & Charly', avance: 7481, part: 5104, partNote: 'Petit Shambala', recupere: 2377 },
+  { foyer: 'Isabelle', avance: 1200, part: 0, partNote: 'sortante', recupere: 1200 },
+  {
+    foyer: 'Caroline',
+    avance: 1200,
+    part: 0,
+    partNote: 'sortante',
+    recupere: 0,
+    note: 'elle ne demande pas à récupérer',
+  },
+]
+
+/** Les totaux du classeur pour le tableau ci-dessus, jamais une somme recalculée. */
+export const mainALaMainAvancesTotaux = {
+  avance: 54793,
+  parts: 20416,
+  recupere: 33177,
+  /** Ce que paient les foyers qui n'ont rien avancé : un euro d'arrondi en moins. */
+  paye: 33176,
+}
+
+export const mainALaMainRegle =
+  "Le main à la main a été avancé depuis 2021 par les quatre foyers fondateurs, plus Isabelle et Caroline pour le deck. Ils ne le paient pas une deuxième fois : ils récupèrent la différence entre ce qu'ils ont avancé et leur propre part, et ce sont les foyers qui n'ont rien avancé qui paient la leur — ce qui rembourse les fondateurs."
 
 export const sortantsEst: Sortant[] = [
   { nom: 'Isabelle Desplats', montant: 238419.84 },
@@ -666,7 +715,7 @@ export const ouestTotals = {
   quotesPartsOuest: 217521.03,
   quotesPartsEst: 112750.13,
   lotKhaldoun: 17346.17,
-  mainALaMain: 22968,
+  mainALaMain: 12760,
   foyerCommun: 63000,
 }
 
@@ -764,8 +813,8 @@ export const apportsOuest: ApportOuest[] = [
 ]
 
 export const fraisAnnexesOuest: FraisAnnexesOuest[] = [
-  { foyer: 'Amandine & Charly', mainALaMain: 5104, mainALaMainNote: '1 part, studio hors clé', foyerCommun: 11454.55, notaire: 3386.26 },
-  { foyer: 'Claire & Baptiste', mainALaMain: 5104, mainALaMainNote: '1 part, tiny hors clé', foyerCommun: 11454.55, notaire: 2128.69 },
+  { foyer: 'Amandine & Charly', mainALaMain: 0, mainALaMainNote: `déjà avancé : ${eur(7481)}, récupèrent ${eur(2377)}`, foyerCommun: 11454.55, notaire: 3386.26 },
+  { foyer: 'Claire & Baptiste', mainALaMain: 0, mainALaMainNote: `déjà avancé : ${eur(9862)}, récupèrent ${eur(4758)}`, foyerCommun: 11454.55, notaire: 2128.69 },
   { foyer: 'Laetitia Brene', mainALaMain: 5104, mainALaMainNote: '1 part (l\'atelier est hors clé)', foyerCommun: 11454.55, notaire: 871.11 },
   { foyer: 'David Lin', mainALaMain: 5104, mainALaMainNote: '1 part', foyerCommun: 11454.55, notaire: 871.11 },
   { foyer: 'David Coste', mainALaMain: 2552, mainALaMainNote: '0,5 part', foyerCommun: 5727.27, notaire: 871.11 },
@@ -891,7 +940,7 @@ export const lexique: LexiqueEntree[] = [
   },
   {
     terme: 'Main à la main',
-    definition: `Les ${eur(53592)} avancés par les fondateurs depuis 2021 (conseil, structuration, matériel collectif), répartis en 10,5 parts : les foyers à l'année comptent 1, les gîtes de Serge & Marie-Agnès, la Pergola et David Coste 0,5.`,
+    definition: `Les ${eur(53592)} avancés par les fondateurs depuis 2021 (conseil, structuration, matériel collectif), répartis en 10,5 parts : les foyers à l'année comptent 1, les gîtes de Serge & Marie-Agnès, la Pergola et David Coste 0,5. Les fondateurs (Patricia, Greg, Claire & Baptiste, Charly & Amandine) l'ont déjà avancé : ils ne paient pas leur part, ils récupèrent la différence, ${eur(mainALaMainAvancesTotaux.recupere)} en tout, payée par les foyers qui n'ont rien avancé.`,
   },
   {
     terme: 'Foyer commun',
