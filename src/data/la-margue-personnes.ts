@@ -86,7 +86,7 @@ export interface GroupePersonnes {
 const EST_FOYERS: Renvoi = { label: 'Le détail, foyer par foyer', href: '/la-margue-est/#foyers' }
 const EST_SORTANTS: Renvoi = { label: 'Ce qui est remboursé', href: '/la-margue-est/#sortants' }
 const EST_PHASES: Renvoi = { label: 'En deux temps', href: '/la-margue-est/#phases' }
-const EST_ETAPES: Renvoi = { label: 'Comment ça se passe', href: '/la-margue-est/#etapes' }
+const EST_ETAPES: Renvoi = { label: 'Comment ça se passe', href: '/la-margue-est/#phases' }
 const EST_VARIANTES: Renvoi = { label: 'Les deux variantes', href: '/la-margue-est/#variantes' }
 const OUEST_LOTS: Renvoi = { label: "Les lots de l'Ouest", href: '/la-margue-ouest/#lots' }
 const OUEST_KHALDOUN: Renvoi = { label: 'Le lot de Khaldoun', href: '/la-margue-ouest/#khaldoun' }
