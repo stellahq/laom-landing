@@ -265,6 +265,12 @@
           "detail": "Le devis Voda de 20 730,62 se partage en frais annexes entre les trois lots raccordés : 6 910,21 chacun. La Lyre l'ajoute à son prix tout compris, qui passe de 330 000 à 336 910,21 ; la cible de 330 000 reste la base, la chaudière vient en plus. Hors capital.",
           "source": "Charly",
           "date": "4/09/2026"
+        },
+        {
+          "point": "Main à la main : les fondateurs l'ont déjà avancé",
+          "detail": "Patricia (24 238), Greg (10 812), Claire & Baptiste (9 862), Charly & Amandine (7 481), Isabelle et Caroline (1 200 chacune pour le deck) ont avancé le main à la main depuis 2021. Ils ne paient pas leur part une deuxième fois : ils récupèrent ce qu'ils ont avancé au-delà de leur propre part, payé par les foyers qui n'ont rien avancé. Caroline renonce à ses 1 200.",
+          "source": "Charly, onglet main à la main du classeur de Greg",
+          "date": "7/09/2026"
         }
       ]
     },
@@ -288,6 +294,12 @@
           "detail": "53 592 répartis en 10,5 parts : foyers à l'année 1 (Lyre, Source, Grange, Rivière, Ruisseau, Petit Shambala, Laetitia, Claire & Baptiste, David Lin), demi-parts pour les gîtes de Serge & Marie-Agnès, la Pergola et David Coste ; rien pour le coliving, le studio, l'atelier de Laetitia, les deux tinies, les HLL et la ferme ; Khaldoun retiré. 5 104,00 par part entière, 2 552,00 par demi-part. Il revient aux fondateurs qui ont avancé (Patricia, Greg, Claire & Baptiste, Charly & Amandine).",
           "source": "Classeur de Greg, clé du 20 avril amendée par Charly les 3 et 7/09",
           "date": ""
+        },
+        {
+          "point": "Main à la main : qui a avancé, qui récupère",
+          "detail": "Avec la clé à 10,5 parts (5 104 la part) : Patricia a avancé 24 238, sa part est de 5 104, elle récupère 19 134 · Greg 10 812, part 5 104, récupère 5 708 · Claire & Baptiste 9 862, part 5 104 (la tiny est hors clé), récupèrent 4 758 · Amandine & Charly 7 481, part 5 104 (le studio est hors clé), récupèrent 2 377 · Isabelle 1 200 avancés pour le deck, sortante, récupère 1 200 · Caroline 1 200, ne demande pas à récupérer. Total avancé 54 793, parts des fondateurs 20 416, récupéré 33 177. Ce sont les autres foyers qui paient : Serge & Marie-Agnès 2 552, Lyre 5 104, Magalie 7 656, Charlotte & David 5 104, Laetitia 5 104, David Lin 5 104, David Coste 2 552, soit 33 176 (un euro d'arrondi dans le classeur de Greg).",
+          "source": "Classeur de Greg, onglet main à la main ; clé de Charly",
+          "date": "7/09/2026"
         },
         {
           "point": "Point d'attention sur le main à la main",
@@ -315,7 +327,7 @@
         },
         {
           "point": "Frais annexes : ce que chaque lot Est paie en plus de son capital",
-          "detail": "Gîtes 14 667,69 · Grange 28 284,90 · Lyre 32 335,68 · Ruisseau + Pergola 27 877,32 · Rivière 22 628,58 · Source 30 210,88. Total des frais annexes 156 005,02 (fosse 16 222,47 + chaudière 20 730,62 + main à la main 30 624,00 + notaire 25 427,93 + foyer commun 63 000). Khaldoun, à l'Ouest : 871,11 de notaire + 11 454,55 de foyer commun, pas de main à la main.",
+          "detail": "Gîtes 14 667,69 · Grange 23 180,90 (main à la main déjà avancé) · Lyre 32 335,68 · Ruisseau + Pergola 27 877,32 · Rivière 17 524,58 (main à la main déjà avancé) · Source 30 210,88. Total des frais annexes 145 797,02 (fosse 16 222,47 + chaudière 20 730,62 + main à la main payé par les non-fondateurs 20 416,00 + notaire 25 427,93 + foyer commun 63 000). Khaldoun, à l'Ouest : 871,11 de notaire + 11 454,55 de foyer commun, pas de main à la main.",
           "source": "SCIA LA MARGUE (convention SMA et prix de la Lyre)",
           "date": ""
         }
