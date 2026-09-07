@@ -96,37 +96,6 @@ export const prerender = true
   </section>
 
   <!-- 3 · Ou en est-on — l'etat du modele, a la date du classeur -->
-  <section id="etat" class="scroll-mt-20 bg-[#FBF6EA] py-16 md:py-24">
-    <div class="max-w-5xl mx-auto px-6 md:px-10">
-      <SectionHead
-        eyebrow="État du modèle"
-        title="Où"
-        accent="en est-on"
-        size="text-3xl md:text-4xl"
-        class="mb-3"
-      />
-      <p class="text-sm text-[#73673E] mb-10">Au {estEtat.date}.</p>
-
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        {estEtat.colonnes.map((colonne) => (
-          <div class="border-t-2 border-[#9A3922]/25 pt-5">
-            <h3 class="text-base font-semibold text-[#412F1F]">{colonne.titre}</h3>
-            {colonne.note && (
-              <p class="text-xs text-[#1D1B18]/50 mt-1">{colonne.note}</p>
-            )}
-            <ul class="mt-4 space-y-2.5">
-              {colonne.items.map((item) => (
-                <li class="flex gap-3 text-sm text-[#1D1B18]/70 leading-relaxed">
-                  <span class="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-[#9A3922]" aria-hidden="true"></span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <!-- 4 · Par foyer -->
   <section id="foyers" class="scroll-mt-20 py-16 md:py-24">
@@ -483,45 +452,6 @@ export const prerender = true
   </section>
 
   <!-- 7 · Comment ca se passe — la frise des etapes -->
-  <section id="etapes" class="scroll-mt-20 bg-[#FBF6EA] py-16 md:py-24">
-    <div class="max-w-5xl mx-auto px-6 md:px-10">
-      <SectionHead
-        eyebrow="Déroulé"
-        title="Comment ça se"
-        accent="passe"
-        intro="De la validation du modèle à la vente des cinq lots à construire, dans l'ordre."
-        size="text-3xl md:text-4xl"
-        class="mb-10"
-      />
-
-      <ol class="relative ml-2 border-l border-[#412F1F]/15 space-y-8">
-        {estEtapes.map((etape) => (
-          <li class="relative pl-8">
-            <span
-              class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#9A3922]"
-              style="box-shadow:0 0 0 4px #FBF6EA"
-              aria-hidden="true"></span>
-            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-              <p class="font-bold text-[#412F1F] md:text-lg tracking-[-0.01em]">{etape.titre}</p>
-              {etape.montant !== undefined && (
-                <p class="text-right">
-                  <span class="block text-[#9A3922] font-semibold tabular-nums whitespace-nowrap">
-                    {eur(etape.montant)}
-                  </span>
-                  {etape.montantNote && (
-                    <span class="block text-xs text-[#1D1B18]/45 mt-0.5">{etape.montantNote}</span>
-                  )}
-                </p>
-              )}
-            </div>
-            <p class="text-sm md:text-base text-[#1D1B18]/70 leading-relaxed mt-1 max-w-2xl">
-              {etape.texte}
-            </p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
 
   <!-- 8 · Les deux variantes -->
   <section id="variantes" class="scroll-mt-20 py-16 md:py-24">
