@@ -22,6 +22,7 @@ import {
   mainALaMainAvances,
   phase1,
   phase2,
+  toitCommun,
   coef,
   type FoyerEst,
   type Flux,
@@ -206,6 +207,17 @@ const AUCUN_FRAIS: FicheFrais = {
 /** Libellé commun de la ligne de récupération du main à la main. */
 const RECUPERE_MAM = 'Récupère au titre du main à la main'
 
+/** Le toit Source + Lyre se règle hors montage, sur facture de la Ferme du Verseau. */
+const TOIT_LABEL = 'Toit Source + Lyre'
+const TOIT_PAIE = 'Paie à la Ferme du Verseau, toit Source + Lyre'
+const TOIT_HORS_MONTAGE = 'sur facture, hors montage'
+
+/** La ligne des foyers qui ont réglé leur part sur le chantier. */
+const TOIT_MAIN_OEUVRE: FicheLigne = {
+  label: TOIT_LABEL,
+  texte: `part réglée en main d'œuvre, environ ${eur(toitCommun.partMainOeuvre)}, rien à verser`,
+}
+
 const avancePatricia = avanceMainALaMain('Patricia')
 const avanceGreg = avanceMainALaMain('Grégoire')
 const avanceClaire = avanceMainALaMain('Claire & Baptiste')
@@ -257,6 +269,11 @@ const foyersDeLEst: Personne[] = [
         label: RECUPERE_MAM,
         montant: avancePatricia.recupere,
         note: `${eur(avancePatricia.avance)} avancés depuis 2021, moins sa part de ${eur(avancePatricia.part)} ; payé par les foyers qui n'ont pas avancé`,
+      },
+      {
+        label: 'Reçoit de la Ferme du Verseau, remboursement du toit',
+        montant: toitCommun.remboursementPatricia,
+        note: `${eur(toitCommun.materiaux)} de matériaux avancés, moins sa part de ${eur(toitCommun.part)} ; payé par les loyers de Khaldoun (${eur(toitCommun.loyersKhaldoun)}) et les factures de Greg, Isabelle et Caroline`,
       },
     ],
     detient: [
@@ -349,6 +366,7 @@ const foyersDeLEst: Personne[] = [
         montant: avanceGreg.recupere,
         note: `${eur(avanceGreg.avance)} avancés, moins sa part de ${eur(avanceGreg.part)}`,
       },
+      { label: TOIT_PAIE, montant: toitCommun.part, note: TOIT_HORS_MONTAGE },
     ],
     detient: [{ label: greg.lot, montant: greg.capital, note: 'capital dans la SCIA Est' }],
     frais: fraisEst(greg),
@@ -404,6 +422,11 @@ const ceuxQuiSortent: Personne[] = [
         montant: avanceIsabelle.recupere,
         note: 'avancés pour le deck, elle demande à les récupérer',
       },
+      {
+        label: TOIT_PAIE,
+        montant: toitCommun.part,
+        note: `${TOIT_HORS_MONTAGE} ; peut se compenser avec ce qui lui est dû`,
+      },
     ],
     detient: [
       {
@@ -450,6 +473,7 @@ const ceuxQuiSortent: Personne[] = [
         texte: `${eur(avanceCaroline.avance)} avancés pour le deck`,
         note: avanceCaroline.note,
       },
+      { label: TOIT_PAIE, montant: toitCommun.part, note: TOIT_HORS_MONTAGE },
     ],
     detient: [
       {
@@ -536,7 +560,18 @@ const foyersDeLOuest: Personne[] = [
         note: "son apport à la SCIA Ouest, qu'il porte lui-même",
       },
     ],
-    flux: lignesKhaldoun(),
+    flux: [
+      ...lignesKhaldoun(),
+      {
+        label: "Loyers dus à l'indivision, affectés au remboursement de Patricia",
+        montant: toitCommun.loyersKhaldoun,
+        note: TOIT_LABEL,
+      },
+      {
+        label: 'Toit',
+        texte: `sa part réglée en main d'œuvre, environ ${eur(toitCommun.partMainOeuvre)}`,
+      },
+    ],
     detient: lotsDe('Khaldoun'),
     frais: fraisKhaldoun,
     signe: `Entrée aux statuts de la SCIA Ouest, apport de sa quote-part ; un contrat de prêt si le prêt de ${eur(30000)} de Patricia est confirmé.`,
@@ -562,6 +597,7 @@ const foyersDeLOuest: Personne[] = [
         montant: avanceCharly.recupere,
         note: `${eur(avanceCharly.avance)} avancés, moins leur part de ${eur(avanceCharly.part)}`,
       },
+      TOIT_MAIN_OEUVRE,
     ],
     detient: lotsDe('Amandine & Charly'),
     frais: fraisCharly,
@@ -587,6 +623,7 @@ const foyersDeLOuest: Personne[] = [
         montant: avanceClaire.recupere,
         note: `${eur(avanceClaire.avance)} avancés, moins leur part de ${eur(avanceClaire.part)}`,
       },
+      TOIT_MAIN_OEUVRE,
     ],
     detient: lotsDe('Claire & Baptiste'),
     frais: fraisClaire,
@@ -654,7 +691,17 @@ const foyersDeLOuest: Personne[] = [
         note: 'coliving, foyer commun, tiny Eliott, accueil',
       },
     ],
-    flux: fluxOuest(fraisLaom, 'sa provision de notaire'),
+    flux: [
+      ...fluxOuest(fraisLaom, 'sa provision de notaire'),
+      {
+        label: "Prend en charge la main d'œuvre de Théo sur le toit",
+        montant: toitCommun.partMainOeuvre,
+      },
+      {
+        label: TOIT_LABEL,
+        texte: 'facture Greg, Isabelle et Caroline et reverse à Patricia',
+      },
+    ],
     detient: [
       {
         label: 'Coliving, foyer commun, tiny Eliott, accueil',
