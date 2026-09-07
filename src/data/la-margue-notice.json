@@ -271,6 +271,12 @@
           "detail": "Patricia (24 238), Greg (10 812), Claire & Baptiste (9 862), Charly & Amandine (7 481), Isabelle et Caroline (1 200 chacune pour le deck) ont avancé le main à la main depuis 2021. Ils ne paient pas leur part une deuxième fois : ils récupèrent ce qu'ils ont avancé au-delà de leur propre part, payé par les foyers qui n'ont rien avancé. Caroline renonce à ses 1 200.",
           "source": "Charly, onglet main à la main du classeur de Greg",
           "date": "7/09/2026"
+        },
+        {
+          "point": "Toit Source + Lyre : hors montage, sur facture de la Ferme du Verseau",
+          "detail": "Le toit a coûté 33 000 : 21 000 de matériaux avancés par Patricia à la Ferme du Verseau, 12 000 de main d'œuvre bénévole. Greg, Isabelle et Caroline paient 3 050 chacun sur facture de la Ferme ; la part de Patricia (3 050) est déduite de son remboursement ; Claire & Baptiste, Amandine & Charly et Khaldoun ont réglé la leur en main d'œuvre (environ 3 000 chacun) ; LAOM prend en charge les 3 000 de Théo. Les 8 800 de loyers que Khaldoun doit à l'indivision sont affectés au remboursement de Patricia : 8 800 + 3 × 3 050 = 17 950 = 21 000 − 3 050.",
+          "source": "Charly",
+          "date": "7/09/2026"
         }
       ]
     },
@@ -330,6 +336,12 @@
           "detail": "Gîtes 14 667,69 · Grange 23 180,90 (main à la main déjà avancé) · Lyre 32 335,68 · Ruisseau + Pergola 27 877,32 · Rivière 17 524,58 (main à la main déjà avancé) · Source 30 210,88. Total des frais annexes 145 797,02 (fosse 16 222,47 + chaudière 20 730,62 + main à la main payé par les non-fondateurs 20 416,00 + notaire 25 427,93 + foyer commun 63 000). Khaldoun, à l'Ouest : 871,11 de notaire + 11 454,55 de foyer commun, pas de main à la main.",
           "source": "SCIA LA MARGUE (convention SMA et prix de la Lyre)",
           "date": ""
+        },
+        {
+          "point": "Toit Source + Lyre (hors montage, sur facture)",
+          "detail": "Ne passe pas par les SCIA. Sur facture de la Ferme du Verseau : Greg 3 050, Isabelle 3 050, Caroline 3 050 ; Patricia 3 050 en déduction ; Khaldoun 8 800 de loyers dus à l'indivision, affectés à Patricia. En main d'œuvre, rien à verser : Claire & Baptiste, Amandine & Charly, Khaldoun ; Théo 3 000 pris en charge par LAOM. Patricia est remboursée de 17 950. Personne d'autre ne paie, ni l'entrant de la Lyre, ni les foyers de l'Est qui n'étaient pas indivisaires.",
+          "source": "Charly",
+          "date": "7/09/2026"
         }
       ]
     },
@@ -461,7 +473,7 @@
         },
         {
           "point": "Isabelle + Turquoise : 246 423,75",
-          "detail": "Créance d'Isabelle 238 419,84 + Turquoise 4 003,88 + rachat de ses 1 000 parts 1 000 + rachat des 1 000 parts de Turquoise 1 000,01 + deux soultes du partage 1 000,01 chacune. C'est le « 246 K ». Restent à négocier : 1 500 de deck et 2 570 de loyers bloqués contre 3 050 de toit, 920 de tricount et 1 200 de réparation cuisine.",
+          "detail": "Créance d'Isabelle 238 419,84 + Turquoise 4 003,88 + rachat de ses 1 000 parts 1 000 + rachat des 1 000 parts de Turquoise 1 000,01 + deux soultes du partage 1 000,01 chacune. C'est le « 246 K ». Le toit est fixé : 3 050 sur facture de la Ferme du Verseau (7/09) ; ses 1 200 de deck lui reviennent par le main à la main. Restent à négocier : 2 570 de loyers bloqués, 920 de tricount et 1 200 de réparation cuisine.",
           "source": "SCIA LA MARGUE, étapes 1 et 2",
           "date": ""
         }
@@ -572,13 +584,7 @@
         },
         {
           "point": "Isabelle",
-          "detail": "Deck (1 500) et loyers (2 570) contre toit, tricount et cuisine ; date butoir du 15 novembre.",
-          "source": "",
-          "date": ""
-        },
-        {
-          "point": "Toit",
-          "detail": "Compensation sur Isabelle et Caroline, vue à part.",
+          "detail": "Loyers bloqués (2 570) contre tricount et cuisine ; date butoir du 15 novembre. Le toit (3 050) et le deck (1 200) sont réglés.",
           "source": "",
           "date": ""
         },
