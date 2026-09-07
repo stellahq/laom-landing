@@ -19,7 +19,11 @@ import {
   foyersEst,
   m2,
   m2Court,
+  mainALaMainAvances,
+  mainALaMainAvancesTotaux,
+  mainALaMainRegle,
   notionsEst,
+  ouestTotals,
   phases,
   prixM2Dpe,
   sortantsEst,
@@ -167,6 +171,66 @@ export const prerender = true
           </li>
         ))}
       </ul>
+
+      <h3 class="text-base font-semibold text-[#412F1F] mt-12 mb-3">
+        Main à la main : qui a avancé, qui récupère
+      </h3>
+      <p class="text-sm text-[#1D1B18]/65 max-w-3xl leading-relaxed mb-4">{mainALaMainRegle}</p>
+
+      <div class="overflow-x-auto rounded-2xl border border-[#412F1F]/10 bg-[#FBF6EA]">
+        <table class="w-full min-w-[520px] text-sm">
+          <thead>
+            <tr class="border-b border-[#412F1F]/15 text-left">
+              <th class="px-5 py-4 font-semibold text-[#412F1F]">Foyer</th>
+              <th class="px-5 py-4 font-semibold text-[#412F1F] text-right">Avancé</th>
+              <th class="px-5 py-4 font-semibold text-[#412F1F] text-right">Sa part</th>
+              <th class="px-5 py-4 font-semibold text-[#412F1F] text-right">Récupère</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#412F1F]/10">
+            {mainALaMainAvances.map((a) => (
+              <tr class="align-top">
+                <td class="px-5 py-4 text-[#412F1F] font-medium">{a.foyer}</td>
+                <td class="px-5 py-4 text-right text-[#1D1B18]/80 tabular-nums whitespace-nowrap">
+                  {eur(a.avance)}
+                </td>
+                <td class="px-5 py-4 text-right text-[#1D1B18]/80 tabular-nums whitespace-nowrap">
+                  {a.part === 0 ? '—' : eur(a.part)}
+                  {a.partNote && (
+                    <span class="block text-xs text-[#1D1B18]/45 mt-1 whitespace-normal">({a.partNote})</span>
+                  )}
+                </td>
+                <td class="px-5 py-4 text-right text-[#412F1F] font-medium tabular-nums whitespace-nowrap">
+                  {a.recupere === 0 ? '—' : eur(a.recupere)}
+                  {a.note && (
+                    <span class="block text-xs font-normal text-[#1D1B18]/45 mt-1 whitespace-normal">{a.note}</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr class="border-t border-[#412F1F]/15">
+              <td class="px-5 py-4 font-semibold text-[#412F1F]">Total</td>
+              <td class="px-5 py-4 text-right font-semibold text-[#412F1F] tabular-nums whitespace-nowrap">
+                {eur(mainALaMainAvancesTotaux.avance)}
+              </td>
+              <td class="px-5 py-4 text-right font-semibold text-[#412F1F] tabular-nums whitespace-nowrap">
+                {eur(mainALaMainAvancesTotaux.parts)}
+              </td>
+              <td class="px-5 py-4 text-right font-semibold text-[#9A3922] tabular-nums whitespace-nowrap">
+                {eur(mainALaMainAvancesTotaux.recupere)}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <p class="text-sm text-[#1D1B18]/60 mt-4 max-w-3xl leading-relaxed">
+        Ces {eur(mainALaMainAvancesTotaux.recupere)} sont payés par les foyers qui n'ont rien avancé :
+        {' '}{eur(estTotals.mainALaMain)} à l'Est, {eur(ouestTotals.mainALaMain)} à l'Ouest, soit
+        {' '}{eur(mainALaMainAvancesTotaux.paye)} — un euro d'arrondi dans le classeur de Greg.
+      </p>
 
       <h3 class="text-base font-semibold text-[#412F1F] mt-12 mb-4">Répartition du capital</h3>
       <ul class="flex flex-wrap gap-2">

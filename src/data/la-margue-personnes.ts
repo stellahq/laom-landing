@@ -19,6 +19,7 @@ import {
   lotsOuest,
   m2,
   m2Court,
+  mainALaMainAvances,
   phase1,
   phase2,
   coef,
@@ -26,6 +27,7 @@ import {
   type Flux,
   type Ligne,
   type LotAConstruire,
+  type MainALaMainAvance,
 } from './la-margue-2026'
 
 // ============================================================
@@ -155,7 +157,9 @@ function fraisOuest(nom: string): FicheFrais {
   postes.push(`Frais de notaire ${eur(c.notaire)}`)
 
   const absents: string[] = []
-  if (c.mainALaMain === 0) absents.push('main à la main')
+  if (c.mainALaMain === 0) {
+    absents.push(`main à la main${c.mainALaMainNote ? ` (${c.mainALaMainNote})` : ''}`)
+  }
   if (c.foyerCommun === 0) absents.push('foyer commun')
   const fin = absents.length > 0 ? ` · ni ${absents.join(', ni ')}` : ''
 
@@ -170,6 +174,13 @@ function lotsDe(attributaire: string): FicheLigne[] {
   return lotsOuest
     .filter((l) => l.attributaire === attributaire)
     .map((l) => ({ label: l.lot, montant: l.valeur, note: l.valeurNote }))
+}
+
+/** Ce qu'un foyer a avancé au titre du main à la main, et ce qu'il récupère. */
+function avanceMainALaMain(foyer: string): MainALaMainAvance {
+  const a = mainALaMainAvances.find((x) => x.foyer === foyer)
+  if (!a) throw new Error(`Avance de main à la main introuvable : ${foyer}`)
+  return a
 }
 
 function apportDe(associe: string): number {
@@ -191,6 +202,16 @@ function lignesKhaldoun(): FicheLigne[] {
 const AUCUN_FRAIS: FicheFrais = {
   detail: 'Aucun : les frais annexes sont portés par les foyers qui entrent.',
 }
+
+/** Libellé commun de la ligne de récupération du main à la main. */
+const RECUPERE_MAM = 'Récupère au titre du main à la main'
+
+const avancePatricia = avanceMainALaMain('Patricia')
+const avanceGreg = avanceMainALaMain('Grégoire')
+const avanceClaire = avanceMainALaMain('Claire & Baptiste')
+const avanceCharly = avanceMainALaMain('Amandine & Charly')
+const avanceIsabelle = avanceMainALaMain('Isabelle')
+const avanceCaroline = avanceMainALaMain('Caroline')
 
 // ============================================================
 // LES FOYERS DE L'EST
@@ -230,7 +251,14 @@ const foyersDeLEst: Personne[] = [
     misEnJeu: [
       { label: "Sa créance dans l'indivision Est", montant: 232121.94 },
     ],
-    flux: versements(patricia.alias),
+    flux: [
+      ...versements(patricia.alias),
+      {
+        label: RECUPERE_MAM,
+        montant: avancePatricia.recupere,
+        note: `${eur(avancePatricia.avance)} avancés depuis 2021, moins sa part de ${eur(avancePatricia.part)} ; payé par les foyers qui n'ont pas avancé`,
+      },
+    ],
     detient: [
       { label: patricia.lot, montant: 151987.93, note: 'capital dans la SCIA Est' },
       {
@@ -314,7 +342,14 @@ const foyersDeLEst: Personne[] = [
         note: `complément + frais annexes ${eur(greg.fraisAnnexes)}`,
       },
     ],
-    flux: versements(greg.alias),
+    flux: [
+      ...versements(greg.alias),
+      {
+        label: RECUPERE_MAM,
+        montant: avanceGreg.recupere,
+        note: `${eur(avanceGreg.avance)} avancés, moins sa part de ${eur(avanceGreg.part)}`,
+      },
+    ],
     detient: [{ label: greg.lot, montant: greg.capital, note: 'capital dans la SCIA Est' }],
     frais: fraisEst(greg),
     signe: 'Cession de créance Ader vers Renevier, statuts de la SCIA Est.',
@@ -362,7 +397,14 @@ const ceuxQuiSortent: Personne[] = [
       { label: 'Ses travaux sur la Lyre', montant: 18466 },
       { label: "Ce qu'elle a mis en tout", montant: 238419.84 },
     ],
-    flux: versements(['Isabelle Desplats']),
+    flux: [
+      ...versements(['Isabelle Desplats']),
+      {
+        label: RECUPERE_MAM,
+        montant: avanceIsabelle.recupere,
+        note: 'avancés pour le deck, elle demande à les récupérer',
+      },
+    ],
     detient: [
       {
         label: "Compte courant, jusqu'à l'entrant",
@@ -403,6 +445,11 @@ const ceuxQuiSortent: Personne[] = [
     flux: [
       ...versements(['Caroline Ader']),
       { label: 'Total reçu à la signature', montant: 246481.96, note: 'les trois versements ci-dessus' },
+      {
+        label: 'Main à la main',
+        texte: `${eur(avanceCaroline.avance)} avancés pour le deck`,
+        note: avanceCaroline.note,
+      },
     ],
     detient: [
       {
@@ -508,7 +555,14 @@ const foyersDeLOuest: Personne[] = [
         note: `Petit Shambala ${eur(77000)} + studio ${eur(15500)}`,
       },
     ],
-    flux: fluxOuest(fraisCharly, LOT_APPORTE),
+    flux: [
+      ...fluxOuest(fraisCharly, LOT_APPORTE),
+      {
+        label: RECUPERE_MAM,
+        montant: avanceCharly.recupere,
+        note: `${eur(avanceCharly.avance)} avancés, moins leur part de ${eur(avanceCharly.part)}`,
+      },
+    ],
     detient: lotsDe('Amandine & Charly'),
     frais: fraisCharly,
     signe: 'Statuts de la SCIA Ouest, apport de leurs lots.',
@@ -526,7 +580,14 @@ const foyersDeLOuest: Personne[] = [
         note: `lot ${eur(40639)} + tiny ${eur(49000)}`,
       },
     ],
-    flux: fluxOuest(fraisClaire, LOT_APPORTE),
+    flux: [
+      ...fluxOuest(fraisClaire, LOT_APPORTE),
+      {
+        label: RECUPERE_MAM,
+        montant: avanceClaire.recupere,
+        note: `${eur(avanceClaire.avance)} avancés, moins leur part de ${eur(avanceClaire.part)}`,
+      },
+    ],
     detient: lotsDe('Claire & Baptiste'),
     frais: fraisClaire,
     signe: 'Statuts de la SCIA Ouest, apport de leurs lots.',
