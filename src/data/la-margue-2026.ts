@@ -57,6 +57,24 @@ export interface Ligne {
   montant: number
 }
 
+/** Ce qui, dans une ligne de frais annexes Est, ne s'ajoute pas au total. */
+export interface FraisAnnexeTotal extends Ligne {
+  /** Vrai quand la ligne se regle hors montage : elle n'entre pas dans le total. */
+  horsTotal?: boolean
+  /** Precision affichee a la suite du montant. */
+  note?: string
+}
+
+/** Comment un foyer regle sa part du toit Source + Lyre. */
+export type ToitNature = 'facture' | "main d'œuvre" | 'loyers affectés' | 'remboursement'
+
+export interface ToitLigne {
+  foyer: string
+  montant: number
+  nature: ToitNature
+  note: string
+}
+
 /**
  * Un lot à construire porté par un foyer de l'Est : un droit de construire
  * délimité et sa quote-part de parties communes (loi ELAN), hors clé
@@ -372,6 +390,10 @@ export const foyersEst: FoyerEst[] = [
       { label: 'Frais de notaire', montant: 2788.33 },
       { label: 'Foyer commun (1 part)', montant: 11454.55 },
       { label: 'Chaudière (1/3 du devis Voda)', montant: 6910.21 },
+      {
+        label: 'Toit Source + Lyre (sa part, déduite du remboursement de la Ferme)',
+        montant: 0,
+      },
     ],
     total: 23180.9,
     totalDetail: 'les frais annexes seuls : sa créance couvre son capital',
@@ -426,14 +448,16 @@ export const foyersEst: FoyerEst[] = [
     surfaceDpe: 59.8,
     valeurConventionnelle: 165715.87,
     capital: 165715.87,
-    fraisAnnexes: 17524.58,
+    fraisAnnexes: 20574.58,
     fraisAnnexesDetail: [
       { label: 'Fosse (1 WC)', montant: 2027.81 },
       { label: 'Main à la main (1 part, déjà avancée)', montant: 0 },
       { label: 'Frais de notaire', montant: 4042.22 },
       { label: 'Foyer commun (1 part)', montant: 11454.55 },
+      { label: 'Toit Source + Lyre (sur facture de la Ferme, hors montage)', montant: 3050 },
     ],
-    total: 70011.47,
+    total: 73061.47,
+    totalNote: 'dont le toit, hors montage',
     totalDetail: 'complément + frais annexes',
     partCapital: '14,2 %',
     alias: ['Grégoire Renevier'],
@@ -477,7 +501,101 @@ export function prixM2Dpe(f: FoyerEst): number {
   return capitalDuLot(f) / f.surfaceDpe
 }
 
-export const estFraisAnnexesTotaux: Ligne[] = [
+// ============================================================
+// LE TOIT SOURCE + LYRE (hors montage)
+// ============================================================
+
+/** La part de toit d'un indivisaire historique : les 12 200 € de matériaux non couverts par les loyers, en quatre. */
+const TOIT_PART = 3050
+
+/** La part de toit réglée en main d'œuvre sur le chantier, par foyer. */
+const TOIT_PART_MAIN_OEUVRE = 3000
+
+/** Les loyers que Khaldoun doit à l'indivision, affectés au remboursement de Patricia. */
+const TOIT_LOYERS_KHALDOUN = 8800
+
+export const toitRegle =
+  `Le toit des maisons Source et Lyre a coûté ${eur(33000)} : ${eur(21000)} de matériaux, avancés par Patricia à la Ferme du Verseau, et ${eur(12000)} de main d'œuvre bénévole. Il ne passe par aucune des deux SCIA : il se règle à part, sur facture de la Ferme du Verseau.`
+
+/**
+ * Le toit Source + Lyre, hors montage. Les lignes ci-dessous couvrent le coût
+ * complet : quatre parts de 3 050 € pour les indivisaires historiques, quatre
+ * parts de 3 000 € déjà réglées en main d'œuvre, et les 8 800 € de loyers de
+ * Khaldoun affectés au remboursement de Patricia.
+ */
+export const toitCommun = {
+  cout: 33000,
+  materiaux: 21000,
+  mainOeuvre: 12000,
+  avancePar: 'Patricia, à la Ferme du Verseau',
+  /** La part d'un indivisaire historique, sur facture de la Ferme du Verseau. */
+  part: TOIT_PART,
+  /** Les quatre parts de 3 050 €, dont celle de Patricia qui vient en déduction. */
+  partsHistoriques: 4 * TOIT_PART,
+  /** La part déjà réglée en main d'œuvre, par foyer. */
+  partMainOeuvre: TOIT_PART_MAIN_OEUVRE,
+  loyersKhaldoun: TOIT_LOYERS_KHALDOUN,
+  lignes: [
+    {
+      foyer: 'Grégoire Renevier',
+      montant: TOIT_PART,
+      nature: 'facture',
+      note: 'sur facture de la Ferme du Verseau',
+    },
+    {
+      foyer: 'Isabelle Desplats',
+      montant: TOIT_PART,
+      nature: 'facture',
+      note: "sur facture de la Ferme du Verseau ; peut se compenser avec ce qui lui est dû",
+    },
+    {
+      foyer: 'Caroline Ader',
+      montant: TOIT_PART,
+      nature: 'facture',
+      note: 'sur facture de la Ferme du Verseau',
+    },
+    {
+      foyer: 'Patricia Salgon',
+      montant: TOIT_PART,
+      nature: 'remboursement',
+      note: 'elle ne verse rien : sa part est déduite de ce que la Ferme lui rembourse',
+    },
+    {
+      foyer: 'Claire & Baptiste',
+      montant: TOIT_PART_MAIN_OEUVRE,
+      nature: "main d'œuvre",
+      note: 'déjà payée sur le chantier, rien à verser',
+    },
+    {
+      foyer: 'Amandine & Charly',
+      montant: TOIT_PART_MAIN_OEUVRE,
+      nature: "main d'œuvre",
+      note: 'déjà payée sur le chantier, rien à verser',
+    },
+    {
+      foyer: 'Khaldoun',
+      montant: TOIT_PART_MAIN_OEUVRE,
+      nature: "main d'œuvre",
+      note: 'déjà payée sur le chantier, rien à verser',
+    },
+    {
+      foyer: 'Théo',
+      montant: TOIT_PART_MAIN_OEUVRE,
+      nature: "main d'œuvre",
+      note: 'prise en charge par LAOM',
+    },
+    {
+      foyer: "Khaldoun, loyers dus à l'indivision",
+      montant: TOIT_LOYERS_KHALDOUN,
+      nature: 'loyers affectés',
+      note: 'affectés au remboursement de Patricia',
+    },
+  ] as ToitLigne[],
+  remboursementPatricia: 17950,
+  remboursementNote: `${eur(TOIT_LOYERS_KHALDOUN)} de loyers de Khaldoun, plus les ${eur(TOIT_PART)} de Grégoire, d'Isabelle et de Caroline facturés par la Ferme — soit ${eur(21000)} de matériaux moins sa propre part de ${eur(TOIT_PART)}.`,
+}
+
+export const estFraisAnnexesTotaux: FraisAnnexeTotal[] = [
   { label: 'Fosse Est', montant: estTotals.fosse },
   {
     label: "Main à la main (payé par les foyers qui n'ont pas avancé)",
@@ -486,6 +604,12 @@ export const estFraisAnnexesTotaux: Ligne[] = [
   { label: 'Frais de notaire', montant: estTotals.notaire },
   { label: 'Foyer commun', montant: estTotals.foyerCommun },
   { label: 'Chaudière (devis Voda, trois lots)', montant: estTotals.chaudiere },
+  {
+    label: 'Toit Source + Lyre, sur facture (Greg, Isabelle, Caroline, Patricia en déduction)',
+    montant: toitCommun.partsHistoriques,
+    horsTotal: true,
+    note: 'hors montage',
+  },
 ]
 
 /**
@@ -936,7 +1060,7 @@ export const lexique: LexiqueEntree[] = [
   {
     terme: 'Frais annexes',
     definition:
-      'Ce que chaque lot paie en plus de son capital : fosse, main à la main, frais de notaire, foyer commun, et la chaudière pour les trois lots raccordés (La Grange, la Lyre, la Source).',
+      'Ce que chaque lot paie en plus de son capital : fosse, main à la main, frais de notaire, foyer commun, la chaudière pour les trois lots raccordés (La Grange, la Lyre, la Source), et, hors montage, sur facture de la Ferme du Verseau, le toit Source + Lyre pour les indivisaires historiques.',
   },
   {
     terme: 'Main à la main',

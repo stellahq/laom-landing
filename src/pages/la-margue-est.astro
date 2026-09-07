@@ -28,6 +28,8 @@ import {
   prixM2Dpe,
   sortantsEst,
   sortantsNote,
+  toitCommun,
+  toitRegle,
   updatedLabel,
   variantes,
 } from '~/data/la-margue-2026'
@@ -165,12 +167,23 @@ export const prerender = true
       </div>
 
       <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#1D1B18]/60">
-        {estFraisAnnexesTotaux.map((l) => (
-          <li>
-            {l.label} <span class="text-[#412F1F] font-medium tabular-nums">{eur(l.montant)}</span>
-          </li>
-        ))}
+        {estFraisAnnexesTotaux
+          .filter((l) => !l.horsTotal)
+          .map((l) => (
+            <li>
+              {l.label} <span class="text-[#412F1F] font-medium tabular-nums">{eur(l.montant)}</span>
+            </li>
+          ))}
       </ul>
+
+      {estFraisAnnexesTotaux
+        .filter((l) => l.horsTotal)
+        .map((l) => (
+          <p class="mt-3 text-xs text-[#1D1B18]/55">
+            {l.label} <span class="text-[#412F1F] font-medium tabular-nums">{eur(l.montant)}</span>
+            {l.note && <span class="text-[#1D1B18]/45"> — {l.note}</span>}
+          </p>
+        ))}
 
       <h3 class="text-base font-semibold text-[#412F1F] mt-12 mb-3">
         Main à la main : qui a avancé, qui récupère
@@ -230,6 +243,54 @@ export const prerender = true
         Ces {eur(mainALaMainAvancesTotaux.recupere)} sont payés par les foyers qui n'ont rien avancé :
         {' '}{eur(estTotals.mainALaMain)} à l'Est, {eur(ouestTotals.mainALaMain)} à l'Ouest, soit
         {' '}{eur(mainALaMainAvancesTotaux.paye)} — un euro d'arrondi dans le classeur de Greg.
+      </p>
+
+      <h3 class="text-base font-semibold text-[#412F1F] mt-12 mb-3">
+        Le toit Source + Lyre, hors montage
+      </h3>
+      <p class="text-sm text-[#1D1B18]/65 max-w-3xl leading-relaxed mb-4">{toitRegle}</p>
+
+      <div class="overflow-x-auto rounded-2xl border border-[#412F1F]/10 bg-[#FBF6EA]">
+        <table class="w-full min-w-[560px] text-sm">
+          <thead>
+            <tr class="border-b border-[#412F1F]/15 text-left">
+              <th class="px-5 py-4 font-semibold text-[#412F1F]">Foyer</th>
+              <th class="px-5 py-4 font-semibold text-[#412F1F] text-right">Montant</th>
+              <th class="px-5 py-4 font-semibold text-[#412F1F]">Nature</th>
+              <th class="px-5 py-4 font-semibold text-[#412F1F]">Comment</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#412F1F]/10">
+            {toitCommun.lignes.map((l) => (
+              <tr class="align-top">
+                <td class="px-5 py-4 text-[#412F1F] font-medium">{l.foyer}</td>
+                <td class="px-5 py-4 text-right text-[#1D1B18]/80 tabular-nums whitespace-nowrap">
+                  {eur(l.montant)}
+                </td>
+                <td class="px-5 py-4 text-[#1D1B18]/70">{l.nature}</td>
+                <td class="px-5 py-4 text-xs text-[#1D1B18]/45">{l.note}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr class="border-t border-[#412F1F]/15">
+              <td class="px-5 py-4 font-semibold text-[#412F1F]">Total</td>
+              <td class="px-5 py-4 text-right font-semibold text-[#412F1F] tabular-nums whitespace-nowrap">
+                {eur(toitCommun.cout)}
+              </td>
+              <td class="px-5 py-4 text-xs text-[#1D1B18]/55" colspan="2">
+                {eur(toitCommun.materiaux)} de matériaux, avancés par {toitCommun.avancePar}, et
+                {' '}{eur(toitCommun.mainOeuvre)} de main d'œuvre bénévole
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <p class="text-sm text-[#1D1B18]/60 mt-4 max-w-3xl leading-relaxed">
+        La Ferme du Verseau rembourse
+        {' '}<span class="text-[#412F1F] font-semibold tabular-nums">{eur(toitCommun.remboursementPatricia)}</span>
+        {' '}à Patricia : {toitCommun.remboursementNote}
       </p>
 
       <h3 class="text-base font-semibold text-[#412F1F] mt-12 mb-4">Répartition du capital</h3>
