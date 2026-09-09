@@ -58,6 +58,49 @@ export const prerender = true
                   </summary>
 
                   <div class="border-t border-[#412F1F]/10 p-6 md:p-8">
+                    {p.parcours && (
+                      <div class="mb-10">
+                        <h3 class="text-xs font-semibold uppercase tracking-[0.14em] text-[#412F1F] pb-3 border-b border-[#412F1F]/10">
+                          Le parcours de mon apport, étape par étape
+                        </h3>
+                        <ol class="mt-5 space-y-6">
+                          {p.parcours.map((e, i) => (
+                            <li class="relative pl-11">
+                              <span class="absolute left-0 top-0 w-7 h-7 grid place-items-center rounded-full bg-[#9A3922] text-[#FBF6EA] text-xs font-bold tabular-nums">
+                                {i + 1}
+                              </span>
+                              {i < p.parcours!.length - 1 && (
+                                <span class="absolute left-[13px] top-8 bottom-[-1.5rem] w-px bg-[#412F1F]/15" aria-hidden="true"></span>
+                              )}
+                              <div class="flex items-baseline justify-between gap-4">
+                                <span class="font-bold text-[#412F1F] tracking-[-0.01em] leading-tight">{e.titre}</span>
+                                {e.montant !== undefined && (
+                                  <span class="text-sm text-[#9A3922] font-semibold tabular-nums whitespace-nowrap">{eur(e.montant)}</span>
+                                )}
+                              </div>
+                              <p class="text-sm text-[#1D1B18]/65 leading-relaxed mt-1.5">{e.explication}</p>
+                              <dl class="mt-3 rounded-xl bg-[#F2EBDB]/70 px-4 divide-y divide-[#412F1F]/10">
+                                {e.lignes.map((l) => (
+                                  <div class="flex justify-between gap-4 py-2">
+                                    <dt class="text-sm text-[#1D1B18]/65">{l.label}</dt>
+                                    <dd class="text-right min-w-0">
+                                      {l.montant !== undefined && (
+                                        <span class="block text-sm text-[#412F1F] font-semibold tabular-nums whitespace-nowrap">{eur(l.montant)}</span>
+                                      )}
+                                      {l.texte && <span class="block text-sm text-[#412F1F]">{l.texte}</span>}
+                                      {l.note && <span class="block text-xs text-[#1D1B18]/45 mt-0.5">{l.note}</span>}
+                                    </dd>
+                                  </div>
+                                ))}
+                              </dl>
+                              {e.controle && (
+                                <p class="text-xs text-[#73673E] mt-2 tabular-nums">Contrôle : {e.controle}</p>
+                              )}
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    )}
                     <div class="grid gap-x-10 gap-y-8 md:grid-cols-2">
                       {[
                         { titre: "Ce que j'ai mis", lignes: p.misEnJeu },
