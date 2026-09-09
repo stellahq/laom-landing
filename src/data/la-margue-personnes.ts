@@ -58,11 +58,25 @@ export interface Renvoi {
 
 export type GroupePersonne = 'est' | 'sortants' | 'ouest'
 
+/** Une étape du parcours d'un apport : d'où il vient, où il va. */
+export interface ParcoursEtape {
+  titre: string
+  /** Le montant de l'étape, affiché en tête. */
+  montant?: number
+  /** Une phrase qui dit ce qui se passe à cette étape. */
+  explication: string
+  lignes: FicheLigne[]
+  /** Le contrôle qui prouve que rien ne s'est perdu. */
+  controle?: string
+}
+
 export interface Personne {
   id: string
   nom: string
   role: string
   groupe: GroupePersonne
+  /** Le parcours de l'apport, étape par étape : seulement quand il est utile. */
+  parcours?: ParcoursEtape[]
   /** Ce que j'ai mis : créance dans l'indivision, ou apport. */
   misEnJeu: FicheLigne[]
   /** Ce que je reçois, ce que je paie, avec le moment. */
@@ -231,6 +245,23 @@ const avanceCaroline = avanceMainALaMain('Caroline')
 
 const serge = foyerParAlias('Serge & Marie-Agnès')
 const patricia = foyerParAlias('Patricia Salgon')
+
+/** Le parcours de l'apport de Patricia, tel que le classeur DATA le porte (apports 1.a, travaux 1.2, partage 2.1). */
+const PATRICIA = {
+  /** Apport en capital à l'achat du domaine, chez la notaire. */
+  achat: 206313.94,
+  /** Factures de travaux payées par elle, en compte courant. */
+  travaux: 123740.16,
+  total: 330054.1,
+  /** Part de l'apport d'achat restée à l'Est. */
+  achatEst: 108381.78,
+  est: 232121.94,
+  ouest: 97932.16,
+  excedent: 13982.94,
+  /** La Grange, son lot : capital dans la SCIA Est. */
+  grange: 151987.93,
+  capitalTotal: 151987.93 + CAPITAL_LOTS_A_CONSTRUIRE + 97932.16,
+}
 const lyre = foyerParAlias('Entrant Lyre')
 const magali = foyerParAlias('Magali Rouby')
 const greg = foyerParAlias('Grégoire Renevier')
@@ -260,8 +291,72 @@ const foyersDeLEst: Personne[] = [
     nom: 'Patricia Salgon',
     role: "Restante, à l'Est et à l'Ouest",
     groupe: 'est',
+    parcours: [
+      {
+        titre: "Ce qu'elle a mis dans l'indivision",
+        montant: PATRICIA.total,
+        explication:
+          "Deux versements, à des moments différents : l'achat du domaine chez la notaire, puis une rallonge en compte courant pour financer des travaux que l'indivision ne pouvait pas payer.",
+        lignes: [
+          { label: "À l'achat, chez la notaire", montant: PATRICIA.achat, note: 'apport en capital, inscrit au passif de l\'indivision' },
+          { label: 'Rallonge pour les travaux', montant: PATRICIA.travaux, note: 'factures payées par elle, portées en compte courant' },
+          { label: '— dont rénovation du gîte Piscine', montant: 74766.44, note: "gîtes d'accueil" },
+          { label: '— dont pigeonnier et réparation des communs', montant: 36833.72, note: 'grande maison' },
+          { label: '— dont ouverture des fenêtres de la Grange', montant: 12140, note: 'son propre lot' },
+        ],
+        controle: `${eur(PATRICIA.achat)} + ${eur(PATRICIA.travaux)} = ${eur(PATRICIA.total)} (330 053,94 € dans les actes : 16 centimes d'arrondi).`,
+      },
+      {
+        titre: 'Le partage entre les deux sociétés',
+        montant: PATRICIA.total,
+        explication:
+          "Au partage partiel, sa créance est coupée en deux : la plus grande part reste à l'Est (le hameau), le reste part à l'Ouest (LAOM) sous la forme d'un terrain.",
+        lignes: [
+          { label: "À l'Est, SCIA La Margue", montant: PATRICIA.est, note: `${eur(PATRICIA.achatEst)} de son apport d'achat + ${eur(PATRICIA.travaux)} de travaux` },
+          { label: "À l'Ouest, SCIA LAOM", montant: PATRICIA.ouest, note: "le reste de son apport d'achat, attribué en terrain des lodges (lot 15)" },
+        ],
+        controle: `${eur(PATRICIA.est)} + ${eur(PATRICIA.ouest)} = ${eur(PATRICIA.total)}.`,
+      },
+      {
+        titre: "À l'Est : ce que devient sa créance",
+        montant: PATRICIA.est,
+        explication:
+          "Elle n'est pas remboursée en argent : sa créance est convertie en capital de la SCIA Est, sur son lot et sur cinq lots à construire. Seul un petit excédent lui revient en argent.",
+        lignes: [
+          { label: 'La Grange, son lot', montant: PATRICIA.grange, note: 'capital de la SCIA Est' },
+          { label: 'Cinq lots à construire, lots 8 à 12', montant: CAPITAL_LOTS_A_CONSTRUIRE, note: 'capital de la SCIA Est, deuxième clé' },
+          { label: 'Excédent, remboursé en argent', montant: PATRICIA.excedent, note: "par l'entrant de la Lyre, à son arrivée" },
+        ],
+        controle: `${eur(PATRICIA.grange)} + ${eur(CAPITAL_LOTS_A_CONSTRUIRE)} + ${eur(PATRICIA.excedent)} = ${eur(PATRICIA.est)}.`,
+      },
+      {
+        titre: "À l'Ouest : le terrain des lodges",
+        montant: PATRICIA.ouest,
+        explication:
+          "Son apport Ouest devient le lot 15 de la SCIA LAOM, le terrain des lodges. C'est son seul apport de ce côté : elle ne porte plus rien pour Khaldoun.",
+        lignes: [
+          { label: 'Lot 15, terrain des lodges', montant: PATRICIA.ouest, note: 'capital de la SCIA LAOM, attribué au partage partiel' },
+        ],
+      },
+      {
+        titre: 'Le bilan, et ce qui se règle à côté',
+        explication:
+          "Au bout du parcours, tout ce qu'elle a mis se retrouve, soit en capital, soit en argent. À côté du montage, deux avances lui reviennent, un prêt sort de sa poche s'il est confirmé, et ses frais annexes se paient à la signature.",
+        lignes: [
+          { label: 'Capital détenu, Est + Ouest', montant: PATRICIA.capitalTotal, note: `${eur(PATRICIA.grange)} + ${eur(CAPITAL_LOTS_A_CONSTRUIRE)} + ${eur(PATRICIA.ouest)}` },
+          { label: 'Remboursé en argent', montant: PATRICIA.excedent, note: "l'excédent Est" },
+          { label: 'Main à la main, récupéré', montant: avancePatricia.recupere, note: `${eur(avancePatricia.avance)} avancés, moins sa part de ${eur(avancePatricia.part)}` },
+          { label: 'Toit Source + Lyre, récupéré', montant: toitCommun.remboursementPatricia, note: `${eur(toitCommun.materiaux)} avancés, moins sa part de ${eur(toitCommun.part)} ; hors montage, sur facture de la Ferme` },
+          { label: 'Prêt à Khaldoun', montant: 30000, note: 'sort de sa poche, hors SCIA, à confirmer' },
+          { label: 'Frais annexes Est', montant: patricia.fraisAnnexes, note: 'à payer à la signature' },
+        ],
+        controle: `${eur(PATRICIA.capitalTotal)} + ${eur(PATRICIA.excedent)} = ${eur(PATRICIA.total)} : rien ne s'est perdu en route.`,
+      },
+    ],
     misEnJeu: [
-      { label: "Sa créance dans l'indivision Est", montant: 232121.94 },
+      { label: "À l'achat, chez la notaire", montant: PATRICIA.achat },
+      { label: 'Rallonge pour les travaux', montant: PATRICIA.travaux, note: 'gîte Piscine, communs, fenêtres de la Grange' },
+      { label: "Sa créance dans l'indivision", montant: PATRICIA.total, note: `dont ${eur(PATRICIA.est)} à l'Est et ${eur(PATRICIA.ouest)} à l'Ouest` },
     ],
     flux: [
       ...versements(patricia.alias),
@@ -297,7 +392,7 @@ const foyersDeLEst: Personne[] = [
     frais: fraisEst(patricia),
     signe:
       'Partage partiel, quittance partielle puis quittance finale. Pas de crédit vendeur ; un contrat de prêt si le prêt à Khaldoun est confirmé.',
-    verifier: [EST_FOYERS, OUEST_KHALDOUN],
+    verifier: [EST_FOYERS, EST_SORTANTS, OUEST_APPORTS],
   },
   {
     id: 'entrant-lyre',
