@@ -274,6 +274,9 @@ export const prerender = true
                 </td>
                 <td class="px-5 py-4 text-right text-[#1D1B18]/80 tabular-nums whitespace-nowrap">
                   {c.foyerCommun === 0 ? '—' : eur(c.foyerCommun)}
+                  {c.foyerCommunNote && (
+                    <span class="block text-xs text-[#1D1B18]/45 mt-1 whitespace-normal">({c.foyerCommunNote})</span>
+                  )}
                 </td>
                 <td class="px-5 py-4 text-right text-[#1D1B18]/80 tabular-nums whitespace-nowrap">
                   {eur(c.notaire)}
