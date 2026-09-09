@@ -257,7 +257,7 @@ const PATRICIA = {
   achatEst: 108381.78,
   est: 232121.94,
   ouest: 97932.16,
-  excedent: 13982.94,
+  excedent: 22371.65,
   /** La Grange, son lot : capital dans la SCIA Est. */
   grange: 151987.93,
   capitalTotal: 151987.93 + CAPITAL_LOTS_A_CONSTRUIRE + 97932.16,
@@ -434,7 +434,7 @@ const foyersDeLEst: Personne[] = [
     flux: versements(magali.alias),
     detient: [
       { label: 'Le Ruisseau', montant: 169147.85, note: 'capital dans la SCIA Est' },
-      { label: 'La Pergola', montant: 8673.09, note: 'quote-part seule' },
+      { label: 'La Pergola', montant: 16173.09, note: 'quote-part 8 673,09 + 7 500 de valeur propre' },
     ],
     frais: fraisEst(magali),
     signe: 'Statuts de la SCIA Est, cession de parts et quittance Ader.',
