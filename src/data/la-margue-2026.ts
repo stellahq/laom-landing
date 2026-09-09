@@ -1,4 +1,4 @@
-// Montage financier La Margue — Est & Ouest, état au 3 septembre 2026.
+// Montage financier La Margue — Est & Ouest, état au 9 septembre 2026.
 // SOURCE DE VÉRITÉ des chiffres affichés sur /la-margue-est, /la-margue-ouest
 // et /la-margue-notice. Les pages ne contiennent aucun montant en dur : tout
 // vient d'ici. Origine des données : classeur « Montage financier La Margue
@@ -35,13 +35,13 @@ export function coef(n: number): string {
   return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 })
 }
 
-export const updatedLabel = '3 septembre 2026'
+export const updatedLabel = '9 septembre 2026'
 
 /** Version du modèle, affichée en tête de chaque fiche. */
 export const VERSION = '4'
 
 /** Date et moment de la dernière mise à jour du modèle. */
-export const UPDATED = '3 septembre 2026, soir'
+export const UPDATED = '9 septembre 2026, soir'
 
 // ============================================================
 // TYPES
@@ -312,7 +312,7 @@ export interface EtatColonne {
 }
 
 export const estEtat: { date: string; colonnes: EtatColonne[] } = {
-  date: '3 septembre 2026, au soir',
+  date: '9 septembre 2026, au soir',
   colonnes: [
     {
       titre: 'Décidé',
@@ -335,7 +335,7 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
       items: [
         'La clé du main à la main : Greg divise par 15.',
         'La variante, avec ou sans prêts en compte courant.',
-        `Le foyer commun à ${eur(10862.07)}.`,
+        `Le foyer commun à ${eur(10862.07)} par part, sur la clé revue le 9/09 (11,6 parts).`,
       ],
     },
     {
