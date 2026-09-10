@@ -16,6 +16,10 @@ on:
       - main
     paths:
       - 'workers/meta-leads/**'
+      # Le worker importe le mail candidat partage avec le formulaire du site :
+      # sans cette ligne, une correction de copie ne partirait que cote site et
+      # les deux parcours divergeraient en silence.
+      - 'src/lib/emails/**'
 
 jobs:
   deploy:
