@@ -11,7 +11,10 @@
 	"compatibility_date": "2025-06-17",
 	"observability": { "enabled": true },
 	"triggers": {
-		"crons": ["*/10 * * * *"]
+		// Campagnes arrêtées : désactivé le 26/09/2026 après dépassement D1.
+		// Garder le tableau vide pour supprimer aussi le cron au redéploiement.
+		// Avant réactivation, indexer leads(meta_event_id) et limiter le rattrapage.
+		"crons": []
 	},
 	"vars": {
 		// Leads Meta antérieurs à cette date (heure de Paris, = 1er déploiement) :
