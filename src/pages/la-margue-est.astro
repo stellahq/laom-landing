@@ -5,7 +5,7 @@ import MargueShell from '~/components/margue/MargueShell.astro'
 import SectionHead from '~/components/laom/sections/SectionHead.astro'
 import {
   capitalDuLot,
-  coef,
+  dettePatricia,
   documents,
   documentsNote,
   estEtapes,
@@ -293,6 +293,39 @@ export const prerender = true
         {' '}à Patricia : {toitCommun.remboursementNote}
       </p>
 
+      <h3 class="text-base font-semibold text-[#412F1F] mt-12 mb-3">La dette envers Patricia</h3>
+      <p class="text-sm text-[#1D1B18]/65 max-w-3xl leading-relaxed mb-4">{dettePatricia.regle}</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <p class="text-xl md:text-2xl font-extrabold text-[#9A3922] tabular-nums tracking-[-0.02em]">
+            {eur(dettePatricia.montant)}
+          </p>
+          <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
+            La dette de la SCIA Est envers Patricia, hors capital
+          </p>
+        </div>
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <p class="text-xl md:text-2xl font-extrabold text-[#9A3922] tabular-nums tracking-[-0.02em]">
+            {eur(dettePatricia.mensualite)}
+          </p>
+          <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
+            Par mois, pendant {dettePatricia.dureeMois} mois
+          </p>
+        </div>
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <p class="text-xl md:text-2xl font-extrabold text-[#9A3922] tabular-nums tracking-[-0.02em]">
+            {eur(dettePatricia.parFoyerMois)}
+          </p>
+          <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
+            Par foyer et par mois, sur l'hypothèse de {dettePatricia.foyersHypothese} foyers, soit
+            {' '}{eur(dettePatricia.parFoyerTotal)} sur cinq ans
+          </p>
+        </div>
+      </div>
+
+      <p class="text-sm text-[#1D1B18]/55 mt-4 max-w-3xl leading-relaxed">{dettePatricia.aFixer}</p>
+
       <h3 class="text-base font-semibold text-[#412F1F] mt-12 mb-4">Répartition du capital</h3>
       <ul class="flex flex-wrap gap-2">
         {foyersEst.map((f) => (
@@ -374,30 +407,6 @@ export const prerender = true
                       </dd>
                     </div>
                   </dl>
-                  {f.lotsAConstruire && (
-                    <div class="mt-5">
-                      <h5 class="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#1D1B18]/45">
-                        Les lots à construire
-                      </h5>
-                      <ul class="mt-2 divide-y divide-[#412F1F]/10 border-t border-[#412F1F]/10">
-                        {f.lotsAConstruire.map((l) => (
-                          <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 py-2">
-                            <span class="text-sm text-[#1D1B18]/65">
-                              <span class="text-[#412F1F] font-medium">{l.lot}</span> · {l.nature}
-                            </span>
-                            <span class="text-right">
-                              <span class="block text-sm text-[#412F1F] font-medium tabular-nums whitespace-nowrap">
-                                {eur(l.capital)}
-                              </span>
-                              <span class="block text-xs text-[#1D1B18]/45">
-                                {coef(l.part)} part
-                              </span>
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                   {f.capitalCommentaire && (
                     <p class="text-sm text-[#1D1B18]/65 leading-relaxed mt-4">{f.capitalCommentaire}</p>
                   )}

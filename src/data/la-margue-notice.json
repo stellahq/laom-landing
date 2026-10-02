@@ -19,7 +19,7 @@
         },
         {
           "point": "La règle d'or",
-          "detail": "Total des capitaux de la SCIA Est = total des créances retenues (ce que les indivisaires ont réellement mis). Le prix de la Lyre est la variable qui boucle le système : il vaut ce qu'il faut pour que tout le monde soit remboursé. Les cinq lots à construire de Patricia à l'Est sont le levier pour que ce prix, tout compris, tombe sur la cible de 330 000.",
+          "detail": "Total des capitaux de la SCIA Est + le compte courant de Patricia remboursé sur cinq ans (57 762,36) = total des créances retenues (ce que les indivisaires ont réellement mis). Le prix de la Lyre est la variable qui boucle le système : il vaut ce qu'il faut pour que tout le monde soit remboursé. La part de la créance de Patricia laissée en compte courant est le levier pour que ce prix, tout compris, tombe sur la cible de 330 000 + chaudière.",
           "source": "Charly",
           "date": "2/09/2026"
         }
@@ -113,7 +113,7 @@
         },
         {
           "point": "Capital retenu",
-          "detail": "C'est la valeur conventionnelle, sauf deux exceptions : les gîtes de Serge & Marie-Agnès (leur capacité de 120 000 moins les frais annexes, voir section 7) et la Lyre (le prix nécessaire pour boucler, 305 167,00, soit 25 705,34 au-dessus de sa valeur au m²). S'y ajoutent les cinq lots à construire de Patricia (57 762,36). Total des capitaux Est : 1 167 696,10.",
+          "detail": "C'est la valeur conventionnelle, sauf deux exceptions : les gîtes de Serge & Marie-Agnès (leur capacité de 120 000 moins les frais annexes, voir section 7) et la Lyre (le prix nécessaire pour boucler, 305 167,00, soit 25 705,34 au-dessus de sa valeur au m²). Patricia n'a au capital que la Grange (151 987,93) : le reste de sa créance, 80 134,01, est un compte courant d'associée (22 371,65 payés par l'entrant, 57 762,36 sur cinq ans). Total des capitaux Est : 1 109 933,74 ; avec le compte courant remboursé sur cinq ans, 1 167 696,10 = les créances.",
           "source": "",
           "date": ""
         },
@@ -124,10 +124,10 @@
           "date": ""
         },
         {
-          "point": "Cinq lots à construire à l'Est (Patricia)",
-          "detail": "Lots 8 à 12 de la SCIA Est, capital de Patricia : deux logements à l'année (lots 8 à 12, une part chacun) et trois petits logements touristiques de 30 m² (lots 10 à 12, une demi-part chacun). Son apport y est ventilé 1 / 1 / 0,5 / 0,5 / 0,5 : 16 503,53 par part entière, 8 251,77 par demi-part, 57 762,36 en tout. Ce sont des lots transitoires au sens de la loi ELAN (droit de construire délimité + quote-part de parties communes), hors clé historique des quotes-parts. Leur montant est ce qui permet à la Lyre de sortir à 330 000 tout compris, hors chaudière. L'EDD Est qui les décrit est rédigé par Charly avec NILA.",
-          "source": "Charly",
-          "date": "3/09/2026, soir"
+          "point": "Compte courant de Patricia, à la place des cinq lots à construire",
+          "detail": "Depuis le 2/10, plus de lots 8 à 12. Ce que Patricia n'est pas remboursée en argent à la signature reste une dette de la SCIA Est envers elle : 80 134,01 de compte courant d'associée, dont 22 371,65 remboursés par l'entrant de la Lyre et 57 762,36 remboursés sur cinq ans par les foyers à l'année (60 mensualités de 962,71 ; hypothèse de la réunion du 9/09 : 12 foyers, 80,23 par foyer et par mois). Les lots de l'Est sont numérotés 1 à 7.",
+          "source": "Collectif (9/09), Charly (2/10)",
+          "date": "2/10/2026"
         }
       ]
     },
@@ -244,19 +244,19 @@
         },
         {
           "point": "Cinq lots à construire pour Patricia, à la place du levier",
-          "detail": "Ce que Patricia n'est pas remboursée en argent devient cinq lots à construire dans la SCIA Est : deux logements à l'année (parts 1 et 1) et trois petits logements touristiques de 30 m² (0,5 chacun), 57 762,36 en tout. Personne ne porte de dette pour rien. Quand un acheteur se présente, il rachète les parts de Patricia sous condition suspensive d'un permis purgé ; le permis est déposé au nom de la SCIA (seule voie possible), qui assure la maîtrise d'œuvre, lance les appels de fonds et livre le lot hors d'air. Pas de déclaration préalable de division : on ne divise rien, on crée des lots dans l'EDD. Patricia a donné son accord le 3/09 au soir.",
+          "detail": "Ce que Patricia n'est pas remboursée en argent devient cinq lots à construire dans la SCIA Est : deux logements à l'année (parts 1 et 1) et trois petits logements touristiques de 30 m² (0,5 chacun), 57 762,36 en tout. Personne ne porte de dette pour rien. Quand un acheteur se présente, il rachète les parts de Patricia sous condition suspensive d'un permis purgé ; le permis est déposé au nom de la SCIA (seule voie possible), qui assure la maîtrise d'œuvre, lance les appels de fonds et livre le lot hors d'air. Pas de déclaration préalable de division : on ne divise rien, on crée des lots dans l'EDD. Patricia a donné son accord le 3/09 au soir. — Caduc depuis le 2/10 : les cinq lots sont retirés, remplacés par le compte courant remboursé sur cinq ans (voir plus bas).",
           "source": "Charly",
           "date": "3/09/2026, soir"
         },
         {
           "point": "Deuxième clé pour les lots créés",
-          "detail": "La clé historique des quotes-parts (330 271,16 sur 19,04 coefficients) est close avec les lots existants. Tout lot créé après la constitution entre par une deuxième clé, à un prix fixé par l'assemblée au moment de la création ou de la vente, plus élevé que la quote-part historique. Les apports historiques ne sont jamais révisés.",
+          "detail": "La clé historique des quotes-parts (330 271,16 sur 19,04 coefficients) est close avec les lots existants. Tout lot créé après la constitution entre par une deuxième clé, à un prix fixé par l'assemblée au moment de la création ou de la vente, plus élevé que la quote-part historique. Les apports historiques ne sont jamais révisés. — Sans objet depuis le 2/10 : plus de lots créés.",
           "source": "Charly",
           "date": "3/09/2026, soir"
         },
         {
           "point": "Fichier simplifié : lot 2 retiré, lots renumérotés, calcul du modèle retiré",
-          "detail": "Les deux gîtes fusionnés sont un seul lot 1 ; l'ancien lot 2 (gîte Olivier) disparaît partout et les lots de l'Est sont numérotés de 1 à 9 : 1 gîtes, 2 La Grange, 3 Lyre, 4 Ruisseau, 5 Rivière, 6 Source, 7 Pergola, 8 et 9 terrains transitoires de Patricia. Le tableau de calcul du modèle (surfaces de référence, prix au m² moyen) est retiré du classeur : les valeurs retenues sont des paramètres, la Lyre s'équilibre sur les créances.",
+          "detail": "Les deux gîtes fusionnés sont un seul lot 1 ; l'ancien lot 2 (gîte Olivier) disparaît partout et les lots de l'Est sont numérotés de 1 à 9 : 1 gîtes, 2 La Grange, 3 Lyre, 4 Ruisseau, 5 Rivière, 6 Source, 7 Pergola, 8 et 9 terrains transitoires de Patricia. Le tableau de calcul du modèle (surfaces de référence, prix au m² moyen) est retiré du classeur : les valeurs retenues sont des paramètres, la Lyre s'équilibre sur les créances. — Depuis le 2/10, les lots de l'Est vont de 1 à 7.",
           "source": "Charly",
           "date": "3/09/2026, soir"
         },
@@ -280,7 +280,7 @@
         },
         {
           "point": "Pergola de Magali : 7 500 de valeur propre en plus de la quote-part",
-          "detail": "Magali met 7 500 de plus : la Pergola vaut sa quote-part (8 673,09) + 7 500 = 16 173,09. Son capital passe à 185 320,94 (Ruisseau 169 147,85 + Pergola 16 173,09). La Lyre reste à 336 910,21 tout compris ; les cinq lots à construire de Patricia absorbent la différence (57 762,36) et son excédent remboursé en argent monte à 22 371,65. Caroline reçoit les 7 500 de Magali à la signature ; les autres flux se rééquilibrent au centime.",
+          "detail": "Magali met 7 500 de plus : la Pergola vaut sa quote-part (8 673,09) + 7 500 = 16 173,09. Son capital passe à 185 320,94 (Ruisseau 169 147,85 + Pergola 16 173,09). La Lyre reste à 336 910,21 tout compris ; le compte courant de Patricia absorbe la différence (57 762,36) et son excédent remboursé en argent monte à 22 371,65. Caroline reçoit les 7 500 de Magali à la signature ; les autres flux se rééquilibrent au centime.",
           "source": "Charly",
           "date": "9/09/2026"
         },
@@ -295,6 +295,12 @@
           "detail": "Fosse par WC (Lyre 2 WC), main à la main à 10,5 parts avec récupération des fondateurs, foyer commun à 11,6 parts (0,2 pour les lots secondaires louables, Pergola à 0 jusqu'au changement d'usage, tiny Eliott hors tableau), Serge & Marie-Agnès à 120 000 tout compris, Pergola + 7 500, prix de la Lyre annoncé 340 000. Absents à consulter : Laetitia, Charlotte & David, Serge & Marie-Agnès, Khaldoun, Fayway. Compte rendu : « 2026-09-09 - CR reunion collectif », enregistrement Fathom.",
           "source": "Collectif (réunion du 9/09)",
           "date": "9/09/2026"
+        },
+        {
+          "point": "Les cinq lots sont retirés : la SCIA Est doit 57 762,36 à Patricia, remboursés sur cinq ans par les foyers",
+          "detail": "Décision de la réunion du 9/09 (proposition de David Coste), retenue le 2/10. Patricia garde au capital la Grange seule (151 987,93). Le reste de sa créance Est, 80 134,01, est un compte courant d'associée : 22 371,65 payés par l'entrant de la Lyre (inchangé), 57 762,36 remboursés en 60 mensualités de 962,71 par les foyers à l'année. Hypothèse de la réunion : 12 foyers, soit 80,23 par foyer et par mois, 4 813,53 sur cinq ans ; la liste des foyers payeurs, la date de la première mensualité et le véhicule juridique restent à fixer. Rien d'autre ne bouge : Lyre 305 167,00 de capital, 336 910,21 tout compris, phases 1 et 2, frais annexes. Capital total Est 1 109 933,74. Construire à l'Est un jour est un sujet découplé de cette dette.",
+          "source": "Collectif / Charly",
+          "date": "2/10/2026"
         }
       ]
     },
@@ -345,7 +351,7 @@
         },
         {
           "point": "Quote-part du domaine",
-          "detail": "Déjà comprise dans le capital de chaque lot (17 346,17 par coefficient). Elle n'est pas un frais annexe à payer en plus. La clé historique (19,04 coefficients) est close : les lots créés ensuite, dont les cinq lots à construire de Patricia, entrent par une deuxième clé.",
+          "detail": "Déjà comprise dans le capital de chaque lot (17 346,17 par coefficient). Elle n'est pas un frais annexe à payer en plus. La clé historique (19,04 coefficients) est close ; depuis le 2/10 il n'y a plus de lots créés à l'Est.",
           "source": "",
           "date": ""
         },
@@ -444,7 +450,7 @@
         },
         {
           "point": "Le levier",
-          "detail": "Le capital des cinq lots à construire de Patricia à l'Est (57 762,36). Si un autre paramètre bouge, la cellule « capital des lots à construire nécessaire » donne la nouvelle valeur ; la part entière (DATA E132) vaut ce montant divisé par 3,5, les autres en découlent.",
+          "detail": "La part de la créance de Patricia laissée en compte courant, remboursée sur cinq ans par les foyers (57 762,36). Si un autre paramètre bouge, la cellule « compte courant de Patricia nécessaire pour atteindre la cible » donne la nouvelle valeur à recopier dans SCIA LA MARGUE L19 (02092026).",
           "source": "SCIA LA MARGUE Q25, à répartir en DATA E132 (la part entière ; les autres en découlent)",
           "date": ""
         }
@@ -478,8 +484,8 @@
           "date": ""
         },
         {
-          "point": "Capital final Est (1 167 696,10)",
-          "detail": "Serge & Marie-Agnès 105 628,55 (9,0 %) · Patricia 209 750,29 (18,7 % : La Grange 151 987,93 + cinq lots à construire 57 762,36) · entrant Lyre 305 167,00 (26,1 %) · Magalie 185 320,94 (15,2 %) · Greg 165 715,87 (14,2 %) · Charlotte & David 196 113,45 (16,8 %). Égal aux créances Est retenues, Turquoise comprise.",
+          "point": "Capital final Est (1 109 933,74)",
+          "detail": "Serge & Marie-Agnès 105 628,55 (9,5 %) · Patricia 151 987,93 (13,7 % : la Grange seule ; son compte courant de 80 134,01 est hors capital) · entrant Lyre 305 167,00 (27,5 %) · Magali 185 320,94 (16,7 %) · Greg 165 715,87 (14,9 %) · Charlotte & David 196 113,45 (17,7 %). Capital + compte courant de Patricia remboursé sur cinq ans (57 762,36) = les créances Est retenues, Turquoise comprise (1 167 696,10).",
           "source": "SCIA LA MARGUE, étapes 1 et 2",
           "date": ""
         },
@@ -549,7 +555,7 @@
         },
         {
           "point": "À écrire en plus",
-          "detail": "Délibération de pré-affectation pour les deux SCIA, qui nomme aussi les lots 8 à 12 de Patricia à l'Est · dans l'EDD Est et son règlement, rédigés par Charly avec NILA, les cinq lots à construire (loi ELAN) et la règle de la deuxième clé pour les lots créés · conventions de compte courant (variante A) · promesse de cession au futur entrant Lyre · le prêt de 30 000 de Patricia à Khaldoun, s'il est confirmé.",
+          "detail": "Délibération de pré-affectation pour les deux SCIA · la convention de compte courant d'associée de Patricia (80 134,01 : 22 371,65 à l'arrivée de l'entrant, 57 762,36 en 60 mensualités) et la clé d'appels de fonds qui la finance · conventions de compte courant (variante A) · promesse de cession au futur entrant Lyre · le prêt de 30 000 de Patricia à Khaldoun, s'il est confirmé.",
           "source": "",
           "date": ""
         }
@@ -577,8 +583,8 @@
           "date": ""
         },
         {
-          "point": "Les cinq lots à construire",
-          "detail": "La proposition des cinq lots n'a pas été acceptée en réunion le 9/09 (Greg, Magali, Claire contre ; construire à l'Est reste un sujet à part). Proposition retenue par les présents, à valider par les absents : la SCIA Est doit 57 762,36 à Patricia, remboursés par les foyers à l'année sur cinq ans (environ 80 € par mois et par foyer pour 12 foyers, 962,71 par mois pour Patricia), formalisés par la notaire en prêt de Patricia à la SCIA. Tant que ce n'est pas validé, le modèle porte encore les cinq lots.",
+          "point": "Dette de Patricia : ce qui reste à fixer",
+          "detail": "Retenu le 2/10 : plus de lots à construire ; la SCIA Est doit 57 762,36 à Patricia, remboursés sur cinq ans par les foyers à l'année (60 mensualités de 962,71). À fixer : la liste des foyers payeurs (hypothèse de la réunion : 12, soit 80,23 par foyer et par mois), la date de la première mensualité, le taux (0 % proposé) et le véhicule juridique pour les foyers de l'Ouest, qui ne sont pas associés de la SCIA Est (voir la note « 2026-10-02 - Dette Patricia »).",
           "source": "Charly",
           "date": "3/09/2026, soir"
         },
@@ -643,13 +649,13 @@
       "items": [
         {
           "point": "Une seule cellule par hypothèse",
-          "detail": "Dans le fichier 02092026 : main à la main = DATA T168 (total) et R144:R167 (coefficients) ; foyer commun = DATA Y168 et W144:W167 ; fosse et frais de notaire de Serge & Marie-Agnès = SCIA LA MARGUE Q11 et Q13 ; provision sur actes de l'entrant = Q19 ; cible de la Lyre = Q24 ; quote-part terrain des lots 8 à 12 = DATA E132 (la part entière ; les autres en découlent) ; quote-part de Khaldoun = DATA E148 ; valeurs retenues des lots bâtis = SCIA LA MARGUE C12, C14, C15, C16 (jaune) ; lots 8 à 12 dans le tableau des lots de DATA (lignes 132-136, coefficient 0) et en SCIA LA MARGUE (lignes 17-21).",
+          "detail": "Dans le fichier 02092026 : main à la main = DATA T171 (total 53 592) et R147:R170 (coefficients) ; foyer commun = DATA Y172 (126 000) et W147:W170 (parts) ; convention de Serge & Marie-Agnès et prix de la Lyre = bloc K2:L20 de SCIA LA MARGUE (cible L18, compte courant de Patricia L19 en jaune, valeur nécessaire L20) ; chaudière L22:L23 ; toit K26:L37 ; échéancier de la dette K39:L46 ; Pergola = C17 (quote-part + 7 500) ; valeurs retenues des lots bâtis = C11, C13, C14, C15 (jaune) ; quote-part de Khaldoun = DATA E146 ; lots de l'Est = DATA lignes 125 à 131, lots de l'Ouest 132 à 147, total 148.",
           "source": "",
           "date": ""
         },
         {
           "point": "Après un changement",
-          "detail": "Lire la cellule « capital des lots transitoires nécessaire » (SCIA LA MARGUE Q25 ou SCIA LA MARGUE (convention SMA et prix de la Lyre)) et recopier sa valeur dans la quote-part terrain des lots 8 à 12 (DATA E132 (la part entière ; les autres en découlent), 16 503,53 par part entière, 8 251,77 par demi-part, dans le 02092026). Vérifier que les contrôles sont à zéro.",
+          "detail": "Lire la cellule « compte courant de Patricia nécessaire pour atteindre la cible » (SCIA LA MARGUE L20 dans le 02092026) et recopier sa valeur dans SCIA LA MARGUE L19 jusqu'à ce que l'écart soit nul. Vérifier que les contrôles sont à zéro.",
           "source": "",
           "date": ""
         },

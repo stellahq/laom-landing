@@ -1,4 +1,4 @@
-// Montage financier La Margue — Est & Ouest, état au 9 septembre 2026.
+// Montage financier La Margue — Est & Ouest, état au 2 octobre 2026.
 // SOURCE DE VÉRITÉ des chiffres affichés sur /la-margue-est, /la-margue-ouest
 // et /la-margue-notice. Les pages ne contiennent aucun montant en dur : tout
 // vient d'ici. Origine des données : classeur « Montage financier La Margue
@@ -35,13 +35,13 @@ export function coef(n: number): string {
   return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 })
 }
 
-export const updatedLabel = '9 septembre 2026'
+export const updatedLabel = '2 octobre 2026'
 
 /** Version du modèle, affichée en tête de chaque fiche. */
 export const VERSION = '4'
 
 /** Date et moment de la dernière mise à jour du modèle. */
-export const UPDATED = '9 septembre 2026, soir'
+export const UPDATED = '2 octobre 2026'
 
 // ============================================================
 // TYPES
@@ -75,20 +75,6 @@ export interface ToitLigne {
   note: string
 }
 
-/**
- * Un lot à construire porté par un foyer de l'Est : un droit de construire
- * délimité et sa quote-part de parties communes (loi ELAN), hors clé
- * historique des quotes-parts. Les lots 8 à 12 de Patricia.
- */
-export interface LotAConstruire {
-  lot: string
-  /** Ce qui sera bâti : logement à l'année, petit logement touristique. */
-  nature: string
-  /** Part de l'apport ventilé sur ce lot : 1 ou 0,5. */
-  part: number
-  capital: number
-}
-
 export interface FoyerEst {
   foyer: string
   lot: string
@@ -105,8 +91,6 @@ export interface FoyerEst {
   capitalLot?: number
   /** Ce qui s'ajoute au lot bâti, en petit sous le capital retenu de la carte. */
   capitalEnPlus?: string
-  /** Les lots à construire portés par le foyer, détaillés dans sa carte. */
-  lotsAConstruire?: LotAConstruire[]
   /** Sous-ligne du tableau récapitulatif, colonne Capital. */
   capitalNote?: string
   /** L'unique phrase de la carte, quand elle est indispensable. */
@@ -227,7 +211,7 @@ export const documentsNote = 'Accès sur demande à Charly.'
 // ============================================================
 
 export const estTotals = {
-  capital: 1167696.1,
+  capital: 1109933.74,
   dettes: 844716.83,
   prixLyre: 336910.21,
   fraisAnnexes: 142538.4,
@@ -238,20 +222,29 @@ export const estTotals = {
   foyerCommun: 59741.38,
 }
 
-/**
- * Les cinq lots à construire de Patricia à l'Est, lots 8 à 12 : ce qu'elle
- * n'est pas remboursée en argent. L'apport y est ventilé 1 / 1 / 0,5 / 0,5 / 0,5.
- */
-export const lotsAConstruirePatricia: LotAConstruire[] = [
-  { lot: 'Lot 8', nature: "Logement à l'année", part: 1, capital: 16503.53 },
-  { lot: 'Lot 9', nature: "Logement à l'année", part: 1, capital: 16503.53 },
-  { lot: 'Lot 10', nature: 'Petit logement touristique, 30 m²', part: 0.5, capital: 8251.77 },
-  { lot: 'Lot 11', nature: 'Petit logement touristique, 30 m²', part: 0.5, capital: 8251.77 },
-  { lot: 'Lot 12', nature: 'Petit logement touristique, 30 m²', part: 0.5, capital: 8251.77 },
-]
+const DETTE_MONTANT = 57762.36
+const DETTE_MENSUALITE = 962.71
+const DETTE_DUREE_MOIS = 60
 
-/** Total du classeur pour les cinq lots ci-dessus, jamais une somme recalculée. */
-export const CAPITAL_LOTS_A_CONSTRUIRE = 57762.36
+/**
+ * La dette de la SCIA Est envers Patricia, décidée le 9 septembre 2026 à la
+ * place des cinq lots à construire : la part de sa créance qui n'est ni du
+ * capital ni remboursée par l'entrant de la Lyre reste en compte courant, et
+ * les foyers à l'année la remboursent sur cinq ans, hors capital.
+ */
+export const dettePatricia = {
+  montant: DETTE_MONTANT,
+  compteCourantTotal: 80134.01,
+  excedentEntrant: 22371.65,
+  dureeMois: DETTE_DUREE_MOIS,
+  mensualite: DETTE_MENSUALITE,
+  foyersHypothese: 12,
+  parFoyerMois: 80.23,
+  parFoyerTotal: 4813.53,
+  regle: `En remplacement des cinq lots retirés du montage, la SCIA Est garde une dette de ${eur(DETTE_MONTANT)} envers Patricia, hors capital : elle est remboursée sur cinq ans par les foyers à l'année, en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)}.`,
+  aFixer:
+    "Restent à fixer : la liste des foyers payeurs, la date de la première mensualité et le véhicule juridique — appels de fonds de la SCIA Est, contribution via l'association pour les foyers de l'Ouest — à valider avec la notaire.",
+}
 
 export const estKeyFigures: KeyFigure[] = [
   { value: eur(estTotals.capital), label: 'Capital total de la SCIA Est' },
@@ -285,16 +278,16 @@ export const estPourquoi: PourquoiPoint[] = [
   {
     titre: 'Personne ne porte de dette pour rien',
     texte:
-      "Les apports des entrants et le prix de la Lyre paient les sortants ; ce qui manque devient un actif, des lots à construire, pas une dette sur quelqu'un.",
+      "Les apports des entrants et le prix de la Lyre paient les sortants ; ce qui manque reste en compte courant chez Patricia, et les foyers à l'année le remboursent sur cinq ans.",
     precisions: [
       "Le prix de la Lyre est la variable qui boucle le système : il vaut ce qu'il faut pour que tout le monde soit remboursé.",
-      `Les cinq lots à construire de Patricia à l'Est, ${eur(CAPITAL_LOTS_A_CONSTRUIRE)}, sont ce qui permet à la Lyre de sortir à ${eur(330000)} hors chaudière, ${eur(estTotals.prixLyre)} avec.`,
+      `La part de la créance de Patricia laissée en compte courant, ${eur(dettePatricia.montant)}, remboursée sur cinq ans par les foyers à l'année, est ce qui permet à la Lyre de sortir à ${eur(330000)} hors chaudière, ${eur(estTotals.prixLyre)} avec.`,
     ],
   },
   {
     titre: 'Rester ouvert aux suivants',
     texte:
-      "La Lyre attend un foyer, cinq lots à construire attendent des bâtisseurs, une deuxième clé fixe le prix d'entrée de ceux qui viendront.",
+      "La Lyre attend un foyer ; la clé historique est close avec les lots existants, et tout lot créé plus tard entrera à un prix fixé par l'assemblée.",
   },
   {
     titre: 'Des frais annexes à équité',
@@ -312,7 +305,7 @@ export interface EtatColonne {
 }
 
 export const estEtat: { date: string; colonnes: EtatColonne[] } = {
-  date: '9 septembre 2026, au soir',
+  date: '2 octobre 2026',
   colonnes: [
     {
       titre: 'Décidé',
@@ -320,7 +313,7 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
         'Clé du main à la main à 10,5 parts.',
         `Foyer commun à ${eur(10862.07)} par part.`,
         "Khaldoun associé de l'Ouest, apporte sa quote-part ; plus de crédit vendeur.",
-        "Cinq lots à construire de Patricia à l'Est (2 logements à l'année, 3 petits touristiques de 30 m²), accord de Patricia obtenu.",
+        `Dette de ${eur(dettePatricia.montant)} de la SCIA Est envers Patricia, remboursée sur cinq ans par les foyers à l'année (${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}), en remplacement des cinq lots retirés du montage.`,
         `Lyre à ${eur(estTotals.prixLyre)} tout compris (330 000 € + sa part de chaudière).`,
         `Chaudière (devis Voda 20 730,62 €) partagée par tiers entre La Grange, la Lyre et la Source.`,
       ],
@@ -336,15 +329,15 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
         'La clé du main à la main : Greg divise par 15.',
         'La variante, avec ou sans prêts en compte courant.',
         `Le foyer commun à ${eur(10862.07)} par part, sur la clé revue le 9/09 (11,6 parts).`,
+        'La dette de Patricia : liste des foyers payeurs et véhicule juridique.',
       ],
     },
     {
       titre: 'À faire',
       items: [
         'Refaire le partage partiel chez la notaire.',
-        "Rédiger l'EDD Est, lots 8 à 12 compris (Charly avec NILA).",
-        'Écrire la méthode de prix de la deuxième clé.',
-        "Dessiner l'emplacement des cinq lots à construire.",
+        "Rédiger l'EDD Est (Charly avec NILA).",
+        'Écrire la convention de remboursement de la dette de Patricia, avec la notaire.',
       ],
     },
   ],
@@ -369,7 +362,7 @@ export const foyersEst: FoyerEst[] = [
     total: 120000,
     totalNote: 'capacité tout compris',
     totalDetail: 'leur capacité, tout compris',
-    partCapital: '9,0 %',
+    partCapital: '9,5 %',
     alias: ['Serge & Marie-Agnès'],
   },
   {
@@ -378,13 +371,10 @@ export const foyersEst: FoyerEst[] = [
     surfaceModele: 62,
     surfaceDpe: 55.15,
     valeurConventionnelle: 151987.93,
-    capital: 209750.29,
+    capital: 151987.93,
     capitalLot: 151987.93,
-    capitalEnPlus: `+ cinq lots à construire ${eur(CAPITAL_LOTS_A_CONSTRUIRE)}`,
-    capitalNote: 'La Grange + cinq lots à construire',
-    lotsAConstruire: lotsAConstruirePatricia,
-    capitalCommentaire:
-      "Les lots 8 à 12 sont des lots à construire, hors clé historique des quotes-parts : ce que Patricia n'est pas remboursée en argent.",
+    capitalNote: 'La Grange seule ; le reste de sa créance est un compte courant',
+    capitalCommentaire: `Le reste de sa créance Est, ${eur(dettePatricia.compteCourantTotal)}, est un compte courant d'associée dans la SCIA Est : ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
     fraisAnnexes: 22588.41,
     fraisAnnexesDetail: [
       { label: 'Fosse (1 WC)', montant: 2027.81 },
@@ -397,9 +387,10 @@ export const foyersEst: FoyerEst[] = [
         montant: 0,
       },
     ],
-    total: 22588.41,
-    totalDetail: 'les frais annexes seuls : sa créance couvre son capital',
-    partCapital: '18,0 %',
+    total: 174576.34,
+    totalNote: 'sa créance couvre le capital',
+    totalDetail: `son capital de ${eur(151987.93)} + ses frais annexes : sa créance couvre le capital, elle ne sort que les frais annexes`,
+    partCapital: '13,7 %',
     alias: ['Patricia Salgon'],
   },
   {
@@ -419,7 +410,7 @@ export const foyersEst: FoyerEst[] = [
       { label: 'Chaudière (1/3 du devis Voda)', montant: 6910.21 },
     ],
     total: 336910.21,
-    partCapital: '26,1 %',
+    partCapital: '27,5 %',
     alias: ['Entrant Lyre'],
   },
   {
@@ -439,7 +430,7 @@ export const foyersEst: FoyerEst[] = [
       { label: 'Foyer commun (1 part)', montant: 10862.07 },
     ],
     total: 212605.78,
-    partCapital: '15,9 %',
+    partCapital: '16,7 %',
     alias: ['Magali Rouby'],
   },
   {
@@ -461,7 +452,7 @@ export const foyersEst: FoyerEst[] = [
     total: 72468.99,
     totalNote: 'dont le toit, hors montage',
     totalDetail: 'complément + frais annexes',
-    partCapital: '14,2 %',
+    partCapital: '14,9 %',
     alias: ['Grégoire Renevier'],
   },
   {
@@ -480,7 +471,7 @@ export const foyersEst: FoyerEst[] = [
       { label: 'Chaudière (1/3 du devis Voda)', montant: 6910.21 },
     ],
     total: 225731.84,
-    partCapital: '16,8 %',
+    partCapital: '17,7 %',
     alias: ['Charlotte & David'],
   },
 ]
@@ -734,16 +725,17 @@ export const estEtapes: EtapeMontage[] = [
   },
   {
     titre: "L'EDD de l'Est",
-    texte:
-      'Les lots sont attribués, dont les lots 8 à 12 de Patricia : chacun devient propriétaire de son lot.',
+    texte: 'Les lots existants sont attribués : chacun devient propriétaire de son lot.',
   },
   {
     titre: "L'Ouest",
     texte: "Travaux du Grand Shambala, lot de Khaldoun construit, EDD Ouest à l'achèvement.",
   },
   {
-    titre: 'Les lots à construire',
-    texte: 'Vendus aux prochains entrants au prix de la deuxième clé, permis au nom de la SCIA.',
+    titre: 'La dette envers Patricia',
+    texte: `Remboursée sur cinq ans par les foyers à l'année, en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} ; la liste des foyers payeurs et le véhicule juridique restent à fixer.`,
+    montant: dettePatricia.montant,
+    montantNote: 'hors capital, sur cinq ans',
   },
 ]
 
@@ -923,7 +915,7 @@ export const khaldoun = {
       texte: "dalle, réseaux (VRD) et gaines de l'atelier du rez-de-chaussée, à chiffrer",
     },
   ] as KhaldounLigne[],
-  note: "Patricia ne transfère plus rien vers l'Ouest : ce qu'elle n'est pas remboursée en argent devient cinq lots à construire à l'Est.",
+  note: `Patricia ne transfère plus rien vers l'Ouest : ce qu'elle n'est pas remboursée en argent reste en compte courant dans la SCIA Est, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
 }
 
 export const apportsOuest: ApportOuest[] = [
@@ -1052,13 +1044,7 @@ export const lexique: LexiqueEntree[] = [
   },
   {
     terme: "Compte courant d'associé",
-    definition:
-      "Ce qu'un associé a avancé à la société au-delà de son capital ; une créance, remboursable, sans droits de vote.",
-  },
-  {
-    terme: 'Lot à construire (transitoire)',
-    definition:
-      "Un lot fait d'un droit de construire délimité et d'une quote-part de parties communes (loi ELAN) ; les lots 8 à 12 de Patricia.",
+    definition: `Ce que la société doit à un associé en plus de son capital : une créance, remboursable, sans droits de vote. Ici ${eur(dettePatricia.compteCourantTotal)} pour Patricia dans la SCIA Est — ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
   },
   {
     terme: 'Frais annexes',
