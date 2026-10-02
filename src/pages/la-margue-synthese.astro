@@ -1,0 +1,239 @@
+---
+// Où on en est — fiche interne, espace associes.
+// Une page d'entree pour tout le collectif : ce qui a bouge, ce que chaque sortant
+// recupere, ce que le collectif porte, la proposition, la situation finale, et le
+// travail qui est derriere les chiffres. Les montants viennent de
+// src/data/la-margue-2026.ts ; seuls les textes de contexte sont ici.
+import MargueShell from '~/components/margue/MargueShell.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import { dettePatricia, estTotals, eur, phase1, phase2, sortantsEst, updatedLabel } from '~/data/la-margue-2026'
+
+export const prerender = true
+
+const recuSignature = (nom: string) => phase1.recus?.find((r) => r.nom === nom)?.montant ?? 0
+const duEntrant = (nom: string) => phase2.flux.find((f) => f.beneficiaire === nom)?.montant ?? 0
+const du = (nom: string) => sortantsEst.find((s) => s.nom.startsWith(nom))?.montant ?? 0
+
+const sortants = [
+  { nom: 'Julian Quero', du: du('Julian'), signature: recuSignature('Julian Quero'), entrant: duEntrant('Julian Quero') },
+  { nom: 'Isabelle Desplats', du: du('Isabelle'), signature: recuSignature('Isabelle Desplats'), entrant: duEntrant('Isabelle Desplats') },
+  { nom: 'Caroline Ader', du: du('Caroline'), signature: recuSignature('Caroline Ader'), entrant: duEntrant('Caroline Ader') },
+  { nom: "Turquoise SARL (société d'Isabelle)", du: du('Turquoise'), signature: du('Turquoise'), entrant: 0 },
+]
+const totalSortants = sortants.reduce((s, x) => s + x.du, 0)
+
+const bouge = [
+  {
+    titre: "Awa est partie, le 3 juillet 2026",
+    texte:
+      "L'ancien montage finançait la sortie d'Isabelle par l'entrée d'Awa sur la Lyre. Sans elle, plus rien ne remboursait Isabelle : tout le montage a été refait. La Lyre attend un nouvel associé.",
+  },
+  {
+    titre: 'Serge & Marie-Agnès : les deux gîtes, 120 000 tout compris',
+    texte:
+      "Après le refus de leur permis, les deux gîtes sont fusionnés en un seul lot, à 120 000 tout compris. La différence de valeur n'est reportée sur aucun foyer historique de l'Est.",
+  },
+  {
+    titre: 'Patricia : plus de lots à construire',
+    texte: `Les cinq lots proposés en septembre sont refusés en réunion le 9/09. Ce qu'elle n'est pas remboursée en argent devient une dette que les foyers remboursent sur cinq ans, et elle en porte sa part.`,
+  },
+  {
+    titre: 'Pas de prêt de la Coopérative Oasis',
+    texte:
+      "Le prêt aurait coûté environ 15 000 au collectif. On s'en passe : Julian est soldé à la signature, Isabelle et Caroline sont remboursées de tout ce qui est disponible, le reste à l'arrivée du nouvel associé.",
+  },
+]
+
+const porte = [
+  {
+    qui: 'Patricia',
+    montant: dettePatricia.partPatricia,
+    texte: `Sa part de sa propre dette. Elle attend aussi ${eur(22371.65)} jusqu'à l'arrivée du nouvel associé, et étale ${eur(dettePatricia.prixAssociation)} sur cinq ans.`,
+  },
+  {
+    qui: `Chacun des ${dettePatricia.foyers} foyers payeurs`,
+    montant: dettePatricia.parFoyerTotal,
+    texte: `(${eur(dettePatricia.parFoyerMois)} par mois pendant 5 ans) pour rembourser Patricia, via l'association des habitants.`,
+  },
+  {
+    qui: 'Orriols SARL (famille Aubert)',
+    montant: 129921.46,
+    texte: "Attendent l'arrivée du nouvel associé de la Lyre pour être remboursés de leur part Est.",
+  },
+  {
+    qui: 'Le nouvel associé de la Lyre',
+    montant: estTotals.prixLyre,
+    texte: 'Tout compris, 340 000 annoncés. Son prix est tenu : il ne paie rien de la dette de Patricia.',
+  },
+]
+
+const travail = [
+  'Un modèle refait au centime après le départ d\'Awa, puis croisé ligne à ligne avec les actes de la notaire.',
+  'Deux classeurs : celui au format de la notaire et une version détaillée, qui tombent sur les mêmes chiffres.',
+  `Une notice de ${98} points : chaque hypothèse, sa source et sa date (onglet Notice).`,
+  `Une fiche par personne et par structure, ${19} en tout : ce que chacun a mis, ce qu'il récupère, ce qu'il signe.`,
+  "Les réunions enregistrées, retranscrites et résumées, avec les décisions et ce qui reste à valider.",
+  "L'état descriptif de division rédigé en interne plutôt que confié à un géomètre.",
+  "Le STECAL, demandé début 2021 et accordé en octobre 2025 : c'est lui qui rend les logements légaux.",
+]
+---
+
+<MargueShell
+  page="synthese"
+  title="Où on en est"
+  subtitle="Pour que chacun ait la même vue : ce qui a bougé, ce que chacun récupère, ce que le collectif porte, et la proposition pour signer."
+  updated={updatedLabel}
+>
+  <!-- 1 · Ce qui a bouge -->
+  <section class="pb-16 md:pb-20">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <SectionHead eyebrow="Depuis le premier modèle" title="Ce qui a" accent="bougé" size="text-3xl md:text-4xl" class="mb-10" />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {bouge.map((b) => (
+          <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+            <h3 class="text-base font-semibold text-[#412F1F] leading-snug">{b.titre}</h3>
+            <p class="text-sm text-[#1D1B18]/70 mt-3 leading-relaxed">{b.texte}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Ce que les sortants recuperent -->
+  <section class="pb-16 md:pb-20">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <SectionHead
+        eyebrow="Les sortants"
+        title="Ce que chacun"
+        accent="récupère"
+        intro="100 % de ce qui est dû, rien n'est rogné. Ce qui n'est pas payé à la signature reste un compte courant : Isabelle et Caroline restent associées jusqu'à l'arrivée du nouvel associé, qui les rachète."
+        size="text-3xl md:text-4xl"
+        class="mb-8"
+      />
+      <div class="overflow-x-auto rounded-2xl border border-[#412F1F]/10 bg-[#FBF6EA]">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-[#412F1F]/70 border-b border-[#412F1F]/10">
+              <th class="px-5 py-3 font-medium">Qui</th>
+              <th class="px-5 py-3 font-medium text-right">Ce qui lui est dû</th>
+              <th class="px-5 py-3 font-medium text-right">À la signature</th>
+              <th class="px-5 py-3 font-medium text-right">À l'arrivée du nouvel associé</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortants.map((s) => (
+              <tr class="border-b border-[#412F1F]/5 last:border-0">
+                <td class="px-5 py-3 text-[#412F1F]">{s.nom}</td>
+                <td class="px-5 py-3 text-right tabular-nums font-semibold text-[#412F1F]">{eur(s.du)}</td>
+                <td class="px-5 py-3 text-right tabular-nums">{eur(s.signature)}</td>
+                <td class="px-5 py-3 text-right tabular-nums">{s.entrant ? eur(s.entrant) : 'soldé'}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr class="border-t border-[#412F1F]/15">
+              <td class="px-5 py-3 font-semibold text-[#412F1F]">Total</td>
+              <td class="px-5 py-3 text-right tabular-nums font-semibold text-[#9A3922]">{eur(totalSortants)}</td>
+              <td colspan="2"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="text-sm text-[#1D1B18]/60 mt-4 max-w-3xl leading-relaxed">
+        Qui paie qui, acte par acte : onglet <a href="/la-margue-est/" class="text-[#9A3922] underline underline-offset-2">La Margue Est</a>, et chaque fiche de l'onglet <a href="/la-margue-par-personne/" class="text-[#9A3922] underline underline-offset-2">Par personne</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 · Ce que le collectif porte -->
+  <section class="pb-16 md:pb-20">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <SectionHead
+        eyebrow="Pour que ça tienne"
+        title="Ce que le collectif"
+        accent="porte"
+        intro="Personne ne sort gagnant de ce montage. Chacun lâche quelque chose pour que les sortants soient remboursés et que les nouveaux arrivent sur une base stable."
+        size="text-3xl md:text-4xl"
+        class="mb-8"
+      />
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {porte.map((x) => (
+          <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+            <p class="eyebrow mb-3">{x.qui}</p>
+            <p class="text-xl md:text-2xl font-extrabold text-[#9A3922] tabular-nums tracking-[-0.02em]">{eur(x.montant)}</p>
+            <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">{x.texte}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · La proposition -->
+  <section class="pb-16 md:pb-20">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <div class="rounded-3xl bg-[#412F1F] text-[#FBF6EA] p-8 md:p-12">
+        <p class="eyebrow mb-4 !text-[#F2EBDB]/70">La proposition</p>
+        <p class="text-2xl md:text-3xl font-extrabold tracking-[-0.02em] leading-tight text-balance">
+          Entrer ensemble dans la SCIA maintenant, sans attendre.
+        </p>
+        <ul class="mt-6 space-y-3 text-base text-[#F2EBDB]/85 leading-relaxed max-w-3xl">
+          <li>Julian est soldé à la signature, pour sa patience.</li>
+          <li>Isabelle et Caroline récupèrent tout ce qui est disponible, et restent associées pour le reste.</li>
+          <li>On choisit ensemble le nouvel associé de la Lyre, qui viendra clore ce chapitre.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · La situation finale -->
+  <section class="pb-16 md:pb-20">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <SectionHead eyebrow="Une fois le nouvel associé arrivé" title="La situation" accent="finale" size="text-3xl md:text-4xl" class="mb-8" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <h3 class="text-base font-semibold text-[#412F1F]">Les sortants sont payés</h3>
+          <p class="text-sm text-[#1D1B18]/70 mt-3 leading-relaxed">Isabelle, Caroline, Julian, Turquoise et Orriols ont reçu 100 % de ce qui leur était dû. Ils ne sont plus associés.</p>
+        </div>
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <h3 class="text-base font-semibold text-[#412F1F]">Chacun a son lot</h3>
+          <p class="text-sm text-[#1D1B18]/70 mt-3 leading-relaxed">L'état descriptif de division entre en vigueur : chaque associé détient le groupe de parts de son lot, à hauteur de ce qu'il a mis.</p>
+        </div>
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <h3 class="text-base font-semibold text-[#412F1F]">Une seule dette, voulue</h3>
+          <p class="text-sm text-[#1D1B18]/70 mt-3 leading-relaxed">
+            Pendant cinq ans, l'association paie Patricia avec les cotisations des foyers. La SCIA Est doit
+            {' '}{eur(dettePatricia.montant)} à l'association : c'est l'argent des foyers, qui reste un bien commun.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Le travail derriere -->
+  <section class="pb-16 md:pb-24">
+    <div class="max-w-5xl mx-auto px-6 md:px-10">
+      <SectionHead
+        eyebrow="Derrière ces chiffres"
+        title="Le"
+        accent="travail"
+        intro="Le travail de la notaire, de Pierre Lévy et de Charly. Tout est ouvert : chaque chiffre de ces pages se retrouve dans les classeurs et dans la notice."
+        size="text-3xl md:text-4xl"
+        class="mb-8"
+      />
+      <ul class="space-y-3 max-w-3xl">
+        {travail.map((t) => (
+          <li class="flex gap-3 text-[#1D1B18]/75 leading-relaxed">
+            <span class="text-[#9A3922] font-bold" aria-hidden="true">·</span>
+            <span>{t}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="flex flex-wrap gap-3 mt-10">
+        <a href="/la-margue-est/" class="pill pill-primary">La Margue Est</a>
+        <a href="/la-margue-ouest/" class="pill">La Margue Ouest</a>
+        <a href="/la-margue-par-personne/" class="pill">Par personne</a>
+        <a href="/la-margue-notice/" class="pill">La notice</a>
+      </div>
+    </div>
+  </section>
+</MargueShell>
