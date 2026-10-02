@@ -181,7 +181,7 @@ function fraisOuest(nom: string): FicheFrais {
 function lotsDe(attributaire: string): FicheLigne[] {
   return lotsOuest
     .filter((l) => l.attributaire === attributaire)
-    .map((l) => ({ label: l.lot, montant: l.valeur, note: l.valeurNote }))
+    .map((l) => ({ label: l.lot, montant: l.valeur, note: l.valeurNote ?? 'valeur 2023, hors quote-part et dépenses' }))
 }
 
 /** Ce qu'un foyer a avancé au titre du main à la main, et ce qu'il récupère. */
