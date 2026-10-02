@@ -3,7 +3,9 @@
  * (TRACKING_DB, meme table que /api/form/candidater), pour qu'ils apparaissent
  * sur /admin/coliving comme les candidatures du site.
  *
- * Cron toutes les 10 min :
+ * Synchronisation automatique désactivée depuis le 26/09/2026 (campagnes arrêtées).
+ * Avant réactivation : indexer leads(meta_event_id) et limiter le rattrapage.
+ * La synchronisation :
  *   1. liste les ads leadgen du compte (ACTIVE + PAUSED, 90 derniers jours)
  *   2. lit leurs leads (GET /{ad_id}/leads — exige un token avec leads_retrieval)
  *   3. dedup via meta_event_id = 'metaform:<lead_id>'
