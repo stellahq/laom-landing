@@ -854,24 +854,24 @@ export const ouestKeyFigures: KeyFigure[] = [
 
 export const lotsOuest: LotOuest[] = [
   { lot: 'Petit Shambala', coefficient: 1, quotePart: 17346.17, attributaire: 'Amandine & Charly', valeur: 77000 },
-  { lot: 'GS rdc extrême ouest — coliving 125 m²', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM / Ferme du Verseau', valeur: 161760.7 },
-  { lot: 'GS étage ouest — appartement', coefficient: 0.5, quotePart: 8673.09, attributaire: 'David Coste', valeur: 95633.93 },
-  { lot: 'GS étage centre', coefficient: 1, quotePart: 17346.17, attributaire: 'Laetitia Brene', valeur: 130343.33 },
-  { lot: 'GS rdc est — atelier 32 m²', coefficient: 0, quotePart: 0, attributaire: 'Laetitia Brene', valeur: 44896.04 },
-  { lot: 'GS étage est', coefficient: 1, quotePart: 17346.17, attributaire: 'Claire & Baptiste', valeur: 40639 },
+  { lot: 'GS rdc extrême ouest — coliving 125 m²', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM / Ferme du Verseau', valeur: 100000 },
+  { lot: 'GS étage ouest — appartement', coefficient: 0.5, quotePart: 8673.09, attributaire: 'David Coste', valeur: 46875 },
+  { lot: 'GS étage centre', coefficient: 1, quotePart: 17346.17, attributaire: 'Laetitia Brene', valeur: 67770 },
+  { lot: 'GS rdc est — atelier 32 m²', coefficient: 0, quotePart: 0, attributaire: 'Laetitia Brene', valeur: 2263 },
+  { lot: 'GS étage est', coefficient: 1, quotePart: 17346.17, attributaire: 'Claire & Baptiste', valeur: 30000 },
   { lot: 'GS étage extrême ouest — studio', coefficient: 0.5, quotePart: 8673.09, attributaire: 'Amandine & Charly', valeur: 15500 },
-  { lot: 'GS rdc extrême est', coefficient: 1, quotePart: 17346.17, attributaire: 'David Lin', valeur: 92227.81 },
-  { lot: 'GS rdc centre — foyer commun', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau + association', valeur: 106518.6 },
-  { lot: 'Annexe', coefficient: 0, quotePart: 0, attributaire: 'Orriols SAS', valeur: 32755.68 },
-  { lot: 'Tiny Eliott (touristique)', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM', valeur: 47507 },
+  { lot: 'GS rdc extrême est', coefficient: 1, quotePart: 17346.17, attributaire: 'David Lin', valeur: 46875 },
+  { lot: 'GS rdc centre — foyer commun', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau + association', valeur: 67500 },
+  { lot: 'Annexe', coefficient: 0, quotePart: 0, attributaire: 'Orriols SAS', valeur: 23250 },
+  { lot: 'Tiny Eliott (touristique)', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM', valeur: 39000 },
   { lot: 'Tiny Claire (touristique)', coefficient: 0.5, quotePart: 8673.09, attributaire: 'Claire & Baptiste', valeur: 49000 },
-  { lot: 'Ferme — serre, abris, terre', coefficient: 0.04, quotePart: 693.85, attributaire: 'Orriols SAS', valeur: 5249.54 },
-  { lot: 'Accueil — salle, restaurant', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau', valeur: 180000 },
+  { lot: 'Ferme — serre, abris, terre', coefficient: 0.04, quotePart: 693.85, attributaire: 'Orriols SAS', valeur: 5249.54, valeurNote: 'hors fichier de suivi' },
+  { lot: 'Accueil — salle, restaurant', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau', valeur: 180000, valeurNote: 'hors fichier de suivi' },
   { lot: 'Terrain des lodges', coefficient: 5, quotePart: 86730.87, attributaire: 'Patricia Salgon', valeur: 97932.16, valeurNote: 'partage partiel' },
-  { lot: 'Logement Khaldoun (nouveau)', coefficient: 1, quotePart: 17346.17, attributaire: 'Khaldoun', valeur: 17346.17 },
+  { lot: 'Logement Khaldoun (nouveau)', coefficient: 1, quotePart: 17346.17, attributaire: 'Khaldoun', valeur: 17346.17, valeurNote: 'sa quote-part' },
 ]
 
-export const lotsOuestNote = `Le total des lots ci-dessus ne se lit pas comme le total des apports : plusieurs lots sont partagés entre attributaires — le foyer commun entre la Ferme du Verseau et l'association — et Orriols SARL n'apporte à l'Ouest que des quotes-parts. Le total qui fait foi est celui des apports, ${eur(ouestTotals.valeurLots)}.`
+export const lotsOuestNote = `La valeur du lot est sa valeur 2023 (fichier de suivi des dépenses du Grand Shambala, onglet « Évolution du prix au m² »), hors quote-part du domaine et hors dépenses de 2024 à 2026. Le total des lots ne se lit donc pas comme le total des apports : plusieurs lots sont partagés entre attributaires — le foyer commun entre la Ferme du Verseau et l'association — et Orriols SARL n'apporte à l'Ouest que des quotes-parts. Le total qui fait foi est celui des apports, ${eur(ouestTotals.valeurLots)}.`
 
 export const deplacementsEst: Notion[] = [
   {
