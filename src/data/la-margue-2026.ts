@@ -259,7 +259,7 @@ export const dettePatricia = {
   partPatricia: DETTE_PART,
   regle: `Patricia garde au capital la Grange seule. Le reste de sa créance est un compte courant de ${eur(80134.01)} dans la SCIA Est : ${eur(22371.65)} payés par l'entrant de la Lyre, et ${eur(DETTE_MONTANT)} rachetés par l'association des habitants pour ${eur(DETTE_PRIX_ASSOCIATION)}, payés à Patricia en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)}. Patricia porte sa part comme les autres foyers : ${DETTE_PARTS} parts de ${eur(DETTE_PART)}, dont ${DETTE_FOYERS} versées par les foyers payeurs (${eur(87.52)} par mois pendant 5 ans).`,
   aFixer:
-    'À confirmer : Serge & Marie-Agnès et David Coste en part entière ou en demi-part, la date de la première mensualité, et la validation par Pierre Lévy et la notaire.',
+    'Serge & Marie-Agnès et David Coste paient une part entière. À confirmer : la date de la première mensualité, et la validation par Pierre Lévy et la notaire.',
 }
 
 export const estKeyFigures: KeyFigure[] = [
