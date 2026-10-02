@@ -225,12 +225,15 @@ export const estTotals = {
 const DETTE_MONTANT = 57762.36
 const DETTE_MENSUALITE = 962.71
 const DETTE_DUREE_MOIS = 60
+const DETTE_FOYERS = 10
 
 /**
  * La dette de la SCIA Est envers Patricia, décidée le 9 septembre 2026 à la
  * place des cinq lots à construire : la part de sa créance qui n'est ni du
- * capital ni remboursée par l'entrant de la Lyre reste en compte courant, et
- * les foyers à l'année la remboursent sur cinq ans, hors capital.
+ * capital ni remboursée par l'entrant de la Lyre reste en compte courant.
+ * Formalisation du 2 octobre 2026 : l'association des habitants rachète cette
+ * part et la paie à Patricia sur cinq ans, grâce à une cotisation des 10 foyers
+ * payeurs (la Lyre est exclue, Patricia est la créancière).
  */
 export const dettePatricia = {
   montant: DETTE_MONTANT,
@@ -238,12 +241,12 @@ export const dettePatricia = {
   excedentEntrant: 22371.65,
   dureeMois: DETTE_DUREE_MOIS,
   mensualite: DETTE_MENSUALITE,
-  foyersHypothese: 12,
-  parFoyerMois: 80.23,
-  parFoyerTotal: 4813.53,
-  regle: `En remplacement des cinq lots retirés du montage, la SCIA Est garde une dette de ${eur(DETTE_MONTANT)} envers Patricia, hors capital : elle est remboursée sur cinq ans par les foyers à l'année, en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)}.`,
+  foyers: DETTE_FOYERS,
+  parFoyerMois: 96.27,
+  parFoyerTotal: 5776.24,
+  regle: `Patricia garde au capital la Grange seule. Le reste de sa créance est un compte courant de ${eur(80134.01)} dans la SCIA Est : ${eur(22371.65)} payés par l'entrant de la Lyre, et ${eur(DETTE_MONTANT)} rachetés par l'association des habitants, qui les paie à Patricia en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)} grâce à une cotisation des ${DETTE_FOYERS} foyers payeurs.`,
   aFixer:
-    "Restent à fixer : la liste des foyers payeurs, la date de la première mensualité et le véhicule juridique — appels de fonds de la SCIA Est, contribution via l'association pour les foyers de l'Ouest — à valider avec la notaire.",
+    'À confirmer : la liste des 10 foyers, la date de la première mensualité, et la validation par Pierre Lévy et la notaire.',
 }
 
 export const estKeyFigures: KeyFigure[] = [
@@ -278,10 +281,10 @@ export const estPourquoi: PourquoiPoint[] = [
   {
     titre: 'Personne ne porte de dette pour rien',
     texte:
-      "Les apports des entrants et le prix de la Lyre paient les sortants ; ce qui manque reste en compte courant chez Patricia, et les foyers à l'année le remboursent sur cinq ans.",
+      "Les apports des entrants et le prix de la Lyre paient les sortants ; ce qui manque reste en compte courant chez Patricia, et l'association des habitants le lui rembourse sur cinq ans, grâce à la cotisation des 10 foyers payeurs.",
     precisions: [
       "Le prix de la Lyre est la variable qui boucle le système : il vaut ce qu'il faut pour que tout le monde soit remboursé.",
-      `La part de la créance de Patricia laissée en compte courant, ${eur(dettePatricia.montant)}, remboursée sur cinq ans par les foyers à l'année, est ce qui permet à la Lyre de sortir à ${eur(330000)} hors chaudière, ${eur(estTotals.prixLyre)} avec.`,
+      `La part de la créance de Patricia laissée en compte courant, ${eur(dettePatricia.montant)}, remboursée sur cinq ans par l'association des habitants, est ce qui permet à la Lyre de sortir à ${eur(330000)} hors chaudière, ${eur(estTotals.prixLyre)} avec.`,
     ],
   },
   {
@@ -313,7 +316,8 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
         'Clé du main à la main à 10,5 parts.',
         `Foyer commun à ${eur(10862.07)} par part.`,
         "Khaldoun associé de l'Ouest, apporte sa quote-part ; plus de crédit vendeur.",
-        `Dette de ${eur(dettePatricia.montant)} de la SCIA Est envers Patricia, remboursée sur cinq ans par les foyers à l'année (${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}), en remplacement des cinq lots retirés du montage.`,
+        `Dette de ${eur(dettePatricia.montant)} de la SCIA Est envers Patricia, rachetée par l'association des habitants et payée à Patricia sur cinq ans (${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}), grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs, ${eur(dettePatricia.parFoyerTotal)} chacun.`,
+        "Julian soldé à la signature ; Isabelle et Caroline portent le reste à parts égales et restent associées jusqu'à l'entrant.",
         `Lyre à ${eur(estTotals.prixLyre)} tout compris (330 000 € + sa part de chaudière).`,
         `Chaudière (devis Voda 20 730,62 €) partagée par tiers entre La Grange, la Lyre et la Source.`,
       ],
@@ -329,7 +333,7 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
         'La clé du main à la main : Greg divise par 15.',
         'La variante, avec ou sans prêts en compte courant.',
         `Le foyer commun à ${eur(10862.07)} par part, sur la clé revue le 9/09 (11,6 parts).`,
-        'La dette de Patricia : liste des foyers payeurs et véhicule juridique.',
+        'La dette de Patricia : liste des 10 foyers et validation de la formalisation par la notaire',
       ],
     },
     {
@@ -337,7 +341,7 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
       items: [
         'Refaire le partage partiel chez la notaire.',
         "Rédiger l'EDD Est (Charly avec NILA).",
-        'Écrire la convention de remboursement de la dette de Patricia, avec la notaire.',
+        "Écrire avec la notaire la cession de la créance de Patricia à l'association et la cotisation des foyers payeurs.",
       ],
     },
   ],
@@ -374,7 +378,7 @@ export const foyersEst: FoyerEst[] = [
     capital: 151987.93,
     capitalLot: 151987.93,
     capitalNote: 'La Grange seule ; le reste de sa créance est un compte courant',
-    capitalCommentaire: `Le reste de sa créance Est, ${eur(dettePatricia.compteCourantTotal)}, est un compte courant d'associée dans la SCIA Est : ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
+    capitalCommentaire: `Le reste de sa créance Est, ${eur(dettePatricia.compteCourantTotal)}, est un compte courant d'associée dans la SCIA Est : ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} rachetés par l'association des habitants, qui les lui paie sur cinq ans.`,
     fraisAnnexes: 22588.41,
     fraisAnnexesDetail: [
       { label: 'Fosse (1 WC)', montant: 2027.81 },
@@ -667,32 +671,31 @@ export const phase1: Phase = {
   total: 539549.83,
   flux: [
     { payeur: 'Grégoire Renevier', beneficiaire: 'Caroline Ader', montant: 52486.89, note: 'cession de créance' },
-    { payeur: 'Magali Rouby', beneficiaire: 'Caroline Ader', montant: 185320.94 },
-    { payeur: 'Serge & Marie-Agnès', beneficiaire: 'Caroline Ader', montant: 11234.21 },
-    { payeur: 'Serge & Marie-Agnès', beneficiaire: 'Julian Quero', montant: 94394.34 },
-    { payeur: 'Charlotte & David', beneficiaire: 'Julian Quero', montant: 4647.7 },
+    { payeur: 'Magali Rouby', beneficiaire: 'Caroline Ader', montant: 171076.16 },
+    { payeur: 'Magali Rouby', beneficiaire: 'Isabelle Desplats', montant: 14244.78 },
+    { payeur: 'Serge & Marie-Agnès', beneficiaire: 'Julian Quero', montant: 105628.55 },
+    { payeur: 'Charlotte & David', beneficiaire: 'Julian Quero', montant: 44371.45 },
     { payeur: 'Charlotte & David', beneficiaire: 'Turquoise SARL', montant: 4003.88 },
-    { payeur: 'Charlotte & David', beneficiaire: 'Isabelle Desplats', montant: 187461.87 },
+    { payeur: 'Charlotte & David', beneficiaire: 'Isabelle Desplats', montant: 147738.12 },
   ],
   recus: [
-    { nom: 'Isabelle Desplats', montant: 187461.87 },
-    { nom: 'Caroline Ader', montant: 249042.04 },
-    { nom: 'Julian Quero', montant: 99042.04 },
+    { nom: 'Isabelle Desplats', montant: 161982.9 },
+    { nom: 'Caroline Ader', montant: 223563.05 },
+    { nom: 'Julian Quero', montant: 150000 },
   ],
-  note: `Chacun des trois garde ${eur(50957.97)} en compte courant et reste associé jusqu'à l'arrivée de l'entrant.`,
+  note: `Julian est soldé à la signature. Isabelle et Caroline gardent le reste en compte courant (${eur(76436.94)} et ${eur(76436.95)}) et restent associées jusqu'à l'arrivée de l'entrant.`,
 }
 
 export const phase2: Phase = {
   titre: "Phase 2 — à l'arrivée de l'entrant Lyre",
   total: 305167,
   flux: [
-    { payeur: 'Entrant Lyre', beneficiaire: 'Isabelle Desplats', montant: 50957.97 },
-    { payeur: 'Entrant Lyre', beneficiaire: 'Caroline Ader', montant: 50957.97 },
-    { payeur: 'Entrant Lyre', beneficiaire: 'Julian Quero', montant: 50957.97 },
+    { payeur: 'Entrant Lyre', beneficiaire: 'Isabelle Desplats', montant: 76436.94 },
+    { payeur: 'Entrant Lyre', beneficiaire: 'Caroline Ader', montant: 76436.95 },
     { payeur: 'Entrant Lyre', beneficiaire: 'Orriols SARL', montant: 129921.46 },
     { payeur: 'Entrant Lyre', beneficiaire: 'Patricia Salgon', montant: 22371.65 },
   ],
-  note: 'Rachat des parts et des comptes courants des trois sortants, quittance finale.',
+  note: "Rachat des parts et des comptes courants d'Isabelle et de Caroline, quittance finale.",
 }
 
 export const phases: Phase[] = [phase1, phase2]
@@ -719,7 +722,7 @@ export const estEtapes: EtapeMontage[] = [
   },
   {
     titre: "L'entrant de la Lyre",
-    texte: `Il solde Isabelle, Caroline, Julian, Orriols et l'excédent de Patricia ; ${eur(estTotals.prixLyre)} tout compris pour lui.`,
+    texte: `Il solde Isabelle, Caroline, Orriols et l'excédent de Patricia ; ${eur(estTotals.prixLyre)} tout compris pour lui.`,
     montant: phase2.total,
     montantNote: 'phase 2',
   },
@@ -733,7 +736,7 @@ export const estEtapes: EtapeMontage[] = [
   },
   {
     titre: 'La dette envers Patricia',
-    texte: `Remboursée sur cinq ans par les foyers à l'année, en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} ; la liste des foyers payeurs et le véhicule juridique restent à fixer.`,
+    texte: `Rachetée par l'association des habitants, qui la paie à Patricia en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs ; la liste des foyers et la date de la première mensualité restent à confirmer.`,
     montant: dettePatricia.montant,
     montantNote: 'hors capital, sur cinq ans',
   },
@@ -766,7 +769,7 @@ export const variantes: Variante[] = [
     cle: 'A',
     titre: 'Scénario prêt en compte courant',
     points: [
-      "Des prêts en compte courant d'associés soldent les trois sortants dès la signature.",
+      "Des prêts en compte courant d'associés soldent Isabelle et Caroline dès la signature.",
       "Ils sont remboursés par l'entrant de la Lyre, jamais transformés en parts.",
       "Seule variante qui tient la date butoir d'Isabelle, le 15 novembre 2026.",
     ],
@@ -775,7 +778,7 @@ export const variantes: Variante[] = [
     cle: 'B',
     titre: 'Scénario sans prêt',
     points: [
-      `Les trois sortants restent associés avec ${eur(50957.97)} chacun en compte courant jusqu'à l'arrivée de l'entrant.`,
+      "Julian est soldé à la signature ; Isabelle et Caroline restent associées avec environ 76 437 chacune en compte courant jusqu'à l'arrivée de l'entrant.",
       'Aucune reconnaissance de dette.',
       "Personne n'avance de trésorerie.",
     ],
@@ -915,7 +918,7 @@ export const khaldoun = {
       texte: "dalle, réseaux (VRD) et gaines de l'atelier du rez-de-chaussée, à chiffrer",
     },
   ] as KhaldounLigne[],
-  note: `Patricia ne transfère plus rien vers l'Ouest : ce qu'elle n'est pas remboursée en argent reste en compte courant dans la SCIA Est, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
+  note: `Patricia ne transfère plus rien vers l'Ouest : ce qu'elle n'est pas remboursée en argent reste en compte courant dans la SCIA Est, ${eur(dettePatricia.montant)} rachetés par l'association des habitants et payés sur cinq ans.`,
 }
 
 export const apportsOuest: ApportOuest[] = [
@@ -1044,7 +1047,7 @@ export const lexique: LexiqueEntree[] = [
   },
   {
     terme: "Compte courant d'associé",
-    definition: `Ce que la société doit à un associé en plus de son capital : une créance, remboursable, sans droits de vote. Ici ${eur(dettePatricia.compteCourantTotal)} pour Patricia dans la SCIA Est — ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
+    definition: `Ce que la société doit à un associé en plus de son capital : une créance, remboursable, sans droits de vote. Ici ${eur(dettePatricia.compteCourantTotal)} pour Patricia dans la SCIA Est — ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} rachetés par l'association des habitants, qui les lui paie sur cinq ans.`,
   },
   {
     terme: 'Frais annexes',
@@ -1067,7 +1070,7 @@ export const lexique: LexiqueEntree[] = [
   {
     terme: 'Variantes A et B',
     definition:
-      "Avec prêts en compte courant (les sortants soldés à la signature) ou sans (ils restent associés jusqu'à l'entrant).",
+      "Avec prêts en compte courant (Isabelle et Caroline soldées à la signature) ou sans (elles restent associées jusqu'à l'entrant). Dans les deux cas, Julian est soldé à la signature.",
   },
   {
     terme: 'Sortants, restants, entrants',
