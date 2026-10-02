@@ -31,7 +31,7 @@ import {
   toitCommun,
   toitRegle,
   updatedLabel,
-  variantes,
+  scenario,
 } from '~/data/la-margue-2026'
 
 export const prerender = true
@@ -280,7 +280,7 @@ export const prerender = true
               </td>
               <td class="px-5 py-4 text-xs text-[#1D1B18]/55" colspan="2">
                 {eur(toitCommun.materiaux)} de matériaux, avancés par {toitCommun.avancePar}, et
-                {' '}{eur(toitCommun.mainOeuvre)} de main d'œuvre bénévole
+                {' '}{eur(toitCommun.mainOeuvre)} de main d'œuvre
               </td>
             </tr>
           </tfoot>
@@ -590,33 +590,28 @@ export const prerender = true
 
   <!-- 7 · Comment ca se passe — la frise des etapes -->
 
-  <!-- 8 · Les deux variantes -->
-  <section id="variantes" class="scroll-mt-20 py-16 md:py-24">
+  <!-- 8 · Le scenario retenu -->
+  <section id="scenario" class="scroll-mt-20 py-16 md:py-24">
     <div class="max-w-5xl mx-auto px-6 md:px-10">
       <SectionHead
         eyebrow="Trésorerie"
-        title="Deux variantes en attendant"
+        title="En attendant"
         accent="l'entrant"
         size="text-3xl md:text-4xl"
         class="mb-10"
       />
-      <div class="grid gap-5 md:grid-cols-2">
-        {variantes.map((v) => (
-          <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6 md:p-8">
-            <p class="eyebrow mb-3">Variante {v.cle}</p>
-            <h3 class="text-xl md:text-2xl font-extrabold text-[#412F1F] tracking-[-0.02em] text-balance">
-              {v.titre}
-            </h3>
-            <ul class="mt-5 space-y-2.5">
-              {v.points.map((p) => (
-                <li class="flex gap-3 text-sm text-[#1D1B18]/70 leading-relaxed">
-                  <span class="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-[#9A3922]" aria-hidden="true"></span>
-                  <span>{p}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6 md:p-8 max-w-3xl">
+        <h3 class="text-xl md:text-2xl font-extrabold text-[#412F1F] tracking-[-0.02em] text-balance">
+          {scenario.titre}
+        </h3>
+        <ul class="mt-5 space-y-2.5">
+          {scenario.points.map((p) => (
+            <li class="flex gap-3 text-sm text-[#1D1B18]/70 leading-relaxed">
+              <span class="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-[#9A3922]" aria-hidden="true"></span>
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
