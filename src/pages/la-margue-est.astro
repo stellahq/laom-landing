@@ -310,7 +310,8 @@ export const prerender = true
             {eur(dettePatricia.mensualite)}
           </p>
           <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
-            Par mois pour Patricia, pendant {dettePatricia.dureeMois} mois, payés par l'association des habitants
+            Par mois pour Patricia, pendant {dettePatricia.dureeMois} mois, payés par l'association des habitants :
+            {' '}{eur(dettePatricia.prixAssociation)} en tout, elle porte sa part
           </p>
         </div>
         <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
@@ -321,7 +322,7 @@ export const prerender = true
             ({eur(dettePatricia.parFoyerMois)} par mois pendant 5 ans)
           </p>
           <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
-            Par foyer, pour chacun des {dettePatricia.foyers} foyers payeurs
+            Par part : {dettePatricia.parts} parts, versées par les {dettePatricia.foyers} foyers payeurs, Patricia portant la sienne
           </p>
         </div>
       </div>

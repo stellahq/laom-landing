@@ -223,9 +223,12 @@ export const estTotals = {
 }
 
 const DETTE_MONTANT = 57762.36
-const DETTE_MENSUALITE = 962.71
+const DETTE_MENSUALITE = 875.19
 const DETTE_DUREE_MOIS = 60
 const DETTE_FOYERS = 10
+const DETTE_PARTS = 11
+const DETTE_PRIX_ASSOCIATION = 52511.24
+const DETTE_PART = 5251.12
 
 /**
  * La dette de la SCIA Est envers Patricia, décidée le 9 septembre 2026 à la
@@ -233,20 +236,30 @@ const DETTE_FOYERS = 10
  * capital ni remboursée par l'entrant de la Lyre reste en compte courant.
  * Formalisation du 2 octobre 2026 : l'association des habitants rachète cette
  * part et la paie à Patricia sur cinq ans, grâce à une cotisation des 10 foyers
- * payeurs (la Lyre est exclue, Patricia est la créancière).
+ * payeurs (la Lyre est exclue). Patricia porte sa part comme les autres : la
+ * dette est divisée en 11 parts, elle cède sa créance pour 10 parts sur 11, et
+ * sa propre part est la différence (elle ne la paie pas, elle ne la touche pas).
  */
 export const dettePatricia = {
   montant: DETTE_MONTANT,
   compteCourantTotal: 80134.01,
   excedentEntrant: 22371.65,
   dureeMois: DETTE_DUREE_MOIS,
+  /** Versée à Patricia par l'association des habitants. */
   mensualite: DETTE_MENSUALITE,
+  /** Les parts de la dette : les 10 foyers payeurs, plus Patricia. */
+  parts: DETTE_PARTS,
+  /** Les foyers qui cotisent. */
   foyers: DETTE_FOYERS,
-  parFoyerMois: 96.27,
-  parFoyerTotal: 5776.24,
-  regle: `Patricia garde au capital la Grange seule. Le reste de sa créance est un compte courant de ${eur(80134.01)} dans la SCIA Est : ${eur(22371.65)} payés par l'entrant de la Lyre, et ${eur(DETTE_MONTANT)} rachetés par l'association des habitants, qui les paie à Patricia en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)} grâce à une cotisation des ${DETTE_FOYERS} foyers payeurs.`,
+  parFoyerMois: 87.52,
+  parFoyerTotal: DETTE_PART,
+  /** Ce que l'association paie à Patricia pour sa créance : 10 parts sur 11. */
+  prixAssociation: DETTE_PRIX_ASSOCIATION,
+  /** La part de Patricia : la différence, qu'elle ne paie pas et ne touche pas. */
+  partPatricia: DETTE_PART,
+  regle: `Patricia garde au capital la Grange seule. Le reste de sa créance est un compte courant de ${eur(80134.01)} dans la SCIA Est : ${eur(22371.65)} payés par l'entrant de la Lyre, et ${eur(DETTE_MONTANT)} rachetés par l'association des habitants pour ${eur(DETTE_PRIX_ASSOCIATION)}, payés à Patricia en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)}. Patricia porte sa part comme les autres foyers : ${DETTE_PARTS} parts de ${eur(DETTE_PART)}, dont ${DETTE_FOYERS} versées par les foyers payeurs (${eur(87.52)} par mois pendant 5 ans).`,
   aFixer:
-    'À confirmer : la liste des 10 foyers, la date de la première mensualité, et la validation par Pierre Lévy et la notaire.',
+    'À confirmer : Serge & Marie-Agnès et David Coste en part entière ou en demi-part, la date de la première mensualité, et la validation par Pierre Lévy et la notaire.',
 }
 
 export const estKeyFigures: KeyFigure[] = [
@@ -316,7 +329,7 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
         'Clé du main à la main à 10,5 parts.',
         `Foyer commun à ${eur(10862.07)} par part.`,
         "Khaldoun associé de l'Ouest, apporte sa quote-part ; plus de crédit vendeur.",
-        `Dette de ${eur(dettePatricia.montant)} de la SCIA Est envers Patricia, rachetée par l'association des habitants et payée à Patricia sur cinq ans (${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}), grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs, ${eur(dettePatricia.parFoyerTotal)} chacun.`,
+        `Dette de ${eur(dettePatricia.montant)} de la SCIA Est envers Patricia, en ${dettePatricia.parts} parts de ${eur(dettePatricia.parFoyerTotal)} : Patricia porte la sienne, l'association des habitants rachète le reste pour ${eur(dettePatricia.prixAssociation)} et le lui paie en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}, grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs.`,
         "Julian soldé à la signature ; Isabelle et Caroline portent le reste à parts égales et restent associées jusqu'à l'entrant.",
         `Lyre à ${eur(estTotals.prixLyre)} tout compris (330 000 € + sa part de chaudière).`,
         `Chaudière (devis Voda 20 730,62 €) partagée par tiers entre La Grange, la Lyre et la Source.`,
@@ -736,7 +749,7 @@ export const estEtapes: EtapeMontage[] = [
   },
   {
     titre: 'La dette envers Patricia',
-    texte: `Rachetée par l'association des habitants, qui la paie à Patricia en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs ; la liste des foyers et la date de la première mensualité restent à confirmer.`,
+    texte: `Rachetée par l'association des habitants pour ${eur(dettePatricia.prixAssociation)}, payés à Patricia en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs ; Patricia porte sa part, et la date de la première mensualité reste à confirmer.`,
     montant: dettePatricia.montant,
     montantNote: 'hors capital, sur cinq ans',
   },

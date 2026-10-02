@@ -278,8 +278,8 @@ const PATRICIA = {
   /** La Grange, son lot : capital dans la SCIA Est. */
   grange: 151987.93,
   capitalTotal: 151987.93 + 97932.16,
-  /** Ce qui lui revient en argent : l'excédent, plus les soixante mensualités. */
-  rembourseEnArgent: dettePatricia.excedentEntrant + dettePatricia.montant,
+  /** Ce qui lui revient en argent : l'excédent, plus les soixante mensualités de l'association. */
+  rembourseEnArgent: dettePatricia.excedentEntrant + dettePatricia.prixAssociation,
 }
 const lyre = foyerParAlias('Entrant Lyre')
 const magali = foyerParAlias('Magali Rouby')
@@ -343,9 +343,9 @@ const foyersDeLEst: Personne[] = [
         lignes: [
           { label: 'La Grange, son lot', montant: PATRICIA.grange, note: 'capital de la SCIA Est' },
           {
-            label: 'Compte courant, remboursé sur cinq ans',
+            label: "Compte courant, cédé à l'association des habitants",
             montant: dettePatricia.montant,
-            note: `par l'association des habitants, ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}`,
+            note: `pour ${eur(dettePatricia.prixAssociation)}, payés en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} ; la différence, ${eur(dettePatricia.partPatricia)}, est sa part de la dette`,
           },
           { label: 'Excédent, remboursé en argent', montant: PATRICIA.excedent, note: "par l'entrant de la Lyre" },
         ],
@@ -363,16 +363,17 @@ const foyersDeLEst: Personne[] = [
       {
         titre: 'Le bilan, et ce qui se règle à côté',
         explication:
-          "Au bout du parcours, tout ce qu'elle a mis se retrouve, soit en capital, soit en argent. À côté du montage, deux avances lui reviennent, un prêt sort de sa poche s'il est confirmé, et ses frais annexes se paient à la signature.",
+          "Au bout du parcours, tout ce qu'elle a mis se retrouve, soit en capital, soit en argent, soit dans sa part de la dette, qu'elle porte comme chaque foyer. À côté du montage, deux avances lui reviennent, un prêt sort de sa poche s'il est confirmé, et ses frais annexes se paient à la signature.",
         lignes: [
           { label: 'Capital détenu, Est + Ouest', montant: PATRICIA.capitalTotal, note: `${eur(PATRICIA.grange)} + ${eur(PATRICIA.ouest)}` },
-          { label: 'Remboursé en argent', montant: PATRICIA.rembourseEnArgent, note: "excédent par l'entrant + 60 mensualités" },
+          { label: 'Remboursé en argent', montant: PATRICIA.rembourseEnArgent, note: `${eur(PATRICIA.excedent)} d'excédent par l'entrant + ${eur(dettePatricia.prixAssociation)} de l'association, en 60 mensualités` },
+          { label: 'Sa part de la dette', montant: dettePatricia.partPatricia, note: 'comme chaque foyer ; elle ne la paie pas, elle ne la touche pas' },
           { label: 'Main à la main, récupéré', montant: avancePatricia.recupere, note: `${eur(avancePatricia.avance)} avancés, moins sa part de ${eur(avancePatricia.part)}` },
           { label: 'Toit Source + Lyre, récupéré', montant: toitCommun.remboursementPatricia, note: `${eur(toitCommun.materiaux)} avancés, moins sa part de ${eur(toitCommun.part)} ; hors montage, sur facture de la Ferme` },
           { label: 'Prêt à Khaldoun', montant: 30000, note: 'sort de sa poche, hors SCIA, à confirmer' },
           { label: 'Frais annexes Est', montant: patricia.fraisAnnexes, note: 'à payer à la signature' },
         ],
-        controle: `${eur(PATRICIA.capitalTotal)} + ${eur(PATRICIA.rembourseEnArgent)} = ${eur(PATRICIA.total)} : rien ne s'est perdu en route.`,
+        controle: `${eur(PATRICIA.capitalTotal)} + ${eur(PATRICIA.rembourseEnArgent)} + ${eur(dettePatricia.partPatricia)} = ${eur(PATRICIA.total)} : rien ne s'est perdu en route.`,
       },
     ],
     misEnJeu: [
@@ -390,7 +391,12 @@ const foyersDeLEst: Personne[] = [
       {
         label: "Reçoit de l'association des habitants",
         montant: dettePatricia.mensualite,
-        note: `par mois pendant 5 ans, ${eur(dettePatricia.montant)} en tout`,
+        note: `par mois pendant 5 ans, ${eur(dettePatricia.prixAssociation)} en tout`,
+      },
+      {
+        label: 'Porte sa part de sa dette',
+        montant: dettePatricia.partPatricia,
+        note: `(comme chaque foyer : elle cède sa créance de ${eur(dettePatricia.montant)} pour ${eur(dettePatricia.prixAssociation)})`,
       },
       {
         label: 'Reçoit de la Ferme du Verseau, remboursement du toit',
@@ -403,7 +409,7 @@ const foyersDeLEst: Personne[] = [
       {
         label: 'Compte courant dans la SCIA Est',
         montant: dettePatricia.compteCourantTotal,
-        note: `${eur(dettePatricia.excedentEntrant)} à l'arrivée de l'entrant, ${eur(dettePatricia.montant)} rachetés par l'association des habitants, payés sur cinq ans`,
+        note: `${eur(dettePatricia.excedentEntrant)} à l'arrivée de l'entrant ; ${eur(dettePatricia.montant)} cédés à l'association des habitants pour ${eur(dettePatricia.prixAssociation)}, payés sur cinq ans, la différence étant sa part de la dette`,
       },
       {
         label: "Apport à la SCIA Ouest",
@@ -867,7 +873,7 @@ const foyersDeLOuest: Personne[] = [
       {
         label: 'Dette de Patricia',
         montant: dettePatricia.montant,
-        note: `rachète cette part de la créance de Patricia sur la SCIA Est et la paie ${eur(dettePatricia.mensualite)} par mois pendant 5 ans, financée par la cotisation des ${dettePatricia.foyers} foyers (${eur(dettePatricia.parFoyerTotal)} chacun) ; elle devient créancière de la SCIA Est à la place de Patricia`,
+        note: `rachète cette créance de Patricia sur la SCIA Est pour ${eur(dettePatricia.prixAssociation)}, la paie ${eur(dettePatricia.mensualite)} par mois pendant 5 ans, financée par la cotisation des ${dettePatricia.foyers} foyers (${eur(dettePatricia.parFoyerTotal)} chacun) ; elle devient créancière de la SCIA Est à la place de Patricia`,
       },
     ],
     detient: [
@@ -875,7 +881,7 @@ const foyersDeLOuest: Personne[] = [
       {
         label: 'Créance sur la SCIA Est',
         montant: dettePatricia.montant,
-        note: 'rachetée à Patricia',
+        note: `rachetée à Patricia pour ${eur(dettePatricia.prixAssociation)}`,
       },
     ],
     frais: { detail: 'Aucun : ni main à la main, ni foyer commun, ni provision de notaire.' },
