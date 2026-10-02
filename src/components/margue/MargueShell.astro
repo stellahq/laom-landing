@@ -1,6 +1,6 @@
 ---
 // MargueShell — coquille commune aux quatre fiches internes du montage La Margue
-// (/la-margue-est, /la-margue-ouest, /la-margue-par-personne, /la-margue-notice).
+// (/la-margue-synthese, /la-margue-est, /la-margue-ouest, /la-margue-par-personne, /la-margue-notice).
 // Rend : l'overlay mot de passe, la barre d'onglets fixe, l'en-tete de page,
 // le contenu (slot) et le pied de page confidentiel.
 //
@@ -12,7 +12,7 @@ import SectionHeading from '~/components/laom/SectionHeading.astro'
 import { UPDATED, VERSION } from '~/data/la-margue-2026'
 
 interface Props {
-  page: 'est' | 'ouest' | 'personnes' | 'notice'
+  page: 'synthese' | 'est' | 'ouest' | 'personnes' | 'notice'
   title: string
   subtitle: string
   updated: string
@@ -21,6 +21,7 @@ interface Props {
 const { page, title, subtitle, updated } = Astro.props
 
 const tabs = [
+  { id: 'synthese', label: 'Où on en est', href: '/la-margue-synthese/' },
   { id: 'est', label: 'La Margue Est', href: '/la-margue-est/' },
   { id: 'ouest', label: 'La Margue Ouest', href: '/la-margue-ouest/' },
   { id: 'personnes', label: 'Par personne', href: '/la-margue-par-personne/' },
