@@ -344,7 +344,6 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
       titre: 'À valider par le collectif',
       items: [
         'La clé du main à la main : Greg divise par 15.',
-        'La variante, avec ou sans prêts en compte courant.',
         `Le foyer commun à ${eur(10862.07)} par part, sur la clé revue le 9/09 (11,6 parts).`,
         'La dette de Patricia : liste des 10 foyers et validation de la formalisation par la notaire',
       ],
@@ -525,7 +524,7 @@ const TOIT_PART_MAIN_OEUVRE = 3000
 const TOIT_LOYERS_KHALDOUN = 8800
 
 export const toitRegle =
-  `Le toit des maisons Source et Lyre a coûté ${eur(33000)} : ${eur(21000)} de matériaux, avancés par Patricia à la Ferme du Verseau, et ${eur(12000)} de main d'œuvre bénévole. Il ne passe par aucune des deux SCIA : il se règle à part, sur facture de la Ferme du Verseau.`
+  `Le toit des maisons Source et Lyre a coûté ${eur(33000)} : ${eur(21000)} de matériaux, avancés par Patricia à la Ferme du Verseau, et ${eur(12000)} de main d'œuvre. Il ne passe par aucune des deux SCIA : il se règle à part, sur facture de la Ferme du Verseau.`
 
 /**
  * Le toit Source + Lyre, hors montage. Les lignes ci-dessous couvrent le coût
@@ -777,26 +776,15 @@ export function fluxFoyer(f: FoyerEst): FluxBloc[] {
   return blocs
 }
 
-export const variantes: Variante[] = [
-  {
-    cle: 'A',
-    titre: 'Scénario prêt en compte courant',
-    points: [
-      "Des prêts en compte courant d'associés paient presque tout à Isabelle et Caroline dès la signature (il resterait environ 1 437 à chacune).",
-      "Ils sont remboursés par l'entrant de la Lyre, jamais transformés en parts.",
-      "Seule variante qui tient la date butoir d'Isabelle, le 15 novembre 2026.",
-    ],
-  },
-  {
-    cle: 'B',
-    titre: 'Scénario sans prêt',
-    points: [
-      "Julian est soldé à la signature ; Isabelle et Caroline restent associées avec environ 76 437 chacune en compte courant jusqu'à l'arrivée de l'entrant.",
-      'Aucune reconnaissance de dette.',
-      "Personne n'avance de trésorerie.",
-    ],
-  },
-]
+export const scenario: Variante = {
+  cle: 'retenu',
+  titre: 'Le scénario retenu : sans prêt',
+  points: [
+    `Julian est soldé à la signature : ${eur(150000)}.`,
+    "Isabelle et Caroline sont remboursées de tout ce qui est disponible à la signature, et restent associées avec environ 76 437 chacune en compte courant jusqu'à l'arrivée du nouvel associé de la Lyre, qui les rachète.",
+    "Aucun prêt, aucune reconnaissance de dette : personne n'avance de trésorerie.",
+  ],
+}
 
 export const notionsEst: NotionChiffree[] = [
   {
@@ -1081,10 +1069,11 @@ export const lexique: LexiqueEntree[] = [
       "La signature (les entrants paient), puis l'arrivée de l'entrant de la Lyre (il solde le reste).",
   },
   {
-    terme: 'Variantes A et B',
+    terme: 'Scénario sans prêt',
     definition:
-      "Avec prêts en compte courant (Isabelle et Caroline soldées à la signature) ou sans (elles restent associées jusqu'à l'entrant). Dans les deux cas, Julian est soldé à la signature.",
+      "Le seul scénario proposé : Julian est soldé à la signature ; Isabelle et Caroline restent associées avec leur compte courant jusqu'à l'arrivée du nouvel associé de la Lyre.",
   },
+
   {
     terme: 'Sortants, restants, entrants',
     definition:

@@ -220,7 +220,7 @@
         },
         {
           "point": "Jamais de reconnaissance de dette",
-          "detail": "Julian est soldé à la signature. Isabelle et Caroline restent associées avec leur compte courant jusqu'à l'entrant (variante B), ou des prêts en compte courant soldent tout à la signature (variante A).",
+          "detail": "Julian est soldé à la signature. Isabelle et Caroline restent associées avec leur compte courant jusqu'à l'entrant. Pas de prêt en compte courant (variante A écartée le 2/10).",
           "source": "Charly",
           "date": "2/09/2026"
         },
@@ -274,7 +274,7 @@
         },
         {
           "point": "Toit Source + Lyre : hors montage, sur facture de la Ferme du Verseau",
-          "detail": "Le toit a coûté 33 000 : 21 000 de matériaux avancés par Patricia à la Ferme du Verseau, 12 000 de main d'œuvre bénévole. Greg, Isabelle et Caroline paient 3 050 chacun sur facture de la Ferme ; la part de Patricia (3 050) est déduite de son remboursement ; Claire & Baptiste, Amandine & Charly et Khaldoun ont réglé la leur en main d'œuvre (environ 3 000 chacun) ; LAOM prend en charge les 3 000 de Théo. Les 8 800 de loyers que Khaldoun doit à l'indivision sont affectés au remboursement de Patricia : 8 800 + 3 × 3 050 = 17 950 = 21 000 − 3 050.",
+          "detail": "Le toit a coûté 33 000 : 21 000 de matériaux avancés par Patricia à la Ferme du Verseau, 12 000 de main d'œuvre. Greg, Isabelle et Caroline paient 3 050 chacun sur facture de la Ferme ; la part de Patricia (3 050) est déduite de son remboursement ; Claire & Baptiste, Amandine & Charly et Khaldoun ont réglé la leur en main d'œuvre (environ 3 000 chacun) ; LAOM prend en charge les 3 000 de Théo. Les 8 800 de loyers que Khaldoun doit à l'indivision sont affectés au remboursement de Patricia : 8 800 + 3 × 3 050 = 17 950 = 21 000 − 3 050.",
           "source": "Charly",
           "date": "7/09/2026"
         },
@@ -516,17 +516,17 @@
       ]
     },
     {
-      "titre": "10. Deux variantes en attendant l'entrant",
+      "titre": "10. En attendant l'entrant : le scénario retenu",
       "items": [
         {
-          "point": "Variante A, avec prêts en compte courant",
-          "detail": "Des prêts en compte courant d'associés, 150 000 au total, au-dessus des capitaux, remboursés par l'entrant, jamais transformés en parts. Julian étant soldé à la signature, le besoin pour solder Isabelle et Caroline est de 152 873,91 ; il resterait environ 1 437 à chacune. À la signature : Isabelle 236 982,90, Caroline 298 563,05, Julian 150 000. Seule cette variante respecte la date butoir d'Isabelle (15 novembre 2026). Qui prête, et combien, reste à décider entre associés.",
+          "point": "Variante A, avec prêts en compte courant : écartée le 2/10",
+          "detail": "Écartée par Charly le 2/10 : on ne propose qu'un seul scénario, sans prêt. Pour mémoire : Des prêts en compte courant d'associés, 150 000 au total, au-dessus des capitaux, remboursés par l'entrant, jamais transformés en parts. Julian étant soldé à la signature, le besoin pour solder Isabelle et Caroline est de 152 873,91 ; il resterait environ 1 437 à chacune. À la signature : Isabelle 236 982,90, Caroline 298 563,05, Julian 150 000. Seule cette variante respecte la date butoir d'Isabelle (15 novembre 2026). Qui prête, et combien, reste à décider entre associés.",
           "source": "SCIA LA MARGUE, étape 2",
           "date": ""
         },
         {
-          "point": "Variante B, sans prêt",
-          "detail": "Julian est soldé à la signature. Isabelle et Caroline restent associées avec environ 76 437 chacune en compte courant jusqu'à ce que l'entrant les rachète. Aucune reconnaissance de dette.",
+          "point": "Le scénario retenu : sans prêt (ex-variante B)",
+          "detail": "Julian est soldé à la signature. Isabelle et Caroline restent associées avec environ 76 437 chacune en compte courant jusqu'à ce que l'entrant les rachète. Aucun prêt, aucune reconnaissance de dette.",
           "source": "SCIA LA MARGUE, étape 2",
           "date": ""
         },
@@ -577,8 +577,8 @@
       "titre": "12. Ce qui reste à trancher",
       "items": [
         {
-          "point": "Variante A ou B",
-          "detail": "Prêts en compte courant (qui prête, combien) ou sortants associés jusqu'à l'entrant, face à la date butoir d'Isabelle.",
+          "point": "Variante A ou B : tranché",
+          "detail": "Tranché par Charly le 2/10 : un seul scénario, sans prêt (Julian soldé à la signature, Isabelle et Caroline associées jusqu'à l'entrant).",
           "source": "",
           "date": ""
         },
