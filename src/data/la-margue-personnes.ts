@@ -220,12 +220,27 @@ const TOIT_PAIE = 'Paie à la Ferme du Verseau, toit Source + Lyre'
 const TOIT_HORS_MONTAGE = 'sur facture, hors montage'
 
 /**
- * La part d'un foyer à l'année dans la dette de Patricia : l'hypothèse de la
- * réunion du 9 septembre, pas une répartition arrêtée.
+ * La part d'un foyer payeur dans la dette de Patricia (10 foyers, décision du
+ * 2 octobre) : le total en gros, la mensualité en dessous.
  */
 const DETTE_PATRICIA_PART: FicheLigne = {
-  label: 'Dette de Patricia, part à fixer',
-  texte: `hypothèse ${dettePatricia.foyersHypothese} foyers : ${eur(dettePatricia.parFoyerMois)} par mois pendant cinq ans`,
+  label: 'Dette de Patricia (sa part)',
+  montant: dettePatricia.parFoyerTotal,
+  note: `(${eur(dettePatricia.parFoyerMois)} par mois pendant 5 ans)`,
+}
+
+/** Ce qui est encore dû à un sortant à l'arrivée de l'entrant de la Lyre. */
+function duParLEntrant(nom: string): number {
+  const x = phase2.flux.find((f) => f.beneficiaire === nom)
+  if (!x) throw new Error(`Rien de dû par l'entrant à : ${nom}`)
+  return x.montant
+}
+
+/** Ce qu'un sortant reçoit à la signature, total du classeur. */
+function recuALaSignature(nom: string): number {
+  const x = phase1.recus?.find((r) => r.nom === nom)
+  if (!x) throw new Error(`Rien de reçu à la signature par : ${nom}`)
+  return x.montant
 }
 
 /** La ligne des foyers qui ont réglé leur part sur le chantier. */
@@ -263,8 +278,8 @@ const PATRICIA = {
   /** La Grange, son lot : capital dans la SCIA Est. */
   grange: 151987.93,
   capitalTotal: 151987.93 + 97932.16,
-  /** Ce qui lui revient en argent : l'excédent, plus les soixante mensualités. */
-  rembourseEnArgent: dettePatricia.excedentEntrant + dettePatricia.montant,
+  /** Ce qui lui revient en argent : l'excédent, plus les soixante mensualités de l'association. */
+  rembourseEnArgent: dettePatricia.excedentEntrant + dettePatricia.prixAssociation,
 }
 const lyre = foyerParAlias('Entrant Lyre')
 const magali = foyerParAlias('Magali Rouby')
@@ -287,7 +302,7 @@ const foyersDeLEst: Personne[] = [
     flux: [...versements(serge.alias), DETTE_PATRICIA_PART],
     detient: [{ label: serge.lot, montant: serge.capital, note: 'capital dans la SCIA Est' }],
     frais: fraisEst(serge),
-    signe: 'Statuts de la SCIA Est, cessions de parts et quittances Ader et Quero.',
+    signe: 'Statuts de la SCIA Est, cessions de parts et quittance Quero.',
     verifier: [EST_FOYERS, EST_PHASES],
   },
   {
@@ -328,9 +343,9 @@ const foyersDeLEst: Personne[] = [
         lignes: [
           { label: 'La Grange, son lot', montant: PATRICIA.grange, note: 'capital de la SCIA Est' },
           {
-            label: 'Compte courant, remboursé sur cinq ans',
+            label: "Compte courant, cédé à l'association des habitants",
             montant: dettePatricia.montant,
-            note: `par les foyers à l'année, ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}`,
+            note: `pour ${eur(dettePatricia.prixAssociation)}, payés en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} ; la différence, ${eur(dettePatricia.partPatricia)}, est sa part de la dette`,
           },
           { label: 'Excédent, remboursé en argent', montant: PATRICIA.excedent, note: "par l'entrant de la Lyre" },
         ],
@@ -348,16 +363,17 @@ const foyersDeLEst: Personne[] = [
       {
         titre: 'Le bilan, et ce qui se règle à côté',
         explication:
-          "Au bout du parcours, tout ce qu'elle a mis se retrouve, soit en capital, soit en argent. À côté du montage, deux avances lui reviennent, un prêt sort de sa poche s'il est confirmé, et ses frais annexes se paient à la signature.",
+          "Au bout du parcours, tout ce qu'elle a mis se retrouve, soit en capital, soit en argent, soit dans sa part de la dette, qu'elle porte comme chaque foyer. À côté du montage, deux avances lui reviennent, un prêt sort de sa poche s'il est confirmé, et ses frais annexes se paient à la signature.",
         lignes: [
           { label: 'Capital détenu, Est + Ouest', montant: PATRICIA.capitalTotal, note: `${eur(PATRICIA.grange)} + ${eur(PATRICIA.ouest)}` },
-          { label: 'Remboursé en argent', montant: PATRICIA.rembourseEnArgent, note: "excédent par l'entrant + 60 mensualités" },
+          { label: 'Remboursé en argent', montant: PATRICIA.rembourseEnArgent, note: `${eur(PATRICIA.excedent)} d'excédent par l'entrant + ${eur(dettePatricia.prixAssociation)} de l'association, en 60 mensualités` },
+          { label: 'Sa part de la dette', montant: dettePatricia.partPatricia, note: 'comme chaque foyer ; elle ne la paie pas, elle ne la touche pas' },
           { label: 'Main à la main, récupéré', montant: avancePatricia.recupere, note: `${eur(avancePatricia.avance)} avancés, moins sa part de ${eur(avancePatricia.part)}` },
           { label: 'Toit Source + Lyre, récupéré', montant: toitCommun.remboursementPatricia, note: `${eur(toitCommun.materiaux)} avancés, moins sa part de ${eur(toitCommun.part)} ; hors montage, sur facture de la Ferme` },
           { label: 'Prêt à Khaldoun', montant: 30000, note: 'sort de sa poche, hors SCIA, à confirmer' },
           { label: 'Frais annexes Est', montant: patricia.fraisAnnexes, note: 'à payer à la signature' },
         ],
-        controle: `${eur(PATRICIA.capitalTotal)} + ${eur(PATRICIA.rembourseEnArgent)} = ${eur(PATRICIA.total)} : rien ne s'est perdu en route.`,
+        controle: `${eur(PATRICIA.capitalTotal)} + ${eur(PATRICIA.rembourseEnArgent)} + ${eur(dettePatricia.partPatricia)} = ${eur(PATRICIA.total)} : rien ne s'est perdu en route.`,
       },
     ],
     misEnJeu: [
@@ -373,9 +389,14 @@ const foyersDeLEst: Personne[] = [
         note: `${eur(avancePatricia.avance)} avancés depuis 2021, moins sa part de ${eur(avancePatricia.part)} ; payé par les foyers qui n'ont pas avancé`,
       },
       {
-        label: 'Reçoit des foyers, via la SCIA Est',
+        label: "Reçoit de l'association des habitants",
         montant: dettePatricia.mensualite,
-        note: `par mois pendant cinq ans, ${eur(dettePatricia.montant)} en tout`,
+        note: `par mois pendant 5 ans, ${eur(dettePatricia.prixAssociation)} en tout`,
+      },
+      {
+        label: 'Porte sa part de sa dette',
+        montant: dettePatricia.partPatricia,
+        note: `(comme chaque foyer : elle cède sa créance de ${eur(dettePatricia.montant)} pour ${eur(dettePatricia.prixAssociation)})`,
       },
       {
         label: 'Reçoit de la Ferme du Verseau, remboursement du toit',
@@ -388,7 +409,7 @@ const foyersDeLEst: Personne[] = [
       {
         label: 'Compte courant dans la SCIA Est',
         montant: dettePatricia.compteCourantTotal,
-        note: `${eur(dettePatricia.excedentEntrant)} à l'arrivée de l'entrant, ${eur(dettePatricia.montant)} sur cinq ans`,
+        note: `${eur(dettePatricia.excedentEntrant)} à l'arrivée de l'entrant ; ${eur(dettePatricia.montant)} cédés à l'association des habitants pour ${eur(dettePatricia.prixAssociation)}, payés sur cinq ans, la différence étant sa part de la dette`,
       },
       {
         label: "Apport à la SCIA Ouest",
@@ -449,7 +470,7 @@ const foyersDeLEst: Personne[] = [
       { label: 'La Pergola', montant: 16173.09, note: 'quote-part 8 673,09 + 7 500 de valeur propre' },
     ],
     frais: fraisEst(magali),
-    signe: 'Statuts de la SCIA Est, cession de parts et quittance Ader.',
+    signe: 'Statuts de la SCIA Est, cessions de parts et quittances Ader et Desplats.',
     verifier: [EST_FOYERS, EST_PHASES],
   },
   {
@@ -526,6 +547,11 @@ const ceuxQuiSortent: Personne[] = [
     flux: [
       ...versements(['Isabelle Desplats']),
       {
+        label: 'Total reçu à la signature',
+        montant: recuALaSignature('Isabelle Desplats'),
+        note: 'les deux versements à la signature ci-dessus',
+      },
+      {
         label: RECUPERE_MAM,
         montant: avanceIsabelle.recupere,
         note: 'avancés pour le deck, elle demande à les récupérer',
@@ -539,8 +565,8 @@ const ceuxQuiSortent: Personne[] = [
     detient: [
       {
         label: "Compte courant, jusqu'à l'entrant",
-        montant: 53518.04,
-        note: 'elle reste associée jusque-là, ou soldée dès la signature dans la variante avec prêts',
+        montant: duParLEntrant('Isabelle Desplats'),
+        note: 'elle reste associée jusque-là, avec Caroline, qui porte la même part du manque',
       },
       {
         label: 'Avec Turquoise, ses parts et les soultes',
@@ -575,7 +601,11 @@ const ceuxQuiSortent: Personne[] = [
     misEnJeu: [{ label: "Ce qu'elle a mis", montant: 300000 }],
     flux: [
       ...versements(['Caroline Ader']),
-      { label: 'Total reçu à la signature', montant: 246481.96, note: 'les trois versements ci-dessus' },
+      {
+        label: 'Total reçu à la signature',
+        montant: recuALaSignature('Caroline Ader'),
+        note: 'les deux versements à la signature ci-dessus',
+      },
       {
         label: 'Main à la main',
         texte: `${eur(avanceCaroline.avance)} avancés pour le deck`,
@@ -586,8 +616,8 @@ const ceuxQuiSortent: Personne[] = [
     detient: [
       {
         label: "Compte courant, jusqu'à l'entrant",
-        montant: 53518.04,
-        note: 'elle reste associée jusque-là',
+        montant: duParLEntrant('Caroline Ader'),
+        note: 'elle reste associée jusque-là, avec Isabelle, qui porte la même part du manque',
       },
     ],
     frais: AUCUN_FRAIS,
@@ -602,17 +632,20 @@ const ceuxQuiSortent: Personne[] = [
     misEnJeu: [{ label: "Ce qu'il a mis", montant: 150000 }],
     flux: [
       ...versements(['Julian Quero']),
-      { label: 'Total reçu à la signature', montant: 96481.95, note: 'les deux versements ci-dessus' },
+      {
+        label: 'Total reçu à la signature',
+        montant: recuALaSignature('Julian Quero'),
+        note: "les deux versements ci-dessus : il est soldé à 100 %",
+      },
     ],
     detient: [
       {
-        label: "Compte courant, jusqu'à l'entrant",
-        montant: 53518.04,
-        note: 'il reste associé jusque-là',
+        label: 'Plus rien dans la SCIA Est',
+        texte: "soldé à la signature, il n'est plus associé et n'attend rien de l'entrant",
       },
     ],
     frais: AUCUN_FRAIS,
-    signe: 'Cessions de parts et quittances.',
+    signe: 'Cession de ses parts et quittance finale, à la signature.',
     verifier: [EST_SORTANTS, EST_PHASES],
   },
   {
@@ -836,10 +869,20 @@ const foyersDeLOuest: Personne[] = [
       },
     ],
     flux: [
-      { label: 'Aucun versement', texte: 'son apport est sa part du foyer commun' },
+      { label: 'Foyer commun', texte: 'son apport est sa part du foyer commun, sans versement' },
+      {
+        label: 'Dette de Patricia',
+        montant: dettePatricia.montant,
+        note: `rachète cette créance de Patricia sur la SCIA Est pour ${eur(dettePatricia.prixAssociation)}, la paie ${eur(dettePatricia.mensualite)} par mois pendant 5 ans, financée par la cotisation des ${dettePatricia.foyers} foyers (${eur(dettePatricia.parFoyerTotal)} chacun) ; elle devient créancière de la SCIA Est à la place de Patricia`,
+      },
     ],
     detient: [
       { label: 'Foyer commun', montant: 35506.2, note: 'un tiers' },
+      {
+        label: 'Créance sur la SCIA Est',
+        montant: dettePatricia.montant,
+        note: `rachetée à Patricia pour ${eur(dettePatricia.prixAssociation)}`,
+      },
     ],
     frais: { detail: 'Aucun : ni main à la main, ni foyer commun, ni provision de notaire.' },
     signe: 'Statuts de la SCIA Ouest.',

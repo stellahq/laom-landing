@@ -125,7 +125,7 @@
         },
         {
           "point": "Compte courant de Patricia, à la place des cinq lots à construire",
-          "detail": "Depuis le 2/10, plus de lots 8 à 12. Ce que Patricia n'est pas remboursée en argent à la signature reste une dette de la SCIA Est envers elle : 80 134,01 de compte courant d'associée, dont 22 371,65 remboursés par l'entrant de la Lyre et 57 762,36 remboursés sur cinq ans par les foyers à l'année (60 mensualités de 962,71 ; hypothèse de la réunion du 9/09 : 12 foyers, 80,23 par foyer et par mois). Les lots de l'Est sont numérotés 1 à 7.",
+          "detail": "Depuis le 2/10, plus de lots 8 à 12. Ce que Patricia n'est pas remboursée en argent à la signature reste une dette de la SCIA Est envers elle : 80 134,01 de compte courant d'associée, dont 22 371,65 remboursés par l'entrant de la Lyre et 57 762,36 remboursés sur cinq ans via l'association des habitants (11 parts, Patricia porte la sienne : 5 251,12 par foyer, soit 87,52 par mois ; Patricia reçoit 52 511,24, 875,19 par mois). Les lots de l'Est sont numérotés 1 à 7.",
           "source": "Collectif (9/09), Charly (2/10)",
           "date": "2/10/2026"
         }
@@ -220,7 +220,7 @@
         },
         {
           "point": "Jamais de reconnaissance de dette",
-          "detail": "Les sortants restent associés avec leur compte courant jusqu'à l'entrant (variante B), ou des prêts en compte courant soldent tout à la signature (variante A).",
+          "detail": "Julian est soldé à la signature. Isabelle et Caroline restent associées avec leur compte courant jusqu'à l'entrant (variante B), ou des prêts en compte courant soldent tout à la signature (variante A).",
           "source": "Charly",
           "date": "2/09/2026"
         },
@@ -298,8 +298,20 @@
         },
         {
           "point": "Les cinq lots sont retirés : la SCIA Est doit 57 762,36 à Patricia, remboursés sur cinq ans par les foyers",
-          "detail": "Décision de la réunion du 9/09 (proposition de David Coste), retenue le 2/10. Patricia garde au capital la Grange seule (151 987,93). Le reste de sa créance Est, 80 134,01, est un compte courant d'associée : 22 371,65 payés par l'entrant de la Lyre (inchangé), 57 762,36 remboursés en 60 mensualités de 962,71 par les foyers à l'année. Hypothèse de la réunion : 12 foyers, soit 80,23 par foyer et par mois, 4 813,53 sur cinq ans ; la liste des foyers payeurs, la date de la première mensualité et le véhicule juridique restent à fixer. Rien d'autre ne bouge : Lyre 305 167,00 de capital, 336 910,21 tout compris, phases 1 et 2, frais annexes. Capital total Est 1 109 933,74. Construire à l'Est un jour est un sujet découplé de cette dette.",
+          "detail": "Décision de la réunion du 9/09 (proposition de David Coste), retenue le 2/10. Patricia garde au capital la Grange seule (151 987,93). Le reste de sa créance Est, 80 134,01, est un compte courant d'associée : 22 371,65 payés par l'entrant de la Lyre (inchangé), 57 762,36 remboursés sur cinq ans par les foyers ; voir les deux décisions suivantes pour la répartition et la formalisation. Rien d'autre ne bouge : Lyre 305 167,00 de capital, 336 910,21 tout compris, phases 1 et 2, frais annexes. Capital total Est 1 109 933,74. Construire à l'Est un jour est un sujet découplé de cette dette.",
           "source": "Collectif / Charly",
+          "date": "2/10/2026"
+        },
+        {
+          "point": "Julian remboursé à 100 % ; la dette de Patricia passe par l'association",
+          "detail": "Sortants : Julian est remboursé en totalité à la signature (150 000 : Serge & Marie-Agnès 105 628,55, Charlotte & David 44 371,45). Ce qui manque à la signature (152 873,91) est porté à 50/50 par Isabelle et Caroline, qui restent associées avec environ 76 437 chacune de compte courant (76 436,94 et 76 436,95) jusqu'à l'entrant de la Lyre. Posture du 9/09 reprise par Charly le 2/10 ; elle remplace le report à parts égales entre les trois (50 957,97 chacun). Dette de Patricia : formalisation par l'association des habitants, qui rachète les 57 762,36 de compte courant à Patricia et se finance par une cotisation des foyers payeurs. L'association devient créancière de la SCIA Est à la place de Patricia : l'argent des foyers reste un bien du collectif. Rien à écrire dans les statuts sur la répartition entre foyers ; l'Ouest participe sans être associé de l'Est.",
+          "source": "Charly",
+          "date": "2/10/2026"
+        },
+        {
+          "point": "Patricia porte sa part : 11 parts, 5 251,12 par foyer",
+          "detail": "En réunion, le « 12 » était le nombre de foyers du collectif (« les 12 qu'on est »), Lyre et Patricia comprises : 57 762,36 / 12 = 4 813,53, les « 5 000 » entendus. La Lyre est exclue (son prix ne bouge pas : 336 910,21 tout compris, 340 000 annoncés). Patricia, d'accord le 2/10, porte sa part comme les autres foyers : 11 parts. Les 10 foyers payeurs (Serge & Marie-Agnès, Magali, Greg, Charlotte & David ; Amandine & Charly, Claire & Baptiste, Laetitia, David Lin, David Coste, Khaldoun) versent 5 251,12 chacun, 87,52 par mois pendant cinq ans. Patricia cède les 57 762,36 à l'association pour 52 511,24 (10 parts sur 11), payés en 60 mensualités de 875,19 ; sa part (5 251,12) est la différence. Serge & Marie-Agnès et David Coste, résidences secondaires, paient une part entière (Charly, 2/10).",
+          "source": "Charly / Patricia",
           "date": "2/10/2026"
         }
       ]
@@ -473,13 +485,13 @@
         },
         {
           "point": "Phase 1, à la signature (539 549,83)",
-          "detail": "Greg → Caroline 52 486,89 (cession de créance) · Magalie → Caroline 185 320,94 · Serge & Marie-Agnès → Caroline 11 234,21 et → Julian 94 394,34 · Charlotte & David → Julian 4 647,70, → Turquoise 4 003,88, → Isabelle 187 461,87. Reçu : Isabelle 187 461,87, Caroline 249 042,04, Julian 99 042,04. Chacun des trois garde 50 957,97 en compte courant et reste associé jusqu'à l'entrant.",
+          "detail": "Greg → Caroline 52 486,89 (cession de créance) · Magalie → Caroline 171 076,16 et → Isabelle 14 244,78 · Serge & Marie-Agnès → Julian 105 628,55 · Charlotte & David → Julian 44 371,45, → Turquoise 4 003,88, → Isabelle 147 738,12. Reçu : Julian 150 000 (soldé), Isabelle 161 982,90, Caroline 223 563,05. Isabelle et Caroline gardent chacune environ 76 437 en compte courant et restent associées jusqu'à l'entrant.",
           "source": "SCIA LA MARGUE, étapes 1 et 2",
           "date": ""
         },
         {
           "point": "Phase 2, à l'arrivée de l'entrant (305 167,00)",
-          "detail": "Entrant Lyre → Isabelle, Caroline, Julian 50 957,97 chacun (rachat de leurs parts et de leur compte courant, quittance finale) · → Orriols SARL 129 921,46 · → Patricia 22 371,65.",
+          "detail": "Entrant Lyre → Isabelle 76 436,94 et Caroline 76 436,95 (rachat de leurs parts et de leur compte courant, quittance finale) · → Orriols SARL 129 921,46 · → Patricia 22 371,65. Plus rien pour Julian, soldé à la signature.",
           "source": "SCIA LA MARGUE, étapes 1 et 2",
           "date": ""
         },
@@ -508,13 +520,13 @@
       "items": [
         {
           "point": "Variante A, avec prêts en compte courant",
-          "detail": "Des prêts en compte courant d'associés, 150 000 au total, au-dessus des capitaux, remboursés par l'entrant, jamais transformés en parts. Besoin pour solder les trois sortants : 152 873,91 ; il resterait 957,97 par sortant. À la signature : Isabelle 237 461,87, Caroline 299 042,04, Julian 149 042,04. Seule cette variante respecte la date butoir d'Isabelle (15 novembre 2026). Qui prête, et combien, reste à décider entre associés.",
+          "detail": "Des prêts en compte courant d'associés, 150 000 au total, au-dessus des capitaux, remboursés par l'entrant, jamais transformés en parts. Julian étant soldé à la signature, le besoin pour solder Isabelle et Caroline est de 152 873,91 ; il resterait environ 1 437 à chacune. À la signature : Isabelle 236 982,90, Caroline 298 563,05, Julian 150 000. Seule cette variante respecte la date butoir d'Isabelle (15 novembre 2026). Qui prête, et combien, reste à décider entre associés.",
           "source": "SCIA LA MARGUE, étape 2",
           "date": ""
         },
         {
           "point": "Variante B, sans prêt",
-          "detail": "Les trois sortants restent associés avec 50 957,97 chacun en compte courant jusqu'à ce que l'entrant les rachète. Aucune reconnaissance de dette.",
+          "detail": "Julian est soldé à la signature. Isabelle et Caroline restent associées avec environ 76 437 chacune en compte courant jusqu'à ce que l'entrant les rachète. Aucune reconnaissance de dette.",
           "source": "SCIA LA MARGUE, étape 2",
           "date": ""
         },
@@ -555,7 +567,7 @@
         },
         {
           "point": "À écrire en plus",
-          "detail": "Délibération de pré-affectation pour les deux SCIA · la convention de compte courant d'associée de Patricia (80 134,01 : 22 371,65 à l'arrivée de l'entrant, 57 762,36 en 60 mensualités) et la clé d'appels de fonds qui la finance · conventions de compte courant (variante A) · promesse de cession au futur entrant Lyre · le prêt de 30 000 de Patricia à Khaldoun, s'il est confirmé.",
+          "detail": "Délibération de pré-affectation pour les deux SCIA · le compte courant d'associée de Patricia (80 134,01) et la cession de 57 762,36 de cette créance à l'association des habitants pour 52 511,24 (sous seing privé, notifiée à la SCIA Est, prix en 60 mensualités de 875,19) · la cotisation dédiée dans le règlement de l'association · conventions de compte courant (variante A) · promesse de cession au futur entrant Lyre · le prêt de 30 000 de Patricia à Khaldoun, s'il est confirmé.",
           "source": "",
           "date": ""
         }
@@ -584,7 +596,7 @@
         },
         {
           "point": "Dette de Patricia : ce qui reste à fixer",
-          "detail": "Retenu le 2/10 : plus de lots à construire ; la SCIA Est doit 57 762,36 à Patricia, remboursés sur cinq ans par les foyers à l'année (60 mensualités de 962,71). À fixer : la liste des foyers payeurs (hypothèse de la réunion : 12, soit 80,23 par foyer et par mois), la date de la première mensualité, le taux (0 % proposé) et le véhicule juridique pour les foyers de l'Ouest, qui ne sont pas associés de la SCIA Est (voir la note « 2026-10-02 - Dette Patricia »).",
+          "detail": "Retenu le 2/10 : plus de lots à construire ; l'association des habitants rachète les 57 762,36 à Patricia pour 52 511,24 (Patricia porte sa part, 11 parts) et se finance par une cotisation des 10 foyers payeurs (5 251,12 chacun, 87,52 par mois). Serge & Marie-Agnès et David Coste paient une part entière (Charly, 2/10). À confirmer : la date de la première mensualité ; le départ d'un foyer avant cinq ans ; la validation par Pierre Lévy et la notaire (voir la note « 2026-10-02 - Dette Patricia »).",
           "source": "Charly",
           "date": "3/09/2026, soir"
         },
@@ -608,7 +620,7 @@
         },
         {
           "point": "Isabelle",
-          "detail": "Loyers bloqués (2 570) contre tricount et cuisine ; date butoir du 15 novembre. Le toit (3 050) et le deck (1 200) sont réglés. Posture du 9/09 (à confirmer par les absents) : pas de prêt de la Coopérative Oasis ; proposition de signer maintenant avec Julian remboursé à 100 % et Isabelle / Caroline créditrices de 76 436,95 chacune jusqu'à l'entrant ; sinon, attendre l'entrant de la Lyre. Variante : le prêt de la Coopérative si elles en portent le coût (7 500 chacune).",
+          "detail": "Loyers bloqués (2 570) contre tricount et cuisine ; date butoir du 15 novembre. Le toit (3 050) et le deck (1 200) sont réglés. Posture du 9/09, intégrée au modèle le 2/10 : pas de prêt de la Coopérative Oasis ; signer maintenant avec Julian remboursé à 100 % et Isabelle / Caroline créditrices de 76 436,95 chacune jusqu'à l'entrant ; sinon, attendre l'entrant de la Lyre. Variante : le prêt de la Coopérative si elles en portent le coût (7 500 chacune).",
           "source": "",
           "date": ""
         },
