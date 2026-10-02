@@ -769,7 +769,7 @@ export const variantes: Variante[] = [
     cle: 'A',
     titre: 'Scénario prêt en compte courant',
     points: [
-      "Des prêts en compte courant d'associés soldent Isabelle et Caroline dès la signature.",
+      "Des prêts en compte courant d'associés paient presque tout à Isabelle et Caroline dès la signature (il resterait environ 1 437 à chacune).",
       "Ils sont remboursés par l'entrant de la Lyre, jamais transformés en parts.",
       "Seule variante qui tient la date butoir d'Isabelle, le 15 novembre 2026.",
     ],
