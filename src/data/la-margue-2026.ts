@@ -857,7 +857,7 @@ export const lotsOuest: LotOuest[] = [
   { lot: 'GS rdc extrême ouest — coliving 125 m²', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM / Ferme du Verseau', valeur: 100000 },
   { lot: 'GS étage ouest — appartement', coefficient: 0.5, quotePart: 8673.09, attributaire: 'David Coste', valeur: 46875 },
   { lot: 'GS étage centre', coefficient: 1, quotePart: 17346.17, attributaire: 'Laetitia Brene', valeur: 67770 },
-  { lot: 'GS rdc est — atelier 32 m²', coefficient: 0, quotePart: 0, attributaire: 'Laetitia Brene', valeur: 2263 },
+  { lot: 'GS rdc est — atelier 32 m²', coefficient: 0, quotePart: 0, attributaire: 'Laetitia Brene', valeur: 23250 },
   { lot: 'GS étage est', coefficient: 1, quotePart: 17346.17, attributaire: 'Claire & Baptiste', valeur: 30000 },
   { lot: 'GS étage extrême ouest — studio', coefficient: 0.5, quotePart: 8673.09, attributaire: 'Amandine & Charly', valeur: 15500 },
   { lot: 'GS rdc extrême est', coefficient: 1, quotePart: 17346.17, attributaire: 'David Lin', valeur: 46875 },
