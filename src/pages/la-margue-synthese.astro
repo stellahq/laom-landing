@@ -6,7 +6,7 @@
 // src/data/la-margue-2026.ts ; seuls les textes de contexte sont ici.
 import MargueShell from '~/components/margue/MargueShell.astro'
 import SectionHead from '~/components/laom/sections/SectionHead.astro'
-import { dettePatricia, estTotals, eur, phase1, phase2, sortantsEst, updatedLabel } from '~/data/la-margue-2026'
+import { dettePatricia, estTotals, eur, foyersEst, notice, phase1, phase2, sortantsEst, updatedLabel } from '~/data/la-margue-2026'
 
 export const prerender = true
 
@@ -21,6 +21,7 @@ const sortants = [
   { nom: "Turquoise SARL (société d'Isabelle)", du: du('Turquoise'), signature: du('Turquoise'), entrant: 0 },
 ]
 const totalSortants = sortants.reduce((s, x) => s + x.du, 0)
+const lyre = foyersEst.find((f) => f.alias.includes('Entrant Lyre'))
 
 const bouge = [
   {
@@ -35,7 +36,12 @@ const bouge = [
   },
   {
     titre: 'Patricia : plus de lots à construire',
-    texte: `Les cinq lots proposés en septembre sont refusés en réunion le 9/09. Ce qu'elle n'est pas remboursée en argent devient une dette que les foyers remboursent sur cinq ans, et elle en porte sa part.`,
+    texte: `Les cinq lots proposés en septembre sont refusés en réunion le 9/09. Ce qu'elle n'est pas remboursée en argent devient une dette que tous les foyers, Lyre comprise, lui remboursent : ${dettePatricia.parts} parts de ${eur(dettePatricia.parFoyerTotal)}, et elle porte la sienne.`,
+  },
+  {
+    titre: "Les terres vont à l'association, le 17 octobre 2026",
+    texte:
+      "Toutes les terres non bâties sont apportées à l'association des habitants ; les parcelles bâties restent dans les SCIA. Si un futur acheteur veut construire, on crée un lot dans la SCIA Est, et l'argent lié à la création de ce lot revient à l'association. Les quotes-parts du domaine ne changent pas de montant : elles deviennent la contribution des foyers aux terres communes.",
   },
   {
     titre: 'Pas de prêt de la Coopérative Oasis',
@@ -48,7 +54,7 @@ const porte = [
   {
     qui: 'Patricia',
     montant: dettePatricia.partPatricia,
-    texte: `Sa part de sa propre dette. Elle attend aussi ${eur(22371.65)} jusqu'à l'arrivée du nouvel associé, et étale ${eur(dettePatricia.prixAssociation)} sur cinq ans.`,
+    texte: `Sa part de sa propre dette. Elle attend aussi ${eur(dettePatricia.verseParEntrant)} jusqu'à l'arrivée du nouvel associé, et étale ${eur(dettePatricia.prixAssociation)} sur cinq ans (${eur(dettePatricia.mensualite)} par mois, versés par l'association).`,
   },
   {
     qui: `Chacun des ${dettePatricia.foyers} foyers payeurs`,
@@ -63,14 +69,14 @@ const porte = [
   {
     qui: 'Le nouvel associé de la Lyre',
     montant: estTotals.prixLyre,
-    texte: 'Tout compris, 340 000 annoncés. Son prix est tenu : il ne paie rien de la dette de Patricia.',
+    texte: `Tout compris, dont sa part de la dette de Patricia : capital ${eur(lyre?.capital ?? 0)}, frais annexes en plus.`,
   },
 ]
 
 const travail = [
   'Un modèle refait au centime après le départ d\'Awa, puis croisé ligne à ligne avec les actes de la notaire.',
   'Deux classeurs : celui au format de la notaire et une version détaillée, qui tombent sur les mêmes chiffres.',
-  `Une notice de ${98} points : chaque hypothèse, sa source et sa date (onglet Notice).`,
+  `Une notice de ${notice.sections.reduce((n, s) => n + s.items.length, 0)} points : chaque hypothèse, sa source et sa date (onglet Notice).`,
   `Une fiche par personne et par structure, ${19} en tout : ce que chacun a mis, ce qu'il récupère, ce qu'il signe.`,
   "Les réunions enregistrées, retranscrites et résumées, avec les décisions et ce qui reste à valider.",
   "L'état descriptif de division rédigé en interne plutôt que confié à un géomètre.",
@@ -202,7 +208,7 @@ const travail = [
           <h3 class="text-base font-semibold text-[#412F1F]">Une seule dette, voulue</h3>
           <p class="text-sm text-[#1D1B18]/70 mt-3 leading-relaxed">
             Pendant cinq ans, l'association paie Patricia avec les cotisations des foyers. La SCIA Est doit
-            {' '}{eur(dettePatricia.montant)} à l'association : c'est l'argent des foyers, qui reste un bien commun.
+            {' '}{eur(dettePatricia.cedeAssociation)} à l'association : c'est l'argent des foyers, qui reste un bien commun.
           </p>
         </div>
       </div>
