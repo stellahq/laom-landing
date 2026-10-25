@@ -307,22 +307,23 @@ export const prerender = true
         </div>
         <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
           <p class="text-xl md:text-2xl font-extrabold text-[#9A3922] tabular-nums tracking-[-0.02em]">
-            {eur(dettePatricia.mensualite)}
-          </p>
-          <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
-            Par mois pour Patricia, pendant {dettePatricia.dureeMois} mois, payés par l'association des habitants :
-            {' '}{eur(dettePatricia.prixAssociation)} en tout, elle porte sa part
-          </p>
-        </div>
-        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
-          <p class="text-xl md:text-2xl font-extrabold text-[#9A3922] tabular-nums tracking-[-0.02em]">
-            {eur(dettePatricia.parFoyerTotal)}
+            {dettePatricia.parts} parts de {eur(dettePatricia.parFoyerTotal)}
           </p>
           <p class="text-sm text-[#1D1B18]/55 tabular-nums mt-1">
             ({eur(dettePatricia.parFoyerMois)} par mois pendant 5 ans)
           </p>
           <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
-            Par part : {dettePatricia.parts} parts, versées par les {dettePatricia.foyers} foyers payeurs, Patricia portant la sienne
+            Une par foyer : les {dettePatricia.foyers} foyers payeurs, la Lyre et Patricia, qui porte la sienne
+          </p>
+        </div>
+        <div class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-6">
+          <p class="text-xl md:text-2xl font-extrabold text-[#9A3922] tabular-nums tracking-[-0.02em]">
+            {eur(dettePatricia.mensualite)}
+          </p>
+          <p class="text-sm text-[#1D1B18]/70 mt-2 leading-snug">
+            Par mois, payés par l'association des habitants à Patricia pendant {dettePatricia.dureeMois} mois
+            ({eur(dettePatricia.prixAssociation)} pour {eur(dettePatricia.cedeAssociation)} de créance). La Lyre paie
+            sa part dans son prix, à son arrivée.
           </p>
         </div>
       </div>
