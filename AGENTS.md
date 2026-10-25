@@ -22,9 +22,9 @@
 > 3. Couleurs uniquement depuis la charte. Photos en **webp** dans `public/images/`. Pas de blanc pur (utiliser crème). Pas de hotlink externe.
 >
 > ### Déploiement ⚠️
-> - Push **`staging`** → **staging.laom.fr** (préprod, noindex). Push **`main`** → **laom.fr** (PROD, branche protégée, CODEOWNERS = Charly).
+> - Push **`staging`** → **staging.laom.fr** (préprod, noindex). Push **`main`** → **laom.fr** (PROD, branche protégée : seuls Charly et Amandine peuvent y fusionner).
 > - Le CI lance **`astro check`** : **toute erreur TypeScript bloque le déploiement**. Lance `bunx astro check` (0 erreur) AVANT de pousser.
-> - Toujours bosser sur une branche → PR. Vérifier la divergence des branches avant de merger. **Jamais de push `main` sans feu vert de Charly.**
+> - Toujours bosser sur une branche → PR. Vérifier la divergence des branches avant de merger. **Mise en prod = demande de Charly ou d'Amandine.** Pas besoin d'approbation GitHub : la CI (`divergence` + `build-check`) est le garde-fou.
 
 ## Project Overview
 
@@ -390,11 +390,17 @@ The LAOM landing page is designed with a **luxury wellness aesthetic** inspired 
   it is not indexed by search engines.
   Config: `wrangler.staging.jsonc` + `.github/workflows/deploy-staging.yml`.
   Caveat: staging shares the prod D1 database (`laom-team`).
-- **Charly reviews and merges** the PR into `main`. Merging into `main` is the
-  single act that ships to production.
+- **Charly or Amandine merges** the PR into `main` (they are the only two allowed to
+  push/merge to `main`). No approving review is required: once `divergence` and
+  `build-check` are green, `gh pr merge <n> --merge` works. Never use `--admin`: if
+  gh asks for it, a check is red or the branch is behind — fix that instead.
+  Merging into `main` is the single act that ships to production.
 - Branch model: `feature/* → staging → (PR) → main → auto-deploy`.
 - Before every PR: `bun run build` **and** `bun run seo:check` must pass.
-- Note: `main` should be protected on GitHub (no direct push, no force-push).
+- `main` protection (since 2026-10-25): PR required, 0 approvals, checks `divergence` +
+  `build-check` required and branch up to date, no force-push, merge restricted to
+  `barwtoski` + `amandineorriols`. Eduardo and other collaborators open PRs; Charly
+  or Amandine merges them.
 
 ### 7c. Garde-fous obligatoires AVANT tout merge / action prod (NE PAS SAUTER)
 
@@ -415,9 +421,10 @@ Lire l'état réel d'abord, annoncer l'impact concret, puis demander le feu vert
    commencer un chantier : `git checkout staging && git merge origin/main`. Une staging
    qui dérive de main est une bombe à retard (régression silencieuse en prod au merge).
 3. **Action prod = feu vert humain.** Tout merge sur `main` (= mise en ligne) : annoncer
-   l'impact concret (fichiers/contenu/code touché) et attendre l'accord explicite de
-   Charly. En cas de doute → poser la question AVANT d'agir, jamais après.
-  Only Amandine (repo admin) can enable that — ask her if it's not yet set.
+   l'impact concret (fichiers/contenu/code touché) puis fusionner. **Si c'est Charly ou
+   Amandine qui demande la mise en ligne, sa demande EST le feu vert** : ne pas réclamer
+   d'autre approbation. Une PR d'Eduardo ou d'un autre collaborateur attend que Charly
+   ou Amandine la fusionne. En cas de doute → poser la question AVANT d'agir.
 
 ### 8. Development Server
 - **NEVER run the development server** (`bun run dev`) - The server is already running when the project starts

@@ -1,3 +1,4 @@
-# Charly est le gardien de la prod. Toute PR vers `main` exige SA review
-# (require_code_owner_reviews activé sur la branche main). Voir AGENTS.md §7c.
+# Charly est demandé en relecteur par défaut, mais sa review n'est PAS obligatoire :
+# depuis le 25/10/2026, Charly et Amandine fusionnent sur main sans approbation,
+# la CI (divergence + build-check) fait garde-fou. Voir AGENTS.md §7b-7c.
 * @barwtoski
