@@ -1,0 +1,388 @@
+---
+// Consommation électrique par lot. Les relevés viennent du collecteur LAOM
+// (stella-staging, /opt/laom-comptage) via son API de lecture, protégée par un
+// mot de passe propre au comptage. Données privées des résidents : page non
+// indexée, rien n'est affiché sans le mot de passe.
+import Layout from '~/layouts/Layout.astro'
+---
+
+<Layout
+  title="Consommation — LAOM"
+  description="Consommation électrique de chaque lot de LAOM"
+  seo={{ noIndex: true }}
+  hideChrome={true}
+>
+  <style is:global>
+    /* DA LAOM (DESIGN.md) : beige / crème / marron / terre / vert, Host Grotesk, rayons 2xl-3xl, pills. */
+    .cso *, .cso *::before, .cso *::after { box-sizing: border-box; }
+    .cso [hidden] { display: none !important; }
+    .cso { --ligne: rgba(65, 47, 31, 0.1); --doux: rgba(29, 27, 24, 0.6); min-height: 100vh; background: var(--color-beige, #F2EBDB); color: var(--color-noir, #1D1B18); }
+    .cso .titre { font-weight: 800; letter-spacing: -0.02em; color: var(--color-marron, #412F1F); text-wrap: balance; }
+    .cso .chiffre { font-weight: 800; letter-spacing: -0.02em; color: var(--color-marron, #412F1F); font-variant-numeric: tabular-nums; }
+    .cso .etiquette { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-vert, #73673E); }
+    .cso .conteneur { max-width: 80rem; margin: 0 auto; padding-left: max(1.5rem, env(safe-area-inset-left, 0px)); padding-right: max(1.5rem, env(safe-area-inset-right, 0px)); }
+    .cso .entete { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--color-marron, #412F1F); color: var(--color-beige, #F2EBDB); }
+    .cso .entete .conteneur { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }
+    .cso .entete a { color: var(--color-beige, #F2EBDB); text-decoration: none; }
+    .cso .bouton-icone { background: none; border: 0; color: rgba(242,235,219,0.55); cursor: pointer; padding: 0.35rem; border-radius: 9999px; }
+    .cso .bouton-icone:hover, .cso .bouton-icone:focus-visible { color: var(--color-beige, #F2EBDB); }
+    .cso .intro { display: grid; gap: 0.75rem; margin-bottom: 2rem; }
+    .cso .intro h1 { font-size: clamp(2rem, 4.5vw, 3.25rem); line-height: 1.05; }
+    .cso .synthese { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; }
+    .cso .synthese > div { background: var(--color-creme, #FBF6EA); border-radius: 1rem; padding: 1.25rem 1.4rem; }
+    .cso .synthese .chiffre { font-size: 2rem; line-height: 1.1; margin-top: 0.35rem; }
+    .cso .groupe { margin-top: 3rem; }
+    .cso .groupe h2 { font-size: 1.6rem; margin-bottom: 1.1rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.75rem; }
+    .cso .groupe h2 span { font-size: 0.85rem; font-weight: 400; letter-spacing: 0; color: var(--doux); }
+    .cso .grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; }
+    .cso .carte { background: var(--color-creme, #FBF6EA); border: 1px solid transparent; border-radius: 1rem; padding: 1.2rem 1.3rem; text-align: left; font: inherit; color: inherit; display: grid; gap: 0.85rem; align-content: start; width: 100%; }
+    .cso button.carte { cursor: pointer; transition: transform 300ms cubic-bezier(.16,1,.3,1), box-shadow 300ms ease-out, border-color 300ms ease-out; }
+    .cso button.carte:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -18px rgba(65,47,31,.45); }
+    .cso button.carte:focus-visible { outline: none; border-color: var(--color-terre, #9A3922); box-shadow: 0 0 0 3px rgba(154,57,34,.2); }
+    .cso .carte .nom { font-weight: 800; letter-spacing: -0.01em; color: var(--color-marron, #412F1F); line-height: 1.25; }
+    .cso .carte .sous { font-size: 0.82rem; color: var(--doux); margin-top: 0.15rem; }
+    .cso .carte .valeurs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; border-top: 1px solid var(--ligne); padding-top: 0.85rem; }
+    .cso .carte .valeurs .chiffre { font-size: 1rem; margin-top: 0.15rem; white-space: nowrap; }
+    .cso .carte .attente { font-size: 0.85rem; color: var(--doux); border-top: 1px solid var(--ligne); padding-top: 0.85rem; }
+    .cso .carte .voir { font-size: 0.82rem; font-weight: 500; color: var(--color-terre, #9A3922); }
+    .cso .pastille { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; font-weight: 500; padding: 0.25rem 0.65rem; border-radius: 9999px; background: rgba(65,47,31,0.07); color: var(--color-marron, #412F1F); white-space: nowrap; width: fit-content; }
+    .cso .pastille::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: currentColor; }
+    .cso .pastille.ok { background: rgba(115,103,62,0.14); color: var(--color-vert, #73673E); }
+    .cso .pastille.coupe { background: rgba(154,57,34,0.12); color: var(--color-terre, #9A3922); }
+    .cso .pastille.prevu { background: rgba(65,47,31,0.07); color: rgba(65,47,31,0.75); }
+    .cso .haut-carte { display: flex; justify-content: space-between; gap: 0.75rem; align-items: start; }
+    .cso dialog { border: 0; padding: 0; border-radius: 1.5rem; width: min(58rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); background: var(--color-beige, #F2EBDB); color: var(--color-noir, #1D1B18); }
+    .cso dialog::backdrop { background: rgba(29,27,24,0.6); }
+    .cso .detail { padding: clamp(1.25rem, 3vw, 2rem); display: grid; gap: 1.5rem; }
+    .cso .detail-haut { display: flex; justify-content: space-between; gap: 1rem; align-items: start; }
+    .cso .detail-haut h3 { font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; }
+    .cso .fermer { background: var(--color-creme, #FBF6EA); border: 0; width: 2.5rem; height: 2.5rem; border-radius: 9999px; cursor: pointer; font-size: 1.3rem; color: var(--color-marron, #412F1F); flex: none; }
+    .cso .fermer:focus-visible { outline: 2px solid var(--color-terre, #9A3922); outline-offset: 2px; }
+    .cso .chiffres-detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 0.75rem; }
+    .cso .chiffres-detail > div { background: var(--color-creme, #FBF6EA); border-radius: 1rem; padding: 1rem 1.1rem; }
+    .cso .chiffres-detail .chiffre { font-size: 1.3rem; margin-top: 0.25rem; white-space: nowrap; }
+    .cso .onglets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
+    .cso .onglets button { background: transparent; border: 1px solid rgba(65,47,31,0.2); border-radius: 9999px; padding: 0.5rem 1.1rem; cursor: pointer; font: inherit; font-size: 0.85rem; font-weight: 500; color: var(--color-marron, #412F1F); transition: background-color .3s, color .3s; }
+    .cso .onglets button[aria-selected="true"] { background: var(--color-terre, #9A3922); border-color: var(--color-terre, #9A3922); color: var(--color-beige, #F2EBDB); }
+    .cso .onglets button:focus-visible { outline: 2px solid var(--color-terre, #9A3922); outline-offset: 2px; }
+    .cso .graphique { background: var(--color-creme, #FBF6EA); border-radius: 1rem; padding: 1rem; min-height: 15rem; }
+    .cso .graphique svg { display: block; width: 100%; height: auto; }
+    .cso .graphique .axe { stroke: rgba(65,47,31,0.1); }
+    .cso .graphique text { fill: var(--doux); font-size: 11px; font-family: inherit; }
+    .cso .graphique .courbe { fill: none; stroke: var(--color-terre, #9A3922); stroke-width: 2; }
+    .cso .graphique .aire { fill: rgba(154,57,34,0.12); }
+    .cso .graphique .barre { fill: var(--color-marron, #412F1F); }
+    .cso .graphique .barre.courante { fill: var(--color-terre, #9A3922); }
+    .cso .vide { color: var(--doux); font-size: 0.9rem; padding: 3rem 1rem; text-align: center; }
+    .cso .note { font-size: 0.85rem; color: var(--doux); max-width: 70ch; }
+    .cso .portail { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+    .cso .portail form { width: 100%; max-width: 24rem; background: var(--color-creme, #FBF6EA); border-radius: 1.5rem; padding: 2.25rem 1.75rem; text-align: center; display: grid; gap: 1rem; }
+    .cso .portail input { width: 100%; padding: 0.85rem 1rem; border: 1px solid rgba(65,47,31,0.15); border-radius: 0.75rem; background: var(--color-beige, #F2EBDB); text-align: center; font-size: 1.05rem; color: var(--color-noir, #1D1B18); }
+    .cso .portail input:focus { outline: none; border-color: var(--color-terre, #9A3922); box-shadow: 0 0 0 3px rgba(154,57,34,.18); }
+    .cso .portail .pill { width: 100%; border: 0; cursor: pointer; }
+    .cso .erreur { color: var(--color-terre, #9A3922); font-size: 0.85rem; }
+    @media (prefers-reduced-motion: reduce) { .cso * { transition: none !important; } .cso button.carte:hover { transform: none; } }
+  </style>
+
+  <div class="cso">
+    <!-- Portail : mot de passe du comptage -->
+    <div id="portail" class="portail">
+      <form id="form-mdp">
+        <p class="font-logo" style="font-size:1.75rem;color:var(--color-terre,#9A3922)">LAOM</p>
+        <h1 class="titre" style="font-size:1.7rem">La consommation, <span class="acc">lot par lot</span></h1>
+        <p class="note" style="margin-inline:auto">Relevés électriques des compteurs de LAOM. Accès réservé.</p>
+        <label for="mdp" class="etiquette">Mot de passe</label>
+        <input type="password" id="mdp" autocomplete="current-password" required />
+        <button type="submit" class="pill pill-primary">Accéder</button>
+        <p id="erreur-mdp" class="erreur" hidden></p>
+      </form>
+    </div>
+
+    <!-- Tableau de bord -->
+    <div id="tableau" hidden>
+      <header class="entete">
+        <div class="conteneur">
+          <div style="display:flex;align-items:center;gap:0.75rem;min-width:0">
+            <a href="/" class="font-logo" style="font-size:1.4rem">LAOM</a>
+            <span style="color:rgba(242,235,219,0.35)">/</span>
+            <span style="font-size:0.9rem;color:rgba(242,235,219,0.75)">Consommation</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem">
+            <span id="maj" style="font-size:0.78rem;color:rgba(242,235,219,0.6)"></span>
+            <button id="rafraichir" class="bouton-icone" title="Rafraîchir" aria-label="Rafraîchir">
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main class="conteneur" style="padding-block:2.5rem 4rem">
+        <div class="intro">
+          <p class="etiquette">Comptage électrique</p>
+          <h1 class="titre">La consommation, <span class="acc">lot par lot</span></h1>
+        </div>
+        <div class="synthese" aria-live="polite">
+          <div><p class="etiquette">Puissance en ce moment</p><p id="s-puissance" class="chiffre">—</p></div>
+          <div><p class="etiquette">Aujourd'hui</p><p id="s-jour" class="chiffre">—</p></div>
+          <div><p class="etiquette">Ce mois-ci</p><p id="s-mois" class="chiffre">—</p></div>
+          <div><p class="etiquette">Compteurs en ligne</p><p id="s-ligne" class="chiffre">—</p></div>
+        </div>
+        <div id="groupes"></div>
+        <p class="note" style="margin-top:2.5rem">Un relevé par minute. Les kWh du jour et du mois sont l'écart de l'index du compteur depuis minuit et depuis le 1er du mois. Un compteur sans relevé depuis 3 minutes passe « hors ligne » : son index n'est pas perdu, il reprend au prochain relevé.</p>
+      </main>
+    </div>
+
+    <dialog id="fenetre" aria-labelledby="d-nom">
+      <div class="detail">
+        <div class="detail-haut">
+          <div style="display:grid;gap:0.5rem">
+            <p id="d-groupe" class="etiquette"></p>
+            <h3 id="d-nom" class="titre"></h3>
+            <span id="d-etat"></span>
+          </div>
+          <button class="fermer" id="fermer" aria-label="Fermer">×</button>
+        </div>
+        <div class="chiffres-detail">
+          <div><p class="etiquette">Puissance</p><p id="d-puissance" class="chiffre">—</p></div>
+          <div><p class="etiquette">Aujourd'hui</p><p id="d-jour" class="chiffre">—</p></div>
+          <div><p class="etiquette">Ce mois-ci</p><p id="d-mois" class="chiffre">—</p></div>
+          <div><p class="etiquette">Index du compteur</p><p id="d-index" class="chiffre">—</p></div>
+          <div><p class="etiquette">Tension · courant</p><p id="d-tension" class="chiffre">—</p></div>
+        </div>
+        <div>
+          <div class="onglets" role="tablist">
+            <button role="tab" data-periode="24h" aria-selected="true">24 heures</button>
+            <button role="tab" data-periode="30j" aria-selected="false">30 jours</button>
+            <button role="tab" data-periode="12m" aria-selected="false">12 mois</button>
+          </div>
+          <div id="graphique" class="graphique" role="img" aria-label="Graphique de consommation"></div>
+          <p id="d-note" class="note" style="margin-top:0.5rem"></p>
+        </div>
+      </div>
+    </dialog>
+  </div>
+
+  <script is:inline>
+    const API = 'https://comptage.charlyaubert.com'
+    const CLE_MDP = 'laom_comptage_mdp'
+
+    // Catalogue des lots. « cle » = nom déclaré pour le compteur dans le collecteur
+    // (variable COMPTEURS « numéro de série:nom »). Un lot sans relevé affiche son état prévu.
+    const LOTS = [
+      { groupe: 'Hameau historique', nom: 'Compteur maître', sous: 'SDM630 · départ du câble 25 · toute la zone', cle: 'Compteur maître', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Appartement 65 m²', sous: 'Étage · n°1 · QF1', cle: 'GS App 65 étage n°1', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Appartement 65 m²', sous: 'Étage · n°2 · QF2', cle: 'GS App 65 étage n°2', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Appartement 88 m²', sous: 'Étage · QF3', cle: 'GS App 88', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Appartement 125 m²', sous: 'Étage · QF4', cle: 'GS App 125', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Coliving', sous: 'RDC · 7 chambres · QF5', cle: 'GS Coliving', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Foyer commun', sous: 'RDC · QF6', cle: 'GS Foyer commun', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Studio 32 m²', sous: 'RDC · QF7', cle: 'GS Studio', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Appartement 65 m²', sous: 'RDC · QF8', cle: 'GS App 65 RDC', prevu: 'Pose le 6/11' },
+      { groupe: 'Grand Shambala', nom: 'Services généraux', sous: 'Pièce technique, couloirs, extérieur, pompes · QF9', cle: 'GS Services généraux', prevu: 'Pose le 6/11' },
+      { groupe: 'Autour du Grand Shambala', nom: 'Petit Shambala', sous: 'Maison de Charly', cle: 'Petit Shambala', prevu: 'Prototype' },
+      { groupe: 'Autour du Grand Shambala', nom: 'Tiny de Charly', sous: 'Au raccordement', cle: 'Tiny Charly', prevu: 'Au raccordement' },
+      { groupe: 'Autour du Grand Shambala', nom: "Cuisine d'été · salle · tipi", sous: 'Au raccordement', cle: 'Cuisine salle tipi', prevu: 'Au raccordement' },
+      { groupe: 'Autour du Grand Shambala', nom: 'Autre tiny', sous: 'Au raccordement', cle: 'Autre tiny', prevu: 'Au raccordement' },
+      { groupe: 'Autour du Grand Shambala', nom: 'Bâtiment Khaldoun · appartement', sous: 'Étage · au raccordement', cle: 'Khaldoun appartement', prevu: 'Au raccordement' },
+      { groupe: 'Autour du Grand Shambala', nom: 'Bâtiment Khaldoun · atelier', sous: 'RDC · au raccordement', cle: 'Khaldoun atelier', prevu: 'Au raccordement' },
+    ]
+
+    const nf = (n, d = 0) => n == null ? '—' : n.toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d })
+    const watts = w => w == null ? '—' : (w >= 1000 ? nf(w / 1000, 2) + ' kW' : nf(w) + ' W')
+    const kwh = k => k == null ? '—' : nf(k, k < 100 ? 2 : 0) + ' kWh'
+    const heure = ts => new Date(ts * 1000).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+
+    let releves = {}
+    let lotOuvert = null
+    let periode = '24h'
+
+    function motDePasse() {
+      try { return sessionStorage.getItem(CLE_MDP) || '' } catch { return '' }
+    }
+
+    async function appeler(chemin) {
+      const r = await fetch(API + chemin, { headers: { Authorization: 'Bearer ' + motDePasse() } })
+      if (r.status === 401) throw new Error('mdp')
+      if (!r.ok) throw new Error('serveur')
+      return r.json()
+    }
+
+    function pastille(lot, r) {
+      if (r) return r.en_ligne
+        ? '<span class="pastille ok">En ligne</span>'
+        : '<span class="pastille coupe">Hors ligne depuis ' + heure(r.dernier_releve) + '</span>'
+      return '<span class="pastille prevu">' + lot.prevu + '</span>'
+    }
+
+    function carte(lot, i) {
+      const r = releves[lot.cle]
+      const tete = '<div class="haut-carte"><div><p class="nom">' + lot.nom + '</p><p class="sous">' + lot.sous + '</p></div>' + pastille(lot, r) + '</div>'
+      if (!r) return '<div class="carte">' + tete + '<p class="attente">Pas encore de compteur relié.</p></div>'
+      return '<button class="carte" data-lot="' + i + '" aria-label="Voir la consommation : ' + lot.nom + '">' + tete +
+        '<div class="valeurs">' +
+        '<div><p class="etiquette">Maintenant</p><p class="chiffre">' + (r.en_ligne ? watts(r.puissance_w) : '—') + '</p></div>' +
+        '<div><p class="etiquette">Jour</p><p class="chiffre">' + kwh(r.kwh_jour) + '</p></div>' +
+        '<div><p class="etiquette">Mois</p><p class="chiffre">' + kwh(r.kwh_mois) + '</p></div>' +
+        '</div><span class="voir">Voir le détail ↗</span></button>'
+    }
+
+    function afficherLots(donnees) {
+      releves = {}
+      for (const r of donnees.lots) releves[r.nom] = r
+      const connus = new Set(LOTS.map(l => l.cle))
+      const autres = donnees.lots.filter(r => !connus.has(r.nom))
+        .map(r => ({ groupe: 'Autres compteurs', nom: r.nom, sous: 'Compteur relié, absent du catalogue', cle: r.nom, prevu: '' }))
+      const tous = LOTS.concat(autres)
+      window.__lots = tous
+
+      const groupes = [...new Set(tous.map(l => l.groupe))]
+      document.getElementById('groupes').innerHTML = groupes.map(g => {
+        const lots = tous.map((l, i) => [l, i]).filter(([l]) => l.groupe === g)
+        const relies = lots.filter(([l]) => releves[l.cle]).length
+        return '<section class="groupe"><h2 class="titre">' + g + ' <span>' + relies + ' / ' + lots.length + ' relié' + (relies > 1 ? 's' : '') + '</span></h2>' +
+          '<div class="grille">' + lots.map(([l, i]) => carte(l, i)).join('') + '</div></section>'
+      }).join('')
+
+      const enLigne = donnees.lots.filter(r => r.en_ligne)
+      const somme = (liste, champ) => liste.reduce((s, r) => s + (r[champ] || 0), 0)
+      document.getElementById('s-puissance').textContent = watts(somme(enLigne, 'puissance_w'))
+      document.getElementById('s-jour').textContent = kwh(somme(donnees.lots, 'kwh_jour'))
+      document.getElementById('s-mois').textContent = kwh(somme(donnees.lots, 'kwh_mois'))
+      document.getElementById('s-ligne').textContent = enLigne.length + ' / ' + tous.length
+      document.getElementById('maj').textContent = 'Mis à jour à ' + heure(donnees.genere)
+    }
+
+    async function chargerLots() {
+      try {
+        afficherLots(await appeler('/api/lots'))
+        if (lotOuvert) remplirDetail()
+      } catch (e) {
+        if (e.message === 'mdp') return deconnecter('Mot de passe incorrect.')
+        document.getElementById('maj').textContent = 'Serveur injoignable, nouvel essai dans une minute'
+      }
+    }
+
+    function deconnecter(message) {
+      try { sessionStorage.removeItem(CLE_MDP) } catch {}
+      document.getElementById('tableau').hidden = true
+      document.getElementById('portail').hidden = false
+      const err = document.getElementById('erreur-mdp')
+      err.textContent = message
+      err.hidden = !message
+    }
+
+    // --- Détail d'un lot ---
+    function remplirDetail() {
+      const lot = lotOuvert
+      const r = releves[lot.cle]
+      document.getElementById('d-groupe').textContent = lot.groupe
+      document.getElementById('d-nom').textContent = lot.nom + (lot.sous ? ' — ' + lot.sous : '')
+      document.getElementById('d-etat').innerHTML = pastille(lot, r)
+      document.getElementById('d-puissance').textContent = r && r.en_ligne ? watts(r.puissance_w) : '—'
+      document.getElementById('d-jour').textContent = kwh(r && r.kwh_jour)
+      document.getElementById('d-mois').textContent = kwh(r && r.kwh_mois)
+      document.getElementById('d-index').textContent = r ? nf(r.index_kwh, 2) + ' kWh' : '—'
+      document.getElementById('d-tension').textContent = r ? nf(r.tension_v, 0) + ' V · ' + nf(r.courant_a, 1) + ' A' : '—'
+    }
+
+    async function chargerSerie() {
+      const zone = document.getElementById('graphique')
+      zone.innerHTML = '<p class="vide">Chargement…</p>'
+      try {
+        const s = await appeler('/api/lot?nom=' + encodeURIComponent(lotOuvert.cle) + '&periode=' + periode)
+        zone.innerHTML = s.points.length ? (periode === '24h' ? courbe(s.points) : barres(s.points)) : '<p class="vide">Pas encore de relevés sur cette période.</p>'
+        const r = releves[lotOuvert.cle]
+        const debut = r ? new Date(r.premier_releve * 1000).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''
+        document.getElementById('d-note').textContent = (periode === '24h' ? 'Puissance moyenne par quart d’heure.' : 'Énergie consommée par ' + (periode === '30j' ? 'jour' : 'mois') + '.') + (debut ? ' Relevés depuis le ' + debut + '.' : '')
+      } catch (e) {
+        if (e.message === 'mdp') return deconnecter('Mot de passe incorrect.')
+        zone.innerHTML = '<p class="vide">Serveur injoignable.</p>'
+      }
+    }
+
+    // Échelle « ronde » pour les graduations
+    function pas(max) {
+      const brut = max / 4, p = Math.pow(10, Math.floor(Math.log10(brut || 1)))
+      return [1, 2, 2.5, 5, 10].map(m => m * p).find(v => v >= brut) || p
+    }
+
+    function courbe(points) {
+      const L = 720, H = 240, g = 52, d = 12, h = 14, b = 28
+      const t0 = points[0][0], t1 = Math.max(points[points.length - 1][0], t0 + 900)
+      const max = Math.max(...points.map(p => p[1]), 100)
+      const u = pas(max), top = Math.ceil(max / u) * u
+      const x = t => g + (t - t0) / (t1 - t0) * (L - g - d)
+      const y = w => h + (1 - w / top) * (H - h - b)
+      let svg = '<svg viewBox="0 0 ' + L + ' ' + H + '">'
+      for (let v = 0; v <= top; v += u) svg += '<line class="axe" x1="' + g + '" x2="' + (L - d) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text x="' + (g - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + watts(v) + '</text>'
+      const ligne = points.map(p => x(p[0]).toFixed(1) + ',' + y(p[1]).toFixed(1)).join(' ')
+      svg += '<polygon class="aire" points="' + x(t0) + ',' + y(0) + ' ' + ligne + ' ' + x(points[points.length - 1][0]) + ',' + y(0) + '"/>'
+      svg += '<polyline class="courbe" points="' + ligne + '"/>'
+      const nb = 6
+      for (let i = 0; i <= nb; i++) { const t = t0 + (t1 - t0) * i / nb; svg += '<text x="' + x(t) + '" y="' + (H - 8) + '" text-anchor="' + (i === 0 ? 'start' : i === nb ? 'end' : 'middle') + '">' + heure(t) + '</text>' }
+      return svg + '</svg>'
+    }
+
+    function barres(points) {
+      const L = 720, H = 240, g = 52, d = 12, h = 14, b = 28
+      const max = Math.max(...points.map(p => p[1]), 1)
+      const u = pas(max), top = Math.ceil(max / u) * u
+      const y = k => h + (1 - k / top) * (H - h - b)
+      const largeur = (L - g - d) / points.length
+      let svg = '<svg viewBox="0 0 ' + L + ' ' + H + '">'
+      for (let v = 0; v <= top + 1e-9; v += u) svg += '<line class="axe" x1="' + g + '" x2="' + (L - d) + '" y1="' + y(v) + '" y2="' + y(v) + '"/><text x="' + (g - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + nf(v, v < 10 && u < 1 ? 1 : 0) + '</text>'
+      const tous = Math.max(1, Math.ceil(points.length / 10))
+      points.forEach((p, i) => {
+        const x = g + i * largeur + largeur * 0.15, w = largeur * 0.7
+        svg += '<rect class="barre' + (i === points.length - 1 ? ' courante' : '') + '" x="' + x.toFixed(1) + '" y="' + y(p[1]).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (y(0) - y(p[1])).toFixed(1) + '"><title>' + p[0] + ' : ' + kwh(p[1]) + '</title></rect>'
+        if ((i % tous === 0 && points.length - 1 - i >= tous / 2) || i === points.length - 1) {
+          const [a, m, j] = String(p[0]).split('-')
+          const lib = j ? j + '/' + m : new Date(+a, +m - 1, 1).toLocaleDateString('fr-FR', { month: 'short' })
+          svg += '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle">' + lib + '</text>'
+        }
+      })
+      return svg + '</svg>'
+    }
+
+    function ouvrir(i) {
+      lotOuvert = window.__lots[i]
+      remplirDetail()
+      document.getElementById('fenetre').showModal()
+      chargerSerie()
+    }
+
+    document.getElementById('groupes').addEventListener('click', e => {
+      const c = e.target.closest('button.carte')
+      if (c) ouvrir(+c.dataset.lot)
+    })
+    document.getElementById('fermer').addEventListener('click', () => document.getElementById('fenetre').close())
+    document.getElementById('fenetre').addEventListener('close', () => { lotOuvert = null })
+    document.getElementById('fenetre').addEventListener('click', e => { if (e.target.id === 'fenetre') e.target.close() })
+    document.querySelectorAll('.onglets button').forEach(o => o.addEventListener('click', () => {
+      periode = o.dataset.periode
+      document.querySelectorAll('.onglets button').forEach(x => x.setAttribute('aria-selected', String(x === o)))
+      chargerSerie()
+    }))
+    document.getElementById('rafraichir').addEventListener('click', chargerLots)
+
+    document.getElementById('form-mdp').addEventListener('submit', async e => {
+      e.preventDefault()
+      try { sessionStorage.setItem(CLE_MDP, document.getElementById('mdp').value) } catch {}
+      demarrer()
+    })
+
+    async function demarrer() {
+      if (!motDePasse()) return
+      try {
+        afficherLots(await appeler('/api/lots'))
+        document.getElementById('portail').hidden = true
+        document.getElementById('tableau').hidden = false
+      } catch (e) {
+        deconnecter(e.message === 'mdp' ? 'Mot de passe incorrect.' : 'Serveur du comptage injoignable.')
+      }
+    }
+
+    setInterval(() => { if (!document.getElementById('tableau').hidden) chargerLots() }, 60000)
+    demarrer()
+  </script>
+</Layout>
