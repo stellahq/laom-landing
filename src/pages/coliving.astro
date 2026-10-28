@@ -170,10 +170,29 @@ const L = (n: string) => `/images/laom/${n}.webp`
       ]}
       priceLabel="Juin 2027 · tarifs pour la semaine · repas, cours et coworking compris"
       options={[
-        { title: 'Chambre individuelle', desc: 'Salle de bain privative. 7 chambres.', price: '1 500 € HT' },
-        { title: 'Chambre en couple', desc: 'La même chambre, à deux.', price: '2 100 € HT', note: 'pour deux personnes' },
-        { title: 'Tipi', desc: 'Dormir au plus près du vivant. Toilettes sèches et douche en plein air, sanitaires intérieurs à proximité. 6 tipis.', price: '970 € HT' },
-        { title: 'L’appartement', desc: 'Un appartement privé à l’étage, disponible en entier.', price: '2 000 € HT' },
+        {
+          title: 'Chambre', img: L('coliving/coliving-laom-vue-interieure-01'), alt: 'Une chambre aux murs d’enduit naturel et aux poutres en bois',
+          dispo: 'Chambres de 15 m² · 7 chambres disponibles',
+          prix: [{ qui: 'Chambre individuelle', montant: '1 500 € HT' }, { qui: 'En couple', montant: '2 100 € HT' }],
+          details: [
+            'Lits simples',
+            'Salle de bain privative dans chaque chambre',
+            'Internet haut débit dans la chambre, pour tes calls',
+            'Accès à un espace commun : cuisine et salon partagés (90 m²)',
+          ],
+        },
+        {
+          title: 'Appartement', img: L('coliving/coliving-laom-vue-interieure-09'), alt: 'Une cuisine en bois et en terre, lumineuse',
+          dispo: '1 appartement privé à l’étage, disponible en entier',
+          prix: [{ qui: 'L’appartement entier', montant: '2 000 € HT' }],
+          details: ['Appartement privé', 'Cuisine', 'Salle de bain', 'Une chambre avec lit king size', 'Un canapé convertible', 'Internet haut débit, pour tes calls'],
+        },
+        {
+          title: 'Tipi', img: '/images/laom/moms-kids/tipi.webp', alt: 'L’intérieur d’un tipi, ouvert sur la prairie et la forêt',
+          dispo: '6 tipis disponibles',
+          prix: [{ qui: '1 personne', montant: '970 € HT' }],
+          details: ['Lits simples', 'Toilettes sèches et douche en plein air', 'Sanitaires intérieurs à proximité'],
+        },
       ]}
       ctaText="Réserver ma place" ctaHref={RESERVER}
       secondaryText="Être rappelé·e" secondaryHref={RAPPEL} secondaryTarget="_blank" />

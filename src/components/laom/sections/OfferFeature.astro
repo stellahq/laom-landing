@@ -1,14 +1,18 @@
 ---
 // OfferFeature — bloc offre centré : titre + rangée d'encarts chiffres + prix
 // + CTA. (Composition « feature » du template, en charte LAOM.)
-// options : plusieurs formules (hébergements) à la place du prix unique.
+// options : plusieurs hébergements (photo, dispo, prix ligne à ligne, détails)
+// à la place du prix unique.
 import Pill from '../Pill.astro'
 import SectionHead from './SectionHead.astro'
 interface Props {
   eyebrow?: string; title: string; accent?: string
   callouts: { value: string; unit?: string; label: string }[]
   priceLabel?: string; price?: string; priceSuffix?: string
-  options?: { title: string; desc?: string; price: string; note?: string }[]
+  options?: {
+    title: string; img?: string; alt?: string; dispo?: string
+    prix: { qui: string; montant: string }[]; details?: string[]
+  }[]
   ctaText?: string; ctaHref?: string
   secondaryText?: string; secondaryHref?: string; secondaryTarget?: string
   bg?: string
@@ -36,13 +40,27 @@ const {
     {options.length > 0 ? (
       <div class="rounded-3xl bg-[#412F1F] text-[#F2EBDB] px-6 py-9 md:px-10 md:py-11">
         <p class="text-xs tracking-[0.2em] uppercase text-[#F2EBDB]/60 mb-7">{priceLabel}</p>
-        <div class="grid sm:grid-cols-2 gap-4 text-left">
+        <div class="grid md:grid-cols-3 gap-4 text-left">
           {options.map((o) => (
-            <div class="rounded-2xl bg-[#F2EBDB]/[0.07] border border-[#F2EBDB]/15 p-6 flex flex-col">
-              <p class="font-extrabold text-lg leading-tight">{o.title}</p>
-              {o.desc && <p class="text-sm text-[#F2EBDB]/70 mt-2 leading-relaxed">{o.desc}</p>}
-              <p class="font-extrabold text-3xl leading-none mt-5 text-[#CB7A5C]">{o.price}</p>
-              {o.note && <p class="text-sm text-[#F2EBDB]/70 mt-2">{o.note}</p>}
+            <div class="rounded-2xl bg-[#F2EBDB]/[0.07] border border-[#F2EBDB]/15 overflow-hidden flex flex-col">
+              {o.img && <img src={o.img} alt={o.alt ?? ''} class="w-full aspect-[4/3] object-cover" loading="lazy" />}
+              <div class="p-6">
+                <p class="font-extrabold text-xl leading-tight">{o.title}</p>
+                {o.dispo && <p class="text-sm text-[#CB7A5C] font-semibold mt-1">{o.dispo}</p>}
+                <ul class="mt-5 divide-y divide-[#F2EBDB]/15 border-y border-[#F2EBDB]/15">
+                  {o.prix.map((p) => (
+                    <li class="flex items-baseline justify-between gap-4 py-3">
+                      <span class="text-[#F2EBDB]/85">{p.qui}</span>
+                      <span class="font-extrabold text-xl text-[#CB7A5C] whitespace-nowrap">{p.montant}</span>
+                    </li>
+                  ))}
+                </ul>
+                {o.details && (
+                  <ul class="mt-5 space-y-1.5 text-sm text-[#F2EBDB]/75 leading-relaxed">
+                    {o.details.map((d) => <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#CB7A5C]">{d}</li>)}
+                  </ul>
+                )}
+              </div>
             </div>
           ))}
         </div>
