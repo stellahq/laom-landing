@@ -1,22 +1,31 @@
 ---
 // OfferFeature — bloc offre centré : titre + rangée d'encarts chiffres + prix
 // + CTA. (Composition « feature » du template, en charte LAOM.)
+// options : plusieurs hébergements (photo, dispo, prix ligne à ligne, détails)
+// à la place du prix unique.
 import Pill from '../Pill.astro'
 import SectionHead from './SectionHead.astro'
 interface Props {
   eyebrow?: string; title: string; accent?: string
   callouts: { value: string; unit?: string; label: string }[]
-  priceLabel?: string; price: string; priceSuffix?: string
-  ctaText?: string; ctaHref?: string; bg?: string
+  priceLabel?: string; price?: string; priceSuffix?: string
+  options?: {
+    title: string; img?: string; alt?: string; dispo?: string
+    prix: { qui: string; montant: string }[]; details?: string[]
+  }[]
+  ctaText?: string; ctaHref?: string
+  secondaryText?: string; secondaryHref?: string; secondaryTarget?: string
+  bg?: string
 }
 const {
   eyebrow, title, accent, callouts = [],
-  priceLabel = 'Prix de lancement', price, priceSuffix,
-  ctaText = 'Candidater', ctaHref = '/candidater/', bg = 'bg-[#F2EBDB]',
+  priceLabel = 'Prix de lancement', price, priceSuffix, options = [],
+  ctaText = 'Candidater', ctaHref = '/candidater/',
+  secondaryText, secondaryHref, secondaryTarget, bg = 'bg-[#F2EBDB]',
 } = Astro.props
 ---
 <section class:list={[bg, 'py-24 md:py-32']}>
-  <div class="max-w-5xl mx-auto px-6 md:px-10 text-center">
+  <div class:list={[options.length > 0 ? "max-w-6xl" : "max-w-5xl", "mx-auto px-6 md:px-10 text-center"]}>
     <div class="mb-12"><SectionHead align="center" eyebrow={eyebrow} title={title} accent={accent} /></div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto mb-14">
@@ -28,12 +37,46 @@ const {
       ))}
     </div>
 
-    <div class="inline-flex flex-col items-center gap-6 rounded-3xl bg-[#412F1F] text-[#F2EBDB] px-10 py-9">
-      <div>
-        <p class="text-xs tracking-[0.2em] uppercase text-[#F2EBDB]/60 mb-2">{priceLabel}</p>
-        <p class="font-extrabold text-4xl md:text-5xl leading-none">{price}{priceSuffix && <span class="text-base font-normal text-[#F2EBDB]/70 ml-2">{priceSuffix}</span>}</p>
+    {options.length > 0 ? (
+      <div class="rounded-3xl bg-[#412F1F] text-[#F2EBDB] px-6 py-9 md:px-10 md:py-11">
+        <p class="text-xs tracking-[0.2em] uppercase text-[#F2EBDB]/60 mb-7">{priceLabel}</p>
+        <div class="grid md:grid-cols-3 gap-4 text-left">
+          {options.map((o) => (
+            <div class="rounded-2xl bg-[#F2EBDB]/[0.07] border border-[#F2EBDB]/15 overflow-hidden flex flex-col">
+              {o.img && <img src={o.img} alt={o.alt ?? ''} class="w-full aspect-[4/3] object-cover" loading="lazy" />}
+              <div class="p-6">
+                <p class="font-extrabold text-xl leading-tight">{o.title}</p>
+                {o.dispo && <p class="text-sm text-[#CB7A5C] font-semibold mt-1">{o.dispo}</p>}
+                <ul class="mt-5 divide-y divide-[#F2EBDB]/15 border-y border-[#F2EBDB]/15">
+                  {o.prix.map((p) => (
+                    <li class="flex items-baseline justify-between gap-4 py-3">
+                      <span class="text-[#F2EBDB]/85">{p.qui}</span>
+                      <span class="font-extrabold text-xl text-[#CB7A5C] whitespace-nowrap">{p.montant}</span>
+                    </li>
+                  ))}
+                </ul>
+                {o.details && (
+                  <ul class="mt-5 space-y-1.5 text-sm text-[#F2EBDB]/75 leading-relaxed">
+                    {o.details.map((d) => <li class="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#CB7A5C]">{d}</li>)}
+                  </ul>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="flex flex-wrap gap-4 justify-center items-center mt-9">
+          <Pill href={ctaHref} variant="light" arrow={true}>{ctaText}</Pill>
+          {secondaryText && <Pill href={secondaryHref} target={secondaryTarget} variant="outline">{secondaryText}</Pill>}
+        </div>
       </div>
-      <Pill href={ctaHref} variant="light" arrow={true}>{ctaText}</Pill>
-    </div>
+    ) : (
+      <div class="inline-flex flex-col items-center gap-6 rounded-3xl bg-[#412F1F] text-[#F2EBDB] px-10 py-9">
+        <div>
+          <p class="text-xs tracking-[0.2em] uppercase text-[#F2EBDB]/60 mb-2">{priceLabel}</p>
+          <p class="font-extrabold text-4xl md:text-5xl leading-none">{price}{priceSuffix && <span class="text-base font-normal text-[#F2EBDB]/70 ml-2">{priceSuffix}</span>}</p>
+        </div>
+        <Pill href={ctaHref} variant="light" arrow={true}>{ctaText}</Pill>
+      </div>
+    )}
   </div>
 </section>
