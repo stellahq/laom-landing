@@ -211,9 +211,9 @@ export const documentsNote = 'Accès sur demande à Charly.'
 // ============================================================
 
 export const estTotals = {
-  capital: 1109933.74,
-  dettes: 844716.83,
-  prixLyre: 336910.21,
+  capital: 1114747.27,
+  dettes: 849530.36,
+  prixLyre: 341723.74,
   fraisAnnexes: 142538.4,
   chaudiere: 20730.62,
   fosse: 16222.47,
@@ -223,33 +223,64 @@ export const estTotals = {
 }
 
 const DETTE_MONTANT = 57762.36
-const DETTE_MENSUALITE = 962.71
+const DETTE_MENSUALITE = 802.25
 const DETTE_DUREE_MOIS = 60
+const DETTE_FOYERS = 10
+const DETTE_PARTS = 12
+const DETTE_PART = 4813.53
+const DETTE_PART_MOIS = 80.23
+const DETTE_CEDE_ASSOCIATION = 52948.83
+const DETTE_PRIX_ASSOCIATION = 48135.3
+const DETTE_EXCEDENT = 22371.65
+const DETTE_VERSE_PAR_ENTRANT = 27185.18
+
+/** Capital de la Lyre avant sa part de la dette de Patricia : le prix qui boucle le montage. */
+const LYRE_CAPITAL_LOT = 305167
 
 /**
  * La dette de la SCIA Est envers Patricia, décidée le 9 septembre 2026 à la
  * place des cinq lots à construire : la part de sa créance qui n'est ni du
- * capital ni remboursée par l'entrant de la Lyre reste en compte courant, et
- * les foyers à l'année la remboursent sur cinq ans, hors capital.
+ * capital ni remboursée par l'entrant de la Lyre reste en compte courant.
+ * Formalisation du 2 octobre 2026 : l'association des habitants rachète cette
+ * part et la paie à Patricia sur cinq ans, grâce à une cotisation des 10 foyers
+ * payeurs. Décision du 17 octobre 2026 : la Lyre est incluse, la dette se
+ * divise en 12 parts. La Lyre paie la sienne dans son prix, à son arrivée,
+ * directement à Patricia avec l'excédent ; l'association rachète 10 parts de
+ * créance ; Patricia porte la dernière (elle ne la paie pas, elle ne la touche pas).
  */
 export const dettePatricia = {
   montant: DETTE_MONTANT,
   compteCourantTotal: 80134.01,
-  excedentEntrant: 22371.65,
+  /** L'excédent de sa créance, hors dette, payé par l'entrant de la Lyre. */
+  excedentEntrant: DETTE_EXCEDENT,
+  /** Ce que l'entrant de la Lyre verse à Patricia : l'excédent, plus la part de la Lyre dans la dette. */
+  verseParEntrant: DETTE_VERSE_PAR_ENTRANT,
   dureeMois: DETTE_DUREE_MOIS,
+  /** Versée à Patricia par l'association des habitants. */
   mensualite: DETTE_MENSUALITE,
-  foyersHypothese: 12,
-  parFoyerMois: 80.23,
-  parFoyerTotal: 4813.53,
-  regle: `En remplacement des cinq lots retirés du montage, la SCIA Est garde une dette de ${eur(DETTE_MONTANT)} envers Patricia, hors capital : elle est remboursée sur cinq ans par les foyers à l'année, en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)}.`,
+  /** Les parts de la dette : les 10 foyers payeurs, la Lyre et Patricia. */
+  parts: DETTE_PARTS,
+  /** Les foyers qui cotisent à l'association. */
+  foyers: DETTE_FOYERS,
+  parFoyerMois: DETTE_PART_MOIS,
+  parFoyerTotal: DETTE_PART,
+  /** La part de la Lyre, payée dans son prix à son arrivée. */
+  partLyre: DETTE_PART,
+  /** La part de la créance cédée à l'association : 11 parts sur 12 (les 10 foyers payeurs et Patricia), soit 57 762,36 − 4 813,53. */
+  cedeAssociation: DETTE_CEDE_ASSOCIATION,
+  /** Ce que l'association paie à Patricia pour cette créance : 10 parts. */
+  prixAssociation: DETTE_PRIX_ASSOCIATION,
+  /** La part de Patricia : la différence, qu'elle ne paie pas et ne touche pas. */
+  partPatricia: DETTE_PART,
+  regle: `Patricia garde au capital la Grange seule. Le reste de sa créance est un compte courant de ${eur(80134.01)} dans la SCIA Est, partagé en ${DETTE_PARTS} parts de ${eur(DETTE_PART)} : la Lyre paie la sienne dans son prix, à son arrivée, avec l'excédent de Patricia (${eur(DETTE_VERSE_PAR_ENTRANT)} en tout) ; les ${DETTE_FOYERS} foyers payeurs versent la leur à l'association des habitants, qui rachète ${eur(DETTE_CEDE_ASSOCIATION)} de la créance pour ${eur(DETTE_PRIX_ASSOCIATION)}, payés à Patricia en ${DETTE_DUREE_MOIS} mensualités de ${eur(DETTE_MENSUALITE)} ; Patricia porte la dernière.`,
   aFixer:
-    "Restent à fixer : la liste des foyers payeurs, la date de la première mensualité et le véhicule juridique — appels de fonds de la SCIA Est, contribution via l'association pour les foyers de l'Ouest — à valider avec la notaire.",
+    'À confirmer : le prix annoncé de la Lyre, la date de la première mensualité, et la validation par Pierre Lévy et la notaire.',
 }
 
 export const estKeyFigures: KeyFigure[] = [
   { value: eur(estTotals.capital), label: 'Capital total de la SCIA Est' },
   { value: eur(estTotals.dettes), label: 'Dettes à rembourser aux sortants' },
-  { value: eur(estTotals.prixLyre), label: 'Prix de la Lyre, tout compris' },
+  { value: eur(estTotals.prixLyre), label: 'Prix de la Lyre, tout compris, dont sa part de la dette de Patricia' },
   { value: eur(estTotals.fraisAnnexes), label: 'Frais annexes Est, en plus des capitaux' },
 ]
 
@@ -278,10 +309,10 @@ export const estPourquoi: PourquoiPoint[] = [
   {
     titre: 'Personne ne porte de dette pour rien',
     texte:
-      "Les apports des entrants et le prix de la Lyre paient les sortants ; ce qui manque reste en compte courant chez Patricia, et les foyers à l'année le remboursent sur cinq ans.",
+      "Les apports des entrants et le prix de la Lyre paient les sortants ; ce qui manque reste en compte courant chez Patricia, et tous les foyers, Lyre comprise, le lui remboursent : la Lyre dans son prix, les 10 foyers payeurs via l'association des habitants, sur cinq ans.",
     precisions: [
       "Le prix de la Lyre est la variable qui boucle le système : il vaut ce qu'il faut pour que tout le monde soit remboursé.",
-      `La part de la créance de Patricia laissée en compte courant, ${eur(dettePatricia.montant)}, remboursée sur cinq ans par les foyers à l'année, est ce qui permet à la Lyre de sortir à ${eur(330000)} hors chaudière, ${eur(estTotals.prixLyre)} avec.`,
+      `La part de la créance de Patricia laissée en compte courant, ${eur(dettePatricia.montant)}, est partagée en ${dettePatricia.parts} parts de ${eur(dettePatricia.parFoyerTotal)} : la Lyre sort à ${eur(330000)} de base, plus sa part de chaudière, plus sa part de cette dette, soit ${eur(estTotals.prixLyre)} tout compris.`,
     ],
   },
   {
@@ -313,8 +344,10 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
         'Clé du main à la main à 10,5 parts.',
         `Foyer commun à ${eur(10862.07)} par part.`,
         "Khaldoun associé de l'Ouest, apporte sa quote-part ; plus de crédit vendeur.",
-        `Dette de ${eur(dettePatricia.montant)} de la SCIA Est envers Patricia, remboursée sur cinq ans par les foyers à l'année (${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}), en remplacement des cinq lots retirés du montage.`,
-        `Lyre à ${eur(estTotals.prixLyre)} tout compris (330 000 € + sa part de chaudière).`,
+        `Dette de ${eur(dettePatricia.montant)} de la SCIA Est envers Patricia, en ${dettePatricia.parts} parts de ${eur(dettePatricia.parFoyerTotal)}, Lyre comprise (17/10) : la Lyre paie la sienne dans son prix, l'association des habitants rachète ${eur(dettePatricia.cedeAssociation)} pour ${eur(dettePatricia.prixAssociation)} et les paie à Patricia en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)}, grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs ; Patricia porte la dernière.`,
+        "Julian soldé à la signature ; Isabelle et Caroline portent le reste à parts égales et restent associées jusqu'à l'entrant.",
+        `Lyre à ${eur(estTotals.prixLyre)} tout compris (330 000 € + sa part de chaudière + sa part de la dette de Patricia).`,
+        "Les terres non bâties vont à l'association des habitants (17/10) ; les parcelles bâties restent dans les SCIA.",
         `Chaudière (devis Voda 20 730,62 €) partagée par tiers entre La Grange, la Lyre et la Source.`,
       ],
     },
@@ -327,9 +360,8 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
       titre: 'À valider par le collectif',
       items: [
         'La clé du main à la main : Greg divise par 15.',
-        'La variante, avec ou sans prêts en compte courant.',
         `Le foyer commun à ${eur(10862.07)} par part, sur la clé revue le 9/09 (11,6 parts).`,
-        'La dette de Patricia : liste des foyers payeurs et véhicule juridique.',
+        'La dette de Patricia : liste des 10 foyers et validation de la formalisation par la notaire',
       ],
     },
     {
@@ -337,7 +369,7 @@ export const estEtat: { date: string; colonnes: EtatColonne[] } = {
       items: [
         'Refaire le partage partiel chez la notaire.',
         "Rédiger l'EDD Est (Charly avec NILA).",
-        'Écrire la convention de remboursement de la dette de Patricia, avec la notaire.',
+        "Écrire avec la notaire la cession de la créance de Patricia à l'association et la cotisation des foyers payeurs.",
       ],
     },
   ],
@@ -374,7 +406,7 @@ export const foyersEst: FoyerEst[] = [
     capital: 151987.93,
     capitalLot: 151987.93,
     capitalNote: 'La Grange seule ; le reste de sa créance est un compte courant',
-    capitalCommentaire: `Le reste de sa créance Est, ${eur(dettePatricia.compteCourantTotal)}, est un compte courant d'associée dans la SCIA Est : ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
+    capitalCommentaire: `Le reste de sa créance Est, ${eur(dettePatricia.compteCourantTotal)}, est un compte courant d'associée dans la SCIA Est : ${eur(dettePatricia.verseParEntrant)} payés à l'arrivée de l'entrant de la Lyre (l'excédent et la part de la Lyre dans la dette), ${eur(dettePatricia.cedeAssociation)} rachetés par l'association des habitants pour ${eur(dettePatricia.prixAssociation)}, payés sur cinq ans ; la différence, ${eur(dettePatricia.partPatricia)}, est sa propre part de la dette.`,
     fraisAnnexes: 22588.41,
     fraisAnnexesDetail: [
       { label: 'Fosse (1 WC)', montant: 2027.81 },
@@ -390,7 +422,7 @@ export const foyersEst: FoyerEst[] = [
     total: 174576.34,
     totalNote: 'sa créance couvre le capital',
     totalDetail: `son capital de ${eur(151987.93)} + ses frais annexes : sa créance couvre le capital, elle ne sort que les frais annexes`,
-    partCapital: '13,7 %',
+    partCapital: '13,6 %',
     alias: ['Patricia Salgon'],
   },
   {
@@ -399,8 +431,10 @@ export const foyersEst: FoyerEst[] = [
     surfaceModele: 114,
     surfaceDpe: 113.48,
     valeurConventionnelle: 279461.67,
-    capital: 305167,
-    capitalCommentaire: 'Capital = le prix qui boucle le montage.',
+    capital: LYRE_CAPITAL_LOT + DETTE_PART,
+    capitalEnPlus: `${eur(LYRE_CAPITAL_LOT)} + ${eur(DETTE_PART)} de part de la dette de Patricia`,
+    capitalNote: `${eur(LYRE_CAPITAL_LOT)} + ${eur(DETTE_PART)} de part de la dette de Patricia`,
+    capitalCommentaire: 'Capital = le prix qui boucle le montage, plus sa part de la dette de Patricia, payée à Patricia à son arrivée.',
     fraisAnnexes: 31743.2,
     fraisAnnexesDetail: [
       { label: 'Provision sur actes', montant: 4811.31 },
@@ -409,8 +443,9 @@ export const foyersEst: FoyerEst[] = [
       { label: 'Foyer commun (1 part)', montant: 10862.07 },
       { label: 'Chaudière (1/3 du devis Voda)', montant: 6910.21 },
     ],
-    total: 336910.21,
-    partCapital: '27,5 %',
+    total: 341723.74,
+    totalDetail: 'tout compris, dont sa part de la dette de Patricia',
+    partCapital: '27,8 %',
     alias: ['Entrant Lyre'],
   },
   {
@@ -430,7 +465,7 @@ export const foyersEst: FoyerEst[] = [
       { label: 'Foyer commun (1 part)', montant: 10862.07 },
     ],
     total: 212605.78,
-    partCapital: '16,7 %',
+    partCapital: '16,6 %',
     alias: ['Magali Rouby'],
   },
   {
@@ -471,7 +506,7 @@ export const foyersEst: FoyerEst[] = [
       { label: 'Chaudière (1/3 du devis Voda)', montant: 6910.21 },
     ],
     total: 225731.84,
-    partCapital: '17,7 %',
+    partCapital: '17,6 %',
     alias: ['Charlotte & David'],
   },
 ]
@@ -508,7 +543,7 @@ const TOIT_PART_MAIN_OEUVRE = 3000
 const TOIT_LOYERS_KHALDOUN = 8800
 
 export const toitRegle =
-  `Le toit des maisons Source et Lyre a coûté ${eur(33000)} : ${eur(21000)} de matériaux, avancés par Patricia à la Ferme du Verseau, et ${eur(12000)} de main d'œuvre bénévole. Il ne passe par aucune des deux SCIA : il se règle à part, sur facture de la Ferme du Verseau.`
+  `Le toit des maisons Source et Lyre a coûté ${eur(33000)} : ${eur(21000)} de matériaux, avancés par Patricia à la Ferme du Verseau, et ${eur(12000)} de main d'œuvre. Il ne passe par aucune des deux SCIA : il se règle à part, sur facture de la Ferme du Verseau.`
 
 /**
  * Le toit Source + Lyre, hors montage. Les lignes ci-dessous couvrent le coût
@@ -656,7 +691,7 @@ export const sortantsEst: Sortant[] = [
   { nom: 'Caroline Ader', montant: 300000 },
   { nom: 'Julian Quero', montant: 150000 },
   { nom: 'Orriols SARL (part Est)', montant: 129921.46 },
-  { nom: 'Patricia Salgon (excédent)', montant: 22371.65 },
+  { nom: 'Patricia Salgon (excédent + part de la Lyre dans sa dette)', montant: DETTE_VERSE_PAR_ENTRANT },
   { nom: "Turquoise SARL (société d'Isabelle)", montant: 4003.88 },
 ]
 
@@ -667,32 +702,36 @@ export const phase1: Phase = {
   total: 539549.83,
   flux: [
     { payeur: 'Grégoire Renevier', beneficiaire: 'Caroline Ader', montant: 52486.89, note: 'cession de créance' },
-    { payeur: 'Magali Rouby', beneficiaire: 'Caroline Ader', montant: 185320.94 },
-    { payeur: 'Serge & Marie-Agnès', beneficiaire: 'Caroline Ader', montant: 11234.21 },
-    { payeur: 'Serge & Marie-Agnès', beneficiaire: 'Julian Quero', montant: 94394.34 },
-    { payeur: 'Charlotte & David', beneficiaire: 'Julian Quero', montant: 4647.7 },
+    { payeur: 'Magali Rouby', beneficiaire: 'Caroline Ader', montant: 171076.16 },
+    { payeur: 'Magali Rouby', beneficiaire: 'Isabelle Desplats', montant: 14244.78 },
+    { payeur: 'Serge & Marie-Agnès', beneficiaire: 'Julian Quero', montant: 105628.55 },
+    { payeur: 'Charlotte & David', beneficiaire: 'Julian Quero', montant: 44371.45 },
     { payeur: 'Charlotte & David', beneficiaire: 'Turquoise SARL', montant: 4003.88 },
-    { payeur: 'Charlotte & David', beneficiaire: 'Isabelle Desplats', montant: 187461.87 },
+    { payeur: 'Charlotte & David', beneficiaire: 'Isabelle Desplats', montant: 147738.12 },
   ],
   recus: [
-    { nom: 'Isabelle Desplats', montant: 187461.87 },
-    { nom: 'Caroline Ader', montant: 249042.04 },
-    { nom: 'Julian Quero', montant: 99042.04 },
+    { nom: 'Isabelle Desplats', montant: 161982.9 },
+    { nom: 'Caroline Ader', montant: 223563.05 },
+    { nom: 'Julian Quero', montant: 150000 },
   ],
-  note: `Chacun des trois garde ${eur(50957.97)} en compte courant et reste associé jusqu'à l'arrivée de l'entrant.`,
+  note: `Julian est soldé à la signature. Isabelle et Caroline gardent le reste en compte courant (${eur(76436.94)} et ${eur(76436.95)}) et restent associées jusqu'à l'arrivée de l'entrant.`,
 }
 
 export const phase2: Phase = {
   titre: "Phase 2 — à l'arrivée de l'entrant Lyre",
-  total: 305167,
+  total: 309980.53,
   flux: [
-    { payeur: 'Entrant Lyre', beneficiaire: 'Isabelle Desplats', montant: 50957.97 },
-    { payeur: 'Entrant Lyre', beneficiaire: 'Caroline Ader', montant: 50957.97 },
-    { payeur: 'Entrant Lyre', beneficiaire: 'Julian Quero', montant: 50957.97 },
+    { payeur: 'Entrant Lyre', beneficiaire: 'Isabelle Desplats', montant: 76436.94 },
+    { payeur: 'Entrant Lyre', beneficiaire: 'Caroline Ader', montant: 76436.95 },
     { payeur: 'Entrant Lyre', beneficiaire: 'Orriols SARL', montant: 129921.46 },
-    { payeur: 'Entrant Lyre', beneficiaire: 'Patricia Salgon', montant: 22371.65 },
+    {
+      payeur: 'Entrant Lyre',
+      beneficiaire: 'Patricia Salgon',
+      montant: DETTE_VERSE_PAR_ENTRANT,
+      note: 'excédent + part de la Lyre dans sa dette',
+    },
   ],
-  note: 'Rachat des parts et des comptes courants des trois sortants, quittance finale.',
+  note: `Rachat des parts et des comptes courants d'Isabelle et de Caroline, quittance finale. Patricia reçoit l'excédent de sa créance et la part de la Lyre dans sa dette, ${eur(DETTE_PART)}.`,
 }
 
 export const phases: Phase[] = [phase1, phase2]
@@ -719,7 +758,7 @@ export const estEtapes: EtapeMontage[] = [
   },
   {
     titre: "L'entrant de la Lyre",
-    texte: `Il solde Isabelle, Caroline, Julian, Orriols et l'excédent de Patricia ; ${eur(estTotals.prixLyre)} tout compris pour lui.`,
+    texte: `Il solde Isabelle, Caroline, Orriols, l'excédent de Patricia et sa part de la dette de Patricia ; ${eur(estTotals.prixLyre)} tout compris pour lui.`,
     montant: phase2.total,
     montantNote: 'phase 2',
   },
@@ -733,7 +772,7 @@ export const estEtapes: EtapeMontage[] = [
   },
   {
     titre: 'La dette envers Patricia',
-    texte: `Remboursée sur cinq ans par les foyers à l'année, en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} ; la liste des foyers payeurs et le véhicule juridique restent à fixer.`,
+    texte: `${dettePatricia.parts} parts de ${eur(dettePatricia.parFoyerTotal)} : la Lyre paie la sienne à son arrivée ; l'association des habitants rachète ${eur(dettePatricia.cedeAssociation)} pour ${eur(dettePatricia.prixAssociation)}, payés à Patricia en ${dettePatricia.dureeMois} mensualités de ${eur(dettePatricia.mensualite)} grâce à la cotisation des ${dettePatricia.foyers} foyers payeurs ; Patricia porte la dernière, et la date de la première mensualité reste à confirmer.`,
     montant: dettePatricia.montant,
     montantNote: 'hors capital, sur cinq ans',
   },
@@ -761,26 +800,15 @@ export function fluxFoyer(f: FoyerEst): FluxBloc[] {
   return blocs
 }
 
-export const variantes: Variante[] = [
-  {
-    cle: 'A',
-    titre: 'Scénario prêt en compte courant',
-    points: [
-      "Des prêts en compte courant d'associés soldent les trois sortants dès la signature.",
-      "Ils sont remboursés par l'entrant de la Lyre, jamais transformés en parts.",
-      "Seule variante qui tient la date butoir d'Isabelle, le 15 novembre 2026.",
-    ],
-  },
-  {
-    cle: 'B',
-    titre: 'Scénario sans prêt',
-    points: [
-      `Les trois sortants restent associés avec ${eur(50957.97)} chacun en compte courant jusqu'à l'arrivée de l'entrant.`,
-      'Aucune reconnaissance de dette.',
-      "Personne n'avance de trésorerie.",
-    ],
-  },
-]
+export const scenario: Variante = {
+  cle: 'retenu',
+  titre: 'Le scénario retenu : sans prêt',
+  points: [
+    `Julian est soldé à la signature : ${eur(150000)}.`,
+    "Isabelle et Caroline sont remboursées de tout ce qui est disponible à la signature, et restent associées avec environ 76 437 chacune en compte courant jusqu'à l'arrivée du nouvel associé de la Lyre, qui les rachète.",
+    "Aucun prêt, aucune reconnaissance de dette : personne n'avance de trésorerie.",
+  ],
+}
 
 export const notionsEst: NotionChiffree[] = [
   {
@@ -850,24 +878,24 @@ export const ouestKeyFigures: KeyFigure[] = [
 
 export const lotsOuest: LotOuest[] = [
   { lot: 'Petit Shambala', coefficient: 1, quotePart: 17346.17, attributaire: 'Amandine & Charly', valeur: 77000 },
-  { lot: 'GS rdc extrême ouest — coliving 125 m²', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM / Ferme du Verseau', valeur: 161760.7 },
-  { lot: 'GS étage ouest — appartement', coefficient: 0.5, quotePart: 8673.09, attributaire: 'David Coste', valeur: 95633.93 },
-  { lot: 'GS étage centre', coefficient: 1, quotePart: 17346.17, attributaire: 'Laetitia Brene', valeur: 130343.33 },
-  { lot: 'GS rdc est — atelier 32 m²', coefficient: 0, quotePart: 0, attributaire: 'Laetitia Brene', valeur: 44896.04 },
-  { lot: 'GS étage est', coefficient: 1, quotePart: 17346.17, attributaire: 'Claire & Baptiste', valeur: 40639 },
+  { lot: 'GS rdc extrême ouest — coliving 125 m²', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM / Ferme du Verseau', valeur: 100000 },
+  { lot: 'GS étage ouest — appartement', coefficient: 0.5, quotePart: 8673.09, attributaire: 'David Coste', valeur: 46875 },
+  { lot: 'GS étage centre', coefficient: 1, quotePart: 17346.17, attributaire: 'Laetitia Brene', valeur: 67770 },
+  { lot: 'GS rdc est — atelier 32 m²', coefficient: 0, quotePart: 0, attributaire: 'Laetitia Brene', valeur: 23250 },
+  { lot: 'GS étage est', coefficient: 1, quotePart: 17346.17, attributaire: 'Claire & Baptiste', valeur: 30000 },
   { lot: 'GS étage extrême ouest — studio', coefficient: 0.5, quotePart: 8673.09, attributaire: 'Amandine & Charly', valeur: 15500 },
-  { lot: 'GS rdc extrême est', coefficient: 1, quotePart: 17346.17, attributaire: 'David Lin', valeur: 92227.81 },
-  { lot: 'GS rdc centre — foyer commun', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau + association', valeur: 106518.6 },
-  { lot: 'Annexe', coefficient: 0, quotePart: 0, attributaire: 'Orriols SAS', valeur: 32755.68 },
-  { lot: 'Tiny Eliott (touristique)', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM', valeur: 47507 },
+  { lot: 'GS rdc extrême est', coefficient: 1, quotePart: 17346.17, attributaire: 'David Lin', valeur: 46875 },
+  { lot: 'GS rdc centre — foyer commun', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau + association', valeur: 67500 },
+  { lot: 'Annexe', coefficient: 0, quotePart: 0, attributaire: 'Orriols SAS', valeur: 23250 },
+  { lot: 'Tiny Eliott (touristique)', coefficient: 0.5, quotePart: 8673.09, attributaire: 'LAOM', valeur: 39000 },
   { lot: 'Tiny Claire (touristique)', coefficient: 0.5, quotePart: 8673.09, attributaire: 'Claire & Baptiste', valeur: 49000 },
-  { lot: 'Ferme — serre, abris, terre', coefficient: 0.04, quotePart: 693.85, attributaire: 'Orriols SAS', valeur: 5249.54 },
-  { lot: 'Accueil — salle, restaurant', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau', valeur: 180000 },
+  { lot: 'Ferme — serre, abris, terre', coefficient: 0.04, quotePart: 693.85, attributaire: 'Orriols SAS', valeur: 5249.54, valeurNote: 'hors fichier de suivi' },
+  { lot: 'Accueil — salle, restaurant', coefficient: 0, quotePart: 0, attributaire: 'Ferme du Verseau', valeur: 180000, valeurNote: 'hors fichier de suivi' },
   { lot: 'Terrain des lodges', coefficient: 5, quotePart: 86730.87, attributaire: 'Patricia Salgon', valeur: 97932.16, valeurNote: 'partage partiel' },
-  { lot: 'Logement Khaldoun (nouveau)', coefficient: 1, quotePart: 17346.17, attributaire: 'Khaldoun', valeur: 17346.17 },
+  { lot: 'Logement Khaldoun (nouveau)', coefficient: 1, quotePart: 17346.17, attributaire: 'Khaldoun', valeur: 17346.17, valeurNote: 'sa quote-part' },
 ]
 
-export const lotsOuestNote = `Le total des lots ci-dessus ne se lit pas comme le total des apports : plusieurs lots sont partagés entre attributaires — le foyer commun entre la Ferme du Verseau et l'association — et Orriols SARL n'apporte à l'Ouest que des quotes-parts. Le total qui fait foi est celui des apports, ${eur(ouestTotals.valeurLots)}.`
+export const lotsOuestNote = `La valeur du lot est sa valeur 2023 (fichier de suivi des dépenses du Grand Shambala, onglet « Évolution du prix au m² »), hors quote-part du domaine et hors dépenses de 2024 à 2026. Le total des lots ne se lit donc pas comme le total des apports : plusieurs lots sont partagés entre attributaires — le foyer commun entre la Ferme du Verseau et l'association — et Orriols SARL n'apporte à l'Ouest que des quotes-parts. Le total qui fait foi est celui des apports, ${eur(ouestTotals.valeurLots)}.`
 
 export const deplacementsEst: Notion[] = [
   {
@@ -915,7 +943,7 @@ export const khaldoun = {
       texte: "dalle, réseaux (VRD) et gaines de l'atelier du rez-de-chaussée, à chiffrer",
     },
   ] as KhaldounLigne[],
-  note: `Patricia ne transfère plus rien vers l'Ouest : ce qu'elle n'est pas remboursée en argent reste en compte courant dans la SCIA Est, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
+  note: `Patricia ne transfère plus rien vers l'Ouest : ce qu'elle n'est pas remboursée en argent reste en compte courant dans la SCIA Est : la Lyre paie sa part de la dette à son arrivée, et l'association des habitants rachète ${eur(dettePatricia.cedeAssociation)} et les lui paie sur cinq ans.`,
 }
 
 export const apportsOuest: ApportOuest[] = [
@@ -1031,7 +1059,7 @@ export const lexique: LexiqueEntree[] = [
   },
   {
     terme: 'Quote-part du domaine',
-    definition: `La part des espaces extérieurs et des frais d'acquisition attachée à chaque lot : ${eur(17346.17)} par coefficient, ${eur(8673.09)} pour un demi. Déjà comprise dans le capital.`,
+    definition: `La part des espaces extérieurs et des frais d'acquisition attachée à chaque lot : ${eur(17346.17)} par coefficient, ${eur(8673.09)} pour un demi. Déjà comprise dans le capital. Depuis le 17 octobre, les terres non bâties sont apportées à l'association des habitants : le montant des quotes-parts ne change pas, il devient la contribution des foyers aux terres communes.`,
   },
   {
     terme: 'Clé historique et deuxième clé',
@@ -1044,7 +1072,7 @@ export const lexique: LexiqueEntree[] = [
   },
   {
     terme: "Compte courant d'associé",
-    definition: `Ce que la société doit à un associé en plus de son capital : une créance, remboursable, sans droits de vote. Ici ${eur(dettePatricia.compteCourantTotal)} pour Patricia dans la SCIA Est — ${eur(dettePatricia.excedentEntrant)} remboursés à l'arrivée de l'entrant de la Lyre, ${eur(dettePatricia.montant)} remboursés sur cinq ans par les foyers à l'année.`,
+    definition: `Ce que la société doit à un associé en plus de son capital : une créance, remboursable, sans droits de vote. Ici ${eur(dettePatricia.compteCourantTotal)} pour Patricia dans la SCIA Est — ${eur(dettePatricia.verseParEntrant)} payés à l'arrivée de l'entrant de la Lyre (l'excédent et la part de la Lyre dans la dette), ${eur(dettePatricia.cedeAssociation)} rachetés par l'association des habitants pour ${eur(dettePatricia.prixAssociation)}, payés sur cinq ans ; la différence, ${eur(dettePatricia.partPatricia)}, est sa propre part de la dette.`,
   },
   {
     terme: 'Frais annexes',
@@ -1065,10 +1093,11 @@ export const lexique: LexiqueEntree[] = [
       "La signature (les entrants paient), puis l'arrivée de l'entrant de la Lyre (il solde le reste).",
   },
   {
-    terme: 'Variantes A et B',
+    terme: 'Scénario sans prêt',
     definition:
-      "Avec prêts en compte courant (les sortants soldés à la signature) ou sans (ils restent associés jusqu'à l'entrant).",
+      "Le seul scénario proposé : Julian est soldé à la signature ; Isabelle et Caroline restent associées avec leur compte courant jusqu'à l'arrivée du nouvel associé de la Lyre.",
   },
+
   {
     terme: 'Sortants, restants, entrants',
     definition:
