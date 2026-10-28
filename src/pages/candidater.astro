@@ -19,10 +19,11 @@ const attentes = [
   'Prendre du recul sur mon activité et ma direction',
   'Découvrir le lieu et le projet LAOM',
 ]
-const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore']
+// Le champ garde le nom « semaine » (colonne D1), il porte désormais l'hébergement choisi.
+const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’appartement', 'Je ne sais pas encore']
 ---
 
-<Layout title="Candidater — LAOM Coliving août 2026" description="Candidate pour le coliving d'août 2026 à LAOM. Formulaire en 2 minutes, réponse sous 48h." hideChrome={true} seo={{ noIndex: true }}>
+<Layout title="Réserver ma place — LAOM Coliving juin 2027" description="Réserve ta place pour le coliving du 6 au 12 juin 2027 à LAOM. Formulaire en 2 minutes, réponse sous 48h." hideChrome={true} seo={{ noIndex: true }}>
   <div class="min-h-screen bg-[#FBF6EA]">
 
     <!-- Logo seul (retour accueil) -->
@@ -33,9 +34,9 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
     <!-- Intro + formulaire -->
     <div id="cand-app">
       <main class="max-w-2xl mx-auto px-6 py-14 md:py-20">
-        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Candidature · Coliving d’août 2026</p>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Candidate pour le coliving d’août 2026.</h1>
-        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">LAOM accueille 12 entrepreneurs par semaine, dans un cadre qui n’existe nulle part ailleurs. Pour que l’expérience soit à la hauteur pour chacun, on prend le temps de connaître ceux qui candidatent. Ce formulaire prend 2 minutes. On te recontacte dans les 48h.</p>
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Réservation · Coliving du 6 au 12 juin 2027</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Réserve ta place pour le coliving de juin 2027.</h1>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">LAOM accueille un petit groupe d’entrepreneurs, du 6 au 12 juin 2027. Pour que l’expérience soit à la hauteur pour chacun, on prend le temps de connaître celles et ceux qui viennent. Ce formulaire prend 2 minutes. On te recontacte dans les 48h pour confirmer ta place.</p>
 
         <form id="cand-form" class="mt-12 space-y-10" novalidate>
 
@@ -99,16 +100,16 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
 
           <!-- Q9 -->
           <fieldset class="space-y-3">
-            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">9</span><span class="pt-0.5">Quelle semaine t’intéresse ?</span></legend>
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">9</span><span class="pt-0.5">Quel hébergement t’intéresse ?</span></legend>
             <div class="grid sm:grid-cols-2 gap-3">
-              {semaines.map((o) => (<label class="block"><input type="radio" name="semaine" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
+              {hebergements.map((o) => (<label class="block"><input type="radio" name="semaine" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
             </div>
           </fieldset>
 
           <!-- Q10 -->
           <div class="space-y-3">
             <label for="message" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">10</span><span class="pt-0.5">Quelque chose qu’on devrait savoir avant de t’appeler ? <span class="font-normal text-[#1D1B18]/50">(facultatif)</span></span></label>
-            <textarea id="message" name="message" rows="4" placeholder="Ce que tu veux nous dire : questions, attentes, situation particulière, ce qui t’a donné envie de candidater…" class={inputCls}></textarea>
+            <textarea id="message" name="message" rows="4" placeholder="Ce que tu veux nous dire : questions, attentes, situation particulière, ce qui t’a donné envie de venir…" class={inputCls}></textarea>
           </div>
 
           <!-- RGPD -->
@@ -118,8 +119,8 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
           </label>
 
           <div class="pt-2">
-            <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Envoyer ma candidature</button>
-            <p id="reassurance" class="text-sm text-[#1D1B18]/55 mt-5">On te rappelle dans les 48h. Pas de pitch, pas de pression, juste une conversation pour voir si LAOM est fait pour toi.</p>
+            <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Réserver ma place</button>
+            <p id="reassurance" class="text-sm text-[#1D1B18]/55 mt-5">On te rappelle dans les 48h, pour un échange simple : voir ensemble si LAOM est fait pour toi.</p>
           </div>
         </form>
       </main>
@@ -130,8 +131,8 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
       <div class="w-16 h-16 rounded-full bg-[#9A3922]/10 text-[#9A3922] flex items-center justify-center mx-auto mb-7">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
       </div>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Merci<span id="cand-name"></span>. Ta candidature est bien reçue.</h1>
-      <p class="text-lg text-[#1D1B18]/70 mt-6 max-w-xl mx-auto leading-relaxed">On revient vers toi dans les 48h pour un échange de 15 minutes. Pas de pitch, pas de pression, juste une conversation pour voir si LAOM est fait pour toi.</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Merci<span id="cand-name"></span>. Ta demande est bien reçue.</h1>
+      <p class="text-lg text-[#1D1B18]/70 mt-6 max-w-xl mx-auto leading-relaxed">On revient vers toi dans les 48h pour un échange de 15 minutes, et pour voir ensemble si LAOM est fait pour toi.</p>
       <p class="text-[#1D1B18]/55 mt-4 max-w-xl mx-auto">D’ici là, on t’envoie un email avec quelques infos sur le lieu et ce qui t’attend.</p>
       <a href="/" class="pill pill-primary inline-flex mt-10" style="padding:.85rem 2rem">Revenir à l’accueil</a>
     </div>
@@ -184,7 +185,7 @@ const semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Je ne sais pas encore'
       try { if (w.fbq) w.fbq('track', 'Lead', { content_name: 'candidature-coliving' }, { eventID: eventId }) } catch {}
       try { if (w.gtag) w.gtag('event', 'generate_lead', { event_category: 'coliving', event_label: 'candidature' }) } catch {}
     } catch (err) {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma candidature' }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Réserver ma place' }
       const reass = document.getElementById('reassurance') as HTMLElement
       if (reass) { reass.textContent = 'Oups, un souci à l’envoi. Réessaie dans un instant.'; reass.style.color = '#9A3922' }
       return

@@ -132,7 +132,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
         ['Nom', nom], ['Email', email], ['Téléphone', tel],
         ['Activité', answers.activite], ['Ancienneté', answers.anciennete],
         ['Équipe', answers.equipe], ['Déjà fait', answers.experience],
-        ['Attentes', answers.attentes.join(' · ')], ['Semaine', answers.semaine],
+        ['Attentes', answers.attentes.join(' · ')], ['Hébergement', answers.semaine],
         ['Message', answers.message], ['Source', utmLine],
       ]
       // esc() sur toutes les valeurs utilisateur : un champ "message" contenant du
@@ -167,9 +167,9 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
       const html = `
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1D1B18;line-height:1.6">
           <p>Salut ${esc(firstName)},</p>
-          <p><strong>Ta candidature pour le coliving d'août est bien reçue.</strong></p>
-          <p>On t'appelle dans les 48h pour un échange de 15 minutes. Pas de pitch, pas de pression —
-          juste une conversation pour voir si LAOM est fait pour toi.</p>
+          <p><strong>Ta demande de réservation pour le coliving du 6 au 12 juin 2027 est bien reçue.</strong></p>
+          <p>On t'appelle dans les 48h pour un échange de 15 minutes, et pour voir ensemble
+          si LAOM est fait pour toi.</p>
           <p>D'ici là, si tu veux te projeter :</p>
           <p>→ <a href="https://laom.fr/le-lieu/" style="color:#9A3922">Le lieu</a> — les 21 hectares, le shala, les tipis, la rivière<br/>
           → <a href="https://laom.fr/notre-histoire/" style="color:#9A3922">Notre histoire</a> — pourquoi on a construit cet endroit</p>
@@ -182,7 +182,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
           from: 'Charly de LAOM <hello@laom.fr>',
           to: [email],
           reply_to: 'laomcoliving@gmail.com',
-          subject: 'Ta candidature est bien reçue — Coliving LAOM août 2026',
+          subject: 'Ta demande est bien reçue · Coliving LAOM juin 2027',
           html,
         }),
       })

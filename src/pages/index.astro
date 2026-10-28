@@ -14,6 +14,7 @@ import MediaText from '~/components/laom/sections/MediaText.astro'
 import CtaBanner from '~/components/laom/CtaBanner.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
+import { RESERVER, RAPPEL } from '~/data/coliving'
 
 const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
@@ -24,18 +25,18 @@ const L = (n: string) => `/images/laom/${n}.webp`
   <!-- 0. HERO (plein écran, le seul — pas d'effet, instantané) -->
   <HeroCenter
     video="/videos/hero-laom-v2.mp4" img="/images/hero-laom-poster-v2.webp" alt="Le domaine LAOM en sud Aveyron"
-    navLinks={navLinks} navCta="Candidater" navCtaHref="/candidater/" navLogoHref="/"
+    navLinks={navLinks} navCta="Réserver ma place" navCtaHref={RESERVER} navLogoHref="/"
     eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
     title="Vis et travaille autrement, en pleine nature," accent="entre pairs"
     subtitle="Une semaine dans un domaine de 21 hectares. On s’occupe de tout : tu gardes ton énergie pour ce que tu es venu·e créer."
-    ctaText="Candidater" ctaHref="/candidater/" />
+    ctaText="Réserver ma place" ctaHref={RESERVER} />
 
   <!-- 1. LE PROJET — qu'est-ce que LAOM (→ Notre histoire) -->
   <div animate-fade-in-up class="opacity-0">
     <Statement texture={true}
       eyebrow="Le projet"
-      title="Pas un lieu de plus, un" accent="lieu de vie."
-      intro="LAOM, c’est un coliving installé dans un domaine de 21 hectares en pleine nature, dans le sud de l’Aveyron. Pensé pour les entrepreneurs déjà installés qui sentent qu’on crée mieux quand on peut, parfois, ralentir et se reconnecter à soi, aux autres, au vivant. Pas un hôtel. Pas un coworking de plus. Pas une retraite. Un endroit où l’on vient vivre, une semaine, ce qu’on aspire à vivre depuis longtemps."
+      title="Un domaine en pleine nature," accent="pensé pour créer."
+      intro="LAOM, c’est un coliving installé dans un domaine de 21 hectares en pleine nature, dans le sud de l’Aveyron. Pensé pour les entrepreneurs déjà installés qui sentent qu’on crée mieux quand on peut, parfois, ralentir et se reconnecter à soi, aux autres, au vivant. On y vient une semaine pour vivre ce qu’on aspire à vivre depuis longtemps."
       ctaText="Découvrir le projet" ctaHref="/notre-histoire/" />
   </div>
 
@@ -53,12 +54,12 @@ const L = (n: string) => `/images/laom/${n}.webp`
         {img:L('diner-golden-hour-laom'),title:'Le feu, la nuit',desc:'Soirées sous les étoiles.',href:'/le-lieu/'},
       ]} />
 
-  <!-- 3. LE COLIVING D'AOÛT — concrètement (→ programme) -->
+  <!-- 3. LE COLIVING DE JUIN 2027 — concrètement (→ programme) -->
   <div animate-fade-in-up class="opacity-0">
     <MediaText bg="bg-[#FBF6EA]" img={L('coworking-tablee')} alt="Des entrepreneurs au travail, ensemble, à LAOM"
-      eyebrow="Le coliving d’août 2026"
-      title="Une semaine. Douze entrepreneurs." accent="Tout est inclus."
-      text="Six nuits en tipi, dix-huit repas faits maison, un espace de travail au calme, des pratiques le matin (yoga, mouvement, marche), des ateliers et des soirées sous les étoiles. On gère la logistique : tu n’as qu’à exister, créer, et te retrouver. Douze places par semaine, pas une de plus."
+      eyebrow="Le coliving de juin 2027"
+      title="Du 6 au 12 juin," accent="tout est inclus."
+      text="Six nuits en chambre, en tipi ou dans l’appartement, dix-huit repas faits maison, un cours de mouvement chaque matin (yoga, MovNat, danse), un espace de travail au calme, des ateliers et des soirées sous les étoiles. On gère la logistique : tu n’as qu’à exister, créer, et te retrouver."
       ctaText="Découvrir le programme" ctaHref="/coliving/" />
   </div>
 
@@ -71,22 +72,22 @@ const L = (n: string) => `/images/laom/${n}.webp`
       ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
   </div>
 
-  <!-- 5. PASSE À L'ACTION (→ Candidater + quiz) -->
+  <!-- 5. PASSE À L'ACTION (→ Réserver + être rappelé·e) -->
   <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-28">
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
       <CtaBanner img={L('coworking-echange')}
         eyebrow="À toi de jouer"
         title="Prêt·e à vivre la semaine ?" accent="On t’attend."
-        primaryText="Candidater" primaryHref="/candidater/"
-        secondaryText="Faire le quiz" secondaryHref="/quiz/"
+        primaryText="Réserver ma place" primaryHref={RESERVER}
+        secondaryText="Être rappelé·e" secondaryHref={RAPPEL}
         items={[
-          {title:'Un échange de 15 min',desc:'Pas de pitch, pas de pression'},
-          {title:'12 places par semaine',desc:'On prend le temps de se connaître'},
+          {title:'Du 6 au 12 juin 2027',desc:'En chambre, en tipi ou dans l’appartement'},
+          {title:'Un échange de 15 min',desc:'Pour voir ensemble si LAOM est fait pour toi'},
         ]} />
     </div>
   </section>
 
   <SiteFooter />
 
-  <StickyCta text="Candidater" href="/candidater/" />
+  <StickyCta text="Réserver ma place" href={RESERVER} />
 </Layout>
