@@ -5,7 +5,7 @@
 // Route isolée /coliving-labo (noindex, hors menu).
 import Layout from '~/layouts/Layout.astro'
 import { laboNav as navLinks } from '~/data/laboNav'
-import PageHeader from '~/components/laom/PageHeader.astro'
+import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
 import SplitHeading from '~/components/laom/sections/SplitHeading.astro'
 import AltCardsBand from '~/components/laom/sections/AltCardsBand.astro'
 import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
@@ -27,13 +27,15 @@ const L = (n: string) => `/images/laom/${n}.webp`
 
 <Layout title="LAOM — Le coliving pour entrepreneurs" description="Du 6 au 12 juin 2027, une semaine en pleine nature avec des entrepreneurs qui te ressemblent. Tu continues de travailler, dans un cadre qui te nourrit." hideChrome={true}>
 
-  <!-- ① HEADER -->
-  <PageHeader
-    img={L('coworking-duo-table')}
-    navLinks={navLinks} navCta="Réserver ma place" navCtaHref={RESERVER} logoHref="/"
-    crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Coliving' }]}
-    title="Vivre et travailler autrement, le temps d’une semaine."
-    subtitle="Du 6 au 12 juin 2027. Des entrepreneurs qui te ressemblent, vingt-et-un hectares de nature dans le sud de l’Aveyron, et une semaine où tu n’as rien à gérer : tu vis, tu crées, tu respires." />
+  <!-- ① HEADER — vidéo plein écran, montée à partir des rushes de l'accueil -->
+  <HeroCenter
+    video="/videos/hero-coliving.mp4" img="/images/laom/hero-coliving-poster.webp" alt="Une journée de coliving à LAOM"
+    navLinks={navLinks} navCta="Réserver ma place" navCtaHref={RESERVER} navLogoHref="/"
+    eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
+    title="Vivre et travailler autrement," accent="le temps d’une semaine."
+    date="Du 6 au 12 juin 2027"
+    subtitle="Des entrepreneurs qui te ressemblent, vingt-et-un hectares de nature dans le sud de l’Aveyron, et une semaine où tu n’as rien à gérer : tu vis, tu crées, tu respires."
+    ctaText="Réserver ma place" ctaHref={RESERVER} />
 
   <!-- ② LE PROJET -->
   <div animate-fade-in-up class="opacity-0">
