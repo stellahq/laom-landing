@@ -1,17 +1,18 @@
 ---
 // HeroCenter — ouverture plein écran, contenu CENTRÉ (direction « contemplatif »).
 // Logo petit à gauche (via SiteNav), titre centré, beaucoup d'air, un seul CTA.
+// date : mise en avant sous le titre ; la proposition de valeur passe alors en dessous, plus discrète.
 import SiteNav from '../SiteNav.astro'
 import Pill from '../Pill.astro'
 interface Props {
   img: string; video?: string; alt?: string
   navLinks?: { label: string; href: string }[]; navCta?: string; navCtaHref?: string; navLogoHref?: string
-  eyebrow?: string; title: string; accent?: string; subtitle?: string
+  eyebrow?: string; title: string; accent?: string; date?: string; subtitle?: string
   ctaText?: string; ctaHref?: string
 }
 const {
   img, video, alt = '', navLinks, navCta = 'Candidater', navCtaHref = '/candidater/', navLogoHref,
-  eyebrow, title, accent, subtitle, ctaText = 'Candidater', ctaHref = '/candidater/',
+  eyebrow, title, accent, date, subtitle, ctaText = 'Candidater', ctaHref = '/candidater/',
 } = Astro.props
 const videoType = video?.endsWith('.mp4') ? 'video/mp4' : 'video/webm'
 ---
@@ -29,7 +30,8 @@ const videoType = video?.endsWith('.mp4') ? 'video/mp4' : 'video/webm'
     <h1 class="font-extrabold text-[#F2EBDB] text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.03] tracking-[-0.03em] max-w-4xl text-balance">
       {title}{accent && <> <span class="acc-light">{accent}</span></>}
     </h1>
-    {subtitle && <p class="mt-7 text-lg md:text-xl text-[#F2EBDB]/85 max-w-xl mx-auto leading-relaxed">{subtitle}</p>}
+    {date && <p class="mt-7 inline-flex rounded-full bg-[#1D1B18]/35 backdrop-blur-sm border border-[#F2EBDB]/25 px-6 py-2.5 text-lg md:text-2xl font-semibold text-[#F2EBDB] tracking-[-0.01em]">{date}</p>}
+    {subtitle && <p class:list={[date ? 'mt-6 text-base md:text-lg text-[#F2EBDB]/70 max-w-lg' : 'mt-7 text-lg md:text-xl text-[#F2EBDB]/85 max-w-xl', 'mx-auto leading-relaxed']}>{subtitle}</p>}
     <Pill href={ctaHref} variant="primary" arrow={true} class="mt-10">{ctaText}</Pill>
   </div>
 
