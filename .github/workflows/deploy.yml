@@ -33,7 +33,9 @@ jobs:
           echo "$META_ADS_TOKEN" | bunx wrangler@latest secret put META_ADS_TOKEN
           echo "$CF_API_TOKEN_RUNTIME" | bunx wrangler@latest secret put CF_API_TOKEN
           echo "$CF_ACCOUNT_ID_RUNTIME" | bunx wrangler@latest secret put CF_ACCOUNT_ID
+          if [ -n "$KIT_COLIVING_API_KEY" ]; then echo "$KIT_COLIVING_API_KEY" | bunx wrangler@latest secret put KIT_COLIVING_API_KEY; fi
         env:
+          KIT_COLIVING_API_KEY: ${{ secrets.KIT_COLIVING_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           META_CAPI_TOKEN: ${{ secrets.META_CAPI_TOKEN }}
