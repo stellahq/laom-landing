@@ -62,6 +62,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
 
   const answers = {
     activite: field(body.activite, 300),
+    references: field(body.references, 300),
     anciennete: field(body.anciennete, 60),
     equipe: field(body.equipe, 60),
     experience: field(body.experience, 60),
@@ -130,7 +131,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
         : 'directe / inconnue'
       const rows = [
         ['Nom', nom], ['Email', email], ['Téléphone', tel],
-        ['Activité', answers.activite], ['Ancienneté', answers.anciennete],
+        ['Activité', answers.activite], ['Site / réseaux', answers.references], ['Ancienneté', answers.anciennete],
         ['Équipe', answers.equipe], ['Déjà fait', answers.experience],
         ['Attentes', answers.attentes.join(' · ')], ['Hébergement', answers.semaine],
         ['Message', answers.message], ['Source', utmLine],

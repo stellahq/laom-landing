@@ -42,7 +42,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <SplitHeading bg="bg-[#FBF6EA]"
       eyebrow="Le projet"
       title="Un domaine en pleine nature," accent="ouvert une semaine aux entrepreneurs."
-      text="LAOM, c’est un espace de coliving éco-construit, avec un accès à 21 hectares de forêt, de prairies et de rivière, à 1h30 de Montpellier. Du 6 au 12 juin, on l’ouvre à des entrepreneurs et des indépendants qui ont besoin de la même chose : changer d’air pour s’inspirer, sans arrêter complètement de bosser, voir du vert, dormir mieux, et parler avec des gens qui leur ressemblent tout en venant d’horizons différents. On y vient une semaine pour vivre ce dont on a envie depuis longtemps." />
+      text="LAOM, c’est un espace de coliving éco-construit, avec un accès à 21 hectares de forêt, de prairies et de rivière, à 1h30 de Montpellier. Du 6 au 12 juin, on l’ouvre à des entrepreneurs et des indépendants qui ont besoin de la même chose : changer d’air pour s’inspirer, sans arrêter complètement de bosser, voir du vert, dormir mieux, et parler avec des gens qui leur ressemblent tout en venant d’horizons différents. On y vient une semaine pour vivre ce dont on a envie depuis longtemps. 🤍" />
   </div>
 
   <!-- ③ TA SEMAINE — narration + deux moments (bloc unique, aéré comme les autres) -->
@@ -50,7 +50,12 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <SplitHeading bg="bg-transparent" pad={false}
       eyebrow="Ta semaine"
       title="Le premier matin, tu ouvres ton ordi" accent="face à la vallée."
-      text="La journée commence par un cours de mouvement, si tu en as envie : yoga, MovNat ou danse. Ensuite tu choisis ton coin pour travailler : le shala en intérieur, avec vue sur la vallée et la rivière, le chapiteau en extérieur, ta chambre ou le salon commun. Et si tu as besoin d’aller à ton rythme et de te reposer, c’est bienvenu aussi. À 13h, tout le monde se retrouve à table, avec ce qui vient du potager. L’après-midi, tu vas faire un plouf à la rivière, tu vas à un atelier, ou tu avances sur ton projet. Le soir, après le dîner, il y a le feu, parfois de la musique et de la danse libre, et dans tous les cas un ciel étoilé absolument magique, sans aucune pollution lumineuse." />
+      text={[
+        'La journée commence par un cours de mouvement, si tu en as envie : yoga, MovNat ou danse.',
+        'Ensuite tu choisis ton coin pour travailler : le shala en intérieur, avec vue sur la vallée et la rivière, le chapiteau en extérieur, ta chambre ou le salon commun. Et si tu as besoin d’aller à ton rythme et de te reposer, c’est bienvenu aussi.',
+        'À 13h, tout le monde se retrouve à table, avec ce qui vient du potager. L’après-midi, tu vas faire un plouf à la rivière, tu vas à un atelier, ou tu avances sur ton projet.',
+        'Le soir, après le dîner, il y a le feu, parfois de la musique et de la danse libre, et dans tous les cas un ciel étoilé absolument magique, sans aucune pollution lumineuse.',
+      ]} />
     <div class="mt-12 md:mt-16">
       <AltCardsBand bg="bg-transparent" pad={false}
         items={[
@@ -64,11 +69,11 @@ const L = (n: string) => `/images/laom/${n}.webp`
   <div animate-fade-in-up class="opacity-0">
     <MosaicGallery bg="bg-[#FBF6EA]"
       eyebrow="Le lieu"
-      title="21 hectares," accent="et plus rien autour."
-      intro="Un ancien domaine agricole dans le sud de l’Aveyron. Des chambres, des tipis dans l’herbe, un potager, une rivière, des chemins en forêt. La nuit, on voit la voie lactée."
+      title="21 hectares" accent="et la nature autour."
+      intro="Un ancien domaine agricole dans le sud de l’Aveyron. Des chambres dans un bâtiment bioclimatique en paille porteuse, des tipis glamping, un potager, une rivière, des chemins en forêt. La nuit, on voit la voie lactée."
       images={[
         { src: '/images/vue-aeriene-laom2-hero.webp', alt: 'Vue aérienne du domaine LAOM' },
-        { src: L('tipis'), alt: 'Les tipis de LAOM' },
+        { src: L('chillworking-salle-pratique'), alt: 'La grande salle du shala, baie vitrée ouverte sur les tipis' },
         { src: L('laom-potager'), alt: 'Le potager de LAOM' },
         { src: L('riviere-laom'), alt: 'La rivière du domaine' },
         { src: L('diner-golden-hour-laom'), alt: 'Dîner en communauté à LAOM' },
@@ -81,13 +86,13 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <IncludedGrid bg="bg-[#F2EBDB]"
       eyebrow="Tout est inclus"
       title="Tu poses tes affaires." accent="On s’occupe du reste."
-      intro="Les repas, la cuisine et l’organisation, on s’en charge. Tu arrives avec ton ordi, et c’est tout."
+      intro="Tu arrives avec ton ordi et ta valise, on s’occupe du reste : les repas, la cuisine et l’organisation."
       items={[
         { title: '6 nuits sur le domaine', desc: 'En chambre avec salle de bain privative, en tipi, ou dans l’appartement privatif.' },
-        { title: '3 repas par jour', desc: 'Faits maison, avec le potager et les producteurs d’à côté.' },
+        { title: '3 repas par jour', desc: 'Faits maison, avec les légumes du potager et les producteurs d’à côté. De la terre à l’assiette.' },
         { title: '4 endroits pour travailler', desc: 'Le shala (120 m², vue sur la vallée et la rivière, wifi fibre), le chapiteau (200 m², tout ouvert, à l’abri du soleil, wifi Starlink), ta chambre (wifi fibre), le salon commun (wifi fibre).' },
         { title: 'Un cours de mouvement chaque matin', desc: 'Yoga, MovNat ou danse. Si tu veux.' },
-        { title: 'Ateliers et soirées', desc: 'Feu, jam, danse, ou rien du tout.' },
+        { title: 'Ateliers et soirées', desc: 'Feu, jam, danse, échanges, ou simplement une bonne nuit de sommeil.' },
         { title: 'Tout le domaine', desc: 'Forêt, rivière, potager.' },
       ]} />
   </div>
@@ -99,10 +104,10 @@ const L = (n: string) => `/images/laom/${n}.webp`
       title="Le rythme d’une" accent="journée ici."
       items={[
         { time: '8h15 à 9h', label: 'Cours de mouvement : yoga, MovNat ou danse' },
-        { time: '8h30 à 9h30', label: 'Petit-déjeuner, en autonomie' },
-        { time: '9h à 13h', label: 'Session de travail proposée' },
+        { time: '8h30 à 9h30', label: 'Petit-déjeuner buffet' },
+        { time: '9h à 13h', label: 'Plage de travail proposée' },
         { time: '13h', label: 'Déjeuner' },
-        { time: '14h30', label: 'Repos et baignade, atelier organisé par LAOM, ou session de travail' },
+        { time: '14h30', label: 'Repos et baignade, atelier organisé par LAOM, ou plage de travail' },
         { time: '19h30', label: 'Dîner fait maison' },
         { time: '21h', label: 'Veillée au feu, soirée jam, soirée danse, ou soirée libre' },
       ]}
@@ -115,10 +120,10 @@ const L = (n: string) => `/images/laom/${n}.webp`
       eyebrow="Pour qui"
       title="À qui s’adresse" accent="cette semaine ?"
       forItems={[
-        'Tu es entrepreneur(e) ou indépendant(e)',
+        'Tu es entrepreneur, indépendant ou dirigeant d’entreprise',
         'Tu as envie de te recharger en pleine nature',
-        'Tu as envie de rencontrer des gens qui vivent la même chose que toi',
-        'Vivre une semaine avec d’autres, tout en gardant tes espaces à toi, ne te fait pas peur',
+        'Tu veux échanger avec d’autres entrepreneurs qui se posent les mêmes questions que toi',
+        'Tu souhaites vivre une semaine avec d’autres, tout en gardant tes espaces à toi',
       ]}
       notItems={[
         'Tu cherches juste des vacances all inclusive',
@@ -131,9 +136,9 @@ const L = (n: string) => `/images/laom/${n}.webp`
   <div animate-fade-in-up class="opacity-0">
     <PeersSection bg="bg-[#FBF6EA]"
       eyebrow="Qui vient"
-      title="Des gens qui vivent" accent="la même aventure que toi."
+      title="Des entrepreneurs" accent="qui ont déjà fait du chemin."
       paragraphs={[
-        'Ceux qui viennent ont monté leur boîte ou travaillent à leur compte. Les métiers changent, les questions se ressemblent : trouver des clients, tenir le rythme, décider seul, savoir quand s’arrêter.',
+        'Ceux qui viennent dirigent leur boîte ou travaillent à leur compte depuis un moment. Les métiers changent, les questions se recoupent : trouver des clients, tenir le rythme, savoir quand s’arrêter, éviter l’épuisement. Et de plus en plus : comment faire avec l’IA, et comment mettre sa boîte au service de sa vie, et pas l’inverse.',
         'Personne n’anime ces conversations. Elles arrivent au déjeuner, sur le chemin de la rivière, tard autour du feu. Et souvent, quelqu’un repart avec la réponse à une question qu’il traînait depuis des mois.',
       ]}
       img={L('peers-groupe')} alt="Des entrepreneurs en échange à LAOM"
@@ -144,8 +149,8 @@ const L = (n: string) => `/images/laom/${n}.webp`
   <div animate-fade-in-up class="opacity-0">
     <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-rire')} alt="Charly et Amandine, fondateurs de LAOM"
       eyebrow="Charly & Amandine"
-      title="Charly et Amandine, les fondateurs de LAOM," accent="vivent ici."
-      text="Ils ont quitté la ville, acheté 21 hectares dans le sud de l’Aveyron, et passé des années à retaper le domaine. Ils y vivent avec leur fils. Pendant la semaine, ils sont là : à table, au feu, et disponibles si tu veux parler de ton projet."
+      title="Charly et Amandine," accent="les fondateurs de LAOM."
+      text="Ils ont quitté la ville, co-acheté un domaine de 21 hectares dans le sud de l’Aveyron, et y ont créé le coliving LAOM. Sur place, ils ont fait sortir de terre un bâtiment bioclimatique en paille porteuse, la grande salle du shala, et la guinguette, montée de leurs mains. Pendant la semaine, ils sont là pour passer du temps avec toi, animer des ateliers et partager leur expérience."
       ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
   </div>
 
@@ -154,7 +159,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <Statement bg="bg-[#FBF6EA]"
       eyebrow="Au fond"
       title="Ce que tu en feras," accent="c’est toi qui le décides."
-      intro="Tu repartiras peut-être avec une idée, une décision, ou juste du sommeil rattrapé. On ne te promet rien de plus. Notre boulot, c’est que tu n’aies rien d’autre à faire que ça." />
+      intro="Tu repartiras peut-être avec une idée, une décision, un nouveau cap, ou juste des nuits de sommeil rattrapées. Nous, on prépare la table, le feu et le calme. Le reste t’appartient." />
   </div>
 
   <!-- ⑩ LE PRIX -->
@@ -165,17 +170,17 @@ const L = (n: string) => `/images/laom/${n}.webp`
       callouts={[
         { value: '6', label: 'nuits' },
         { value: '18', label: 'repas faits maison' },
-        { value: '7', label: 'chambres' },
-        { value: '6', label: 'tipis' },
+        { value: '4', label: 'espaces de travail' },
+        { value: '1', label: 'cours de mouvement chaque matin' },
       ]}
-      priceLabel="Juin 2027 · tarifs pour la semaine · repas, cours de mouvement et espaces de travail compris"
+      priceLabel="Tout compris : hébergement, 3 repas par jour, cours de mouvement, ateliers, soirées et espaces de travail. Tarifs pour la semaine, juin 2027."
       options={[
         {
           title: 'Chambre', img: L('coliving/coliving-laom-vue-interieure-01'), alt: 'Une chambre aux murs d’enduit naturel et aux poutres en bois',
-          dispo: 'Chambres de 15 m² · 7 chambres disponibles',
-          prix: [{ qui: 'Chambre individuelle', montant: '1 500 € HT' }, { qui: 'En couple', montant: '2 250 € HT' }],
+          dispo: '6 chambres de 15 m² · 1 chambre couple de 20 m²',
+          prix: [{ qui: 'Chambre individuelle, 15 m²', montant: '1 500 € HT' }, { qui: 'Chambre couple, 20 m²', montant: '2 250 € HT' }],
           details: [
-            'Lit double',
+            'Lit double 160 (15 m²) ou 180 (chambre couple)',
             'Salle de bain privative dans chaque chambre',
             'Internet haut débit dans la chambre, pour tes calls',
             'Accès à un espace commun : cuisine et salon partagés (90 m²)',
@@ -189,13 +194,13 @@ const L = (n: string) => `/images/laom/${n}.webp`
         },
         {
           title: 'Tipi', img: '/images/laom/moms-kids/tipi.webp', alt: 'L’intérieur d’un tipi, ouvert sur la prairie et la forêt',
-          dispo: '6 tipis disponibles',
-          prix: [{ qui: '1 personne', montant: '970 € HT' }],
-          details: ['Lits simples', 'Toilettes sèches et douche en plein air', 'Sanitaires intérieurs à proximité'],
+          dispo: '6 tipis de 16 m²',
+          prix: [{ qui: 'Occupation 1 personne', montant: '970 € HT' }],
+          details: ['Toilettes sèches', 'Douche en plein air', 'Sanitaires intérieurs accessibles à proximité', 'Accès à un espace commun : cuisine et salon partagés'],
         },
       ]}
       ctaText="Réserver ma place" ctaHref={RESERVER}
-      secondaryText="Être rappelé·e" secondaryHref={RAPPEL} secondaryTarget="_blank" />
+      secondaryText="Remplir le formulaire pour être rappelé·e" secondaryHref={RAPPEL} />
   </div>
 
   <!-- ⑪ L'INVITATION -->
@@ -205,7 +210,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
       title="Si l’idée te parle," accent="viens passer une semaine."
       subtitle="On accueille un petit groupe. Réserve ta place, ou laisse ton numéro : on t’appelle pour en parler, sans engagement."
       primaryText="Réserver ma place" primaryHref={RESERVER}
-      secondaryText="ou être rappelé·e" secondaryHref={RAPPEL} />
+      secondaryText="ou remplir le formulaire pour être rappelé·e" secondaryHref={RAPPEL} />
   </div>
 
   <SiteFooter />

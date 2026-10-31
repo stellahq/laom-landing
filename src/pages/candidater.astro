@@ -35,7 +35,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
     <div id="cand-app">
       <main class="max-w-2xl mx-auto px-6 py-14 md:py-20">
         <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Réservation · Coliving du 6 au 12 juin 2027</p>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Réserve ta place pour le coliving de juin 2027.</h1>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Parlons de ta semaine à LAOM.</h1>
         <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">LAOM accueille un petit groupe d’entrepreneurs, du 6 au 12 juin 2027. Pour que l’expérience soit à la hauteur pour chacun, on prend le temps de connaître celles et ceux qui viennent. Ce formulaire prend 2 minutes. On te recontacte dans les 48h pour confirmer ta place.</p>
 
         <form id="cand-form" class="mt-12 space-y-10" novalidate>
@@ -63,6 +63,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
           <div class="space-y-3">
             <label for="activite" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">4</span><span class="pt-0.5">Décris ton activité en une phrase.</span></label>
             <input id="activite" name="activite" type="text" required placeholder="Ex : J’accompagne des dirigeants de PME dans leur stratégie commerciale." class={inputCls} />
+            <input id="references" name="references" type="text" placeholder="Ton site ou tes réseaux (facultatif)" class={inputCls} />
           </div>
 
           <!-- Q5 -->
@@ -119,7 +120,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
           </label>
 
           <div class="pt-2">
-            <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Réserver ma place</button>
+            <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">Envoyer ma demande</button>
             <p id="reassurance" class="text-sm text-[#1D1B18]/55 mt-5">On te rappelle dans les 48h, pour un échange simple : voir ensemble si LAOM est fait pour toi.</p>
           </div>
         </form>
@@ -161,6 +162,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
       email: String(fd.get('email') || ''),
       tel: String(fd.get('tel') || ''),
       activite: String(fd.get('activite') || ''),
+      references: String(fd.get('references') || ''),
       anciennete: String(fd.get('anciennete') || ''),
       equipe: String(fd.get('equipe') || ''),
       experience: String(fd.get('experience') || ''),
@@ -185,7 +187,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
       try { if (w.fbq) w.fbq('track', 'Lead', { content_name: 'candidature-coliving' }, { eventID: eventId }) } catch {}
       try { if (w.gtag) w.gtag('event', 'generate_lead', { event_category: 'coliving', event_label: 'candidature' }) } catch {}
     } catch (err) {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Réserver ma place' }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer ma demande' }
       const reass = document.getElementById('reassurance') as HTMLElement
       if (reass) { reass.textContent = 'Oups, un souci à l’envoi. Réessaie dans un instant.'; reass.style.color = '#9A3922' }
       return
