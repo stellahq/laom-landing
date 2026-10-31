@@ -49,3 +49,52 @@ export async function subscribeWithTag(
     return false
   }
 }
+
+// Compte Kit « Laom » du coliving entrepreneurs, API v4 (clé = KIT_COLIVING_API_KEY sur
+// le worker de prod uniquement, jamais sur staging). Upsert du contact, puis tags.
+const KIT_V4 = 'https://api.kit.com/v4'
+
+/** Crée ou met à jour un contact Kit v4 et lui applique des tags (créés s'ils manquent). Non bloquant. */
+export async function subscribeV4(
+  apiKey: string | undefined,
+  email: string,
+  firstName: string | undefined,
+  tagNames: string[],
+  fields: Record<string, string> = {},
+): Promise<boolean> {
+  if (!apiKey) {
+    console.error('[kit v4] KIT_COLIVING_API_KEY manquant — abonnement ignoré')
+    return false
+  }
+  const headers = { 'X-Kit-Api-Key': apiKey, 'Content-Type': 'application/json' }
+  try {
+    const sub = await fetch(`${KIT_V4}/subscribers`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ email_address: email, first_name: firstName || undefined, state: 'active', fields }),
+    })
+    if (!sub.ok) { console.error('[kit v4] subscriber non-ok:', sub.status); return false }
+
+    const listRes = await fetch(`${KIT_V4}/tags?per_page=500`, { headers })
+    const list = (await listRes.json().catch(() => ({}))) as { tags?: Array<{ id: number; name: string }> }
+    let allOk = true
+    for (const name of tagNames) {
+      let tag = (list.tags || []).find((t) => t.name === name)
+      if (!tag) {
+        const createRes = await fetch(`${KIT_V4}/tags`, { method: 'POST', headers, body: JSON.stringify({ name }) })
+        tag = ((await createRes.json().catch(() => null)) as { tag?: { id: number; name: string } } | null)?.tag
+      }
+      if (!tag?.id) { console.error('[kit v4] tag introuvable/non créé:', name); allOk = false; continue }
+      const res = await fetch(`${KIT_V4}/tags/${tag.id}/subscribers`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ email_address: email }),
+      })
+      if (!res.ok) { console.error('[kit v4] tag non-ok:', res.status, name); allOk = false }
+    }
+    return allOk
+  } catch (e) {
+    console.error('[kit v4] error (non-blocking):', e)
+    return false
+  }
+}

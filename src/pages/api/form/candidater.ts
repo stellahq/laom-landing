@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 import { sendMetaEvents, extractRequestContext } from '~/lib/meta-capi'
 import { getAttribution } from '~/lib/attribution'
-import { subscribeWithTag } from '~/lib/kit'
+import { subscribeV4 } from '~/lib/kit'
 import { sendDataFastGoal } from '~/lib/datafast'
 import { checkRateLimit, clientIp, tooManyRequests } from '~/lib/rate-limit'
 
@@ -192,10 +192,10 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
     console.error('[form/candidater] confirmation email error (non-blocking):', e)
   }
 
-  // 5. Entrée dans Kit (tag candidature-coliving -> automation de nurture). Non bloquant.
+  // 5. Entrée dans Kit, compte « Laom » du coliving entrepreneurs (API v4). Non bloquant.
   //    Base légale : case RGPD du formulaire ("me recontacter et m'envoyer des informations").
   try {
-    await subscribeWithTag(env?.KIT_API_SECRET, email, firstName, ['candidature-coliving', 'leads-coliving-aout-26'])
+    await subscribeV4(env?.KIT_COLIVING_API_KEY, email, firstName, ['candidature-coliving', 'coliving-entrepreneurs-juin-27'], { source: 'page-coliving' })
   } catch (e) {
     console.error('[form/candidater] Kit error (non-blocking):', e)
   }
