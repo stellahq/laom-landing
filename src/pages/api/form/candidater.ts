@@ -195,7 +195,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   // 5. Entrée dans Kit, compte « Laom » du coliving entrepreneurs (API v4). Non bloquant.
   //    Base légale : case RGPD du formulaire ("me recontacter et m'envoyer des informations").
   try {
-    await subscribeV4(env?.KIT_COLIVING_API_KEY, email, firstName, ['candidature-coliving', 'coliving-entrepreneurs-juin-27'], { source: 'page-coliving' })
+    await subscribeV4(env?.KIT_COLIVING_API_KEY, email, firstName, ['Intéressés coliving entrepreneurs juin 27'], { source: 'page-coliving' })
   } catch (e) {
     console.error('[form/candidater] Kit error (non-blocking):', e)
   }
