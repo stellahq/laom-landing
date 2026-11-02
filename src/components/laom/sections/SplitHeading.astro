@@ -13,7 +13,7 @@ const { eyebrow, title, accent, text, bg = 'bg-[#FBF6EA]', pad = true } = Astro.
           {title}{accent && <> <span class="acc">{accent}</span></>}
         </h2>
         {text && (Array.isArray(text) ? text : [text]).map((t, i) => (
-          <p class:list={['text-lg text-[#1D1B18]/70 max-w-2xl leading-relaxed', i === 0 ? 'mt-7' : 'mt-4']}>{t}</p>
+          <p class:list={['text-lg text-[#1D1B18]/70 max-w-2xl leading-relaxed', i === 0 ? 'mt-7' : 'mt-6']}>{t}</p>
         ))}
       </div>
     </div>
