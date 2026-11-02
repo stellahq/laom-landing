@@ -1,0 +1,53 @@
+---
+// Politique de confidentialité — page simple, liée depuis la case RGPD des formulaires.
+import Layout from '~/layouts/Layout.astro'
+import Logo from '~/components/laom/Logo.astro'
+
+const h2 = 'text-xl md:text-2xl font-extrabold text-[#412F1F] tracking-[-0.01em] mt-12 mb-4'
+const p = 'text-[#1D1B18]/75 leading-relaxed mt-3'
+---
+
+<Layout title="Politique de confidentialité · LAOM" description="Comment LAOM collecte, utilise et protège tes données personnelles." hideChrome={true} seo={{ noIndex: true }}>
+  <div class="min-h-screen bg-[#FBF6EA]">
+    <header class="px-6 md:px-10 lg:px-14 py-6 border-b border-[#412F1F]/10">
+      <a href="/" class="text-[#9A3922] inline-block" aria-label="Retour à l’accueil"><Logo height="1.7rem" /></a>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-6 py-14 md:py-20">
+      <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Données personnelles</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1]">Politique de confidentialité</h1>
+      <p class={p}>On collecte le strict nécessaire pour te répondre et organiser ton séjour. On ne vend jamais tes données.</p>
+
+      <h2 class={h2}>Qui est responsable de tes données</h2>
+      <p class={p}>LAOM, SAS à capital variable, La Margue, 12400 Saint-Félix-de-Sorgues. SIREN 898 814 405. Représentée par Charly Aubert. Contact : <a href="mailto:hello@laom.fr" class="underline hover:text-[#9A3922]">hello@laom.fr</a>.</p>
+
+      <h2 class={h2}>Ce qu’on collecte</h2>
+      <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#1D1B18]/75 leading-relaxed">
+        <li>Quand tu remplis un formulaire (réservation, demande de rappel) : nom, prénom, email, téléphone, ton activité, ton site ou tes réseaux si tu les donnes, tes réponses aux questions et ton message.</li>
+        <li>Quand tu t’inscris à la newsletter : prénom et email.</li>
+        <li>Quand tu navigues sur le site : des données de mesure d’audience et des cookies, selon ton choix dans le bandeau cookies.</li>
+      </ul>
+
+      <h2 class={h2}>Pourquoi</h2>
+      <p class={p}>Pour te recontacter, répondre à ta demande, organiser ton séjour, et t’envoyer des informations sur LAOM si tu l’as accepté. La base légale est ton consentement, donné en cochant la case du formulaire.</p>
+
+      <h2 class={h2}>Qui y a accès</h2>
+      <p class={p}>L’équipe LAOM, et les prestataires techniques qui font tourner le site :</p>
+      <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#1D1B18]/75 leading-relaxed">
+        <li>Cloudflare : hébergement du site et de la base de données</li>
+        <li>Kit : envoi des emails et de la newsletter</li>
+        <li>Resend : envoi des emails de confirmation</li>
+        <li>Meta, Google Analytics et DataFast : mesure d’audience et publicité, seulement si tu acceptes les cookies</li>
+      </ul>
+      <p class={p}>Certains de ces prestataires sont basés aux États-Unis. Les transferts sont encadrés par les garanties prévues par le RGPD.</p>
+
+      <h2 class={h2}>Combien de temps</h2>
+      <p class={p}>3 ans maximum après notre dernier échange. Tu peux te désinscrire des emails à tout moment, via le lien en bas de chaque message.</p>
+
+      <h2 class={h2}>Tes droits</h2>
+      <p class={p}>Tu peux demander à consulter, corriger ou supprimer tes données, t’opposer à leur utilisation ou les récupérer. Écris-nous à <a href="mailto:hello@laom.fr" class="underline hover:text-[#9A3922]">hello@laom.fr</a>, on te répond sous un mois. Si tu estimes que tes droits ne sont pas respectés, tu peux saisir la <a href="https://www.cnil.fr/" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#9A3922]">CNIL</a>.</p>
+
+      <p class="text-sm text-[#1D1B18]/50 mt-14">Dernière mise à jour : novembre 2026. Voir aussi les <a href="/mentions-legales/" class="underline hover:text-[#9A3922]">mentions légales</a>.</p>
+    </main>
+  </div>
+</Layout>
