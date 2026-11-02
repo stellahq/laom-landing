@@ -143,7 +143,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
       title="Des entrepreneurs" accent="qui ont déjà fait du chemin."
       paragraphs={[
         'Ceux qui viennent dirigent leur boîte ou travaillent à leur compte depuis un moment. Les métiers changent, les questions se recoupent : trouver des clients, tenir le rythme, savoir quand s’arrêter, éviter l’épuisement. Et de plus en plus : comment faire avec l’IA, et comment mettre sa boîte au service de sa vie, et pas l’inverse.',
-        'Personne n’anime ces conversations. Elles arrivent au déjeuner, sur le chemin de la rivière, tard autour du feu. Et souvent, quelqu’un repart avec la réponse à une question qu’il traînait depuis des mois.',
+        'Ces conversations arrivent au déjeuner, sur le chemin de la rivière, tard autour du feu. Et souvent, quelqu’un repart avec la réponse à une question qu’il traînait depuis des mois.',
       ]}
       img={L('peers-groupe')} alt="Des entrepreneurs en échange à LAOM"
       closing="Tu arrives parmi des inconnus." closingAccent="Tu repars avec des contacts, et parfois des amis." />
@@ -154,7 +154,11 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-rire')} alt="Charly et Amandine, fondateurs de LAOM"
       eyebrow="Charly & Amandine"
       title="Charly et Amandine," accent="les fondateurs de LAOM."
-      text="Ils ont quitté la ville, co-acheté un domaine de 21 hectares dans le sud de l’Aveyron, et y ont créé le coliving LAOM. Sur place, ils ont fait sortir de terre un bâtiment bioclimatique en paille porteuse, la grande salle de pratique et la guinguette, en menant la plupart des chantiers en autoconstruction. Pendant la semaine, ils sont là pour passer du temps avec toi, animer des ateliers et partager leur expérience."
+      text={[
+        'Ils ont quitté la ville, co-acheté un domaine de 21 hectares dans le sud de l’Aveyron, et y ont créé le coliving LAOM.',
+        'Sur place, ils ont fait sortir de terre un bâtiment bioclimatique en paille porteuse, la grande salle de pratique et la guinguette, en menant la plupart des chantiers en autoconstruction.',
+        'Pendant la semaine, ils seront là pour passer du temps avec toi, animer des ateliers et partager leur expérience.',
+      ]}
       ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
   </div>
 
@@ -163,7 +167,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <Statement bg="bg-[#FBF6EA]"
       eyebrow="Au fond"
       title="Ce que tu en feras," accent="c’est toi qui le décides."
-      intro="Tu repartiras peut-être avec une idée, une décision, un nouveau cap, ou juste des nuits de sommeil rattrapées. Nous, on prépare la table, le feu et le calme. Le reste t’appartient." />
+      intro="Tu repartiras peut-être avec une idée, une décision, un nouveau cap, ou juste des nuits de sommeil rattrapées. Nous, on prépare la table, les ateliers, et on te sert le calme. Le reste t’appartient." />
   </div>
 
   <!-- ⑩ LE PRIX -->
