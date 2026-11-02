@@ -1,0 +1,238 @@
+---
+// Formulaire coliving, deux modes :
+// - reserver (/candidater) : la personne veut venir. On lit ses réponses et on envoie
+//   le lien de paiement sous 48h, sans appel obligatoire.
+// - rappel (/rappel) : la personne a besoin d'en parler avant. On l'appelle sous 48h.
+// Ancien en-tête : Page 5 — CANDIDATER. Page épurée : pas de menu, juste le logo (retour accueil),
+// focus total sur le formulaire de pré-qualification (10 questions du livrable).
+// Formulaire natif en charte LAOM, choix en pills, validation, écran de confirmation.
+// Soumission branchée sur /api/form/candidater (lead D1 + Lead CAPI + notif Resend).
+import Layout from '~/layouts/Layout.astro'
+import Logo from '~/components/laom/Logo.astro'
+
+const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/40 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
+interface Props { mode: 'reserver' | 'rappel' }
+const { mode } = Astro.props
+const T = mode === 'rappel' ? {
+  title: 'Être rappelé·e · LAOM Coliving juin 2027',
+  description: 'Tu as des questions sur le coliving du 6 au 12 juin 2027 à LAOM ? Laisse tes infos, on t’appelle sous 48h.',
+  eyebrow: 'Être rappelé·e · Coliving du 6 au 12 juin 2027',
+  h1: 'Parlons de ta semaine à LAOM.',
+  intro: 'Tu as des questions avant de réserver ? Laisse-nous quelques infos sur toi : on t’appelle sous 48h pour en parler, simplement et sans engagement.',
+  messageLabel: 'Tes questions, et quand on peut te joindre',
+  messagePlaceholder: 'Ce que tu aimerais savoir, et les moments où tu es le plus joignable…',
+  button: 'Être rappelé·e',
+  reassurance: 'On t’appelle sous 48h, pour un échange simple et sans engagement.',
+  okTitle: 'On t’appelle très vite.',
+  okText: 'On revient vers toi sous 48h pour un échange de 15 minutes, et répondre à toutes tes questions.',
+} : {
+  title: 'Réserver ma place · LAOM Coliving juin 2027',
+  description: 'Réserve ta place pour le coliving du 6 au 12 juin 2027 à LAOM. Questionnaire en 2 minutes, lien de paiement sous 48h.',
+  eyebrow: 'Réservation · Coliving du 6 au 12 juin 2027',
+  h1: 'Réserve ta place pour juin 2027.',
+  intro: 'Ce questionnaire prend 2 minutes. On lit tes réponses pour vérifier que la semaine te correspond, puis on t’envoie le lien de paiement sous 48h. Ta place est confirmée dès le paiement. Pas besoin d’appel, sauf si tu en as envie.',
+  messageLabel: 'Quelque chose qu’on devrait savoir ?',
+  messagePlaceholder: 'Ce que tu veux nous dire : questions, attentes, situation particulière, ce qui t’a donné envie de venir…',
+  button: 'Envoyer ma demande de réservation',
+  reassurance: 'On lit tes réponses et on t’envoie le lien de paiement sous 48h.',
+  okTitle: 'Ta demande de réservation est bien reçue.',
+  okText: 'On lit tes réponses et on t’envoie le lien de paiement sous 48h. Ta place sera confirmée dès le paiement.',
+}
+const pillCls = 'block rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-sm text-[#412F1F] cursor-pointer hover:border-[#412F1F]/30 peer-checked:border-[#9A3922] peer-checked:bg-[#9A3922]/[0.06] peer-checked:ring-1 peer-checked:ring-[#9A3922] transition'
+
+const anciennete = ["Moins d'un an", '1 à 3 ans', '3 à 5 ans', 'Plus de 5 ans']
+const equipe = ['Seul·e', 'Avec 1 à 3 personnes', 'Avec une équipe de 4+', 'Ça dépend des projets']
+const experience = ['Oui, plusieurs fois', 'Oui, une fois', 'Non, ce serait une première']
+const attentes = [
+  'Un cadre pour travailler autrement pendant une semaine',
+  'Rencontrer d’autres entrepreneurs qui vivent la même chose',
+  'Me reconnecter à un rythme de vie qui me ressemble',
+  'Prendre du recul sur mon activité et ma direction',
+  'Découvrir le lieu et le projet LAOM',
+]
+// Le champ garde le nom « semaine » (colonne D1), il porte désormais l'hébergement choisi.
+const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’appartement', 'Je ne sais pas encore']
+---
+
+<Layout title={T.title} description={T.description} hideChrome={true} seo={{ noIndex: true }}>
+  <div class="min-h-screen bg-[#FBF6EA]">
+
+    <!-- Logo seul (retour accueil) -->
+    <header class="px-6 md:px-10 lg:px-14 py-6 border-b border-[#412F1F]/10">
+      <a href="/" class="text-[#9A3922] inline-block" aria-label="Retour à l’accueil"><Logo height="1.7rem" /></a>
+    </header>
+
+    <!-- Intro + formulaire -->
+    <div id="cand-app">
+      <main class="max-w-2xl mx-auto px-6 py-14 md:py-20">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">{T.eyebrow}</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">{T.h1}</h1>
+        <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">{T.intro}</p>
+
+        <form id="cand-form" data-mode={mode} class="mt-12 space-y-10" novalidate>
+
+          <!-- Q1 -->
+          <div class="space-y-3">
+            <label for="nom" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">1</span><span class="pt-0.5">Prénom et nom</span></label>
+            <input id="nom" name="nom" type="text" required autocomplete="name" class={inputCls} />
+          </div>
+
+          <!-- Q2 -->
+          <div class="space-y-3">
+            <label for="email" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">2</span><span class="pt-0.5">Email</span></label>
+            <input id="email" name="email" type="email" required autocomplete="email" class={inputCls} />
+          </div>
+
+          <!-- Q3 -->
+          <div class="space-y-3">
+            <label for="tel" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">3</span><span class="pt-0.5">Numéro de téléphone</span></label>
+            <input id="tel" name="tel" type="tel" required autocomplete="tel" class={inputCls} />
+            <p class="text-sm text-[#1D1B18]/55">Pour qu’on puisse échanger de vive voix.</p>
+          </div>
+
+          <!-- Q4 -->
+          <div class="space-y-3">
+            <label for="activite" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">4</span><span class="pt-0.5">Décris ton activité en une phrase.</span></label>
+            <input id="activite" name="activite" type="text" required placeholder="Ex : J’accompagne des dirigeants de PME dans leur stratégie commerciale." class={inputCls} />
+            <input id="references" name="references" type="text" placeholder="Ton site ou tes réseaux (facultatif)" class={inputCls} />
+          </div>
+
+          <!-- Q5 -->
+          <fieldset class="space-y-3">
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">5</span><span class="pt-0.5">Depuis combien de temps exerces-tu cette activité ?</span></legend>
+            <div class="grid sm:grid-cols-2 gap-3">
+              {anciennete.map((o) => (<label class="block"><input type="radio" name="anciennete" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
+            </div>
+          </fieldset>
+
+          <!-- Q6 -->
+          <fieldset class="space-y-3">
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">6</span><span class="pt-0.5">Tu travailles seul·e ou avec une équipe ?</span></legend>
+            <div class="grid sm:grid-cols-2 gap-3">
+              {equipe.map((o) => (<label class="block"><input type="radio" name="equipe" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
+            </div>
+          </fieldset>
+
+          <!-- Q7 -->
+          <fieldset class="space-y-3">
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">7</span><span class="pt-0.5">As-tu déjà vécu un coliving, une retraite ou un séjour entre entrepreneurs ?</span></legend>
+            <div class="grid sm:grid-cols-3 gap-3">
+              {experience.map((o) => (<label class="block"><input type="radio" name="experience" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
+            </div>
+          </fieldset>
+
+          <!-- Q8 -->
+          <fieldset class="space-y-3">
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">8</span><span class="pt-0.5">Qu’est-ce que tu viens chercher à LAOM ? <span class="font-normal text-[#1D1B18]/50">(plusieurs réponses possibles)</span></span></legend>
+            <div class="grid gap-3">
+              {attentes.map((o) => (<label class="block"><input type="checkbox" name="attentes" value={o} class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
+            </div>
+            <p id="q8-error" hidden class="text-sm font-medium text-[#9A3922]">Choisis au moins une réponse.</p>
+          </fieldset>
+
+          <!-- Q9 -->
+          <fieldset class="space-y-3">
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">9</span><span class="pt-0.5">Quel hébergement t’intéresse ?</span></legend>
+            <div class="grid sm:grid-cols-2 gap-3">
+              {hebergements.map((o) => (<label class="block"><input type="radio" name="semaine" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
+            </div>
+          </fieldset>
+
+          <!-- Q10 -->
+          <div class="space-y-3">
+            <label for="message" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">10</span><span class="pt-0.5">{T.messageLabel} <span class="font-normal text-[#1D1B18]/50">(facultatif)</span></span></label>
+            <textarea id="message" name="message" rows="4" placeholder={T.messagePlaceholder} class={inputCls}></textarea>
+          </div>
+
+          <!-- RGPD -->
+          <label class="flex items-start gap-3 text-sm text-[#1D1B18]/70">
+            <input type="checkbox" name="rgpd" required class="mt-1 accent-[#9A3922] w-4 h-4 shrink-0" />
+            <span>J’accepte que LAOM utilise mes informations pour me recontacter et m’envoyer des informations sur le projet. Je peux me désinscrire à tout moment. <a href="/confidentialite/" target="_blank" class="underline hover:text-[#9A3922]">Politique de confidentialité</a>.</span>
+          </label>
+
+          <div class="pt-2">
+            <button type="submit" class="pill pill-primary w-full sm:w-auto justify-center" style="padding:.95rem 2.4rem">{T.button}</button>
+            <p id="reassurance" class="text-sm text-[#1D1B18]/55 mt-5">{T.reassurance}</p>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <!-- Confirmation -->
+    <div id="cand-success" hidden class="max-w-2xl mx-auto px-6 py-24 md:py-32 text-center">
+      <div class="w-16 h-16 rounded-full bg-[#9A3922]/10 text-[#9A3922] flex items-center justify-center mx-auto mb-7">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Merci<span id="cand-name"></span>. {T.okTitle}</h1>
+      <p class="text-lg text-[#1D1B18]/70 mt-6 max-w-xl mx-auto leading-relaxed">{T.okText}</p>
+      <p class="text-[#1D1B18]/55 mt-4 max-w-xl mx-auto">D’ici là, on t’envoie un email avec quelques infos sur le lieu et ce qui t’attend.</p>
+      <a href="/" class="pill pill-primary inline-flex mt-10" style="padding:.85rem 2rem">Revenir à l’accueil</a>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('cand-form') as HTMLFormElement | null
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const q8 = form.querySelectorAll('input[name="attentes"]:checked').length
+    const q8err = document.getElementById('q8-error') as HTMLElement
+    if (q8 === 0) { q8err.hidden = false; q8err.scrollIntoView({ behavior: 'smooth', block: 'center' }); return }
+    q8err.hidden = true
+    if (!form.checkValidity()) { form.reportValidity(); return }
+
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null
+    const submitLabel = submitBtn?.textContent || ''
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…' }
+
+    const fd = new FormData(form)
+    const eventId = (crypto.randomUUID && crypto.randomUUID())
+      || ('eid_' + Date.now() + '_' + Math.random().toString(36).slice(2))
+
+    const payload = {
+      nom: String(fd.get('nom') || ''),
+      email: String(fd.get('email') || ''),
+      tel: String(fd.get('tel') || ''),
+      activite: String(fd.get('activite') || ''),
+      references: String(fd.get('references') || ''),
+      anciennete: String(fd.get('anciennete') || ''),
+      equipe: String(fd.get('equipe') || ''),
+      experience: String(fd.get('experience') || ''),
+      attentes: fd.getAll('attentes').map(String),
+      semaine: String(fd.get('semaine') || ''),
+      message: String(fd.get('message') || ''),
+      rgpd: !!fd.get('rgpd'),
+      type: form.dataset.mode === 'rappel' ? 'rappel' : 'reservation',
+      event_id: eventId,
+    }
+
+    try {
+      const res = await fetch('/api/form/candidater', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (!res.ok) throw new Error('submit failed')
+      // Pixel client APRÈS confirmation serveur (même event_id -> Meta dedupe).
+      // Tiré avant, un échec réseau créait un Lead Meta sans lead en base.
+      const w = window as any
+      try { if (w.fbq) w.fbq('track', 'Lead', { content_name: 'candidature-coliving' }, { eventID: eventId }) } catch {}
+      try { if (w.gtag) w.gtag('event', 'generate_lead', { event_category: 'coliving', event_label: 'candidature' }) } catch {}
+    } catch (err) {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitLabel }
+      const reass = document.getElementById('reassurance') as HTMLElement
+      if (reass) { reass.textContent = 'Oups, un souci à l’envoi. Réessaie dans un instant.'; reass.style.color = '#9A3922' }
+      return
+    }
+
+    const prenom = payload.nom.trim().split(' ')[0]
+    const nameEl = document.getElementById('cand-name')
+    if (nameEl) nameEl.textContent = prenom ? ' ' + prenom : ''
+    const app = document.getElementById('cand-app') as HTMLElement
+    const ok = document.getElementById('cand-success') as HTMLElement
+    if (app) app.hidden = true
+    ok.hidden = false
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
+</script>
