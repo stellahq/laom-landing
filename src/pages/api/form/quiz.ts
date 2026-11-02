@@ -134,7 +134,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
           <table cellpadding="0" cellspacing="0" style="border-collapse:collapse">${bars}</table>
           <p style="margin-top:24px">Cette bascule, on en a fait un lieu. Une semaine à LAOM en août : tu continues de travailler, mais dans un cadre qui te nourrit au lieu de t'épuiser, avec onze entrepreneurs qui vivent la même chose que toi.</p>
           <p>→ <a href="https://laom.fr/coliving/?utm_source=kit&utm_medium=email&utm_campaign=quiz-diagnostic" style="color:#9A3922">Découvrir le coliving</a><br/>
-          → <a href="https://laom.fr/candidater/?utm_source=kit&utm_medium=email&utm_campaign=quiz-diagnostic" style="color:#9A3922">Candidater directement</a></p>
+          → <a href="https://laom.fr/reserver/?utm_source=kit&utm_medium=email&utm_campaign=quiz-diagnostic" style="color:#9A3922">Candidater directement</a></p>
           <p>À bientôt,<br/>Charly &amp; Amandine — LAOM</p>
         </div>`
       await fetch('https://api.resend.com/emails', {
