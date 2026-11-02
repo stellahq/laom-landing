@@ -43,7 +43,7 @@ export default defineConfig({
     '/newsletter-labo': '/newsletter',
     '/coliving-aout-labo': '/coliving-aout',
     '/coliving-aout-labo-b': '/coliving-aout',
-    '/candidater-labo': '/candidater',
+    '/candidater-labo': '/reserver',
     '/liens-labo': '/liens',
     '/quiz-labo': '/quiz',
   },
@@ -81,7 +81,8 @@ export default defineConfig({
           '/la-margue-est', '/la-margue-ouest', '/la-margue-notice',
           '/la-margue-par-personne',
           '/devis-voda', '/tarifs-location-pdf', '/admin',
-          '/candidater', '/quiz', '/liens', '/coliving-aout', '/semaine-libre',
+          '/candidater', '/reserver', '/rappel', '/etre-rappele', '/confidentialite',
+          '/quiz', '/liens', '/coliving-aout', '/semaine-libre',
           '/ds2', '/styleguide', '/planification', '/presentation',
         ]
         const clean = path.replace(/^\/en/, '') // couvre aussi les variantes /en/*

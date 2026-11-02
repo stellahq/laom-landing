@@ -65,7 +65,7 @@ const pageSchema = createWebPageSchema({
     image: post.data.heroImage ? new URL(post.data.heroImage, Astro.site || Astro.url).toString() : undefined,
   }}
 >
-  <SiteNav transparent={Boolean(post.data.heroImage)} links={navLinks} ctaText="Candidater" ctaHref="/candidater/" />
+  <SiteNav transparent={Boolean(post.data.heroImage)} links={navLinks} ctaText="Candidater" ctaHref="/reserver/" />
 
   <article>
     {post.data.heroImage ? (

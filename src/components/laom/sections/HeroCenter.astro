@@ -11,8 +11,8 @@ interface Props {
   ctaText?: string; ctaHref?: string
 }
 const {
-  img, video, alt = '', navLinks, navCta = 'Candidater', navCtaHref = '/candidater/', navLogoHref,
-  eyebrow, title, accent, date, subtitle, ctaText = 'Candidater', ctaHref = '/candidater/',
+  img, video, alt = '', navLinks, navCta = 'Candidater', navCtaHref = '/reserver/', navLogoHref,
+  eyebrow, title, accent, date, subtitle, ctaText = 'Candidater', ctaHref = '/reserver/',
 } = Astro.props
 const videoType = video?.endsWith('.mp4') ? 'video/mp4' : 'video/webm'
 ---
