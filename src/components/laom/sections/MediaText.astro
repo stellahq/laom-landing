@@ -5,7 +5,7 @@ import Pill from '../Pill.astro'
 import SectionHead from './SectionHead.astro'
 interface Props {
   img: string; alt?: string
-  eyebrow?: string; title: string; accent?: string; text?: string
+  eyebrow?: string; title: string; accent?: string; text?: string | string[]
   ctaText?: string; ctaHref?: string
   reverse?: boolean; bg?: string; ratio?: string
 }
