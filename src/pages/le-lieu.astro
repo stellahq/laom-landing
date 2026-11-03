@@ -18,22 +18,52 @@ const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
 ---
 
-<Layout title="LAOM — Le lieu, un domaine de 21 hectares en sud Aveyron" description="Un ancien domaine agricole à 1h30 de Montpellier : tipis, shala face à la vallée, potager, guinguette, rivière et forêt. Le cadre de vie du coliving LAOM." hideChrome={true}>
+<Layout title="LAOM · Le lieu, un domaine de 21 hectares en sud Aveyron" description="Un ancien domaine agricole à 1h30 de Montpellier : tipis, shala face à la vallée, potager, guinguette, rivière et forêt. Le cadre de vie du coliving LAOM." hideChrome={true}>
 
   <!-- ① HEADER -->
   <PageHeader
     img="/images/vue-aeriene-laom2-hero.webp"
     navLinks={navLinks} navCta="Candidater" navCtaHref="/reserver/" logoHref="/"
     crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Le lieu' }]}
-    title="Vingt-et-un hectares de vivant, à mille lieues du bruit."
-    subtitle="Un ancien domaine agricole dans le sud de l’Aveyron, devenu un lieu de vie. Voici où tout se passe." />
+    title="Un espace de coliving en pleine nature."
+    subtitle="21 hectares dans le sud de l’Aveyron, un ancien domaine agricole devenu un lieu de vie. Voici où tout se passe." />
 
   <!-- ② L'ARRIVÉE -->
   <div animate-fade-in-up class="opacity-0">
     <MediaText bg="bg-[#FBF6EA]" img={F('hero')} alt="Le domaine LAOM dans le sud de l’Aveyron"
       eyebrow="L’arrivée"
       title="Tu quittes la route," accent="et le silence prend le relais."
-      text="À 1h30 de Montpellier, la route se rétrécit, les villages s’espacent, et puis il n’y a plus que des collines, des chênes et le vent. LAOM est posé là, dans le sud de l’Aveyron, assez loin pour qu’on t’oublie, assez près pour qu’on te retrouve. La première chose que tu remarques en arrivant, c’est ce que tu n’entends plus." />
+      text={[
+        'À 1h30 de Montpellier, la route se rétrécit et les villages s’espacent. LAOM est posé au creux d’une vallée du sud de l’Aveyron, entre les collines et les chênes, avec le village au loin.',
+        'Assez loin pour qu’on t’oublie, assez près pour qu’on te retrouve. La première chose que tu remarques en arrivant, c’est ce que tu n’entends plus.',
+      ]} />
+  </div>
+
+  <!-- ②bis CONSTRUCTION ÉCOLOGIQUE — le bâtiment, et ce que ça change -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('laom-batiment-paille')} alt="Le bâtiment en paille porteuse de LAOM"
+      eyebrow="Construction écologique"
+      title="Un bâtiment en paille porteuse," accent="pensé pour la nature et pour toi."
+      text={[
+        'Le cœur du coliving, c’est le Grand Shambala : 850 m² sur deux niveaux, construits en paille porteuse. Au nord et à l’ouest, les murs sont faits de bottes de paille de 45 cm d’épaisseur, qui portent le bâtiment. Au sud, une façade en bois largement vitrée capte le soleil d’hiver.',
+        'Les murs sont recouverts d’enduits en terre et en chaux, posés en grande partie à la main, par l’équipe du chantier.',
+      ]}
+      ctaText="L’histoire du chantier" ctaHref="/grand-shambala/" />
+  </div>
+
+  <div animate-fade-in-up class="opacity-0">
+    <IncludedGrid bg="bg-[#FBF6EA]"
+      eyebrow="Concrètement"
+      title="Ce que ça change," accent="pour la nature et pour ta santé."
+      intro="Construire en paille, en terre, en chaux et en bois, ce n’est pas qu’une question d’esthétique. Ça se sent dans le bâtiment, et ça se voit sur le bilan."
+      items={[
+        { title: 'Des murs qui stockent du carbone', desc: 'La paille et le bois captent du CO₂ en poussant et le gardent dans les murs. Ils demandent peu d’énergie à produire, et retournent à la terre en fin de vie.' },
+        { title: 'Un bâtiment bioclimatique', desc: 'Le soleil d’hiver entre par la façade sud, les murs épais gardent la chaleur. L’été, la paille garde le frais. Il faut très peu de chauffage.' },
+        { title: 'Des murs qui respirent', desc: 'La terre et la chaux laissent passer la vapeur d’eau et régulent l’humidité. L’air reste sain, sans condensation ni moisissures.' },
+        { title: 'Un air intérieur naturel', desc: 'Paille, terre, chaux, bois : des matériaux naturels, qui n’émettent pas de composés toxiques dans l’air que tu respires.' },
+        { title: 'Un silence profond', desc: '45 cm de paille, ça isole aussi du bruit. À l’intérieur, le calme est presque total.' },
+        { title: 'Construit à la main', desc: 'La plupart des chantiers ont été menés en autoconstruction, par l’équipe de LAOM.' },
+      ]} />
   </div>
 
   <!-- ③ LE DOMAINE D'UN COUP D'ŒIL -->
@@ -55,16 +85,15 @@ const L = (n: string) => `/images/laom/${n}.webp`
       eyebrow="Les espaces"
       title="Chaque coin du domaine" accent="a sa raison d’être."
       slides={[
-        { img: L('tipis'), alt: 'Les tipis de LAOM', title: 'Les tipis', text: 'Dormir dans la toile, au plus près du dehors. Le matin, c’est le chant des oiseaux qui te réveille.' },
-        { img: L('coliving/coliving-laom-vue-interieure-01'), alt: 'Une chambre du coliving, murs en enduit naturel et poutres en bois', title: 'Les chambres du coliving', text: 'Dans le bâtiment bioclimatique en paille porteuse. Murs en enduit naturel, poutres en bois, salle de bain privative.' },
+        { img: L('laom-accueil'), alt: 'Les tipis de LAOM sous les grands chênes', title: 'Les tipis', text: 'Dormir dans la toile, au plus près du dehors. Le matin, c’est le chant des oiseaux qui te réveille.' },
+        { img: L('coliving/coliving-laom-vue-interieure-01'), alt: 'Une chambre du coliving, murs en enduit naturel', title: 'Les chambres du coliving', text: 'Dans le bâtiment bioclimatique en paille porteuse. Murs en enduit naturel, salle de bain privative.' },
         { img: L('coliving/coliving-laom-vue-interieure-08'), alt: 'Le foyer commun du coliving, salon et tapis', title: 'Le foyer commun', text: 'Le salon et la cuisine partagés. Pour cuisiner, lire, ou refaire le monde le soir.' },
-        { img: L('coliving/coliving-laom-vue-interieure-05'), alt: 'La salle de chill, tapis et fauteuils face à la vallée', title: 'La salle de chill', text: 'Des tapis, des fauteuils, et la vallée derrière la vitre. Pour souffler entre deux sessions.' },
         { img: L('chillworking-salle-pratique'), alt: 'La grande salle de pratique de LAOM', title: 'La salle de pratique', text: 'Mouvement le matin, coworking le jour. Wifi fibre, et la vallée pour seul écran de fond.' },
         { img: '/images/festival/cta.webp', alt: 'Les grandes tables sous le chapiteau de LAOM', title: 'Le chapiteau & les tables dehors', text: '200 m² à l’ombre, ouverts sur la prairie. On y mange, on y travaille, on y danse. Wifi Starlink.' },
         { img: L('potager-calendula'), alt: 'Le potager de LAOM, fleurs de calendula', title: 'Le potager', text: 'Ce qui pousse ici finit dans l’assiette. Les repas suivent les saisons, pas l’inverse.' },
         { img: L('riviere-baignade'), alt: 'Baignade collective dans la rivière de LAOM', title: 'La rivière & la forêt', text: '21 hectares à parcourir. L’eau froide en été, les chemins sous les arbres.' },
-        { img: '/images/festival/about-1.webp', alt: 'Le comptoir en bois de la guinguette de LAOM, sous les guirlandes', title: 'La guinguette', text: 'Le cœur des soirées. Là où le collectif se retrouve, un verre à la main.' },
-        { img: L('diner-golden-hour-laom'), alt: 'Le feu, la nuit, à LAOM', title: 'Le feu, la nuit', text: 'Quand le jour tombe, on s’assoit autour des flammes. Et au-dessus, la voie lactée entière.' },
+        { img: L('guinguette-produits-laom'), alt: 'Une cagette de tomates et de légumes du potager à la guinguette de LAOM', title: 'La guinguette', text: 'Le cœur des soirées. Là où le collectif se retrouve, un verre à la main.' },
+        { img: L('voie-lactee-laom'), alt: 'Le ciel étoilé au-dessus de LAOM, la nuit', title: 'La voie lactée au-dessus de nos têtes', text: 'Quand le jour tombe, on s’assoit autour du feu. Et il suffit de lever les yeux : aucune lumière à l’horizon, seulement les étoiles.' },
       ]} />
   </div>
 
@@ -73,7 +102,10 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('jardin-laom')} alt="Le jardin et le potager de LAOM"
       eyebrow="Le vivant"
       title="Un lieu qui se régénère," accent="saison après saison."
-      text="Ici, on ne fait pas que profiter de la nature, on en prend soin. Le potager, les arbres, la rivière, le sol : tout est entretenu pour durer. Au fil de l’année, le domaine change de visage : le vert dense de l’été, l’or de l’automne, le silence de l’hiver. Quelle que soit la saison où tu viens, tu ne trouveras jamais tout à fait le même endroit." />
+      text={[
+        'Régénérer, c’est faire en sorte qu’un lieu aille mieux grâce à notre présence, et pas seulement malgré elle. Au potager, on nourrit le sol au lieu de l’épuiser : il gagne en vie d’une saison à l’autre. Pour le reste, la rivière, la forêt, les prairies, on laisse faire la nature, et on veille surtout à ne pas l’abîmer.',
+        'Au fil de l’année, le domaine change de visage : le vert dense de l’été, l’or de l’automne, le silence de l’hiver. Quelle que soit la saison où tu viens, tu ne trouveras jamais tout à fait le même endroit.',
+      ]} />
   </div>
 
   <!-- ⑥ VENIR À LAOM -->
