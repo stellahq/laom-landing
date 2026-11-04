@@ -127,7 +127,7 @@ const pageSchema = createWebPageSchema({
               month: 'long',
               day: 'numeric',
             })
-            const isInternal = nl.data.url.includes('laom.com') || nl.data.url.startsWith('/')
+            const isInternal = nl.data.url.includes('laom.fr') || nl.data.url.startsWith('/')
             const href = isInternal ? new URL(nl.data.url).pathname : nl.data.url
             return (
               <a

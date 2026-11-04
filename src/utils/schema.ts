@@ -8,7 +8,7 @@ import type {
 } from 'schema-dts'
 
 // Site constants
-const SITE_URL = 'https://laom.com/'
+const SITE_URL = 'https://laom.fr/'
 const SITE_NAME = 'Laom'
 const LOGO_URL = `${SITE_URL}logo.svg`
 
