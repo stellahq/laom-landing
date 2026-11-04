@@ -235,7 +235,7 @@ const heroImage = '/images/laom/presentation/laom-domaine-vue-panoramique.webp'
             const slug = lang === 'fr' ? item.slugFr : item.slugEn
             const isGrandShambala = slug.includes('grand-shambala')
             const href = isGrandShambala
-              ? getLocalizedPath('/grand-shambala-v2/', lang as 'fr' | 'en')
+              ? getLocalizedPath('/grand-shambala/', lang as 'fr' | 'en')
               : getLocalizedPath(`/blog/${slug}/`, lang as 'fr' | 'en')
             return (
               <li>

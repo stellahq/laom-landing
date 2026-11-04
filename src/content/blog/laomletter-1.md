@@ -40,7 +40,7 @@ LAOM, c'est un lieu de vie et d'accueil niché dans une vallée sauvage du sud d
 
 *Un endroit pour habiter autrement, travailler autrement, et se relier autrement.*
 
-Nous expérimentons ici des techniques d'éco-construction, avec notamment la création d'un énorme bâtiment en paille porteuse (probablement le plus grand du monde !) qui accueillera le futur coliving, une salle commune, et des habitats permanents ou semi-permanents (tous déjà réservés !). Pour les intimes du lieu, ce bâtiment s'appelle le [**Grand Shambala**](/grand-shambala-v2/).
+Nous expérimentons ici des techniques d'éco-construction, avec notamment la création d'un énorme bâtiment en paille porteuse (probablement le plus grand du monde !) qui accueillera le futur coliving, une salle commune, et des habitats permanents ou semi-permanents (tous déjà réservés !). Pour les intimes du lieu, ce bâtiment s'appelle le [**Grand Shambala**](/grand-shambala/).
 
 Aujourd'hui, LAOM c'est donc à la fois : un chantier, un lieu qui accueille déjà du public avec des événements, des stages et retraites, et une aventure humaine, avec ses élans et ses frottements.
 
