@@ -46,6 +46,7 @@ export default defineConfig({
     '/candidater-labo': '/reserver',
     '/liens-labo': '/liens',
     '/quiz-labo': '/quiz',
+    '/grand-shambala-v2': '/grand-shambala',
   },
   security: {
     checkOrigin: false,
