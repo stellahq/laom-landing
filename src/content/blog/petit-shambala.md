@@ -1,6 +1,6 @@
 ---
 title: "Petit Shambala : le bâtiment qu'on n'avait jamais prévu de construire"
-description: "Comment un studio de yoga refusé en Occitanie est devenu notre maison familiale de 73m². L'histoire d'un projet qui n'a cessé de grandir — et de nos erreurs."
+description: "Comment un studio de yoga refusé en Occitanie est devenu une maison de 73 m² en ossature bois et terre crue. L'histoire d'un projet qui n'a cessé de grandir, et de nos erreurs."
 pubDate: 2026-02-03
 heroImage: "/images/laom/laom-potager-chalet.webp"
 author: "Charly Aubert"
@@ -149,7 +149,7 @@ Et on a voulu tester le sol en terre dans la salle de bain aussi. Mauvaise idée
 
 La maison est bien isolée, bien étanchée. Le problème : les fenêtres n'ont pas d'entrées d'air. Aucune.
 
-Résultat : l'air ne se renouvelle pas naturellement. En hiver, on a de la condensation sur les vitres. L'humidité stagne. Il faut ouvrir manuellement pour aérer — même quand il fait 2°C dehors.
+Résultat : l'air ne se renouvelle pas naturellement. En hiver, il y a de la condensation sur les vitres. L'humidité stagne. Il faut ouvrir manuellement pour aérer — même quand il fait 2°C dehors.
 
 Les chambres côté nord sont les pires. Pas de ventilation, pas de circulation. On a simplement oublié.
 
@@ -171,7 +171,7 @@ On aurait pu faire autrement. Mettre l'OSB à l'intérieur, l'ossature bois vers
 
 La solution alternative : j'ai fait une double ossature croisée avec des panneaux d'isolant croisés. J'aurais pu mettre un feuillard métallique entre les deux ossatures pour assurer le contreventement, et garder l'OSB à l'intérieur pour avoir une paroi perspirante.
 
-On ne l'a pas fait. On vit avec. Et on compense avec la ventilation.
+On ne l'a pas fait. On fait avec, et on compense avec la ventilation.
 
 <!-- PLACEHOLDER MASQUE
 <div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
@@ -201,23 +201,9 @@ Le reste de l'année ? Rien. Zéro chauffage.
 
 J'ai énormément aimé apprendre à utiliser la terre comme médium. Le sol, les enduits sur les murs, et même des **suspentes en terre crue** que j'ai fabriquées — elles sont magnifiques.
 
-Le **plafond acoustique** est super beau. Le **bureau**, le **mobilier sur mesure** qu'on a fait, la **cuisine**. La **chambre de Livio** avec sa cabane.
+Le **plafond acoustique** est super beau. Le **bureau**, le **mobilier sur mesure** qu'on a fait, la **cuisine**, la **cabane** dans une des chambres.
 
 C'est beau. On aime cette maison.
-
-<!-- PLACEHOLDER MASQUE
-<div class="not-prose my-8 aspect-[16/9] bg-[#E8E3D8] flex items-center justify-center border border-black/5 rounded-sm">
-  <p class="text-sm font-light text-[#2C2824]/40 px-8 text-center">Photo a prendre : Photo de famille — Charly, Amandine, Livio (et/ou Felix, Gribouille) dans ou devant la maison</p>
-</div>
--->
-
-## Qui habite là aujourd'hui
-
-Le Petit Shambala n'est pas un hébergement. C'est notre maison.
-
-Amandine, ma compagne. Livio, notre fils. Félix, le chien. Gribouille, le chat — roi incontesté des lieux, qui tolère notre présence.
-
-Dans ce Petit Shambala, chaque centimètre carré a une histoire.
 
 ## La suite : corriger et étendre
 
@@ -239,13 +225,13 @@ Cette fois, pas d'erreur. Ressuyage correct de l'huile, finition soignée. On va
 
 **L'autonomie énergétique.** Avec quelques panneaux solaires, on peut viser 100% d'autonomie. Tout dépend du niveau de confort qu'on accepte — est-ce qu'on veut être en pull ou en t-shirt à la maison ? On choisit notre curseur.
 
-Et puis l'**extension**. Livio grandit, il a besoin de sa chambre. On a besoin d'une chambre d'amis. D'un salon plus grand.
+Et puis l'**extension** : une chambre de plus et un salon plus grand.
 
 ---
 
 Le Petit Shambala n'était pas prévu. Il devait faire 39 m², il en fait 73, et il finira à 115 m².
 
-Il devait être un studio de yoga pour quelqu'un d'autre, c'est devenu notre maison.
+Il devait être un studio de yoga pour quelqu'un d'autre, c'est devenu une vraie maison en bois et en terre.
 
 On a fait des erreurs. On les assume. On les raconte. Parce que c'est comme ça qu'on apprend — et c'est comme ça qu'on transmet.
 
