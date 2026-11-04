@@ -339,7 +339,6 @@ export const translations = {
               'Émergence claire du business model de coliving',
               'Clarification de la vision transmise au collectif et aux associés',
               'Décembre : Achèvement du Petit Shambala',
-              'Emménagement de Charly, Amandine et L., leur fils, dans le Petit Shambala',
             ],
           },
           {
@@ -1303,7 +1302,6 @@ export const translations = {
               'Clear emergence of coliving business model',
               'Clarification of vision transmitted to collective and partners',
               'December: Completion of Petit Shambala',
-              'Move-in of Charly, Amandine and L., their son, into Petit Shambala',
             ],
           },
           {
