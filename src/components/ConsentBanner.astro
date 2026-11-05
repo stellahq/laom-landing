@@ -3,17 +3,18 @@
 // Pilote le tracking CLIENT (gtag consent + fbq). Les conversions server-side
 // (Lead/Purchase via CAPI) restent fiables : base legale = consentement du
 // formulaire (email volontaire). S'affiche tant qu'aucun choix n'est stocke.
+const en = Astro.currentLocale === 'en'
 ---
 
-<div id="consent-banner" hidden class="consent-banner" role="dialog" aria-label="Consentement cookies">
+<div id="consent-banner" hidden class="consent-banner" role="dialog" aria-label={en ? 'Cookie consent' : 'Consentement cookies'}>
   <div class="consent-inner">
     <p class="consent-text">
-      On utilise des cookies pour mesurer l’audience et améliorer le site.
-      <a href="/mentions-legales/" class="consent-link">En savoir plus</a>
+      {en ? 'We use cookies to measure traffic and improve the site.' : 'On utilise des cookies pour mesurer l’audience et améliorer le site.'}
+      <a href="/mentions-legales/" class="consent-link">{en ? 'Learn more' : 'En savoir plus'}</a>
     </p>
     <div class="consent-actions">
-      <button type="button" id="consent-refuse" class="consent-btn consent-btn--ghost">Refuser</button>
-      <button type="button" id="consent-accept" class="consent-btn consent-btn--primary">Accepter</button>
+      <button type="button" id="consent-refuse" class="consent-btn consent-btn--ghost">{en ? 'Decline' : 'Refuser'}</button>
+      <button type="button" id="consent-accept" class="consent-btn consent-btn--primary">{en ? 'Accept' : 'Accepter'}</button>
     </div>
   </div>
 </div>
