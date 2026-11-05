@@ -27,7 +27,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
     video="/videos/hero-laom-v2.mp4" img="/images/hero-laom-poster-v2.webp" alt="Le domaine LAOM en sud Aveyron"
     navLinks={navLinks} navCta="Réserver ma place" navCtaHref={RESERVER} navLogoHref="/"
     eyebrow="Coliving pour entrepreneurs · Sud Aveyron"
-    title="Vis et travaille autrement, en pleine nature," accent="entre pairs"
+    title="Vivre et travailler autrement, en pleine nature," accent="entre pairs"
     subtitle="Une semaine dans un domaine de 21 hectares. On s’occupe de tout : tu gardes ton énergie pour ce que tu es venu·e créer."
     ctaText="Réserver ma place" ctaHref={RESERVER} />
 
@@ -46,12 +46,12 @@ const L = (n: string) => `/images/laom/${n}.webp`
       title="21 hectares de nature préservée," accent="loin de tout."
       intro="Un ancien domaine agricole, à 1h30 de Montpellier. Les repas sortent du potager, on travaille au calme face à la rivière, et le soir la voie lactée s’allume, sans aucune pollution lumineuse."
       items={[
-        {img:L('tipis'),title:'Les tipis',desc:'Dormir au plus près du vivant.',href:'/le-lieu/'},
+        {img:L('coliving-laom-vue-interieure-01'),title:'Les chambres',desc:'Salle de bain privative et fibre, au calme.',href:'/le-lieu/'},
         {img:L('chillworking-salle-pratique'),title:'Le shala',desc:'Coworking, wifi fibre, face à la vallée.',href:'/le-lieu/'},
         {img:L('potager-rangs'),title:'Le potager',desc:'Ce qui pousse ici finit dans l’assiette.',href:'/le-lieu/'},
-        {img:L('festival-laom-ambiance-nature-aveyron'),title:'La guinguette',desc:'Là où le collectif se retrouve.',href:'/le-lieu/'},
+        {img:L('guinguette-produits-laom'),title:'La guinguette',desc:'Là où le collectif se retrouve.',href:'/le-lieu/'},
         {img:L('riviere-laom'),title:'La rivière & la forêt',desc:'21 hectares à parcourir.',href:'/le-lieu/'},
-        {img:L('diner-golden-hour-laom'),title:'Le feu, la nuit',desc:'Soirées sous les étoiles.',href:'/le-lieu/'},
+        {img:L('voie-lactee-laom'),title:'Le feu, la nuit',desc:'Soirées sous la voie lactée.',href:'/le-lieu/'},
       ]} />
 
   <!-- 3. LE COLIVING DE JUIN 2027 — concrètement (→ programme) -->
@@ -59,16 +59,16 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <MediaText bg="bg-[#FBF6EA]" img={L('coworking-tablee')} alt="Des entrepreneurs au travail, ensemble, à LAOM"
       eyebrow="Le coliving de juin 2027"
       title="Du 6 au 12 juin," accent="tout est inclus."
-      text="Six nuits en chambre, en tipi ou dans l’appartement, dix-huit repas faits maison, un cours de mouvement chaque matin (yoga, MovNat, danse), un espace de travail au calme, des ateliers et des soirées sous les étoiles. On gère la logistique : tu n’as qu’à exister, créer, et te retrouver."
+      text="Six nuits en chambre, en tipi ou dans l’appartement, dix-huit repas faits maison, un cours de mouvement chaque matin (yoga, MovNat, danse), un espace de travail au calme, des ateliers et des soirées sous les étoiles. Tu arrives avec ton ordi et ta valise, on s’occupe du reste."
       ctaText="Découvrir le programme" ctaHref="/coliving/" />
   </div>
 
   <!-- 4. LES FONDATEURS & LA CONVICTION — qui & pourquoi (→ Notre histoire) -->
   <div animate-fade-in-up class="opacity-0">
-    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-cam')} alt="Charly et Amandine, fondateurs de LAOM"
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-portrait')} ratio="aspect-[4/5]" alt="Charly et Amandine, fondateurs de LAOM"
       eyebrow="Charly & Amandine"
       title="On vit mieux" accent="quand on choisit son cadre."
-      text="C’est leur conviction. Ils ont quitté la ville, acheté 21 hectares dans le sud de l’Aveyron, et construit le lieu qu’ils auraient voulu trouver, où le travail, la nature et la communauté tiennent ensemble. LAOM, c’est leur projet de vie. Le coliving, c’est l’invitation à venir le vivre avec eux."
+      text="C’est leur conviction. Ils ont quitté la ville, co-acheté un domaine de 21 hectares dans le sud de l’Aveyron, et construit le lieu qu’ils auraient voulu trouver : un endroit où l’on peut travailler, vivre en pleine nature et partager avec d’autres. LAOM, c’est leur projet de vie. Le coliving, c’est l’invitation à venir le vivre avec eux."
       ctaText="Lire notre histoire" ctaHref="/notre-histoire/" />
   </div>
 
@@ -84,6 +84,10 @@ const L = (n: string) => `/images/laom/${n}.webp`
           {title:'Du 6 au 12 juin 2027',desc:'En chambre, en tipi ou dans l’appartement'},
           {title:'Un échange de 15 min',desc:'Pour voir ensemble si LAOM est fait pour toi'},
         ]} />
+      <p class="mt-8 text-center text-[#412F1F]/80">
+        Tu es maman ? En juin 2027, il y a aussi un co-living Moms &amp; Kids à LAOM, pour venir avec tes enfants.
+        <a href="https://amandineblue.com/coliving/france" class="font-bold underline underline-offset-4 hover:text-[#412F1F]">Découvrir le Co-living Moms &amp; Kids</a>
+      </p>
     </div>
   </section>
 
