@@ -6,15 +6,15 @@ import Layout from '~/layouts/Layout.astro'
 import Logo from '~/components/laom/Logo.astro'
 
 const links = [
-  { label: 'La Semaine Libre · 14-20 septembre', href: '/semaine-libre/?utm_source=instagram&utm_medium=bio&utm_campaign=semaine-libre&utm_content=btn-semaine-libre', primary: true },
-  { label: 'Découvrir le coliving', href: '/coliving/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-aout-2026&utm_content=btn-coliving' },
-  { label: 'Visiter le lieu · 21 ha en Aveyron', href: '/le-lieu/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-aout-2026&utm_content=btn-le-lieu' },
-  { label: 'S’inscrire à la LAOM Letter', href: '/newsletter/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-aout-2026&utm_content=btn-newsletter' },
-  { label: 'Faire le test (2 min)', href: '/quiz/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-aout-2026&utm_content=btn-quiz' },
+  { label: 'Coliving entrepreneurs · 6-12 juin 2027', href: '/coliving/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-juin-2027&utm_content=btn-coliving-fr', primary: true },
+  { label: 'Entrepreneurs coliving · June 6-12, 2027 (EN)', href: '/coliving/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-juin-2027&utm_content=btn-coliving-en' },
+  { label: 'Coliving Moms & Kids · 13-27 juin 2027', href: 'https://amandineblue.com/coliving/france/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-juin-2027&utm_content=btn-moms-kids-fr' },
+  { label: 'Moms & Kids coliving · June 13-27, 2027 (EN)', href: 'https://amandineblue.com/en/coliving/france/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-juin-2027&utm_content=btn-moms-kids-en' },
+  { label: 'S’inscrire à la LAOM Letter', href: '/newsletter/?utm_source=instagram&utm_medium=bio&utm_campaign=coliving-juin-2027&utm_content=btn-newsletter' },
 ]
 ---
 
-<Layout title="LAOM — tous nos liens" description="Tous les liens LAOM : le lieu, le coliving entrepreneurs, la newsletter et les candidatures." hideChrome={true} seo={{ noIndex: true }}>
+<Layout title="LAOM — tous nos liens" description="Tous les liens LAOM : le coliving entrepreneurs, le coliving Moms & Kids et la LAOM Letter." hideChrome={true} seo={{ noIndex: true }}>
   <div class="relative min-h-screen flex flex-col items-center justify-center px-5 py-14">
     <img src="/images/festival/hero.webp" alt="" class="fixed inset-0 w-full h-full object-cover" />
     <div class="fixed inset-0 bg-[#1D1B18]/65"></div>
@@ -22,7 +22,7 @@ const links = [
 
     <main class="relative w-full max-w-md text-center">
       <a href="/" class="text-[#F2EBDB] inline-block" aria-label="Accueil"><Logo height="2.4rem" /></a>
-      <p class="text-[#F2EBDB]/80 mt-4 text-sm uppercase tracking-[0.16em]">Coliving pour entrepreneurs · Sud Aveyron</p>
+      <p class="text-[#F2EBDB]/80 mt-4 text-sm uppercase tracking-[0.16em]">Coliving pour entrepreneurs, familles, artistes · Sud Aveyron</p>
       <p class="text-[#F2EBDB]/90 mt-4 leading-relaxed">Une semaine pour vivre et travailler autrement, en pleine nature.</p>
 
       <nav class="mt-9 space-y-3.5">
