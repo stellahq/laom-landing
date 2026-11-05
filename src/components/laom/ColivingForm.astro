@@ -11,9 +11,34 @@ import Layout from '~/layouts/Layout.astro'
 import Logo from '~/components/laom/Logo.astro'
 
 const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/40 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
-interface Props { mode: 'reserver' | 'rappel' }
-const { mode } = Astro.props
-const T = mode === 'rappel' ? {
+interface Props { mode: 'reserver' | 'rappel'; lang?: 'fr' | 'en' }
+const { mode, lang = 'fr' } = Astro.props
+const en = lang === 'en'
+const T = en ? (mode === 'rappel' ? {
+  title: 'Request a call · LAOM Coliving June 2027',
+  description: 'Questions about the LAOM coliving week, June 6-12, 2027? Leave your details and we’ll call you within 48 hours.',
+  eyebrow: 'Request a call · Coliving, June 6-12, 2027',
+  h1: 'Let’s talk about your week at LAOM.',
+  intro: 'Got questions before booking? Tell us a little about yourself and we’ll call you within 48 hours. A simple chat, no commitment.',
+  messageLabel: 'Your questions, and when we can reach you',
+  messagePlaceholder: 'What you’d like to know, and when you’re easiest to reach (with your time zone)…',
+  button: 'Request a call',
+  reassurance: 'We’ll call you within 48 hours for a simple, no-commitment chat.',
+  okTitle: 'We’ll call you very soon.',
+  okText: 'We’ll get back to you within 48 hours for a 15-minute chat and answer all your questions.',
+} : {
+  title: 'Book your spot · LAOM Coliving June 2027',
+  description: 'Book your spot for the LAOM coliving week, June 6-12, 2027. A 2-minute questionnaire, payment link within 48 hours.',
+  eyebrow: 'Booking · Coliving, June 6-12, 2027',
+  h1: 'Book your spot for June 2027.',
+  intro: 'This questionnaire takes 2 minutes. We read your answers to make sure the week is a good fit, then send you the payment link within 48 hours. Your spot is confirmed once payment is made. No call needed, unless you’d like one.',
+  messageLabel: 'Anything we should know?',
+  messagePlaceholder: 'Questions, expectations, special circumstances, what made you want to come…',
+  button: 'Send my booking request',
+  reassurance: 'We read your answers and send you the payment link within 48 hours.',
+  okTitle: 'Your booking request is in.',
+  okText: 'We read your answers and send you the payment link within 48 hours. Your spot will be confirmed once payment is made.',
+}) : (mode === 'rappel' ? {
   title: 'Être rappelé·e · LAOM Coliving juin 2027',
   description: 'Tu as des questions sur le coliving du 6 au 12 juin 2027 à LAOM ? Laisse tes infos, on t’appelle sous 48h.',
   eyebrow: 'Être rappelé·e · Coliving du 6 au 12 juin 2027',
@@ -37,13 +62,43 @@ const T = mode === 'rappel' ? {
   reassurance: 'On lit tes réponses et on t’envoie le lien de paiement sous 48h.',
   okTitle: 'Ta demande de réservation est bien reçue.',
   okText: 'On lit tes réponses et on t’envoie le lien de paiement sous 48h. Ta place sera confirmée dès le paiement.',
+})
+// Textes communs aux deux modes.
+const C = en ? {
+  home: '/en/', homeLabel: 'Back to home',
+  q1: 'First and last name', q2: 'Email', q3: 'Phone number', q3help: 'So we can talk in person (include your country code).',
+  q4: 'Describe what you do in one sentence.', q4ph: 'E.g. I help small business owners with their sales strategy.', refs: 'Your website or social media (optional)',
+  q5: 'How long have you been doing this?', q6: 'Do you work alone or with a team?',
+  q7: 'Have you ever done a coliving, a retreat or a stay with other entrepreneurs?',
+  q8: 'What are you looking for at LAOM?', many: '(several answers possible)', q8err: 'Pick at least one answer.',
+  q9: 'Which accommodation are you interested in?', optional: '(optional)',
+  rgpd: 'I agree that LAOM may use my information to contact me and send me news about the project. I can unsubscribe at any time.', privacy: 'Privacy policy',
+  thanks: 'Thank you', meanwhile: 'In the meantime, we’ll send you an email with a few details about the place and what to expect.',
+  backHome: 'Back to home', sending: 'Sending…', error: 'Oops, something went wrong. Please try again in a moment.',
+} : {
+  home: '/', homeLabel: 'Retour à l’accueil',
+  q1: 'Prénom et nom', q2: 'Email', q3: 'Numéro de téléphone', q3help: 'Pour qu’on puisse échanger de vive voix.',
+  q4: 'Décris ton activité en une phrase.', q4ph: 'Ex : J’accompagne des dirigeants de PME dans leur stratégie commerciale.', refs: 'Ton site ou tes réseaux (facultatif)',
+  q5: 'Depuis combien de temps exerces-tu cette activité ?', q6: 'Tu travailles seul·e ou avec une équipe ?',
+  q7: 'As-tu déjà vécu un coliving, une retraite ou un séjour entre entrepreneurs ?',
+  q8: 'Qu’est-ce que tu viens chercher à LAOM ?', many: '(plusieurs réponses possibles)', q8err: 'Choisis au moins une réponse.',
+  q9: 'Quel hébergement t’intéresse ?', optional: '(facultatif)',
+  rgpd: 'J’accepte que LAOM utilise mes informations pour me recontacter et m’envoyer des informations sur le projet. Je peux me désinscrire à tout moment.', privacy: 'Politique de confidentialité',
+  thanks: 'Merci', meanwhile: 'D’ici là, on t’envoie un email avec quelques infos sur le lieu et ce qui t’attend.',
+  backHome: 'Revenir à l’accueil', sending: 'Envoi…', error: 'Oups, un souci à l’envoi. Réessaie dans un instant.',
 }
 const pillCls = 'block rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-sm text-[#412F1F] cursor-pointer hover:border-[#412F1F]/30 peer-checked:border-[#9A3922] peer-checked:bg-[#9A3922]/[0.06] peer-checked:ring-1 peer-checked:ring-[#9A3922] transition'
 
-const anciennete = ["Moins d'un an", '1 à 3 ans', '3 à 5 ans', 'Plus de 5 ans']
-const equipe = ['Seul·e', 'Avec 1 à 3 personnes', 'Avec une équipe de 4+', 'Ça dépend des projets']
-const experience = ['Oui, plusieurs fois', 'Oui, une fois', 'Non, ce serait une première']
-const attentes = [
+const anciennete = en ? ['Less than a year', '1 to 3 years', '3 to 5 years', 'More than 5 years'] : ["Moins d'un an", '1 à 3 ans', '3 à 5 ans', 'Plus de 5 ans']
+const equipe = en ? ['On my own', 'With 1 to 3 people', 'With a team of 4+', 'Depends on the project'] : ['Seul·e', 'Avec 1 à 3 personnes', 'Avec une équipe de 4+', 'Ça dépend des projets']
+const experience = en ? ['Yes, several times', 'Yes, once', 'No, it would be a first'] : ['Oui, plusieurs fois', 'Oui, une fois', 'Non, ce serait une première']
+const attentes = en ? [
+  'A setting to work differently for a week',
+  'Meeting other entrepreneurs who live the same things',
+  'Reconnecting with a pace of life that feels like me',
+  'Stepping back from my business and my direction',
+  'Discovering the place and the LAOM project',
+] : [
   'Un cadre pour travailler autrement pendant une semaine',
   'Rencontrer d’autres entrepreneurs qui vivent la même chose',
   'Me reconnecter à un rythme de vie qui me ressemble',
@@ -51,7 +106,7 @@ const attentes = [
   'Découvrir le lieu et le projet LAOM',
 ]
 // Le champ garde le nom « semaine » (colonne D1), il porte désormais l'hébergement choisi.
-const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’appartement', 'Je ne sais pas encore']
+const hebergements = en ? ['Single room', 'Couple room', 'Tipi', 'The apartment', 'Not sure yet'] : ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’appartement', 'Je ne sais pas encore']
 ---
 
 <Layout title={T.title} description={T.description} hideChrome={true} seo={{ noIndex: true }}>
@@ -59,7 +114,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
 
     <!-- Logo seul (retour accueil) -->
     <header class="px-6 md:px-10 lg:px-14 py-6 border-b border-[#412F1F]/10">
-      <a href="/" class="text-[#9A3922] inline-block" aria-label="Retour à l’accueil"><Logo height="1.7rem" /></a>
+      <a href={C.home} class="text-[#9A3922] inline-block" aria-label={C.homeLabel}><Logo height="1.7rem" /></a>
     </header>
 
     <!-- Intro + formulaire -->
@@ -69,37 +124,37 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
         <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">{T.h1}</h1>
         <p class="text-lg text-[#1D1B18]/70 mt-5 leading-relaxed">{T.intro}</p>
 
-        <form id="cand-form" data-mode={mode} class="mt-12 space-y-10" novalidate>
+        <form id="cand-form" data-mode={mode} data-lang={lang} data-sending={C.sending} data-error={C.error} class="mt-12 space-y-10" novalidate>
 
           <!-- Q1 -->
           <div class="space-y-3">
-            <label for="nom" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">1</span><span class="pt-0.5">Prénom et nom</span></label>
+            <label for="nom" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">1</span><span class="pt-0.5">{C.q1}</span></label>
             <input id="nom" name="nom" type="text" required autocomplete="name" class={inputCls} />
           </div>
 
           <!-- Q2 -->
           <div class="space-y-3">
-            <label for="email" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">2</span><span class="pt-0.5">Email</span></label>
+            <label for="email" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">2</span><span class="pt-0.5">{C.q2}</span></label>
             <input id="email" name="email" type="email" required autocomplete="email" class={inputCls} />
           </div>
 
           <!-- Q3 -->
           <div class="space-y-3">
-            <label for="tel" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">3</span><span class="pt-0.5">Numéro de téléphone</span></label>
+            <label for="tel" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">3</span><span class="pt-0.5">{C.q3}</span></label>
             <input id="tel" name="tel" type="tel" required autocomplete="tel" class={inputCls} />
-            <p class="text-sm text-[#1D1B18]/55">Pour qu’on puisse échanger de vive voix.</p>
+            <p class="text-sm text-[#1D1B18]/55">{C.q3help}</p>
           </div>
 
           <!-- Q4 -->
           <div class="space-y-3">
-            <label for="activite" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">4</span><span class="pt-0.5">Décris ton activité en une phrase.</span></label>
-            <input id="activite" name="activite" type="text" required placeholder="Ex : J’accompagne des dirigeants de PME dans leur stratégie commerciale." class={inputCls} />
-            <input id="references" name="references" type="text" placeholder="Ton site ou tes réseaux (facultatif)" class={inputCls} />
+            <label for="activite" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">4</span><span class="pt-0.5">{C.q4}</span></label>
+            <input id="activite" name="activite" type="text" required placeholder={C.q4ph} class={inputCls} />
+            <input id="references" name="references" type="text" placeholder={C.refs} class={inputCls} />
           </div>
 
           <!-- Q5 -->
           <fieldset class="space-y-3">
-            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">5</span><span class="pt-0.5">Depuis combien de temps exerces-tu cette activité ?</span></legend>
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">5</span><span class="pt-0.5">{C.q5}</span></legend>
             <div class="grid sm:grid-cols-2 gap-3">
               {anciennete.map((o) => (<label class="block"><input type="radio" name="anciennete" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
             </div>
@@ -107,7 +162,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
 
           <!-- Q6 -->
           <fieldset class="space-y-3">
-            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">6</span><span class="pt-0.5">Tu travailles seul·e ou avec une équipe ?</span></legend>
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">6</span><span class="pt-0.5">{C.q6}</span></legend>
             <div class="grid sm:grid-cols-2 gap-3">
               {equipe.map((o) => (<label class="block"><input type="radio" name="equipe" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
             </div>
@@ -115,7 +170,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
 
           <!-- Q7 -->
           <fieldset class="space-y-3">
-            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">7</span><span class="pt-0.5">As-tu déjà vécu un coliving, une retraite ou un séjour entre entrepreneurs ?</span></legend>
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">7</span><span class="pt-0.5">{C.q7}</span></legend>
             <div class="grid sm:grid-cols-3 gap-3">
               {experience.map((o) => (<label class="block"><input type="radio" name="experience" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
             </div>
@@ -123,16 +178,16 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
 
           <!-- Q8 -->
           <fieldset class="space-y-3">
-            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">8</span><span class="pt-0.5">Qu’est-ce que tu viens chercher à LAOM ? <span class="font-normal text-[#1D1B18]/50">(plusieurs réponses possibles)</span></span></legend>
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">8</span><span class="pt-0.5">{C.q8} <span class="font-normal text-[#1D1B18]/50">{C.many}</span></span></legend>
             <div class="grid gap-3">
               {attentes.map((o) => (<label class="block"><input type="checkbox" name="attentes" value={o} class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
             </div>
-            <p id="q8-error" hidden class="text-sm font-medium text-[#9A3922]">Choisis au moins une réponse.</p>
+            <p id="q8-error" hidden class="text-sm font-medium text-[#9A3922]">{C.q8err}</p>
           </fieldset>
 
           <!-- Q9 -->
           <fieldset class="space-y-3">
-            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">9</span><span class="pt-0.5">Quel hébergement t’intéresse ?</span></legend>
+            <legend class="flex items-start gap-3 font-semibold text-[#412F1F] mb-2"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">9</span><span class="pt-0.5">{C.q9}</span></legend>
             <div class="grid sm:grid-cols-2 gap-3">
               {hebergements.map((o) => (<label class="block"><input type="radio" name="semaine" value={o} required class="peer sr-only" /><span class={pillCls}>{o}</span></label>))}
             </div>
@@ -140,14 +195,14 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
 
           <!-- Q10 -->
           <div class="space-y-3">
-            <label for="message" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">10</span><span class="pt-0.5">{T.messageLabel} <span class="font-normal text-[#1D1B18]/50">(facultatif)</span></span></label>
+            <label for="message" class="flex items-start gap-3 font-semibold text-[#412F1F]"><span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#9A3922]/10 text-[#9A3922] text-sm font-bold shrink-0">10</span><span class="pt-0.5">{T.messageLabel} <span class="font-normal text-[#1D1B18]/50">{C.optional}</span></span></label>
             <textarea id="message" name="message" rows="4" placeholder={T.messagePlaceholder} class={inputCls}></textarea>
           </div>
 
           <!-- RGPD -->
           <label class="flex items-start gap-3 text-sm text-[#1D1B18]/70">
             <input type="checkbox" name="rgpd" required class="mt-1 accent-[#9A3922] w-4 h-4 shrink-0" />
-            <span>J’accepte que LAOM utilise mes informations pour me recontacter et m’envoyer des informations sur le projet. Je peux me désinscrire à tout moment. <a href="/confidentialite/" target="_blank" class="underline hover:text-[#9A3922]">Politique de confidentialité</a>.</span>
+            <span>{C.rgpd} <a href="/confidentialite/" target="_blank" class="underline hover:text-[#9A3922]">{C.privacy}</a>.</span>
           </label>
 
           <div class="pt-2">
@@ -163,10 +218,10 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
       <div class="w-16 h-16 rounded-full bg-[#9A3922]/10 text-[#9A3922] flex items-center justify-center mx-auto mb-7">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
       </div>
-      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">Merci<span id="cand-name"></span>. {T.okTitle}</h1>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance">{C.thanks}<span id="cand-name"></span>. {T.okTitle}</h1>
       <p class="text-lg text-[#1D1B18]/70 mt-6 max-w-xl mx-auto leading-relaxed">{T.okText}</p>
-      <p class="text-[#1D1B18]/55 mt-4 max-w-xl mx-auto">D’ici là, on t’envoie un email avec quelques infos sur le lieu et ce qui t’attend.</p>
-      <a href="/" class="pill pill-primary inline-flex mt-10" style="padding:.85rem 2rem">Revenir à l’accueil</a>
+      <p class="text-[#1D1B18]/55 mt-4 max-w-xl mx-auto">{C.meanwhile}</p>
+      <a href={C.home} class="pill pill-primary inline-flex mt-10" style="padding:.85rem 2rem">{C.backHome}</a>
     </div>
   </div>
 </Layout>
@@ -183,7 +238,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
 
     const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null
     const submitLabel = submitBtn?.textContent || ''
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi…' }
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = form.dataset.sending || 'Envoi…' }
 
     const fd = new FormData(form)
     const eventId = (crypto.randomUUID && crypto.randomUUID())
@@ -203,6 +258,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
       message: String(fd.get('message') || ''),
       rgpd: !!fd.get('rgpd'),
       type: form.dataset.mode === 'rappel' ? 'rappel' : 'reservation',
+      lang: form.dataset.lang === 'en' ? 'en' : 'fr',
       event_id: eventId,
     }
 
@@ -222,7 +278,7 @@ const hebergements = ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’
     } catch (err) {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitLabel }
       const reass = document.getElementById('reassurance') as HTMLElement
-      if (reass) { reass.textContent = 'Oups, un souci à l’envoi. Réessaie dans un instant.'; reass.style.color = '#9A3922' }
+      if (reass) { reass.textContent = form.dataset.error || 'Oups, un souci à l’envoi. Réessaie dans un instant.'; reass.style.color = '#9A3922' }
       return
     }
 
