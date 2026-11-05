@@ -7,9 +7,10 @@ interface Props {
   forLabel?: string; notLabel?: string
   forItems: string[]; notItems: string[]; bg?: string
 }
+const en = Astro.currentLocale === 'en'
 const {
   eyebrow, title, accent,
-  forLabel = 'C’est fait pour toi si…', notLabel = 'Ce n’est probablement pas pour toi si…',
+  forLabel = en ? 'This is for you if…' : 'C’est fait pour toi si…', notLabel = en ? 'This probably isn’t for you if…' : 'Ce n’est probablement pas pour toi si…',
   forItems, notItems, bg = 'bg-[#F2EBDB]',
 } = Astro.props
 ---

@@ -1,130 +1,228 @@
 ---
+// Page 2 — COLIVING, version anglaise de /coliving (même structure, copie adaptée).
+// Page 2 — COLIVING (présentation). Le DESIGN sert le TEXTE : copie storytellée
+// validée (registre présentation, pas page de vente), chaque section habillée du
+// bon composant de la grammaire template, rien n'est coupé.
+// Route isolée /coliving-labo (noindex, hors menu).
 import Layout from '~/layouts/Layout.astro'
-import { createWebPageSchema } from '~/utils/schema'
+import { laboNavEn as navLinks } from '~/data/laboNav'
+import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
+import SplitHeading from '~/components/laom/sections/SplitHeading.astro'
+import AltCardsBand from '~/components/laom/sections/AltCardsBand.astro'
+import MosaicGallery from '~/components/laom/sections/MosaicGallery.astro'
+import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
+import Timeline from '~/components/laom/sections/Timeline.astro'
+import FitCheck from '~/components/laom/sections/FitCheck.astro'
+import PeersSection from '~/components/laom/sections/PeersSection.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import Statement from '~/components/laom/sections/Statement.astro'
+import OfferFeature from '~/components/laom/sections/OfferFeature.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+import { RESERVER_EN as RESERVER, RAPPEL_EN as RAPPEL } from '~/data/coliving'
 
-const pageSchema = createWebPageSchema({
-  name: 'Coliving',
-  url: Astro.url.toString(),
-  description:
-    'Opening late 2026: 7 rooms, shared living/kitchen, summer kitchen, multipurpose hall, coworking, river and meadows.',
-})
-
-const galleryImages = [
-  '/images/laom/coliving/coliving-laom-rendu-3d-vue-generale.webp',
-  '/images/laom/coliving/coliving-laom-plan-etage.webp',
-  '/images/laom/coliving/coliving-laom-rendu-chambre.webp',
-  '/images/laom/coliving/coliving-laom-rendu-facade.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-01.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-02.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-03.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-04.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-05.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-06.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-07.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-08.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-09.webp',
-  '/images/laom/coliving/coliving-laom-vue-interieure-10.webp',
-  '/images/laom/coliving/coliving-laom-maquette-interieure.webp',
-  '/images/laom/coliving/hameau-5-8b46de75.webp',
-  '/images/laom/coliving/coliving-laom-vue-domaine.webp',
-]
+const F = (n: string) => `/images/festival/${n}.webp`
+const L = (n: string) => `/images/laom/${n}.webp`
 ---
 
-<Layout
-  title="Coliving – LAOM"
-  description="Opening late 2026: 7 rooms, shared living/kitchen, summer kitchen, multipurpose hall, coworking, river and meadows."
-  seo={{ ldJSON: pageSchema }}
->
-  <section class="py-32 lg:py-40 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
-      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">Opening late 2026</span>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-black mb-6 tracking-tight">Coliving</h1>
-      <p class="text-xl md:text-2xl font-light text-black/60 leading-relaxed">
-        7 rooms · 1 shared living room / kitchen · 1 summer kitchen · 1 multipurpose hall · 21 hectares · a river
-      </p>
-    </div>
-  </section>
+<Layout title="LAOM · Coliving for entrepreneurs in the south of France" description="June 6-12, 2027: a week in the wild with entrepreneurs like you, in the south of France. You keep working, in a setting that feeds you." hideChrome={true}>
 
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="grid gap-6 md:grid-cols-3">
-        <img
-          src="/images/laom/coliving/coliving-laom-vue-domaine.webp"
-          alt="Coliving house"
-          title="View of the LAOM coliving estate"
-          class="h-64 w-full rounded-sm object-cover border border-black/10"
-          loading="lazy"
-        />
-        <img
-          src="/images/laom/coliving/coliving-laom-maquette-interieure.webp"
-          alt="Coliving interior spaces"
-          title="Interior model of the LAOM coliving"
-          class="h-64 w-full rounded-sm object-cover border border-black/10"
-          loading="lazy"
-        />
-        <img
-          src="/images/laom/coliving/hameau-5-8b46de75.webp"
-          alt="View of the hamlet and valley"
-          title="The hamlet of La Margue and the valley"
-          class="h-64 w-full rounded-sm object-cover border border-black/10"
-          loading="lazy"
-        />
-      </div>
-    </div>
-  </section>
+  <!-- ① HEADER — vidéo plein écran, montée à partir des rushes de l'accueil -->
+  <HeroCenter
+    video="/videos/hero-coliving.mp4" img="/images/laom/hero-coliving-poster.webp" alt="A coliving day at LAOM"
+    navLinks={navLinks} navCta="Book your spot" navCtaHref={RESERVER} navLogoHref="/en/"
+    eyebrow="Coliving for entrepreneurs · South of France"
+    title="Live and work differently," accent="for one week."
+    date="June 6-12, 2027"
+    subtitle="A coliving week on a 52-acre estate in the south of France, with a small group of entrepreneurs. You come to work on the project closest to your heart, recharge and have a great time. We take care of everything else."
+    ctaText="Book your spot" ctaHref={RESERVER} />
 
-  <section class="py-24 bg-[#faf9f6]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {[
-          'Bedrooms',
-          'Bathrooms',
-          'Shared lounge and kitchen',
-          'The hall',
-          'Coworking space',
-        ].map((title) => (
-          <article class="border border-black/10 bg-white p-6 lg:p-8 shadow-sm">
-            <h2 class="text-xl font-light text-black mb-4">{title}</h2>
-            <p class="text-sm font-light text-black/60 leading-relaxed">
-              Because we offer far more than a simple room, discover all the services and amenities of our coliving
-              spaces.
-            </p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ② LE PROJET -->
+  <div animate-fade-in-up class="opacity-0">
+    <SplitHeading bg="bg-[#FBF6EA]"
+      eyebrow="The project"
+      title="An estate in the wild," accent="open to entrepreneurs for one week."
+      text={[
+        'LAOM is an eco-built coliving space with 52 acres (21 hectares) of forest, meadows and river, in the Aveyron, 1h30 from Montpellier.',
+        'From June 6 to 12, we open it to entrepreneurs and freelancers who need the same thing: a change of scenery to get inspired without completely stopping work, some green around them, better sleep, and conversations with people who are like them while coming from very different backgrounds.',
+        'You come for a week to live what you’ve been craving for a long time. 🤍',
+      ]} />
+  </div>
 
-  <section class="py-24 bg-white">
-    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-8">The Margue estate</h2>
-      <p class="text-lg font-light text-black/70 leading-relaxed mb-10">
-        A coliving stay in the heart of nature, on a living estate where work, rest, and encounters flow together.
-      </p>
-      <div class="grid gap-4 md:grid-cols-2 text-lg font-light text-black/70">
-        <div class="border border-black/10 p-5">In nature</div>
-        <div class="border border-black/10 p-5">The river</div>
-        <div class="border border-black/10 p-5">The meadows</div>
-        <div class="border border-black/10 p-5">The valley</div>
-        <div class="border border-black/10 p-5">Shows and shared moments</div>
-      </div>
+  <!-- ③ TA SEMAINE — narration + deux moments (bloc unique, aéré comme les autres) -->
+  <div animate-fade-in-up class="opacity-0 bg-[#F2EBDB] pt-24 md:pt-32 pb-24 md:pb-32">
+    <SplitHeading bg="bg-transparent" pad={false}
+      eyebrow="Your week"
+      title="On the first morning, you open your laptop" accent="facing the valley."
+      text={[
+        'The day starts with a movement class, if you feel like it: yoga, MovNat or dance.',
+        'Then you pick your spot to work: the shala indoors, overlooking the valley and the river, the big open-air tent, your room or the shared lounge. And if you need to go at your own pace and rest, that’s welcome too.',
+        'At 1pm, everyone sits down together for a real meal, cooked on site with what comes from the vegetable garden. In the afternoon, you go for a dip in the river, join a workshop, or move your project forward.',
+        'In the evening, after dinner, there’s the fire, sometimes music and free dance, and always a truly magical starry sky, with zero light pollution.',
+      ]} />
+    <div class="mt-12 md:mt-16">
+      <AltCardsBand bg="bg-transparent" pad={false}
+        items={[
+          { img: L('mouvement-laom'), alt: 'Movement class in the LAOM shala', title: 'In the morning, you move, then you create.', text: 'A 45-minute class to wake up your body, then a morning of work if you wish. Fiber or Starlink depending on the spot, and nature all around.' },
+          { img: L('diner-golden-hour-laom'), alt: 'An evening by the fire at LAOM', title: 'In the evening, we come together.', text: 'A seasonal dinner cooked on site, the fire, and real conversations.' },
+        ]} />
     </div>
-  </section>
+  </div>
 
-  <section class="py-24 bg-[#faf9f6]">
-    <div class="max-w-6xl mx-auto px-10 sm:px-16 lg:px-24">
-      <h2 class="text-3xl md:text-4xl font-light text-black mb-10">Gallery</h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {galleryImages.map((src, index) => (
-          <img
-            src={src}
-            alt={`Coliving Gallery ${index + 1}`}
-            title={`LAOM Coliving - photo ${index + 1}`}
-            class="h-56 w-full rounded-sm object-cover border border-black/10 bg-white"
-            loading="lazy"
-          />
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ④ LE LIEU -->
+  <div animate-fade-in-up class="opacity-0">
+    <MosaicGallery bg="bg-[#FBF6EA]"
+      eyebrow="The place"
+      title="52 acres" accent="and nature all around."
+      intro="A former farm estate in the south of the Aveyron. Rooms in a bioclimatic load-bearing straw building, glamping tipis, a vegetable garden, a river, forest trails. At night, you can see the Milky Way."
+      images={[
+        { src: '/images/vue-aeriene-laom2-hero.webp', alt: 'Aerial view of the LAOM estate' },
+        { src: L('chillworking-salle-pratique'), alt: 'The large practice hall, its glass front open onto the tipis' },
+        { src: L('laom-potager'), alt: 'The LAOM vegetable garden' },
+        { src: L('riviere-laom'), alt: 'The river on the estate' },
+        { src: L('diner-golden-hour-laom'), alt: 'Shared dinner at LAOM' },
+      ]}
+      ctaText="Explore the place (in French)" ctaHref="/le-lieu/" />
+  </div>
+
+  <!-- ⑤ TOUT EST INCLUS -->
+  <div animate-fade-in-up class="opacity-0">
+    <IncludedGrid bg="bg-[#F2EBDB]"
+      eyebrow="All included"
+      title="Drop your bags." accent="We take care of the rest."
+      intro="You arrive with your laptop and your suitcase, we take care of the rest: meals, cooking and logistics."
+      items={[
+        { title: '6 nights on the estate', desc: 'In a room with a private bathroom, in a tipi, or in the private apartment.' },
+        { title: '3 homemade meals a day', desc: 'Seasonal, organic and mostly local food, cooked on site every day with vegetables from the garden and produce from neighbouring farms. Menus are omnivore, and we adapt to every diet.' },
+        { title: '4 places to work', desc: 'The shala (120 m², valley and river view, fiber wifi), the big tent (200 m², fully open, shaded from the sun, Starlink wifi), your room (fiber wifi), the shared lounge (fiber wifi).' },
+        { title: 'A movement class every morning', desc: 'Yoga, MovNat or dance. If you want.' },
+        { title: 'Workshops and evenings', desc: 'Fire, jam sessions, dance, conversations, or simply a good night’s sleep.' },
+        { title: 'The whole estate', desc: 'Forest, river, vegetable garden.' },
+      ]} />
+  </div>
+
+  <!-- ⑥ UNE JOURNÉE -->
+  <div animate-fade-in-up class="opacity-0">
+    <Timeline bg="bg-[#FBF6EA]"
+      eyebrow="A typical day"
+      title="The rhythm of" accent="a day here."
+      items={[
+        { time: '8:15 to 9am', label: 'Movement class: yoga, MovNat or dance' },
+        { time: '8:30 to 9:30am', label: 'Breakfast buffet' },
+        { time: '9am to 1pm', label: 'Suggested work time' },
+        { time: '1pm', label: 'Lunch' },
+        { time: '2:30pm', label: 'Rest and swimming, a LAOM workshop, or work time' },
+        { time: '7:30pm', label: 'Homemade dinner' },
+        { time: '9pm', label: 'Fireside evening, jam night, dance night, or a free evening' },
+      ]}
+      note="Nothing is mandatory. You take what feels good." />
+  </div>
+
+  <!-- ⑦ POUR QUI -->
+  <div animate-fade-in-up class="opacity-0">
+    <FitCheck bg="bg-[#F2EBDB]"
+      eyebrow="Who it’s for"
+      title="Who is this" accent="week for?"
+      forItems={[
+        'You’re an entrepreneur, a freelancer or a business owner',
+        'You want to recharge in the middle of nature',
+        'You want to talk with other entrepreneurs who ask themselves the same questions',
+        'You’d like to spend a week with others, while keeping your own space',
+      ]}
+      notItems={[
+        'You’re just looking for an all-inclusive holiday',
+        'You expect business training from the hosts',
+        'You’d rather stay alone and keep your distance from others',
+      ]} />
+  </div>
+
+  <!-- ⑦bis QUI VIENT — les pairs dans la pièce -->
+  <div animate-fade-in-up class="opacity-0">
+    <PeersSection bg="bg-[#FBF6EA]"
+      eyebrow="Who comes"
+      title="Entrepreneurs" accent="who have already come a long way."
+      paragraphs={[
+        'The people who come have been running their business or working for themselves for a while. The jobs differ, the questions overlap: finding clients, keeping up the pace, knowing when to stop, avoiding burnout. And more and more: how to work with AI, and how to make your business serve your life, rather than the other way around.',
+        'These conversations happen over lunch, on the way to the river, late around the fire. And often, someone leaves with the answer to a question they’d been carrying for months.',
+      ]}
+      img={L('peers-groupe')} alt="Entrepreneurs in conversation at LAOM"
+      closing="You arrive among strangers." closingAccent="You leave with contacts, and sometimes friends." />
+  </div>
+
+  <!-- ⑧ LES GENS -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-rire')} alt="Charly and Amandine, founders of LAOM"
+      eyebrow="Charly & Amandine"
+      title="Charly and Amandine," accent="the founders of LAOM."
+      text={[
+        'They left the city, co-bought a 52-acre estate in the south of the Aveyron with others, and created the LAOM coliving there.',
+        'On site, they raised a bioclimatic load-bearing straw building, the large practice hall and the open-air bar, building most of it themselves.',
+        'During the week, they’ll be there to spend time with you, run workshops and share their experience.',
+      ]}
+      ctaText="Read our story (in French)" ctaHref="/notre-histoire/" />
+  </div>
+
+  <!-- ⑨ CE QUE TU EN REPARS -->
+  <div animate-fade-in-up class="opacity-0">
+    <Statement bg="bg-[#FBF6EA]"
+      eyebrow="In the end"
+      title="What you make of it" accent="is up to you."
+      intro="You might leave with an idea, a decision, a new direction, or just some sleep caught up on. We set the table, prepare the workshops, and serve you some calm. The rest is yours." />
+  </div>
+
+  <!-- ⑩ LE PRIX -->
+  <div animate-fade-in-up class="opacity-0">
+    <OfferFeature bg="bg-[#F2EBDB]"
+      eyebrow="The offer"
+      title="June 6-12," accent="all included."
+      callouts={[
+        { value: '6', label: 'nights' },
+        { value: '18', label: 'homemade meals' },
+        { value: '4', label: 'workspaces' },
+        { value: '1', label: 'movement class every morning' },
+      ]}
+      priceLabel="All included: accommodation, 3 meals a day, movement classes, workshops, evenings and workspaces. Prices for the week, June 2027, excluding VAT."
+      options={[
+        {
+          title: 'Room', img: L('coliving/coliving-laom-vue-interieure-01'), alt: 'A room with natural plaster walls',
+          dispo: '6 rooms of 15 m² · 1 couple room of 20 m²',
+          prix: [{ qui: 'Single room, 15 m²', montant: '€1,500 excl. VAT' }, { qui: 'Couple room, 20 m²', montant: '€2,250 excl. VAT' }],
+          details: [
+            'Double bed 160 cm (15 m² room) or 180 cm (couple room)',
+            'Private bathroom in every room',
+            'High-speed internet in the room, for your calls',
+            'Access to a shared space: kitchen and lounge (90 m²)',
+          ],
+        },
+        {
+          title: 'Apartment', img: L('coliving/coliving-laom-vue-interieure-09'), alt: 'A bright kitchen in wood and earth',
+          dispo: '1 private 60 m² apartment upstairs, rented as a whole',
+          prix: [{ qui: '1 person', montant: '€2,000 excl. VAT' }, { qui: '2 people', montant: '€3,000 excl. VAT' }],
+          details: ['Private apartment', 'Kitchen', 'Bathroom', 'A bedroom with a king-size bed', 'A sofa bed', 'High-speed internet, for your calls'],
+        },
+        {
+          title: 'Tipi', img: '/images/laom/moms-kids/tipi.webp', alt: 'Inside a tipi, open onto the meadow and the forest',
+          dispo: '6 tipis of 16 m²',
+          prix: [{ qui: '1 person', montant: '€970 excl. VAT' }],
+          details: ['Dry toilets', 'Outdoor shower', 'Indoor bathrooms nearby', 'Access to a shared space: kitchen and lounge'],
+        },
+      ]}
+      ctaText="Book your spot" ctaHref={RESERVER}
+      secondaryText="Request a call" secondaryHref={RAPPEL} />
+  </div>
+
+  <!-- ⑪ L'INVITATION -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage bg="bg-[#FBF6EA]" img={L('festival-laom-ambiance-nature-aveyron')}
+      eyebrow="Join us"
+      title="If this speaks to you," accent="come spend a week."
+      subtitle="We welcome a small group. To book, you fill in a short questionnaire: we read your answers and send you the payment link within 48 hours. Rather talk first? Fill in the call request form and we’ll call you, no commitment."
+      primaryText="Book your spot" primaryHref={RESERVER}
+      secondaryText="or request a call" secondaryHref={RAPPEL} />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Book your spot" href={RESERVER} />
 </Layout>

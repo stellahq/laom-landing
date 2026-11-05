@@ -15,3 +15,12 @@ export const laboNav: NavLink[] = [
   { label: 'Notre histoire', href: '/notre-histoire/' },
   { label: 'Newsletter', href: '/newsletter/' },
 ]
+
+// Version anglaise. Les pages pas encore traduites pointent vers la version FR.
+export const laboNavEn: NavLink[] = [
+  { label: 'The place', href: '/le-lieu/' },
+  { label: 'Coliving', href: '/en/coliving/' },
+  { label: 'Our story', href: '/notre-histoire/' },
+  { label: 'Newsletter', href: '/en/newsletter/' },
+  { label: 'FR', href: '/coliving/' },
+]

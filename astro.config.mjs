@@ -82,7 +82,7 @@ export default defineConfig({
           '/la-margue-par-personne',
           '/devis-voda', '/tarifs-location-pdf', '/admin',
           '/candidater', '/reserver', '/rappel', '/etre-rappele', '/confidentialite',
-          '/quiz', '/liens', '/coliving-aout', '/semaine-libre',
+          '/quiz', '/liens', '/coliving-aout', '/semaine-libre', '/book', '/call-back',
           '/ds2', '/styleguide', '/planification', '/presentation',
         ]
         const clean = path.replace(/^\/en/, '') // couvre aussi les variantes /en/*

@@ -13,16 +13,19 @@ interface Props {
   address?: string
   email?: string
 }
+const en = Astro.currentLocale === 'en'
 const {
-  tagline = 'Écolieu de coliving en pleine nature, sud Aveyron. Un cadre sain pour créer autrement.',
-  columns = [
-    { title: 'Explorer', links: [{ label: 'Le journal', href: '/blog/' }, { label: 'Louer le lieu', href: '/location/' }] },
-  ],
+  tagline = en
+    ? 'An eco-built coliving in the wild, in the south of Aveyron, France. A healthy setting to create differently.'
+    : 'Écolieu de coliving en pleine nature, sud Aveyron. Un cadre sain pour créer autrement.',
+  columns = en
+    ? [{ title: 'Explore', links: [{ label: 'Journal', href: '/en/blog/' }, { label: 'Rent the place', href: '/location/' }] }]
+    : [{ title: 'Explorer', links: [{ label: 'Le journal', href: '/blog/' }, { label: 'Louer le lieu', href: '/location/' }] }],
   socials = [
     { label: 'Instagram', href: 'https://www.instagram.com/laomcoliving/' },
     { label: 'YouTube', href: 'https://www.youtube.com/@charlyaubert' },
   ],
-  address = 'Sud Aveyron (12)',
+  address = en ? 'South Aveyron, France' : 'Sud Aveyron (12)',
   email = 'hello@laom.fr',
 } = Astro.props
 const gridCls = columns.length >= 2 ? 'lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]' : 'lg:grid-cols-[1.4fr_1fr_1.2fr]'
@@ -36,7 +39,7 @@ const gridCls = columns.length >= 2 ? 'lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]' : 'lg
         <p class="text-[#F2EBDB]/70 leading-relaxed mb-7">{tagline}</p>
         <div class="flex gap-3">
           {socials.map((s) => (
-            <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (nouvel onglet)`}
+            <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (${en ? 'new tab' : 'nouvel onglet'})`}
               class="w-10 h-10 rounded-full bg-[#F2EBDB]/10 hover:bg-[#9A3922] transition-colors flex items-center justify-center text-[#F2EBDB] text-xs">{s.label[0]}</a>
           ))}
         </div>
@@ -50,18 +53,18 @@ const gridCls = columns.length >= 2 ? 'lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]' : 'lg
         </div>
       ))}
       <div>
-        <h4 class="text-[#F2EBDB] font-bold mb-5">Nous contacter</h4>
+        <h4 class="text-[#F2EBDB] font-bold mb-5">{en ? 'Get in touch' : 'Nous contacter'}</h4>
         <ul class="space-y-4 text-sm">
-          <li><p class="text-[#F2EBDB]/50 text-xs mb-1">Adresse</p><p class="text-[#F2EBDB]">{address}</p></li>
+          <li><p class="text-[#F2EBDB]/50 text-xs mb-1">{en ? 'Address' : 'Adresse'}</p><p class="text-[#F2EBDB]">{address}</p></li>
           <li><p class="text-[#F2EBDB]/50 text-xs mb-1">Email</p><p class="text-[#F2EBDB]">{email}</p></li>
         </ul>
       </div>
     </div>
     <div class="relative border-t border-[#F2EBDB]/15 mt-12 pt-6 flex flex-wrap items-center justify-between gap-4">
-      <p class="text-[#F2EBDB]/60 text-sm">LAOM © 2026. Tous droits réservés.</p>
+      <p class="text-[#F2EBDB]/60 text-sm">LAOM © 2026. {en ? 'All rights reserved.' : 'Tous droits réservés.'}</p>
       <div class="flex gap-6 text-sm text-[#F2EBDB]/60">
-        <a href="/mentions-legales" class="hover:text-[#F2EBDB] transition-colors">Mentions légales</a>
-        <a href="/mentions-legales#donnees-personnelles" class="hover:text-[#F2EBDB] transition-colors">Confidentialité</a>
+        <a href="/mentions-legales" class="hover:text-[#F2EBDB] transition-colors">{en ? 'Legal notice' : 'Mentions légales'}</a>
+        <a href="/mentions-legales#donnees-personnelles" class="hover:text-[#F2EBDB] transition-colors">{en ? 'Privacy' : 'Confidentialité'}</a>
       </div>
     </div>
   </div>

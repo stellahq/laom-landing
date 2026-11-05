@@ -58,6 +58,8 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   // reservation : on lit les réponses et on envoie le lien de paiement sous 48h.
   // rappel : la personne veut nous parler avant de réserver.
   const isRappel = body.type === 'rappel'
+  // Formulaire rempli depuis /en/book ou /en/call-back : mails en anglais + tag Kit.
+  const isEn = body.lang === 'en'
   const leadType = isRappel ? 'rappel' : 'candidature'
   const firstName = nom.split(' ')[0]
   const lastName = nom.split(' ').slice(1).join(' ') || null
@@ -138,7 +140,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
         ['Activité', answers.activite], ['Site / réseaux', answers.references], ['Ancienneté', answers.anciennete],
         ['Équipe', answers.equipe], ['Déjà fait', answers.experience],
         ['Attentes', answers.attentes.join(' · ')], ['Hébergement', answers.semaine],
-        ['Message', answers.message], ['Source', utmLine],
+        ['Message', answers.message], ['Langue', isEn ? 'Anglais (formulaire EN)' : 'Français'], ['Source', utmLine],
       ]
       // esc() sur toutes les valeurs utilisateur : un champ "message" contenant du
       // HTML ne doit jamais etre rendu tel quel dans la boite de l'equipe (phishing).
@@ -152,7 +154,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
         body: JSON.stringify({
           from: 'LAOM Candidatures <hello@laom.fr>',
           to,
-          subject: `${isRappel ? 'Rappel' : 'Réservation'} coliving — ${nom}`,
+          subject: `${isRappel ? 'Rappel' : 'Réservation'} coliving${isEn ? ' [EN]' : ''} — ${nom}`,
           html,
         }),
       })
@@ -170,7 +172,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   try {
     const resendKey = env?.RESEND_API_KEY
     if (resendKey) {
-      const html = `
+      const htmlFr = `
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1D1B18;line-height:1.6">
           <p>Salut ${esc(firstName)},</p>
           ${isRappel
@@ -184,14 +186,30 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
           → <a href="https://laom.fr/notre-histoire/" style="color:#9A3922">Notre histoire</a> — pourquoi on a construit cet endroit</p>
           <p>À très vite,<br/>Charly &amp; Amandine — LAOM</p>
         </div>`
+      const htmlEn = `
+        <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1D1B18;line-height:1.6">
+          <p>Hi ${esc(firstName)},</p>
+          ${isRappel
+            ? `<p><strong>We’ve received your call request for the coliving week, June 6-12, 2027.</strong></p>
+          <p>We’ll call you within 48 hours for a 15-minute chat and answer your questions.</p>`
+            : `<p><strong>We’ve received your booking request for the coliving week, June 6-12, 2027.</strong></p>
+          <p>We’ll read your answers and send you the payment link within 48 hours.
+          Your spot will be confirmed once payment is made.</p>`}
+          <p>In the meantime, if you’d like to picture yourself there:</p>
+          <p>→ <a href="https://laom.fr/en/coliving/" style="color:#9A3922">The coliving week</a>: the place, the days, what’s included</p>
+          <p>See you very soon,<br/>Charly &amp; Amandine, LAOM</p>
+        </div>`
+      const html = isEn ? htmlEn : htmlFr
       await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: 'Charly de LAOM <hello@laom.fr>',
+          from: isEn ? 'Charly from LAOM <hello@laom.fr>' : 'Charly de LAOM <hello@laom.fr>',
           to: [email],
           reply_to: 'laomcoliving@gmail.com',
-          subject: isRappel ? 'On t’appelle très vite · Coliving LAOM juin 2027' : 'Ta demande de réservation est bien reçue · Coliving LAOM juin 2027',
+          subject: isEn
+            ? (isRappel ? 'We’ll call you very soon · LAOM Coliving June 2027' : 'Your booking request is in · LAOM Coliving June 2027')
+            : (isRappel ? 'On t’appelle très vite · Coliving LAOM juin 2027' : 'Ta demande de réservation est bien reçue · Coliving LAOM juin 2027'),
           html,
         }),
       })
@@ -203,7 +221,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
   // 5. Entrée dans Kit, compte « Laom » du coliving entrepreneurs (API v4). Non bloquant.
   //    Base légale : case RGPD du formulaire ("me recontacter et m'envoyer des informations").
   try {
-    await subscribeV4(env?.KIT_COLIVING_API_KEY, email, firstName, ['Intéressés coliving entrepreneurs juin 27'], { source: isRappel ? 'rappel' : 'reservation' })
+    await subscribeV4(env?.KIT_COLIVING_API_KEY, email, firstName, ['Intéressés coliving entrepreneurs juin 27', ...(isEn ? ['langue-anglais'] : [])], { source: isRappel ? 'rappel' : 'reservation' })
   } catch (e) {
     console.error('[form/candidater] Kit error (non-blocking):', e)
   }
