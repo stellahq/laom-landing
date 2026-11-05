@@ -9,6 +9,7 @@ import MediaText from '~/components/laom/sections/MediaText.astro'
 import PhotoStrip from '~/components/laom/sections/PhotoStrip.astro'
 import FoundersQuotes from '~/components/laom/sections/FoundersQuotes.astro'
 import PhotoQuote from '~/components/laom/sections/PhotoQuote.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
 import CtaImage from '~/components/laom/sections/CtaImage.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
@@ -17,7 +18,7 @@ const F = (n: string) => `/images/festival/${n}.webp`
 const L = (n: string) => `/images/laom/${n}.webp`
 ---
 
-<Layout title="LAOM — Notre histoire, Charly & Amandine" description="Ils ont quitté la ville, acheté 21 hectares dans le sud de l'Aveyron, et construisent le lieu qu'ils auraient voulu trouver. LAOM, c'est leur projet de vie." hideChrome={true}>
+<Layout title="LAOM — Notre histoire, Charly & Amandine" description="Charly et Amandine ont quitté la ville pour vivre autrement. Avec d'autres, ils ont co-acheté un ancien domaine agricole dans le sud de l'Aveyron et y ont créé LAOM." hideChrome={true}>
 
   <!-- ① HEADER -->
   <PageHeader
@@ -25,32 +26,42 @@ const L = (n: string) => `/images/laom/${n}.webp`
     navLinks={navLinks} navCta="Réserver ma place" navCtaHref="/reserver/" logoHref="/"
     crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Notre histoire' }]}
     title="Derrière LAOM, il y a nous."
-    subtitle="Charly et Amandine. Vingt-et-un hectares, et l’envie de vivre autrement. Voici comment c’est né." />
+    subtitle="Charly et Amandine, et l’envie de vivre autrement. Voici comment c’est né." />
 
   <!-- ② LE DÉBUT -->
   <div animate-fade-in-up class="opacity-0">
     <MediaText bg="bg-[#FBF6EA]" img={F('hero')} alt="Le domaine de LAOM dans le sud de l’Aveyron"
       eyebrow="Le début"
       title="On cherchait un endroit" accent="où vivre autrement."
-      text="Pas un projet théorique, pas un concept sur un pitch deck. Un lieu, un vrai, avec de la terre, du silence, et de l’espace pour construire quelque chose de cohérent. On a trouvé vingt-et-un hectares dans le sud de l’Aveyron, un ancien domaine agricole, loin de tout. On s’y est installé, et on a tout bâti de nos mains, de A à Z : les bâtiments, le potager, la guinguette. Puis on a commencé à accueillir des gens." />
+      text={['Au départ, il y a une envie : vivre autrement, au contact de la terre, avec de l’espace et du silence autour.', 'Avec d’autres personnes qui partageaient cette envie, on a co-acheté un ancien domaine agricole dans le sud de l’Aveyron, en pleine nature.', 'Petit à petit, on l’a construit, en menant la plupart des chantiers en autoconstruction : le Grand Shambala en paille porteuse, la grande salle de pratique, le jardin, la guinguette. Puis on a commencé à accueillir des gens.']} />
   </div>
 
   <!-- bande de 3 photos — les premiers gestes -->
   <div animate-fade-in-up class="opacity-0">
     <PhotoStrip bg="bg-[#F2EBDB]"
       items={[
-        { img: L('laom-batiment-paille'), alt: 'Les bâtiments en paille de LAOM', caption: 'Les bâtiments, montés en paille' },
-        { img: L('chillworking-salle-pratique'), alt: 'La grande salle de LAOM', caption: 'La grande salle, sortie de terre' },
-        { img: L('festival-laom-ambiance-nature-aveyron'), alt: 'La guinguette de LAOM', caption: 'La guinguette, bâtie de leurs mains' },
+        { img: L('laom-batiment-paille'), alt: 'Le Grand Shambala, bâtiment en paille porteuse', caption: 'Le Grand Shambala, en paille porteuse' },
+        { img: L('chillworking-salle-pratique'), alt: 'La grande salle de pratique de LAOM', caption: 'La grande salle : ossature bois, enduits terre, grandes baies vitrées' },
+        { img: L('guinguette-produits-laom'), alt: 'La guinguette de LAOM et les produits du jardin', caption: 'La guinguette et le jardin, de la terre à l’assiette' },
       ]} />
   </div>
+
+  <!-- vidéo Instagram — le lieu raconté par nous -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 text-center">
+      <SectionHead eyebrow="En vidéo" title="L’histoire de LAOM," accent="racontée par nous." align="center" />
+      <div class="mt-10 mx-auto w-full max-w-[540px] rounded-3xl overflow-hidden bg-white shadow-sm">
+        <iframe src="https://www.instagram.com/p/DavS5eetXLU/embed/" title="Vidéo Instagram de LAOM" class="w-full h-[760px] border-0" loading="lazy" scrolling="no" allowtransparency="true" allow="encrypted-media; picture-in-picture"></iframe>
+      </div>
+    </div>
+  </section>
 
   <!-- ③ LE DÉCLIC -->
   <div animate-fade-in-up class="opacity-0">
     <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('atelier-presentation')} alt="Un atelier de travail à LAOM, entrepreneurs réunis"
       eyebrow="Le déclic"
       title="Très vite, on a vu" accent="que le cadre changeait les gens."
-      text="Des entrepreneurs, des créatifs, des indépendants arrivaient fatigués et repartaient avec une clarté qu’ils n’avaient pas en arrivant. Pas grâce à un programme. Grâce au cadre. C’est de là qu’est né le coliving : si on réunit les bonnes personnes dans le bon environnement, il se passe quelque chose qu’on ne peut pas provoquer autrement." />
+      text={['Des entrepreneurs, des créatifs, des indépendants arrivaient fatigués et repartaient plus clairs, plus légers. La nature, le rythme, les repas partagés faisaient une grande partie du travail.', 'C’est de là qu’est né le coliving : réunir des gens qui avancent sur leur projet dans un lieu qui leur fait du bien, et laisser les rencontres faire le reste.']} />
   </div>
 
   <!-- ④ NOUS DEUX — citations -->
@@ -59,8 +70,8 @@ const L = (n: string) => `/images/laom/${n}.webp`
       eyebrow="Nous deux"
       title="Lui voit loin," accent="elle fait vivre le lieu."
       people={[
-        { img: L('charly-portrait'), name: 'Charly', quote: 'J’ai eu la vision de LAOM avant même que le lieu existe. Je pense en systèmes, je construis. J’ai quitté la ville avec une conviction : on peut bâtir un projet de vie qui ne sacrifie rien : ni l’ambition, ni le cadre, ni les gens autour.' },
-        { img: L('amandine-portrait'), name: 'Amandine', quote: 'Moi, c’est le lieu vivant qui me porte : l’accueil, les repas, le lien entre des gens qui ne se connaissaient pas le matin même. Mon obsession, c’est qu’on se sente chez soi ici dès le premier soir.' },
+        { img: L('charly-portrait-laom'), name: 'Charly', quote: 'J’ai eu la vision de LAOM avant même que le lieu existe. Je pense en systèmes, je construis. J’ai quitté la ville avec une conviction : on peut mener un projet ambitieux dans un cadre qui nous ressemble, entourés des bonnes personnes.' },
+        { img: L('amandine-portrait-laom'), name: 'Amandine', quote: 'Moi, c’est le lieu vivant qui me porte : l’accueil, les repas, le lien entre des gens qui ne se connaissaient pas le matin même. Mon obsession, c’est qu’on se sente chez soi ici dès le premier soir.' },
       ]} />
   </div>
 
@@ -85,7 +96,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <CtaImage img={L('collectif-la-margue-laomletter')}
       eyebrow="Nous rejoindre"
       title="Le mieux," accent="c’est de venir vivre une semaine avec nous."
-      subtitle="On n’a pas envie de te convaincre avec des mots. Viens, et fais-toi ton avis."
+      subtitle="Une semaine suffit pour sentir le lieu. Viens, et fais-toi ton avis."
       primaryText="Découvrir le coliving" primaryHref="/coliving/"
       secondaryText="ou réserver ma place" secondaryHref="/reserver/" />
   </div>
