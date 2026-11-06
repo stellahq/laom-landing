@@ -10,6 +10,7 @@ import { laboNav as navLinks } from '~/data/laboNav'
 import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
 import Statement from '~/components/laom/sections/Statement.astro'
 import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
+import AudienceCards from '~/components/laom/sections/AudienceCards.astro'
 import MediaText from '~/components/laom/sections/MediaText.astro'
 import CtaBanner from '~/components/laom/CtaBanner.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
@@ -36,20 +37,20 @@ const L = (n: string) => `/images/laom/${n}.webp`
     <Statement texture={true}
       eyebrow="Le projet"
       title="Un domaine en pleine nature," accent="pensé pour créer."
-      intro="LAOM, c’est un coliving installé dans un domaine de 21 hectares en pleine nature, dans le sud de l’Aveyron. Pensé pour les entrepreneurs déjà installés qui sentent qu’on crée mieux quand on peut, parfois, ralentir et se reconnecter à soi, aux autres, au vivant. On y vient une semaine pour vivre ce qu’on aspire à vivre depuis longtemps."
+      intro="LAOM, c’est un coliving installé dans un domaine de 21 hectares en pleine nature, dans le sud de l’Aveyron. Pensé pour celles et ceux qui sentent qu’on crée mieux quand on peut, parfois, ralentir et se reconnecter à soi, aux autres, au vivant. On y vient une semaine pour vivre ce qu’on aspire à vivre depuis longtemps."
       ctaText="Découvrir le projet" ctaHref="/notre-histoire/" />
   </div>
 
   <!-- 1bis. POUR QUI — trois publics (entrepreneurs, familles, artistes) -->
-  <HabitatsSection reveal={true} bg="bg-[#F2EBDB]"
-      eyebrow="Pour qui"
-      title="Pour les entrepreneurs," accent="les familles et les artistes."
-      intro="LAOM accueille celles et ceux qui veulent vivre et travailler autrement. Chaque séjour a son format."
-      items={[
-        {img:L('peers-groupe'),title:'Entrepreneurs',desc:'La semaine de coliving du 6 au 12 juin 2027.',href:'/coliving/'},
-        {img:L('moms-kids/enfants-sauvages-26'),title:'Familles',desc:'Parents entrepreneurs : le Co-living Moms & Kids, du 13 au 27 juin 2027.',href:'/coliving-moms-kids/'},
-        {img:L('moms-kids/silhouettes-danse'),title:'Artistes',desc:'À venir. Inscris-toi à la LAOM Letter pour être prévenu·e.',href:'/newsletter/'},
-      ]} />
+  <AudienceCards
+    eyebrow="Pour qui"
+    title="Pour les entrepreneurs," accent="les familles et les artistes."
+    intro="LAOM accueille celles et ceux qui veulent vivre et travailler autrement. Chaque séjour a son format."
+    items={[
+      { img: L('peers-groupe'), alt: 'Des entrepreneurs en échange à LAOM', title: 'Entrepreneurs', desc: 'La semaine de coliving du 6 au 12 juin 2027 : travailler, te recharger et rencontrer d’autres entrepreneurs.', cta: 'Découvrir la semaine', href: '/coliving/' },
+      { img: L('les-enfants-sauvages-15'), alt: 'Une éducatrice lit une histoire à des enfants, assis dans l’herbe', title: 'Familles', desc: 'Parents entrepreneurs : le Co-living Moms & Kids, du 13 au 27 juin 2027. Tu avances sur tes projets, tes enfants vivent en pleine nature.', cta: 'Découvrir Moms & Kids', href: '/coliving-moms-kids/' },
+      { img: F('pop-2'), alt: 'Une danseuse en manteau jaune sous le chapiteau de LAOM', title: 'Artistes', desc: 'Un format pour les artistes arrive. Inscris-toi à la LAOM Letter pour être prévenu·e en premier.', cta: 'M’inscrire à la LAOM Letter', href: '/newsletter/', soon: true },
+    ]} />
 
   <!-- 2. LE LIEU — où ça se passe + galerie (apparition en cascade) (→ Le lieu) -->
   <HabitatsSection reveal={true} bg="bg-[#FBF6EA]"
@@ -68,7 +69,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
   <!-- 3. LE COLIVING DE JUIN 2027 — concrètement (→ programme) -->
   <div animate-fade-in-up class="opacity-0">
     <MediaText bg="bg-[#F2EBDB]" img={L('coworking-tablee')} alt="Des entrepreneurs au travail, ensemble, à LAOM"
-      eyebrow="Le coliving de juin 2027"
+      eyebrow="Prochain coliving entrepreneurs · juin 2027"
       title="Du 6 au 12 juin," accent="tout est inclus."
       text="Six nuits en chambre, en tipi ou dans l’appartement, dix-huit repas faits maison, un cours de mouvement chaque matin (yoga, MovNat, danse), un espace de travail au calme, des ateliers et des soirées sous les étoiles. Tu arrives avec ton ordi et ta valise, on s’occupe du reste."
       ctaText="Découvrir le programme" ctaHref="/coliving/" />
