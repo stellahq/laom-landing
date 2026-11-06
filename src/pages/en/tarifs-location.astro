@@ -1,0 +1,204 @@
+---
+// Version anglaise de /tarifs-location.
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+import { getTranslations as getI18nTranslations } from '~/i18n/utils'
+
+const t = getI18nTranslations('en')
+
+const pageSchema = createWebPageSchema({
+  name: 'Booking terms · LAOM',
+  url: Astro.url.toString(),
+  description: 'Rental prices for the hall, tipi accommodation, guinguette meals and booking terms at LAOM.',
+})
+
+---
+
+<Layout
+  title="Booking terms · LAOM"
+  description="Rental prices for the hall, tipi accommodation, guinguette meals and booking terms at LAOM."
+  seo={{ ldJSON: pageSchema }}
+>
+  <section class="py-32 lg:py-40 -mt-24 md:-mt-28 bg-[#FAF8F5]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <!-- Entête -->
+      <div class="text-center mb-16">
+        <img
+          src="/images/laom/presentation/logo-laom.webp"
+          alt="Logo LAOM"
+          class="h-16 mx-auto mb-8"
+        />
+        <h1 class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-4">
+          Booking terms
+        </h1>
+        <p class="text-lg font-light text-[#2C2824]/60">
+          LAOM · 867 Route de Montagnol, 12400 Saint-Félix-de-Sorgues, France
+        </p>
+      </div>
+
+      <!-- Tarifs -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Prices</h2>
+
+        <div class="space-y-4">
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Shala hall rental</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Per day</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">€180 incl. VAT</p>
+              <p class="text-sm font-light text-[#2C2824]/50">€150 excl. VAT · 20% VAT</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Tipi accommodation</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Per person per night, up to 12 people (we can arrange more)</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">€20 incl. VAT</p>
+              <p class="text-sm font-light text-[#2C2824]/50">€18.18 excl. VAT · 10% VAT</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Self-contained stays</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Vans, your own tents, per night</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">€8</p>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-start py-3 border-b border-black/5">
+            <div>
+              <p class="text-base font-normal text-[#2C2824]">Cleaning</p>
+              <p class="text-sm font-light text-[#2C2824]/50">Flat fee per event</p>
+            </div>
+            <div class="text-right">
+              <p class="text-base font-medium text-[#2C2824]">€150 incl. VAT</p>
+              <p class="text-sm font-light text-[#2C2824]/50">€125 excl. VAT · 20% VAT</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-sm font-light text-[#2C2824]/50 mt-6 italic">
+          For workshops and retreats, the hall isn’t rented by the hour: prices apply per day.
+        </p>
+      </div>
+
+      <!-- Repas -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Meals at the guinguette</h2>
+        <div class="flex justify-between items-start py-3 border-b border-black/5 mb-4">
+          <div>
+            <p class="text-base font-normal text-[#2C2824]">Meal (breakfast not included)</p>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-medium text-[#2C2824]">€18 incl. VAT per person</p>
+            <p class="text-sm font-light text-[#2C2824]/50">€16.36 excl. VAT · 10% VAT</p>
+          </div>
+        </div>
+        <div class="space-y-2 text-sm font-light text-[#2C2824]/70 leading-relaxed">
+          <p>Local and organic produce (80%).</p>
+          <p>Menus sent 15 days before your event.</p>
+          <p>Breakfast available on request; participants usually bring their own.</p>
+        </div>
+      </div>
+
+      <!-- Disponibilités : sur demande par email -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Availability</h2>
+        <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+          To check available dates, email us at <a href="mailto:hello@laom.fr?subject=LAOM%20rental%20availability" class="underline underline-offset-4 hover:text-[#2C2824]">hello@laom.fr</a>. We’ll get back to you quickly.
+        </p>
+      </div>
+
+      <!-- Règlement -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Payment</h2>
+        <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+          <p>
+            A deposit of <strong class="font-medium">30% of the total amount</strong> is due at booking to confirm the dates.
+          </p>
+          <p>
+            Quotes are valid for <strong class="font-medium">15 days</strong>. After that, the dates may be offered to other organisers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Annulation organisateur -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Cancellation by the organiser</h2>
+        <div class="space-y-3 mb-6">
+          <div class="flex items-start gap-3 text-base font-light text-[#2C2824]/80">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#8226;</span>
+            <span><strong class="font-medium">30 days or more</strong> before the event: deposit refunded</span>
+          </div>
+          <div class="flex items-start gap-3 text-base font-light text-[#2C2824]/80">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#8226;</span>
+            <span><strong class="font-medium">Less than 30 days</strong> or no-show: 100% of the total amount is due</span>
+          </div>
+          <div class="flex items-start gap-3 text-base font-light text-[#2C2824]/80">
+            <span class="text-[#C4A855] mt-0.5 flex-shrink-0">&#8226;</span>
+            <span>Your slot can be transferred to another organiser, subject to LAOM’s approval</span>
+          </div>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm p-6 mb-4">
+          <p class="text-sm font-medium text-[#2C2824] mb-2">Force majeure on the organiser’s side</p>
+          <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed">
+            Accident, hospitalisation, death of a loved one, sudden serious illness, natural disaster: with written proof sent as soon as possible, the deposit becomes a <strong class="font-medium">credit valid for 12 months</strong> on a future booking at LAOM.
+          </p>
+        </div>
+
+        <div class="bg-[#FAF8F5] rounded-sm p-6">
+          <p class="text-sm font-medium text-[#2C2824] mb-2">What doesn’t count as force majeure</p>
+          <p class="text-sm font-light text-[#2C2824]/70 leading-relaxed">
+            Too few participants, financial difficulties, a change of schedule, a facilitator pulling out.
+          </p>
+        </div>
+      </div>
+
+      <!-- Annulation LAOM -->
+      <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-6">Cancellation by LAOM</h2>
+        <div class="space-y-4 text-base font-light text-[#2C2824]/80 leading-relaxed">
+          <p>
+            In case of <strong class="font-medium">force majeure</strong> (damage to the site, administrative restrictions, natural disaster): full refund of the deposit and a new date agreed between both parties.
+          </p>
+          <p>
+            Outside of force majeure, LAOM commits to keeping the confirmed dates.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mention finale -->
+      <div class="text-center py-8">
+        <p class="font-playfair text-xl font-medium text-[#2C2824] italic">
+          Any event that has started is due in full.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-[#2C2824] rounded-sm p-8 md:p-10 text-center">
+        <p class="text-xs font-light tracking-[0.2em] uppercase text-[#C4A855] mb-4">Interested?</p>
+        <h3 class="font-playfair text-2xl font-medium text-white mb-4">Host an event at LAOM</h3>
+        <p class="text-base font-light text-white/60 mb-8 max-w-lg mx-auto">
+          Write to us to talk about your project, check availability and get a tailored quote.
+        </p>
+        <a
+          href="mailto:hello@laom.fr?subject=LAOM%20booking%20request"
+          class="inline-flex items-center justify-center rounded-sm bg-[#C4A855] text-white px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-[#B09A4A] transition-colors"
+        >
+          Contact LAOM
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>

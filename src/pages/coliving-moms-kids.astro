@@ -92,10 +92,10 @@ const logements = [
     photo: L('coliving/coliving-laom-vue-interieure-01'),
     alt: 'Une chambre aux murs d’enduit naturel et aux poutres en bois',
     prix: [
-      { qui: '1 maman + 1 enfant', dispo: '6 chambres disponibles', montant: '2 000 €' },
-      { qui: '1 maman + 2 enfants', dispo: '1 chambre disponible', montant: '2 300 €' },
+      { qui: '1 maman + 1 enfant (15 m²)', dispo: '6 chambres disponibles', montant: '2 000 €' },
+      { qui: '1 maman + 2 enfants (20 m²)', dispo: '1 chambre disponible', montant: '2 300 €' },
     ],
-    dispo: 'Chambres de 15 m²',
+    dispo: 'Chambres de 15 et 20 m²',
     details: [
       'Lits simples',
       'Salle de bain privative dans chaque chambre',
@@ -109,7 +109,7 @@ const logements = [
     alt: 'Une cuisine en bois et en terre, lumineuse',
     prix: [{ qui: '1 maman + jusqu’à 2 enfants', dispo: '', montant: '3 000 €' }],
     dispo: '2 appartements privés disponibles',
-    details: ['Appartement privé', 'Cuisine', 'Salle de bain', 'Une chambre avec lit king size', 'Un canapé convertible', 'Internet haut débit, pour tes calls'],
+    details: ['Appartement privé de 60 m²', 'Cuisine', 'Salle de bain', 'Une chambre avec lit king size', 'Un canapé convertible', 'Internet haut débit, pour tes calls'],
   },
   {
     nom: 'Tipi',
@@ -121,7 +121,7 @@ const logements = [
       { qui: '1 maman + 3 enfants', dispo: '', montant: '1 700 €' },
     ],
     dispo: '6 tipis disponibles',
-    details: ['Lits simples', 'Toilettes sèches et douche en plein air', 'Sanitaires intérieurs à proximité'],
+    details: ['Lits simples', 'Toilettes sèches et douche en plein air, juste à côté', 'Sanitaires intérieurs à 100 m'],
   },
 ]
 
@@ -136,14 +136,14 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
     navLinks={navLinks} navCta="Me contacter sur WhatsApp" navCtaHref={WHATSAPP} logoHref="/"
     crumbs={[{ label: 'Accueil', href: '/' }, { label: 'Co-living Moms & Kids' }]}
     title="Co-living Moms & Kids"
-    subtitle="Pour les mamans entrepreneures et leurs enfants un peu sauvages. Du 13 au 27 juin 2027, sud de la France." />
+    subtitle="Pour les mamans entrepreneures, celles qui bossent en remote, ou celles qui veulent avancer sur un projet de cœur. Et pour leurs enfants un peu sauvages. Du 13 au 27 juin 2027, sud de la France." />
 
   <!-- Pourquoi + photos -->
   <section class="bg-[#F2EBDB] pt-20 md:pt-28 pb-24 md:pb-32">
     <div class="max-w-3xl mx-auto px-6 md:px-10 text-center space-y-6 text-xl md:text-2xl leading-relaxed text-[#412F1F]">
       <p><span class={mk}>T’offrir un vrai moment pour avancer sur ta boîte et tes projets</span>. Et <span class={mk}>offrir à tes enfants de belles journées en pleine nature</span>, à jouer et grandir avec d’autres enfants.</p>
       <p>Prendre soin de toi, de ton business, savoir ton enfant entre de bonnes mains. Et vivre tout ça <span class={mk}>avec d’autres femmes</span> qui, comme toi, jonglent entre leur rôle de mère et de femme.</p>
-      <div class="pt-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Me contacter sur WhatsApp</Pill></div>
+      <div class="pt-4 flex flex-wrap gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Me contacter sur WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france.pdf" variant="outline">Télécharger la brochure</Pill></div>
     </div>
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 mt-16 grid grid-cols-2 md:grid-cols-[1fr_1.25fr_1fr] gap-3 md:gap-4">
       <img src={M('silhouettes-danse')} alt="Deux femmes dansent au coucher du soleil, à LAOM" class="rounded-2xl w-full aspect-square md:aspect-auto md:h-[460px] object-cover" loading="lazy" />
@@ -181,10 +181,18 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
         <img src={L('potager-calendula')} alt="Les fleurs de calendula du potager" class="rounded-2xl w-full aspect-[3/4] object-cover self-end" loading="lazy" />
       </div>
       <div>
-        <SectionHead eyebrow="Pour les enfants de 3 à 10 ans" title="Le programme" accent="nature" intro="Chaque matin, de 9h à 13h15, tes enfants jouent, explorent et grandissent en pleine nature, sur place. Ils sont encadrés par des éducatrices expérimentées, formées à la pédagogie par la nature. On suit le rythme et la curiosité de chaque enfant, et la nature fait le reste." />
-        <ul class="mt-7 space-y-2 text-[#1D1B18]/80 leading-relaxed">
-          {['Du jeu libre, dehors, avec d’autres enfants', 'Des cabanes, la rivière, le potager, la prairie', 'Observer les plantes, les insectes, les oiseaux', 'Des histoires, du dessin, des moments calmes à l’ombre', 'Environ un adulte pour six enfants', 'Des éducatrices qui parlent français, anglais et espagnol'].map((i) => <li class={li}>{i}</li>)}
-        </ul>
+        <SectionHead eyebrow="Pour les enfants de 3 à 10 ans" title="Enfants : le programme" accent="nature, arts, mouvement" intro="Chaque matin, de 9h à 13h15, tes enfants jouent, apprennent et créent en pleine nature, sur place. Ils sont encadrés par des éducatrices expérimentées, formées à la pédagogie par la nature. Le programme repose sur trois piliers, et suit le rythme et la curiosité de chaque enfant." />
+        {[
+          { pilier: 'Nature · découvrir et comprendre le vivant', items: ['Reconnaître les plantes, les arbres, les traces d’animaux', 'Observer les insectes, les oiseaux, la vie de la rivière', 'Semer, récolter et goûter au potager', 'Comprendre les saisons, l’eau, le sol', 'Du jeu libre dehors, avec d’autres enfants'] },
+          { pilier: 'Arts · créer avec ses mains', items: ['Peindre, faire du land art', 'Modeler l’argile, bricoler le bois', 'Des histoires, du dessin, de la musique'] },
+          { pilier: 'Mouvement · vivre dans son corps', items: ['Grimper, marcher en équilibre, courir dans la prairie ou la forêt', 'Yoga, danse et jeux de mouvement pour enfants', 'Des jeux coopératifs'] },
+        ].map((g) => (
+          <div class="mt-7">
+            <p class="font-bold text-[#412F1F]">{g.pilier}</p>
+            <ul class="mt-3 space-y-2 text-[#1D1B18]/80 leading-relaxed">{g.items.map((i) => <li class={li}>{i}</li>)}</ul>
+          </div>
+        ))}
+        <p class="mt-7 text-[#1D1B18]/70">Environ un adulte pour six enfants. Des éducatrices qui parlent français, anglais et espagnol.</p>
       </div>
     </div>
   </section>
@@ -307,8 +315,9 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
       <div>
         <SectionHead eyebrow="Qui organise ?" title="Moi, c’est" accent="Amandine." />
         <div class="mt-6 space-y-4 text-lg text-[#1D1B18]/75 leading-relaxed">
-          <p>Maman d’un petit garçon de 5 ans, entrepreneure, et cofondatrice d’un écolieu de 21 hectares dans le sud de la France, dans lequel j’ai créé LAOM, un espace de co-living avec des bâtiments éco-construits. En 2026, j’ai vécu un co-living inspirant en Andalousie avec mon fils. J’en suis revenue avec une envie : créer le mien, chez moi, avec d’autres mamans entrepreneures et leurs enfants.</p>
-          <p>La première édition a lieu en juin 2027, sur ce lieu que j’ai créé, au bord d’une rivière magique.</p>
+          <p>Maman d’un petit garçon de 5 ans, entrepreneure, et cofondatrice d’un écolieu de 21 hectares dans le sud de la France, dans lequel j’ai créé LAOM, un espace de co-living avec des bâtiments éco-construits.</p>
+          <p>En 2026, un co-living en Andalousie avec mon fils m’a confirmé ce que je portais depuis longtemps : on a besoin de tribu. Nous, les mamans, et nos enfants aussi.</p>
+          <p>La première édition de ce Co-living Moms &amp; Kids a lieu en juin 2027, sur ce lieu que j’ai créé, au bord d’une rivière magique. J’ai trop hâte !!</p>
         </div>
       </div>
     </div>
@@ -318,7 +327,7 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
   <section id="contact" class="bg-[#FBF6EA] py-24 md:py-32">
     <div class="max-w-2xl mx-auto px-6 md:px-10 text-center">
       <SectionHead align="center" title="Envie d’être" accent="de l’aventure ?" intro="Nous serons entre 12 et 15 familles. Entre mamans et enfants (les papas, ce sera pour une autre fois, ahaha). Écris-moi pour réserver ou si tu as des questions." />
-      <div class="mt-9"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Me contacter sur WhatsApp</Pill></div>
+      <div class="mt-9 flex flex-wrap justify-center gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Me contacter sur WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france.pdf" variant="outline">Télécharger la brochure</Pill></div>
     </div>
   </section>
 

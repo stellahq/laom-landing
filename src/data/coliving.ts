@@ -6,3 +6,7 @@ export const COLIVING_MOIS = 'juin 2027'
 // « Être rappelé·e » → /etre-rappele (même questionnaire, on appelle la personne).
 export const RESERVER = '/reserver/'
 export const RAPPEL = '/etre-rappele/'
+
+// Versions anglaises des deux parcours.
+export const RESERVER_EN = '/en/book/'
+export const RAPPEL_EN = '/en/call-back/'

@@ -3,13 +3,14 @@
 // Réutilise l'intégration existante (form 8987350) : aucune clé API, le formulaire
 // poste directement chez Kit. Style à la charte LAOM. variant: 'light' | 'dark'.
 interface Props { variant?: 'light' | 'dark'; submitLabel?: string }
-const { variant = 'light', submitLabel = "Je m'inscris" } = Astro.props
+const en = Astro.currentLocale === 'en'
+const { variant = 'light', submitLabel = en ? 'Sign me up' : "Je m'inscris" } = Astro.props
 
 const formKitOptions = {
   settings: {
     after_subscribe: {
       action: 'message',
-      success_message: 'Bienvenue dans l’aventure. Va confirmer dans ta boîte mail.',
+      success_message: en ? 'Welcome aboard. Check your inbox to confirm.' : 'Bienvenue dans l’aventure. Va confirmer dans ta boîte mail.',
       redirect_url: '',
     },
     powered_by: { show: false },
@@ -37,12 +38,13 @@ const btnCls = variant === 'dark'
   data-options={JSON.stringify(formKitOptions)}
 >
   <input type="hidden" name="tags[]" value="18454995" />
+  {en && <input type="hidden" name="tags[]" value="25475951" />}
   <div data-style="clean">
     <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert" aria-live="polite"></ul>
     <div data-element="fields" data-stacked="true" class="flex flex-col gap-3">
-      <input class={`${inputCls} w-full`} name="fields[first_name]" type="text" aria-label="Ton prénom" placeholder="Ton prénom" autocomplete="given-name" />
+      <input class={`${inputCls} w-full`} name="fields[first_name]" type="text" aria-label={en ? 'Your first name' : 'Ton prénom'} placeholder={en ? 'Your first name' : 'Ton prénom'} autocomplete="given-name" />
       <div class="flex flex-col sm:flex-row gap-3">
-        <input class={`${inputCls} w-full sm:flex-1`} name="email_address" type="email" required aria-label="Ton adresse e-mail" placeholder="ton@email.com" autocomplete="email" />
+        <input class={`${inputCls} w-full sm:flex-1`} name="email_address" type="email" required aria-label={en ? 'Your email address' : 'Ton adresse e-mail'} placeholder={en ? 'you@email.com' : 'ton@email.com'} autocomplete="email" />
         <button type="submit" data-element="submit" class={btnCls}>{submitLabel}</button>
       </div>
     </div>

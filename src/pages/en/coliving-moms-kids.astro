@@ -1,0 +1,338 @@
+---
+// COLIVING MOMS & KIDS, version anglaise de /coliving-moms-kids.
+// COLIVING MOMS & KIDS — juin 2027. Texte repris tel quel de la page France
+// d'amandineblue.com (validé par Amandine), habillé en DA LAOM (DS1).
+// Les listes et les tarifs à plusieurs lignes n'entrent pas dans les sections
+// existantes : blocs posés avec SectionHead, Pill et les tokens de la charte.
+import Layout from '~/layouts/Layout.astro'
+import { laboNavEn as navLinks } from '~/data/laboNav'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import Eyebrow from '~/components/laom/Eyebrow.astro'
+import Pill from '~/components/laom/Pill.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+
+const MESSAGE = encodeURIComponent('Hi Amandine, I’m interested in the Moms & Kids co-living in France (June 2027).')
+const WHATSAPP = `https://wa.me/33672546947?text=${MESSAGE}`
+const L = (n: string) => `/images/laom/${n}.webp`
+const M = (n: string) => `/images/laom/moms-kids/${n}.webp`
+
+const journee = [
+  { h: '9am', quoi: 'You drop your children off with the educators, on site' },
+  { h: '9:15am', quoi: 'Movement class (optional): yoga, MovNat, dance' },
+  { h: 'Then', quoi: 'You work on your projects, in the coworking hall overlooking the river, or in your room' },
+  { h: '1:15pm', quoi: 'You pick up your children' },
+  { h: 'Afternoon', quoi: 'Together, or each at your own pace: free play, workshops, walks, the river, or some quiet time' },
+  { h: 'Evening', quoi: 'Free, or together' },
+]
+
+const semaines = [
+  { quand: 'Sunday, June 13', quoi: 'Arrival and settling in. In the evening, opening circle and welcome dinner.' },
+  {
+    quand: 'Monday 14 to Friday 18',
+    quoi: 'Every morning: nature program for the children, movement (optional) and coworking for you. Afternoons: together or free.',
+    plus: 'Thursday 17: first women-only afternoon, the educators look after the children.',
+  },
+  { quand: 'Saturday 19', quoi: 'Visit to Montpellier (a suggestion, we choose together)' },
+  { quand: 'Sunday 20', quoi: 'Visit to the Roquefort cheese caves (a suggestion, we choose together)' },
+  {
+    quand: 'Monday 21 to Friday 25',
+    quoi: 'Same rhythm: mornings for you and for them, afternoons together or free.',
+    plus: 'Thursday 24: second women-only afternoon.',
+  },
+  { quand: 'Saturday 26', quoi: 'Visit to La Couvertoirade (a suggestion, we choose together)' },
+  { quand: 'Sunday 27', quoi: 'Closing circle, then departure' },
+]
+
+const programme = [
+  {
+    titre: 'Mornings',
+    groupes: [
+      { pour: 'For you', items: [
+        '9:15am: movement class (optional): yoga, MovNat, dance',
+        'Then you work on your projects, in the coworking hall overlooking the river, with high-speed internet',
+        'Prefer some privacy for your calls? High-speed internet in your room too',
+      ] },
+      { pour: 'For your children', items: ['From 9am to 1:15pm: the nature program, on site, with the educators'] },
+    ],
+  },
+  {
+    titre: 'Afternoons',
+    groupes: [
+      { pour: 'Together', items: [
+        'Free play among the children',
+        'Moms & kids workshops, offered at certain times',
+        'Art, walks, the river',
+        'Shared meals with our children',
+      ] },
+      { pour: 'Or at your own pace', items: ['Quiet moments, with no obligation to be with the others: you do what you like'] },
+      { pour: 'Women only', items: ['Two afternoons just for the moms: the educators look after the children', 'Moments of sisterhood'] },
+    ],
+  },
+  {
+    titre: 'Weekends',
+    groupes: [
+      { pour: 'Visits and walks in the area', items: [
+        'Montpellier',
+        'The Roquefort cheese caves',
+        'La Couvertoirade, a medieval village',
+        'The red hills of the Rougier de Camarès',
+        'Hikes and waterfalls',
+        'Walks in the valley',
+        'Restaurants in the nearby villages',
+      ] },
+    ],
+    note: 'Suggestions, to choose together. Weekends stay free.',
+  },
+]
+
+const logements = [
+  {
+    nom: 'Room',
+    photo: L('coliving/coliving-laom-vue-interieure-01'),
+    alt: 'A room with natural plaster walls',
+    prix: [
+      { qui: '1 mom + 1 child (15 m²)', dispo: '6 rooms available', montant: '€2,000' },
+      { qui: '1 mom + 2 children (20 m²)', dispo: '1 room available', montant: '€2,300' },
+    ],
+    dispo: '15 and 20 m² rooms',
+    details: [
+      'Single beds',
+      'Private bathroom in every room',
+      'High-speed internet in the room, for your calls',
+      'Access to a shared space: kitchen and lounge (90 m²)',
+    ],
+  },
+  {
+    nom: 'Apartment',
+    photo: L('coliving/coliving-laom-vue-interieure-09'),
+    alt: 'A bright kitchen in wood and earth',
+    prix: [{ qui: '1 mom + up to 2 children', dispo: '', montant: '€3,000' }],
+    dispo: '2 private apartments available',
+    details: ['60 m² private apartment', 'Kitchen', 'Bathroom', 'A bedroom with a king-size bed', 'A sofa bed', 'High-speed internet, for your calls'],
+  },
+  {
+    nom: 'Tipi',
+    photo: M('tipi'),
+    alt: 'Inside a tipi, open onto the meadow and the forest',
+    prix: [
+      { qui: '1 mom + 1 child', dispo: '', montant: '€1,350' },
+      { qui: '1 mom + 2 children', dispo: '', montant: '€1,500' },
+      { qui: '1 mom + 3 children', dispo: '', montant: '€1,700' },
+    ],
+    dispo: '6 tipis available',
+    details: ['Single beds', 'Dry toilets and outdoor shower, right next to it', 'Indoor bathrooms 100 m away'],
+  },
+]
+
+const mk = 'font-semibold text-[#9A3922]'
+const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#CB7A5C]'
+---
+
+<Layout title="Moms & Kids Co-living · June 2027 · LAOM" description="A Moms & Kids co-living in the south of France, June 13-27, 2027. For entrepreneur moms and their slightly wild children." hideChrome={true}>
+
+  <PageHeader
+    img={L('riviere-laom')}
+    navLinks={navLinks} navCta="Message me on WhatsApp" navCtaHref={WHATSAPP} logoHref="/en/"
+    crumbs={[{ label: 'Home', href: '/en/' }, { label: 'Moms & Kids Co-living' }]}
+    title="Co-living Moms & Kids"
+    subtitle="For entrepreneur moms, moms who work remotely, or moms who want to move forward on a project close to their heart. And for their slightly wild children. June 13-27, 2027, in the south of France." />
+
+  <!-- Pourquoi + photos -->
+  <section class="bg-[#F2EBDB] pt-20 md:pt-28 pb-24 md:pb-32">
+    <div class="max-w-3xl mx-auto px-6 md:px-10 text-center space-y-6 text-xl md:text-2xl leading-relaxed text-[#412F1F]">
+      <p><span class={mk}>Give yourself real time to move your business and your projects forward</span>. And <span class={mk}>give your children beautiful days in the wild</span>, playing and growing up with other kids.</p>
+      <p>Taking care of yourself and your business, knowing your child is in good hands. And living all of it <span class={mk}>with other women</span> who, like you, juggle being a mother and being a woman.</p>
+      <div class="pt-4 flex flex-wrap gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Message me on WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france-en.pdf" variant="outline">Download the brochure</Pill></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 mt-16 grid grid-cols-2 md:grid-cols-[1fr_1.25fr_1fr] gap-3 md:gap-4">
+      <img src={M('silhouettes-danse')} alt="Two women dancing at sunset, at LAOM" class="rounded-2xl w-full aspect-square md:aspect-auto md:h-[460px] object-cover" loading="lazy" />
+      <img src={L('riviere-laom')} alt="The LAOM river, lined with trees" class="col-span-2 md:col-span-1 -order-1 md:order-none rounded-2xl w-full aspect-[4/3] md:aspect-auto md:h-[460px] object-cover" loading="lazy" />
+      <img src={L('les-enfants-sauvages-15')} alt="Children sitting in the grass around an educator reading them a book" class="rounded-2xl w-full aspect-square md:aspect-auto md:h-[460px] object-cover" loading="lazy" />
+    </div>
+  </section>
+
+  <!-- Le programme -->
+  <section id="programme" class="bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <SectionHead align="center" title="The" accent="program" intro="A simple rhythm: mornings for you and for them, afternoons together or free." class="mb-14" />
+      <div class="grid md:grid-cols-3 gap-4">
+        {programme.map((b) => (
+          <div class="rounded-2xl bg-[#F2EBDB] border border-[#412F1F]/10 p-7">
+            <h3 class="text-2xl font-extrabold text-[#412F1F] tracking-[-0.01em]">{b.titre}</h3>
+            {b.groupes.map((g) => (
+              <>
+                <p class="mt-6 mb-2 text-xs uppercase tracking-[0.16em] font-semibold text-[#73673E]">{g.pour}</p>
+                <ul class="space-y-2 text-[#1D1B18]/80 leading-relaxed">{g.items.map((i) => <li class={li}>{i}</li>)}</ul>
+              </>
+            ))}
+            {b.note && <p class="mt-5 text-sm italic text-[#1D1B18]/60">{b.note}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Le programme nature -->
+  <section class="bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="grid grid-cols-[1.4fr_1fr] gap-3 md:gap-4">
+        <img src={M('enfants-sauvages-18')} alt="Children balancing on logs in the meadow, hills in the background" class="rounded-2xl w-full aspect-[3/4] object-cover" loading="lazy" />
+        <img src={L('potager-calendula')} alt="Calendula flowers from the vegetable garden" class="rounded-2xl w-full aspect-[3/4] object-cover self-end" loading="lazy" />
+      </div>
+      <div>
+        <SectionHead eyebrow="For children aged 3 to 10" title="Kids: a program of" accent="nature, arts and movement" intro="Every morning, from 9am to 1:15pm, your children play, learn and create in the wild, on site. They are looked after by experienced educators trained in nature-based learning. The program rests on three pillars, and follows each child’s rhythm and curiosity." />
+        {[
+          { pilier: 'Nature · discovering and understanding the living world', items: ['Recognising plants, trees and animal tracks', 'Watching insects, birds and river life', 'Sowing, harvesting and tasting from the vegetable garden', 'Understanding the seasons, water and soil', 'Free play outdoors, with other children'] },
+          { pilier: 'Arts · creating with their hands', items: ['Painting, land art', 'Shaping clay, woodworking', 'Stories, drawing, music'] },
+          { pilier: 'Movement · living in their bodies', items: ['Climbing, balancing, running through the meadow or the forest', 'Yoga, dance and movement games for kids', 'Cooperative games'] },
+        ].map((g) => (
+          <div class="mt-7">
+            <p class="font-bold text-[#412F1F]">{g.pilier}</p>
+            <ul class="mt-3 space-y-2 text-[#1D1B18]/80 leading-relaxed">{g.items.map((i) => <li class={li}>{i}</li>)}</ul>
+          </div>
+        ))}
+        <p class="mt-7 text-[#1D1B18]/70">About one adult for every six children. Educators who speak French, English and Spanish.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exemple de journée + les deux semaines -->
+  <section class="bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-2 gap-16">
+      <div>
+        <SectionHead title="A typical" accent="day" class="mb-8" />
+        <dl class="divide-y divide-[#412F1F]/10 border-y border-[#412F1F]/10">
+          {journee.map((j) => (
+            <div class="grid grid-cols-[6.5rem_1fr] gap-4 py-4">
+              <dt class="font-extrabold text-[#9A3922]">{j.h}</dt>
+              <dd class="text-[#1D1B18]/80 leading-relaxed">{j.quoi}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <div>
+        <SectionHead title="The two" accent="weeks" class="mb-8" />
+        <dl class="divide-y divide-[#412F1F]/10 border-y border-[#412F1F]/10">
+          {semaines.map((s) => (
+            <div class="grid grid-cols-[6.5rem_1fr] gap-4 py-4">
+              <dt class="font-extrabold text-[#9A3922] leading-snug">{s.quand}</dt>
+              <dd class="text-[#1D1B18]/80 leading-relaxed">{s.quoi}{s.plus && <span class="block mt-1.5 font-semibold text-[#412F1F]">{s.plus}</span>}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifs -->
+  <section class="bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14">
+      <SectionHead align="center" title="The" accent="prices" intro="For the two weeks of Moms & Kids co-living, 14 nights, June 13-27, 2027." class="mb-12" />
+
+      <div class="max-w-3xl mx-auto rounded-3xl bg-[#412F1F] text-[#F2EBDB] p-8 md:p-10">
+        <h3 class="text-2xl font-extrabold text-[#F2EBDB]">Included in the price</h3>
+        <ul class="mt-5 space-y-2 text-[#F2EBDB]/85 leading-relaxed">
+          {[
+            'Accommodation for the two weeks',
+            'The welcome dinner for you and your children, on the evening of Sunday, June 13',
+            'A movement class every morning for the moms (yoga, MovNat, dance), optional',
+            'The nature program for the children, with the educators, from 9am to 1:15pm',
+            'Moms & kids workshops, offered on some afternoons',
+            'Two women-only afternoons (the educators look after the children)',
+            'Access to the Shala (120 m²) whenever you like: for coworking (river view, high-speed internet) or to chill',
+          ].map((i) => <li class={li}>{i}</li>)}
+        </ul>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mt-10">
+        {logements.map((l) => (
+          <article class="rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 overflow-hidden flex flex-col">
+            <img src={l.photo} alt={l.alt} class="w-full aspect-[4/3] object-cover" loading="lazy" />
+            <div class="p-6 flex-1">
+              <h3 class="text-2xl font-extrabold text-[#412F1F]">{l.nom}</h3>
+              <p class="text-sm text-[#73673E] font-semibold mt-1">{l.dispo}</p>
+              <ul class="mt-5 divide-y divide-[#412F1F]/10 border-y border-[#412F1F]/10">
+                {l.prix.map((p) => (
+                  <li class="flex items-baseline justify-between gap-4 py-3">
+                    <span class="text-[#412F1F]">{p.qui}{p.dispo && <small class="block text-xs text-[#1D1B18]/55 mt-0.5">{p.dispo}</small>}</span>
+                    <span class="font-extrabold text-xl text-[#9A3922] whitespace-nowrap">{p.montant}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul class="mt-5 space-y-1.5 text-sm text-[#1D1B18]/75 leading-relaxed">{l.details.map((d) => <li class={li}>{d}</li>)}</ul>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="max-w-3xl mx-auto mt-10 rounded-2xl bg-[#FBF6EA] border border-[#412F1F]/10 p-8 md:p-10">
+        <h3 class="text-2xl font-extrabold text-[#412F1F]">Meals, optional</h3>
+        <p class="mt-4 text-[#1D1B18]/80 leading-relaxed">Meals aren’t included in the price. You can cook for yourself in the shared kitchen, or just sit down at the table with your children: on weekdays, a cook prepares the meals, with love.</p>
+        <ul class="mt-5 space-y-2 text-[#1D1B18]/80 leading-relaxed">
+          {[
+            'Lunch or dinner: €18 per adult, €12 per child',
+            'Lunches and dinners are booked by full week, Monday to Friday (5 days): the first week, or both',
+            'Breakfast as an extra, whenever you like: €10 per adult, €5 per child',
+            'Healthy organic food, omnivore, adapted if needed: vegetarian, gluten-free, dairy-free…',
+            'On weekends there’s no meal service: everyone cooks in the shared kitchen, or goes out to a restaurant',
+          ].map((i) => <li class={li}>{i}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Le lieu -->
+  <section class="bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-12">
+        <SectionHead eyebrow="The place" title="LAOM," accent="the place I created" />
+        <div class="space-y-4 text-lg text-[#1D1B18]/75 leading-relaxed">
+          <p>LAOM is the co-living I created, in an eco-place I co-bought and co-created: 52 acres of wild nature in the south of France, in the heart of the Grands Causses Regional Nature Park, a protected area. A magical river runs through the estate.</p>
+          <p>Eco-built buildings, made of straw, earth and wood. And a large vegetable garden, grown with regenerative farming.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {[
+          { src: L('laom-batiment-paille'), alt: 'A straw bale building under construction, the valley behind', cap: 'Eco-built buildings' },
+          { src: L('laom-potager'), alt: 'The large vegetable garden and the tipis, at the foot of the hills', cap: 'The vegetable garden' },
+          { src: M('enfants-sauvages-26'), alt: 'Children playing on the pebbles by the river', cap: 'The river' },
+          { src: L('laom-salle'), alt: 'Sunset over the valley, the Shala and the tipis', cap: 'Sunset over the valley' },
+        ].map((f) => (
+          <figure>
+            <img src={f.src} alt={f.alt} class="rounded-2xl w-full aspect-[3/4] object-cover" loading="lazy" />
+            <figcaption class="mt-2.5 text-sm text-[#1D1B18]/60">{f.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Qui organise ? -->
+  <section class="bg-[#F2EBDB] py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14 grid md:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center">
+      <img src={M('amandine-portrait-table')} alt="Portrait of Amandine, smiling, leaning on a wooden table outdoors" class="rounded-[2rem] w-full max-w-sm mx-auto aspect-[4/5] object-cover" loading="lazy" />
+      <div>
+        <SectionHead eyebrow="Who’s behind it?" title="I’m" accent="Amandine." />
+        <div class="mt-6 space-y-4 text-lg text-[#1D1B18]/75 leading-relaxed">
+          <p>Mom of a 5-year-old boy, entrepreneur, and co-founder of a 52-acre eco-place in the south of France, where I created LAOM, a co-living space with eco-built buildings.</p>
+          <p>In 2026, a co-living stay in Andalusia with my son confirmed something I had felt for a long time: we need a tribe. We moms do, and so do our children.</p>
+          <p>The first edition of this Moms &amp; Kids co-living takes place in June 2027, in this place I created, by a magical river. I can’t wait!!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Envie d'être de l'aventure ? -->
+  <section id="contact" class="bg-[#FBF6EA] py-24 md:py-32">
+    <div class="max-w-2xl mx-auto px-6 md:px-10 text-center">
+      <SectionHead align="center" title="Want to join" accent="the adventure?" intro="We’ll be 12 to 15 families. Moms and kids only (dads, that’ll be another time, haha). Message me to book or if you have any questions." />
+      <div class="mt-9 flex flex-wrap justify-center gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Message me on WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france-en.pdf" variant="outline">Download the brochure</Pill></div>
+    </div>
+  </section>
+
+  <SiteFooter />
+
+  <StickyCta text="Message me on WhatsApp" href={WHATSAPP} />
+</Layout>

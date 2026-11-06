@@ -1,0 +1,109 @@
+---
+// Version anglaise de /location.
+// Louer le lieu — page navigable (nav + footer) : pitch du cadre + formulaire de
+// capture Kit (form 8987350, tag "location") qui donne accès aux tarifs
+// (/tarifs-location/). Charte LAOM.
+import Layout from '~/layouts/Layout.astro'
+import { laboNavEn as navLinks } from '~/data/laboNav'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import FeatureItem from '~/components/laom/FeatureItem.astro'
+import PhotoStrip from '~/components/laom/sections/PhotoStrip.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageSchema = createWebPageSchema({
+  name: 'Rent the place: host your event at LAOM',
+  url: Astro.url.toString(),
+  description: 'Workshops, retreats, seminars: host your group on a 52-acre estate in the south of France. Prices and terms.',
+})
+
+const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/50 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
+const L = (n: string) => `/images/laom/${n}.webp`
+---
+
+<Layout
+  title="Rent the place: host your event at LAOM"
+  description="Workshops, retreats, seminars: host your group on a 52-acre estate in the south of France. Prices and terms."
+  hideChrome={true}
+  seo={{ ldJSON: pageSchema }}
+>
+  <PageHeader img={L('salle-de-pratique')}
+    title="Rent the place"
+    subtitle="Workshops, retreats, seminars: host your group on a 52-acre estate in the south of France."
+    navLinks={navLinks} navCta="Book your spot" navCtaHref="/en/book/" logoHref="/en/"
+    crumbs={[{ label: 'Home', href: '/en/' }, { label: 'Rent the place' }]} />
+
+  <section class="bg-[#F2EBDB] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-20 items-start">
+
+      <div>
+        <SectionHead eyebrow="The setting" title="A place made for" accent="groups."
+          intro="A former farm estate 1h30 from Montpellier. A practice hall facing the valley, an open-air bar where the group gathers, accommodation on site, the river and the forest all around." class="mb-12" />
+        <div class="grid sm:grid-cols-2 gap-8">
+          <FeatureItem title="The shala">A large, bright space facing the valley, for practices, workshops and circles.</FeatureItem>
+          <FeatureItem title="The guinguette">The covered open-air bar where the group meets, eats and spends its evenings.</FeatureItem>
+          <FeatureItem title="Accommodation">Tipis and rooms on site, to sleep close to nature.</FeatureItem>
+          <FeatureItem title="52 acres">River, forest, vegetable garden: the whole estate breathes with your event.</FeatureItem>
+        </div>
+      </div>
+
+      <div class="bg-[#FBF6EA] rounded-3xl p-8 md:p-10 lg:sticky lg:top-28">
+        <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Prices & availability</p>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1] text-balance mb-3">
+          Get the terms <span class="italic font-medium text-[#9A3922]">and the dates.</span>
+        </h2>
+        <p class="text-[#1D1B18]/70 leading-relaxed mb-8">
+          Leave your first name and email and you’ll get straight to the rental prices and terms.
+        </p>
+
+        <!-- Formulaire Kit — via form 8987350 avec tag "location" -->
+        <iframe name="kit-iframe" id="kit-iframe" style="display:none" title="Kit"></iframe>
+        <form
+          id="location-form"
+          action="https://app.kit.com/forms/8987350/subscriptions"
+          method="post"
+          target="kit-iframe"
+          class="space-y-5"
+        >
+          <input type="hidden" name="tags[]" value="18080822" />
+          <input type="hidden" name="tags[]" value="25475951" />
+          <div class="space-y-2">
+            <label for="loc-prenom" class="font-semibold text-[#412F1F]">First name</label>
+            <input id="loc-prenom" class={inputCls} name="fields[first_name]" type="text" required placeholder="Your first name" autocomplete="given-name" />
+          </div>
+          <div class="space-y-2">
+            <label for="loc-email" class="font-semibold text-[#412F1F]">Email</label>
+            <input id="loc-email" class={inputCls} name="email_address" type="email" required placeholder="you@email.com" autocomplete="email" />
+          </div>
+          <button type="submit" id="submit-btn" class="pill pill-primary w-full justify-center" style="padding:.95rem 2rem">
+            See the terms and dates
+          </button>
+        </form>
+
+        <p class="text-xs text-[#1D1B18]/55 text-center mt-5">
+          You’ll also get the LAOM Letter, our behind-the-scenes every Sunday (in French).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <PhotoStrip bg="bg-[#FBF6EA]" items={[
+    { img: L('festival-laom-ambiance-nature-aveyron'), alt: 'The LAOM guinguette during an event', caption: 'The guinguette' },
+    { img: L('lieu-shala-tipis'), alt: 'The LAOM shala and tipis', caption: 'The shala & the tipis' },
+    { img: L('riviere-baignade'), alt: 'The river at the edge of the estate', caption: 'The river' },
+  ]} />
+
+  <SiteFooter />
+
+  <script is:inline>
+    document.getElementById('location-form').addEventListener('submit', function() {
+      var btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      setTimeout(function() {
+        window.location.href = '/en/tarifs-location/';
+      }, 2000);
+    });
+  </script>
+</Layout>
