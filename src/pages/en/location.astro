@@ -15,7 +15,7 @@ import { createWebPageSchema } from '~/utils/schema'
 const pageSchema = createWebPageSchema({
   name: 'Rent the place: host your event at LAOM',
   url: Astro.url.toString(),
-  description: 'Workshops, retreats, seminars: host your group on a 52-acre estate in the south of France. Prices, terms and available dates.',
+  description: 'Workshops, retreats, seminars: host your group on a 52-acre estate in the south of France. Prices and terms.',
 })
 
 const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] placeholder:text-[#1D1B18]/50 focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
@@ -24,7 +24,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
 
 <Layout
   title="Rent the place: host your event at LAOM"
-  description="Workshops, retreats, seminars: host your group on a 52-acre estate in the south of France. Prices, terms and available dates."
+  description="Workshops, retreats, seminars: host your group on a 52-acre estate in the south of France. Prices and terms."
   hideChrome={true}
   seo={{ ldJSON: pageSchema }}
 >
@@ -54,7 +54,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
           Get the terms <span class="italic font-medium text-[#9A3922]">and the dates.</span>
         </h2>
         <p class="text-[#1D1B18]/70 leading-relaxed mb-8">
-          Leave your first name and email and you’ll get straight to the rental prices, terms and available dates.
+          Leave your first name and email and you’ll get straight to the rental prices and terms.
         </p>
 
         <!-- Formulaire Kit — via form 8987350 avec tag "location" -->

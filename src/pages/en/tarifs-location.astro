@@ -79,7 +79,7 @@ function getMonthDays(month: number, year: number) {
           class="h-16 mx-auto mb-8"
         />
         <h1 class="font-playfair text-4xl md:text-5xl font-medium text-[#2C2824] tracking-tight mb-4">
-          Booking terms and available dates
+          Booking terms
         </h1>
         <p class="text-lg font-light text-[#2C2824]/60">
           LAOM · 867 Route de Montagnol, 12400 Saint-Félix-de-Sorgues, France
@@ -159,61 +159,11 @@ function getMonthDays(month: number, year: number) {
         </div>
       </div>
 
-      <!-- Calendrier disponibilités -->
+      <!-- Disponibilités : sur demande par email -->
       <div class="bg-white rounded-sm p-8 md:p-10 mb-8">
-        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Available dates</h2>
-        <p class="text-sm font-light text-[#2C2824]/50 mb-6">Season May to September 2026</p>
-
-        <div class="flex items-center gap-6 mb-6 text-xs font-light text-[#2C2824]/60">
-          <div class="flex items-center gap-2">
-            <span class="w-4 h-4 rounded-sm bg-[#4A7C59]/20 border border-[#4A7C59]/30"></span>
-            <span>Available</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-4 h-4 rounded-sm bg-[#B91C1C]/15 border border-[#B91C1C]/25"></span>
-            <span>Booked</span>
-          </div>
-        </div>
-
-        <div class="space-y-8">
-          {months.map(({ name, month, year }) => {
-            const { startDayOfWeek, totalDays } = getMonthDays(month, year)
-            return (
-              <div>
-                <p class="text-sm font-medium text-[#2C2824] mb-3">{name} {year}</p>
-                <div class="grid grid-cols-7 gap-1 text-center">
-                  {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map((d) => (
-                    <div class="text-[10px] font-light text-[#2C2824]/40 pb-1">{d}</div>
-                  ))}
-                  {Array.from({ length: startDayOfWeek }).map(() => (
-                    <div></div>
-                  ))}
-                  {Array.from({ length: totalDays }).map((_, i) => {
-                    const day = i + 1
-                    const key = `${month}-${day}`
-                    const isBooked = bookedDates.has(key)
-                    const labels = bookedLabels.get(key) || []
-                    return (
-                      <div
-                        class={`aspect-square flex items-center justify-center rounded-sm text-xs transition-colors ${
-                          isBooked
-                            ? 'bg-[#B91C1C]/15 text-[#B91C1C]/70 font-medium'
-                            : 'bg-[#4A7C59]/10 text-[#4A7C59]/70'
-                        }`}
-                        title={isBooked ? labels.join(' + ') : 'Available'}
-                      >
-                        {day}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        <p class="text-xs font-light text-[#2C2824]/40 mt-6 italic">
-          Hover over a booked date to see the event. The calendar is updated regularly.
+        <h2 class="font-playfair text-2xl font-medium text-[#2C2824] mb-2">Availability</h2>
+        <p class="text-base font-light text-[#2C2824]/70 leading-relaxed">
+          To check available dates, email us at <a href="mailto:hello@laom.fr?subject=LAOM%20rental%20availability" class="underline underline-offset-4 hover:text-[#2C2824]">hello@laom.fr</a>. We’ll get back to you quickly.
         </p>
       </div>
 

@@ -11,7 +11,8 @@ export interface NavLink {
 
 export const laboNav: NavLink[] = [
   { label: 'Le lieu', href: '/le-lieu/' },
-  { label: 'Coliving', href: '/coliving/' },
+  { label: 'Coliving entrepreneurs', href: '/coliving/' },
+  { label: 'Moms & Kids', href: '/coliving-moms-kids/' },
   { label: 'Notre histoire', href: '/notre-histoire/' },
   { label: 'Newsletter', href: '/newsletter/' },
 ]
@@ -19,7 +20,8 @@ export const laboNav: NavLink[] = [
 // Version anglaise du menu. Le lien FR / EN est ajouté automatiquement par SiteNav.
 export const laboNavEn: NavLink[] = [
   { label: 'The place', href: '/en/le-lieu/' },
-  { label: 'Coliving', href: '/en/coliving/' },
+  { label: 'Entrepreneurs coliving', href: '/en/coliving/' },
+  { label: 'Moms & Kids', href: '/en/coliving-moms-kids/' },
   { label: 'Our story', href: '/en/notre-histoire/' },
   { label: 'Newsletter', href: '/en/newsletter/' },
 ]
