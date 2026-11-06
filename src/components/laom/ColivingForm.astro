@@ -202,7 +202,7 @@ const hebergements = en ? ['Single room', 'Couple room', 'Tipi', 'The apartment'
           <!-- RGPD -->
           <label class="flex items-start gap-3 text-sm text-[#1D1B18]/70">
             <input type="checkbox" name="rgpd" required class="mt-1 accent-[#9A3922] w-4 h-4 shrink-0" />
-            <span>{C.rgpd} <a href="/confidentialite/" target="_blank" class="underline hover:text-[#9A3922]">{C.privacy}</a>.</span>
+            <span>{C.rgpd} <a href={en ? '/en/confidentialite/' : '/confidentialite/'} target="_blank" class="underline hover:text-[#9A3922]">{C.privacy}</a>.</span>
           </label>
 
           <div class="pt-2">

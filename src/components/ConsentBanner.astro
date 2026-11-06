@@ -10,7 +10,7 @@ const en = Astro.currentLocale === 'en'
   <div class="consent-inner">
     <p class="consent-text">
       {en ? 'We use cookies to measure traffic and improve the site.' : 'On utilise des cookies pour mesurer l’audience et améliorer le site.'}
-      <a href="/mentions-legales/" class="consent-link">{en ? 'Learn more' : 'En savoir plus'}</a>
+      <a href={en ? '/en/mentions-legales/' : '/mentions-legales/'} class="consent-link">{en ? 'Learn more' : 'En savoir plus'}</a>
     </p>
     <div class="consent-actions">
       <button type="button" id="consent-refuse" class="consent-btn consent-btn--ghost">{en ? 'Decline' : 'Refuser'}</button>

@@ -16,11 +16,10 @@ export const laboNav: NavLink[] = [
   { label: 'Newsletter', href: '/newsletter/' },
 ]
 
-// Version anglaise. Les pages pas encore traduites pointent vers la version FR.
+// Version anglaise du menu. Le lien FR / EN est ajouté automatiquement par SiteNav.
 export const laboNavEn: NavLink[] = [
-  { label: 'The place', href: '/le-lieu/' },
+  { label: 'The place', href: '/en/le-lieu/' },
   { label: 'Coliving', href: '/en/coliving/' },
-  { label: 'Our story', href: '/notre-histoire/' },
+  { label: 'Our story', href: '/en/notre-histoire/' },
   { label: 'Newsletter', href: '/en/newsletter/' },
-  { label: 'FR', href: '/coliving/' },
 ]

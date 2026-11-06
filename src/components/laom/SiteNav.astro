@@ -19,19 +19,31 @@ const {
 } = Astro.props
 const path = Astro.url.pathname
 const isActive = (href: string) => href === path || href + '/' === path || href === path + '/'
+// Lien FR / EN : même page dans l'autre langue si elle existe, sinon l'accueil de l'autre langue.
+const pages = new Set(Object.keys(import.meta.glob('/src/pages/**/*.astro')).map((f) =>
+  f.replace('/src/pages', '').replace(/\.astro$/, '').replace(/\/index$/, '') + '/'))
+const isEn = path === '/en' || path.startsWith('/en/')
+const twin = isEn ? (path.replace(/^\/en/, '') || '/') : '/en' + path
+const twinPage = twin.endsWith('/') ? twin : twin + '/'
+const langSwitch = {
+  label: isEn ? 'FR' : 'EN',
+  href: pages.has(twinPage) ? twinPage : (isEn ? '/' : '/en/'),
+  title: isEn ? 'Version française' : 'English version',
+}
 ---
 <header class:list={['site-nav', transparent ? 'site-nav--over' : 'site-nav--solid']}>
   <nav class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 pt-6">
     <div class="snav-row flex items-center justify-between gap-4 lg:grid lg:grid-cols-[1fr_auto_1fr] pb-5">
-      <a href={logoHref} class="snav-logo justify-self-start" aria-label="LAOM — accueil"><Logo height="1.6rem" /></a>
+      <a href={logoHref} class="snav-logo justify-self-start" aria-label={isEn ? 'LAOM home' : 'LAOM — accueil'}><Logo height="1.6rem" /></a>
       <ul class="hidden lg:flex items-center gap-9 justify-self-center">
         {links.map((n) => (
           <li><a href={n.href} class="snav-link" aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
         ))}
+        <li><a href={langSwitch.href} class="snav-link" hreflang={isEn ? 'fr' : 'en'} title={langSwitch.title}>{langSwitch.label}</a></li>
       </ul>
       <div class="flex items-center gap-3 justify-self-end">
         <a href={ctaHref} class="snav-cta hidden lg:inline-block">{ctaText}</a>
-        <button type="button" class="snav-burger lg:hidden" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="snav-mobile" data-burger>
+        <button type="button" class="snav-burger lg:hidden" aria-label={isEn ? 'Open menu' : 'Ouvrir le menu'} aria-expanded="false" aria-controls="snav-mobile" data-burger>
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -43,6 +55,7 @@ const isActive = (href: string) => href === path || href + '/' === path || href 
         {links.map((n) => (
           <li><a href={n.href} class="snav-mobile-link" aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
         ))}
+        <li><a href={langSwitch.href} class="snav-mobile-link" hreflang={isEn ? 'fr' : 'en'}>{isEn ? 'Version française' : 'English version'}</a></li>
       </ul>
       <a href={ctaHref} class="snav-mobile-cta">{ctaText}</a>
     </div>
