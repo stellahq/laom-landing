@@ -12,55 +12,6 @@ const pageSchema = createWebPageSchema({
   description: 'Rental prices for the hall, tipi accommodation, guinguette meals and booking terms at LAOM.',
 })
 
-// Booked date ranges (from events) — [startDay, endDay, monthIndex(0-based), label]
-// monthIndex: 4=mai, 5=juin, 6=juillet, 7=août, 8=septembre
-const bookedRanges: { start: [number, number]; end: [number, number]; label: string }[] = [
-  { start: [4, 30], end: [5, 3],  label: 'Désir d\'Aventure #1' },    // 30 avr – 3 mai
-  { start: [5, 8],  end: [5, 10], label: 'LAOM School' },              // 8-10 mai
-  { start: [5, 21], end: [5, 24], label: 'Frères d\'Âme' },            // 21-24 mai
-  { start: [5, 28], end: [5, 31], label: 'Désir d\'Aventure #2' },     // 28-31 mai
-  { start: [6, 5],  end: [6, 8],  label: 'Festival Perspective' },     // 5-8 juin
-  { start: [6, 11], end: [6, 13], label: 'Rencontre Fyneo' },          // 11-13 juin
-  { start: [6, 15], end: [6, 28], label: 'LAOM Coliving 1' },          // 15-28 juin
-  { start: [7, 8],  end: [7, 22], label: 'Family Camp 1' },            // 8-22 juillet
-  { start: [7, 11], end: [7, 14], label: 'Summer Camp Amawé' },        // 11-14 juillet
-  { start: [7, 23], end: [7, 26], label: 'Aime-Être' },                // 23-26 juillet
-  { start: [8, 6],  end: [8, 20], label: 'LAOM Coliving 2' },          // 6-20 août
-  { start: [8, 8],  end: [8, 22], label: 'Family Camp 2' },            // 8-22 août
-  { start: [8, 22], end: [8, 28], label: 'Guérison des Blessures' },   // 22-28 août
-]
-
-// Build a set of booked dates for quick lookup
-const bookedDates = new Set<string>()
-const bookedLabels = new Map<string, string[]>()
-
-for (const range of bookedRanges) {
-  const startDate = new Date(2026, range.start[0] - 1, range.start[1])
-  const endDate = new Date(2026, range.end[0] - 1, range.end[1])
-  for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-    const key = `${d.getMonth()}-${d.getDate()}`
-    bookedDates.add(key)
-    if (!bookedLabels.has(key)) bookedLabels.set(key, [])
-    bookedLabels.get(key)!.push(range.label)
-  }
-}
-
-// Generate calendar months (Mai to Septembre 2026)
-const months = [
-  { name: 'May', month: 4, year: 2026 },
-  { name: 'June', month: 5, year: 2026 },
-  { name: 'July', month: 6, year: 2026 },
-  { name: 'August', month: 7, year: 2026 },
-  { name: 'September', month: 8, year: 2026 },
-]
-
-function getMonthDays(month: number, year: number) {
-  const firstDay = new Date(year, month, 1)
-  const lastDay = new Date(year, month + 1, 0)
-  const startDayOfWeek = (firstDay.getDay() + 6) % 7 // Monday = 0
-  const totalDays = lastDay.getDate()
-  return { startDayOfWeek, totalDays }
-}
 ---
 
 <Layout
