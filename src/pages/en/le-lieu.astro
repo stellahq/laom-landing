@@ -1,0 +1,137 @@
+---
+// Page 3 — LE LIEU (présentation du domaine). Page la plus visuelle : le lieu est
+// le héros. Copie storytellée (registre présentation), design photo-forward avec
+// carrousel des espaces, bande de chiffres sur photo, et CTA sur image.
+// Même langage visuel + mêmes règles que Coliving. Route isolée /le-lieu-labo (noindex).
+import Layout from '~/layouts/Layout.astro'
+import { laboNavEn as navLinks } from '~/data/laboNav'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import StatBand from '~/components/laom/sections/StatBand.astro'
+import Carousel from '~/components/laom/sections/Carousel.astro'
+import IncludedGrid from '~/components/laom/sections/IncludedGrid.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const F = (n: string) => `/images/festival/${n}.webp`
+const L = (n: string) => `/images/laom/${n}.webp`
+---
+
+<Layout title="LAOM · The place, a 52-acre estate in the south of France" description="A former farm estate 1h30 from Montpellier: tipis, a shala facing the valley, a vegetable garden, an open-air bar, a river and a forest. The setting of the LAOM coliving." hideChrome={true}>
+
+  <!-- ① HEADER -->
+  <PageHeader
+    img="/images/vue-aeriene-laom2-hero.webp"
+    navLinks={navLinks} navCta="Book your spot" navCtaHref="/en/book/" logoHref="/en/"
+    crumbs={[{ label: 'Home', href: '/en/' }, { label: 'The place' }]}
+    title="An eco-built coliving space, in the wild."
+    subtitle="52 acres in the south of the Aveyron (South of France), a former farm estate turned into a place to live. This is where it all happens." />
+
+  <!-- ② L'ARRIVÉE -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" img={F('hero')} alt="The LAOM estate in the south of the Aveyron"
+      eyebrow="Arriving"
+      title="You leave the road," accent="and the silence takes over."
+      text={[
+        '1h30 from Montpellier, the road narrows and the villages grow further apart. LAOM sits in a valley in the south of the Aveyron, between hills and oak trees, with the village in the distance.',
+        'Far enough to be forgotten, close enough to be found. The first thing you notice when you arrive is what you no longer hear.',
+      ]} />
+  </div>
+
+  <!-- ②bis CONSTRUCTION ÉCOLOGIQUE -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('laom-batiment-paille')} alt="The load-bearing straw building at LAOM"
+      eyebrow="Eco-construction"
+      title="A load-bearing straw building," accent="designed for nature and for you."
+      text={[
+        'The heart of the coliving is the Grand Shambala: 850 m² on two levels, built in load-bearing straw. On the north and west sides, the walls are made of 45 cm thick straw bales that carry the building. On the south side, a wooden facade with large windows catches the winter sun.',
+        'The walls are covered with earth and lime plasters, mostly applied by hand by the building team.',
+      ]}
+      ctaText="The story of the build" ctaHref="/grand-shambala/" />
+  </div>
+
+  <div animate-fade-in-up class="opacity-0">
+    <IncludedGrid bg="bg-[#FBF6EA]"
+      eyebrow="In practice"
+      title="What it changes," accent="for nature and for your health."
+      intro="Building with straw, earth, lime and wood goes beyond looks. You feel it inside the building, and you see it in the footprint."
+      items={[
+        { title: 'Walls that store carbon', desc: 'Straw and wood capture CO₂ as they grow and keep it in the walls. They take little energy to produce, and go back to the earth at the end of their life.' },
+        { title: 'A bioclimatic building', desc: 'The winter sun comes in through the south facade, and the thick walls hold the heat. In summer, the straw keeps it cool. Very little heating is needed.' },
+        { title: 'Walls that breathe', desc: 'Earth and lime let water vapour through and regulate humidity. The air stays healthy, with no condensation or mould.' },
+        { title: 'Natural indoor air', desc: 'Straw, earth, lime, wood: natural materials that release no toxic compounds into the air you breathe.' },
+        { title: 'Deep silence', desc: '45 cm of straw also keeps the noise out. Inside, the quiet is almost total.' },
+        { title: 'Built by hand', desc: 'Most of the building work was done by the LAOM team themselves.' },
+      ]} />
+  </div>
+
+  <!-- ③ LE DOMAINE D'UN COUP D'ŒIL -->
+  <div animate-fade-in-up class="opacity-0">
+    <StatBand img={L('riviere-laom')}
+      eyebrow="The estate"
+      title="Everything is here," accent="under the open sky."
+      stats={[
+        { value: '52 acres', label: 'of unspoilt nature' },
+        { value: '1h30', label: 'from Montpellier' },
+        { value: '1', label: 'river on the estate' },
+        { value: '0', label: 'light pollution' },
+      ]} />
+  </div>
+
+  <!-- ④ LES ESPACES — carrousel -->
+  <div animate-fade-in-up class="opacity-0">
+    <Carousel bg="bg-[#F2EBDB]"
+      eyebrow="The spaces"
+      title="Every corner of the estate" accent="has its purpose."
+      slides={[
+        { img: L('laom-accueil'), alt: 'The LAOM tipis under the big oak trees', title: 'The tipis', text: 'Sleeping under canvas, as close to the outdoors as it gets. In the morning, birdsong wakes you up.' },
+        { img: L('coliving/coliving-laom-vue-interieure-01'), alt: 'A coliving room with natural plaster walls', title: 'The coliving rooms', text: 'In the bioclimatic load-bearing straw building. Natural plaster walls, private bathroom.' },
+        { img: L('foyer-commun-projection'), alt: 'Mood image of the future common lounge, in fully natural materials', title: 'The common lounge', text: 'Under construction. A shared lounge and kitchen, in fully natural materials, to cook, read or put the world to rights in the evening.' },
+        { img: L('chillworking-salle-pratique'), alt: 'The large practice hall at LAOM', title: 'The practice hall', text: 'Movement in the morning, coworking during the day. Fiber wifi, with the valley as your only backdrop.' },
+        { img: '/images/festival/cta.webp', alt: 'The long tables under the LAOM big tent', title: 'The big tent & outdoor tables', text: '200 m² of shade, open onto the meadow. We eat, work and dance there. Starlink wifi.' },
+        { img: L('potager-calendula'), alt: 'The LAOM vegetable garden, calendula flowers', title: 'The vegetable garden', text: 'What grows here ends up on your plate. The meals follow the seasons.' },
+        { img: L('riviere-baignade'), alt: 'Swimming together in the LAOM river', title: 'The river & the forest', text: '52 acres to explore. Cold water in summer, paths under the trees.' },
+        { img: L('guinguette-produits-laom'), alt: 'A crate of tomatoes and garden vegetables at the LAOM open-air bar', title: 'The guinguette', text: 'Our open-air bar, the heart of the evenings. Where everyone gathers, a drink in hand.' },
+        { img: L('voie-lactee-laom'), alt: 'The starry sky above LAOM at night', title: 'The Milky Way above our heads', text: 'When night falls, we sit around the fire. You only need to look up: no lights on the horizon, only the stars.' },
+      ]} />
+  </div>
+
+  <!-- ⑤ LE VIVANT -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('jardin-laom')} alt="The LAOM garden and vegetable patch"
+      eyebrow="The living world"
+      title="A place that regenerates," accent="season after season."
+      text={[
+        'Regenerating means making sure a place gets better thanks to our presence, and not only in spite of it. In the vegetable garden, we feed the soil instead of exhausting it: it gains life from one season to the next. As for the rest, the river, the forest, the meadows, we let nature do its work, and above all we take care not to damage it.',
+        'Throughout the year, the estate changes its face: the dense green of summer, the gold of autumn, the silence of winter. Whatever the season you come, you’ll never find quite the same place.',
+      ]} />
+  </div>
+
+  <!-- ⑥ VENIR À LAOM -->
+  <div animate-fade-in-up class="opacity-0">
+    <IncludedGrid bg="bg-[#F2EBDB]"
+      eyebrow="Getting here"
+      title="How to" accent="reach us."
+      intro="The estate is at La Margue, in Saint-Félix-de-Sorgues (12400), in the south of the Aveyron, France."
+      items={[
+        { title: 'By car', desc: '1h30 from Montpellier, 2h from Toulouse. Parking on site.' },
+        { title: 'By train + shuttle', desc: 'We organise a shuttle from Montpellier station to the estate on your arrival day.' },
+        { title: 'On site', desc: 'La Margue, Saint-Félix-de-Sorgues (12400), south Aveyron, France.' },
+      ]} />
+  </div>
+
+  <!-- ⑦ INVITATION -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage img={L('batiment-laom-jour')}
+      eyebrow="Join us"
+      title="The best thing," accent="is still to come and see it."
+      subtitle="Photos give you an idea. The rest has to be lived on site. If the place calls you, a coliving week is the best way to discover it."
+      primaryText="Discover the coliving" primaryHref="/en/coliving/"
+      secondaryText="or book your spot" secondaryHref="/en/book/" />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Book your spot" href="/en/book/" />
+</Layout>

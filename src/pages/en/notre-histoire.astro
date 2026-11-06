@@ -1,0 +1,107 @@
+---
+// Page 4 — NOTRE HISTOIRE. Charly & Amandine parlent à la première personne, leur
+// projet de vie. Pas de titres. Copie tirée du brief (PAGE 4), mise à leur voix.
+// Photo-forward (plusieurs visuels par moment, swappables). Route /notre-histoire-labo.
+import Layout from '~/layouts/Layout.astro'
+import { laboNavEn as navLinks } from '~/data/laboNav'
+import PageHeader from '~/components/laom/PageHeader.astro'
+import MediaText from '~/components/laom/sections/MediaText.astro'
+import PhotoStrip from '~/components/laom/sections/PhotoStrip.astro'
+import FoundersQuotes from '~/components/laom/sections/FoundersQuotes.astro'
+import PhotoQuote from '~/components/laom/sections/PhotoQuote.astro'
+import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import StickyCta from '~/components/laom/StickyCta.astro'
+import SiteFooter from '~/components/laom/SiteFooter.astro'
+
+const F = (n: string) => `/images/festival/${n}.webp`
+const L = (n: string) => `/images/laom/${n}.webp`
+---
+
+<Layout title="LAOM · Our story, Charly & Amandine" description="Charly and Amandine left the city to live differently. With others, they co-bought a former farm estate in the south of the Aveyron, France, and created LAOM there." hideChrome={true}>
+
+  <!-- ① HEADER -->
+  <PageHeader
+    img={L('charly-amandine-rire')}
+    navLinks={navLinks} navCta="Book your spot" navCtaHref="/en/book/" logoHref="/en/"
+    crumbs={[{ label: 'Home', href: '/en/' }, { label: 'Our story' }]}
+    title="Behind LAOM, there’s us."
+    subtitle="Charly and Amandine, and the wish to live differently. This is how it started." />
+
+  <!-- ② LE DÉBUT -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" img={F('hero')} alt="The LAOM estate in the south of the Aveyron"
+      eyebrow="The beginning"
+      title="We were looking for a place" accent="to live differently."
+      text={['It all started with a wish: to live differently, close to the land, with space and silence around us.', 'Together with other people who shared that wish, we co-bought a former farm estate in the south of the Aveyron, in the middle of nature.', 'Little by little, we built it, doing most of the building work ourselves: the Grand Shambala in load-bearing straw, the large practice hall, the garden, the open-air bar. Then we started welcoming people.']} />
+  </div>
+
+  <!-- bande de 3 photos — les premiers gestes -->
+  <div animate-fade-in-up class="opacity-0">
+    <PhotoStrip bg="bg-[#F2EBDB]"
+      items={[
+        { img: L('laom-batiment-paille'), alt: 'The Grand Shambala, a load-bearing straw building', caption: 'The Grand Shambala, in load-bearing straw' },
+        { img: L('chillworking-salle-pratique'), alt: 'The large practice hall at LAOM', caption: 'The large hall: timber frame, earth plasters, big glass walls' },
+        { img: L('guinguette-produits-laom'), alt: 'The LAOM open-air bar and produce from the garden', caption: 'The open-air bar and the garden, from soil to plate' },
+      ]} />
+  </div>
+
+  <!-- vidéo Instagram — le lieu raconté par nous -->
+  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 text-center">
+      <SectionHead eyebrow="On video" title="The LAOM story," accent="told by us." align="center" />
+      <div class="mt-10 mx-auto w-full max-w-[540px] rounded-3xl overflow-hidden bg-white shadow-sm">
+        <iframe src="https://www.instagram.com/p/DavS5eetXLU/embed/" title="LAOM Instagram video" class="w-full h-[760px] border-0" loading="lazy" scrolling="no" allowtransparency="true" allow="encrypted-media; picture-in-picture"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ LE DÉCLIC -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('atelier-presentation')} alt="A work session at LAOM, entrepreneurs together"
+      eyebrow="The spark"
+      title="We quickly saw" accent="that the setting changed people."
+      text={['Entrepreneurs, creatives and freelancers arrived tired and left clearer and lighter. Nature, the pace and the shared meals did a big part of the work.', 'That’s how the coliving was born: bringing together people who are moving their projects forward, in a place that does them good, and letting the encounters do the rest.']} />
+  </div>
+
+  <!-- ④ NOUS DEUX — citations -->
+  <div animate-fade-in-up class="opacity-0">
+    <FoundersQuotes bg="bg-[#F2EBDB]"
+      eyebrow="The two of us"
+      title="He sees far," accent="she brings the place to life."
+      people={[
+        { img: L('charly-portrait-laom'), name: 'Charly', quote: 'I had the vision of LAOM before the place even existed. I think in systems, I build. I left the city with one conviction: you can lead an ambitious project in a setting that feels like you, surrounded by the right people.' },
+        { img: L('amandine-portrait-laom'), name: 'Amandine', quote: 'What drives me is the living place: welcoming people, the meals, the bond between people who didn’t know each other that same morning. My obsession is that you feel at home here from the very first evening.' },
+      ]} />
+  </div>
+
+  <!-- ⑤ LE NOM -->
+  <div animate-fade-in-up class="opacity-0">
+    <PhotoQuote bg="bg-[#FBF6EA]" img={L('diner-golden-hour-laom')}
+      eyebrow="The name"
+      title="LAOM," accent="grounding and elevation."
+      text="A blend of LAM and OM. Feet in the earth, head in the stars. That’s exactly what we want to offer here." />
+  </div>
+
+  <!-- ⑥ LA VISION -->
+  <div animate-fade-in-up class="opacity-0">
+    <MediaText bg="bg-[#F2EBDB]" img="/images/vue-aeriene-laom2-hero.webp" alt="Aerial view of the LAOM estate"
+      eyebrow="Tomorrow"
+      title="Making LAOM" accent="the place people come back to."
+      text="Our goal: for LAOM to become the reference place in France for people who want to live and work differently. The coliving is the first building block. We build the rest season after season." />
+  </div>
+
+  <!-- ⑦ INVITATION -->
+  <div animate-fade-in-up class="opacity-0">
+    <CtaImage img={L('collectif-la-margue-laomletter')}
+      eyebrow="Join us"
+      title="The best thing" accent="is to come and spend a week with us."
+      subtitle="One week is enough to feel the place. Come, and see for yourself."
+      primaryText="Discover the coliving" primaryHref="/en/coliving/"
+      secondaryText="or book your spot" secondaryHref="/en/book/" />
+  </div>
+
+  <SiteFooter />
+
+  <StickyCta text="Book your spot" href="/en/book/" />
+</Layout>
