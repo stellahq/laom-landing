@@ -10,6 +10,7 @@ import { laboNav as navLinks } from '~/data/laboNav'
 import HeroCenter from '~/components/laom/sections/HeroCenter.astro'
 import Statement from '~/components/laom/sections/Statement.astro'
 import HabitatsSection from '~/components/laom/sections/HabitatsSection.astro'
+import AudienceCards from '~/components/laom/sections/AudienceCards.astro'
 import MediaText from '~/components/laom/sections/MediaText.astro'
 import CtaBanner from '~/components/laom/CtaBanner.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
@@ -41,15 +42,15 @@ const L = (n: string) => `/images/laom/${n}.webp`
   </div>
 
   <!-- 1bis. POUR QUI — trois publics (entrepreneurs, familles, artistes) -->
-  <HabitatsSection reveal={true} bg="bg-[#F2EBDB]"
-      eyebrow="Pour qui"
-      title="Pour les entrepreneurs," accent="les familles et les artistes."
-      intro="LAOM accueille celles et ceux qui veulent vivre et travailler autrement. Chaque séjour a son format."
-      items={[
-        {img:L('peers-groupe'),title:'Entrepreneurs',desc:'La semaine de coliving du 6 au 12 juin 2027.',href:'/coliving/'},
-        {img:L('moms-kids/enfants-sauvages-26'),title:'Familles',desc:'Parents entrepreneurs : le Co-living Moms & Kids, du 13 au 27 juin 2027.',href:'/coliving-moms-kids/'},
-        {img:L('moms-kids/silhouettes-danse'),title:'Artistes',desc:'À venir. Inscris-toi à la LAOM Letter pour être prévenu·e.',href:'/newsletter/'},
-      ]} />
+  <AudienceCards
+    eyebrow="Pour qui"
+    title="Pour les entrepreneurs," accent="les familles et les artistes."
+    intro="LAOM accueille celles et ceux qui veulent vivre et travailler autrement. Chaque séjour a son format."
+    items={[
+      { img: L('peers-groupe'), alt: 'Des entrepreneurs en échange à LAOM', title: 'Entrepreneurs', desc: 'La semaine de coliving du 6 au 12 juin 2027 : travailler, te recharger et rencontrer d’autres entrepreneurs.', cta: 'Découvrir la semaine', href: '/coliving/' },
+      { img: L('les-enfants-sauvages-15'), alt: 'Une éducatrice lit une histoire à des enfants, assis dans l’herbe', title: 'Familles', desc: 'Parents entrepreneurs : le Co-living Moms & Kids, du 13 au 27 juin 2027. Tu avances sur tes projets, tes enfants vivent en pleine nature.', cta: 'Découvrir Moms & Kids', href: '/coliving-moms-kids/' },
+      { img: L('moms-kids/silhouettes-danse'), alt: 'Silhouettes qui dansent', title: 'Artistes', desc: 'Un format pour les artistes arrive. Inscris-toi à la LAOM Letter pour être prévenu·e en premier.', cta: 'M’inscrire à la LAOM Letter', href: '/newsletter/', soon: true },
+    ]} />
 
   <!-- 2. LE LIEU — où ça se passe + galerie (apparition en cascade) (→ Le lieu) -->
   <HabitatsSection reveal={true} bg="bg-[#FBF6EA]"
