@@ -1,17 +1,4 @@
 ---
-export const prerender = true
+// Ancienne page (offre passée ou en pause) : redirige vers l'accueil.
+return Astro.redirect('/', 301)
 ---
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <title>LAOMSCHOOL — Redirection</title>
-    <meta name="robots" content="noindex,nofollow" />
-    <link rel="canonical" href="https://laom.fr/school/online/" />
-    <meta http-equiv="refresh" content="0; url=/school/online/" />
-    <script>window.location.replace('/school/online/')</script>
-  </head>
-  <body>
-    <p>Redirection vers <a href="/school/online/">LAOMSCHOOL</a>…</p>
-  </body>
-</html>
