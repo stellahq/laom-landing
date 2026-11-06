@@ -19,7 +19,7 @@ const {
     ? 'An eco-built coliving in the wild, in the south of Aveyron, France. A healthy setting to create differently.'
     : 'Écolieu de coliving en pleine nature, sud Aveyron. Un cadre sain pour créer autrement.',
   columns = en
-    ? [{ title: 'Explore', links: [{ label: 'Journal', href: '/en/blog/' }, { label: 'Rent the place', href: '/location/' }] }]
+    ? [{ title: 'Explore', links: [{ label: 'Journal', href: '/en/blog/' }, { label: 'Rent the place', href: '/en/location/' }] }]
     : [{ title: 'Explorer', links: [{ label: 'Le journal', href: '/blog/' }, { label: 'Louer le lieu', href: '/location/' }] }],
   socials = [
     { label: 'Instagram', href: 'https://www.instagram.com/laomcoliving/' },
@@ -63,8 +63,8 @@ const gridCls = columns.length >= 2 ? 'lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]' : 'lg
     <div class="relative border-t border-[#F2EBDB]/15 mt-12 pt-6 flex flex-wrap items-center justify-between gap-4">
       <p class="text-[#F2EBDB]/60 text-sm">LAOM © 2026. {en ? 'All rights reserved.' : 'Tous droits réservés.'}</p>
       <div class="flex gap-6 text-sm text-[#F2EBDB]/60">
-        <a href="/mentions-legales" class="hover:text-[#F2EBDB] transition-colors">{en ? 'Legal notice' : 'Mentions légales'}</a>
-        <a href="/mentions-legales#donnees-personnelles" class="hover:text-[#F2EBDB] transition-colors">{en ? 'Privacy' : 'Confidentialité'}</a>
+        <a href={en ? '/en/mentions-legales/' : '/mentions-legales'} class="hover:text-[#F2EBDB] transition-colors">{en ? 'Legal notice' : 'Mentions légales'}</a>
+        <a href={en ? '/en/confidentialite/' : '/mentions-legales#donnees-personnelles'} class="hover:text-[#F2EBDB] transition-colors">{en ? 'Privacy' : 'Confidentialité'}</a>
       </div>
     </div>
   </div>
