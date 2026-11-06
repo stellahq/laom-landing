@@ -7,6 +7,7 @@ import Layout from '~/layouts/Layout.astro'
 import { laboNav as navLinks } from '~/data/laboNav'
 import PageHeader from '~/components/laom/PageHeader.astro'
 import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import MomsKidsForm from '~/components/laom/MomsKidsForm.astro'
 import Eyebrow from '~/components/laom/Eyebrow.astro'
 import Pill from '~/components/laom/Pill.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
@@ -144,7 +145,7 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
     <div class="max-w-3xl mx-auto px-6 md:px-10 text-center space-y-6 text-xl md:text-2xl leading-relaxed text-[#412F1F]">
       <p><span class={mk}>T’offrir un vrai moment pour avancer sur ta boîte et tes projets</span>. Et <span class={mk}>offrir à tes enfants de belles journées en pleine nature</span>, à jouer et grandir avec d’autres enfants.</p>
       <p>Prendre soin de toi, de ton business, savoir ton enfant entre de bonnes mains. Et vivre tout ça <span class={mk}>avec d’autres femmes</span> qui, comme toi, jonglent entre leur rôle de mère et de femme.</p>
-      <div class="pt-4 flex flex-wrap gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Me contacter sur WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france.pdf" variant="outline">Télécharger la brochure</Pill></div>
+      <div class="pt-4"><Pill href="#contact" variant="primary" arrow={true}>Recevoir la brochure</Pill></div>
     </div>
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 mt-16 grid grid-cols-2 md:grid-cols-[1fr_1.25fr_1fr] gap-3 md:gap-4">
       <img src={M('silhouettes-danse')} alt="Deux femmes dansent au coucher du soleil, à LAOM" class="rounded-2xl w-full aspect-square md:aspect-auto md:h-[460px] object-cover" loading="lazy" />
@@ -327,12 +328,12 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
   <!-- Envie d'être de l'aventure ? -->
   <section id="contact" class="bg-[#FBF6EA] py-24 md:py-32">
     <div class="max-w-2xl mx-auto px-6 md:px-10 text-center">
-      <SectionHead align="center" title="Envie d’être" accent="de l’aventure ?" intro="Nous serons entre 12 et 15 familles. Entre mamans et enfants (les papas, ce sera pour une autre fois, ahaha). Écris-moi pour réserver ou si tu as des questions." />
-      <div class="mt-9 flex flex-wrap justify-center gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Me contacter sur WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france.pdf" variant="outline">Télécharger la brochure</Pill></div>
+      <SectionHead align="center" title="Envie d’être" accent="de l’aventure ?" intro="Nous serons entre 12 et 15 familles. Entre mamans et enfants (les papas, ce sera pour une autre fois, ahaha). Écris-moi pour réserver ou si tu as des questions, et reçois la brochure." />
+      <MomsKidsForm />
     </div>
   </section>
 
   <SiteFooter />
 
-  <StickyCta text="Me contacter sur WhatsApp" href={WHATSAPP} />
+  <StickyCta text="Recevoir la brochure" href="#contact" />
 </Layout>

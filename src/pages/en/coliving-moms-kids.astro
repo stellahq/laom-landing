@@ -8,6 +8,7 @@ import Layout from '~/layouts/Layout.astro'
 import { laboNavEn as navLinks } from '~/data/laboNav'
 import PageHeader from '~/components/laom/PageHeader.astro'
 import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import MomsKidsForm from '~/components/laom/MomsKidsForm.astro'
 import Eyebrow from '~/components/laom/Eyebrow.astro'
 import Pill from '~/components/laom/Pill.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
@@ -145,7 +146,7 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
     <div class="max-w-3xl mx-auto px-6 md:px-10 text-center space-y-6 text-xl md:text-2xl leading-relaxed text-[#412F1F]">
       <p><span class={mk}>Give yourself real time to move your business and your projects forward</span>. And <span class={mk}>give your children beautiful days in the wild</span>, playing and growing up with other kids.</p>
       <p>Taking care of yourself and your business, knowing your child is in good hands. And living all of it <span class={mk}>with other women</span> who, like you, juggle being a mother and being a woman.</p>
-      <div class="pt-4 flex flex-wrap gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Message me on WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france-en.pdf" variant="outline">Download the brochure</Pill></div>
+      <div class="pt-4"><Pill href="#contact" variant="primary" arrow={true}>Get the brochure</Pill></div>
     </div>
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14 mt-16 grid grid-cols-2 md:grid-cols-[1fr_1.25fr_1fr] gap-3 md:gap-4">
       <img src={M('silhouettes-danse')} alt="Two women dancing at sunset, at LAOM" class="rounded-2xl w-full aspect-square md:aspect-auto md:h-[460px] object-cover" loading="lazy" />
@@ -328,12 +329,12 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
   <!-- Envie d'être de l'aventure ? -->
   <section id="contact" class="bg-[#FBF6EA] py-24 md:py-32">
     <div class="max-w-2xl mx-auto px-6 md:px-10 text-center">
-      <SectionHead align="center" title="Want to join" accent="the adventure?" intro="We’ll be 12 to 15 families. Moms and kids only (dads, that’ll be another time, haha). Message me to book or if you have any questions." />
-      <div class="mt-9 flex flex-wrap justify-center gap-4"><Pill href={WHATSAPP} target="_blank" variant="primary" arrow={true}>Message me on WhatsApp</Pill><Pill href="/brochure/co-living-moms-kids-france-en.pdf" variant="outline">Download the brochure</Pill></div>
+      <SectionHead align="center" title="Want to join" accent="the adventure?" intro="We’ll be 12 to 15 families. Moms and kids only (dads, that’ll be another time, haha). Write to me to book or if you have any questions, and get the brochure." />
+      <MomsKidsForm />
     </div>
   </section>
 
   <SiteFooter />
 
-  <StickyCta text="Message me on WhatsApp" href={WHATSAPP} />
+  <StickyCta text="Get the brochure" href="#contact" />
 </Layout>

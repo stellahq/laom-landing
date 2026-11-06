@@ -1,0 +1,84 @@
+---
+// Formulaire « Envie d'être de l'aventure ? » du Co-living Moms & Kids, repris de
+// amandineblue.com. Envoi sur /api/form/moms-kids (relais vers le mail et le Kit
+// d'Amandine), puis la brochure se télécharge. Langue = langue de la page.
+const en = Astro.currentLocale === 'en'
+const BROCHURE = en ? '/brochure/co-living-moms-kids-france-en.pdf' : '/brochure/co-living-moms-kids-france.pdf'
+const t = en
+  ? {
+      prenom: 'First name', nom: 'Last name', email: 'Email', tel: 'Phone (WhatsApp)',
+      enfants: 'Your kids’ ages', facultatif: 'optional', message: 'Your message',
+      envoyer: 'Send and get the brochure', envoi: 'Sending…',
+      merci: 'Thank you! I’ve got your message, I’ll get back to you very soon 🌸',
+      telecharger: 'Download the brochure',
+      erreur: 'Oops, the message didn’t go through. Try again in a moment.',
+      consent: 'By sending this message, you’ll also receive my news. Unsubscribe in one click.',
+      donnees: 'Personal data', donneesHref: '/en/confidentialite/',
+    }
+  : {
+      prenom: 'Prénom', nom: 'Nom', email: 'Email', tel: 'Téléphone (WhatsApp)',
+      enfants: 'Âge de tes enfants', facultatif: 'facultatif', message: 'Ton message',
+      envoyer: 'Envoyer et recevoir la brochure', envoi: 'Envoi…',
+      merci: 'Merci ! J’ai bien reçu ton message, je te réponds très vite 🌸',
+      telecharger: 'Télécharger la brochure',
+      erreur: 'Oups, le message n’est pas parti. Réessaie dans un instant.',
+      consent: 'En envoyant ce message, tu recevras aussi mes nouvelles. Désinscription en un clic.',
+      donnees: 'Données personnelles', donneesHref: '/confidentialite/',
+    }
+const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
+const labelCls = 'grid gap-1.5 text-sm font-semibold text-[#412F1F]'
+---
+<form class="mk-form mt-10 grid gap-4 text-left" data-langue={en ? 'en' : 'fr'} data-envoi={t.envoi} data-erreur={t.erreur}>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <label class={labelCls}>{t.prenom}<input name="prenom" autocomplete="given-name" required class={inputCls} /></label>
+    <label class={labelCls}>{t.nom}<input name="nom" autocomplete="family-name" required class={inputCls} /></label>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <label class={labelCls}>{t.email}<input name="email" type="email" autocomplete="email" required class={inputCls} /></label>
+    <label class={labelCls}>{t.tel}<input name="telephone" type="tel" autocomplete="tel" required class={inputCls} /></label>
+  </div>
+  <label class={labelCls}><span>{t.enfants} <span class="font-normal text-[#1D1B18]/50">({t.facultatif})</span></span><input name="age_enfants" class={inputCls} /></label>
+  <label class={labelCls}>{t.message}<textarea name="message" rows="5" required class={inputCls}></textarea></label>
+  {/* Piège à robots : invisible pour les humains */}
+  <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+  <button type="submit" class="pill pill-primary justify-self-center mt-2">{t.envoyer}</button>
+  <p class="text-sm text-[#1D1B18]/55 text-center">{t.consent} <a href={t.donneesHref} class="underline hover:text-[#9A3922]">{t.donnees}</a></p>
+  <p class="mk-statut text-sm font-medium text-[#9A3922] text-center" role="status"></p>
+</form>
+<div class="mk-merci mt-10 text-center" hidden>
+  <p class="text-lg text-[#412F1F]">{t.merci}</p>
+  <a class="pill pill-primary inline-flex mt-6" href={BROCHURE} download>{t.telecharger}</a>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form.mk-form').forEach((f) => {
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      if (!f.checkValidity()) { f.reportValidity(); return }
+      const statut = f.querySelector('.mk-statut') as HTMLElement
+      const bouton = f.querySelector('button') as HTMLButtonElement
+      const texte = bouton.textContent
+      bouton.disabled = true
+      bouton.textContent = f.dataset.envoi || '…'
+      statut.textContent = ''
+      const d = Object.fromEntries(new FormData(f))
+      try {
+        const r = await fetch('/api/form/moms-kids', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...d, langue: f.dataset.langue }),
+        })
+        const j = (await r.json()) as { ok?: boolean }
+        if (!j.ok) throw new Error()
+        f.hidden = true
+        const merci = f.nextElementSibling as HTMLElement
+        merci.hidden = false
+        merci.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      } catch {
+        statut.textContent = f.dataset.erreur || ''
+        bouton.disabled = false
+        bouton.textContent = texte
+      }
+    })
+  })
+</script>
