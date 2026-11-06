@@ -40,13 +40,24 @@ const L = (n: string) => `/images/laom/${n}.webp`
       ctaText="Découvrir le projet" ctaHref="/notre-histoire/" />
   </div>
 
-  <!-- 2. LE LIEU — où ça se passe + galerie (apparition en cascade) (→ Le lieu) -->
+  <!-- 1bis. POUR QUI — trois publics (entrepreneurs, familles, artistes) -->
   <HabitatsSection reveal={true} bg="bg-[#F2EBDB]"
+      eyebrow="Pour qui"
+      title="Pour les entrepreneurs," accent="les familles et les artistes."
+      intro="LAOM accueille celles et ceux qui veulent vivre et travailler autrement. Chaque séjour a son format."
+      items={[
+        {img:L('peers-groupe'),title:'Entrepreneurs',desc:'La semaine de coliving du 6 au 12 juin 2027.',href:'/coliving/'},
+        {img:L('moms-kids/enfants-sauvages-26'),title:'Familles',desc:'Parents entrepreneurs : le Co-living Moms & Kids, du 13 au 27 juin 2027.',href:'/coliving-moms-kids/'},
+        {img:L('moms-kids/silhouettes-danse'),title:'Artistes',desc:'À venir. Inscris-toi à la LAOM Letter pour être prévenu·e.',href:'/newsletter/'},
+      ]} />
+
+  <!-- 2. LE LIEU — où ça se passe + galerie (apparition en cascade) (→ Le lieu) -->
+  <HabitatsSection reveal={true} bg="bg-[#FBF6EA]"
       eyebrow="Le lieu"
       title="21 hectares de nature préservée," accent="loin de tout."
       intro="Un ancien domaine agricole, à 1h30 de Montpellier. Les repas sortent du potager, on travaille au calme face à la rivière, et le soir la voie lactée s’allume, sans aucune pollution lumineuse."
       items={[
-        {img:L('coliving-laom-vue-interieure-01'),title:'Les chambres',desc:'Salle de bain privative et fibre, au calme.',href:'/le-lieu/'},
+        {img:L('coliving/coliving-laom-vue-interieure-01'),title:'Les chambres',desc:'Salle de bain privative et fibre, au calme.',href:'/le-lieu/'},
         {img:L('chillworking-salle-pratique'),title:'Le shala',desc:'Coworking, wifi fibre, face à la vallée.',href:'/le-lieu/'},
         {img:L('potager-rangs'),title:'Le potager',desc:'Ce qui pousse ici finit dans l’assiette.',href:'/le-lieu/'},
         {img:L('guinguette-produits-laom'),title:'La guinguette',desc:'Là où le collectif se retrouve.',href:'/le-lieu/'},
@@ -56,7 +67,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
 
   <!-- 3. LE COLIVING DE JUIN 2027 — concrètement (→ programme) -->
   <div animate-fade-in-up class="opacity-0">
-    <MediaText bg="bg-[#FBF6EA]" img={L('coworking-tablee')} alt="Des entrepreneurs au travail, ensemble, à LAOM"
+    <MediaText bg="bg-[#F2EBDB]" img={L('coworking-tablee')} alt="Des entrepreneurs au travail, ensemble, à LAOM"
       eyebrow="Le coliving de juin 2027"
       title="Du 6 au 12 juin," accent="tout est inclus."
       text="Six nuits en chambre, en tipi ou dans l’appartement, dix-huit repas faits maison, un cours de mouvement chaque matin (yoga, MovNat, danse), un espace de travail au calme, des ateliers et des soirées sous les étoiles. Tu arrives avec ton ordi et ta valise, on s’occupe du reste."
@@ -65,7 +76,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
 
   <!-- 4. LES FONDATEURS & LA CONVICTION — qui & pourquoi (→ Notre histoire) -->
   <div animate-fade-in-up class="opacity-0">
-    <MediaText bg="bg-[#F2EBDB]" reverse={true} img={L('charly-amandine-portrait')} ratio="aspect-[4/5]" alt="Charly et Amandine, fondateurs de LAOM"
+    <MediaText bg="bg-[#FBF6EA]" reverse={true} img={L('charly-amandine-portrait')} ratio="aspect-[4/5]" alt="Charly et Amandine, fondateurs de LAOM"
       eyebrow="Charly & Amandine"
       title="On vit mieux" accent="quand on choisit son cadre."
       text="C’est leur conviction. Ils ont quitté la ville, co-acheté un domaine de 21 hectares dans le sud de l’Aveyron, et construit le lieu qu’ils auraient voulu trouver : un endroit où l’on peut travailler, vivre en pleine nature et partager avec d’autres. LAOM, c’est leur projet de vie. Le coliving, c’est l’invitation à venir le vivre avec eux."
@@ -73,7 +84,7 @@ const L = (n: string) => `/images/laom/${n}.webp`
   </div>
 
   <!-- 5. PASSE À L'ACTION (→ Réserver + être rappelé·e) -->
-  <section animate-fade-in-up class="opacity-0 bg-[#FBF6EA] py-20 md:py-28">
+  <section animate-fade-in-up class="opacity-0 bg-[#F2EBDB] py-20 md:py-28">
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
       <CtaBanner img={L('coworking-echange')}
         eyebrow="À toi de jouer"
