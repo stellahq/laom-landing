@@ -1,0 +1,53 @@
+---
+// Version anglaise de /confidentialite (politique de confidentialité).
+import Layout from '~/layouts/Layout.astro'
+import Logo from '~/components/laom/Logo.astro'
+
+const h2 = 'text-xl md:text-2xl font-extrabold text-[#412F1F] tracking-[-0.01em] mt-12 mb-4'
+const p = 'text-[#1D1B18]/75 leading-relaxed mt-3'
+---
+
+<Layout title="Privacy policy · LAOM" description="How LAOM collects, uses and protects your personal data." hideChrome={true} seo={{ noIndex: true }}>
+  <div class="min-h-screen bg-[#FBF6EA]">
+    <header class="px-6 md:px-10 lg:px-14 py-6 border-b border-[#412F1F]/10">
+      <a href="/en/" class="text-[#9A3922] inline-block" aria-label="Back to home"><Logo height="1.7rem" /></a>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-6 py-14 md:py-20">
+      <p class="text-xs uppercase tracking-[0.18em] font-semibold text-[#73673E] mb-4">Personal data</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-[#412F1F] tracking-[-0.02em] leading-[1.1]">Privacy policy</h1>
+      <p class={p}>We only collect what we need to answer you and organise your stay. We never sell your data.</p>
+
+      <h2 class={h2}>Who is responsible for your data</h2>
+      <p class={p}>LAOM, SAS à capital variable (French simplified joint-stock company with variable capital), La Margue, 12400 Saint-Félix-de-Sorgues, France. SIREN 898 814 405. Represented by Charly Aubert. Contact: <a href="mailto:hello@laom.fr" class="underline hover:text-[#9A3922]">hello@laom.fr</a>.</p>
+
+      <h2 class={h2}>What we collect</h2>
+      <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#1D1B18]/75 leading-relaxed">
+        <li>When you fill in a form (booking, call request): last name, first name, email, phone number, what you do, your website or social media if you share them, your answers to the questions and your message.</li>
+        <li>When you sign up for the newsletter: first name and email.</li>
+        <li>When you browse the site: audience measurement data and cookies, depending on your choice in the cookie banner.</li>
+      </ul>
+
+      <h2 class={h2}>Why</h2>
+      <p class={p}>To get back to you, answer your request, organise your stay, and send you news about LAOM if you agreed to it. The legal basis is your consent, given by ticking the box on the form.</p>
+
+      <h2 class={h2}>Who has access</h2>
+      <p class={p}>The LAOM team, and the technical providers that run the site:</p>
+      <ul class="list-disc pl-5 mt-3 space-y-1.5 text-[#1D1B18]/75 leading-relaxed">
+        <li>Cloudflare: hosting of the site and the database</li>
+        <li>Kit: sending emails and the newsletter</li>
+        <li>Resend: sending confirmation emails</li>
+        <li>Meta, Google Analytics and DataFast: audience measurement and advertising, only if you accept cookies</li>
+      </ul>
+      <p class={p}>Some of these providers are based in the United States. These transfers are covered by the safeguards provided for by the GDPR.</p>
+
+      <h2 class={h2}>How long</h2>
+      <p class={p}>3 years at most after our last exchange. You can unsubscribe from our emails at any time, using the link at the bottom of each message.</p>
+
+      <h2 class={h2}>Your rights</h2>
+      <p class={p}>You can ask to access, correct or delete your data, object to its use, or get a copy of it. Write to us at <a href="mailto:hello@laom.fr" class="underline hover:text-[#9A3922]">hello@laom.fr</a> and we’ll reply within a month. If you feel your rights are not being respected, you can contact the <a href="https://www.cnil.fr/en" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#9A3922]">CNIL</a>, the French data protection authority.</p>
+
+      <p class="text-sm text-[#1D1B18]/50 mt-14">Last updated: November 2026. This is a translation for convenience; the <a href="/confidentialite/" class="underline hover:text-[#9A3922]">French version</a> prevails. See also the <a href="/en/mentions-legales/" class="underline hover:text-[#9A3922]">legal notice</a>.</p>
+    </main>
+  </div>
+</Layout>

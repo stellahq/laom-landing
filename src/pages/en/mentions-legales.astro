@@ -1,0 +1,193 @@
+---
+// Version anglaise de /mentions-legales (traduction ; la version française prévaut).
+import Layout from '~/layouts/Layout.astro'
+import { createWebPageSchema } from '~/utils/schema'
+
+const pageTitle = 'Legal notice'
+const pageDescription = 'Legal notice for laom.fr: publisher, hosting, personal data protection and cookies.'
+
+const pageSchema = createWebPageSchema({
+  name: pageTitle,
+  url: Astro.url.toString(),
+  description: pageDescription,
+})
+---
+
+<Layout
+  title={`${pageTitle} – LAOM`}
+  description={pageDescription}
+  seo={{
+    ldJSON: pageSchema,
+    noIndex: true,
+  }}
+>
+  <!-- Hero -->
+  <section class="-mt-24 md:-mt-28 py-32 lg:py-40 bg-white">
+    <div class="max-w-5xl mx-auto px-10 sm:px-16 lg:px-24 text-center">
+      <span class="block text-xs font-light tracking-[0.2em] uppercase text-black/40 mb-6">
+        Legal information
+      </span>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-light text-black mb-6 tracking-tight">
+        Legal notice
+      </h1>
+      <p class="text-base font-light text-black/60 max-w-2xl mx-auto">
+        This English version is provided for convenience. In case of any discrepancy, the <a href="/mentions-legales/" class="underline underline-offset-4 hover:text-black transition-colors">French version</a> prevails.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contenu -->
+  <section class="py-24 bg-[#faf9f6]">
+    <div class="max-w-3xl mx-auto px-10 sm:px-16 lg:px-24">
+
+      <!-- 1. Editeur -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">1. Website publisher</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-2">
+          <p>The website <strong class="text-black">laom.fr</strong> is published by:</p>
+          <p><strong class="text-black">LAOM</strong> (formerly La Ferme du Verseau)</p>
+          <p>Société par actions simplifiée (SAS) with variable capital</p>
+          <p>Share capital: €1,000 (variable)</p>
+          <p>Registered office: La Margue, 12400 Saint-Félix-de-Sorgues, France</p>
+          <p>SIREN: 898 814 405</p>
+          <p>RCS Rodez B 898 814 405</p>
+          <p>President and publication director: Charly Aubert</p>
+          <p>
+            Contact:
+            <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-black transition-colors">hello@laom.fr</a>
+            · +33 6 73 68 35 73
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. Hebergeur -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">2. Hosting</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-2">
+          <p>The website is hosted by:</p>
+          <p><strong class="text-black">Cloudflare, Inc.</strong></p>
+          <p>101 Townsend Street, San Francisco, CA 94107, United States</p>
+          <p>
+            Website:
+            <a href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer" aria-label="Cloudflare (opens in new tab)" class="underline underline-offset-4 hover:text-black transition-colors">www.cloudflare.com</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- 3. Propriete intellectuelle -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">3. Intellectual property</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            All content on laom.fr (texts, images, photographs, videos, logos, illustrations, layout) is the exclusive property of LAOM or its partners and is protected by French and international intellectual property laws.
+          </p>
+          <p>
+            Any reproduction, representation, modification, publication, adaptation or use of all or part of the website’s content, by any means or process, is prohibited without LAOM’s prior written permission.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4. Donnees personnelles -->
+      <div class="mb-16" id="donnees-personnelles" style="scroll-margin-top:7rem">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">4. Personal data protection</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            In accordance with the General Data Protection Regulation (GDPR, EU Regulation 2016/679) and the amended French Data Protection Act of 6 January 1978, you have the right to access, rectify, erase, restrict the processing of, port and object to the processing of your personal data.
+          </p>
+          <p>
+            <strong class="text-black">Data controller:</strong> LAOM, represented by Charly Aubert.
+          </p>
+          <p>
+            <strong class="text-black">Data collected:</strong> the personal data that may be collected on this website is the following:
+          </p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li>Email address (newsletter sign-up, contact form)</li>
+            <li>First and last name (contact form)</li>
+            <li>Browsing data (cookies, IP address, see the Cookies section)</li>
+          </ul>
+          <p>
+            <strong class="text-black">Purposes:</strong> the data collected is used to answer your contact requests, send you the newsletter if you signed up for it, and improve the user experience of the website.
+          </p>
+          <p>
+            <strong class="text-black">Retention period:</strong> data is kept for as long as needed for the purpose of the processing, and at most 3 years after the last contact.
+          </p>
+          <p>
+            <strong class="text-black">Processors:</strong> data may be shared with the following providers for the operation of the website:
+          </p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li>Cloudflare (hosting)</li>
+            <li>Kit (formerly ConvertKit) (newsletter management)</li>
+            <li>Google Analytics (audience measurement)</li>
+            <li>Meta Platforms (advertising pixel)</li>
+          </ul>
+          <p>
+            To exercise your rights, you can contact us at:
+            <a href="mailto:hello@laom.fr" class="underline underline-offset-4 hover:text-black transition-colors">hello@laom.fr</a>.
+          </p>
+          <p>
+            You also have the right to lodge a complaint with the CNIL, the French data protection authority:
+            <a href="https://www.cnil.fr/en" target="_blank" rel="noopener noreferrer" aria-label="CNIL (opens in new tab)" class="underline underline-offset-4 hover:text-black transition-colors">www.cnil.fr</a>.
+          </p>
+          <p>
+            More details in our <a href="/en/confidentialite/" class="underline underline-offset-4 hover:text-black transition-colors">privacy policy</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5. Cookies -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">5. Cookies</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            laom.fr uses cookies and similar technologies for the following purposes:
+          </p>
+          <ul class="list-disc list-inside space-y-1 pl-2">
+            <li><strong class="text-black">Analytics cookies (Google Analytics)</strong>: audience measurement, analysis of traffic and visitor behaviour to improve the website.</li>
+            <li><strong class="text-black">Advertising cookies (Meta Pixel)</strong>: conversion tracking and ad targeting on Meta platforms (Facebook, Instagram).</li>
+            <li><strong class="text-black">Functional cookies (Cloudflare)</strong>: security, performance and protection against attacks.</li>
+          </ul>
+          <p>
+            You can manage your cookie preferences at any time in your browser settings. Disabling some cookies may affect your browsing experience.
+          </p>
+        </div>
+      </div>
+
+      <!-- 6. Responsabilite -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">6. Limitation of liability</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            LAOM does its best to keep the information on the website accurate and up to date. However, LAOM cannot guarantee the accuracy, precision or completeness of the information provided.
+          </p>
+          <p>
+            LAOM accepts no liability for any imprecision, inaccuracy or omission in the information available on the website.
+          </p>
+          <p>
+            The website may contain links to other websites. LAOM has no control over these websites and accepts no liability for their content.
+          </p>
+        </div>
+      </div>
+
+      <!-- 7. Droit applicable -->
+      <div class="mb-16">
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">7. Governing law</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-4">
+          <p>
+            This legal notice is governed by French law. In the event of a dispute, and after an attempt at amicable resolution, the Commercial Court of Millau (Tribunal de commerce de Millau) has jurisdiction.
+          </p>
+        </div>
+      </div>
+
+      <!-- 8. Credits -->
+      <div>
+        <h2 class="text-2xl md:text-3xl font-light text-black mb-6">8. Credits</h2>
+        <div class="text-base font-light text-black/70 leading-relaxed space-y-2">
+          <p>Design and development: LAOM</p>
+          <p>Photographs: LAOM and contributors</p>
+          <p>Framework: Astro</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</Layout>
