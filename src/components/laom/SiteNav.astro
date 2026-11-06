@@ -15,6 +15,7 @@ const {
     { label: 'Blog', href: '#blog' },
     { label: 'Contact', href: '#contact' },
   ],
+  // ctaText / ctaHref : gardés pour compatibilité, le bouton du menu est retiré (nov. 2026).
   ctaText = 'Réserver', ctaHref = '#contact', transparent = true,
 } = Astro.props
 const path = Astro.url.pathname
@@ -42,7 +43,6 @@ const langSwitch = {
         <li><a href={langSwitch.href} class="snav-link" hreflang={isEn ? 'fr' : 'en'} title={langSwitch.title}>{langSwitch.label}</a></li>
       </ul>
       <div class="flex items-center gap-3 justify-self-end">
-        <a href={ctaHref} class="snav-cta hidden lg:inline-block">{ctaText}</a>
         <button type="button" class="snav-burger lg:hidden" aria-label={isEn ? 'Open menu' : 'Ouvrir le menu'} aria-expanded="false" aria-controls="snav-mobile" data-burger>
           <span></span><span></span><span></span>
         </button>
@@ -57,7 +57,6 @@ const langSwitch = {
         ))}
         <li><a href={langSwitch.href} class="snav-mobile-link" hreflang={isEn ? 'fr' : 'en'}>{isEn ? 'Version française' : 'English version'}</a></li>
       </ul>
-      <a href={ctaHref} class="snav-mobile-cta">{ctaText}</a>
     </div>
   </nav>
 </header>
