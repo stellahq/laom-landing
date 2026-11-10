@@ -14,6 +14,8 @@ const t = en
       erreur: 'Oops, the message didn’t go through. Try again in a moment.',
       consent: 'By sending this message, you’ll also receive my news. Unsubscribe in one click.',
       donnees: 'Personal data', donneesHref: '/en/confidentialite/',
+      source: 'How did you hear about this co-living?', choisir: 'Choose…',
+      options: ['Instagram', 'Facebook', 'Word of mouth (a friend, another mom)', 'Google or another search', 'Amandine’s or LAOM’s newsletter', 'The LAOM website', 'Other'],
     }
   : {
       prenom: 'Prénom', nom: 'Nom', email: 'Email', tel: 'Téléphone (WhatsApp)',
@@ -24,6 +26,8 @@ const t = en
       erreur: 'Oups, le message n’est pas parti. Réessaie dans un instant.',
       consent: 'En envoyant ce message, tu recevras aussi mes nouvelles. Désinscription en un clic.',
       donnees: 'Données personnelles', donneesHref: '/confidentialite/',
+      source: 'Comment as-tu entendu parler de ce co-living ?', choisir: 'Choisir…',
+      options: ['Instagram', 'Facebook', 'Bouche-à-oreille (une amie, une autre maman)', 'Google ou une recherche', 'La newsletter d’Amandine ou de LAOM', 'Le site de LAOM', 'Autre'],
     }
 const inputCls = 'w-full rounded-xl border border-[#412F1F]/15 bg-white px-4 py-3 text-[#1D1B18] focus:border-[#9A3922] focus:ring-1 focus:ring-[#9A3922] outline-none transition'
 const labelCls = 'grid gap-1.5 text-sm font-semibold text-[#412F1F]'
@@ -38,6 +42,9 @@ const labelCls = 'grid gap-1.5 text-sm font-semibold text-[#412F1F]'
     <label class={labelCls}>{t.tel}<input name="telephone" type="tel" autocomplete="tel" required class={inputCls} /></label>
   </div>
   <label class={labelCls}><span>{t.enfants} <span class="font-normal text-[#1D1B18]/50">({t.facultatif})</span></span><input name="age_enfants" class={inputCls} /></label>
+  <label class={labelCls}><span>{t.source} <span class="font-normal text-[#1D1B18]/50">({t.facultatif})</span></span>
+    <select name="decouverte" class={inputCls}><option value="">{t.choisir}</option>{t.options.map((o) => <option value={o}>{o}</option>)}</select>
+  </label>
   <label class={labelCls}>{t.message}<textarea name="message" rows="5" required class={inputCls}></textarea></label>
   {/* Piège à robots : invisible pour les humains */}
   <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />

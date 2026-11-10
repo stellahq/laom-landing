@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro'
 import { checkRateLimit, clientIp, tooManyRequests } from '~/lib/rate-limit'
+import { getAttribution } from '~/lib/attribution'
 
 // POST /api/form/moms-kids
 // Formulaire « Envie d'être de l'aventure ? » de /coliving-moms-kids (FR et EN).
@@ -22,7 +23,7 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } })
 const champ = (v: unknown, max = 200) => (typeof v === 'string' ? v.trim().slice(0, max) : '')
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request, locals, cookies }) => {
   const env = (locals as any).runtime?.env
   const db = env?.TRACKING_DB
 
@@ -46,15 +47,24 @@ export const POST: APIRoute = async ({ request, locals }) => {
     telephone: champ(d.telephone, 40),
     age_enfants: champ(d.age_enfants),
     message: champ(d.message, 5000),
+    decouverte: champ(d.decouverte, 120),
   }
   if (!data.prenom || !data.message || !EMAIL_RE.test(data.email)) return json({ ok: false }, 400)
+
+  // Provenance technique (site d'origine, première page, campagne), lue côté serveur.
+  const attr: any = db ? ((await getAttribution(db, cookies.get('laom_vid')?.value || undefined).catch(() => null)) || {}) : {}
+  const provenance = [
+    attr.referrer ? `vient de ${attr.referrer}` : 'pas de site d’origine (accès direct, appli ou lien privé)',
+    attr.landing_page ? `arrivée sur ${attr.landing_page}` : null,
+    attr.utm_source ? `campagne ${attr.utm_source} / ${attr.utm_campaign ?? '—'}` : null,
+  ].filter(Boolean).join(' · ')
 
   // 1. Mail à Amandine (bloquant : c'est ce que la personne attend).
   try {
     const r = await fetch(`${SITE_PERSO}/api/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, source: `Co-living France (laom.fr${langue === 'en' ? ', EN' : ''})` }),
+      body: JSON.stringify({ ...data, provenance, source: `Co-living France (laom.fr${langue === 'en' ? ', EN' : ''})` }),
     })
     const j: any = await r.json().catch(() => ({}))
     if (!r.ok || !j.ok) throw new Error(`contact ${r.status}`)
@@ -83,6 +93,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const rows = [
         ['Prénom', data.prenom], ['Nom', data.nom], ['Email', data.email], ['Téléphone (WhatsApp)', data.telephone],
         ['Âge des enfants', data.age_enfants], ['Langue', en ? 'Anglais (formulaire EN)' : 'Français'], ['Message', data.message],
+        ['A connu le co-living par', data.decouverte], ['Provenance', provenance],
       ]
       const html = `<h2>Demande Co-living Moms &amp; Kids — ${esc(data.prenom)} ${esc(data.nom)}</h2><table cellpadding="6" style="border-collapse:collapse">${
         rows.map(([k, v]) => `<tr><td style="color:#888">${k}</td><td><strong>${v ? esc(v) : '—'}</strong></td></tr>`).join('')
@@ -145,7 +156,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       await db
         .prepare(`INSERT INTO leads (type, status, first_name, last_name, email, phone, answers, consent) VALUES ('moms-kids', 'lead', ?, ?, ?, ?, ?, ?)`)
         .bind(data.prenom, data.nom || null, data.email, data.telephone || null,
-          JSON.stringify({ age_enfants: data.age_enfants, message: data.message, langue }),
+          JSON.stringify({ age_enfants: data.age_enfants, message: data.message, langue, decouverte: data.decouverte, provenance }),
           JSON.stringify({ newsletter: true, at: new Date().toISOString() }))
         .run()
     } catch (e) {

@@ -76,6 +76,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
       .slice(0, 10).map((a: unknown) => String(field(a, 200) || '')),
     semaine: field(body.semaine, 60),
     message: field(body.message, 2000),
+    decouverte: field(body.decouverte, 120),
   }
 
   // Attribution resolue cote serveur (verite), pas ce que le client pretend.
@@ -135,12 +136,14 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
       const utmLine = (attr as any).utm_source
         ? `${(attr as any).utm_source} / ${(attr as any).utm_campaign ?? '—'} / ${(attr as any).utm_content ?? '—'}`
         : 'directe / inconnue'
+      // Provenance technique : site d'où vient la personne + première page vue.
+      const provenance = [(attr as any).referrer ? `vient de ${(attr as any).referrer}` : 'pas de site d’origine (accès direct, appli ou lien privé)', (attr as any).landing_page ? `arrivée sur ${(attr as any).landing_page}` : null].filter(Boolean).join(' · ')
       const rows = [
         ['Nom', nom], ['Email', email], ['Téléphone', tel],
         ['Activité', answers.activite], ['Site / réseaux', answers.references], ['Ancienneté', answers.anciennete],
         ['Équipe', answers.equipe], ['Déjà fait', answers.experience],
         ['Attentes', answers.attentes.join(' · ')], ['Hébergement', answers.semaine],
-        ['Message', answers.message], ['Langue', isEn ? 'Anglais (formulaire EN)' : 'Français'], ['Source', utmLine],
+        ['Message', answers.message], ['A connu LAOM par', answers.decouverte], ['Provenance', provenance], ['Langue', isEn ? 'Anglais (formulaire EN)' : 'Français'], ['Source', utmLine],
       ]
       // esc() sur toutes les valeurs utilisateur : un champ "message" contenant du
       // HTML ne doit jamais etre rendu tel quel dans la boite de l'equipe (phishing).
