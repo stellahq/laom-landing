@@ -138,7 +138,7 @@ async function processLead(env: Env, lead: MetaLead): Promise<'new' | 'dup' | 's
   }
 
   // Notif equipe — meme esprit que /api/form/candidater
-  const to = String(env.LEAD_NOTIFY_EMAIL || 'laomcoliving@gmail.com,eduardo@weble.fr')
+  const to = String(env.LEAD_NOTIFY_EMAIL || 'laomcoliving@gmail.com')
     .split(',').map((s) => s.trim()).filter(Boolean)
   const rows = [
     ['Nom', `${firstName} ${lastName}`.trim()], ['Email', email], ['Téléphone', phone],
