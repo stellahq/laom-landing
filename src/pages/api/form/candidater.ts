@@ -129,7 +129,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
     const resendKey = env?.RESEND_API_KEY
     // Destinataires de la notif equipe (liste separee par des virgules, surchargeables
     // via la var LEAD_NOTIFY_EMAIL sur le worker).
-    const to = String(env?.LEAD_NOTIFY_EMAIL || 'laomcoliving@gmail.com,eduardo@weble.fr')
+    const to = String(env?.LEAD_NOTIFY_EMAIL || 'laomcoliving@gmail.com')
       .split(',').map((s: string) => s.trim()).filter(Boolean)
     if (resendKey) {
       const utmLine = (attr as any).utm_source
