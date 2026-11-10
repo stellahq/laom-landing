@@ -72,6 +72,7 @@ const C = en ? {
   q7: 'Have you ever done a coliving, a retreat or a stay with other entrepreneurs?',
   q8: 'What are you looking for at LAOM?', many: '(several answers possible)', q8err: 'Pick at least one answer.',
   q9: 'Which accommodation are you interested in?', optional: '(optional)',
+  qSource: 'How did you hear about LAOM?', choose: 'Choose…',
   rgpd: 'I agree that LAOM may use my information to contact me and send me news about the project. I can unsubscribe at any time.', privacy: 'Privacy policy',
   thanks: 'Thank you', meanwhile: 'In the meantime, we’ll send you an email with a few details about the place and what to expect.',
   backHome: 'Back to home', sending: 'Sending…', error: 'Oops, something went wrong. Please try again in a moment.',
@@ -83,6 +84,7 @@ const C = en ? {
   q7: 'As-tu déjà vécu un coliving, une retraite ou un séjour entre entrepreneurs ?',
   q8: 'Qu’est-ce que tu viens chercher à LAOM ?', many: '(plusieurs réponses possibles)', q8err: 'Choisis au moins une réponse.',
   q9: 'Quel hébergement t’intéresse ?', optional: '(facultatif)',
+  qSource: 'Comment as-tu entendu parler de LAOM ?', choose: 'Choisir…',
   rgpd: 'J’accepte que LAOM utilise mes informations pour me recontacter et m’envoyer des informations sur le projet. Je peux me désinscrire à tout moment.', privacy: 'Politique de confidentialité',
   thanks: 'Merci', meanwhile: 'D’ici là, on t’envoie un email avec quelques infos sur le lieu et ce qui t’attend.',
   backHome: 'Revenir à l’accueil', sending: 'Envoi…', error: 'Oups, un souci à l’envoi. Réessaie dans un instant.',
@@ -106,6 +108,10 @@ const attentes = en ? [
   'Découvrir le lieu et le projet LAOM',
 ]
 // Le champ garde le nom « semaine » (colonne D1), il porte désormais l'hébergement choisi.
+// « Comment as-tu entendu parler de LAOM ? » (facultatif, liste déroulante).
+const decouvertes = en
+  ? ['Instagram', 'Facebook', 'Word of mouth (a friend, a colleague)', 'Google or another search', 'The LAOM Letter (newsletter)', 'An event at LAOM', 'Other']
+  : ['Instagram', 'Facebook', 'Bouche-à-oreille (un·e ami·e, un·e collègue)', 'Google ou une recherche', 'La LAOM Letter (newsletter)', 'Un événement à LAOM', 'Autre']
 const hebergements = en ? ['Single room', 'Couple room', 'Tipi', 'The apartment', 'Not sure yet'] : ['Chambre individuelle', 'Chambre en couple', 'Tipi', 'L’appartement', 'Je ne sais pas encore']
 ---
 
@@ -199,6 +205,15 @@ const hebergements = en ? ['Single room', 'Couple room', 'Tipi', 'The apartment'
             <textarea id="message" name="message" rows="4" placeholder={T.messagePlaceholder} class={inputCls}></textarea>
           </div>
 
+          <!-- Comment as-tu entendu parler de LAOM ? -->
+          <div class="space-y-3">
+            <label for="decouverte" class="font-semibold text-[#412F1F]">{C.qSource} <span class="font-normal text-[#1D1B18]/50">{C.optional}</span></label>
+            <select id="decouverte" name="decouverte" class={inputCls}>
+              <option value="">{C.choose}</option>
+              {decouvertes.map((o) => <option value={o}>{o}</option>)}
+            </select>
+          </div>
+
           <!-- RGPD -->
           <label class="flex items-start gap-3 text-sm text-[#1D1B18]/70">
             <input type="checkbox" name="rgpd" required class="mt-1 accent-[#9A3922] w-4 h-4 shrink-0" />
@@ -256,6 +271,7 @@ const hebergements = en ? ['Single room', 'Couple room', 'Tipi', 'The apartment'
       attentes: fd.getAll('attentes').map(String),
       semaine: String(fd.get('semaine') || ''),
       message: String(fd.get('message') || ''),
+      decouverte: String(fd.get('decouverte') || ''),
       rgpd: !!fd.get('rgpd'),
       type: form.dataset.mode === 'rappel' ? 'rappel' : 'reservation',
       lang: form.dataset.lang === 'en' ? 'en' : 'fr',
