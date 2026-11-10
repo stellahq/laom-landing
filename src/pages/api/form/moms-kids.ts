@@ -138,7 +138,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
         method: 'POST',
         headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: 'Amandine · Co-living Moms & Kids <hello@laom.fr>',
+          from: 'Amandine <hello@laom.fr>',
           to: [data.email],
           reply_to: 'heyamandineblue@gmail.com',
           subject: en ? 'Got your message! · Moms & Kids co-living, June 2027' : 'Bien reçu ! · Co-living Moms & Kids, juin 2027',
