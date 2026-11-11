@@ -2,8 +2,8 @@
 // Faq — questions/réponses en accordéon natif (<details>), accessible, sans JS.
 // Lève les objections qui bloquent le passage à l'action. Compo template DS1.
 interface Item { q: string; a: string }
-interface Props { eyebrow?: string; title: string; accent?: string; items: Item[]; bg?: string }
-const { eyebrow = 'Questions fréquentes', title, accent, items, bg = 'bg-[#F2EBDB]' } = Astro.props
+interface Props { eyebrow?: string; title: string; accent?: string; items: Item[]; bg?: string; link?: { href: string; label: string } }
+const { eyebrow = 'Questions fréquentes', title, accent, items, bg = 'bg-[#F2EBDB]', link } = Astro.props
 ---
 <section class:list={[bg, 'py-24 md:py-32']}>
   <div class="max-w-3xl mx-auto px-6 md:px-10">
@@ -24,6 +24,11 @@ const { eyebrow = 'Questions fréquentes', title, accent, items, bg = 'bg-[#F2EB
         </details>
       ))}
     </div>
+    {link && (
+      <p class="mt-8">
+        <a href={link.href} target="_blank" rel="noopener" class="font-semibold text-[#9A3922] underline underline-offset-4 hover:text-[#412F1F]">{link.label}</a>
+      </p>
+    )}
   </div>
 </section>
 <style>

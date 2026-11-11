@@ -18,6 +18,7 @@ import MediaText from '~/components/laom/sections/MediaText.astro'
 import Statement from '~/components/laom/sections/Statement.astro'
 import OfferFeature from '~/components/laom/sections/OfferFeature.astro'
 import CtaImage from '~/components/laom/sections/CtaImage.astro'
+import Faq from '~/components/laom/sections/Faq.astro'
 import StickyCta from '~/components/laom/StickyCta.astro'
 import SiteFooter from '~/components/laom/SiteFooter.astro'
 import { RESERVER_EN as RESERVER, RAPPEL_EN as RAPPEL } from '~/data/coliving'
@@ -210,6 +211,20 @@ const L = (n: string) => `/images/laom/${n}.webp`
       ]}
       ctaText="Book your spot" ctaHref={RESERVER}
       secondaryText="Request a call" secondaryHref={RAPPEL} />
+  </div>
+
+
+  <!-- FAQ — réservation et annulation -->
+  <div animate-fade-in-up class="opacity-0">
+    <Faq bg="bg-[#FBF6EA]" eyebrow="FAQ" title="Booking" accent="and cancellation"
+      items={[
+        { q: 'Do I have to pay everything when I book?', a: 'No. You pay at least 30% to secure your spot, or the full amount if you prefer. The balance is due 30 days before your stay begins.' },
+        { q: 'What if I need to cancel?', a: 'More than 30 days before your stay, we keep 30% of the price and refund the rest if you have already paid it. 30 days or less before, the full stay is due.' },
+        { q: 'Can I transfer my spot?', a: 'Yes, to someone else, free of charge, until your stay begins. You can also ask us to offer it to our waiting list: if someone takes it, we refund what you paid, minus a €50 handling fee.' },
+        { q: 'What if something serious happens?', a: 'Accident, hospitalisation, serious illness, death of a loved one: with written proof, what you paid becomes a credit valid for 12 months on a future stay at LAOM.' },
+        { q: 'What if you cancel?', a: 'We refund you in full.' },
+      ]}
+      link={{ href: '/conditions/laom-conditions-reservation-annulation.pdf', label: 'Read the full booking and cancellation terms (PDF, in French)' }} />
   </div>
 
   <!-- ⑪ L'INVITATION -->
