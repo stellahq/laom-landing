@@ -285,22 +285,8 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
     </div>
   </section>
 
-
-  <!-- FAQ — réservation et annulation -->
-  <div animate-fade-in-up class="opacity-0">
-    <Faq bg="bg-[#FBF6EA]" eyebrow="Questions fréquentes" title="Réservation" accent="et annulation"
-      items={[
-        { q: 'Faut-il tout payer à la réservation ?', a: 'Non. Tu règles au moins 30 % pour réserver ta place, ou la totalité si tu préfères. Le solde est demandé 30 jours avant le début du séjour.' },
-        { q: 'Et si je dois annuler ?', a: 'Plus de 30 jours avant le début du séjour, on garde 30 % du prix et on te rembourse le reste si tu l’as déjà versé. À 30 jours ou moins, le séjour est dû.' },
-        { q: 'Je peux céder ma place ?', a: 'Oui, à quelqu’un d’autre, sans frais, jusqu’au début du séjour. Tu peux aussi nous demander de la proposer à notre liste d’attente : si quelqu’un la reprend, on te rembourse ce que tu as versé, moins 50 € de frais de gestion.' },
-        { q: 'Et en cas de coup dur ?', a: 'Accident, hospitalisation, maladie grave, décès d’un proche : sur justificatif, ce que tu as versé devient un avoir valable 12 mois sur un prochain séjour à LAOM.' },
-        { q: 'Et si c’est vous qui annulez ?', a: 'On te rembourse intégralement.' },
-      ]}
-      link={{ href: '/conditions/laom-conditions-reservation-annulation.pdf', label: 'Lire les conditions complètes de réservation et d’annulation (PDF)' }} />
-  </div>
-
   <!-- Le lieu -->
-  <section class="bg-[#F2EBDB] py-24 md:py-32">
+  <section class="bg-[#FBF6EA] py-24 md:py-32">
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
       <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-12">
         <SectionHead eyebrow="Le lieu" title="Chez moi," accent="à LAOM" />
@@ -326,7 +312,7 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
   </section>
 
   <!-- Qui organise ? -->
-  <section class="bg-[#FBF6EA] py-24 md:py-32">
+  <section class="bg-[#F2EBDB] py-24 md:py-32">
     <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14 grid md:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center">
       <img src={M('amandine-portrait-table')} alt="Portrait d’Amandine, souriante, accoudée à une table en bois dans la nature" class="rounded-[2rem] w-full max-w-sm mx-auto aspect-[4/5] object-cover" loading="lazy" />
       <div>
@@ -341,12 +327,25 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
   </section>
 
   <!-- Envie d'être de l'aventure ? -->
-  <section id="contact" class="bg-[#F2EBDB] py-24 md:py-32">
+  <section id="contact" class="bg-[#FBF6EA] py-24 md:py-32">
     <div class="max-w-2xl mx-auto px-6 md:px-10 text-center">
       <SectionHead align="center" title="Envie d’être" accent="de l’aventure ?" intro="Nous serons entre 12 et 15 familles. Entre mamans et enfants (les papas, ce sera pour une autre fois, ahaha). Écris-moi pour réserver ou si tu as des questions, et reçois la brochure." />
       <MomsKidsForm />
     </div>
   </section>
+
+  <!-- FAQ — réservation et annulation -->
+  <div animate-fade-in-up class="opacity-0">
+    <Faq compact bg="bg-[#F2EBDB]" eyebrow="Questions fréquentes" title="Réservation" accent="et annulation"
+      items={[
+        { q: 'Faut-il tout payer à la réservation ?', a: 'Non. Tu règles au moins 30 % pour réserver ta place, ou la totalité si tu préfères. Le solde est demandé 30 jours avant le début du séjour.' },
+        { q: 'Et si je dois annuler ?', a: 'Plus de 30 jours avant le début du séjour, on garde 30 % du prix et on te rembourse le reste si tu l’as déjà versé. À 30 jours ou moins, le séjour est dû.' },
+        { q: 'Je peux céder ma place ?', a: 'Oui, à quelqu’un d’autre, sans frais, jusqu’au début du séjour. Tu peux aussi nous demander de la proposer à notre liste d’attente : si quelqu’un la reprend, on te rembourse ce que tu as versé, moins 50 € de frais de gestion.' },
+        { q: 'Et en cas de coup dur ?', a: 'Accident, hospitalisation, maladie grave, décès d’un proche : sur justificatif, ce que tu as versé devient un avoir valable 12 mois sur un prochain séjour à LAOM.' },
+        { q: 'Et si c’est vous qui annulez ?', a: 'On te rembourse intégralement.' },
+      ]}
+      link={{ href: '/conditions/laom-conditions-reservation-annulation.pdf', label: 'Lire les conditions complètes de réservation et d’annulation (PDF)' }} />
+  </div>
 
   <SiteFooter />
 

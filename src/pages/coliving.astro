@@ -212,20 +212,6 @@ const L = (n: string) => `/images/laom/${n}.webp`
       secondaryText="Remplir le formulaire pour être rappelé·e" secondaryHref={RAPPEL} />
   </div>
 
-
-  <!-- FAQ — réservation et annulation -->
-  <div animate-fade-in-up class="opacity-0">
-    <Faq bg="bg-[#FBF6EA]" eyebrow="Questions fréquentes" title="Réservation" accent="et annulation"
-      items={[
-        { q: 'Faut-il tout payer à la réservation ?', a: 'Non. Tu règles au moins 30 % pour réserver ta place, ou la totalité si tu préfères. Le solde est demandé 30 jours avant le début du séjour.' },
-        { q: 'Et si je dois annuler ?', a: 'Plus de 30 jours avant le début du séjour, on garde 30 % du prix et on te rembourse le reste si tu l’as déjà versé. À 30 jours ou moins, le séjour est dû.' },
-        { q: 'Je peux céder ma place ?', a: 'Oui, à quelqu’un d’autre, sans frais, jusqu’au début du séjour. Tu peux aussi nous demander de la proposer à notre liste d’attente : si quelqu’un la reprend, on te rembourse ce que tu as versé, moins 50 € de frais de gestion.' },
-        { q: 'Et en cas de coup dur ?', a: 'Accident, hospitalisation, maladie grave, décès d’un proche : sur justificatif, ce que tu as versé devient un avoir valable 12 mois sur un prochain séjour à LAOM.' },
-        { q: 'Et si c’est vous qui annulez ?', a: 'On te rembourse intégralement.' },
-      ]}
-      link={{ href: '/conditions/laom-conditions-reservation-annulation.pdf', label: 'Lire les conditions complètes de réservation et d’annulation (PDF)' }} />
-  </div>
-
   <!-- ⑪ L'INVITATION -->
   <div animate-fade-in-up class="opacity-0">
     <CtaImage bg="bg-[#FBF6EA]" img={L('festival-laom-ambiance-nature-aveyron')}
@@ -234,6 +220,19 @@ const L = (n: string) => `/images/laom/${n}.webp`
       subtitle="On accueille un petit groupe. Pour réserver, tu remplis un court questionnaire : on lit tes réponses et on t’envoie le lien de paiement sous 48h. Tu préfères en parler avant ? Remplis le formulaire de rappel, on t’appelle, sans engagement."
       primaryText="Réserver ma place" primaryHref={RESERVER}
       secondaryText="ou remplir le formulaire pour être rappelé·e" secondaryHref={RAPPEL} />
+  </div>
+
+  <!-- FAQ — réservation et annulation -->
+  <div animate-fade-in-up class="opacity-0">
+    <Faq compact bg="bg-[#F2EBDB]" eyebrow="Questions fréquentes" title="Réservation" accent="et annulation"
+      items={[
+        { q: 'Faut-il tout payer à la réservation ?', a: 'Non. Tu règles au moins 30 % pour réserver ta place, ou la totalité si tu préfères. Le solde est demandé 30 jours avant le début du séjour.' },
+        { q: 'Et si je dois annuler ?', a: 'Plus de 30 jours avant le début du séjour, on garde 30 % du prix et on te rembourse le reste si tu l’as déjà versé. À 30 jours ou moins, le séjour est dû.' },
+        { q: 'Je peux céder ma place ?', a: 'Oui, à quelqu’un d’autre, sans frais, jusqu’au début du séjour. Tu peux aussi nous demander de la proposer à notre liste d’attente : si quelqu’un la reprend, on te rembourse ce que tu as versé, moins 50 € de frais de gestion.' },
+        { q: 'Et en cas de coup dur ?', a: 'Accident, hospitalisation, maladie grave, décès d’un proche : sur justificatif, ce que tu as versé devient un avoir valable 12 mois sur un prochain séjour à LAOM.' },
+        { q: 'Et si c’est vous qui annulez ?', a: 'On te rembourse intégralement.' },
+      ]}
+      link={{ href: '/conditions/laom-conditions-reservation-annulation.pdf', label: 'Lire les conditions complètes de réservation et d’annulation (PDF)' }} />
   </div>
 
   <SiteFooter />
