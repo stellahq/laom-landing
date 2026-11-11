@@ -55,7 +55,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
     return json({ error: 'Consentement requis' }, 400)
   }
 
-  // reservation : on lit les réponses, on appelle sous 48h (fit), puis lien de paiement.
+  // reservation : on lit les réponses, on appelle sous 72h (fit), puis lien de paiement.
   // rappel : la personne veut nous parler avant de réserver.
   const isRappel = body.type === 'rappel'
   // Formulaire rempli depuis /en/book ou /en/call-back : mails en anglais + tag Kit.
@@ -147,7 +147,7 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
       ]
       // esc() sur toutes les valeurs utilisateur : un champ "message" contenant du
       // HTML ne doit jamais etre rendu tel quel dans la boite de l'equipe (phishing).
-      const kind = isRappel ? 'Demande de RAPPEL' : 'Demande de RÉSERVATION (appeler sous 48h, puis envoyer le lien de paiement)'
+      const kind = isRappel ? 'Demande de RAPPEL' : 'Demande de RÉSERVATION (appeler sous 72h, puis envoyer le lien de paiement)'
       const html = `<h2>${kind} coliving — ${esc(nom)}</h2><table cellpadding="6" style="border-collapse:collapse">${
         rows.map(([k, v]) => `<tr><td style="color:#888">${k}</td><td><strong>${v == null || v === '' ? '—' : esc(v)}</strong></td></tr>`).join('')
       }</table>`
@@ -180,9 +180,9 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
           <p>Salut ${esc(firstName)},</p>
           ${isRappel
             ? `<p><strong>Ta demande de rappel pour le coliving du 6 au 12 juin 2027 est bien reçue.</strong></p>
-          <p>On t'appelle dans les 48h pour un échange de 15 minutes et répondre à tes questions.</p>`
+          <p>On t'appelle dans les 72h pour un échange de 15 minutes et répondre à tes questions.</p>`
             : `<p><strong>Ta demande de réservation pour le coliving du 6 au 12 juin 2027 est bien reçue.</strong></p>
-          <p>On lit tes réponses et on t'appelle dans les 48h pour un court échange, et s'assurer ensemble que la semaine te correspond.
+          <p>On lit tes réponses et on t'appelle dans les 72h pour un court échange, et s'assurer ensemble que la semaine te correspond.
           Ensuite, on t'envoie le lien de paiement : ta place sera confirmée dès le paiement.</p>`}
           <p>D'ici là, si tu veux te projeter :</p>
           <p>→ <a href="https://laom.fr/le-lieu/" style="color:#9A3922">Le lieu</a> — les 21 hectares, le shala, les tipis, la rivière<br/>
@@ -194,9 +194,9 @@ export const POST: APIRoute = async ({ request, locals, cookies }) => {
           <p>Hi ${esc(firstName)},</p>
           ${isRappel
             ? `<p><strong>We’ve received your call request for the coliving week, June 6-12, 2027.</strong></p>
-          <p>We’ll call you within 48 hours for a 15-minute chat and answer your questions.</p>`
+          <p>We’ll call you within 72 hours for a 15-minute chat and answer your questions.</p>`
             : `<p><strong>We’ve received your booking request for the coliving week, June 6-12, 2027.</strong></p>
-          <p>We’ll read your answers and call you within 48 hours for a short chat, to make sure together that the week is right for you.
+          <p>We’ll read your answers and call you within 72 hours for a short chat, to make sure together that the week is right for you.
           Then we’ll send you the payment link: your spot will be confirmed once payment is made.</p>`}
           <p>In the meantime, if you’d like to picture yourself there:</p>
           <p>→ <a href="https://laom.fr/en/coliving/" style="color:#9A3922">The coliving week</a>: the place, the days, what’s included</p>

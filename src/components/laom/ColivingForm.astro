@@ -1,8 +1,8 @@
 ---
 // Formulaire coliving, deux modes :
 // - reserver (/reserver) : la personne veut venir. On lit ses réponses et on envoie
-//   un appel sous 48h pour vérifier le fit, puis le lien de paiement.
-// - rappel (/etre-rappele) : la personne a besoin d'en parler avant. On l'appelle sous 48h.
+//   un appel sous 72h pour vérifier le fit, puis le lien de paiement.
+// - rappel (/etre-rappele) : la personne a besoin d'en parler avant. On l'appelle sous 72h.
 // Ancien en-tête : Page 5 — CANDIDATER. Page épurée : pas de menu, juste le logo (retour accueil),
 // focus total sur le formulaire de pré-qualification (10 questions du livrable).
 // Formulaire natif en charte LAOM, choix en pills, validation, écran de confirmation.
@@ -16,52 +16,52 @@ const { mode, lang = 'fr' } = Astro.props
 const en = lang === 'en'
 const T = en ? (mode === 'rappel' ? {
   title: 'Request a call · LAOM Entrepreneurs Coliving June 2027',
-  description: 'Questions about the LAOM coliving week, June 6-12, 2027? Leave your details and we’ll call you within 48 hours.',
+  description: 'Questions about the LAOM coliving week, June 6-12, 2027? Leave your details and we’ll call you within 72 hours.',
   eyebrow: 'Request a call · Entrepreneurs coliving, June 6-12, 2027',
   h1: 'Let’s talk about your week at LAOM.',
-  intro: 'Got questions before booking? Tell us a little about yourself and we’ll call you within 48 hours. A simple chat, no commitment.',
+  intro: 'Got questions before booking? Tell us a little about yourself and we’ll call you within 72 hours. A simple chat, no commitment.',
   messageLabel: 'Your questions, and when we can reach you',
   messagePlaceholder: 'What you’d like to know, and when you’re easiest to reach (with your time zone)…',
   button: 'Request a call',
-  reassurance: 'We’ll call you within 48 hours for a simple, no-commitment chat.',
+  reassurance: 'We’ll call you within 72 hours for a simple, no-commitment chat.',
   okTitle: 'We’ll call you very soon.',
-  okText: 'We’ll get back to you within 48 hours for a 15-minute chat and answer all your questions.',
+  okText: 'We’ll get back to you within 72 hours for a 15-minute chat and answer all your questions.',
 } : {
   title: 'Book your spot · LAOM Entrepreneurs Coliving June 2027',
-  description: 'Book your spot for the LAOM entrepreneurs coliving week, June 6-12, 2027. A 2-minute questionnaire, a call within 48 hours.',
+  description: 'Book your spot for the LAOM entrepreneurs coliving week, June 6-12, 2027. A 2-minute questionnaire, a call within 72 hours.',
   eyebrow: 'Booking · Entrepreneurs coliving, June 6-12, 2027',
   h1: 'Book your spot at the entrepreneurs coliving, June 2027.',
-  intro: 'This questionnaire takes 2 minutes. The coliving brings together a small group of entrepreneurs, so we read your answers, then call you within 48 hours for a short chat, to make sure together that the week is right for you. Then we send you the payment link, and your spot is confirmed once payment is made.',
+  intro: 'This questionnaire takes 2 minutes. The coliving brings together a small group of entrepreneurs, so we read your answers, then call you within 72 hours for a short chat, to make sure together that the week is right for you. Then we send you the payment link, and your spot is confirmed once payment is made.',
   messageLabel: 'Anything we should know?',
   messagePlaceholder: 'Questions, expectations, special circumstances, what made you want to come…',
   button: 'Send my booking request',
-  reassurance: 'We call you within 48 hours for a short chat, then send you the payment link.',
+  reassurance: 'We call you within 72 hours for a short chat, then send you the payment link.',
   okTitle: 'Your booking request is in.',
-  okText: 'We’ll read your answers and call you within 48 hours for a short chat. If the week is right for you, we’ll send you the payment link: your spot will be confirmed once payment is made.',
+  okText: 'We’ll read your answers and call you within 72 hours for a short chat. If the week is right for you, we’ll send you the payment link: your spot will be confirmed once payment is made.',
 }) : (mode === 'rappel' ? {
   title: 'Être rappelé·e · LAOM Coliving entrepreneurs juin 2027',
-  description: 'Tu as des questions sur le coliving du 6 au 12 juin 2027 à LAOM ? Laisse tes infos, on t’appelle sous 48h.',
+  description: 'Tu as des questions sur le coliving du 6 au 12 juin 2027 à LAOM ? Laisse tes infos, on t’appelle sous 72h.',
   eyebrow: 'Être rappelé·e · Coliving entrepreneurs du 6 au 12 juin 2027',
   h1: 'Parlons de ta semaine à LAOM.',
-  intro: 'Tu as des questions avant de réserver ? Laisse-nous quelques infos sur toi : on t’appelle sous 48h pour en parler, simplement et sans engagement.',
+  intro: 'Tu as des questions avant de réserver ? Laisse-nous quelques infos sur toi : on t’appelle sous 72h pour en parler, simplement et sans engagement.',
   messageLabel: 'Tes questions, et quand on peut te joindre',
   messagePlaceholder: 'Ce que tu aimerais savoir, et les moments où tu es le plus joignable…',
   button: 'Être rappelé·e',
-  reassurance: 'On t’appelle sous 48h, pour un échange simple et sans engagement.',
+  reassurance: 'On t’appelle sous 72h, pour un échange simple et sans engagement.',
   okTitle: 'On t’appelle très vite.',
-  okText: 'On revient vers toi sous 48h pour un échange de 15 minutes, et répondre à toutes tes questions.',
+  okText: 'On revient vers toi sous 72h pour un échange de 15 minutes, et répondre à toutes tes questions.',
 } : {
   title: 'Réserver ma place · LAOM Coliving entrepreneurs juin 2027',
-  description: 'Réserve ta place pour le coliving entrepreneurs du 6 au 12 juin 2027 à LAOM. Questionnaire en 2 minutes, appel sous 48h.',
+  description: 'Réserve ta place pour le coliving entrepreneurs du 6 au 12 juin 2027 à LAOM. Questionnaire en 2 minutes, appel sous 72h.',
   eyebrow: 'Réservation · Coliving entrepreneurs du 6 au 12 juin 2027',
   h1: 'Réserve ta place au coliving entrepreneurs de juin 2027.',
-  intro: 'Ce questionnaire prend 2 minutes. Le coliving réunit un petit groupe d’entrepreneurs : on lit tes réponses, puis on t’appelle sous 48h pour un court échange, et s’assurer ensemble que la semaine te correspond vraiment. Ensuite, on t’envoie le lien de paiement, et ta place est confirmée dès le paiement.',
+  intro: 'Ce questionnaire prend 2 minutes. Le coliving réunit un petit groupe d’entrepreneurs : on lit tes réponses, puis on t’appelle sous 72h pour un court échange, et s’assurer ensemble que la semaine te correspond vraiment. Ensuite, on t’envoie le lien de paiement, et ta place est confirmée dès le paiement.',
   messageLabel: 'Quelque chose qu’on devrait savoir ?',
   messagePlaceholder: 'Ce que tu veux nous dire : questions, attentes, situation particulière, ce qui t’a donné envie de venir…',
   button: 'Envoyer ma demande de réservation',
-  reassurance: 'On t’appelle sous 48h pour un court échange, puis on t’envoie le lien de paiement.',
+  reassurance: 'On t’appelle sous 72h pour un court échange, puis on t’envoie le lien de paiement.',
   okTitle: 'Ta demande de réservation est bien reçue.',
-  okText: 'On lit tes réponses et on t’appelle sous 48h pour un court échange. Si la semaine te correspond, on t’envoie le lien de paiement : ta place sera confirmée dès le paiement.',
+  okText: 'On lit tes réponses et on t’appelle sous 72h pour un court échange. Si la semaine te correspond, on t’envoie le lien de paiement : ta place sera confirmée dès le paiement.',
 })
 // Textes communs aux deux modes.
 const C = en ? {
