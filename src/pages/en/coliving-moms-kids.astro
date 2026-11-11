@@ -8,6 +8,7 @@ import Layout from '~/layouts/Layout.astro'
 import { laboNavEn as navLinks } from '~/data/laboNav'
 import PageHeader from '~/components/laom/PageHeader.astro'
 import SectionHead from '~/components/laom/sections/SectionHead.astro'
+import Faq from '~/components/laom/sections/Faq.astro'
 import MomsKidsForm from '~/components/laom/MomsKidsForm.astro'
 import Eyebrow from '~/components/laom/Eyebrow.astro'
 import Pill from '~/components/laom/Pill.astro'
@@ -285,8 +286,22 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
     </div>
   </section>
 
+
+  <!-- FAQ — réservation et annulation -->
+  <div animate-fade-in-up class="opacity-0">
+    <Faq bg="bg-[#FBF6EA]" eyebrow="FAQ" title="Booking" accent="and cancellation"
+      items={[
+        { q: 'Do I have to pay everything when I book?', a: 'No. You pay at least 30% to secure your spot, or the full amount if you prefer. The balance is due 30 days before your stay begins.' },
+        { q: 'What if I need to cancel?', a: 'More than 30 days before your stay, we keep 30% of the price and refund the rest if you have already paid it. 30 days or less before, the full stay is due.' },
+        { q: 'Can I transfer my spot?', a: 'Yes, to someone else, free of charge, until your stay begins. You can also ask us to offer it to our waiting list: if someone takes it, we refund what you paid, minus a €50 handling fee.' },
+        { q: 'What if something serious happens?', a: 'Accident, hospitalisation, serious illness, death of a loved one: with written proof, what you paid becomes a credit valid for 12 months on a future stay at LAOM.' },
+        { q: 'What if you cancel?', a: 'We refund you in full.' },
+      ]}
+      link={{ href: '/conditions/laom-conditions-reservation-annulation.pdf', label: 'Read the full booking and cancellation terms (PDF, in French)' }} />
+  </div>
+
   <!-- Le lieu -->
-  <section class="bg-[#FBF6EA] py-24 md:py-32">
+  <section class="bg-[#F2EBDB] py-24 md:py-32">
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-14">
       <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-12">
         <SectionHead eyebrow="The place" title="LAOM," accent="the place I created" />
@@ -312,7 +327,7 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
   </section>
 
   <!-- Qui organise ? -->
-  <section class="bg-[#F2EBDB] py-24 md:py-32">
+  <section class="bg-[#FBF6EA] py-24 md:py-32">
     <div class="max-w-6xl mx-auto px-6 md:px-10 lg:px-14 grid md:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center">
       <img src={M('amandine-portrait-table')} alt="Portrait of Amandine, smiling, leaning on a wooden table outdoors" class="rounded-[2rem] w-full max-w-sm mx-auto aspect-[4/5] object-cover" loading="lazy" />
       <div>
@@ -327,7 +342,7 @@ const li = 'relative pl-5 before:content-[""] before:absolute before:left-0 befo
   </section>
 
   <!-- Envie d'être de l'aventure ? -->
-  <section id="contact" class="bg-[#FBF6EA] py-24 md:py-32">
+  <section id="contact" class="bg-[#F2EBDB] py-24 md:py-32">
     <div class="max-w-2xl mx-auto px-6 md:px-10 text-center">
       <SectionHead align="center" title="Want to join" accent="the adventure?" intro="We’ll be 12 to 15 families. Moms and kids only (dads, that’ll be another time, haha). Write to me to book or if you have any questions, and get the brochure." />
       <MomsKidsForm />
